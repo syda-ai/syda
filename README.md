@@ -168,6 +168,37 @@ else:
     print(f"❌ Found {len(invalid_ids)} invalid department_id references: {invalid_ids}")
 ```
 
+##### Handling Foreign Key Relationships
+
+The library provides robust support for handling foreign key relationships with referential integrity:
+
+1. **Automatic Foreign Key Detection**: Foreign keys are automatically detected from your SQLAlchemy models and assigned the type `'foreign_key'`.
+
+2. **Column-Specific Foreign Key Generators**: Register different generators for each foreign key column when dealing with multiple relationships:
+
+```python
+# Different generators for different foreign key columns
+generator.register_generator('foreign_key', department_id_generator, column_name='department_id')
+generator.register_generator('foreign_key', manager_id_generator, column_name='manager_id')
+```
+
+3. **Multi-Step Generation Process**: For related tables, generate parent records first, then use their IDs when generating child records:
+
+```python
+# Generate departments first
+departments_df = generator.generate_data(schema=Department, ...)
+
+# Then generate employees with department references
+employees_df = generator.generate_data(schema=Employee, ...)
+
+# Finally generate projects with both department and employee references
+projects_df = generator.generate_data(schema=Project, ...)
+```
+
+4. **Referential Integrity Preservation**: The foreign key generator samples from actual existing IDs in the parent table, ensuring all references are valid.
+
+5. **Metadata-Enhanced Foreign Keys**: Column comments on foreign key fields are preserved and included in the prompt, helping the LLM understand the relationship context.
+
 ##### Metadata Enhancement Benefits
 
 This approach provides several powerful benefits:
