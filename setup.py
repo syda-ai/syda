@@ -34,6 +34,8 @@ setup(
         'pillow>=10.0.1',
         'pytesseract>=0.3.10',
         'sqlalchemy-utils>=0.41.1',
+        'networkx>=3.1',
+        'instructor>=1.0.0',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
