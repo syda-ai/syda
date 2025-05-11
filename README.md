@@ -73,7 +73,7 @@ generated_file = generator.generate_data(
 print(f"Synthetic data written to: {generated_file}")
 ```
 
-##### SQLAlchemy Model Integration with SQLAlchemy, Smart Metadata Extraction & Forreign Key Constraints
+##### SQLAlchemy Model Integration with SQLAlchemy, Smart Metadata Extraction & Foreign Key Constraints
 
 You can use SQLAlchemy model classes directly as schema input with enhanced metadata extraction that leverages model docstrings and column comments:
 
