@@ -199,6 +199,56 @@ projects_df = generator.generate_data(schema=Project, ...)
 
 5. **Metadata-Enhanced Foreign Keys**: Column comments on foreign key fields are preserved and included in the prompt, helping the LLM understand the relationship context.
 
+##### Automatic Management of Multiple Related Models
+
+The library now supports the automatic management of multiple related SQLAlchemy models using the `generate_related_data` method, which simplifies the process even further:
+
+```python
+# Create a generator instance
+generator = SyntheticDataGenerator()
+
+# Define custom prompts and sample sizes (optional)
+prompts = {
+    "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
+    "Product": "Generate cloud software products and services."
+}
+
+sample_sizes = {
+    "Customer": 10,    # 10 customer companies
+    "Contact": 25,    # 25 contact persons (distributed across customers)
+    "Product": 15,    # 15 different products
+    "Order": 30,      # 30 orders total
+    "OrderItem": 60,  # 60 line items across all orders
+}
+
+# Generate all related data in one call with automatic dependency resolution
+results = generator.generate_related_data(
+    models=[Customer, Contact, Product, Order, OrderItem],
+    prompts=prompts,
+    sample_sizes=sample_sizes,
+    output_dir="output_data"  # Optional: save each model to CSV
+)
+
+# Access the generated data as DataFrames
+customers_df = results["Customer"]
+orders_df = results["Order"]
+```
+
+This method:
+
+1. **Automatically Analyzes Dependencies**: Builds a dependency graph of your models based on foreign key relationships.
+
+2. **Determines Optimal Generation Order**: Uses topological sorting to ensure parent tables are always generated before their children.
+
+3. **Manages Foreign Keys**: Automatically sets up foreign key generators that sample from parent table IDs.
+
+4. **Supports Custom Prompts and Sizes**: Allows you to specify different prompts and sample sizes for each model.
+
+5. **Preserves Referential Integrity**: Ensures all generated data maintains proper relationships between tables.
+
+Check out the complete example in `examples/test_auto_related_models.py` which shows a comprehensive CRM system with five interrelated models.
+
+
 ##### Metadata Enhancement Benefits
 
 This approach provides several powerful benefits:

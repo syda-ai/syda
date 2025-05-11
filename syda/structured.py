@@ -1,12 +1,15 @@
 import openai
 import pandas as pd
 from pydantic import create_model
-from typing import Dict, Optional, List, Union, Callable, Tuple
+from typing import Dict, Optional, List, Union, Callable, Tuple, Type
 import instructor
 from anthropic import Anthropic
+import os
+import networkx as nx
 
 try:
     from sqlalchemy.orm import DeclarativeMeta
+    from sqlalchemy import inspect
 except ImportError:
     DeclarativeMeta = None
 
@@ -123,6 +126,156 @@ class SyntheticDataGenerator:
             # Register a type-based generator
             self.type_generators[type_name.lower()] = func
 
+    def generate_related_data(
+        self,
+        models: Union[List[Type], Type, str],
+        prompts: Optional[Dict[str, str]] = None,
+        sample_sizes: Optional[Dict[str, int]] = None,
+        output_dir: Optional[str] = None,
+        default_sample_size: int = 10,
+        default_prompt: str = "Generate realistic data for this model."
+    ) -> Dict[str, pd.DataFrame]:
+        """
+        Generate synthetic data for multiple SQLAlchemy models with automatic 
+        dependency resolution based on foreign key relationships.
+        
+        This function:
+        1. Analyzes model dependencies (which models reference others)
+        2. Automatically determines the correct order to generate data
+        3. Handles foreign key relationships between models
+        4. Applies custom generators where registered
+        
+        Args:
+            models: A list of SQLAlchemy model classes, a single model class, 
+                   or a string pattern to match class names
+            prompts: Optional dictionary mapping model names to custom prompts
+            sample_sizes: Optional dictionary mapping model names to sample sizes
+            output_dir: Optional directory to save CSV files (one per model)
+            default_sample_size: Default number of records if not specified in sample_sizes
+            default_prompt: Default prompt if not specified in prompts
+            
+        Returns:
+            Dictionary mapping model names to DataFrames of generated data
+            
+        Example:
+            results = generator.generate_related_data(
+                models=[Customer, Order, OrderItem, Product],
+                prompts={"Customer": "Generate tech companies"},
+                sample_sizes={"Customer": 10, "Order": 30}
+            )
+        """
+        if prompts is None:
+            prompts = {}
+        if sample_sizes is None:
+            sample_sizes = {}
+            
+        # Handle single model case
+        if not isinstance(models, list):
+            models = [models]
+            
+        # Create model dependency graph
+        G = nx.DiGraph()
+        
+        # Store model information
+        model_info = {}
+        
+        # Add nodes to the graph for each model
+        for model in models:
+            model_name = model.__name__
+            G.add_node(model_name)
+            model_info[model_name] = {
+                'class': model,
+                'foreign_keys': {},
+                'references': set()
+            }
+            
+        # Build the dependency graph based on foreign keys, not relationships
+        for model in models:
+            model_name = model.__name__
+            
+            # Get foreign key information directly from the table
+            for column in model.__table__.columns:
+                # Check if this column has any foreign keys
+                if column.foreign_keys:
+                    for fk in column.foreign_keys:
+                        # Get the target table name and column
+                        target_table = fk.column.table.name
+                        target_column = fk.column.name
+                        
+                        # Find the model class that corresponds to this table
+                        target_model_name = None
+                        for m in models:
+                            if m.__table__.name == target_table and m.__name__ in model_info:
+                                target_model_name = m.__name__
+                                break
+                        
+                        # Only process if we found a matching model in our list
+                        if target_model_name:
+                            # Add edge from target to source (dependency direction)
+                            # This ensures we generate parents before children
+                            G.add_edge(target_model_name, model_name)
+                            
+                            # Store foreign key mapping for later use
+                            local_name = column.name
+                            model_info[model_name]['foreign_keys'][local_name] = {
+                                'target_model': target_model_name,
+                                'target_column': target_column
+                            }
+                            
+                            # Record that this model references the target
+                            model_info[model_name]['references'].add(target_model_name)
+            
+        # Determine generation order - topological sort of dependency graph
+        try:
+            generation_order = list(nx.topological_sort(G))
+        except nx.NetworkXUnfeasible:
+            # Handle cycles in dependency graph
+            raise ValueError("Circular dependencies detected between models. Cannot determine generation order.")
+            
+        # Dictionary to hold generated data
+        results = {}
+        
+        # Generate data for each model in correct order
+        for model_name in generation_order:
+            model_class = model_info[model_name]['class']
+            
+            # Get sample size and prompt for this model
+            sample_size = sample_sizes.get(model_name, default_sample_size)
+            prompt = prompts.get(model_name, default_prompt)
+            
+            # Prepare foreign key generators if needed
+            for fk_col, fk_info in model_info[model_name]['foreign_keys'].items():
+                target_model = fk_info['target_model']
+                target_col = fk_info['target_column']
+                
+                # Only set up generators for models we've already processed
+                if target_model in results:
+                    # Get valid values from the target model's generated data
+                    valid_values = results[target_model][target_col].tolist()
+                    
+                    if valid_values:
+                        # Register a generator that will randomly select from valid IDs
+                        def make_fk_generator(values):
+                            # Need to use factory function to avoid closure issues
+                            return lambda row, col: pd.Series(values).sample(1).iloc[0]
+                        
+                        # Register this generator specifically for this column
+                        self.register_generator('foreign_key', make_fk_generator(valid_values), column_name=fk_col)
+            
+            # Generate data for this model
+            df = self.generate_data(model_class, prompt, sample_size)
+            
+            # Store the results
+            results[model_name] = df
+            
+            # Save to file if output directory specified
+            if output_dir:
+                os.makedirs(output_dir, exist_ok=True)
+                output_path = os.path.join(output_dir, f"{model_name}.csv")
+                df.to_csv(output_path, index=False)
+                
+        return results
+        
     def generate_data(
         self,
         schema: Union[Dict[str, str], type],
