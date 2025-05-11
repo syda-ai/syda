@@ -133,7 +133,8 @@ class SyntheticDataGenerator:
         sample_sizes: Optional[Dict[str, int]] = None,
         output_dir: Optional[str] = None,
         default_sample_size: int = 10,
-        default_prompt: str = "Generate realistic data for this model."
+        default_prompt: str = "Generate realistic data for this model.",
+        custom_generators: Optional[Dict[str, Dict[str, Callable]]] = None
     ) -> Dict[str, pd.DataFrame]:
         """
         Generate synthetic data for multiple SQLAlchemy models with automatic 
@@ -153,15 +154,30 @@ class SyntheticDataGenerator:
             output_dir: Optional directory to save CSV files (one per model)
             default_sample_size: Default number of records if not specified in sample_sizes
             default_prompt: Default prompt if not specified in prompts
+            custom_generators: Optional dictionary specifying custom generators for models and columns.
+                              Format: {"ModelName": {"column_name": generator_function}}
+                              where generator_function is a callable that takes (row: pd.Series, col_name: str)
+                              and returns a generated value.
             
         Returns:
             Dictionary mapping model names to DataFrames of generated data
             
         Example:
+            # Define custom generators for specific columns in specific models
+            custom_gens = {
+                "Customer": {
+                    "status": lambda row, col: random.choice(["Active", "Inactive", "Prospect"])
+                },
+                "Product": {
+                    "price": lambda row, col: round(random.uniform(50, 500), 2)
+                }
+            }
+            
             results = generator.generate_related_data(
                 models=[Customer, Order, OrderItem, Product],
                 prompts={"Customer": "Generate tech companies"},
-                sample_sizes={"Customer": 10, "Order": 30}
+                sample_sizes={"Customer": 10, "Order": 30},
+                custom_generators=custom_gens
             )
         """
         if prompts is None:
@@ -235,38 +251,70 @@ class SyntheticDataGenerator:
         # Dictionary to hold generated data
         results = {}
         
-        # Generate data for each model in correct order
-        for model_name in generation_order:
-            model_class = model_info[model_name]['class']
-            
-            # Get sample size and prompt for this model
-            sample_size = sample_sizes.get(model_name, default_sample_size)
-            prompt = prompts.get(model_name, default_prompt)
-            
-            # Prepare foreign key generators if needed
-            for fk_col, fk_info in model_info[model_name]['foreign_keys'].items():
-                target_model = fk_info['target_model']
-                target_col = fk_info['target_column']
+        # Set up initial variables
+        if custom_generators is None:
+            custom_generators = {}
+        
+        # Store the original generators to restore them later
+        original_generators = {
+            'type': self.type_generators.copy(),
+            'column': self.column_generators.copy()
+        }
+        
+        try:
+            # Generate data for each model in correct order
+            for model_name in generation_order:
+                model_class = model_info[model_name]['class']
                 
-                # Only set up generators for models we've already processed
-                if target_model in results:
-                    # Get valid values from the target model's generated data
-                    valid_values = results[target_model][target_col].tolist()
-                    
-                    if valid_values:
-                        # Register a generator that will randomly select from valid IDs
-                        def make_fk_generator(values):
-                            # Need to use factory function to avoid closure issues
-                            return lambda row, col: pd.Series(values).sample(1).iloc[0]
-                        
+                # Get sample size and prompt for this model
+                sample_size = sample_sizes.get(model_name, default_sample_size)
+                prompt = prompts.get(model_name, default_prompt)
+                
+                # Register any custom generators for this specific model
+                if model_name in custom_generators:
+                    for column_name, generator_func in custom_generators[model_name].items():
                         # Register this generator specifically for this column
-                        self.register_generator('foreign_key', make_fk_generator(valid_values), column_name=fk_col)
-            
-            # Generate data for this model
-            df = self.generate_data(model_class, prompt, sample_size)
-            
-            # Store the results
-            results[model_name] = df
+                        self.register_generator('custom', generator_func, column_name=column_name)
+                
+                # Prepare foreign key generators if needed
+                for fk_col, fk_info in model_info[model_name]['foreign_keys'].items():
+                    target_model = fk_info['target_model']
+                    target_col = fk_info['target_column']
+                    
+                    # Only set up generators for models we've already processed
+                    if target_model in results:
+                        # Get valid values from the target model's generated data
+                        valid_values = results[target_model][target_col].tolist()
+                        
+                        if valid_values:
+                            # Register a generator that will randomly select from valid IDs
+                            def make_fk_generator(values):
+                                # Need to use factory function to avoid closure issues
+                                return lambda row, col: pd.Series(values).sample(1).iloc[0]
+                            
+                            # Register this generator specifically for this column
+                            # Only if a custom generator hasn't been specified for this column
+                            if model_name not in custom_generators or fk_col not in custom_generators[model_name]:
+                                self.register_generator('foreign_key', make_fk_generator(valid_values), column_name=fk_col)
+                
+                # Generate data for this model
+                df = self.generate_data(model_class, prompt, sample_size)
+                
+                # Store the results
+                results[model_name] = df
+                
+                # Clean up model-specific custom generators to avoid affecting the next model
+                if model_name in custom_generators:
+                    for column_name in custom_generators[model_name].keys():
+                        if column_name in self.column_generators:
+                            # Only remove generators that were added by this method
+                            if column_name not in original_generators['column']:
+                                del self.column_generators[column_name]
+        finally:
+            # Restore the original generators to avoid side effects
+            # This ensures any temporary generators we added don't persist beyond this method call
+            self.type_generators = original_generators['type']
+            self.column_generators = original_generators['column']
             
             # Save to file if output directory specified
             if output_dir:

@@ -242,12 +242,25 @@ sample_sizes = {
     "OrderItem": 60,  # 60 line items across all orders
 }
 
+# Define custom generators for specific columns in specific models (optional)
+custom_generators = {
+    "Customer": {
+        # Generate one of three predefined statuses
+        "status": lambda row, col: random.choice(["Active", "Inactive", "Prospect"]),
+    },
+    "Product": {
+        # Generate prices between $50 and $5000 with appropriate precision
+        "price": lambda row, col: round(random.uniform(50, 5000), 2)
+    }
+}
+
 # Generate all related data in one call with automatic dependency resolution
 results = generator.generate_related_data(
     models=[Customer, Contact, Product, Order, OrderItem],
     prompts=prompts,
     sample_sizes=sample_sizes,
-    output_dir="output_data"  # Optional: save each model to CSV
+    output_dir="output_data",  # Optional: save each model to CSV
+    custom_generators=custom_generators  # Optional: use custom generators for specific columns
 )
 
 # Access the generated data as DataFrames
@@ -265,7 +278,9 @@ This method:
 
 4. **Supports Custom Prompts and Sizes**: Allows you to specify different prompts and sample sizes for each model.
 
-5. **Preserves Referential Integrity**: Ensures all generated data maintains proper relationships between tables.
+5. **Supports Model-Specific Custom Generators**: Lets you define custom generators for specific columns in specific models, giving you precise control over data generation.
+
+6. **Preserves Referential Integrity**: Ensures all generated data maintains proper relationships between tables.
 
 Check out the complete example in `examples/test_auto_related_models.py` which shows a comprehensive CRM system with five interrelated models.
 

@@ -15,6 +15,7 @@ This example demonstrates:
 
 import sys
 import os
+import random
 from dotenv import load_dotenv
 from sqlalchemy import Column, Integer, String, ForeignKey, Float, Date, Boolean, Text
 from sqlalchemy.orm import declarative_base, relationship
@@ -172,16 +173,39 @@ def main():
         "OrderItem": 60,       # ~2 items per order
     }
     
+    # Define custom generators for specific model columns
+    custom_generators = {
+        "Customer": {
+            # Generate one of three predefined statuses
+            "status": lambda row, col: random.choice(["Active", "Inactive", "Prospect"]),
+        },
+        "Product": {
+            # Generate prices between $50 and $5000 with appropriate precision
+            "price": lambda row, col: round(random.uniform(50, 5000), 2),
+            # Make product categories more specific than what LLM might generate
+            "category": lambda row, col: random.choice([
+                "Cloud Infrastructure", "Business Intelligence", "Security Services",
+                "Data Analytics", "Custom Development", "Support Package", "API Services"
+            ])
+        },
+        "OrderItem": {
+            # Generate quantities between 1 and 10
+            "quantity": lambda row, col: random.randint(1, 10),
+        },
+    }
+    
     print("\n🔄 Generating related data for CRM system...")
     print("  The system will automatically determine the right generation order")
-    print("  and set up foreign key relationships\n")
+    print("  and set up foreign key relationships")
+    print("  with custom generators for specific columns\n")
     
     # Generate data for all models with automatic dependency resolution
     results = generator.generate_related_data(
         models=[Customer, Contact, Product, Order, OrderItem],
         prompts=prompts,
         sample_sizes=sample_sizes,
-        output_dir=output_dir
+        output_dir=output_dir,
+        custom_generators=custom_generators
     )
     
     # Print summary
@@ -190,6 +214,26 @@ def main():
         print(f"  - {model_name}: {len(df)} records")
     
     print(f"\nData files saved to directory: {output_dir}/")
+    
+    # Show samples of data with custom generators
+    print("\n📊 Sample data with custom generators:")
+    
+    print("\nCustomer statuses (custom generator):")
+    status_counts = results["Customer"]["status"].value_counts().to_dict()
+    for status, count in status_counts.items():
+        print(f"  - {status}: {count} customers")
+    
+    print("\nProduct categories (custom generator):")
+    category_counts = results["Product"]["category"].value_counts().to_dict()
+    for category, count in sorted(category_counts.items(), key=lambda x: x[1], reverse=True):
+        print(f"  - {category}: {count} products")
+    
+    print("\nProduct prices (custom generator):")
+    price_min = results["Product"]["price"].min()
+    price_max = results["Product"]["price"].max()
+    price_avg = results["Product"]["price"].mean()
+    print(f"  - Price range: ${price_min:.2f} to ${price_max:.2f}")
+    print(f"  - Average price: ${price_avg:.2f}")
     
     # Verify referential integrity
     print("\n🔍 Verifying referential integrity:")
