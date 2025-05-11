@@ -23,7 +23,7 @@ class Transaction(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     project_id = Column(Integer, ForeignKey("projects.id"), nullable=False)
-    operation_type = Column(String, nullable=False)  # 'mask' or 'generate'
+    operation_type = Column(String, nullable=False)  # 'generate'
     input_data = Column(Text)
     output_data = Column(Text)
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -41,7 +41,6 @@ class ColumnMapping(Base):
     id = Column(Integer, primary_key=True, index=True)
     transaction_id = Column(Integer, ForeignKey("transactions.id"))
     original_column = Column(String, nullable=False)
-    masked_column = Column(String, nullable=True)
     data_type = Column(String, nullable=False)
 
     # Relationship

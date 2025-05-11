@@ -30,13 +30,11 @@ class UnstructuredDataProcessor:
             # Extract text from image using OCR
             text = pytesseract.image_to_string(Image.open(file_path))
             
-            # Create DataFrame for masking
+            # Create DataFrame for processing
             df = pd.DataFrame({'text': [text]})
-            masked_df = self.masker.mask_dataframe(df)
             
             return {
-                'original_text': text,
-                'masked_text': masked_df['text'].iloc[0],
+                'text': text,
                 'type': 'image'
             }
         except Exception as e:
@@ -50,13 +48,11 @@ class UnstructuredDataProcessor:
                 for page in pdf.pages:
                     text += page.extract_text()
             
-            # Create DataFrame for masking
+            # Create DataFrame for processing
             df = pd.DataFrame({'text': [text]})
-            masked_df = self.masker.mask_dataframe(df)
             
             return {
-                'original_text': text,
-                'masked_text': masked_df['text'].iloc[0],
+                'text': text,
                 'type': 'pdf'
             }
         except Exception as e:
@@ -68,13 +64,11 @@ class UnstructuredDataProcessor:
             doc = Document(file_path)
             text = "\n".join([para.text for para in doc.paragraphs])
             
-            # Create DataFrame for masking
+            # Create DataFrame for processing
             df = pd.DataFrame({'text': [text]})
-            masked_df = self.masker.mask_dataframe(df)
             
             return {
-                'original_text': text,
-                'masked_text': masked_df['text'].iloc[0],
+                'text': text,
                 'type': 'docx'
             }
         except Exception as e:
@@ -86,15 +80,11 @@ class UnstructuredDataProcessor:
             # Read Excel file
             df = pd.read_excel(file_path)
             
-            # Mask the data
-            masked_df = self.masker.mask_dataframe(df)
-            
             # Generate synthetic data
             synthetic_df = self.generator.generate_synthetic_data(df)
             
             return {
                 'original_data': df.to_dict(orient='records'),
-                'masked_data': masked_df.to_dict(orient='records'),
                 'synthetic_data': synthetic_df.to_dict(orient='records'),
                 'type': 'excel'
             }
@@ -107,13 +97,11 @@ class UnstructuredDataProcessor:
             with open(file_path, 'r', encoding='utf-8') as f:
                 text = f.read()
             
-            # Create DataFrame for masking
+            # Create DataFrame for processing
             df = pd.DataFrame({'text': [text]})
-            masked_df = self.masker.mask_dataframe(df)
             
             return {
-                'original_text': text,
-                'masked_text': masked_df['text'].iloc[0],
+                'text': text,
                 'type': 'text'
             }
         except Exception as e:

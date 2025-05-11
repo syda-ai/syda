@@ -21,7 +21,7 @@ wheels/
 *.egg
 
 # Virtual Environment
-.venvdatamaskgenservice
+.venv
 venv/
 env/
 

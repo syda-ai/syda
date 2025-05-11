@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@localhost/datamaskgen"
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@localhost/syntheticdata"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL

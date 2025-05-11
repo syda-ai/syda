@@ -1,7 +1,7 @@
 
-# Data Masking and Synthetic Data Generation Service -- WORK IN PROGRESS
+# Synthetic Data Generation Service -- WORK IN PROGRESS
 
-A Python-based open-source service for data masking and generating synthetic data while preserving data utility.
+A Python-based open-source service for generating synthetic data while preserving data utility.
 
 ## Features
 
@@ -11,12 +11,11 @@ A Python-based open-source service for data masking and generating synthetic dat
   - Statistical data generation
   - Pattern-based generation
   - Data distribution preservation
-  - Synthetic data from unstructured files
+  - Synthetic data from various sources
 
 ### Optional Features
 
 - **REST API Service**:
-  - Mask data via API
   - Generate synthetic data via API
   - Support for CSV file uploads
   - Support for unstructured files (images, PDFs, documents)
@@ -74,36 +73,109 @@ generated_file = generator.generate_data(
 print(f"Synthetic data written to: {generated_file}")
 ```
 
-##### SQLAlchemy Model Integration
+##### SQLAlchemy Model Integration with Referential Integrity
 
-Alternatively, you can use SQLAlchemy model classes directly as schema input:
+Alternatively, you can use SQLAlchemy model classes directly as schema input, including maintaining referential integrity between related models:
 
 ```python
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, create_engine
 from sqlalchemy.orm import declarative_base, relationship
 import random
+import pandas as pd
+from syda.structured import SyntheticDataGenerator
 
 Base = declarative_base()
 
+# Define related models with foreign key relationships
+class Department(Base):
+    __tablename__ = 'departments'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    location = Column(String)
+    budget = Column(Float)
+    
+    # One-to-many: one department has many employees
+    employees = relationship("Employee", back_populates="department")
+    
+    def __repr__(self):
+        return f"<Department(id={self.id}, name='{self.name}', location='{self.location}')>"
+
+
 class Employee(Base):
     __tablename__ = 'employees'
+    
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
+    email = Column(String, nullable=False)
     department_id = Column(Integer, ForeignKey('departments.id'))
+    role = Column(String)
+    salary = Column(Float)
+    
+    # Many-to-one: many employees belong to one department
+    department = relationship("Department", back_populates="employees")
+    
+    def __repr__(self):
+        return f"<Employee(id={self.id}, name='{self.first_name} {self.last_name}', role='{self.role}')>"
 
-# Register a custom generator for foreign keys (will be auto-detected)
-generator.register_generator('foreign_key', lambda row, col: random.choice([1, 2, 3]))
-
-# Generate data directly from the model
-df = generator.generate_data(
-    schema=Employee,  # Pass the SQLAlchemy model directly!
-    prompt="Generate employee data", 
-    sample_size=10
+# Step 1: Generate departments first
+generator = SyntheticDataGenerator()
+    
+departments_df = generator.generate_data(
+    schema=Department,
+    prompt="""
+    Generate realistic department data for a technology company.
+    Departments should have names like Engineering, Marketing, Sales, HR, etc.
+    Locations should be major cities around the world.
+    Budget should be a realistic amount for each department, in USD.
+    """,
+    sample_size=5,
+    output_path='departments.csv'
 )
+
+# Step 2: Create a custom foreign key generator for employees that references valid departments
+departments_df = pd.read_csv('departments.csv')
+
+# Register a custom generator for foreign key columns
+def department_id_fk_generator(row, col_name):
+    # Sample from the existing department IDs
+    return random.choice(departments_df['id'].tolist())
+
+# Register the custom foreign key generator
+generator.register_generator('foreign_key', department_id_fk_generator)
+
+# Step 3: Generate employee data with valid department_id references
+employees_df = generator.generate_data(
+    schema=Employee,
+    prompt="""
+    Generate realistic employee data for a technology company.
+    Employees should have common first and last names.
+    Emails should follow the pattern firstname.lastname@company.com.
+    Roles should include software engineers, product managers, designers, etc.
+    Salaries should be realistic amounts in USD.
+    """,
+    sample_size=20,
+    output_path='employees.csv'
+)
+
+# Verify referential integrity
+valid_dept_ids = set(departments_df['id'].tolist())
+employee_dept_ids = set(employees_df['department_id'].tolist())
+
+print("Verifying referential integrity...")
+if employee_dept_ids.issubset(valid_dept_ids):
+    print("✅ All employee department_id values reference valid departments")
+else:
+    invalid_ids = employee_dept_ids - valid_dept_ids
+    print(f"❌ Found {len(invalid_ids)} invalid department_id references: {invalid_ids}")
 ```
 
+Key features:
 - Foreign keys are automatically detected and assigned the type `'foreign_key'`
-- Register a custom generator for foreign keys to maintain referential integrity
+- When handling related models, generate parent records first (departments)
+- Register a custom generator for foreign keys that samples from existing valid IDs
+- This approach maintains referential integrity across your generated data
 - Works with all SQLAlchemy column types and relationships
 
 ##### Output Options
@@ -187,7 +259,7 @@ Example request:
 ```json
 {
     "name": "my_project",
-    "description": "My data masking project"
+    "description": "My synthetic data project"
 }
 ```
 
@@ -202,10 +274,7 @@ GET /projects/{project_name}/transactions
 Get transactions for a specific project
 
 #### Data Operations (Project-based)
-```
-POST /mask
-```
-Mask data for a project
+
 Example request:
 ```json
 {
@@ -227,10 +296,7 @@ POST /generate/test-data
 ```
 Generate test data for a project
 
-```
-POST /upload/mask
-```
-Upload and mask CSV for a project
+
 
 ```
 POST /upload/generate

@@ -29,12 +29,16 @@ Base = declarative_base()
 
 # Define our models
 class Department(Base):
+    """Organizational department that groups employees by business function.
+    Departments are the primary organizational units within the company structure.
+    """
     __tablename__ = 'departments'
     
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    location = Column(String)
-    budget = Column(Float)
+    name = Column(String(100), nullable=False, unique=True, 
+                 comment="Official department name (e.g. Engineering, Marketing)")
+    location = Column(String(100), comment="Primary office location of this department")
+    budget = Column(Float, comment="Annual budget allocation in USD")
     
     # One-to-many: one department has many employees
     employees = relationship("Employee", back_populates="department")
@@ -44,15 +48,22 @@ class Department(Base):
 
 
 class Employee(Base):
+    """Company employee with their personal and professional details.
+    Each employee belongs to a specific department and has associated job information.
+    """
     __tablename__ = 'employees'
     
     id = Column(Integer, primary_key=True)
-    first_name = Column(String, nullable=False)
-    last_name = Column(String, nullable=False)
-    email = Column(String, nullable=False)
-    department_id = Column(Integer, ForeignKey('departments.id'))
-    role = Column(String)
-    salary = Column(Float)
+    first_name = Column(String(50), nullable=False, 
+                       comment="Employee's given name")
+    last_name = Column(String(50), nullable=False, 
+                      comment="Employee's family name")
+    email = Column(String(100), nullable=False, unique=True, 
+                  comment="Business email address for communication")
+    department_id = Column(Integer, ForeignKey('departments.id'),
+                          comment="Department where employee works")
+    role = Column(String(100), comment="Job title or position within the company")
+    salary = Column(Float, comment="Annual salary in USD")
     
     # Many-to-one: many employees belong to one department
     department = relationship("Department", back_populates="employees")
@@ -66,11 +77,11 @@ def generate_department_data():
     generator = SyntheticDataGenerator()
     
     # The prompt describes what kind of data we want
+    # Note: With the enhanced metadata extraction, we don't need to repeat much of this
+    # information, as it will be extracted from the model docstrings and column comments
     prompt = """
     Generate realistic department data for a technology company.
-    Departments should have names like Engineering, Marketing, Sales, HR, etc.
-    Locations should be major cities around the world.
-    Budget should be a realistic amount for each department, in USD.
+    Make sure departments cover all major business functions.
     """
     
     # Generate data directly from the Department model
