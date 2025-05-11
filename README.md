@@ -73,12 +73,12 @@ generated_file = generator.generate_data(
 print(f"Synthetic data written to: {generated_file}")
 ```
 
-##### SQLAlchemy Model Integration with Referential Integrity
+##### SQLAlchemy Model Integration with Smart Metadata Extraction
 
-Alternatively, you can use SQLAlchemy model classes directly as schema input, including maintaining referential integrity between related models:
+You can use SQLAlchemy model classes directly as schema input with enhanced metadata extraction that leverages model docstrings and column comments:
 
 ```python
-from sqlalchemy import Column, Integer, String, ForeignKey, Float, create_engine
+from sqlalchemy import Column, Integer, String, ForeignKey, Float
 from sqlalchemy.orm import declarative_base, relationship
 import random
 import pandas as pd
@@ -86,76 +86,73 @@ from syda.structured import SyntheticDataGenerator
 
 Base = declarative_base()
 
-# Define related models with foreign key relationships
+# Define models with rich docstrings and metadata
 class Department(Base):
+    """Organizational department that groups employees by business function.
+    Departments are the primary organizational units within the company structure.
+    """
     __tablename__ = 'departments'
     
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    location = Column(String)
-    budget = Column(Float)
+    name = Column(String(100), nullable=False, unique=True, 
+                 comment="Official department name (e.g. Engineering, Marketing)")
+    location = Column(String(100), comment="Primary office location of this department")
+    budget = Column(Float, comment="Annual budget allocation in USD")
     
     # One-to-many: one department has many employees
     employees = relationship("Employee", back_populates="department")
-    
-    def __repr__(self):
-        return f"<Department(id={self.id}, name='{self.name}', location='{self.location}')>"
 
 
 class Employee(Base):
+    """Company employee with their personal and professional details.
+    Each employee belongs to a specific department and has associated job information.
+    """
     __tablename__ = 'employees'
     
     id = Column(Integer, primary_key=True)
-    first_name = Column(String, nullable=False)
-    last_name = Column(String, nullable=False)
-    email = Column(String, nullable=False)
-    department_id = Column(Integer, ForeignKey('departments.id'))
-    role = Column(String)
-    salary = Column(Float)
+    first_name = Column(String(50), nullable=False, 
+                       comment="Employee's given name")
+    last_name = Column(String(50), nullable=False, 
+                      comment="Employee's family name")
+    email = Column(String(100), nullable=False, unique=True, 
+                  comment="Business email address for communication")
+    department_id = Column(Integer, ForeignKey('departments.id'),
+                          comment="Department where employee works")
+    role = Column(String(100), comment="Job title or position within the company")
+    salary = Column(Float, comment="Annual salary in USD")
     
     # Many-to-one: many employees belong to one department
     department = relationship("Department", back_populates="employees")
-    
-    def __repr__(self):
-        return f"<Employee(id={self.id}, name='{self.first_name} {self.last_name}', role='{self.role}')>"
 
 # Step 1: Generate departments first
 generator = SyntheticDataGenerator()
     
+# The system automatically extracts docstrings and column metadata
+# so the prompt can be much simpler
 departments_df = generator.generate_data(
     schema=Department,
-    prompt="""
-    Generate realistic department data for a technology company.
-    Departments should have names like Engineering, Marketing, Sales, HR, etc.
-    Locations should be major cities around the world.
-    Budget should be a realistic amount for each department, in USD.
-    """,
+    prompt="Generate realistic department data for a technology company.",
     sample_size=5,
     output_path='departments.csv'
 )
 
-# Step 2: Create a custom foreign key generator for employees that references valid departments
+# Step 2: Create custom generators for specific columns
 departments_df = pd.read_csv('departments.csv')
 
-# Register a custom generator for foreign key columns
+# Register a column-specific generator for department_id
 def department_id_fk_generator(row, col_name):
     # Sample from the existing department IDs
     return random.choice(departments_df['id'].tolist())
 
-# Register the custom foreign key generator
-generator.register_generator('foreign_key', department_id_fk_generator)
+# Register the custom generator specifically for the department_id column
+generator.register_generator('foreign_key', department_id_fk_generator, column_name='department_id')
 
 # Step 3: Generate employee data with valid department_id references
+# The system uses model docstrings and column metadata to inform the generation
 employees_df = generator.generate_data(
     schema=Employee,
-    prompt="""
-    Generate realistic employee data for a technology company.
-    Employees should have common first and last names.
-    Emails should follow the pattern firstname.lastname@company.com.
-    Roles should include software engineers, product managers, designers, etc.
-    Salaries should be realistic amounts in USD.
-    """,
-    sample_size=20,
+    prompt="Generate realistic employee data for a technology company.",
+    sample_size=10,
     output_path='employees.csv'
 )
 
@@ -171,12 +168,35 @@ else:
     print(f"❌ Found {len(invalid_ids)} invalid department_id references: {invalid_ids}")
 ```
 
-Key features:
-- Foreign keys are automatically detected and assigned the type `'foreign_key'`
-- When handling related models, generate parent records first (departments)
-- Register a custom generator for foreign keys that samples from existing valid IDs
-- This approach maintains referential integrity across your generated data
-- Works with all SQLAlchemy column types and relationships
+##### Metadata Enhancement Benefits
+
+This approach provides several powerful benefits:
+
+1. **Richer Context for LLMs**: The system extracts docstrings, comments, constraints, and other metadata from your SQLAlchemy models, providing rich context that helps the LLM generate more accurate and domain-appropriate synthetic data.
+
+2. **Simpler Prompts**: You can write much shorter prompts because the system automatically includes essential information from your model definitions.
+
+3. **Constraint-Aware Generation**: The LLM becomes aware of constraints like `nullable=False`, `unique=True`, and field lengths, leading to data that better respects your schema rules.
+
+4. **Column-Specific Generators**: You can register generators for specific columns (not just data types), allowing precise control over how each field is populated.
+
+5. **Automatic Docstring Utilization**: Class and field docstrings are automatically incorporated into the generation process, ensuring the LLM understands the business context of your models.
+
+Under the hood, the system constructs a detailed prompt that includes all relevant metadata:
+
+```
+Model Description: Company employee with their personal and professional details...
+
+Generate 10 records JSON objects with these fields:
+- id: number (primary_key)
+- first_name: text (not_null) - Employee's given name
+- last_name: text (not_null) - Employee's family name
+- email: text (unique, not_null) - Business email address for communication
+- department_id: foreign_key - Department where employee works
+...
+```
+
+This allows for more accurate and contextually appropriate synthetic data generation while requiring less manual specification in your code.
 
 ##### Output Options
 
