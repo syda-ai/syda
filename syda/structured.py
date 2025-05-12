@@ -137,7 +137,7 @@ class SyntheticDataGenerator:
         custom_generators: Optional[Dict[str, Dict[str, Callable]]] = None
     ) -> Dict[str, pd.DataFrame]:
         """
-        Generate synthetic data for multiple SQLAlchemy models with automatic 
+        Generate synthetic data for multiple relational SQLAlchemy models with automatic 
         dependency resolution based on foreign key relationships.
         
         This function:
