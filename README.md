@@ -1,7 +1,7 @@
 
-# Synthetic Data Generation Service -- WORK IN PROGRESS
+# Synthetic Data Generation Library
 
-A Python-based open-source service for generating synthetic data while preserving data utility.
+A Python-based open-source library for generating synthetic data with AI while preserving referential integrity.
 
 ## Table of Contents
 
@@ -16,42 +16,18 @@ A Python-based open-source service for generating synthetic data while preservin
   - [Complete CRM Example](#complete-crm-example)
   - [Metadata Enhancement Benefits](#metadata-enhancement-benefits)
   - [Output Options](#output-options)
-- [Optional REST API Service](#optional-rest-api-service)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation-1)
-  - [Running the API Service](#running-the-api-service)
-  - [API Endpoints](#api-endpoints)
 - [Configuration](#configuration)
 - [Contributing](#contributing)
 
 ## Features
 
-### Core Features
+### Features
 
 - **Synthetic Data Generation**:
   - Statistical data generation
   - Pattern-based generation
   - Data distribution preservation
   - Synthetic data from various sources
-
-### Optional Features
-
-- **REST API Service**:
-  - Generate synthetic data via API
-  - Support for CSV file uploads
-  - Support for unstructured files (images, PDFs, documents)
-  - JSON and CSV output formats
-
-- **Project Management**:
-  - Create and manage projects
-  - Unique project names
-  - Project-based transaction tracking
-  - Project descriptions
-
-- **Database Integration**:
-  - PostgreSQL backend
-  - Transaction logging
-  - Audit trail for all operations
 
 ## Core Module Usage
 
@@ -515,130 +491,7 @@ See `examples/` directory for complete examples, including:
 - SQLAlchemy model integration
 - Foreign key relationship handling
 
-## Optional REST API Service
 
-### Prerequisites
-- Python 3.8+
-- PostgreSQL database
-- pip (Python package manager)
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd syda-service
-   ```
-
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-### Database Setup
-
-1. Create a PostgreSQL database for the application.
-
-2. Configure the database connection by creating a `.env` file in the root directory with the following variables:
-   ```
-   DATABASE_URL=postgresql://username:password@localhost:5432/your_database_name
-   ```
-
-3. Run Alembic migrations to set up the database tables:
-   ```bash
-   # Navigate to the service directory
-   cd service
-   
-   # Create initial migration (only needed once)
-   alembic revision --autogenerate -m "Initial migration"
-   
-   # Apply migrations
-   alembic upgrade head
-   ```
-
-### Running the API Service
-
-1. Start the FastAPI server:
-   ```bash
-   uvicorn app.main:app --host 0.0.0.0 --port 8002 --reload
-   ```
-
-2. The API will be available at `http://localhost:8000`
-
-3. Access the interactive API documentation at:
-   - Swagger UI: `http://localhost:8000/docs`
-   - ReDoc: `http://localhost:8000/redoc`
-
-### API Endpoints
-
-#### Project Management
-```
-POST /projects
-```
-Create a new project
-Example request:
-```json
-{
-    "name": "my_project",
-    "description": "My synthetic data project"
-}
-```
-
-```
-GET /projects
-```
-Get all projects
-
-```
-GET /projects/{project_name}/transactions
-```
-Get transactions for a specific project
-
-#### Data Operations (Project-based)
-
-Example request:
-```json
-{
-    "project_name": "my_project",
-    "data": {
-        "email": ["test@example.com"],
-        "phone": ["123-456-7890"]
-    }
-}
-```
-
-```
-POST /generate
-```
-Generate synthetic data for a project
-
-```
-POST /generate/test-data
-```
-Generate test data for a project
-
-
-
-```
-POST /upload/generate
-```
-Upload and generate synthetic data for a project
-
-```
-POST /upload/unstructured
-```
-Process unstructured file (image, PDF, Word, Excel, text)
-
-```
-POST /upload/unstructured/generate
-```
-Generate synthetic data from unstructured file (Excel only)
 
 ## Contributing
 
