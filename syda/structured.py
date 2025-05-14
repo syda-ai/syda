@@ -1,11 +1,12 @@
 import openai
 import pandas as pd
 from pydantic import create_model
-from typing import Dict, Optional, List, Union, Callable, Tuple, Type
+from typing import Dict, Optional, List, Union, Callable, Tuple, Type, Any
 import instructor
 from anthropic import Anthropic
 import os
 import networkx as nx
+from .schemas import ModelConfig
 
 try:
     from sqlalchemy.orm import DeclarativeMeta
@@ -83,23 +84,57 @@ def sqlalchemy_model_to_schema(model_class) -> Tuple[dict, dict, str]:
     return schema, metadata, model_docstring
 
 
+
+
+
 class SyntheticDataGenerator:
-    def __init__(self, model: str = "gpt-4", temperature: float = 0.7):
+    def __init__(
+        self, 
+        model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
+        openai_api_key: Optional[str] = None,
+        anthropic_api_key: Optional[str] = None
+    ):
         """
         Initialize the synthetic data generator.
 
         Args:
-            model: Model to use ("gpt-4", "gpt-3.5-turbo", "claude-2", etc.).
-            temperature: Sampling temperature.
+            model_config: Configuration for the AI model to use, either as a ModelConfig object 
+                         or a dictionary of parameters. If None, default settings will be used.
+            openai_api_key: Optional API key for OpenAI. If not provided, will use OPENAI_API_KEY 
+                           environment variable.
+            anthropic_api_key: Optional API key for Anthropic. If not provided, will use 
+                              ANTHROPIC_API_KEY environment variable.
         """
-        self.model = model.lower()
-        self.temperature = temperature
-
-        # Pick and wrap the correct client once
-        if self.model.startswith("claude"):
-            raw_client = Anthropic()
+        # Initialize model configuration
+        if model_config is None:
+            self.model_config = ModelConfig()
+        elif isinstance(model_config, dict):
+            self.model_config = ModelConfig(**model_config)
         else:
-            raw_client = openai.OpenAI()
+            self.model_config = model_config
+            
+        # Initialize API clients based on provider
+        if self.model_config.provider == "anthropic":
+            client_kwargs = {}
+            if anthropic_api_key:
+                client_kwargs["api_key"] = anthropic_api_key
+                
+            # Apply proxy configuration if present
+            if self.model_config.proxy:
+                client_kwargs.update(self.model_config.proxy.get_proxy_kwargs())
+                
+            raw_client = Anthropic(**client_kwargs)
+        else:  # default to OpenAI
+            client_kwargs = {}
+            if openai_api_key:
+                client_kwargs["api_key"] = openai_api_key
+                
+            # Apply proxy configuration if present
+            if self.model_config.proxy:
+                client_kwargs.update(self.model_config.proxy.get_proxy_kwargs())
+                
+            raw_client = openai.OpenAI(**client_kwargs)
+                
         self.client = instructor.patch(raw_client)
 
         # Registry for custom generators by type: type_name -> fn(row: pd.Series, col_name: str) -> value
@@ -420,10 +455,10 @@ class SyntheticDataGenerator:
 
             # Call the LLM
             ai_objs: List[DynamicModel] = self.client.chat.completions.create(
-                model=self.model,
+                model=self.model_config.model_name,
                 messages=[{"role": "user", "content": full_prompt}],
                 response_model=List[DynamicModel],
-                temperature=self.temperature,
+                **self.model_config.get_model_kwargs(),
             )
             df = pd.DataFrame([obj.dict() for obj in ai_objs])
         else:
