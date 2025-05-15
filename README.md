@@ -23,18 +23,26 @@ A Python-based open-source library for generating synthetic data with AI while p
 
 ## Features
 
-- ## **Synthetic Data Generation**
+* **Synthetic Data Generation**:
 
-  * AI-driven sample generation via OpenAI and Anthropic (Claude)
-  * Support for both sqlalchemy models and simple dictionary schema maps
-- **Referential Integrity**
+  * Statistical data generation
+  * Pattern-based generation
+  * Data distribution preservation
+  * Synthetic data from various sources
+* **Synthetic Data Generation**:
+
+  * Statistical data generation
+  * Pattern-based generation
+  * Data distribution preservation
+  * Synthetic data from various sources
+* **Referential Integrity**
 
   * Automatic foreign key detection and resolution
   * Multi-model dependency analysis
-- **Custom Generators**
+* **Custom Generators**
 
   * Register column- or type-specific functions for specialized data
-- **Open Core**
+* **Open Core**
 
   * Core functionality under AGPL-3.0
   * Premium UI and SaaS features under commercial license
@@ -60,10 +68,7 @@ schema = {
     'visit_date': 'date',
     'notes': 'text'
 }
-prompt = (
-    "Generate realistic synthetic patient records with ICD-10 diagnosis codes, "
-    "emails, visit dates, and clinical notes."
-)
+prompt = "Generate realistic synthetic patient records with ICD-10 diagnosis codes, emails, visit dates, and clinical notes."
 
 # Generate and save to CSV
 output = generator.generate_data(
@@ -114,15 +119,29 @@ generator.generate_data(schema=User, prompt='Generate users', sample_size=5)
 
 ### Handling Foreign Key Relationships
 
-* Detects FKs and labels them as `foreign_key`
-* Register custom FK generators sampling parent IDs
-* Generate parent before child for referential integrity
+The library provides robust support for handling foreign key relationships with referential integrity:
+
+1. **Automatic Foreign Key Detection**: Foreign keys are automatically detected from your SQLAlchemy models and assigned the type `'foreign_key'`.
+2. **Column-Specific Foreign Key Generators**: Register different generators for each foreign key column when dealing with multiple relationships:
 
 ```python
-# After generating departments:
-def dept_fk(row, col): return row['id']
-generator.register_generator('foreign_key', dept_fk)
+# After generating departments and loading them into departments_df:
+def department_id_fk_generator(row, col_name):
+    return random.choice(departments_df['id'].tolist())
+generator.register_generator('foreign_key', department_id_fk_generator, column_name='department_id')
 ```
+
+3. **Multi-Step Generation Process**: For related tables, generate parent records first, then use their IDs when generating child records:
+
+```python
+# Generate departments first
+departments_df = generator.generate_data(schema=Department, prompt='...', sample_size=5)
+# Then generate employees with valid department_id references
+employees_df = generator.generate_data(schema=Employee, prompt='Generate realistic employee data', sample_size=10)
+```
+
+4. **Referential Integrity Preservation**: The foreign key generator samples from actual existing IDs in the parent table, ensuring all references are valid.
+5. **Metadata-Enhanced Foreign Keys**: Column comments on foreign key fields are preserved and included in the prompt, helping the LLM understand the relationship context.
 
 ### Automatic Management of Multiple Related Models
 
@@ -131,67 +150,184 @@ Simplify multi-table workflows with `generate_related_data`:
 ```python
 results = generator.generate_related_data(
     models=[Customer, Contact, Product, Order, OrderItem],
-    prompts={...},
-    sample_sizes={...},
-    custom_generators={...},
-    output_dir='output'
+    prompts={
+        "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
+        "Product": "Generate cloud software products and services."
+    },
+    sample_sizes={
+        "Customer": 10,
+        "Contact": 25,
+        "Product": 15,
+        "Order": 30,
+        "OrderItem": 60
+    },
+    output_dir="output_data",
+    custom_generators={
+        "Customer": {"status": lambda row, col: random.choice(["Active", "Inactive", "Prospect"])},
+        "Product": {"price": lambda row, col: round(random.uniform(50, 5000), 2)}
+    }
 )
 ```
 
+This method:
+
+* Automatically analyzes model dependencies and orders generation.
+* Manages foreign keys by sampling valid parent IDs.
+* Supports custom generators and preserves referential integrity.
+
 ### Complete CRM Example
 
-See `examples/test_auto_related_models.py` for a full CRM workflow—automatic dependency resolution, prompt enrichment, and integrity checks.
+Here’s a comprehensive example demonstrating `generate_related_data` across five interrelated models, including entity definitions, prompt setup, and data verification:
 
-### Metadata Enhancement Benefits
+```python
+#!/usr/bin/env python
+import random
+import datetime
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, Date, Boolean, Text
+from sqlalchemy.orm import declarative_base, relationship
+from syda.structured import SyntheticDataGenerator
 
-1. **Richer Context**: Uses docstrings, comments, constraints.
-2. **Simpler Prompts**: Less manual specification needed.
-3. **Constraint Awareness**: Respects `nullable`, `unique`, `length`.
-4. **Custom Generators**: Column-level overrides.
-5. **Auto Docstring Utilization**: Business context embedded in prompts.
+Base = declarative_base()
 
-### Model Selection and Configuration
+class Customer(Base):
+    __tablename__ = 'customers'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), unique=True, comment="Customer organization name")
+    industry = Column(String(50), comment="Customer's primary industry")
+    website = Column(String(100), comment="Customer's website URL")
+    status = Column(String(20), comment="Active, Inactive, Prospect")
+    created_at = Column(Date, default=datetime.date.today, comment="Date when added to CRM")
+    contacts = relationship("Contact", back_populates="customer")
+    orders = relationship("Order", back_populates="customer")
 
-Configure provider, model name, temperature, tokens, and proxy:
+class Contact(Base):
+    __tablename__ = 'contacts'
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), comment="Customer this contact belongs to")
+    first_name = Column(String(50), comment="Contact's first name")
+    last_name = Column(String(50), comment="Contact's last name")
+    email = Column(String(100), unique=True, comment="Contact's email address")
+    phone = Column(String(20), comment="Contact's phone number")
+    position = Column(String(100), comment="Job title or position")
+    is_primary = Column(Boolean, default=False, comment="Primary contact flag")
+    customer = relationship("Customer", back_populates="contacts")
+
+class Product(Base):
+    __tablename__ = 'products'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), unique=True, comment="Product name")
+    category = Column(String(50), comment="Product category")
+    price = Column(Float, comment="Product price in USD")
+    description = Column(Text, comment="Product description")
+    order_items = relationship("OrderItem", back_populates="product")
+
+class Order(Base):
+    __tablename__ = 'orders'
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), comment="Customer who placed the order")
+    order_date = Column(Date, comment="Date when order was placed")
+    status = Column(String(20), comment="Order status: New, Processing, Shipped, Delivered, Cancelled")
+    total_amount = Column(Float, comment="Total amount in USD")
+    customer = relationship("Customer", back_populates="orders")
+    items = relationship("OrderItem", back_populates="order")
+
+class OrderItem(Base):
+    __tablename__ = 'order_items'
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey('orders.id'), comment="Order this item belongs to")
+    product_id = Column(Integer, ForeignKey('products.id'), comment="Product in the order")
+    quantity = Column(Integer, comment="Quantity ordered")
+    unit_price = Column(Float, comment="Unit price at order time")
+    order = relationship("Order", back_populates="items")
+    product = relationship("Product", back_populates="order_items")
+
+
+def main():
+    generator = SyntheticDataGenerator(model='gpt-4')
+    output_dir = 'crm_data'
+    prompts = {
+        "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
+        "Product": "Generate products for a cloud software company.",
+        "Order": "Generate realistic orders with appropriate dates and statuses."
+    }
+    sample_sizes = {"Customer": 10, "Contact": 25, "Product": 15, "Order": 30, "OrderItem": 60}
+
+    results = generator.generate_related_data(
+        models=[Customer, Contact, Product, Order, OrderItem],
+        prompts=prompts,
+        sample_sizes=sample_sizes,
+        output_dir=output_dir
+    )
+
+    # Referential integrity checks
+    print("\n🔍 Verifying referential integrity:")
+    if set(results['Contact']['customer_id']).issubset(set(results['Customer']['id'])):
+        print("  ✅ All Contact.customer_id values are valid.")
+    if set(results['OrderItem']['product_id']).issubset(set(results['Product']['id'])):
+        print("  ✅ All OrderItem.product_id values are valid.")
+```
+
+## Metadata Enhancement Benefits
+
+* **Richer Context**: Leverages docstrings, comments, and column constraints to enrich prompts.
+* **Simpler Prompts**: Less manual specification; model infers details.
+* **Constraint Awareness**: Respects `nullable`, `unique`, and length constraints.
+* **Custom Generators**: Column-level functions for fine-tuned data.
+* **Automatic Docstring Utilization**: Embeds business context from model definitions.
+
+## Model Selection and Configuration
+
+Configure provider, model, temperature, tokens, and proxy:
 
 ```python
 from syda.schemas import ModelConfig, ProxyConfig
 config = ModelConfig(
-    provider='openai', model_name='gpt-4', temperature=0.8,
-    proxy=ProxyConfig(base_url='https://ai-proxy/', headers={'X-Key':'token'})
+    provider='openai',
+    model_name='gpt-4-turbo',
+    temperature=0.9,
+    top_p=0.95,
+    seed=42,
+    max_tokens=1000,
+    proxy=ProxyConfig(
+        base_url='https://ai-proxy.company.com/v1',
+        headers={'X-Company-Auth':'internal-token'},
+        params={'team':'data-science'},
+        path_format='/proxy/{provider}/completions'
+    )
 )
 generator = SyntheticDataGenerator(model_config=config)
 ```
 
-### Output Options
+## Output Options
 
-* Return a `pandas.DataFrame`
-* Save to `.csv` or `.json` if `output_path` ends accordingly
+* Returns a `pandas.DataFrame` if no `output_path` specified.
+* Saves to `.csv` or `.json` when `output_path` ends accordingly.
 
 ## Configuration
 
-Use environment variables or pass API keys directly:
+Set API keys via environment variables or parameters:
 
 ```bash
-export OPENAI_API_KEY=...
-export ANTHROPIC_API_KEY=...
+export OPENAI_API_KEY=your_key
+export ANTHROPIC_API_KEY=your_key
 ```
 
 Or in code:
 
 ```python
 generator = SyntheticDataGenerator(
-    openai_api_key='...', anthropic_api_key='...'
+    openai_api_key='...',
+    anthropic_api_key='...'
 )
 ```
 
 ## Contributing
 
-1. Fork the repo
-2. Create a feature branch
-3. Commit changes
-4. Push branch
-5. Open a PR
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Push to your branch.
+5. Open a Pull Request.
 
 ## License
 
