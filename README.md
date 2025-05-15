@@ -1,6 +1,6 @@
 # Synthetic Data Generation Library
 
-A Python-based open-source library for generating synthetic data with AI while preserving referential integrity.
+A Python-based open-source library for generating synthetic data with AI while preserving referential integrity. Allowing seamless use of OpenAI, Anthropic (Claude), and other AI models.
 
 ## Table of Contents
 
@@ -24,25 +24,38 @@ A Python-based open-source library for generating synthetic data with AI while p
 
 ## Features
 
-* **Synthetic Data Generation**:
+* **Multi-Provider AI Integration**:
 
-  * Statistical data generation
-  * Pattern-based generation
-  * Data distribution preservation
-  * Synthetic data from various sources
-* **Synthetic Data Generation**:
+  * Seamless integration with multiple AI providers
+  * Support for OpenAI (GPT-3.5/4), Anthropic (Claude), and other models
+  * Consistent interface across different providers
+  * Provider-specific parameter optimization
 
-  * Statistical data generation
-  * Pattern-based generation
-  * Data distribution preservation
-  * Synthetic data from various sources
+* **LLM-based Data Generation**:
+
+  * AI-powered schema understanding and data creation
+  * Contextually-aware synthetic records
+  * Natural language prompt customization
+  * Intelligent schema inference
+
+* **SQLAlchemy Integration**:
+
+  * Automatic extraction of model metadata, docstrings and constraints
+  * Intelligent column-specific data generation
+  * Parameter naming consistency with `sqlalchemy_models`
+  
 * **Referential Integrity**
 
   * Automatic foreign key detection and resolution
-  * Multi-model dependency analysis
+  * Multi-model dependency analysis through topological sorting
+  * Robust handling of related data with referential constraints
+  
 * **Custom Generators**
 
-  * Register column- or type-specific functions for specialized data
+  * Register column- or type-specific functions for domain-specific data
+  * Contextual generators that adapt to other fields (like ICD-10 codes based on demographics)
+  * Weighted distributions for realistic data patterns
+
 * **Open Core**
 
   * Core functionality under AGPL-3.0
@@ -150,7 +163,7 @@ Simplify multi-table workflows with `generate_related_data`:
 
 ```python
 results = generator.generate_related_data(
-    models=[Customer, Contact, Product, Order, OrderItem],
+    sqlalchemy_models=[Customer, Contact, Product, Order, OrderItem],
     prompts={
         "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
         "Product": "Generate cloud software products and services."
@@ -254,7 +267,7 @@ def main():
     sample_sizes = {"Customer": 10, "Contact": 25, "Product": 15, "Order": 30, "OrderItem": 60}
 
     results = generator.generate_related_data(
-        models=[Customer, Contact, Product, Order, OrderItem],
+        sqlalchemy_models=[Customer, Contact, Product, Order, OrderItem],
         prompts=prompts,
         sample_sizes=sample_sizes,
         output_dir=output_dir
@@ -536,16 +549,20 @@ Custom generators can significantly enhance the quality and realism of your synt
 
 ## Model Selection and Configuration
 
-Configure provider, model, temperature, tokens, and proxy:
+Syda now uses the instructor library for unified access to multiple AI providers. This integration enables seamless switching between OpenAI, Anthropic (Claude), and other providers without changing your code structure.
+
+### Basic Configuration
+
+Configure provider, model, temperature, tokens, and proxy settings:
 
 ```python
 from syda.schemas import ModelConfig, ProxyConfig
 config = ModelConfig(
-    provider='openai',
-    model_name='gpt-4-turbo',
+    provider='openai',  # Choose from: 'openai', 'anthropic', etc.
+    model_name='gpt-4-turbo',  # Model name for the selected provider
     temperature=0.9,
     top_p=0.95,
-    seed=42,
+    seed=42,  # OpenAI-specific
     max_tokens=1000,
     proxy=ProxyConfig(
         base_url='https://ai-proxy.company.com/v1',
@@ -557,6 +574,63 @@ config = ModelConfig(
 generator = SyntheticDataGenerator(model_config=config)
 ```
 
+### Using Different Model Providers
+
+#### OpenAI Models
+
+```python
+# Default configuration uses OpenAI's GPT-4
+default_generator = SyntheticDataGenerator()
+
+# Explicitly configure for GPT-3.5 Turbo
+openai_config = ModelConfig(
+    provider='openai',
+    model_name='gpt-3.5-turbo',
+    temperature=0.7
+)
+gpt35_generator = SyntheticDataGenerator(model_config=openai_config)
+```
+
+#### Anthropic Claude Models
+
+```python
+# Configure for Claude
+claude_config = ModelConfig(
+    provider='anthropic',
+    model_name='claude-3-sonnet-20240229',
+    temperature=0.7
+)
+claude_generator = SyntheticDataGenerator(model_config=claude_config)
+
+# Generate data with Claude
+data = claude_generator.generate_data(
+    schema={'product_id': 'number', 'product_name': 'text', 'price': 'number'},
+    prompt="Generate luxury product data with realistic prices over $1000",
+    sample_size=5
+)
+```
+
+### Advanced: Direct Access to LLM Client
+
+For advanced use cases, you can access the underlying LLM client directly:
+
+```python
+from syda.llm import create_llm_client
+
+# Create a standalone LLM client
+llm_client = create_llm_client(
+    model_config=ModelConfig(provider='anthropic', model_name='claude-3-opus-20240229'),
+    anthropic_api_key="your_api_key"  # Optional, uses environment variable by default
+)
+
+# Use the client directly
+response = llm_client.client.messages.create(
+    model="claude-3-opus-20240229",
+    max_tokens=1000,
+    messages=[{"role": "user", "content": "Generate a JSON array of 5 fictional books."}]
+)
+```
+
 ## Output Options
 
 * Returns a `pandas.DataFrame` if no `output_path` specified.
@@ -564,19 +638,58 @@ generator = SyntheticDataGenerator(model_config=config)
 
 ## Configuration
 
+### API Keys
+
 Set API keys via environment variables or parameters:
 
 ```bash
+# Set in environment
 export OPENAI_API_KEY=your_key
 export ANTHROPIC_API_KEY=your_key
 ```
 
-Or in code:
+Or provide them directly when initializing the generator:
+
+```python
+# Pass directly to constructor
+generator = SyntheticDataGenerator(
+    model_config=ModelConfig(provider='openai', model_name='gpt-4'),
+    openai_api_key="your_openai_key",
+    anthropic_api_key="your_anthropic_key"
+)
+```
+
+### Modular LLM System
+
+The library now uses a modular LLM client system that can be used independently:
+
+```python
+# Import the LLM client module
+from syda.llm import create_llm_client, LLMClient
+
+# Create a client with specific configuration
+llm_client = create_llm_client(
+    model_config=ModelConfig(provider='anthropic', model_name='claude-3-sonnet-20240229'),
+    anthropic_api_key="your_api_key"  # Optional
+)
+
+# Access the instructor-patched client
+patched_client = llm_client.client
+
+# Use in your own applications
+response = patched_client.messages.create(
+    model="claude-3-sonnet-20240229",
+    max_tokens=500,
+    messages=[{"role": "user", "content": "Write a short poem about synthetic data"}]
+)
+```
+
+### API Keys in Code
 
 ```python
 generator = SyntheticDataGenerator(
-    openai_api_key='...',
-    anthropic_api_key='...'
+    openai_api_key='your_openai_key',
+    anthropic_api_key='your_anthropic_key'
 )
 ```
 

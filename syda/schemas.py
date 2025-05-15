@@ -89,6 +89,9 @@ class ModelConfig(BaseModel):
         # Start with common parameters
         kwargs = {"temperature": self.temperature}
         
+        # Always include the model name, which is required for OpenAI and used for other providers
+        kwargs["model"] = self.model_name
+        
         # Add provider-specific parameters
         if self.provider == "openai":
             if self.max_tokens:
@@ -101,12 +104,22 @@ class ModelConfig(BaseModel):
                 kwargs["response_format"] = self.response_format
         
         elif self.provider == "anthropic":
+            # The updated Anthropic API via instructor now uses the same parameter names as OpenAI
+            # for better compatibility across providers
             if self.max_tokens_to_sample or self.max_tokens:
-                # Use max_tokens_to_sample if specified, otherwise fall back to max_tokens
-                kwargs["max_tokens_to_sample"] = self.max_tokens_to_sample or self.max_tokens
+                # Use max_tokens for consistency with OpenAI naming
+                kwargs["max_tokens"] = self.max_tokens_to_sample or self.max_tokens
+                # Remove the legacy parameter to avoid errors
+                if "max_tokens_to_sample" in kwargs:
+                    del kwargs["max_tokens_to_sample"]
             if self.top_p:
                 kwargs["top_p"] = self.top_p
             if self.top_k:
+                # This might not be supported in the current instructor integration
+                # but we'll keep it for future compatibility
                 kwargs["top_k"] = self.top_k
+            
+            # For Anthropic via instructor, we need to use 'model' for consistency
+            kwargs["model"] = self.model_name
         
         return kwargs
