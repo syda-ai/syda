@@ -199,9 +199,9 @@ def main():
     print("  and set up foreign key relationships")
     print("  with custom generators for specific columns\n")
     
-    # Generate data for all models with automatic dependency resolution
+    # Generate data for all SQLAlchemy models with automatic dependency resolution
     results = generator.generate_related_data(
-        models=[Customer, Contact, Product, Order, OrderItem],
+        sqlalchemy_models=[Customer, Contact, Product, Order, OrderItem],
         prompts=prompts,
         sample_sizes=sample_sizes,
         output_dir=output_dir,

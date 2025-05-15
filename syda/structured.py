@@ -163,7 +163,7 @@ class SyntheticDataGenerator:
 
     def generate_related_data(
         self,
-        models: Union[List[Type], Type, str],
+        sqlalchemy_models: Union[List[Type], Type, str],
         prompts: Optional[Dict[str, str]] = None,
         sample_sizes: Optional[Dict[str, int]] = None,
         output_dir: Optional[str] = None,
@@ -176,20 +176,20 @@ class SyntheticDataGenerator:
         dependency resolution based on foreign key relationships.
         
         This function:
-        1. Analyzes model dependencies (which models reference others)
+        1. Analyzes SQLAlchemy model dependencies (which SQLAlchemy models reference others)
         2. Automatically determines the correct order to generate data
-        3. Handles foreign key relationships between models
+        3. Handles foreign key relationships between SQLAlchemy models
         4. Applies custom generators where registered
         
         Args:
-            models: A list of SQLAlchemy model classes, a single model class, 
+            sqlalchemy_models: A list of SQLAlchemy model classes, a single SQLAlchemy model class, 
                    or a string pattern to match class names
             prompts: Optional dictionary mapping model names to custom prompts
             sample_sizes: Optional dictionary mapping model names to sample sizes
             output_dir: Optional directory to save CSV files (one per model)
             default_sample_size: Default number of records if not specified in sample_sizes
             default_prompt: Default prompt if not specified in prompts
-            custom_generators: Optional dictionary specifying custom generators for models and columns.
+            custom_generators: Optional dictionary specifying custom generators for SQLAlchemy models and columns.
                               Format: {"ModelName": {"column_name": generator_function}}
                               where generator_function is a callable that takes (row: pd.Series, col_name: str)
                               and returns a generated value.
@@ -198,7 +198,7 @@ class SyntheticDataGenerator:
             Dictionary mapping model names to DataFrames of generated data
             
         Example:
-            # Define custom generators for specific columns in specific models
+            # Define custom generators for specific columns in specific SQLAlchemy models
             custom_gens = {
                 "Customer": {
                     "status": lambda row, col: random.choice(["Active", "Inactive", "Prospect"])
@@ -209,7 +209,7 @@ class SyntheticDataGenerator:
             }
             
             results = generator.generate_related_data(
-                models=[Customer, Order, OrderItem, Product],
+                sqlalchemy_models=[Customer, Order, OrderItem, Product],
                 prompts={"Customer": "Generate tech companies"},
                 sample_sizes={"Customer": 10, "Order": 30},
                 custom_generators=custom_gens
@@ -220,9 +220,9 @@ class SyntheticDataGenerator:
         if sample_sizes is None:
             sample_sizes = {}
             
-        # Handle single model case
-        if not isinstance(models, list):
-            models = [models]
+        # Handle single SQLAlchemy model case
+        if not isinstance(sqlalchemy_models, list):
+            sqlalchemy_models = [sqlalchemy_models]
             
         # Create model dependency graph
         G = nx.DiGraph()
@@ -230,22 +230,22 @@ class SyntheticDataGenerator:
         # Store model information
         model_info = {}
         
-        # Add nodes to the graph for each model
-        for model in models:
-            model_name = model.__name__
+        # Add nodes to the graph for each SQLAlchemy model
+        for sqlalchemy_model in sqlalchemy_models:
+            model_name = sqlalchemy_model.__name__
             G.add_node(model_name)
             model_info[model_name] = {
-                'class': model,
+                'class': sqlalchemy_model,
                 'foreign_keys': {},
                 'references': set()
             }
             
         # Build the dependency graph based on foreign keys, not relationships
-        for model in models:
-            model_name = model.__name__
+        for sqlalchemy_model in sqlalchemy_models:
+            model_name = sqlalchemy_model.__name__
             
             # Get foreign key information directly from the table
-            for column in model.__table__.columns:
+            for column in sqlalchemy_model.__table__.columns:
                 # Check if this column has any foreign keys
                 if column.foreign_keys:
                     for fk in column.foreign_keys:
@@ -253,9 +253,9 @@ class SyntheticDataGenerator:
                         target_table = fk.column.table.name
                         target_column = fk.column.name
                         
-                        # Find the model class that corresponds to this table
+                        # Find the SQLAlchemy model class that corresponds to this table
                         target_model_name = None
-                        for m in models:
+                        for m in sqlalchemy_models:
                             if m.__table__.name == target_table and m.__name__ in model_info:
                                 target_model_name = m.__name__
                                 break
@@ -281,7 +281,7 @@ class SyntheticDataGenerator:
             generation_order = list(nx.topological_sort(G))
         except nx.NetworkXUnfeasible:
             # Handle cycles in dependency graph
-            raise ValueError("Circular dependencies detected between models. Cannot determine generation order.")
+            raise ValueError("Circular dependencies detected between SQLAlchemy models. Cannot determine generation order.")
             
         # Dictionary to hold generated data
         results = {}
@@ -316,7 +316,7 @@ class SyntheticDataGenerator:
                     target_model = fk_info['target_model']
                     target_col = fk_info['target_column']
                     
-                    # Only set up generators for models we've already processed
+                    # Only set up generators for SQLAlchemy models we've already processed
                     if target_model in results:
                         # Get valid values from the target model's generated data
                         valid_values = results[target_model][target_col].tolist()
