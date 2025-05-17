@@ -6,7 +6,7 @@ Provides a standard interface for creating LLM clients with instructor integrati
 import os
 import instructor
 import openai
-from typing import Optional, Dict, Any, Tuple, Union
+from typing import Optional, Dict, Any, Union, List
 from .schemas import ModelConfig, ProxyConfig
 
 class LLMClient:
@@ -49,6 +49,45 @@ class LLMClient:
         # Initialize the client
         self.client = self._initialize_client()
         
+    def get_model_kwargs(self):
+        """
+        Get model kwargs based on the model configuration.
+        
+        Returns:
+            Dictionary of keyword arguments for the model
+        """
+        kwargs = {}
+        
+        # Add temperature if specified
+        if self.model_config.temperature is not None:
+            kwargs['temperature'] = self.model_config.temperature
+            
+        # Add max_tokens if specified
+        if self.model_config.max_tokens is not None:
+            kwargs['max_tokens'] = self.model_config.max_tokens
+            
+        # Add top_p if specified
+        if self.model_config.top_p is not None:
+            kwargs['top_p'] = self.model_config.top_p
+            
+        # Add seed if specified
+        if self.model_config.seed is not None:
+            kwargs['seed'] = self.model_config.seed
+            
+        # Add response_format if specified (OpenAI only)
+        if self.model_config.response_format is not None and self.model_config.provider == 'openai':
+            kwargs['response_format'] = self.model_config.response_format
+            
+        # Add top_k if specified (Anthropic only)
+        if self.model_config.top_k is not None and self.model_config.provider == 'anthropic':
+            kwargs['top_k'] = self.model_config.top_k
+            
+        # Add max_tokens_to_sample if specified (Anthropic only)
+        if self.model_config.max_tokens_to_sample is not None and self.model_config.provider == 'anthropic':
+            kwargs['max_tokens_to_sample'] = self.model_config.max_tokens_to_sample
+            
+        return kwargs
+        
     def _initialize_client(self):
         """
         Initialize and return the appropriate LLM client based on the model configuration.
@@ -74,7 +113,7 @@ class LLMClient:
             # Initialize raw client
             raw_client = openai.OpenAI(**proxy_kwargs)
             
-            # Patch with instructor
+            # Patch with instructor and return
             return instructor.patch(raw_client)
             
         elif provider == "anthropic":
@@ -102,12 +141,16 @@ class LLMClient:
                 
                 # Fall back to from_provider
                 try:
-                    return instructor.from_provider(f"{provider}/{model_name}") 
-                except Exception as e2:
-                    raise ValueError(f"Could not initialize Anthropic client: {e2}")
+                    # Create client using from_provider
+                    return instructor.from_provider(f"{provider}/{model_name}")
+                except Exception as inner_e:
+                    # All methods failed
+                    error_msg = f"Failed to initialize Anthropic client: {e}, {inner_e}"
+                    raise ValueError(error_msg)
         else:
             # For other providers, use from_provider with empty kwargs
             try:
+                # Create client using from_provider
                 return instructor.from_provider(f"{provider}/{model_name}")
             except Exception as e:
                 raise ValueError(f"Unsupported provider {provider}: {e}")

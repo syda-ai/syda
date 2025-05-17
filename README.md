@@ -59,7 +59,6 @@ A Python-based open-source library for generating synthetic data with AI while p
 * **Open Core**
 
   * Core functionality under AGPL-3.0
-  * Premium UI and SaaS features under commercial license
 
 ## Installation
 
@@ -86,7 +85,7 @@ prompt = "Generate realistic synthetic patient records with ICD-10 diagnosis cod
 
 # Generate and save to CSV
 output = generator.generate_data(
-    schema=schema,
+    schema_dict=schema,
     prompt=prompt,
     sample_size=15,
     output_path='synthetic_output.csv'
@@ -128,7 +127,7 @@ class User(Base):
     name = Column(String, comment="Full name of the user")
 
 generator = SyntheticDataGenerator()
-generator.generate_data(schema=User, prompt='Generate users', sample_size=5)
+generator.generate_data(sqlalchemy_model=User, prompt='Generate users', sample_size=5)
 ```
 
 ### Handling Foreign Key Relationships
@@ -149,9 +148,9 @@ generator.register_generator('foreign_key', department_id_fk_generator, column_n
 
 ```python
 # Generate departments first
-departments_df = generator.generate_data(schema=Department, prompt='...', sample_size=5)
+departments_df = generator.generate_data(sqlalchemy_model=Department, prompt='...', sample_size=5)
 # Then generate employees with valid department_id references
-employees_df = generator.generate_data(schema=Employee, prompt='Generate realistic employee data', sample_size=10)
+employees_df = generator.generate_data(sqlalchemy_model=Employee, prompt='Generate realistic employee data', sample_size=10)
 ```
 
 4. **Referential Integrity Preservation**: The foreign key generator samples from actual existing IDs in the parent table, ensuring all references are valid.
@@ -159,10 +158,10 @@ employees_df = generator.generate_data(schema=Employee, prompt='Generate realist
 
 ### Automatic Management of Multiple Related Models
 
-Simplify multi-table workflows with `generate_related_data`:
+Simplify multi-table workflows with `generate_for_sqlalchemy_models`:
 
 ```python
-results = generator.generate_related_data(
+results = generator.generate_for_sqlalchemy_models(
     sqlalchemy_models=[Customer, Contact, Product, Order, OrderItem],
     prompts={
         "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
@@ -191,7 +190,7 @@ This method:
 
 ### Complete CRM Example
 
-Here’s a comprehensive example demonstrating `generate_related_data` across five interrelated models, including entity definitions, prompt setup, and data verification:
+Here’s a comprehensive example demonstrating `generate_for_sqlalchemy_models` across five interrelated models, including entity definitions, prompt setup, and data verification:
 
 ```python
 #!/usr/bin/env python
@@ -266,7 +265,7 @@ def main():
     }
     sample_sizes = {"Customer": 10, "Contact": 25, "Product": 15, "Order": 30, "OrderItem": 60}
 
-    results = generator.generate_related_data(
+    results = generator.generate_for_sqlalchemy_models(
         sqlalchemy_models=[Customer, Contact, Product, Order, OrderItem],
         prompts=prompts,
         sample_sizes=sample_sizes,
@@ -281,7 +280,7 @@ def main():
         print("  ✅ All OrderItem.product_id values are valid.")
 ```
 
-## Metadata Enhancement Benefits
+## Metadata Enhancement Benefits with SQLAlchemy Models
 
 * **Richer Context**: Leverages docstrings, comments, and column constraints to enrich prompts.
 * **Simpler Prompts**: Less manual specification; model infers details.
@@ -549,148 +548,283 @@ Custom generators can significantly enhance the quality and realism of your synt
 
 ## Model Selection and Configuration
 
-Syda now uses the instructor library for unified access to multiple AI providers. This integration enables seamless switching between OpenAI, Anthropic (Claude), and other providers without changing your code structure.
+Syda uses the powerful **instructor** library for unified access to multiple AI providers. This integration provides several key benefits:
+
+- **Provider Abstraction**: Switch between models from different providers with minimal code changes
+- **Consistent Interface**: Use the same syntax regardless of the underlying model provider
+- **Structured Output Parsing**: Automatically convert AI responses to structured data formats
+- **Type Validation**: Ensure responses match your expected schema structure
+- **Error Handling**: Get meaningful errors when generation fails instead of random data
 
 ### Basic Configuration
 
-Configure provider, model, temperature, tokens, and proxy settings:
+Configure provider, model, temperature, tokens, and proxy settings using the `ModelConfig` class:
 
 ```python
 from syda.schemas import ModelConfig, ProxyConfig
+
+# Create a model configuration
 config = ModelConfig(
     provider='openai',  # Choose from: 'openai', 'anthropic', etc.
     model_name='gpt-4-turbo',  # Model name for the selected provider
-    temperature=0.9,
-    top_p=0.95,
-    seed=42,  # OpenAI-specific
-    max_tokens=1000,
-    proxy=ProxyConfig(
+    temperature=0.7,    # Controls randomness (0.0-1.0)
+    top_p=0.95,         # Nucleus sampling parameter
+    seed=42,            # For reproducible outputs (provider-specific)
+    max_tokens=4000,    # Maximum response length (default: 4000)
+    proxy=ProxyConfig(  # Optional proxy configuration
         base_url='https://ai-proxy.company.com/v1',
         headers={'X-Company-Auth':'internal-token'},
-        params={'team':'data-science'},
-        path_format='/proxy/{provider}/completions'
+        params={'team':'data-science'}
     )
 )
+
+# Initialize generator with the configuration
 generator = SyntheticDataGenerator(model_config=config)
 ```
 
 ### Using Different Model Providers
 
+The instructor library integration allows you to easily switch between different AI providers while maintaining a consistent interface.
+
 #### OpenAI Models
 
 ```python
-# Default configuration uses OpenAI's GPT-4
+# Default configuration - uses OpenAI's GPT-4 if no model_config provided
 default_generator = SyntheticDataGenerator()
 
-# Explicitly configure for GPT-3.5 Turbo
+# Explicitly configure for GPT-3.5 Turbo (faster and more cost-effective)
 openai_config = ModelConfig(
     provider='openai',
-    model_name='gpt-3.5-turbo',
-    temperature=0.7
+    model_name='gpt-3.5-turbo',  # You can also use 'gpt-3.5-turbo-1106' for better JSON handling
+    temperature=0.7,
+    response_format={"type": "json_object"}  # Forces JSON response format (GPT models)
 )
 gpt35_generator = SyntheticDataGenerator(model_config=openai_config)
+
+# Generate data with specific model configuration
+data = gpt35_generator.generate_data(
+    schema={'product_id': 'number', 'product_name': 'text', 'price': 'number'},
+    prompt="Generate electronic product data with prices between $500-$2000",
+    sample_size=10
+)
 ```
 
 #### Anthropic Claude Models
 
 ```python
-# Configure for Claude
+# Configure for Claude (requires ANTHROPIC_API_KEY environment variable)
 claude_config = ModelConfig(
     provider='anthropic',
-    model_name='claude-3-sonnet-20240229',
-    temperature=0.7
+    model_name='claude-3-sonnet-20240229',  # Available models: claude-3-opus, claude-3-sonnet, claude-3-haiku
+    temperature=0.7,
+    max_tokens=2000  # Claude can sometimes need more tokens for structured output
 )
 claude_generator = SyntheticDataGenerator(model_config=claude_config)
 
 # Generate data with Claude
 data = claude_generator.generate_data(
-    schema={'product_id': 'number', 'product_name': 'text', 'price': 'number'},
+    schema={'product_id': 'number', 'product_name': 'text', 'price': 'number', 'description': 'text'},
     prompt="Generate luxury product data with realistic prices over $1000",
     sample_size=5
 )
 ```
 
+#### Maximum Tokens Parameter
+
+The library now uses a default of 4000 tokens for `max_tokens` to ensure complete responses with all expected columns. This helps prevent incomplete data generation issues.
+
+```python
+# Override the default max_tokens setting
+config = ModelConfig(
+    provider="openai",
+    model_name="gpt-4",
+    max_tokens=8000,  # Increase for very complex schemas or large sample sizes
+    temperature=0.7
+)
+```
+
+When generating complex data or data with many columns, consider increasing this value if you notice missing columns in your generated data.
+
+#### Provider-Specific Optimizations
+
+Each AI provider has different strengths and parameter requirements. The `instructor` library handles most of the differences automatically, but you can optimize for specific providers:
+
+```python
+# OpenAI-specific optimization
+openai_optimized = ModelConfig(
+    provider='openai',
+    model_name='gpt-4-turbo',
+    temperature=0.7,
+    response_format={"type": "json_object"},  # Only works with OpenAI
+    seed=42  # For reproducible outputs
+)
+
+# Anthropic-specific optimization
+anthropic_optimized = ModelConfig(
+    provider='anthropic',
+    model_name='claude-3-opus-20240229',
+    temperature=0.7,
+    system="You are a synthetic data generator that creates realistic, high-quality datasets based on the provided schema."  # System prompt works best with Anthropic
+)
+```
+
 ### Advanced: Direct Access to LLM Client
 
-For advanced use cases, you can access the underlying LLM client directly:
+For advanced use cases, you can access the underlying Instructor-patched LLM client directly for additional control:
 
 ```python
 from syda.llm import create_llm_client
+from instructor import Mode
 
-# Create a standalone LLM client
+# Create a standalone LLM client with instructor integration
 llm_client = create_llm_client(
-    model_config=ModelConfig(provider='anthropic', model_name='claude-3-opus-20240229'),
-    anthropic_api_key="your_api_key"  # Optional, uses environment variable by default
+    model_config=ModelConfig(
+        provider='anthropic', 
+        model_name='claude-3-opus-20240229'
+    ),
+    # API key is optional if set in environment variables
+    anthropic_api_key="your_api_key"  
 )
 
-# Use the client directly
-response = llm_client.client.messages.create(
+# Define a Pydantic model for structured output
+from pydantic import BaseModel
+from typing import List
+
+class Book(BaseModel):
+    title: str
+    author: str
+    year: int
+    genre: str
+    pages: int
+
+class BookCollection(BaseModel):
+    books: List[Book]
+
+# Use the instructor-patched client for structured responses
+books = llm_client.client.chat.completions.create(
     model="claude-3-opus-20240229",
-    max_tokens=1000,
-    messages=[{"role": "user", "content": "Generate a JSON array of 5 fictional books."}]
+    response_model=BookCollection,  # Instructor handles parsing to this model
+    mode=Mode.JSON,  # Force JSON mode for reliable structured output
+    messages=[{"role": "user", "content": "Generate 5 fictional sci-fi books."}]
 )
+
+# Access the structured data directly
+for book in books.books:
+    print(f"{book.title} by {book.author} ({book.year}) - {book.pages} pages")
 ```
+
+This approach leverages the full power of Instructor's structured data extraction capabilities while giving you direct control over the client.
 
 ## Output Options
 
 * Returns a `pandas.DataFrame` if no `output_path` specified.
 * Saves to `.csv` or `.json` when `output_path` ends accordingly.
 
-## Configuration
+## Configuration and Error Handling
 
-### API Keys
+### API Keys Management
 
-Set API keys via environment variables or parameters:
+With the instructor library integration, you now need to provide appropriate API keys based on the provider you're using. There are two recommended ways to manage API keys:
+
+#### 1. Environment Variables (Recommended)
+
+Set API keys via environment variables:
 
 ```bash
-# Set in environment
-export OPENAI_API_KEY=your_key
-export ANTHROPIC_API_KEY=your_key
+# For OpenAI models
+export OPENAI_API_KEY=your_openai_key
+
+# For Anthropic models
+export ANTHROPIC_API_KEY=your_anthropic_key
+
+# For other providers, check the instructor library documentation
 ```
 
-Or provide them directly when initializing the generator:
+You can also use a `.env` file in your project root and load it with:
 
 ```python
-# Pass directly to constructor
+from dotenv import load_dotenv
+load_dotenv()  # This loads API keys from .env file
+```
+
+#### 2. Direct Initialization
+
+Provide API keys when initializing the generator:
+
+```python
+# With explicit model configuration
 generator = SyntheticDataGenerator(
     model_config=ModelConfig(provider='openai', model_name='gpt-4'),
-    openai_api_key="your_openai_key",
-    anthropic_api_key="your_anthropic_key"
+    openai_api_key="your_openai_key",      # Only needed for OpenAI models
+    anthropic_api_key="your_anthropic_key"  # Only needed for Anthropic models
 )
 ```
 
-### Modular LLM System
+### Instructor Library Integration
 
-The library now uses a modular LLM client system that can be used independently:
+Syda now leverages the [instructor](https://github.com/jxnl/instructor) library to provide:
+
+1. **Structured Data Extraction**: Reliable conversion of LLM responses to structured data formats
+2. **Multi-Provider Support**: Single interface for multiple AI providers
+3. **Runtime Type Validation**: Ensures AI outputs conform to your schema
+4. **Automatic Retries**: Retry logic for invalid responses
+5. **Streaming Support**: For large dataset generation
+
+This integration enables a more reliable and consistent data generation experience across different AI providers.
 
 ```python
-# Import the LLM client module
+# Import the LLM client module directly for advanced usage
 from syda.llm import create_llm_client, LLMClient
 
 # Create a client with specific configuration
 llm_client = create_llm_client(
     model_config=ModelConfig(provider='anthropic', model_name='claude-3-sonnet-20240229'),
-    anthropic_api_key="your_api_key"  # Optional
+    anthropic_api_key="your_api_key"  # Optional if set in environment
 )
 
-# Access the instructor-patched client
+# The patched client has all the instructor enhancements
 patched_client = llm_client.client
 
-# Use in your own applications
-response = patched_client.messages.create(
+# Use the enhanced client in your own applications
+from pydantic import BaseModel
+from typing import List
+
+class DataPoint(BaseModel):
+    name: str
+    value: float
+    category: str
+
+class Dataset(BaseModel):
+    data_points: List[DataPoint]
+
+result = patched_client.chat.completions.create(
     model="claude-3-sonnet-20240229",
-    max_tokens=500,
-    messages=[{"role": "user", "content": "Write a short poem about synthetic data"}]
+    response_model=Dataset,  # Pydantic model for structured output
+    messages=[{"role": "user", "content": "Generate 5 data points about renewable energy"}]
 )
 ```
 
-### API Keys in Code
+### Error Handling
+
+Syda's error handling has been improved to provide more useful feedback when data generation fails. The library now:
+
+1. **Raises Explicit Exceptions**: When data generation fails rather than returning random data
+2. **Provides Detailed Error Messages**: Explaining what went wrong and potential fixes
+3. **Validates Output Structure**: Ensures generated data matches the expected schema
+
+Example error handling:
 
 ```python
-generator = SyntheticDataGenerator(
-    openai_api_key='your_openai_key',
-    anthropic_api_key='your_anthropic_key'
-)
+try:
+    data = generator.generate_data(
+        schema=YourModel,
+        prompt="Generate synthetic data...",
+        sample_size=10
+    )
+    # Process the data...
+except ValueError as e:
+    print(f"Data generation failed: {str(e)}")
+    # Implement fallback strategy or retry with different parameters
 ```
 
 ## Contributing

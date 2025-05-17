@@ -32,7 +32,7 @@ def test_hybrid_generate_data():
     generator.register_generator('icd10_code', custom_icd10_code)
     output_path = 'synthetic_output.csv'
     result = generator.generate_data(
-        schema=schema, prompt=prompt, sample_size=15, output_path=output_path)
+        schema_dict=schema, prompt=prompt, sample_size=15, output_path=output_path)
     print(f'Generated hybrid synthetic data written to: {result}')
     assert result == output_path
     df = pd.read_csv(output_path)

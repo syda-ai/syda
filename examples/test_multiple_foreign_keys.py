@@ -98,18 +98,36 @@ class Project(Base):
 
 def generate_department_data():
     """Generate synthetic department data."""
-    generator = SyntheticDataGenerator()
+    # Get API key from environment or from .env file
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    if not openai_api_key:
+        print("⚠️ Warning: OPENAI_API_KEY not found in environment variables. Make sure it's set in your .env file.")
+    
+    # Create a model config with explicit settings for better reliability
+    from syda.schemas import ModelConfig
+    model_config = ModelConfig(
+        provider="openai",
+        model_name="gpt-3.5-turbo",  # Using 3.5 for faster/cheaper responses
+        temperature=0.7,  
+        max_tokens=4000  # Using higher max_tokens value
+    )
+    
+    # Initialize with specific model config
+    generator = SyntheticDataGenerator(model_config=model_config)
     
     # The prompt describes what kind of data we want
     # Note: Most details are now extracted from the model metadata
     prompt = """
     Generate realistic department data for a technology company.
+    Include 5 departments covering Engineering, Marketing, Sales, HR, and Finance.
+    Each department should have a unique ID and a specific location.
+    Ensure data is properly structured and complete.
     """
     
     # Generate data directly from the Department model
     output_path = 'departments.csv'
     generator.generate_data(
-        schema=Department,
+        sqlalchemy_model=Department,
         prompt=prompt,
         sample_size=5,
         output_path=output_path
@@ -122,28 +140,38 @@ def generate_department_data():
 
 def generate_employee_data(departments_df):
     """Generate synthetic employee data with valid department_id foreign keys."""
-    generator = SyntheticDataGenerator()
+    # Use the same model config for consistency
+    from syda.schemas import ModelConfig
+    model_config = ModelConfig(
+        provider="openai",
+        model_name="gpt-3.5-turbo",
+        temperature=0.7,
+        max_tokens=4000  # Using higher max_tokens value
+    )
+    generator = SyntheticDataGenerator(model_config=model_config)
     
     # Register a column-specific generator for department_id foreign key
     def department_id_generator(row, col_name):
         # Sample from the generated department IDs
         return random.choice(departments_df['id'].tolist())
     
-    # Register our custom foreign key generator specifically for department_id column
     generator.register_generator('foreign_key', department_id_generator, column_name='department_id')
     
-    # The prompt describes what kind of data we want
-    # Note: Most details are now extracted from the model metadata
+    # More specific prompt with clear instructions
     prompt = """
     Generate realistic employee data for a technology company.
+    Include a mix of different roles, salaries, and hire dates.
+    Assign employees to existing departments.
+    Ensure each employee has a valid department_id from the departments table.
+    Include senior and junior employees with appropriate titles and salaries.
     """
     
     # Generate data directly from the Employee model
     output_path = 'employees.csv'
     generator.generate_data(
-        schema=Employee,
+        sqlalchemy_model=Employee,
         prompt=prompt,
-        sample_size=10,
+        sample_size=20,  # More employees than departments
         output_path=output_path
     )
     
@@ -152,35 +180,45 @@ def generate_employee_data(departments_df):
 
 
 def generate_project_data(departments_df, employees_df):
-    """Generate synthetic project data with multiple foreign keys (department_id and manager_id)."""
-    generator = SyntheticDataGenerator()
+    """Generate synthetic project data with department and manager references."""
+    # Use the same model config for consistency
+    from syda.schemas import ModelConfig
+    model_config = ModelConfig(
+        provider="openai",
+        model_name="gpt-3.5-turbo",
+        temperature=0.7,
+        max_tokens=4000  # Using higher max_tokens value
+    )
+    generator = SyntheticDataGenerator(model_config=model_config)
     
-    # Register column-specific generators for each foreign key
+    # Register custom generators for the foreign keys
+    # 1. Department ID generator
     def department_id_generator(row, col_name):
-        # Sample from the generated department IDs
         return random.choice(departments_df['id'].tolist())
     
+    # 2. Manager ID generator - only use employee IDs for managers
     def manager_id_generator(row, col_name):
-        # Sample from the generated employee IDs
         return random.choice(employees_df['id'].tolist())
     
-    # Register our custom foreign key generators for each specific column
+    # Register our foreign key generators for specific columns
     generator.register_generator('foreign_key', department_id_generator, column_name='department_id')
     generator.register_generator('foreign_key', manager_id_generator, column_name='manager_id')
     
-    # The prompt describes what kind of data we want
-    # Note: Most details are now extracted from the model metadata
+    # More specific prompt with clear instructions
     prompt = """
     Generate realistic project data for a technology company.
-    Include a mix of different project types and scales.
+    Include a mix of different statuses, budgets, and start/end dates.
+    Ensure each project has a valid department_id and manager_id.
+    Projects should have realistic names, descriptions, and appropriate budgets.
+    Include both ongoing and completed projects with realistic timelines.
     """
     
     # Generate data directly from the Project model
     output_path = 'projects.csv'
     generator.generate_data(
-        schema=Project,
+        sqlalchemy_model=Project,
         prompt=prompt,
-        sample_size=15,
+        sample_size=8,  # Fewer projects than departments
         output_path=output_path
     )
     

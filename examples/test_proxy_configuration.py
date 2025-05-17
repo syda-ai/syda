@@ -70,7 +70,7 @@ def main():
     # Uncomment the following lines to test with your actual proxy setup
     """
     proxy_data = proxy_generator.generate_data(
-        schema=schema,
+        schema_dict=schema,
         prompt=prompt,
         sample_size=2
     )

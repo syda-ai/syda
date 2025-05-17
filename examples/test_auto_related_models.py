@@ -5,7 +5,7 @@ multiple related SQLAlchemy models with foreign key relationships.
 
 This example demonstrates:
 1. Defining a set of related SQLAlchemy models with foreign key relationships
-2. Using generate_related_data to automatically handle:
+2. Using generate_for_sqlalchemy_models to automatically handle:
    - Dependency resolution between models
    - Generation order (parents before children)
    - Foreign key constraints
@@ -141,8 +141,16 @@ class OrderItem(Base):
 def main():
     """Demonstrate automatic generation of related data with proper foreign key handling."""
     
-    # Create a generator instance
-    generator = SyntheticDataGenerator()
+    # Create a generator instance with appropriate max_tokens setting and logging enabled
+    from syda.schemas import ModelConfig    
+    
+    model_config = ModelConfig(
+        provider="openai",
+        model_name="gpt-4",  # Default model
+        temperature=0.7,
+        max_tokens=4000,  # Using higher max_tokens value for more complete responses
+    )
+    generator = SyntheticDataGenerator(model_config=model_config)
     
     # Define output directory
     output_dir = "crm_data"
@@ -200,7 +208,7 @@ def main():
     print("  with custom generators for specific columns\n")
     
     # Generate data for all SQLAlchemy models with automatic dependency resolution
-    results = generator.generate_related_data(
+    results = generator.generate_for_sqlalchemy_models(
         sqlalchemy_models=[Customer, Contact, Product, Order, OrderItem],
         prompts=prompts,
         sample_sizes=sample_sizes,

@@ -32,25 +32,28 @@ def main():
     
     prompt = "Generate product data for an electronics store with realistic prices and descriptions."
     
-    print("\n1. Default configuration (OpenAI GPT-4):")
+    print("\n1. Default configuration (OpenAI GPT-4 with max_tokens=4000):")
     default_generator = SyntheticDataGenerator()
     default_data = default_generator.generate_data(
-        schema=schema,
+        schema_dict=schema,
         prompt=prompt,
         sample_size=3
     )
+    print(f"Using default max_tokens: 4000")
     print(default_data)
     
-    print("\n2. Using GPT-3.5 Turbo with dictionary configuration:")
+    print("\n2. Using GPT-3.5 Turbo with explicit max_tokens:")
     gpt35_generator = SyntheticDataGenerator(
         model_config={
+            "provider": "openai",
             "model_name": "gpt-3.5-turbo",
             "temperature": 0.9,
+            "max_tokens": 4000,  # Same as default, explicitly set
             "seed": 42  # For reproducible results
         }
     )
     gpt35_data = gpt35_generator.generate_data(
-        schema=schema,
+        schema_dict=schema,
         prompt=prompt,
         sample_size=3
     )
@@ -67,7 +70,7 @@ def main():
         )
         claude_generator = SyntheticDataGenerator(model_config=claude_config)
         claude_data = claude_generator.generate_data(
-            schema=schema,
+            schema_dict=schema,
             prompt=prompt,
             sample_size=3
         )
@@ -86,7 +89,7 @@ def main():
     )
     complex_generator = SyntheticDataGenerator(model_config=complex_config)
     complex_data = complex_generator.generate_data(
-        schema=schema,
+        schema_dict=schema,
         prompt=prompt,
         sample_size=3
     )
