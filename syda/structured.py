@@ -329,7 +329,7 @@ class SyntheticDataGenerator:
                 print(f"Using prompt: {prompt[:50]}..." if len(prompt) > 50 else f"Using prompt: {prompt}")
                 
                 # Generate the data
-                df = self.generate_data(model_class, prompt, sample_size)
+                df = self.generate_data(sqlalchemy_model=model_class, prompt=prompt, sample_size=sample_size)
                 
                 # Handle any missing columns
                 df = self._handle_missing_columns(df, model_name, schema, None, custom_generators)
@@ -341,6 +341,40 @@ class SyntheticDataGenerator:
                 # Store the generated data
                 results[model_name] = df
                 
+                # After generating a model, register foreign key generators for any models that reference it
+                # and store valid IDs for later use
+                for dependent_model, info in model_info.items():
+                    if model_name in info['references']:
+                        # This model references the model we just generated
+                        # Find the foreign key columns that reference this model
+                        dependent_model_class = model_info[dependent_model]['model_class']
+                        # Create a column-specific foreign key generator that samples from the IDs we just generated
+                        for col_name, col_type in model_info[dependent_model]['schema'].items():
+                            if col_type == 'foreign_key':
+                                inspector = inspect(dependent_model_class)
+                                for fk in inspector.columns[col_name].foreign_keys:
+                                    target_fullname = fk.target_fullname
+                                    target_table = target_fullname.split('.')[0]
+                                    target_column = target_fullname.split('.')[1]
+                                    # If this column references the current model
+                                    if model_info[model_name]['model_class'].__table__.name == target_table:
+                                        # Capture the valid IDs from the parent model
+                                        # Ensure we use the actual primary key values
+                                        valid_ids = df[target_column].tolist() if target_column in df.columns else df['id'].tolist()
+                                        
+                                        # Save these valid IDs for later validation
+                                        if 'fk_values' not in model_info[dependent_model]:
+                                            model_info[dependent_model]['fk_values'] = {}
+                                        model_info[dependent_model]['fk_values'][col_name] = valid_ids
+                                        
+                                        # Create a stable generator function that captures valid_ids
+                                        valid_ids_copy = valid_ids.copy()  # Make a copy to avoid reference issues
+                                        fk_generator = lambda row, col, ids=valid_ids_copy: random.choice(ids)
+                                        
+                                        # Register this generator for the specific column
+                                        print(f"Registering foreign key generator for {dependent_model}.{col_name} -> {model_name}")
+                                        self.register_generator('foreign_key', fk_generator, column_name=col_name)
+                
                 # Save to file if output_dir is specified
                 if output_dir:
                     os.makedirs(output_dir, exist_ok=True)
@@ -349,8 +383,8 @@ class SyntheticDataGenerator:
                     
         except Exception as e:
             # Restore original generators in case of error
-            self.type_generators = original_generators['type']
-            self.column_generators = original_generators['column']
+            self.type_generators = original_type_generators
+            self.column_generators = original_column_generators
             raise e
             
         return results
