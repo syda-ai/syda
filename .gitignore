@@ -42,3 +42,4 @@ service/alembic/versions/*
 *.swo
 *~
 *.csv
+logs/

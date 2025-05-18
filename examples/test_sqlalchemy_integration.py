@@ -87,7 +87,7 @@ def generate_department_data():
     # Generate data directly from the Department model
     output_path = 'departments.csv'
     generator.generate_data(
-        schema=Department,  # Pass the SQLAlchemy model directly
+        sqlalchemy_model=Department,  # Pass the SQLAlchemy model directly
         prompt=prompt,
         sample_size=5,
         output_path=output_path
@@ -123,7 +123,7 @@ def generate_employee_data(departments_df):
     # Generate data directly from the Employee model
     output_path = 'employees.csv'
     generator.generate_data(
-        schema=Employee,  # Pass the SQLAlchemy model directly
+        sqlalchemy_model=Employee,  # Pass the SQLAlchemy model directly
         prompt=prompt,
         sample_size=20,
         output_path=output_path

@@ -70,7 +70,7 @@ class ModelConfig(BaseModel):
     
     # Common parameters
     temperature: float = Field(0.7, ge=0.0, le=2.0, description="Controls randomness: 0.0 is deterministic, higher values are more random")
-    max_tokens: Optional[int] = Field(None, description="Maximum number of tokens to generate")
+    max_tokens: int = Field(4000, description="Maximum number of tokens to generate. Larger values allow for more complete responses.")
     top_p: Optional[float] = Field(None, ge=0.0, le=1.0, description="Nucleus sampling parameter")
     
     # OpenAI specific parameters
@@ -87,12 +87,16 @@ class ModelConfig(BaseModel):
     def get_model_kwargs(self) -> Dict[str, Any]:
         """Get model-specific kwargs for API calls."""
         # Start with common parameters
-        kwargs = {"temperature": self.temperature}
+        kwargs = {
+            "temperature": self.temperature,
+            "max_tokens": self.max_tokens,  # Always include max_tokens
+        }
+        
+        # Always include the model name, which is required for OpenAI and used for other providers
+        kwargs["model"] = self.model_name
         
         # Add provider-specific parameters
         if self.provider == "openai":
-            if self.max_tokens:
-                kwargs["max_tokens"] = self.max_tokens
             if self.top_p:
                 kwargs["top_p"] = self.top_p
             if self.seed:
@@ -101,12 +105,22 @@ class ModelConfig(BaseModel):
                 kwargs["response_format"] = self.response_format
         
         elif self.provider == "anthropic":
-            if self.max_tokens_to_sample or self.max_tokens:
-                # Use max_tokens_to_sample if specified, otherwise fall back to max_tokens
-                kwargs["max_tokens_to_sample"] = self.max_tokens_to_sample or self.max_tokens
+            # The updated Anthropic API via instructor now uses the same parameter names as OpenAI
+            # for better compatibility across providers
+            
+            # Override max_tokens with max_tokens_to_sample if provided (for backward compatibility)
+            if self.max_tokens_to_sample:
+                kwargs["max_tokens"] = self.max_tokens_to_sample
+                
             if self.top_p:
                 kwargs["top_p"] = self.top_p
+                
             if self.top_k:
+                # This might not be supported in the current instructor integration
+                # but we'll keep it for future compatibility
                 kwargs["top_k"] = self.top_k
+                
+            # Ensure model name is set correctly for Anthropic
+            kwargs["model"] = self.model_name
         
         return kwargs

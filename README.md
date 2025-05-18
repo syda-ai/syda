@@ -1,37 +1,66 @@
 # Synthetic Data Generation Library
 
-A Python-based open-source library for generating synthetic data with AI while preserving referential integrity.
+A Python-based open-source library for generating synthetic data with AI while preserving referential integrity. Allowing seamless use of OpenAI, Anthropic (Claude), and other AI models.
 
 ## Table of Contents
 
-- [Features](#features)
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Core API](#core-api)
-  - [Structured Data Generation](#structured-data-generation)
-  - [SQLAlchemy Model Integration](#sqlalchemy-model-integration)
-  - [Handling Foreign Key Relationships](#handling-foreign-key-relationships)
-  - [Automatic Management of Multiple Related Models](#automatic-management-of-multiple-related-models)
-  - [Complete CRM Example](#complete-crm-example)
-  - [Metadata Enhancement Benefits](#metadata-enhancement-benefits)
-  - [Model Selection and Configuration](#model-selection-and-configuration)
-  - [Output Options](#output-options)
-- [Configuration](#configuration)
-- [Contributing](#contributing)
+* [Features](#features)
+* [Installation](#installation)
+* [Quick Start](#quick-start)
+* [Core API](#core-api)
+
+  * [Structured Data Generation](#structured-data-generation)
+  * [SQLAlchemy Model Integration](#sqlalchemy-model-integration)
+  * [Handling Foreign Key Relationships](#handling-foreign-key-relationships)
+  * [Automatic Management of Multiple Related Models](#automatic-management-of-multiple-related-models)
+  * [Complete CRM Example](#complete-crm-example)
+  * [Metadata Enhancement Benefits](#metadata-enhancement-benefits)
+  * [Custom Generators for Domain-Specific Data](#custom-generators-for-domain-specific-data)
+  * [Model Selection and Configuration](#model-selection-and-configuration)
+  * [Output Options](#output-options)
+* [Configuration](#configuration)
+* [Contributing](#contributing)
+* [License](#license)
 
 ## Features
 
-### Features
+* **Multi-Provider AI Integration**:
 
-- **Synthetic Data Generation**:
-  - Statistical data generation
-  - Pattern-based generation
-  - Data distribution preservation
-  - Synthetic data from various sources
+  * Seamless integration with multiple AI providers
+  * Support for OpenAI (GPT-3.5/4), Anthropic (Claude), and other models
+  * Consistent interface across different providers
+  * Provider-specific parameter optimization
 
-## Core Module Usage
+* **LLM-based Data Generation**:
 
-### Installation
+  * AI-powered schema understanding and data creation
+  * Contextually-aware synthetic records
+  * Natural language prompt customization
+  * Intelligent schema inference
+
+* **SQLAlchemy Integration**:
+
+  * Automatic extraction of model metadata, docstrings and constraints
+  * Intelligent column-specific data generation
+  * Parameter naming consistency with `sqlalchemy_models`
+  
+* **Referential Integrity**
+
+  * Automatic foreign key detection and resolution
+  * Multi-model dependency analysis through topological sorting
+  * Robust handling of related data with referential constraints
+  
+* **Custom Generators**
+
+  * Register column- or type-specific functions for domain-specific data
+  * Contextual generators that adapt to other fields (like ICD-10 codes based on demographics)
+  * Weighted distributions for realistic data patterns
+
+* **Open Core**
+
+  * Core functionality under AGPL-3.0
+
+## Installation
 
 Install the package using pip:
 
@@ -39,128 +68,773 @@ Install the package using pip:
 pip install syda
 ```
 
-### Basic Usage
-
-#### Synthetic Data Generation
-
-##### Model Selection and Configuration
-
-The library allows you to customize which AI model to use for generating data and configure model-specific parameters. Additionally, you can configure proxy settings for the API requests.
+## Quick Start
 
 ```python
 from syda.structured import SyntheticDataGenerator
-from syda.schemas import ModelConfig
 
-# Configure with default settings (OpenAI GPT-4)
 generator = SyntheticDataGenerator()
+schema = {
+    'patient_id': 'number',
+    'diagnosis_code': 'icd10_code',
+    'email': 'email',
+    'visit_date': 'date',
+    'notes': 'text'
+}
+prompt = "Generate realistic synthetic patient records with ICD-10 diagnosis codes, emails, visit dates, and clinical notes."
 
-# Configure with specific model name
-generator = SyntheticDataGenerator(
-    model_config={"model_name": "gpt-3.5-turbo"}
+# Generate and save to CSV
+output = generator.generate_data(
+    schema_dict=schema,
+    prompt=prompt,
+    sample_size=15,
+    output_path='synthetic_output.csv'
 )
+print(f"Data saved to {output}")
+```
 
-# Use Anthropic Claude model with specific settings
-claude_config = ModelConfig(
-    provider="anthropic",
-    model_name="claude-3-opus-20240229",
-    temperature=0.5,
-    max_tokens=2000
-)
-generator = SyntheticDataGenerator(model_config=claude_config)
+## Core API
 
-# Provide custom API keys
-generator = SyntheticDataGenerator(
-    model_config={"model_name": "gpt-4-turbo"},
-    openai_api_key="your-openai-api-key"
-)
+### Structured Data Generation
 
-# Using with company AI proxy
-from syda.schemas import ProxyConfig
+Use simple schema maps or SQLAlchemy models to generate data:
 
-generator = SyntheticDataGenerator(
-    model_config={
-        "model_name": "gpt-4-turbo",
-        "proxy": {
-            "base_url": "https://ai-proxy.company.com/v1",
-            "headers": {"X-Company-Auth": "your-internal-token"}
-        }
-    }
-)
+```python
+from syda.structured import SyntheticDataGenerator
 
-# Or with the ModelConfig class for more control
-proxy_config = ModelConfig(
-    provider="openai",
-    model_name="gpt-4-turbo",
-    proxy=ProxyConfig(
-        base_url="https://ai-proxy.company.com/v1",
-        headers={"X-Company-Auth": "your-internal-token"},
-        params={"team": "data-science"}
-    )
+generator = SyntheticDataGenerator(model='gpt-4-turbo')
+# Simple dict schema
+records = generator.generate_data(
+    schema={'id': 'number', 'name': 'text'},
+    prompt='Generate user records',
+    sample_size=10
 )
 ```
 
-You can customize various model parameters:
+### SQLAlchemy Model Integration
 
-1. **Common Parameters**:
-   - `provider`: The AI provider to use - "openai" or "anthropic" (default: "openai")
-   - `model_name`: The specific model to use (default: "gpt-4")
-   - `temperature`: Controls randomness of outputs (0.0-2.0, default: 0.7)
-   - `max_tokens`: Maximum tokens to generate
-   - `top_p`: Nucleus sampling parameter (0.0-1.0)
-
-2. **OpenAI Specific**:
-   - `seed`: Random seed for reproducibility
-   - `response_format`: Format specification for responses
-
-3. **Anthropic Specific**:
-   - `top_k`: Top K sampling parameter
-   - `max_tokens_to_sample`: Maximum tokens to generate (Anthropic specific)
-
-4. **Proxy Configuration** ⚠️:
-   - `proxy`: Configure API requests to use your company's AI proxy service
-     - `base_url`: Base URL for the proxy service
-     - `headers`: Additional HTTP headers for authentication and metadata
-     - `params`: Query parameters to include in requests
-     - `path_format`: Custom path formatting (if needed by your proxy)
-   
-   > **⚠️ Warning**: The proxy configuration feature is experimental and has not been thoroughly tested with actual enterprise proxy setups. You may need to adjust the implementation to work with your specific company proxy. Please report any issues you encounter.
-
-Example with advanced configuration:
+Pass declarative models directly—docstrings and column metadata inform the prompt:
 
 ```python
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
 from syda.structured import SyntheticDataGenerator
+
+Base = declarative_base()
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, comment="Full name of the user")
+
+generator = SyntheticDataGenerator()
+generator.generate_data(sqlalchemy_model=User, prompt='Generate users', sample_size=5)
+```
+
+### Handling Foreign Key Relationships
+
+The library provides robust support for handling foreign key relationships with referential integrity:
+
+1. **Automatic Foreign Key Detection**: Foreign keys are automatically detected from your SQLAlchemy models and assigned the type `'foreign_key'`.
+2. **Column-Specific Foreign Key Generators**: Register different generators for each foreign key column when dealing with multiple relationships:
+
+```python
+# After generating departments and loading them into departments_df:
+def department_id_fk_generator(row, col_name):
+    return random.choice(departments_df['id'].tolist())
+generator.register_generator('foreign_key', department_id_fk_generator, column_name='department_id')
+```
+
+3. **Multi-Step Generation Process**: For related tables, generate parent records first, then use their IDs when generating child records:
+
+```python
+# Generate departments first
+departments_df = generator.generate_data(sqlalchemy_model=Department, prompt='...', sample_size=5)
+# Then generate employees with valid department_id references
+employees_df = generator.generate_data(sqlalchemy_model=Employee, prompt='Generate realistic employee data', sample_size=10)
+```
+
+4. **Referential Integrity Preservation**: The foreign key generator samples from actual existing IDs in the parent table, ensuring all references are valid.
+5. **Metadata-Enhanced Foreign Keys**: Column comments on foreign key fields are preserved and included in the prompt, helping the LLM understand the relationship context.
+
+### Automatic Management of Multiple Related Models
+
+Simplify multi-table workflows with `generate_for_sqlalchemy_models`:
+
+```python
+results = generator.generate_for_sqlalchemy_models(
+    sqlalchemy_models=[Customer, Contact, Product, Order, OrderItem],
+    prompts={
+        "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
+        "Product": "Generate cloud software products and services."
+    },
+    sample_sizes={
+        "Customer": 10,
+        "Contact": 25,
+        "Product": 15,
+        "Order": 30,
+        "OrderItem": 60
+    },
+    output_dir="output_data",
+    custom_generators={
+        "Customer": {"status": lambda row, col: random.choice(["Active", "Inactive", "Prospect"])},
+        "Product": {"price": lambda row, col: round(random.uniform(50, 5000), 2)}
+    }
+)
+```
+
+This method:
+
+* Automatically analyzes model dependencies and orders generation.
+* Manages foreign keys by sampling valid parent IDs.
+* Supports custom generators and preserves referential integrity.
+
+### Complete CRM Example
+
+Here’s a comprehensive example demonstrating `generate_for_sqlalchemy_models` across five interrelated models, including entity definitions, prompt setup, and data verification:
+
+```python
+#!/usr/bin/env python
+import random
+import datetime
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, Date, Boolean, Text
+from sqlalchemy.orm import declarative_base, relationship
+from syda.structured import SyntheticDataGenerator
+
+Base = declarative_base()
+
+class Customer(Base):
+    __tablename__ = 'customers'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), unique=True, comment="Customer organization name")
+    industry = Column(String(50), comment="Customer's primary industry")
+    website = Column(String(100), comment="Customer's website URL")
+    status = Column(String(20), comment="Active, Inactive, Prospect")
+    created_at = Column(Date, default=datetime.date.today, comment="Date when added to CRM")
+    contacts = relationship("Contact", back_populates="customer")
+    orders = relationship("Order", back_populates="customer")
+
+class Contact(Base):
+    __tablename__ = 'contacts'
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), comment="Customer this contact belongs to")
+    first_name = Column(String(50), comment="Contact's first name")
+    last_name = Column(String(50), comment="Contact's last name")
+    email = Column(String(100), unique=True, comment="Contact's email address")
+    phone = Column(String(20), comment="Contact's phone number")
+    position = Column(String(100), comment="Job title or position")
+    is_primary = Column(Boolean, default=False, comment="Primary contact flag")
+    customer = relationship("Customer", back_populates="contacts")
+
+class Product(Base):
+    __tablename__ = 'products'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), unique=True, comment="Product name")
+    category = Column(String(50), comment="Product category")
+    price = Column(Float, comment="Product price in USD")
+    description = Column(Text, comment="Product description")
+    order_items = relationship("OrderItem", back_populates="product")
+
+class Order(Base):
+    __tablename__ = 'orders'
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), comment="Customer who placed the order")
+    order_date = Column(Date, comment="Date when order was placed")
+    status = Column(String(20), comment="Order status: New, Processing, Shipped, Delivered, Cancelled")
+    total_amount = Column(Float, comment="Total amount in USD")
+    customer = relationship("Customer", back_populates="orders")
+    items = relationship("OrderItem", back_populates="order")
+
+class OrderItem(Base):
+    __tablename__ = 'order_items'
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey('orders.id'), comment="Order this item belongs to")
+    product_id = Column(Integer, ForeignKey('products.id'), comment="Product in the order")
+    quantity = Column(Integer, comment="Quantity ordered")
+    unit_price = Column(Float, comment="Unit price at order time")
+    order = relationship("Order", back_populates="items")
+    product = relationship("Product", back_populates="order_items")
+
+
+def main():
+    generator = SyntheticDataGenerator(model='gpt-4')
+    output_dir = 'crm_data'
+    prompts = {
+        "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
+        "Product": "Generate products for a cloud software company.",
+        "Order": "Generate realistic orders with appropriate dates and statuses."
+    }
+    sample_sizes = {"Customer": 10, "Contact": 25, "Product": 15, "Order": 30, "OrderItem": 60}
+
+    results = generator.generate_for_sqlalchemy_models(
+        sqlalchemy_models=[Customer, Contact, Product, Order, OrderItem],
+        prompts=prompts,
+        sample_sizes=sample_sizes,
+        output_dir=output_dir
+    )
+
+    # Referential integrity checks
+    print("\n🔍 Verifying referential integrity:")
+    if set(results['Contact']['customer_id']).issubset(set(results['Customer']['id'])):
+        print("  ✅ All Contact.customer_id values are valid.")
+    if set(results['OrderItem']['product_id']).issubset(set(results['Product']['id'])):
+        print("  ✅ All OrderItem.product_id values are valid.")
+```
+
+## Metadata Enhancement Benefits with SQLAlchemy Models
+
+* **Richer Context**: Leverages docstrings, comments, and column constraints to enrich prompts.
+* **Simpler Prompts**: Less manual specification; model infers details.
+* **Constraint Awareness**: Respects `nullable`, `unique`, and length constraints.
+* **Custom Generators**: Column-level functions for fine-tuned data.
+* **Automatic Docstring Utilization**: Embeds business context from model definitions.
+
+## Custom Generators for Domain-Specific Data
+
+For specialized domains like healthcare, finance, or logistics, you can register custom generators to produce highly accurate and domain-compliant synthetic data. Here's an example with healthcare insurance data:
+
+```python
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
+import datetime
+import random
+from syda.structured import SyntheticDataGenerator
+
+Base = declarative_base()
+
+class Patient(Base):
+    """Healthcare patient record with demographic and insurance information."""
+    __tablename__ = 'patients'
+    
+    id = Column(Integer, primary_key=True)
+    member_id = Column(String(20), unique=True, comment="Insurance member identifier")
+    first_name = Column(String(50), comment="Patient's first name")
+    last_name = Column(String(50), comment="Patient's last name")
+    birth_date = Column(Date, comment="Patient's date of birth")
+    gender = Column(String(10), comment="Patient's gender identity")
+    plan_type = Column(String(20), comment="Insurance plan type (HMO, PPO, etc.)")
+
+class Claim(Base):
+    """Healthcare insurance claim record for patient services."""
+    __tablename__ = 'claims'
+    
+    id = Column(Integer, primary_key=True)
+    patient_id = Column(Integer, ForeignKey('patients.id'), comment="Reference to patient")
+    claim_number = Column(String(20), unique=True, comment="Unique claim identifier")
+    date_of_service = Column(Date, comment="Date medical service was provided")
+    primary_diagnosis = Column(String(10), comment="Primary ICD-10 diagnosis code")
+    procedure_code = Column(String(10), comment="CPT procedure code")
+    billed_amount = Column(Float, comment="Amount billed for service in USD")
+    allowed_amount = Column(Float, comment="Amount allowed by insurance in USD")
+    status = Column(String(20), comment="Claim status (Pending, Approved, Denied, etc.)")
+
+# Create the generator instance
+generator = SyntheticDataGenerator()
+
+# Generate patients first
+patients_df = generator.generate_data(
+    schema=Patient,
+    prompt="Generate realistic patient demographic data for a health insurance company.",
+    sample_size=50,
+    output_path="patients.csv"
+)
+
+# Register custom generators for domain-specific fields
+
+# 1. Custom generator for contextually relevant ICD-10 diagnosis codes
+def icd10_generator(row, col_name):
+    # Get procedure code and patient age (calculated from birth_date)
+    procedure = row.get("procedure_code", "")
+    try:
+        birth_date = datetime.datetime.strptime(row.get("birth_date", ""), "%Y-%m-%d").date()
+        age = (datetime.date.today() - birth_date).days // 365
+    except (ValueError, TypeError):
+        # Default to middle-aged adult if birth_date is missing or invalid
+        age = 45
+    
+    gender = row.get("gender", "").lower()
+    
+    # Map of diagnosis codes by category
+    diagnosis_codes = {
+        # Cardiovascular conditions (more common in older patients)
+        "cardiovascular": [
+            ("I10", "Essential hypertension"),
+            ("I25.10", "Atherosclerotic heart disease"),
+            ("I48.91", "Atrial fibrillation"),
+            ("I50.9", "Heart failure, unspecified")
+        ],
+        # Respiratory conditions
+        "respiratory": [
+            ("J45.909", "Unspecified asthma"),
+            ("J02.9", "Acute pharyngitis"),
+            ("J40", "Bronchitis, not specified as acute or chronic"),
+            ("J06.9", "Acute upper respiratory infection")
+        ],
+        # Musculoskeletal conditions 
+        "musculoskeletal": [
+            ("M54.5", "Low back pain"),
+            ("M25.511", "Pain in right shoulder"),
+            ("M17.9", "Osteoarthritis of knee"),
+            ("M79.1", "Myalgia (muscle pain)")
+        ],
+        # Endocrine conditions
+        "endocrine": [
+            ("E11.9", "Type 2 diabetes without complications"),
+            ("E78.5", "Hyperlipidemia"),
+            ("E03.9", "Hypothyroidism"),
+            ("E66.9", "Obesity")
+        ],
+        # Gastrointestinal conditions
+        "gastrointestinal": [
+            ("K21.9", "Gastro-esophageal reflux disease"),
+            ("K29.70", "Gastritis"),
+            ("K58.9", "Irritable bowel syndrome"),
+            ("K52.9", "Noninfective gastroenteritis and colitis")
+        ],
+        # Mental health conditions
+        "mental_health": [
+            ("F41.9", "Anxiety disorder"),
+            ("F32.9", "Major depressive disorder"),
+            ("F41.1", "Generalized anxiety disorder"),
+            ("F43.0", "Acute stress reaction")
+        ],
+        # Genitourinary conditions (more common in females)
+        "genitourinary_female": [
+            ("N39.0", "Urinary tract infection"),
+            ("N95.1", "Menopausal state"),
+            ("N93.9", "Abnormal uterine and vaginal bleeding"),
+            ("N76.0", "Acute vaginitis")
+        ],
+        # Genitourinary conditions (more common in males)
+        "genitourinary_male": [
+            ("N40.0", "Benign prostatic hyperplasia"),
+            ("N41.0", "Acute prostatitis"),
+            ("N13.5", "Kidney stone"),
+            ("N45.1", "Epididymitis")
+        ],
+        # Common in all demographics
+        "general": [
+            ("R51", "Headache"),
+            ("Z00.00", "General adult medical examination"),
+            ("R42", "Dizziness and giddiness"),
+            ("R53.83", "Fatigue")
+        ]
+    }
+    
+    # Determine relevant categories based on procedure code
+    if procedure.startswith("99"):  # Office visits
+        # For general visits, use demographics to determine likely conditions
+        if age > 60:
+            # Older patients more likely to have chronic conditions
+            categories = ["cardiovascular", "endocrine", "musculoskeletal"]
+            # Add gender-specific conditions
+            if gender == "male":
+                categories.append("genitourinary_male")
+            elif gender == "female":
+                categories.append("genitourinary_female")
+        elif age > 40:
+            # Middle-aged adults
+            categories = ["endocrine", "musculoskeletal", "gastrointestinal", "mental_health"]
+        else:
+            # Younger adults
+            categories = ["respiratory", "mental_health", "general"]
+    elif procedure in ["93000"]:  # ECG
+        # Heart-related procedures indicate cardiovascular diagnosis
+        categories = ["cardiovascular"]
+    elif procedure in ["71045"]:  # Chest X-ray
+        # X-rays often for respiratory issues
+        categories = ["respiratory"]
+    elif procedure in ["85025", "80053"]:  # Blood tests
+        # Lab work often for chronic disease management
+        categories = ["endocrine", "cardiovascular"]
+    elif procedure in ["97110"]:  # Physical therapy
+        # Therapy for musculoskeletal issues
+        categories = ["musculoskeletal"]
+    else:
+        # Default to general categories plus gender-specific
+        categories = ["general", "respiratory", "gastrointestinal"]
+    
+    # Select a random category from the relevant ones, then a diagnosis from that category
+    selected_category = random.choice(categories)
+    selected_diagnosis = random.choice(diagnosis_codes[selected_category])
+    
+    # Return just the code (not the description)
+    return selected_diagnosis[0]
+
+# 2. Custom generator for CPT procedure codes
+def cpt_generator(row, col_name):
+    # Common CPT codes for demonstration
+    common_codes = [
+        "99213",  # Office visit, established patient (15 min)
+        "99214",  # Office visit, established patient (25 min)
+        "99203",  # Office visit, new patient (30 min)
+        "90471",  # Immunization administration
+        "82607",  # Vitamin B-12 blood test
+        "80053",  # Comprehensive metabolic panel
+        "85025",  # Complete blood count (CBC)
+        "93000",  # Electrocardiogram (ECG)
+        "71045",  # X-ray, chest, single view
+        "97110"   # Therapeutic exercises (15 min)
+    ]
+    return random.choice(common_codes)
+
+# 3. Custom generator for claim status
+def claim_status_generator(row, col_name):
+    statuses = ["Pending", "Approved", "Denied", "Under Review", "Appealed"]
+    weights = [0.2, 0.6, 0.1, 0.05, 0.05]  # Weighted distribution
+    return random.choices(statuses, weights=weights)[0]
+
+# 4. Custom generator for realistic claim amounts
+def billed_amount_generator(row, col_name):
+    # Different procedures have different typical cost ranges
+    cpt = row["procedure_code"]
+    
+    # Office visits typically $100-300
+    if cpt.startswith("992"):
+        return round(random.uniform(100, 300), 2)
+    # Diagnostic tests typically $200-800
+    elif cpt in ["82607", "80053", "85025", "93000"]:
+        return round(random.uniform(200, 800), 2)
+    # Imaging typically $500-1500
+    elif cpt in ["71045"]:
+        return round(random.uniform(500, 1500), 2)
+    # Treatments typically $100-500
+    else:
+        return round(random.uniform(100, 500), 2)
+
+# 5. Custom generator for allowed amounts (always less than billed)
+def allowed_amount_generator(row, col_name):
+    billed = row["billed_amount"]
+    # Allowed amount is typically 60-90% of billed amount
+    return round(billed * random.uniform(0.6, 0.9), 2)
+
+# Register the custom generators
+generator.register_generator("text", icd10_generator, column_name="primary_diagnosis")
+generator.register_generator("text", cpt_generator, column_name="procedure_code")
+generator.register_generator("text", claim_status_generator, column_name="status")
+generator.register_generator("float", billed_amount_generator, column_name="billed_amount")
+generator.register_generator("float", allowed_amount_generator, column_name="allowed_amount")
+
+# Register a foreign key generator for patient_id
+def patient_id_generator(row, col_name):
+    return random.choice(patients_df["id"].tolist())
+
+generator.register_generator("foreign_key", patient_id_generator, column_name="patient_id")
+
+# Generate claims with the custom generators
+claims_df = generator.generate_data(
+    schema=Claim,
+    prompt="Generate realistic health insurance claims data.",
+    sample_size=200,
+    output_path="claims.csv"
+)
+
+print(f"Generated {len(patients_df)} patient records and {len(claims_df)} claim records")
+print(f"Claims summary: {claims_df['status'].value_counts()}")
+```
+
+This example demonstrates several powerful features of custom generators:
+
+1. **Domain-Specific Codes**: Generate actual ICD-10 and CPT codes that conform to real-world patterns.
+
+2. **Interdependent Values**: The `allowed_amount` generator depends on the value of `billed_amount`, showing how generators can reference other fields.
+
+3. **Weighted Distributions**: The claim status generator uses weighted probabilities to create a realistic distribution (most claims approved, few denied).
+
+4. **Conditional Logic**: The billed amount generator produces different ranges based on the procedure code, creating more realistic correlations.
+
+5. **Referential Integrity**: The patient_id generator ensures each claim references a valid patient record.
+
+Custom generators can significantly enhance the quality and realism of your synthetic data, especially for specialized domains with complex rules, codes, and relationships.
+
+## Model Selection and Configuration
+
+Syda uses the powerful **instructor** library for unified access to multiple AI providers. This integration provides several key benefits:
+
+- **Provider Abstraction**: Switch between models from different providers with minimal code changes
+- **Consistent Interface**: Use the same syntax regardless of the underlying model provider
+- **Structured Output Parsing**: Automatically convert AI responses to structured data formats
+- **Type Validation**: Ensure responses match your expected schema structure
+- **Error Handling**: Get meaningful errors when generation fails instead of random data
+
+### Basic Configuration
+
+Configure provider, model, temperature, tokens, and proxy settings using the `ModelConfig` class:
+
+```python
 from syda.schemas import ModelConfig, ProxyConfig
 
-# Create a model configuration with specific settings
+# Create a model configuration
 config = ModelConfig(
-    provider="openai",
-    model_name="gpt-4-turbo",
-    temperature=0.9,
-    top_p=0.95,
-    seed=42,  # For reproducible results
-    max_tokens=1000,
-    proxy=ProxyConfig(
-        base_url="https://ai-proxy.company.com/v1",
-        headers={
-            "X-Company-Auth": "internal-token-123",
-            "X-Project-ID": "synthetic-data"
-        },
-        params={"team": "data-science"},
-        path_format="/proxy/{provider}/completions"
+    provider='openai',  # Choose from: 'openai', 'anthropic', etc.
+    model_name='gpt-4-turbo',  # Model name for the selected provider
+    temperature=0.7,    # Controls randomness (0.0-1.0)
+    top_p=0.95,         # Nucleus sampling parameter
+    seed=42,            # For reproducible outputs (provider-specific)
+    max_tokens=4000,    # Maximum response length (default: 4000)
+    proxy=ProxyConfig(  # Optional proxy configuration
+        base_url='https://ai-proxy.company.com/v1',
+        headers={'X-Company-Auth':'internal-token'},
+        params={'team':'data-science'}
     )
 )
 
 # Initialize generator with the configuration
 generator = SyntheticDataGenerator(model_config=config)
+```
 
-# Generate data using the configured model
-data = generator.generate_data(
-    schema=my_schema,
-    prompt="Generate realistic customer data for a SaaS company",
+### Using Different Model Providers
+
+The instructor library integration allows you to easily switch between different AI providers while maintaining a consistent interface.
+
+#### OpenAI Models
+
+```python
+# Default configuration - uses OpenAI's GPT-4 if no model_config provided
+default_generator = SyntheticDataGenerator()
+
+# Explicitly configure for GPT-3.5 Turbo (faster and more cost-effective)
+openai_config = ModelConfig(
+    provider='openai',
+    model_name='gpt-3.5-turbo',  # You can also use 'gpt-3.5-turbo-1106' for better JSON handling
+    temperature=0.7,
+    response_format={"type": "json_object"}  # Forces JSON response format (GPT models)
+)
+gpt35_generator = SyntheticDataGenerator(model_config=openai_config)
+
+# Generate data with specific model configuration
+data = gpt35_generator.generate_data(
+    schema={'product_id': 'number', 'product_name': 'text', 'price': 'number'},
+    prompt="Generate electronic product data with prices between $500-$2000",
     sample_size=10
 )
 ```
 
-##### Basic Usage
+#### Anthropic Claude Models
 
-You can generate synthetic data and write it directly to a CSV file using the `output_path` argument:
+```python
+# Configure for Claude (requires ANTHROPIC_API_KEY environment variable)
+claude_config = ModelConfig(
+    provider='anthropic',
+    model_name='claude-3-sonnet-20240229',  # Available models: claude-3-opus, claude-3-sonnet, claude-3-haiku
+    temperature=0.7,
+    max_tokens=2000  # Claude can sometimes need more tokens for structured output
+)
+claude_generator = SyntheticDataGenerator(model_config=claude_config)
+
+# Generate data with Claude
+data = claude_generator.generate_data(
+    schema={'product_id': 'number', 'product_name': 'text', 'price': 'number', 'description': 'text'},
+    prompt="Generate luxury product data with realistic prices over $1000",
+    sample_size=5
+)
+```
+
+#### Maximum Tokens Parameter
+
+The library now uses a default of 4000 tokens for `max_tokens` to ensure complete responses with all expected columns. This helps prevent incomplete data generation issues.
+
+```python
+# Override the default max_tokens setting
+config = ModelConfig(
+    provider="openai",
+    model_name="gpt-4",
+    max_tokens=8000,  # Increase for very complex schemas or large sample sizes
+    temperature=0.7
+)
+```
+
+When generating complex data or data with many columns, consider increasing this value if you notice missing columns in your generated data.
+
+#### Provider-Specific Optimizations
+
+Each AI provider has different strengths and parameter requirements. The `instructor` library handles most of the differences automatically, but you can optimize for specific providers:
+
+```python
+# OpenAI-specific optimization
+openai_optimized = ModelConfig(
+    provider='openai',
+    model_name='gpt-4-turbo',
+    temperature=0.7,
+    response_format={"type": "json_object"},  # Only works with OpenAI
+    seed=42  # For reproducible outputs
+)
+
+# Anthropic-specific optimization
+anthropic_optimized = ModelConfig(
+    provider='anthropic',
+    model_name='claude-3-opus-20240229',
+    temperature=0.7,
+    system="You are a synthetic data generator that creates realistic, high-quality datasets based on the provided schema."  # System prompt works best with Anthropic
+)
+```
+
+### Advanced: Direct Access to LLM Client
+
+For advanced use cases, you can access the underlying Instructor-patched LLM client directly for additional control:
+
+```python
+from syda.llm import create_llm_client
+from instructor import Mode
+
+# Create a standalone LLM client with instructor integration
+llm_client = create_llm_client(
+    model_config=ModelConfig(
+        provider='anthropic', 
+        model_name='claude-3-opus-20240229'
+    ),
+    # API key is optional if set in environment variables
+    anthropic_api_key="your_api_key"  
+)
+
+# Define a Pydantic model for structured output
+from pydantic import BaseModel
+from typing import List
+
+class Book(BaseModel):
+    title: str
+    author: str
+    year: int
+    genre: str
+    pages: int
+
+class BookCollection(BaseModel):
+    books: List[Book]
+
+# Use the instructor-patched client for structured responses
+books = llm_client.client.chat.completions.create(
+    model="claude-3-opus-20240229",
+    response_model=BookCollection,  # Instructor handles parsing to this model
+    mode=Mode.JSON,  # Force JSON mode for reliable structured output
+    messages=[{"role": "user", "content": "Generate 5 fictional sci-fi books."}]
+)
+
+# Access the structured data directly
+for book in books.books:
+    print(f"{book.title} by {book.author} ({book.year}) - {book.pages} pages")
+```
+
+This approach leverages the full power of Instructor's structured data extraction capabilities while giving you direct control over the client.
+
+## Output Options
+
+* Returns a `pandas.DataFrame` if no `output_path` specified.
+* Saves to `.csv` or `.json` when `output_path` ends accordingly.
+
+## Configuration and Error Handling
+
+### API Keys Management
+
+With the instructor library integration, you now need to provide appropriate API keys based on the provider you're using. There are two recommended ways to manage API keys:
+
+#### 1. Environment Variables (Recommended)
+
+Set API keys via environment variables:
+
+```bash
+# For OpenAI models
+export OPENAI_API_KEY=your_openai_key
+
+# For Anthropic models
+export ANTHROPIC_API_KEY=your_anthropic_key
+
+# For other providers, check the instructor library documentation
+```
+
+You can also use a `.env` file in your project root and load it with:
+
+```python
+from dotenv import load_dotenv
+load_dotenv()  # This loads API keys from .env file
+```
+
+#### 2. Direct Initialization
+
+Provide API keys when initializing the generator:
+
+```python
+# With explicit model configuration
+generator = SyntheticDataGenerator(
+    model_config=ModelConfig(provider='openai', model_name='gpt-4'),
+    openai_api_key="your_openai_key",      # Only needed for OpenAI models
+    anthropic_api_key="your_anthropic_key"  # Only needed for Anthropic models
+)
+```
+
+### Instructor Library Integration
+
+Syda now leverages the [instructor](https://github.com/jxnl/instructor) library to provide:
+
+1. **Structured Data Extraction**: Reliable conversion of LLM responses to structured data formats
+2. **Multi-Provider Support**: Single interface for multiple AI providers
+3. **Runtime Type Validation**: Ensures AI outputs conform to your schema
+4. **Automatic Retries**: Retry logic for invalid responses
+5. **Streaming Support**: For large dataset generation
+
+This integration enables a more reliable and consistent data generation experience across different AI providers.
+
+```python
+# Import the LLM client module directly for advanced usage
+from syda.llm import create_llm_client, LLMClient
+
+# Create a client with specific configuration
+llm_client = create_llm_client(
+    model_config=ModelConfig(provider='anthropic', model_name='claude-3-sonnet-20240229'),
+    anthropic_api_key="your_api_key"  # Optional if set in environment
+)
+
+# The patched client has all the instructor enhancements
+patched_client = llm_client.client
+
+# Use the enhanced client in your own applications
+from pydantic import BaseModel
+from typing import List
+
+class DataPoint(BaseModel):
+    name: str
+    value: float
+    category: str
+
+class Dataset(BaseModel):
+    data_points: List[DataPoint]
+
+result = patched_client.chat.completions.create(
+    model="claude-3-sonnet-20240229",
+    response_model=Dataset,  # Pydantic model for structured output
+    messages=[{"role": "user", "content": "Generate 5 data points about renewable energy"}]
+)
+```
+
+### Error Handling
+
+Syda's error handling has been improved to provide more useful feedback when data generation fails. The library now:
+
+1. **Raises Explicit Exceptions**: When data generation fails rather than returning random data
+2. **Provides Detailed Error Messages**: Explaining what went wrong and potential fixes
+3. **Validates Output Structure**: Ensures generated data matches the expected schema
+
+Example error handling:
+
+```python
+try:
+    data = generator.generate_data(
+        schema=YourModel,
+        prompt="Generate synthetic data...",
+        sample_size=10
+    )
+    # Process the data...
+except ValueError as e:
+    print(f"Data generation failed: {str(e)}")
+    # Implement fallback strategy or retry with different parameters
+```
+
+## Contributing
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Push to your branch.
+5. Open a Pull Request.
+
+## License
+
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). See [LICENSE](LICENSE) for details.
