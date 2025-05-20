@@ -1,0 +1,40 @@
+__table_description__: Books published in the publishing system
+
+id:
+  type: number
+  description: Unique identifier for the book
+  constraints:
+    primary_key: true
+
+title:
+  type: text
+  description: Title of the book
+  constraints:
+    unique: true
+
+author_id:
+  type: foreign_key
+  description: Reference to the author who wrote the book
+  references:
+    schema: Author
+    field: id
+
+genre:
+  type: text
+  description: Genre or category of the book
+
+publication_date:
+  type: date
+  description: Date when the book was published
+
+price:
+  type: number
+  description: Current price of the book in USD
+
+description:
+  type: text
+  description: Brief summary of the book's content
+
+page_count:
+  type: number
+  description: Total number of pages in the book

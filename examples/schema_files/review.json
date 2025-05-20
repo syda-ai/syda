@@ -1,0 +1,42 @@
+{
+  "__table_description__": "Book reviews submitted by readers",
+  "id": {
+    "type": "number",
+    "description": "Unique identifier for the review",
+    "constraints": {
+      "primary_key": true
+    }
+  },
+  "book_id": {
+    "type": "foreign_key",
+    "description": "Reference to the book being reviewed",
+    "references": {
+      "schema": "Book",
+      "field": "id"
+    }
+  },
+  "reviewer_name": {
+    "type": "text",
+    "description": "Name of the person who wrote the review"
+  },
+  "rating": {
+    "type": "number",
+    "description": "Rating given to the book (1-5 stars)",
+    "constraints": {
+      "min": 1,
+      "max": 5
+    }
+  },
+  "review_text": {
+    "type": "text",
+    "description": "Content of the review"
+  },
+  "review_date": {
+    "type": "date",
+    "description": "Date when the review was submitted"
+  },
+  "verified_purchase": {
+    "type": "boolean",
+    "description": "Whether the reviewer actually purchased the book"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "__table_description__": "Blog posts created by users",
+  "id": {
+    "type": "number",
+    "description": "Unique identifier for the post",
+    "constraints": {
+      "primary_key": true
+    }
+  },
+  "author_id": {
+    "type": "foreign_key",
+    "description": "Reference to the user who created the post",
+    "references": {
+      "schema": "User",
+      "field": "id"
+    }
+  },
+  "title": {
+    "type": "text",
+    "description": "Title of the blog post",
+    "constraints": {
+      "unique": true
+    }
+  },
+  "content": {
+    "type": "text",
+    "description": "Full content of the blog post"
+  },
+  "publish_date": {
+    "type": "date",
+    "description": "Date when the post was published"
+  },
+  "category": {
+    "type": "text",
+    "description": "Category of the blog post"
+  },
+  "tags": {
+    "type": "text",
+    "description": "Comma-separated list of tags for the post"
+  },
+  "status": {
+    "type": "text",
+    "description": "Publication status of the post (draft, published, archived)"
+  }
+}

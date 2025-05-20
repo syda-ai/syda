@@ -1,0 +1,43 @@
+__table_description__: Suppliers who provide products to the inventory system
+
+id:
+  type: number
+  description: Unique identifier for the supplier
+  constraints:
+    primary_key: true
+
+company_name:
+  type: text
+  description: Name of the supplier company
+  constraints:
+    unique: true
+
+contact_name:
+  type: text
+  description: Name of the primary contact person at the supplier
+
+email:
+  type: email
+  description: Email address for the supplier
+  constraints:
+    unique: true
+
+phone:
+  type: text
+  description: Phone number for the supplier
+
+address:
+  type: text
+  description: Physical address of the supplier
+
+website:
+  type: text
+  description: Supplier's website URL
+
+payment_terms:
+  type: text
+  description: Payment terms for this supplier (e.g., Net 30, Net 60)
+
+active:
+  type: boolean
+  description: Whether the supplier relationship is currently active
