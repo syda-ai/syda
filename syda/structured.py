@@ -326,9 +326,9 @@ class SyntheticDataGenerator:
                 
                 # Use the renamed _generate_data method with pre-extracted schema info
                 df = self._generate_data(
-                    llm_schema=llm_schema, 
+                    table_schema=llm_schema, 
                     metadata=metadata, 
-                    model_description=model_description,
+                    table_description=model_description,
                     prompt=prompt, 
                     sample_size=sample_size
                 )
@@ -653,9 +653,9 @@ class SyntheticDataGenerator:
                     print(f"Generating data for {schema_name} using _generate_data")
                     # Pass the already extracted schema information to avoid redundant extraction
                     df = self._generate_data(
-                        llm_schema=llm_schema, 
+                        table_schema=llm_schema, 
                         metadata=metadata, 
-                        model_description=model_description,
+                        table_description=model_description,
                         prompt=prompt, 
                         sample_size=sample_size
                     )
@@ -763,29 +763,29 @@ class SyntheticDataGenerator:
                     a SQLAlchemy model class, or a path to a JSON/YAML schema file
                     
         Returns:
-            Tuple of (llm_schema, metadata, model_description)
+            Tuple of (table_schema, metadata, table_description)
             
             Example return values:
-                - llm_schema: {'id': 'number', 'name': 'text', 'email': 'email', 'created_at': 'date'}
+                - table_schema: {'id': 'number', 'name': 'text', 'email': 'email', 'created_at': 'date'}
                 - metadata: {
                     'id': {'description': 'Primary key', 'constraints': {'primary_key': True}},
-                    'name': {'description': 'User full name'},
+                    'name': {'description': 'User full name', 'constraints': {'max_length': 100}},
                     'email': {'description': 'User email address', 'constraints': {'unique': True}},
                     'created_at': {'description': 'Account creation date'}
                 }
-                - model_description: "User account information for the system"
+                - table_description: "User account information for the system"
         """
-        llm_schema = {}
+        table_schema = {}
         metadata = {}
-        model_description = None
+        table_description = None
         
         # Case 1: Dictionary schema
         if isinstance(schema, dict):
-            llm_schema = schema
+            table_schema = {}
             
         # Case 2: SQLAlchemy model - check for __table__ attribute which all SQLAlchemy models have
         elif isinstance(schema, type) and hasattr(schema, '__table__'):
-            llm_schema, metadata, model_description = sqlalchemy_model_to_schema(schema)
+            table_schema, metadata, table_description = sqlalchemy_model_to_schema(schema)
         
         # Case 3: Path to JSON schema file
         elif isinstance(schema, str) and (schema.endswith('.json') or schema.endswith('.schema')):
@@ -807,11 +807,11 @@ class SyntheticDataGenerator:
             except Exception as e:
                 raise ValueError(f"Error loading YAML schema file {schema}: {str(e)}")
                     
-            # Extract model description if present using the special key
-            if "__model_description__" in schema:
-                model_description = schema["__model_description__"]
-            elif "__table_description__" in schema:
-                model_description = schema["__table_description__"]
+            # Extract table description if present using the special key
+            if "__table_description__" in schema:
+                table_description = schema["__table_description__"]
+            elif "__model_description__" in schema:
+                table_description = schema["__model_description__"]
             
             # Process each field in the schema
             for field_name, field_info in schema.items():
@@ -821,13 +821,13 @@ class SyntheticDataGenerator:
                     
                 # Handle simple field definition (field: "type")
                 if isinstance(field_info, str):
-                    llm_schema[field_name] = field_info
+                    table_schema[field_name] = field_info
                     metadata[field_name] = {}
                 # Handle complex field definition with metadata
                 elif isinstance(field_info, dict):
                     # Extract the field type
                     field_type = field_info.get("type", "text")
-                    llm_schema[field_name] = field_type
+                    table_schema[field_name] = field_type
                     
                     # Extract metadata for this field
                     field_metadata = {}
@@ -837,81 +837,121 @@ class SyntheticDataGenerator:
                         field_metadata["description"] = field_info["description"]
                     
                     # Add constraints if available
+                    constraints = {}
+                    
+                    # Check for length constraints directly in the field definition
+                    if "length" in field_info:
+                        if not "constraints" in field_metadata:
+                            field_metadata["constraints"] = {}
+                        field_metadata["constraints"]["length"] = field_info["length"]
+                    
+                    if "max_length" in field_info:
+                        if not "constraints" in field_metadata:
+                            field_metadata["constraints"] = {}
+                        field_metadata["constraints"]["max_length"] = field_info["max_length"]
+                    
+                    if "min_length" in field_info:
+                        if not "constraints" in field_metadata:
+                            field_metadata["constraints"] = {}
+                        field_metadata["constraints"]["min_length"] = field_info["min_length"]
+                    
+                    # Add constraints if explicitly defined in constraints section
                     if "constraints" in field_info:
-                        field_metadata["constraints"] = field_info["constraints"]
+                        if not "constraints" in field_metadata:
+                            field_metadata["constraints"] = {}
+                        # Add all constraints from the constraints dict
+                        for k, v in field_info["constraints"].items():
+                            field_metadata["constraints"][k] = v
                     
                     metadata[field_name] = field_metadata
         
-        return llm_schema, metadata, model_description
+        return table_schema, metadata, table_description
 
-    def _build_prompt(self, llm_schema, metadata, model_description, primary_key_fields, prompt, sample_size):
+    def _build_prompt(self, table_schema, metadata, table_description, primary_key_fields, prompt, sample_size):
         """
         Build a structured prompt for the LLM to generate data.
         
         Args:
-            llm_schema: Dictionary mapping field names to types
-            metadata: Dictionary of metadata for each field
-            model_description: Optional description of the model
-            primary_key_fields: List of primary key fields
-            prompt: User-provided description of data to generate
+            table_schema: Dictionary mapping field names to types
+            metadata: Dictionary with field metadata including descriptions and constraints
+            table_description: Optional description of the table
+            primary_key_fields: List of primary key field names
+            prompt: Base prompt text
             sample_size: Number of records to generate
             
         Returns:
-            Formatted prompt string for the LLM
+            Formatted prompt for the LLM
         """
+        # Create a list to hold field descriptions
+        field_descriptions = []
+        
+        # Add each field with its type and constraints
+        for field_name, field_type in table_schema.items():
+            # Start with the basic field info
+            field_desc = f"- {field_name}: {field_type}"
+            
+            # Add constraints and descriptions from metadata if available
+            if field_name in metadata:
+                field_meta = metadata[field_name]
+                
+                # Add description if available
+                if 'description' in field_meta and field_meta['description']:
+                    field_desc += f" ({field_meta['description']})"
+                    
+                # Add constraints if available
+                if 'constraints' in field_meta:
+                    constraints = field_meta['constraints']
+                    constraint_parts = []
+                    
+                    # Add primary key constraint
+                    if 'primary_key' in constraints and constraints['primary_key']:
+                        constraint_parts.append("primary_key: True")
+                        
+                    # Add unique constraint
+                    if 'unique' in constraints and constraints['unique']:
+                        constraint_parts.append("unique: True")
+                        
+                    # Add length constraints - these are important for text fields
+                    if 'length' in constraints:
+                        constraint_parts.append(f"length: {constraints['length']}")
+                    if 'max_length' in constraints:
+                        constraint_parts.append(f"max_length: {constraints['max_length']}")
+                    if 'min_length' in constraints:
+                        constraint_parts.append(f"min_length: {constraints['min_length']}")
+                    
+                    # Add not_null constraint
+                    if 'not_null' in constraints and constraints['not_null']:
+                        constraint_parts.append("not_null: True")
+                    
+                    # Add foreign key constraint
+                    if 'foreign_key_to' in constraints:
+                        constraint_parts.append(f"foreign_key_to: {constraints['foreign_key_to']}")
+                    
+                    # Add any other constraints
+                    for k, v in constraints.items():
+                        if k not in ['primary_key', 'unique', 'length', 'max_length', 'min_length', 'not_null', 'foreign_key_to']:
+                            constraint_parts.append(f"{k}: {v}")
+                    
+                    # Add constraints to field description
+                    if constraint_parts:
+                        constraint_str = ", ".join(constraint_parts)
+                        field_desc += f" [{constraint_str}]"
+            
+            field_descriptions.append(field_desc)
+        
         # Start with the basic instruction
         full_prompt = f"Generate {sample_size} records JSON objects with these fields:\n"
-        
-        # Add each field with its type
-        for field_name, field_type in llm_schema.items():
-            full_prompt += f"- {field_name}: {field_type}\n"
+        full_prompt += "\n".join(field_descriptions)
         
         # Add the description
-        full_prompt += f"Description: {prompt}\n"
+        if prompt and prompt != "Generate synthetic data":
+            full_prompt += f"\nDescription: {prompt}"
         
-        # Include model description if available
-        if model_description:
-            full_prompt += f"\nModel Description: {model_description}"
-        
-        # Add field metadata if available
-        if metadata:
-            # First check if we have any metadata with descriptions
-            has_descriptions = any('description' in meta for meta in metadata.values() if meta)
+        # Include table description if available
+        if table_description:
+            full_prompt += f"\nTable Description: {table_description}"
             
-            if has_descriptions:
-                for field_name in llm_schema.keys():
-                    if field_name in metadata and metadata[field_name]:
-                        field_meta = metadata[field_name]
-                        
-                        # Build metadata string
-                        meta_parts = []
-                        
-                        # Add description if available
-                        if 'description' in field_meta and field_meta['description']:
-                            meta_parts.append(field_meta['description'])
-                            
-                        # Add constraints if available
-                        if 'constraints' in field_meta and field_meta['constraints']:
-                            constraints = field_meta['constraints']
-                            constraint_strs = []
-                            
-                            for c_name, c_val in constraints.items():
-                                if c_name == 'primary_key' and c_val:
-                                    constraint_strs.append("PRIMARY KEY")
-                                elif c_name == 'unique' and c_val:
-                                    constraint_strs.append("unique")
-                                elif c_name == 'not_null' and c_val:
-                                    constraint_strs.append("not_null")
-                                elif c_name == 'foreign_key_to' and c_val:
-                                    constraint_strs.append(f"foreign_key_to({c_val})")
-                                    
-                            if constraint_strs:
-                                meta_parts.append(", ".join(constraint_strs))
-                        
-                        # Add the metadata to the prompt if we have any
-                        if meta_parts:
-                            meta_str = " ".join(f"({part})" for part in meta_parts)
-                            full_prompt += f"\n- {field_name}: {llm_schema[field_name]} {meta_str}"
+        print(f"Full Prompt: {full_prompt}")
         
         return full_prompt
             
@@ -1109,9 +1149,9 @@ class SyntheticDataGenerator:
             print(f"✓ Successfully wrote {len(df)} rows to {csv_path}")
             return csv_path
 
-    def _generate_data(self, llm_schema: Dict[str, str],
+    def _generate_data(self, table_schema: Dict[str, str],
                      metadata: Dict[str, Dict],
-                     model_description: Optional[str] = None,
+                     table_description: Optional[str] = None,
                      prompt: str = "Generate synthetic data",
                      sample_size: int = 10, 
                      output_path: Optional[str] = None) -> Union[pd.DataFrame, str]:
@@ -1119,9 +1159,9 @@ class SyntheticDataGenerator:
         Generate synthetic data based on schema using AI.
         
         Args:
-            llm_schema: Dictionary mapping field names to types (e.g., {'name': 'text', 'age': 'number'})
+            table_schema: Dictionary mapping field names to types (e.g., {'name': 'text', 'age': 'number'})
             metadata: Dictionary with field metadata including descriptions and constraints
-            model_description: Optional description of the model/entity
+            table_description: Optional description of the table/entity
             prompt: Description of what kind of data to generate
             sample_size: Number of records to generate
             output_path: Optional path to save generated data (csv or json)
@@ -1134,7 +1174,7 @@ class SyntheticDataGenerator:
         """
         
         print("Using extracted schema information")
-        print("llm_schema", llm_schema)
+        print("table_schema", table_schema)
         
         # Identify primary key fields
         primary_key_fields = []
@@ -1143,17 +1183,17 @@ class SyntheticDataGenerator:
                 primary_key_fields.append(col)
         
         # Build prompt for LLM
-        full_prompt = self._build_prompt(llm_schema, metadata, model_description, 
+        full_prompt = self._build_prompt(table_schema, metadata, table_description, 
                                       primary_key_fields, prompt, sample_size)
         
         # Generate data using LLM
-        df = self._generate_data_with_llm(llm_schema, full_prompt, sample_size)
+        df = self._generate_data_with_llm(table_schema, full_prompt, sample_size)
         
         # Apply type-based generators
-        df = self._apply_type_generators(df, llm_schema)
+        df = self._apply_type_generators(df, table_schema)
         
         # Convert column types based on schema
-        df = self._convert_column_types(df, llm_schema)
+        df = self._convert_column_types(df, table_schema)
         
         # Apply custom generators if they exist
         if hasattr(self, 'model_custom_generators') and self.model_custom_generators:
