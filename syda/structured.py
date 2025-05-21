@@ -326,10 +326,11 @@ class SyntheticDataGenerator:
                 
                 # Use the renamed _generate_data method with pre-extracted schema info
                 df = self._generate_data(
-                    sqlalchemy_model=model_class, 
+                    llm_schema=llm_schema, 
+                    metadata=metadata, 
+                    model_description=model_description,
                     prompt=prompt, 
-                    sample_size=sample_size,
-                    extracted_schema=(llm_schema, metadata, model_description)
+                    sample_size=sample_size
                 )
                 
                 # Handle any missing columns
@@ -652,10 +653,11 @@ class SyntheticDataGenerator:
                     print(f"Generating data for {schema_name} using _generate_data")
                     # Pass the already extracted schema information to avoid redundant extraction
                     df = self._generate_data(
-                        schema_dict=schema, 
+                        llm_schema=llm_schema, 
+                        metadata=metadata, 
+                        model_description=model_description,
                         prompt=prompt, 
-                        sample_size=sample_size,
-                        extracted_schema=(llm_schema, metadata, description)
+                        sample_size=sample_size
                     )
                     
                     # Check if we have the requested sample size
@@ -760,8 +762,18 @@ class SyntheticDataGenerator:
             schema: Either a dictionary mapping field names to types,
                     a SQLAlchemy model class, or a path to a JSON/YAML schema file
                     
-            Returns:
-                Tuple of (llm_schema, metadata, model_description)
+        Returns:
+            Tuple of (llm_schema, metadata, model_description)
+            
+            Example return values:
+                - llm_schema: {'id': 'number', 'name': 'text', 'email': 'email', 'created_at': 'date'}
+                - metadata: {
+                    'id': {'description': 'Primary key', 'constraints': {'primary_key': True}},
+                    'name': {'description': 'User full name'},
+                    'email': {'description': 'User email address', 'constraints': {'unique': True}},
+                    'created_at': {'description': 'Account creation date'}
+                }
+                - model_description: "User account information for the system"
         """
         llm_schema = {}
         metadata = {}
@@ -1097,20 +1109,19 @@ class SyntheticDataGenerator:
             print(f"✓ Successfully wrote {len(df)} rows to {csv_path}")
             return csv_path
 
-    def _generate_data(self, schema_dict: Optional[Dict[str, str]] = None,
-                     sqlalchemy_model: Optional[Type] = None,
-                     schema_file_path: Optional[str] = None,
+    def _generate_data(self, llm_schema: Dict[str, str],
+                     metadata: Dict[str, Dict],
+                     model_description: Optional[str] = None,
                      prompt: str = "Generate synthetic data",
                      sample_size: int = 10, 
-                     output_path: Optional[str] = None,
-                     extracted_schema: Optional[Tuple] = None) -> Union[pd.DataFrame, str]:
+                     output_path: Optional[str] = None) -> Union[pd.DataFrame, str]:
         """
         Generate synthetic data based on schema using AI.
         
         Args:
-            schema_dict: Dictionary mapping field names to types (e.g., {'name': 'text', 'age': 'number'})
-            sqlalchemy_model: SQLAlchemy model class
-            schema_file_path: Path to a JSON schema file
+            llm_schema: Dictionary mapping field names to types (e.g., {'name': 'text', 'age': 'number'})
+            metadata: Dictionary with field metadata including descriptions and constraints
+            model_description: Optional description of the model/entity
             prompt: Description of what kind of data to generate
             sample_size: Number of records to generate
             output_path: Optional path to save generated data (csv or json)
@@ -1122,51 +1133,37 @@ class SyntheticDataGenerator:
             ValueError: If the data generation fails or produces invalid results
         """
         
-        # Use pre-extracted schema information if provided
-        if extracted_schema is not None:
-            llm_schema, metadata, model_description = extracted_schema
-            print("Using pre-extracted schema information")
-        else:
-            # Determine which schema source to use
-            schema = None
-            if schema_dict is not None:
-                schema = schema_dict
-            elif sqlalchemy_model is not None:
-                schema = sqlalchemy_model
-            elif schema_file_path is not None:
-                schema = schema_file_path
-            else:
-                raise ValueError("You must provide either schema_dict, sqlalchemy_model, or schema_file_path")
-                
-            # Extract schema information
-            print("Extracting schema information from source")
-            llm_schema, metadata, model_description = self._get_schema_info(schema)
-            
+        print("Using extracted schema information")
         print("llm_schema", llm_schema)
+        
         # Identify primary key fields
         primary_key_fields = []
         for col, col_meta in metadata.items():
             if 'constraints' in col_meta and 'primary_key' in col_meta['constraints']:
                 primary_key_fields.append(col)
         
-        # Generate DataFrame, either from LLM or empty template
-        df = None
-        if llm_schema:
-            # Build prompt for LLM
-            full_prompt = self._build_prompt(llm_schema, metadata, model_description, 
-                                           primary_key_fields, prompt, sample_size)
-            
-            # Generate data using LLM
-            df = self._generate_data_with_llm(llm_schema, full_prompt, sample_size)
-        else:
-            # No LLM columns → start with empty rows
-            df = pd.DataFrame([{}] * sample_size)
+        # Build prompt for LLM
+        full_prompt = self._build_prompt(llm_schema, metadata, model_description, 
+                                      primary_key_fields, prompt, sample_size)
         
-        # Apply type-based and column-specific generators
+        # Generate data using LLM
+        df = self._generate_data_with_llm(llm_schema, full_prompt, sample_size)
+        
+        # Apply type-based generators
         df = self._apply_type_generators(df, llm_schema)
         
         # Convert column types based on schema
         df = self._convert_column_types(df, llm_schema)
+        
+        # Apply custom generators if they exist
+        if hasattr(self, 'model_custom_generators') and self.model_custom_generators:
+            df = self._apply_custom_generators(df, "model", self.model_custom_generators)
+            
+        # Apply column-specific generators
+        for col_name in df.columns:
+            if col_name in self.column_generators:
+                print(f"Applying custom generator for {col_name}")
+                df[col_name] = df.apply(lambda row: self.column_generators[col_name](row, col_name), axis=1)
         
         # Save output if path provided and return
         saved_path = self._save_output(df, output_path)
