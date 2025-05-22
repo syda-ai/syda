@@ -34,7 +34,6 @@ A Python-based open-source library for generating synthetic data with AI while p
   * [API Keys Management](#api-keys-management)
     * [Environment Variables (Recommended)](#1-environment-variables-recommended)
     * [Direct Initialization](#2-direct-initialization)
-  * [Instructor Library Integration](#instructor-library-integration)
   * [Error Handling](#error-handling)
 * [Contributing](#contributing)
 * [License](#license)
@@ -833,7 +832,7 @@ Custom generators can significantly enhance the quality and realism of your synt
 
 ## Model Selection and Configuration
 
-Syda uses the powerful **instructor** library for unified access to multiple AI providers. This integration provides several key benefits:
+Syda provides unified access to multiple AI providers with several key benefits:
 
 - **Provider Abstraction**: Switch between models from different providers with minimal code changes
 - **Consistent Interface**: Use the same syntax regardless of the underlying model provider
@@ -869,7 +868,7 @@ generator = SyntheticDataGenerator(model_config=config)
 
 ### Using Different Model Providers
 
-The instructor library integration allows you to easily switch between different AI providers while maintaining a consistent interface.
+The library allows you to easily switch between different AI providers while maintaining a consistent interface.
 
 #### OpenAI Models
 
@@ -932,7 +931,7 @@ When generating complex data or data with many columns, consider increasing this
 
 #### Provider-Specific Optimizations
 
-Each AI provider has different strengths and parameter requirements. The `instructor` library handles most of the differences automatically, but you can optimize for specific providers:
+Each AI provider has different strengths and parameter requirements. The library automatically handles most of the differences, but you can optimize for specific providers:
 
 ```python
 # OpenAI-specific optimization
@@ -955,13 +954,12 @@ anthropic_optimized = ModelConfig(
 
 ### Advanced: Direct Access to LLM Client
 
-For advanced use cases, you can access the underlying Instructor-patched LLM client directly for additional control:
+For advanced use cases, you can access the underlying LLM client directly for additional control:
 
 ```python
 from syda.llm import create_llm_client
-from instructor import Mode
 
-# Create a standalone LLM client with instructor integration
+# Create a standalone LLM client
 llm_client = create_llm_client(
     model_config=ModelConfig(
         provider='anthropic', 
@@ -985,11 +983,10 @@ class Book(BaseModel):
 class BookCollection(BaseModel):
     books: List[Book]
 
-# Use the instructor-patched client for structured responses
+# Use the client for structured responses
 books = llm_client.client.chat.completions.create(
     model="claude-3-opus-20240229",
-    response_model=BookCollection,  # Instructor handles parsing to this model
-    mode=Mode.JSON,  # Force JSON mode for reliable structured output
+    response_model=BookCollection,  # Automatically parses the response to this model
     messages=[{"role": "user", "content": "Generate 5 fictional sci-fi books."}]
 )
 
@@ -998,7 +995,7 @@ for book in books.books:
     print(f"{book.title} by {book.author} ({book.year}) - {book.pages} pages")
 ```
 
-This approach leverages the full power of Instructor's structured data extraction capabilities while giving you direct control over the client.
+This approach gives you direct control over the client while still providing structured data extraction capabilities.
 
 ## Output Options
 
@@ -1009,7 +1006,7 @@ This approach leverages the full power of Instructor's structured data extractio
 
 ### API Keys Management
 
-With the instructor library integration, you now need to provide appropriate API keys based on the provider you're using. There are two recommended ways to manage API keys:
+You can provide appropriate API keys based on the provider you're using. There are two recommended ways to manage API keys:
 
 #### 1. Environment Variables (Recommended)
 
@@ -1022,7 +1019,7 @@ export OPENAI_API_KEY=your_openai_key
 # For Anthropic models
 export ANTHROPIC_API_KEY=your_anthropic_key
 
-# For other providers, check the instructor library documentation
+# For other providers, set the appropriate environment variables
 ```
 
 You can also use a `.env` file in your project root and load it with:
@@ -1045,49 +1042,6 @@ generator = SyntheticDataGenerator(
 )
 ```
 
-### Instructor Library Integration
-
-Syda now leverages the [instructor](https://github.com/jxnl/instructor) library to provide:
-
-1. **Structured Data Extraction**: Reliable conversion of LLM responses to structured data formats
-2. **Multi-Provider Support**: Single interface for multiple AI providers
-3. **Runtime Type Validation**: Ensures AI outputs conform to your schema
-4. **Automatic Retries**: Retry logic for invalid responses
-5. **Streaming Support**: For large dataset generation
-
-This integration enables a more reliable and consistent data generation experience across different AI providers.
-
-```python
-# Import the LLM client module directly for advanced usage
-from syda.llm import create_llm_client, LLMClient
-
-# Create a client with specific configuration
-llm_client = create_llm_client(
-    model_config=ModelConfig(provider='anthropic', model_name='claude-3-sonnet-20240229'),
-    anthropic_api_key="your_api_key"  # Optional if set in environment
-)
-
-# The patched client has all the instructor enhancements
-patched_client = llm_client.client
-
-# Use the enhanced client in your own applications
-from pydantic import BaseModel
-from typing import List
-
-class DataPoint(BaseModel):
-    name: str
-    value: float
-    category: str
-
-class Dataset(BaseModel):
-    data_points: List[DataPoint]
-
-result = patched_client.chat.completions.create(
-    model="claude-3-sonnet-20240229",
-    response_model=Dataset,  # Pydantic model for structured output
-    messages=[{"role": "user", "content": "Generate 5 data points about renewable energy"}]
-)
-```
 
 ### Error Handling
 
