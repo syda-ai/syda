@@ -72,25 +72,37 @@ pip install syda
 
 ```python
 from syda.structured import SyntheticDataGenerator
+from syda.schemas import ModelConfig
 
-generator = SyntheticDataGenerator()
-schema = {
-    'patient_id': 'number',
-    'diagnosis_code': 'icd10_code',
-    'email': 'email',
-    'visit_date': 'date',
-    'notes': 'text'
+model_config = ModelConfig(
+    provider="anthropic",
+    model_name="claude-3-5-haiku-20241022",
+    temperature=0.7
+)
+
+generator = SyntheticDataGenerator(model_config=model_config)
+
+# Define schema for a single table
+schemas = {
+    'Patient': {
+        'patient_id': 'number',
+        'diagnosis_code': 'icd10_code',
+        'email': 'email',
+        'visit_date': 'date',
+        'notes': 'text'
+    }
 }
+
 prompt = "Generate realistic synthetic patient records with ICD-10 diagnosis codes, emails, visit dates, and clinical notes."
 
 # Generate and save to CSV
-output = generator.generate_data(
-    schema_dict=schema,
-    prompt=prompt,
-    sample_size=15,
-    output_path='synthetic_output.csv'
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    prompts={'Patient': prompt},
+    sample_sizes={'Patient': 15},
+    output_dir='synthetic_output'
 )
-print(f"Data saved to {output}")
+print(f"Data saved to synthetic_output/Patient.csv")
 ```
 
 ## Core API
@@ -101,13 +113,19 @@ Use simple schema maps or SQLAlchemy models to generate data:
 
 ```python
 from syda.structured import SyntheticDataGenerator
+from syda.schemas import ModelConfig
 
-generator = SyntheticDataGenerator(model='gpt-4-turbo')
+model_config = ModelConfig(provider='anthropic', model_name='claude-3-5-haiku-20241022')
+generator = SyntheticDataGenerator(model_config=model_config)
+
 # Simple dict schema
-records = generator.generate_data(
-    schema={'id': 'number', 'name': 'text'},
-    prompt='Generate user records',
-    sample_size=10
+schemas = {
+    'User': {'id': 'number', 'name': 'text'}
+}
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    prompts={'User': 'Generate user records'},
+    sample_sizes={'User': 10}
 )
 ```
 
@@ -119,6 +137,7 @@ Pass declarative models directly—docstrings and column metadata inform the pro
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 from syda.structured import SyntheticDataGenerator
+from syda.schemas import ModelConfig
 
 Base = declarative_base()
 class User(Base):
@@ -126,8 +145,13 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, comment="Full name of the user")
 
-generator = SyntheticDataGenerator()
-generator.generate_data(sqlalchemy_model=User, prompt='Generate users', sample_size=5)
+model_config = ModelConfig(provider='anthropic', model_name='claude-3-5-haiku-20241022')
+generator = SyntheticDataGenerator(model_config=model_config)
+results = generator.generate_for_sqlalchemy_models(
+    sqlalchemy_models=[User], 
+    prompts={'User': 'Generate users'}, 
+    sample_sizes={'User': 5}
+)
 ```
 
 ### Handling Foreign Key Relationships
@@ -147,10 +171,22 @@ generator.register_generator('foreign_key', department_id_fk_generator, column_n
 3. **Multi-Step Generation Process**: For related tables, generate parent records first, then use their IDs when generating child records:
 
 ```python
-# Generate departments first
-departments_df = generator.generate_data(sqlalchemy_model=Department, prompt='...', sample_size=5)
-# Then generate employees with valid department_id references
-employees_df = generator.generate_data(sqlalchemy_model=Employee, prompt='Generate realistic employee data', sample_size=10)
+# Generate departments first, then employees with valid department_id references
+results = generator.generate_for_sqlalchemy_models(
+    sqlalchemy_models=[Department, Employee],
+    prompts={
+        'Department': 'Generate company departments',
+        'Employee': 'Generate realistic employee data'
+    },
+    sample_sizes={
+        'Department': 5,
+        'Employee': 10
+    }
+)
+
+# Access the generated dataframes
+departments_df = results['Department']
+employees_df = results['Employee']
 ```
 
 4. **Referential Integrity Preservation**: The foreign key generator samples from actual existing IDs in the parent table, ensuring all references are valid.
