@@ -1,5 +1,10 @@
 {
   "__table_description__": "Comments on blog posts by users",
+  "__foreign_keys__": {
+    "post_id": ["Post", "id"],
+    "user_id": ["User", "id"],
+    "parent_comment_id": ["Comment", "id"]
+  },
   "id": {
     "type": "number",
     "description": "Unique identifier for the comment",
@@ -25,7 +30,10 @@
   },
   "content": {
     "type": "text",
-    "description": "Content of the comment"
+    "description": "Content of the comment",
+    "constraints": {
+      "max_length": 1000
+    }
   },
   "created_at": {
     "type": "date",

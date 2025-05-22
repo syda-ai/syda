@@ -19,12 +19,16 @@
     "type": "text",
     "description": "Title of the blog post",
     "constraints": {
-      "unique": true
+      "unique": true,
+      "max_length": 200
     }
   },
   "content": {
     "type": "text",
-    "description": "Full content of the blog post"
+    "description": "Full content of the blog post",
+    "constraints": {
+      "max_length": 50000
+    }
   },
   "publish_date": {
     "type": "date",
@@ -32,11 +36,17 @@
   },
   "category": {
     "type": "text",
-    "description": "Category of the blog post"
+    "description": "Category of the blog post",
+    "constraints": {
+      "max_length": 50
+    }
   },
   "tags": {
     "type": "text",
-    "description": "Comma-separated list of tags for the post"
+    "description": "Comma-separated list of tags for the post",
+    "constraints": {
+      "max_length": 500
+    }
   },
   "status": {
     "type": "text",

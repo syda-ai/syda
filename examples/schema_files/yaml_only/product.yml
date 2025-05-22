@@ -11,6 +11,7 @@ name:
   description: Name of the product
   constraints:
     unique: true
+    max_length: 150
 
 category_id:
   type: foreign_key
@@ -24,6 +25,7 @@ sku:
   description: Stock Keeping Unit - unique product identifier
   constraints:
     unique: true
+    max_length: 50
 
 price:
   type: number
@@ -32,6 +34,8 @@ price:
 description:
   type: text
   description: Detailed description of the product
+  constraints:
+    max_length: 5000
 
 weight:
   type: number
@@ -39,6 +43,8 @@ weight:
 
 dimensions:
   type: text
+  constraints:
+    max_length: 100
   description: Dimensions of the product in format LxWxH cm
 
 in_stock:

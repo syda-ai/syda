@@ -17,7 +17,10 @@
   },
   "reviewer_name": {
     "type": "text",
-    "description": "Name of the person who wrote the review"
+    "description": "Name of the person who wrote the review",
+    "constraints": {
+      "max_length": 100
+    }
   },
   "rating": {
     "type": "number",
@@ -29,7 +32,10 @@
   },
   "review_text": {
     "type": "text",
-    "description": "Content of the review"
+    "description": "Content of the review",
+    "constraints": {
+      "max_length": 3000
+    }
   },
   "review_date": {
     "type": "date",

@@ -9,18 +9,25 @@
   },
   "name": {
     "type": "text",
-    "description": "Full name of the author"
+    "description": "Full name of the author",
+    "constraints": {
+      "max_length": 100
+    }
   },
   "email": {
     "type": "email",
     "description": "Author's contact email address",
     "constraints": {
-      "unique": true
+      "unique": true,
+      "max_length": 150
     }
   },
   "bio": {
     "type": "text",
-    "description": "Author's biographical information"
+    "description": "Author's biographical information",
+    "constraints": {
+      "max_length": 2000
+    }
   },
   "birth_date": {
     "type": "date",

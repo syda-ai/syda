@@ -11,19 +11,25 @@
     "type": "text",
     "description": "User's login name",
     "constraints": {
-      "unique": true
+      "unique": true,
+      "min_length": 3,
+      "max_length": 50
     }
   },
   "email": {
     "type": "email",
     "description": "User's email address",
     "constraints": {
-      "unique": true
+      "unique": true,
+      "max_length": 150
     }
   },
   "full_name": {
     "type": "text",
-    "description": "User's full name"
+    "description": "User's full name",
+    "constraints": {
+      "max_length": 100
+    }
   },
   "join_date": {
     "type": "date",

@@ -36,10 +36,11 @@ def main():
     
     # Create a generator instance with appropriate max_tokens setting
     model_config = ModelConfig(
-        provider="openai",
-        model_name="gpt-4",  # Default model
+        provider="anthropic",
+        #model_name="gpt-4",  # Default model
+        model_name="claude-3-5-haiku-20241022",
         temperature=0.7,
-        max_tokens=4000,  # Using higher max_tokens value for more complete responses
+        max_tokens=8192,  # Using higher max_tokens value for more complete responses
     )
     generator = SyntheticDataGenerator(model_config=model_config)
     
@@ -72,18 +73,30 @@ def main():
         
         # Order schema with table and column descriptions
         'Order': {
-            '__table_description__': 'Customer orders containing one or more products',
-            'id': {'type': 'number', 'description': 'Unique identifier for the order'},
+            # Define schema with additional metadata
+            '__table_description__': 'Customer orders for products, including order status and total amount',
+            '__foreign_keys__': {
+                'customer_id': ['Customer', 'id']  # Order.customer_id references Customer.id
+            },
+            
+            # Define columns
+            'id': {'type': 'number', 'description': 'Unique order identifier', 'primary_key': True},
             'customer_id': {'type': 'foreign_key', 'description': 'Reference to the customer who placed the order'},
             'order_date': {'type': 'date', 'description': 'Date when the order was placed'},
             'status': {'type': 'text', 'description': 'Current status of the order (Pending, Processing, Shipped, Delivered, Cancelled)'},
-            'total_amount': {'type': 'number', 'description': 'Total monetary value of the order in USD'},
+            'total_amount': {'type': 'number', 'description': 'Total amount of the order in USD'},
             'shipping_address': {'type': 'text', 'description': 'Address where the order should be delivered'}
         },
         
         # OrderItem schema with table and column descriptions
         'OrderItem': {
             '__table_description__': 'Individual line items within an order, representing specific products',
+            '__foreign_keys__': {
+                'order_id': ['Order', 'id'],       # OrderItem.order_id references Order.id
+                'product_id': ['Product', 'id']    # OrderItem.product_id references Product.id
+            },
+            
+            # Define columns
             'id': {'type': 'number', 'description': 'Unique identifier for the order item'},
             'order_id': {'type': 'foreign_key', 'description': 'Reference to the parent order'},
             'product_id': {'type': 'foreign_key', 'description': 'Reference to the product being ordered'},
@@ -170,7 +183,6 @@ def main():
     # Generate data using the unified generate_for_schemas method
     results = generator.generate_for_schemas(
         schemas=schemas,
-        foreign_keys=foreign_keys,
         prompts=prompts,
         sample_sizes=sample_sizes,
         output_dir=output_dir,

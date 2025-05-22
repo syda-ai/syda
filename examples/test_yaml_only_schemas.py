@@ -33,10 +33,11 @@ def main():
     
     # Create a generator instance with appropriate max_tokens setting
     model_config = ModelConfig(
-        provider="openai",
-        model_name="gpt-4",  # Default model
+        provider="anthropic",
+        #model_name="gpt-4",  # Default model
+        model_name="claude-3-5-haiku-20241022",
         temperature=0.7,
-        max_tokens=4000,  # Using higher max_tokens value for more complete responses
+        max_tokens=8192,  # Using higher max_tokens value for more complete responses
     )
     generator = SyntheticDataGenerator(model_config=model_config)
     

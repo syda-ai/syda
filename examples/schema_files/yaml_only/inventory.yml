@@ -20,6 +20,8 @@ quantity:
 warehouse_location:
   type: text
   description: Location code within the warehouse
+  constraints:
+    max_length: 50
 
 last_checked:
   type: date
@@ -28,6 +30,8 @@ last_checked:
 batch_number:
   type: text
   description: Batch or lot number for inventory tracking
+  constraints:
+    max_length: 100
 
 expiry_date:
   type: date
@@ -36,3 +40,5 @@ expiry_date:
 purchase_order_id:
   type: text
   description: Reference to the purchase order that added this inventory
+  constraints:
+    max_length: 50

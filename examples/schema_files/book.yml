@@ -11,6 +11,7 @@ title:
   description: Title of the book
   constraints:
     unique: true
+    max_length: 200
 
 author_id:
   type: foreign_key
@@ -22,6 +23,8 @@ author_id:
 genre:
   type: text
   description: Genre or category of the book
+  constraints:
+    max_length: 50
 
 publication_date:
   type: date
@@ -34,6 +37,8 @@ price:
 description:
   type: text
   description: Brief summary of the book's content
+  constraints:
+    max_length: 5000
 
 page_count:
   type: number

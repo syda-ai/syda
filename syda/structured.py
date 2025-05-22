@@ -322,7 +322,7 @@ class SyntheticDataGenerator:
                 
                 # Generate the data
                 # Extract schema information first
-                llm_schema, metadata, model_description = self._get_schema_info(model_class)
+                llm_schema, metadata, model_description, _ = self._get_schema_info(model_class)
                 
                 # Use the renamed _generate_data method with pre-extracted schema info
                 df = self._generate_data(
@@ -394,7 +394,6 @@ class SyntheticDataGenerator:
     def generate_for_schemas(
         self,
         schemas: Dict[str, Union[Dict[str, str], str]],
-        foreign_keys: Optional[Dict[str, Dict[str, Tuple[str, str]]]] = None,
         prompts: Optional[Dict[str, str]] = None,
         sample_sizes: Optional[Dict[str, int]] = None,
         output_dir: Optional[str] = None,
@@ -413,18 +412,36 @@ class SyntheticDataGenerator:
         
         This function:
         1. Loads schema definitions from various sources
-        2. Analyzes schema dependencies using the provided foreign_keys definition
+        2. Analyzes schema dependencies using foreign keys defined in schemas
         3. Automatically determines the correct order to generate data
         4. Handles foreign key relationships between schemas
         5. Applies custom generators where registered
+        
+        Foreign key relationships can be defined in three ways:
+        
+        1. Using the '__foreign_keys__' special section in a schema:
+           "__foreign_keys__": {
+               "customer_id": ["Customer", "id"]
+           }
+        
+        2. Using field-level references with type and references properties:
+           "order_id": {
+               "type": "foreign_key",
+               "references": {
+                   "schema": "Order",
+                   "field": "id"
+               }
+           }
+        
+        3. Using type-based detection with naming conventions:
+           "customer_id": "foreign_key"
+           (The system will attempt to infer the relationship based on naming conventions)
+        
         
         Args:
             schemas: Dictionary mapping schema names to either:
                     - Schema dictionaries (e.g., {'id': 'number', 'name': 'text'})
                     - File paths to JSON or YAML schema files
-            foreign_keys: Dictionary describing foreign key relationships between schemas
-                        Format: {'Child': {'fk_column': ('Parent', 'parent_column')}}
-                        Example: {'Order': {'customer_id': ('Customer', 'id')}}
             prompts: Optional dictionary mapping schema names to custom prompts
             sample_sizes: Optional dictionary mapping schema names to sample sizes
             output_dir: Optional directory to save CSV files (one per schema)
@@ -438,19 +455,34 @@ class SyntheticDataGenerator:
         
         Example with dictionary schemas:
             schemas = {
-                'Customer': {'id': 'number', 'name': 'text', 'email': 'email'},
-                'Order': {'id': 'number', 'customer_id': 'foreign_key', 'total': 'number'},
-                'OrderItem': {'id': 'number', 'order_id': 'foreign_key', 'product': 'text'}
-            }
-            
-            foreign_keys = {
-                'Order': {'customer_id': ('Customer', 'id')},
-                'OrderItem': {'order_id': ('Order', 'id')}
+                'Customer': {
+                    'id': 'number', 
+                    'name': 'text', 
+                    'email': 'email'
+                },
+                'Order': {
+                    '__foreign_keys__': {
+                        'customer_id': ["Customer", "id"]
+                    },
+                    'id': 'number', 
+                    'customer_id': 'foreign_key', 
+                    'total': 'number'
+                },
+                'OrderItem': {
+                    'id': 'number', 
+                    'order_id': {
+                        'type': 'foreign_key',
+                        'references': {
+                            'schema': 'Order',
+                            'field': 'id'
+                        }
+                    }, 
+                    'product': 'text'
+                }
             }
             
             generator.generate_for_schemas(
                 schemas=schemas,
-                foreign_keys=foreign_keys,
                 prompts={'Customer': 'Generate tech company customers'}
             )
             
@@ -461,11 +493,8 @@ class SyntheticDataGenerator:
                 'OrderItem': 'schemas/order_item.yml'
             }
             
-            foreign_keys = {...}  # Same as above
-            
             generator.generate_for_schemas(
-                schemas=schemas,
-                foreign_keys=foreign_keys
+                schemas=schemas
             )
         """
         # Initialize default parameters
@@ -481,94 +510,34 @@ class SyntheticDataGenerator:
         schema_metadata = {}
         schema_descriptions = {}
         
+        # Dictionary to store extracted foreign keys
+        schema_foreign_keys = {}
+        
         for schema_name, schema_source in schemas.items():
-            # Check if schema_source is a file path or a dict
-            if isinstance(schema_source, dict):
-                # Direct dictionary schema - check if it's enhanced format with descriptions
-                if any(isinstance(v, dict) and 'type' in v for k, v in schema_source.items() if not k.startswith('__')):
-                    # Enhanced format with descriptions
-                    table_desc = schema_source.get('__table_description__', f"{schema_name} data")
-                    
-                    # Extract the schema structure and metadata
-                    schema_dict = {}
-                    metadata_dict = {}
-                    
-                    for field, field_info in schema_source.items():
-                        if field.startswith('__'):
-                            # Skip special keys
-                            continue
-                            
-                        # Extract type and description
-                        schema_dict[field] = field_info['type']
-                        metadata_dict[field] = {
-                            'description': field_info.get('description', '')
-                        }
-                        
-                        # Add constraints if present
-                        if 'constraints' in field_info:
-                            constraints = field_info['constraints']
-                            constraint_str = ", ".join(f"{k}: {v}" for k, v in constraints.items())
-                            metadata_dict[field]['constraints'] = constraint_str
-                            
-                    # Store processed schema and metadata
-                    processed_schemas[schema_name] = schema_dict
-                    schema_metadata[schema_name] = metadata_dict
-                    schema_descriptions[schema_name] = table_desc
-                else:
-                    # Simple dictionary schema without descriptions
-                    processed_schemas[schema_name] = schema_source
-                    schema_metadata[schema_name] = {}
-                    schema_descriptions[schema_name] = f"{schema_name} data"
-            elif isinstance(schema_source, str):
-                # File path - determine type by extension
-                if not os.path.exists(schema_source):
-                    raise ValueError(f"Schema file not found: {schema_source}")
-                    
-                # Extract schema from file
-                llm_schema, metadata, desc = self._get_schema_info(schema_source)
-                processed_schemas[schema_name] = llm_schema
-                schema_metadata[schema_name] = metadata or {}
-                schema_descriptions[schema_name] = desc or f"{schema_name} data"
-            else:
-                raise ValueError(f"Unsupported schema source for {schema_name}. Must be a dictionary or file path.")
+            # Use _get_schema_info to extract schema information regardless of source type
+            llm_schema, metadata, desc, extracted_fks = self._get_schema_info(schema_source)
+            
+            # Store processed schema and metadata
+            processed_schemas[schema_name] = llm_schema
+            schema_metadata[schema_name] = metadata or {}
+            schema_descriptions[schema_name] = desc or f"{schema_name} data"
+            
+            # Store extracted foreign keys if any
+            if extracted_fks:
+                schema_foreign_keys[schema_name] = extracted_fks
             
         # Build dependency information from foreign key relations
         schema_dependencies = {}
-        extracted_foreign_keys = {} if foreign_keys is None else foreign_keys.copy()
+        extracted_foreign_keys = {}
         
-        # If foreign_keys not provided, try to extract them from the schema definitions
-        if foreign_keys is None:
-            # Scan each schema for foreign key definitions with references
-            for schema_name, schema_raw in schemas.items():
-                # First convert file paths to their loaded schemas
-                schema_source = processed_schemas[schema_name]
-                
-                # Check for foreign key fields with embedded references
-                for field_name, field_info in schema_source.items():
-                    field_type = None
-                    references = None
-                    
-                    # Enhanced schema format
-                    if isinstance(field_info, dict) and 'type' in field_info:
-                        field_type = field_info['type']
-                        if 'references' in field_info:
-                            references = field_info['references']
-                    # Simple schema format
-                    elif isinstance(field_info, str):
-                        field_type = field_info
-                        
-                    # Check if this is a foreign key with references
-                    if field_type == 'foreign_key' and references is not None:
-                        if 'schema' in references and 'field' in references:
-                            parent_schema = references['schema']
-                            parent_field = references['field']
-                            
-                            # Add to extracted foreign keys
-                            if schema_name not in extracted_foreign_keys:
-                                extracted_foreign_keys[schema_name] = {}
-                                
-                            extracted_foreign_keys[schema_name][field_name] = (parent_schema, parent_field)
-                            print(f"Extracted foreign key: {schema_name}.{field_name} -> {parent_schema}.{parent_field}")
+        # Add foreign keys extracted from schema files
+        for schema_name, fks in schema_foreign_keys.items():
+            if schema_name not in extracted_foreign_keys:
+                extracted_foreign_keys[schema_name] = {}
+            # Add each foreign key relationship
+            for fk_column, (parent_schema, parent_column) in fks.items():
+                extracted_foreign_keys[schema_name][fk_column] = (parent_schema, parent_column)
+                print(f"Using schema-defined foreign key: {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
         
         # Extract dependencies from foreign key mappings
         for child_schema, fk_columns in extracted_foreign_keys.items():
@@ -624,12 +593,16 @@ class SyntheticDataGenerator:
                 print(f"Using prompt: {prompt[:50]}..." if len(prompt) > 50 else f"Using prompt: {prompt}")
                 
                 # Register foreign key generators for any foreign key columns
-                if foreign_keys is not None and schema_name in foreign_keys:
-                    for fk_column, (parent_schema, parent_column) in foreign_keys[schema_name].items():
+                if schema_name in extracted_foreign_keys:
+                    for fk_column, (parent_schema, parent_column) in extracted_foreign_keys[schema_name].items():
                         if parent_schema in results:
                             # Get the valid IDs from the parent schema
                             valid_ids = results[parent_schema][parent_column].tolist()
                             
+                            if not valid_ids:
+                                print(f"⚠️ Warning: No valid IDs found in {parent_schema}.{parent_column} for foreign key {schema_name}.{fk_column}")
+                                continue
+                                
                             # Create a generator that returns a random valid ID
                             valid_ids_copy = valid_ids.copy()  # Make a copy to avoid reference issues
                             fk_generator = lambda row, col, ids=valid_ids_copy: random.choice(ids)
@@ -637,6 +610,8 @@ class SyntheticDataGenerator:
                             # Register the generator for this column
                             print(f"Registering foreign key generator for {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
                             self.register_generator('foreign_key', fk_generator, column_name=fk_column)
+                        else:
+                            print(f"⚠️ Warning: Parent schema {parent_schema} not available for foreign key {schema_name}.{fk_column}")
                 
                 # We'll let generate_data handle the prompt building with metadata
                 # by passing the schema directly, along with the base prompt
@@ -644,8 +619,10 @@ class SyntheticDataGenerator:
                 # Use AI-based generation for meaningful data
                 print(f"Creating data for {schema_name} with schema: {schema}")
                 
-                # Extract schema information for this schema
-                llm_schema, metadata, model_description = self._get_schema_info(schema)
+                # Use the schema information we already extracted earlier
+                llm_schema = processed_schemas[schema_name]
+                metadata = schema_metadata[schema_name]
+                model_description = schema_descriptions[schema_name]
                 
                 # Try to use the AI generation first
                 try:
@@ -740,11 +717,40 @@ class SyntheticDataGenerator:
                 # Store the result
                 results[schema_name] = df
                 
-                # Save to file if output_dir is specified
-                if output_dir:
-                    os.makedirs(output_dir, exist_ok=True)
+            # Save files if output_dir is specified
+            if output_dir:
+                os.makedirs(output_dir, exist_ok=True)
+                for schema_name, df in results.items():
                     output_path = os.path.join(output_dir, f"{schema_name.lower()}.csv")
                     df.to_csv(output_path, index=False)
+            
+            # Verify referential integrity
+            print("\n🔍 Verifying referential integrity:")
+            all_valid = True
+            for schema_name, fk_columns in extracted_foreign_keys.items():
+                for fk_column, (parent_schema, parent_column) in fk_columns.items():
+                    # Skip validation if we don't have both tables
+                    if schema_name not in results or parent_schema not in results:
+                        print(f"  ⚠️ Cannot verify {schema_name}.{fk_column} references - missing tables")
+                        continue
+                        
+                    # Get the values used in the foreign key column
+                    fk_values = results[schema_name][fk_column].tolist()
+                    # Get the valid values from the parent table
+                    valid_values = results[parent_schema][parent_column].tolist()
+                    
+                    # Check if all foreign key values are valid
+                    invalid_values = [v for v in fk_values if v not in valid_values]
+                    if invalid_values:
+                        print(f"  ❌ Invalid {schema_name}.{fk_column} references detected")
+                        all_valid = False
+                    else:
+                        print(f"  ✅ All {schema_name}.{fk_column} values reference valid {parent_schema}.{parent_column}")
+            
+            if not all_valid:
+                print("\n⚠️ Some foreign key constraints were violated. This may affect data integrity.")
+            elif not extracted_foreign_keys:
+                print("  ℹ️ No foreign key relationships defined in schemas")
                     
         except Exception as e:
             # Restore original generators in case of error
@@ -763,7 +769,7 @@ class SyntheticDataGenerator:
                     a SQLAlchemy model class, or a path to a JSON/YAML schema file
                     
         Returns:
-            Tuple of (table_schema, metadata, table_description)
+            Tuple of (table_schema, metadata, table_description, foreign_keys)
             
             Example return values:
                 - table_schema: {'id': 'number', 'name': 'text', 'email': 'email', 'created_at': 'date'}
@@ -774,44 +780,30 @@ class SyntheticDataGenerator:
                     'created_at': {'description': 'Account creation date'}
                 }
                 - table_description: "User account information for the system"
+                - foreign_keys: {'user_id': ('User', 'id')}
         """
         table_schema = {}
         metadata = {}
         table_description = None
+        foreign_keys = {}
         
         # Case 1: Dictionary schema
         if isinstance(schema, dict):
-            table_schema = {}
+            # Make a copy of the schema, but filter out special fields (starting with __)
+            table_schema = {k: v for k, v in schema.items() if not k.startswith('__')}
             
-        # Case 2: SQLAlchemy model - check for __table__ attribute which all SQLAlchemy models have
-        elif isinstance(schema, type) and hasattr(schema, '__table__'):
-            table_schema, metadata, table_description = sqlalchemy_model_to_schema(schema)
-        
-        # Case 3: Path to JSON schema file
-        elif isinstance(schema, str) and (schema.endswith('.json') or schema.endswith('.schema')):
-            with open(schema, 'r') as f:
-                schema_dict = json.load(f)
-                # Process the loaded dictionary recursively
-                return self._get_schema_info(schema_dict)
-                
-        # Case 4: Path to YAML schema file
-        elif isinstance(schema, str) and (schema.endswith('.yml') or schema.endswith('.yaml')):
-            try:
-                import yaml
-                with open(schema, 'r') as f:
-                    schema_dict = yaml.safe_load(f)
-                    # Process the loaded dictionary recursively
-                    return self._get_schema_info(schema_dict)
-            except ImportError:
-                raise ImportError("PyYAML is required for YAML schema support. Install it with 'pip install pyyaml'.")
-            except Exception as e:
-                raise ValueError(f"Error loading YAML schema file {schema}: {str(e)}")
-                    
             # Extract table description if present using the special key
             if "__table_description__" in schema:
                 table_description = schema["__table_description__"]
-            elif "__model_description__" in schema:
-                table_description = schema["__model_description__"]
+                
+            # Extract foreign keys if present using the special key
+            if "__foreign_keys__" in schema:
+                # Convert lists to tuples if needed since JSON uses lists instead of tuples
+                for fk_col, fk_ref in schema["__foreign_keys__"].items():
+                    if isinstance(fk_ref, list) and len(fk_ref) == 2:
+                        foreign_keys[fk_col] = (fk_ref[0], fk_ref[1])
+                    else:
+                        foreign_keys[fk_col] = fk_ref
             
             # Process each field in the schema
             for field_name, field_info in schema.items():
@@ -835,6 +827,13 @@ class SyntheticDataGenerator:
                     # Add description if available
                     if "description" in field_info:
                         field_metadata["description"] = field_info["description"]
+                    
+                    # Extract foreign key relationships from references
+                    if field_type == "foreign_key" and "references" in field_info:
+                        references = field_info["references"]
+                        if "schema" in references and "field" in references:
+                            # Add to foreign keys dictionary
+                            foreign_keys[field_name] = (references["schema"], references["field"])
                     
                     # Add constraints if available
                     constraints = {}
@@ -864,8 +863,33 @@ class SyntheticDataGenerator:
                             field_metadata["constraints"][k] = v
                     
                     metadata[field_name] = field_metadata
+            
+        # Case 2: SQLAlchemy model - check for __table__ attribute which all SQLAlchemy models have
+        elif isinstance(schema, type) and hasattr(schema, '__table__'):
+            table_schema, metadata, table_description = sqlalchemy_model_to_schema(schema)
+            # SQLAlchemy foreign keys are handled differently, return empty dict for now
+            foreign_keys = {}
         
-        return table_schema, metadata, table_description
+        # Case 3: Path to JSON schema file
+        elif isinstance(schema, str) and (schema.endswith('.json') or schema.endswith('.schema')):
+            with open(schema, 'r') as f:
+                schema_dict = json.load(f)
+                # Process the loaded dictionary recursively
+                return self._get_schema_info(schema_dict)
+                
+        # Case 4: Path to YAML schema file
+        elif isinstance(schema, str) and (schema.endswith('.yml') or schema.endswith('.yaml')):
+            try:
+                import yaml
+                with open(schema, 'r') as f:
+                    schema_dict = yaml.safe_load(f)
+                    # Process the loaded dictionary recursively
+                    return self._get_schema_info(schema_dict)
+            except ImportError:
+                raise ImportError("PyYAML is required for YAML schema support. Install it with 'pip install pyyaml'.")
+            except Exception as e:
+                raise ValueError(f"Error loading YAML schema file {schema}: {str(e)}")
+        return table_schema, metadata, table_description, foreign_keys
 
     def _build_prompt(self, table_schema, metadata, table_description, primary_key_fields, prompt, sample_size):
         """
