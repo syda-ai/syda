@@ -8,17 +8,33 @@ A Python-based open-source library for generating synthetic data with AI while p
 * [Installation](#installation)
 * [Quick Start](#quick-start)
 * [Core API](#core-api)
-
   * [Structured Data Generation](#structured-data-generation)
   * [SQLAlchemy Model Integration](#sqlalchemy-model-integration)
   * [Handling Foreign Key Relationships](#handling-foreign-key-relationships)
+  * [Multiple Schema Definition Formats](#multiple-schema-definition-formats)
+    * [SQLAlchemy Models](#1-sqlalchemy-models)
+    * [YAML Schema Files](#2-yaml-schema-files)
+    * [JSON Schema Files](#3-json-schema-files)
+    * [Dictionary-Based Schemas](#4-dictionary-based-schemas)
+    * [Foreign Key Definition Methods](#foreign-key-definition-methods)
   * [Automatic Management of Multiple Related Models](#automatic-management-of-multiple-related-models)
   * [Complete CRM Example](#complete-crm-example)
-  * [Metadata Enhancement Benefits](#metadata-enhancement-benefits)
-  * [Custom Generators for Domain-Specific Data](#custom-generators-for-domain-specific-data)
-  * [Model Selection and Configuration](#model-selection-and-configuration)
-  * [Output Options](#output-options)
-* [Configuration](#configuration)
+* [Metadata Enhancement Benefits with SQLAlchemy Models](#metadata-enhancement-benefits-with-sqlalchemy-models)
+* [Custom Generators for Domain-Specific Data](#custom-generators-for-domain-specific-data)
+* [Model Selection and Configuration](#model-selection-and-configuration)
+  * [Basic Configuration](#basic-configuration)
+  * [Using Different Model Providers](#using-different-model-providers)
+    * [OpenAI Models](#openai-models)
+    * [Anthropic Claude Models](#anthropic-claude-models)
+    * [Maximum Tokens Parameter](#maximum-tokens-parameter)
+    * [Provider-Specific Optimizations](#provider-specific-optimizations)
+  * [Advanced: Direct Access to LLM Client](#advanced-direct-access-to-llm-client)
+* [Output Options](#output-options)
+* [Configuration and Error Handling](#configuration-and-error-handling)
+  * [API Keys Management](#api-keys-management)
+    * [Environment Variables (Recommended)](#1-environment-variables-recommended)
+    * [Direct Initialization](#2-direct-initialization)
+  * [Error Handling](#error-handling)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -72,25 +88,37 @@ pip install syda
 
 ```python
 from syda.structured import SyntheticDataGenerator
+from syda.schemas import ModelConfig
 
-generator = SyntheticDataGenerator()
-schema = {
-    'patient_id': 'number',
-    'diagnosis_code': 'icd10_code',
-    'email': 'email',
-    'visit_date': 'date',
-    'notes': 'text'
+model_config = ModelConfig(
+    provider="anthropic",
+    model_name="claude-3-5-haiku-20241022",
+    temperature=0.7
+)
+
+generator = SyntheticDataGenerator(model_config=model_config)
+
+# Define schema for a single table
+schemas = {
+    'Patient': {
+        'patient_id': 'number',
+        'diagnosis_code': 'icd10_code',
+        'email': 'email',
+        'visit_date': 'date',
+        'notes': 'text'
+    }
 }
+
 prompt = "Generate realistic synthetic patient records with ICD-10 diagnosis codes, emails, visit dates, and clinical notes."
 
 # Generate and save to CSV
-output = generator.generate_data(
-    schema_dict=schema,
-    prompt=prompt,
-    sample_size=15,
-    output_path='synthetic_output.csv'
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    prompts={'Patient': prompt},
+    sample_sizes={'Patient': 15},
+    output_dir='synthetic_output'
 )
-print(f"Data saved to {output}")
+print(f"Data saved to synthetic_output/Patient.csv")
 ```
 
 ## Core API
@@ -101,13 +129,19 @@ Use simple schema maps or SQLAlchemy models to generate data:
 
 ```python
 from syda.structured import SyntheticDataGenerator
+from syda.schemas import ModelConfig
 
-generator = SyntheticDataGenerator(model='gpt-4-turbo')
+model_config = ModelConfig(provider='anthropic', model_name='claude-3-5-haiku-20241022')
+generator = SyntheticDataGenerator(model_config=model_config)
+
 # Simple dict schema
-records = generator.generate_data(
-    schema={'id': 'number', 'name': 'text'},
-    prompt='Generate user records',
-    sample_size=10
+schemas = {
+    'User': {'id': 'number', 'name': 'text'}
+}
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    prompts={'User': 'Generate user records'},
+    sample_sizes={'User': 10}
 )
 ```
 
@@ -119,6 +153,7 @@ Pass declarative models directly—docstrings and column metadata inform the pro
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 from syda.structured import SyntheticDataGenerator
+from syda.schemas import ModelConfig
 
 Base = declarative_base()
 class User(Base):
@@ -126,8 +161,13 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, comment="Full name of the user")
 
-generator = SyntheticDataGenerator()
-generator.generate_data(sqlalchemy_model=User, prompt='Generate users', sample_size=5)
+model_config = ModelConfig(provider='anthropic', model_name='claude-3-5-haiku-20241022')
+generator = SyntheticDataGenerator(model_config=model_config)
+results = generator.generate_for_sqlalchemy_models(
+    sqlalchemy_models=[User], 
+    prompts={'User': 'Generate users'}, 
+    sample_sizes={'User': 5}
+)
 ```
 
 ### Handling Foreign Key Relationships
@@ -147,14 +187,258 @@ generator.register_generator('foreign_key', department_id_fk_generator, column_n
 3. **Multi-Step Generation Process**: For related tables, generate parent records first, then use their IDs when generating child records:
 
 ```python
-# Generate departments first
-departments_df = generator.generate_data(sqlalchemy_model=Department, prompt='...', sample_size=5)
-# Then generate employees with valid department_id references
-employees_df = generator.generate_data(sqlalchemy_model=Employee, prompt='Generate realistic employee data', sample_size=10)
+# Generate departments first, then employees with valid department_id references
+results = generator.generate_for_sqlalchemy_models(
+    sqlalchemy_models=[Department, Employee],
+    prompts={
+        'Department': 'Generate company departments',
+        'Employee': 'Generate realistic employee data'
+    },
+    sample_sizes={
+        'Department': 5,
+        'Employee': 10
+    }
+)
+
+# Access the generated dataframes
+departments_df = results['Department']
+employees_df = results['Employee']
 ```
 
 4. **Referential Integrity Preservation**: The foreign key generator samples from actual existing IDs in the parent table, ensuring all references are valid.
 5. **Metadata-Enhanced Foreign Keys**: Column comments on foreign key fields are preserved and included in the prompt, helping the LLM understand the relationship context.
+
+### Multiple Schema Definition Formats
+
+Syda supports defining your data models in multiple formats, all leading to the same synthetic data generation capabilities. Choose the format that best suits your workflow:
+
+#### 1. SQLAlchemy Models
+
+```python
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, Date
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+class Customer(Base):
+    __tablename__ = 'customers'
+    __doc__ = """Customer organization that places orders"""
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False, comment="Company name")
+    status = Column(String(20), comment="Customer status (Active/Inactive/Prospect)")
+
+class Order(Base):
+    __tablename__ = 'orders'
+    __doc__ = """Customer order for products or services"""
+    
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
+    order_date = Column(Date, nullable=False, comment="Date when order was placed")
+    total_amount = Column(Float, comment="Total monetary value of the order in USD")
+
+# Generate data from SQLAlchemy models
+results = generator.generate_for_sqlalchemy_models(
+    sqlalchemy_models=[Customer, Order],
+    prompts={"Customer": "Generate tech companies"},
+    sample_sizes={"Customer": 10, "Order": 30}
+)
+```
+
+#### 2. YAML Schema Files
+
+```yaml
+# customer.yaml
+__table_description__: Customer organization that places orders
+id:
+  type: number
+  primary_key: true
+name:
+  type: text
+  max_length: 100
+  not_null: true
+  description: Company name
+status:
+  type: text
+  max_length: 20
+  description: Customer status (Active/Inactive/Prospect)
+```
+
+```yaml
+# order.yaml
+__table_description__: Customer order for products or services
+__foreign_keys__:
+  customer_id: [Customer, id]
+id:
+  type: number
+  primary_key: true
+customer_id:
+  type: foreign_key
+  not_null: true
+  description: Reference to the customer who placed the order
+order_date:
+  type: date
+  not_null: true
+  description: Date when order was placed
+total_amount:
+  type: number
+  description: Total monetary value of the order in USD
+```
+
+```python
+# Generate data from YAML schema files
+results = generator.generate_for_schemas(
+    schemas={
+        'Customer': 'schemas/customer.yaml',
+        'Order': 'schemas/order.yaml'
+    },
+    prompts={'Customer': 'Generate tech companies'},
+    sample_sizes={'Customer': 10, 'Order': 30}
+)
+```
+
+#### 3. JSON Schema Files
+
+```json
+// customer.json
+{
+  "__table_description__": "Customer organization that places orders",
+  "id": {
+    "type": "number",
+    "primary_key": true
+  },
+  "name": {
+    "type": "text",
+    "max_length": 100,
+    "not_null": true,
+    "description": "Company name"
+  },
+  "status": {
+    "type": "text",
+    "max_length": 20,
+    "description": "Customer status (Active/Inactive/Prospect)"
+  }
+}
+```
+
+```json
+// order.json
+{
+  "__table_description__": "Customer order for products or services",
+  "__foreign_keys__": {
+    "customer_id": ["Customer", "id"]
+  },
+  "id": {
+    "type": "number",
+    "primary_key": true
+  },
+  "customer_id": {
+    "type": "foreign_key",
+    "not_null": true,
+    "description": "Reference to the customer who placed the order"
+  },
+  "order_date": {
+    "type": "date",
+    "not_null": true,
+    "description": "Date when order was placed"
+  },
+  "total_amount": {
+    "type": "number",
+    "description": "Total monetary value of the order in USD"
+  }
+}
+```
+
+```python
+# Generate data from JSON schema files
+results = generator.generate_for_schemas(
+    schemas={
+        'Customer': 'schemas/customer.json',
+        'Order': 'schemas/order.json'
+    },
+    prompts={'Customer': 'Generate tech companies'},
+    sample_sizes={'Customer': 10, 'Order': 30}
+)
+```
+
+#### 4. Dictionary-Based Schemas
+
+```python
+# Define schemas directly as dictionaries
+schemas = {
+    'Customer': {
+        '__table_description__': 'Customer organization that places orders',
+        'id': {'type': 'number', 'primary_key': True},
+        'name': {
+            'type': 'text',
+            'max_length': 100,
+            'not_null': True,
+            'description': 'Company name'
+        },
+        'status': {
+            'type': 'text',
+            'max_length': 20,
+            'description': 'Customer status (Active/Inactive/Prospect)'
+        }
+    },
+    'Order': {
+        '__table_description__': 'Customer order for products or services',
+        '__foreign_keys__': {
+            'customer_id': ['Customer', 'id']
+        },
+        'id': {'type': 'number', 'primary_key': True},
+        'customer_id': {
+            'type': 'foreign_key',
+            'not_null': True,
+            'description': 'Reference to the customer who placed the order'
+        },
+        'order_date': {
+            'type': 'date',
+            'not_null': True,
+            'description': 'Date when order was placed'
+        },
+        'total_amount': {
+            'type': 'number',
+            'description': 'Total monetary value of the order in USD'
+        }
+    }
+}
+
+# Generate data from dictionary schemas
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    prompts={'Customer': 'Generate tech companies'},
+    sample_sizes={'Customer': 10, 'Order': 30}
+)
+```
+
+#### Foreign Key Definition Methods
+
+There are three ways to define foreign key relationships:
+
+1. Using the `__foreign_keys__` special section in a schema:
+   ```python
+   "__foreign_keys__": {
+       "customer_id": ["Customer", "id"]
+   }
+   ```
+
+2. Using field-level references with type and references properties:
+   ```python
+   "order_id": {
+       "type": "foreign_key",
+       "references": {
+           "schema": "Order",
+           "field": "id"
+       }
+   }
+   ```
+
+3. Using type-based detection with naming conventions:
+   ```python
+   "customer_id": "foreign_key"
+   ```
+   (The system will attempt to infer the relationship based on naming conventions)
 
 ### Automatic Management of Multiple Related Models
 
@@ -548,7 +832,7 @@ Custom generators can significantly enhance the quality and realism of your synt
 
 ## Model Selection and Configuration
 
-Syda uses the powerful **instructor** library for unified access to multiple AI providers. This integration provides several key benefits:
+Syda provides unified access to multiple AI providers with several key benefits:
 
 - **Provider Abstraction**: Switch between models from different providers with minimal code changes
 - **Consistent Interface**: Use the same syntax regardless of the underlying model provider
@@ -584,7 +868,7 @@ generator = SyntheticDataGenerator(model_config=config)
 
 ### Using Different Model Providers
 
-The instructor library integration allows you to easily switch between different AI providers while maintaining a consistent interface.
+The library allows you to easily switch between different AI providers while maintaining a consistent interface.
 
 #### OpenAI Models
 
@@ -647,7 +931,7 @@ When generating complex data or data with many columns, consider increasing this
 
 #### Provider-Specific Optimizations
 
-Each AI provider has different strengths and parameter requirements. The `instructor` library handles most of the differences automatically, but you can optimize for specific providers:
+Each AI provider has different strengths and parameter requirements. The library automatically handles most of the differences, but you can optimize for specific providers:
 
 ```python
 # OpenAI-specific optimization
@@ -670,13 +954,12 @@ anthropic_optimized = ModelConfig(
 
 ### Advanced: Direct Access to LLM Client
 
-For advanced use cases, you can access the underlying Instructor-patched LLM client directly for additional control:
+For advanced use cases, you can access the underlying LLM client directly for additional control:
 
 ```python
 from syda.llm import create_llm_client
-from instructor import Mode
 
-# Create a standalone LLM client with instructor integration
+# Create a standalone LLM client
 llm_client = create_llm_client(
     model_config=ModelConfig(
         provider='anthropic', 
@@ -700,11 +983,10 @@ class Book(BaseModel):
 class BookCollection(BaseModel):
     books: List[Book]
 
-# Use the instructor-patched client for structured responses
+# Use the client for structured responses
 books = llm_client.client.chat.completions.create(
     model="claude-3-opus-20240229",
-    response_model=BookCollection,  # Instructor handles parsing to this model
-    mode=Mode.JSON,  # Force JSON mode for reliable structured output
+    response_model=BookCollection,  # Automatically parses the response to this model
     messages=[{"role": "user", "content": "Generate 5 fictional sci-fi books."}]
 )
 
@@ -713,7 +995,7 @@ for book in books.books:
     print(f"{book.title} by {book.author} ({book.year}) - {book.pages} pages")
 ```
 
-This approach leverages the full power of Instructor's structured data extraction capabilities while giving you direct control over the client.
+This approach gives you direct control over the client while still providing structured data extraction capabilities.
 
 ## Output Options
 
@@ -724,7 +1006,7 @@ This approach leverages the full power of Instructor's structured data extractio
 
 ### API Keys Management
 
-With the instructor library integration, you now need to provide appropriate API keys based on the provider you're using. There are two recommended ways to manage API keys:
+You can provide appropriate API keys based on the provider you're using. There are two recommended ways to manage API keys:
 
 #### 1. Environment Variables (Recommended)
 
@@ -737,7 +1019,7 @@ export OPENAI_API_KEY=your_openai_key
 # For Anthropic models
 export ANTHROPIC_API_KEY=your_anthropic_key
 
-# For other providers, check the instructor library documentation
+# For other providers, set the appropriate environment variables
 ```
 
 You can also use a `.env` file in your project root and load it with:
@@ -760,49 +1042,6 @@ generator = SyntheticDataGenerator(
 )
 ```
 
-### Instructor Library Integration
-
-Syda now leverages the [instructor](https://github.com/jxnl/instructor) library to provide:
-
-1. **Structured Data Extraction**: Reliable conversion of LLM responses to structured data formats
-2. **Multi-Provider Support**: Single interface for multiple AI providers
-3. **Runtime Type Validation**: Ensures AI outputs conform to your schema
-4. **Automatic Retries**: Retry logic for invalid responses
-5. **Streaming Support**: For large dataset generation
-
-This integration enables a more reliable and consistent data generation experience across different AI providers.
-
-```python
-# Import the LLM client module directly for advanced usage
-from syda.llm import create_llm_client, LLMClient
-
-# Create a client with specific configuration
-llm_client = create_llm_client(
-    model_config=ModelConfig(provider='anthropic', model_name='claude-3-sonnet-20240229'),
-    anthropic_api_key="your_api_key"  # Optional if set in environment
-)
-
-# The patched client has all the instructor enhancements
-patched_client = llm_client.client
-
-# Use the enhanced client in your own applications
-from pydantic import BaseModel
-from typing import List
-
-class DataPoint(BaseModel):
-    name: str
-    value: float
-    category: str
-
-class Dataset(BaseModel):
-    data_points: List[DataPoint]
-
-result = patched_client.chat.completions.create(
-    model="claude-3-sonnet-20240229",
-    response_model=Dataset,  # Pydantic model for structured output
-    messages=[{"role": "user", "content": "Generate 5 data points about renewable energy"}]
-)
-```
 
 ### Error Handling
 

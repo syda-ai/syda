@@ -1,0 +1,45 @@
+__table_description__: Books published in the publishing system
+
+id:
+  type: number
+  description: Unique identifier for the book
+  constraints:
+    primary_key: true
+
+title:
+  type: text
+  description: Title of the book
+  constraints:
+    unique: true
+    max_length: 200
+
+author_id:
+  type: foreign_key
+  description: Reference to the author who wrote the book
+  references:
+    schema: Author
+    field: id
+
+genre:
+  type: text
+  description: Genre or category of the book
+  constraints:
+    max_length: 50
+
+publication_date:
+  type: date
+  description: Date when the book was published
+
+price:
+  type: number
+  description: Current price of the book in USD
+
+description:
+  type: text
+  description: Brief summary of the book's content
+  constraints:
+    max_length: 5000
+
+page_count:
+  type: number
+  description: Total number of pages in the book

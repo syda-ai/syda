@@ -1,0 +1,63 @@
+__table_description__: Products in the inventory management system
+
+id:
+  type: number
+  description: Unique identifier for the product
+  constraints:
+    primary_key: true
+
+name:
+  type: text
+  description: Name of the product
+  constraints:
+    unique: true
+    max_length: 150
+
+category_id:
+  type: foreign_key
+  description: Reference to the product category
+  references:
+    schema: Category
+    field: id
+
+sku:
+  type: text
+  description: Stock Keeping Unit - unique product identifier
+  constraints:
+    unique: true
+    max_length: 50
+
+price:
+  type: number
+  description: Current price of the product in USD
+
+description:
+  type: text
+  description: Detailed description of the product
+  constraints:
+    max_length: 5000
+
+weight:
+  type: number
+  description: Weight of the product in kg
+
+dimensions:
+  type: text
+  constraints:
+    max_length: 100
+  description: Dimensions of the product in format LxWxH cm
+
+in_stock:
+  type: boolean
+  description: Whether the product is currently in stock
+
+reorder_level:
+  type: number
+  description: Minimum stock level before reordering
+
+supplier_id:
+  type: foreign_key
+  description: Reference to the supplier of this product
+  references:
+    schema: Supplier
+    field: id

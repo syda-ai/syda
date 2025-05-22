@@ -20,65 +20,89 @@ def sqlalchemy_model_to_schema(model_class) -> Tuple[dict, dict, str]:
     and extract docstrings.
     
     Returns:
-        tuple: (schema_dict, metadata_dict, model_docstring)
-            - schema_dict: Dictionary mapping column names to data types
+        tuple: (table_schema, metadata_dict, table_description)
+            - table_schema: Dictionary mapping column names to data types
             - metadata_dict: Dictionary containing column metadata (comments, constraints, etc.)
-            - model_docstring: Docstring of the model class if available
+            - table_description: Docstring of the model class if available
     """
-    schema = {}
+    table_schema = {}
     metadata = {}
     
     # Extract model docstring if available
-    model_docstring = model_class.__doc__ or ""
-    model_docstring = model_docstring.strip()
+    table_description = model_class.__doc__ or ""
+    table_description = table_description.strip()
     
     # Process columns
     for col in model_class.__table__.columns:
         # Handle data type
         if col.foreign_keys:
-            schema[col.name] = 'foreign_key'
+            table_schema[col.name] = 'foreign_key'
         elif hasattr(col.type, 'python_type'):
             py_type = col.type.python_type
             
             # Map python types to our schema types
             if py_type == str:
-                schema[col.name] = 'text'
+                table_schema[col.name] = 'text'
             elif py_type == int:
-                schema[col.name] = 'number'
+                table_schema[col.name] = 'number'
             elif py_type == float:
-                schema[col.name] = 'number'
+                table_schema[col.name] = 'number'
             elif py_type == bool:
-                schema[col.name] = 'boolean'
+                table_schema[col.name] = 'boolean'
             elif py_type.__name__ == 'date':
-                schema[col.name] = 'date'
+                table_schema[col.name] = 'date'
             elif py_type.__name__ == 'datetime':
-                schema[col.name] = 'datetime'
+                table_schema[col.name] = 'datetime'
             else:
-                schema[col.name] = 'text'  # Default to text
+                table_schema[col.name] = 'text'  # Default to text
         else:
-            schema[col.name] = 'text'  # Default to text
+            table_schema[col.name] = 'text'  # Default to text
         
         # Collect metadata
         col_metadata = {}
         
-        # Add comment if available
+        # Add description if available (using SQLAlchemy column comment as description)
         if col.comment:
-            col_metadata['comment'] = col.comment
+            col_metadata['description'] = col.comment
         
-        # Add constraints
-        constraints = []
+        # Add constraints as a dictionary (key-value pairs)
+        constraints = {}
+        
+        # Primary key constraint
         if col.primary_key:
-            constraints.append('primary_key')
+            constraints['primary_key'] = True
+            
+        # Unique constraint
         if col.unique:
-            constraints.append('unique')
+            constraints['unique'] = True
+            
+        # Not null constraint
         if not col.nullable:
-            constraints.append('not_null')
+            constraints['not_null'] = True
+            
+        # Length constraints - extract from various SQLAlchemy column types
+        if hasattr(col.type, 'length') and col.type.length is not None:
+            constraints['max_length'] = col.type.length
+        
+        # For string columns with length information
+        if str(col.type).startswith('VARCHAR') or str(col.type).startswith('CHAR'):
+            # Try to extract length information from the column type
+            try:
+                length_str = str(col.type).split('(')[1].split(')')[0]
+                if length_str.isdigit():
+                    constraints['max_length'] = int(length_str)
+            except (IndexError, ValueError):
+                pass
+                
+        # Foreign key constraints
         if col.foreign_keys:
             # Get foreign key target table and column
             for fk in col.foreign_keys:
                 target = fk.target_fullname
-                constraints.append(f'foreign_key_to({target})')
+                constraints['foreign_key_to'] = target
+                break  # Only use the first foreign key if multiple exist
         
+        # Only add constraints to metadata if we have any
         if constraints:
             col_metadata['constraints'] = constraints
         
@@ -86,7 +110,7 @@ def sqlalchemy_model_to_schema(model_class) -> Tuple[dict, dict, str]:
         if col_metadata:
             metadata[col.name] = col_metadata
     
-    return schema, metadata, model_docstring
+    return table_schema, metadata, table_description
 
 def extract_sqlalchemy_relationships(model_class) -> Dict[str, Dict]:
     """

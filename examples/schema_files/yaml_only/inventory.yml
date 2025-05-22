@@ -1,0 +1,44 @@
+__table_description__: Current inventory levels for products
+
+id:
+  type: number
+  description: Unique identifier for the inventory record
+  constraints:
+    primary_key: true
+
+product_id:
+  type: foreign_key
+  description: Reference to the product
+  references:
+    schema: Product
+    field: id
+
+quantity:
+  type: number
+  description: Current quantity in stock
+
+warehouse_location:
+  type: text
+  description: Location code within the warehouse
+  constraints:
+    max_length: 50
+
+last_checked:
+  type: date
+  description: Date when inventory was last verified
+
+batch_number:
+  type: text
+  description: Batch or lot number for inventory tracking
+  constraints:
+    max_length: 100
+
+expiry_date:
+  type: date
+  description: Expiration date for the product (if applicable)
+
+purchase_order_id:
+  type: text
+  description: Reference to the purchase order that added this inventory
+  constraints:
+    max_length: 50
