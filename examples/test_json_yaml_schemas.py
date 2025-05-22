@@ -135,7 +135,6 @@ def main():
     # Generate data using the unified generate_for_schemas method
     results = generator.generate_for_schemas(
         schemas=schemas,
-        foreign_keys=foreign_keys,
         prompts=prompts,
         sample_sizes=sample_sizes,
         output_dir=output_dir,

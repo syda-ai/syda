@@ -156,6 +156,238 @@ employees_df = generator.generate_data(sqlalchemy_model=Employee, prompt='Genera
 4. **Referential Integrity Preservation**: The foreign key generator samples from actual existing IDs in the parent table, ensuring all references are valid.
 5. **Metadata-Enhanced Foreign Keys**: Column comments on foreign key fields are preserved and included in the prompt, helping the LLM understand the relationship context.
 
+### Multiple Schema Definition Formats
+
+Syda supports defining your data models in multiple formats, all leading to the same synthetic data generation capabilities. Choose the format that best suits your workflow:
+
+#### 1. SQLAlchemy Models
+
+```python
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, Date
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+class Customer(Base):
+    __tablename__ = 'customers'
+    __doc__ = """Customer organization that places orders"""
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False, comment="Company name")
+    status = Column(String(20), comment="Customer status (Active/Inactive/Prospect)")
+
+class Order(Base):
+    __tablename__ = 'orders'
+    __doc__ = """Customer order for products or services"""
+    
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
+    order_date = Column(Date, nullable=False, comment="Date when order was placed")
+    total_amount = Column(Float, comment="Total monetary value of the order in USD")
+
+# Generate data from SQLAlchemy models
+results = generator.generate_for_sqlalchemy_models(
+    sqlalchemy_models=[Customer, Order],
+    prompts={"Customer": "Generate tech companies"},
+    sample_sizes={"Customer": 10, "Order": 30}
+)
+```
+
+#### 2. YAML Schema Files
+
+```yaml
+# customer.yaml
+__table_description__: Customer organization that places orders
+id:
+  type: number
+  primary_key: true
+name:
+  type: text
+  max_length: 100
+  not_null: true
+  description: Company name
+status:
+  type: text
+  max_length: 20
+  description: Customer status (Active/Inactive/Prospect)
+```
+
+```yaml
+# order.yaml
+__table_description__: Customer order for products or services
+__foreign_keys__:
+  customer_id: [Customer, id]
+id:
+  type: number
+  primary_key: true
+customer_id:
+  type: foreign_key
+  not_null: true
+  description: Reference to the customer who placed the order
+order_date:
+  type: date
+  not_null: true
+  description: Date when order was placed
+total_amount:
+  type: number
+  description: Total monetary value of the order in USD
+```
+
+```python
+# Generate data from YAML schema files
+results = generator.generate_for_schemas(
+    schemas={
+        'Customer': 'schemas/customer.yaml',
+        'Order': 'schemas/order.yaml'
+    },
+    prompts={'Customer': 'Generate tech companies'},
+    sample_sizes={'Customer': 10, 'Order': 30}
+)
+```
+
+#### 3. JSON Schema Files
+
+```json
+// customer.json
+{
+  "__table_description__": "Customer organization that places orders",
+  "id": {
+    "type": "number",
+    "primary_key": true
+  },
+  "name": {
+    "type": "text",
+    "max_length": 100,
+    "not_null": true,
+    "description": "Company name"
+  },
+  "status": {
+    "type": "text",
+    "max_length": 20,
+    "description": "Customer status (Active/Inactive/Prospect)"
+  }
+}
+```
+
+```json
+// order.json
+{
+  "__table_description__": "Customer order for products or services",
+  "__foreign_keys__": {
+    "customer_id": ["Customer", "id"]
+  },
+  "id": {
+    "type": "number",
+    "primary_key": true
+  },
+  "customer_id": {
+    "type": "foreign_key",
+    "not_null": true,
+    "description": "Reference to the customer who placed the order"
+  },
+  "order_date": {
+    "type": "date",
+    "not_null": true,
+    "description": "Date when order was placed"
+  },
+  "total_amount": {
+    "type": "number",
+    "description": "Total monetary value of the order in USD"
+  }
+}
+```
+
+```python
+# Generate data from JSON schema files
+results = generator.generate_for_schemas(
+    schemas={
+        'Customer': 'schemas/customer.json',
+        'Order': 'schemas/order.json'
+    },
+    prompts={'Customer': 'Generate tech companies'},
+    sample_sizes={'Customer': 10, 'Order': 30}
+)
+```
+
+#### 4. Dictionary-Based Schemas
+
+```python
+# Define schemas directly as dictionaries
+schemas = {
+    'Customer': {
+        '__table_description__': 'Customer organization that places orders',
+        'id': {'type': 'number', 'primary_key': True},
+        'name': {
+            'type': 'text',
+            'max_length': 100,
+            'not_null': True,
+            'description': 'Company name'
+        },
+        'status': {
+            'type': 'text',
+            'max_length': 20,
+            'description': 'Customer status (Active/Inactive/Prospect)'
+        }
+    },
+    'Order': {
+        '__table_description__': 'Customer order for products or services',
+        '__foreign_keys__': {
+            'customer_id': ['Customer', 'id']
+        },
+        'id': {'type': 'number', 'primary_key': True},
+        'customer_id': {
+            'type': 'foreign_key',
+            'not_null': True,
+            'description': 'Reference to the customer who placed the order'
+        },
+        'order_date': {
+            'type': 'date',
+            'not_null': True,
+            'description': 'Date when order was placed'
+        },
+        'total_amount': {
+            'type': 'number',
+            'description': 'Total monetary value of the order in USD'
+        }
+    }
+}
+
+# Generate data from dictionary schemas
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    prompts={'Customer': 'Generate tech companies'},
+    sample_sizes={'Customer': 10, 'Order': 30}
+)
+```
+
+#### Foreign Key Definition Methods
+
+There are three ways to define foreign key relationships:
+
+1. Using the `__foreign_keys__` special section in a schema:
+   ```python
+   "__foreign_keys__": {
+       "customer_id": ["Customer", "id"]
+   }
+   ```
+
+2. Using field-level references with type and references properties:
+   ```python
+   "order_id": {
+       "type": "foreign_key",
+       "references": {
+           "schema": "Order",
+           "field": "id"
+       }
+   }
+   ```
+
+3. Using type-based detection with naming conventions:
+   ```python
+   "customer_id": "foreign_key"
+   ```
+   (The system will attempt to infer the relationship based on naming conventions)
+
 ### Automatic Management of Multiple Related Models
 
 Simplify multi-table workflows with `generate_for_sqlalchemy_models`:

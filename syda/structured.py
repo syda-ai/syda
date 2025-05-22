@@ -584,13 +584,11 @@ class SyntheticDataGenerator:
                 description = schema_descriptions[schema_name]
                 
                 print(f"\nGenerating data for {schema_name} with {len(schema)} columns")
-                print(f"Schema: {schema}")
                 print(f"Description: {description}")
                 
                 # Get the prompt and sample size for this schema
                 prompt = prompts.get(schema_name, default_prompt)
                 sample_size = sample_sizes.get(schema_name, default_sample_size)
-                print(f"Using prompt: {prompt[:50]}..." if len(prompt) > 50 else f"Using prompt: {prompt}")
                 
                 # Register foreign key generators for any foreign key columns
                 if schema_name in extracted_foreign_keys:
