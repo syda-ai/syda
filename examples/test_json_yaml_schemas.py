@@ -95,34 +95,32 @@ def main():
     }
     
     # Define custom generators for specific schema columns
+    #
+    # NOTE: Custom generators are OPTIONAL. The AI will generate reasonable values for most fields
+    # based on schema definitions. Custom generators give you precise control for fields where
+    # you need specific distributions or formatting that might be challenging for the AI.
+    #
+    # This example demonstrates mixing schemas from different formats (JSON and YAML)
+    # with just a few strategic custom generators:
+    #
     custom_generators = {
         "Author": {
-            # Generate birth dates between 1940 and 1990
+            # Control birth date distribution for more realistic author ages
             "birth_date": lambda row, col: (datetime.datetime(1940, 1, 1) + 
                 datetime.timedelta(days=random.randint(0, 365*50))).strftime("%Y-%m-%d"),
         },
         "Book": {
-            # Generate prices between $5 and $40 with appropriate precision
-            "price": lambda row, col: round(random.uniform(5, 40), 2),
-            # Make book genres more specific
+            # Ensure book genres match specific publishing categories
             "genre": lambda row, col: random.choice([
                 "Mystery", "Science Fiction", "Fantasy", "Romance", "Literary Fiction",
-                "Biography", "History", "Science", "Self-Help", "Thriller", "Horror",
-                "Memoir", "Poetry", "Young Adult", "Children's", "Cookbook"
-            ]),
-            # Generate page counts between 100 and 800
-            "page_count": lambda row, col: random.randint(100, 800)
+                "Biography", "History", "Science", "Self-Help", "Thriller"
+            ])
         },
         "Review": {
-            # Generate realistic ratings with a bias toward positive reviews
+            # Create a realistic skewed distribution of ratings
             "rating": lambda row, col: random.choices(
                 [1, 2, 3, 4, 5],
                 weights=[0.05, 0.1, 0.2, 0.35, 0.3]  # More likely to be 4-5 stars
-            )[0],
-            # Randomly set verified purchase flag
-            "verified_purchase": lambda row, col: random.choices(
-                [True, False],
-                weights=[0.8, 0.2]  # 80% are verified purchases
             )[0]
         },
     }

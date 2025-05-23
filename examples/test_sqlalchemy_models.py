@@ -183,22 +183,29 @@ def main():
     }
     
     # Define custom generators for specific model columns
+    #
+    # NOTE: Custom generators are OPTIONAL. The AI will generate reasonable values for most fields
+    # based on column names, SQLAlchemy comments, and field types. Custom generators give you precise 
+    # control for fields where you need specific distributions or formatting.
+    #
+    # This example shows a balanced approach with just a few strategic custom generators:
+    #
     custom_generators = {
         "Customer": {
-            # Generate one of three predefined statuses
+            # Ensure a specific distribution of customer statuses for business reporting
             "status": lambda row, col: random.choice(["Active", "Inactive", "Prospect"]),
         },
         "Product": {
-            # Generate prices between $50 and $5000 with appropriate precision
+            # Control price ranges more precisely than the AI might
             "price": lambda row, col: round(random.uniform(50, 5000), 2),
-            # Make product categories more specific than what LLM might generate
+            # Ensure product categories match your specific business domains
             "category": lambda row, col: random.choice([
                 "Cloud Infrastructure", "Business Intelligence", "Security Services",
                 "Data Analytics", "Custom Development", "Support Package", "API Services"
             ])
         },
         "OrderItem": {
-            # Generate quantities between 1 and 10
+            # Example of a simple numeric distribution
             "quantity": lambda row, col: random.randint(1, 10),
         },
     }

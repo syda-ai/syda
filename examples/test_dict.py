@@ -146,33 +146,34 @@ def main():
     }
     
     # Define custom generators for specific schema columns
+    # Define custom generators for specific schema fields
+    #
+    # NOTE: Custom generators are OPTIONAL. The AI will generate reasonable values for most fields
+    # based on field names, types, and descriptions. Custom generators give you precise control 
+    # for fields where you need specific distributions or formatting.
+    #
+    # This example demonstrates using dictionary-based schemas with foreign key relationships
+    # and just a few strategic custom generators:
+    #
     custom_generators = {
         "Customer": {
-            # Generate one of four predefined loyalty tiers
+            # Ensure loyalty tiers match your specific business structure
             "loyalty_tier": lambda row, col: random.choice(["Bronze", "Silver", "Gold", "Platinum"]),
         },
         "Product": {
-            # Generate prices between $5 and $500 with appropriate precision
-            "price": lambda row, col: round(random.uniform(5, 500), 2),
-            # Make product categories more specific
+            # Create a strategic product category distribution
             "category": lambda row, col: random.choice([
                 "Electronics", "Clothing", "Home & Kitchen", "Books", 
-                "Beauty", "Sports", "Toys", "Jewelry", "Tools"
-            ]),
-            # Randomize in_stock status
-            "in_stock": lambda row, col: random.choice([True, True, True, False])  # 75% in stock
+                "Beauty", "Sports", "Toys"
+            ])
         },
         "Order": {
-            # Generate realistic order statuses with appropriate distribution
+            # Create a realistic distribution of order statuses
             "status": lambda row, col: random.choices(
                 ["Pending", "Processing", "Shipped", "Delivered", "Cancelled"],
                 weights=[0.1, 0.15, 0.2, 0.5, 0.05]  # More likely to be delivered
             )[0]
-        },
-        "OrderItem": {
-            # Generate quantities between 1 and 5
-            "quantity": lambda row, col: random.randint(1, 5),
-        },
+        }
     }
     
     print("\n🔄 Generating related data for E-commerce system...")

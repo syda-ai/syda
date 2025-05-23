@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 """
-Example of using the SyntheticDataGenerator to handle multiple related YAML schema files
-with embedded foreign key relationships.
+Example of using the SyntheticDataGenerator with JSON output format.
 
 This example demonstrates:
-1. Loading schemas exclusively from YAML files
-2. Foreign key relationships defined within the schema files themselves
-3. Automatic dependency resolution between schemas
-4. Custom generators for specific fields
+1. Loading schemas from YAML files
+2. Generating data based on these schemas
+3. Saving the output in JSON format instead of CSV
+4. Foreign key relationships defined within the schema files
+5. Custom generators for specific fields
 """
 
 import sys
@@ -29,19 +29,19 @@ from syda.schemas import ModelConfig
 
 
 def main():
-    """Demonstrate automatic generation of related data using YAML schema files with embedded foreign keys."""
+    """Demonstrate synthetic data generation with JSON output format."""
     
     # Create a generator instance with appropriate max_tokens setting
     model_config = ModelConfig(
         provider="anthropic",
         model_name="claude-3-5-haiku-20241022",
         temperature=0.7,
-        max_tokens=8192,  # Using higher max_tokens value for more complete responses
+        max_tokens=8192,
     )
     generator = SyntheticDataGenerator(model_config=model_config)
     
     # Define output directory
-    output_dir = "inventory_data"
+    output_dir = "inventory_data_json"
     
     # Define paths to schema files
     schema_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "schema_files/yaml_only")
@@ -81,12 +81,12 @@ def main():
         """
     }
     
-    # Define sample sizes for each schema (optional)
+    # Define sample sizes for each schema
     sample_sizes = {
-        "Supplier": 10,      # Base entities
-        "Category": 12,      # Categories for products
-        "Product": 25,       # Products across categories from suppliers
-        "Inventory": 35,     # Inventory records for products (some products have multiple records)
+        "Supplier": 10,
+        "Category": 12,
+        "Product": 25,
+        "Inventory": 35,
     }
     
     # Define custom generators for specific schema columns
@@ -119,81 +119,73 @@ def main():
         }
     }
     
-    print("\n🔄 Generating related data for Inventory system...")
-    print("  The system will automatically extract foreign key relationships from YAML schema files")
-    print("  and determine the correct generation order\n")
-    
-    # Generate data using schemas with embedded foreign keys
-    # Note: We don't need to explicitly provide the foreign_keys parameter
+    # Generate data for all schemas with automatic dependency resolution
+    # Specifying 'json' as the output_format
     results = generator.generate_for_schemas(
         schemas=schemas,
         prompts=prompts,
         sample_sizes=sample_sizes,
+        custom_generators=custom_generators,
         output_dir=output_dir,
-        custom_generators=custom_generators
+        output_format='json'  # This is the key parameter to save in JSON format
     )
     
-    # Print summary
-    print("\n✅ Data generation complete!")
-    for schema_name, df in results.items():
-        print(f"  - {schema_name}: {len(df)} records")
+    # Print some statistics about the generated data
+    print("\n📊 Sample data statistics:\n")
     
-    print(f"\nData files saved to directory: {output_dir}/")
+    # Supplier statistics
+    supplier_df = results["Supplier"]
+    active_suppliers = supplier_df[supplier_df["active"] == True].shape[0]
+    print(f"Supplier status distribution:")
+    print(f"  - Active suppliers: {active_suppliers} ({active_suppliers/supplier_df.shape[0]*100:.1f}%)")
+    print(f"  - Inactive suppliers: {supplier_df.shape[0] - active_suppliers} ({(supplier_df.shape[0] - active_suppliers)/supplier_df.shape[0]*100:.1f}%)")
     
-    # Show samples of data with custom generators
-    print("\n📊 Sample data statistics:")
+    # Product statistics
+    product_df = results["Product"]
+    print(f"\nProduct price statistics:")
+    print(f"  - Price range: ${product_df['price'].min():.2f} to ${product_df['price'].max():.2f}")
+    print(f"  - Average price: ${product_df['price'].mean():.2f}")
     
-    print("\nSupplier status distribution:")
-    active_counts = results["Supplier"]["active"].value_counts().to_dict()
-    print(f"  - Active suppliers: {active_counts.get(True, 0)} ({active_counts.get(True, 0)/len(results['Supplier'])*100:.1f}%)")
-    print(f"  - Inactive suppliers: {active_counts.get(False, 0)} ({active_counts.get(False, 0)/len(results['Supplier'])*100:.1f}%)")
+    # Inventory statistics
+    inventory_df = results["Inventory"]
+    print(f"\nInventory quantity statistics:")
+    print(f"  - Quantity range: {inventory_df['quantity'].min()} to {inventory_df['quantity'].max()} units")
+    print(f"  - Average quantity: {inventory_df['quantity'].mean():.1f} units")
+    print(f"  - Total inventory: {inventory_df['quantity'].sum()} units")
     
-    print("\nProduct price statistics:")
-    prices = results["Product"]["price"].tolist()
-    print(f"  - Price range: ${min(prices):.2f} to ${max(prices):.2f}")
-    print(f"  - Average price: ${sum(prices)/len(prices):.2f}")
-    
-    print("\nInventory quantity statistics:")
-    quantities = results["Inventory"]["quantity"].tolist()
-    print(f"  - Quantity range: {min(quantities)} to {max(quantities)} units")
-    print(f"  - Average quantity: {sum(quantities)/len(quantities):.1f} units")
-    print(f"  - Total inventory: {sum(quantities)} units")
-    
+    # Verify foreign key relationships
     print("\n🔍 Verifying referential integrity:")
     
-    # Check Categories → Parent Categories
-    child_categories = results["Category"][results["Category"]["parent_id"].notna()]
-    if len(child_categories) > 0:
-        parent_ids = set(child_categories["parent_id"].tolist())
-        valid_category_ids = set(results["Category"]["id"].tolist())
-        if parent_ids.issubset(valid_category_ids):
-            print("  ✅ All Category.parent_id values reference valid Categories")
-        else:
-            print("  ❌ Invalid Category.parent_id references detected")
-    
-    # Check Products → Categories
-    product_category_ids = set(results["Product"]["category_id"].tolist())
+    # Check Category parent_id references
     valid_category_ids = set(results["Category"]["id"].tolist())
-    if product_category_ids.issubset(valid_category_ids):
-        print("  ✅ All Product.category_id values reference valid Categories")
+    invalid_parent_ids = [pid for pid in results["Category"]["parent_id"].dropna() if pid not in valid_category_ids]
+    if invalid_parent_ids:
+        print(f"  ❌ Invalid Category.parent_id references detected")
     else:
-        print("  ❌ Invalid Product.category_id references detected")
+        print(f"  ✅ All Category.parent_id values reference valid Categories")
     
-    # Check Products → Suppliers
-    product_supplier_ids = set(results["Product"]["supplier_id"].tolist())
+    # Check Product category_id references
+    valid_product_category = all(cid in valid_category_ids for cid in results["Product"]["category_id"])
+    if valid_product_category:
+        print(f"  ✅ All Product.category_id values reference valid Categories")
+    else:
+        print(f"  ❌ Invalid Product.category_id references detected")
+    
+    # Check Product supplier_id references
     valid_supplier_ids = set(results["Supplier"]["id"].tolist())
-    if product_supplier_ids.issubset(valid_supplier_ids):
-        print("  ✅ All Product.supplier_id values reference valid Suppliers")
+    valid_product_supplier = all(sid in valid_supplier_ids for sid in results["Product"]["supplier_id"])
+    if valid_product_supplier:
+        print(f"  ✅ All Product.supplier_id values reference valid Suppliers")
     else:
-        print("  ❌ Invalid Product.supplier_id references detected")
+        print(f"  ❌ Invalid Product.supplier_id references detected")
     
-    # Check Inventory → Products
-    inventory_product_ids = set(results["Inventory"]["product_id"].tolist())
+    # Check Inventory product_id references
     valid_product_ids = set(results["Product"]["id"].tolist())
-    if inventory_product_ids.issubset(valid_product_ids):
-        print("  ✅ All Inventory.product_id values reference valid Products")
+    valid_inventory_product = all(pid in valid_product_ids for pid in results["Inventory"]["product_id"])
+    if valid_inventory_product:
+        print(f"  ✅ All Inventory.product_id values reference valid Products")
     else:
-        print("  ❌ Invalid Inventory.product_id references detected")
+        print(f"  ❌ Invalid Inventory.product_id references detected")
 
 
 if __name__ == "__main__":

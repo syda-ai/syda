@@ -83,33 +83,30 @@ def main():
     }
     
     # Define custom generators for specific schema columns
+    #
+    # NOTE: Custom generators are OPTIONAL. The AI will generate reasonable values for most fields
+    # based on the schema definitions. Custom generators give you precise control for fields where
+    # you need specific distributions or formatting that might be challenging for the AI.
+    #
+    # Below we include just a few key custom generators as examples:
+    #
     custom_generators = {
         "User": {
-            # Generate a few admins, mostly regular users
+            # Generate a specific distribution of admin users
             "is_admin": lambda row, col: random.choices([True, False], weights=[0.2, 0.8])[0],
-            # Generate join dates between 2020 and present
-            "join_date": lambda row, col: (datetime.datetime(2020, 1, 1) + 
-                datetime.timedelta(days=random.randint(0, 365*5))).strftime("%Y-%m-%d")
         },
         "Post": {
-            # Generate publication dates in the last 2 years
+            # Control publication dates to follow a specific timeline
             "publish_date": lambda row, col: (datetime.datetime.now() - 
                 datetime.timedelta(days=random.randint(0, 365*2))).strftime("%Y-%m-%d"),
-            # Generate post categories with specific distribution
-            "category": lambda row, col: random.choices([
-                "Technology", "Travel", "Food", "Health", "Business", 
-                "Personal", "Science", "Arts", "Politics", "Education"
-            ])[0],
-            # Generate post status with weighted distribution
+            # Ensure post statuses follow business rules with specific ratios
             "status": lambda row, col: random.choices(
                 ["published", "draft", "archived"],
                 weights=[0.7, 0.2, 0.1]
             )[0]
         },
         "Comment": {
-            # Most comments are approved, some aren't
-            "is_approved": lambda row, col: random.choices([True, False], weights=[0.9, 0.1])[0],
-            # Only some comments are replies to other comments
+            # Ensure hierarchical relationships work correctly
             "parent_comment_id": lambda row, col: None if random.random() > 0.3 else row["parent_comment_id"]
         }
     }

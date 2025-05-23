@@ -43,7 +43,8 @@ A Python-based open-source library for generating synthetic data with AI while p
 * **Multi-Provider AI Integration**:
 
   * Seamless integration with multiple AI providers
-  * Support for OpenAI (GPT-3.5/4), Anthropic (Claude), and other models
+  * Support for OpenAI (GPT) and Anthropic (Claude). 
+  * Default model is Anthropic Claude model claude-3-5-haiku-20241022
   * Consistent interface across different providers
   * Provider-specific parameter optimization
 
@@ -93,7 +94,8 @@ from syda.schemas import ModelConfig
 model_config = ModelConfig(
     provider="anthropic",
     model_name="claude-3-5-haiku-20241022",
-    temperature=0.7
+    temperature=0.7,
+    max_tokens=8192  # Larger value for more complete responses
 )
 
 generator = SyntheticDataGenerator(model_config=model_config)
@@ -832,13 +834,9 @@ Custom generators can significantly enhance the quality and realism of your synt
 
 ## Model Selection and Configuration
 
-Syda provides unified access to multiple AI providers with several key benefits:
+Syda currently supports two AI providers: OpenAI and Anthropic (Claude).
 
-- **Provider Abstraction**: Switch between models from different providers with minimal code changes
-- **Consistent Interface**: Use the same syntax regardless of the underlying model provider
-- **Structured Output Parsing**: Automatically convert AI responses to structured data formats
-- **Type Validation**: Ensure responses match your expected schema structure
-- **Error Handling**: Get meaningful errors when generation fails instead of random data
+
 
 ### Basic Configuration
 
@@ -868,7 +866,7 @@ generator = SyntheticDataGenerator(model_config=config)
 
 ### Using Different Model Providers
 
-The library allows you to easily switch between different AI providers while maintaining a consistent interface.
+The library currently supports OpenAI and Anthropic (Claude) models and allows you to easily switch between these providers while maintaining a consistent interface.
 
 #### OpenAI Models
 
@@ -999,8 +997,34 @@ This approach gives you direct control over the client while still providing str
 
 ## Output Options
 
-* Returns a `pandas.DataFrame` if no `output_path` specified.
-* Saves to `.csv` or `.json` when `output_path` ends accordingly.
+Syda offers flexible output options to suit different use cases:
+
+### Multiple Schema Generation
+
+When generating data for multiple schemas using `generate_for_schemas` or `generate_for_sqlalchemy_models`, you can specify an output directory and format:
+
+```python
+# Generate and save data to CSV files (default)
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    output_dir="output_directory",
+    output_format="csv"  # Default format
+)
+
+# Generate and save data to JSON files
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    output_dir="output_directory",
+    output_format="json"
+)
+```
+
+Each schema will be saved to a separate file with the schema name as the filename. For example:
+
+* CSV format: `output_directory/customer.csv`, `output_directory/order.csv`, etc.
+* JSON format: `output_directory/customer.json`, `output_directory/order.json`, etc.
+
+The `results` dictionary will still contain all generated DataFrames, so you can both save to files and work with the data directly in your code.
 
 ## Configuration and Error Handling
 
