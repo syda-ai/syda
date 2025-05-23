@@ -15,6 +15,7 @@ from typing import Dict, List, Optional, Callable, Union, Type, Any, Tuple
 from pydantic import create_model, TypeAdapter
 from .schemas import ModelConfig
 from .llm import create_llm_client, LLMClient
+from .output import save_dataframe, save_dataframes
 from .utils import (
     sqlalchemy_model_to_schema, 
     extract_sqlalchemy_relationships,
@@ -114,19 +115,7 @@ class SyntheticDataGenerator:
         
         return G
 
-    def _save_results_to_csv(self, results: Dict[str, pd.DataFrame], output_dir: str) -> None:
-        """
-        Save generated DataFrame results to CSV files in the specified output directory.
-        
-        Args:
-            results: Dictionary mapping schema/model names to their respective DataFrames
-            output_dir: Directory path where CSV files should be saved
-        """
-        os.makedirs(output_dir, exist_ok=True)
-        for schema_name, df in results.items():
-            output_path = os.path.join(output_dir, f"{schema_name.lower()}.csv")
-            df.to_csv(output_path, index=False)
-            print(f"✓ Saved {len(df)} rows to {output_path}")
+    # Method _save_results_to_csv has been moved to output.py module
     
     def _apply_custom_generators(self, df, model_name, model_custom_generators):
         """
@@ -204,7 +193,8 @@ class SyntheticDataGenerator:
         output_dir: Optional[str] = None,
         default_sample_size: int = 10,
         default_prompt: str = "Generate synthetic data",
-        custom_generators: Optional[Dict[str, Dict[str, Callable]]] = None
+        custom_generators: Optional[Dict[str, Dict[str, Callable]]] = None,
+        output_format: str = 'csv'
     ) -> Dict[str, pd.DataFrame]:
         """
         Generate synthetic data for multiple relational SQLAlchemy models with automatic 
@@ -221,11 +211,12 @@ class SyntheticDataGenerator:
                     or a string pattern to match class names
             prompts: Optional dictionary mapping model names to custom prompts
             sample_sizes: Optional dictionary mapping model names to sample sizes
-            output_dir: Optional directory to save CSV files (one per model)
+            output_dir: Optional directory to save files (one per model)
             default_sample_size: Default number of records if not specified in sample_sizes
             default_prompt: Default prompt if not specified in prompts
             custom_generators: Optional dictionary specifying custom generators for SQLAlchemy models and columns.
-                               Format: {"ModelName": {"column_name": generator_function}}
+                              Format: {"ModelName": {"column_name": generator_function}}
+            output_format: Format to use when saving files ('csv' or 'json')
             
         Returns:
             Dictionary mapping model names to DataFrames of generated data
@@ -395,7 +386,7 @@ class SyntheticDataGenerator:
                 if output_dir:
                     # Save individual model result
                     model_results = {model_name: df}
-                    self._save_results_to_csv(model_results, output_dir)
+                    save_dataframes(model_results, output_dir, format=output_format)
                     
         except Exception as e:
             # Restore original generators in case of error
@@ -413,7 +404,8 @@ class SyntheticDataGenerator:
         output_dir: Optional[str] = None,
         default_sample_size: int = 10,
         default_prompt: str = "Generate synthetic data",
-        custom_generators: Optional[Dict[str, Dict[str, Callable]]] = None
+        custom_generators: Optional[Dict[str, Dict[str, Callable]]] = None,
+        output_format: str = 'csv'
     ) -> Dict[str, pd.DataFrame]:
         """
         Generate synthetic data for multiple related schemas with automatic 
@@ -458,11 +450,12 @@ class SyntheticDataGenerator:
                     - File paths to JSON or YAML schema files
             prompts: Optional dictionary mapping schema names to custom prompts
             sample_sizes: Optional dictionary mapping schema names to sample sizes
-            output_dir: Optional directory to save CSV files (one per schema)
+            output_dir: Optional directory to save files (one per schema)
             default_sample_size: Default number of records if not specified in sample_sizes
             default_prompt: Default prompt if not specified in prompts
             custom_generators: Optional dictionary specifying custom generators for schemas and columns
                               Format: {"SchemaName": {"column_name": generator_function}}
+            output_format: Format to use when saving files ('csv' or 'json')
             
         Returns:
             Dictionary mapping schema names to DataFrames of generated data
@@ -731,7 +724,7 @@ class SyntheticDataGenerator:
                 
             # Save files if output_dir is specified
             if output_dir:
-                self._save_results_to_csv(results, output_dir)
+                save_dataframes(results, output_dir, format=output_format)
             
             # Verify referential integrity
             print("\n🔍 Verifying referential integrity:")
@@ -1141,66 +1134,25 @@ class SyntheticDataGenerator:
                         pass
         return df
     
-    def _save_output(self, df, output_path):
-        """
-        Save the generated data to a file if an output path is provided.
-        
-        Args:
-            df: DataFrame to save
-            output_path: Path to save the data to
-            
-        Returns:
-            Path to the saved file
-            
-        Raises:
-            ValueError: If the data cannot be saved
-        """
-        if not output_path:
-            return None
-            
-        # Verify we have valid data to write
-        if df.empty or len(df.columns) == 0:
-            raise ValueError(
-                "Failed to generate valid data. The resulting DataFrame is empty or has no columns. "
-                "This could be due to an issue with the AI model response or schema definition. "
-                "Check your schema, model settings, and API keys."
-            )
-            
-        # Write the file if data is valid
-        if output_path.endswith('.csv'):
-            df.to_csv(output_path, index=False)
-            print(f"✓ Successfully wrote {len(df)} rows to {output_path}")
-            return output_path
-        elif output_path.endswith('.json'):
-            df.to_json(output_path, orient='records')
-            print(f"✓ Successfully wrote {len(df)} rows to {output_path}")
-            return output_path
-        else:
-            # Default to CSV if no extension is recognized
-            csv_path = f"{output_path}.csv"
-            df.to_csv(csv_path, index=False)
-            print(f"✓ Successfully wrote {len(df)} rows to {csv_path}")
-            return csv_path
+    # Method _save_output has been moved to output.py module
 
     def _generate_data(self, table_schema: Dict[str, str],
                      metadata: Dict[str, Dict],
                      table_description: Optional[str] = None,
                      prompt: str = "Generate synthetic data",
-                     sample_size: int = 10, 
-                     output_path: Optional[str] = None) -> Union[pd.DataFrame, str]:
+                     sample_size: int = 10) -> pd.DataFrame:
         """
         Generate synthetic data based on schema using AI.
         
         Args:
             table_schema: Dictionary mapping field names to types (e.g., {'name': 'text', 'age': 'number'})
-            metadata: Dictionary with field metadata including descriptions and constraints
-            table_description: Optional description of the table/entity
-            prompt: Description of what kind of data to generate
-            sample_size: Number of records to generate
-            output_path: Optional path to save generated data (csv or json)
+            metadata: Dictionary with additional info about fields
+            table_description: Optional description of the table to guide generation
+            prompt: Prompt for the AI model
+            sample_size: Number of samples to generate
             
         Returns:
-            pandas DataFrame of generated data, or path to output file if output_path provided
+            DataFrame with generated data
             
         Raises:
             ValueError: If the data generation fails or produces invalid results
@@ -1238,9 +1190,4 @@ class SyntheticDataGenerator:
                 print(f"Applying custom generator for {col_name}")
                 df[col_name] = df.apply(lambda row: self.column_generators[col_name](row, col_name), axis=1)
         
-        # Save output if path provided and return
-        saved_path = self._save_output(df, output_path)
-        if saved_path:
-            return saved_path
-            
         return df
