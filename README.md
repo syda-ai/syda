@@ -997,8 +997,34 @@ This approach gives you direct control over the client while still providing str
 
 ## Output Options
 
-* Returns a `pandas.DataFrame` if no `output_path` specified.
-* Saves to `.csv` or `.json` when `output_path` ends accordingly.
+Syda offers flexible output options to suit different use cases:
+
+### Multiple Schema Generation
+
+When generating data for multiple schemas using `generate_for_schemas` or `generate_for_sqlalchemy_models`, you can specify an output directory and format:
+
+```python
+# Generate and save data to CSV files (default)
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    output_dir="output_directory",
+    output_format="csv"  # Default format
+)
+
+# Generate and save data to JSON files
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    output_dir="output_directory",
+    output_format="json"
+)
+```
+
+Each schema will be saved to a separate file with the schema name as the filename. For example:
+
+* CSV format: `output_directory/customer.csv`, `output_directory/order.csv`, etc.
+* JSON format: `output_directory/customer.json`, `output_directory/order.json`, etc.
+
+The `results` dictionary will still contain all generated DataFrames, so you can both save to files and work with the data directly in your code.
 
 ## Configuration and Error Handling
 
