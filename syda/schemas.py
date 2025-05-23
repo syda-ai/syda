@@ -65,12 +65,12 @@ class ModelConfig(BaseModel):
     """
     
     # Model provider and name
-    provider: Literal["openai", "anthropic"] = "openai"
-    model_name: str = "gpt-4"
+    provider: Literal["openai", "anthropic"] = "anthropic"
+    model_name: str = "claude-3-5-haiku-20241022"
     
     # Common parameters
     temperature: float = Field(0.7, ge=0.0, le=2.0, description="Controls randomness: 0.0 is deterministic, higher values are more random")
-    max_tokens: int = Field(4000, description="Maximum number of tokens to generate. Larger values allow for more complete responses.")
+    max_tokens: int = Field(8192, description="Maximum number of tokens to generate. Larger values allow for more complete responses.")
     top_p: Optional[float] = Field(None, ge=0.0, le=1.0, description="Nucleus sampling parameter")
     
     # OpenAI specific parameters
