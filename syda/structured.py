@@ -114,6 +114,20 @@ class SyntheticDataGenerator:
         
         return G
 
+    def _save_results_to_csv(self, results: Dict[str, pd.DataFrame], output_dir: str) -> None:
+        """
+        Save generated DataFrame results to CSV files in the specified output directory.
+        
+        Args:
+            results: Dictionary mapping schema/model names to their respective DataFrames
+            output_dir: Directory path where CSV files should be saved
+        """
+        os.makedirs(output_dir, exist_ok=True)
+        for schema_name, df in results.items():
+            output_path = os.path.join(output_dir, f"{schema_name.lower()}.csv")
+            df.to_csv(output_path, index=False)
+            print(f"✓ Saved {len(df)} rows to {output_path}")
+    
     def _apply_custom_generators(self, df, model_name, model_custom_generators):
         """
         Apply custom generators to a DataFrame based on model and column specifications.
@@ -379,9 +393,9 @@ class SyntheticDataGenerator:
                 
                 # Save to file if output_dir is specified
                 if output_dir:
-                    os.makedirs(output_dir, exist_ok=True)
-                    output_path = os.path.join(output_dir, f"{model_name.lower()}.csv")
-                    df.to_csv(output_path, index=False)
+                    # Save individual model result
+                    model_results = {model_name: df}
+                    self._save_results_to_csv(model_results, output_dir)
                     
         except Exception as e:
             # Restore original generators in case of error
@@ -717,10 +731,7 @@ class SyntheticDataGenerator:
                 
             # Save files if output_dir is specified
             if output_dir:
-                os.makedirs(output_dir, exist_ok=True)
-                for schema_name, df in results.items():
-                    output_path = os.path.join(output_dir, f"{schema_name.lower()}.csv")
-                    df.to_csv(output_path, index=False)
+                self._save_results_to_csv(results, output_dir)
             
             # Verify referential integrity
             print("\n🔍 Verifying referential integrity:")
