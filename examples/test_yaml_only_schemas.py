@@ -90,44 +90,32 @@ def main():
     }
     
     # Define custom generators for specific schema columns
+    #
+    # NOTE: Custom generators are OPTIONAL. The AI will generate reasonable values for most fields
+    # using the schema descriptions. Custom generators give you precise control for fields where
+    # you need specific distributions or formatting that might be challenging for the AI.
+    #
+    # Below we include only the most important custom generators as examples:
+    #
     custom_generators = {
         "Supplier": {
-            # Generate a mix of active and inactive suppliers
+            # Generate a specific distribution of active/inactive suppliers
             "active": lambda row, col: random.choices([True, False], weights=[0.8, 0.2])[0],
-            # Generate realistic payment terms
+            # Generate values from a fixed set of options
             "payment_terms": lambda row, col: random.choice(["Net 30", "Net 60", "Net 15", "COD", "Prepaid"])
         },
         "Category": {
-            # 70% of categories are top-level (no parent)
-            "parent_id": lambda row, col: None if random.random() < 0.7 else row["parent_id"]
+            # Control hierarchical relationships
+            "parent_id": lambda row, col: random.choices([None, random.randint(1, 5)], weights=[0.7, 0.3])[0]
         },
         "Product": {
-            # Generate prices between $5 and $500 with appropriate precision
-            "price": lambda row, col: round(random.uniform(5, 500), 2),
-            # Generate weights between 0.1 and 50 kg
-            "weight": lambda row, col: round(random.uniform(0.1, 50), 2),
-            # Generate dimensions in the format "LxWxH cm"
-            "dimensions": lambda row, col: f"{random.randint(1, 100)}x{random.randint(1, 100)}x{random.randint(1, 100)} cm",
-            # Generate in_stock status with 80% in stock
-            "in_stock": lambda row, col: random.choices([True, False], weights=[0.8, 0.2])[0],
-            # Generate reorder levels between 5 and 50
-            "reorder_level": lambda row, col: random.randint(5, 50)
+            # Just one example of numeric value control
+            "price": lambda row, col: round(random.uniform(5.99, 499.99), 2)
         },
         "Inventory": {
-            # Generate quantities between 0 and 200
-            "quantity": lambda row, col: random.randint(0, 200),
-            # Generate warehouse locations
-            "warehouse_location": lambda row, col: f"{random.choice('ABCDE')}-{random.randint(1, 9)}-{random.randint(1, 20)}",
-            # Generate last checked dates in the last 90 days
+            # Example of a date field with specific distribution
             "last_checked": lambda row, col: (datetime.datetime.now() - 
-                datetime.timedelta(days=random.randint(0, 90))).strftime("%Y-%m-%d"),
-            # 50% chance of having an expiry date in the next 1-2 years
-            "expiry_date": lambda row, col: None if random.random() < 0.5 else 
-                (datetime.datetime.now() + datetime.timedelta(days=random.randint(365, 730))).strftime("%Y-%m-%d"),
-            # Generate batch numbers
-            "batch_number": lambda row, col: f"B{random.randint(10000, 99999)}",
-            # Generate purchase order IDs
-            "purchase_order_id": lambda row, col: f"PO-{random.randint(1000, 9999)}"
+                datetime.timedelta(days=random.randint(1, 90))).strftime("%Y-%m-%d")
         }
     }
     

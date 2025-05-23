@@ -29,7 +29,7 @@ sku:
 
 price:
   type: number
-  description: Current price of the product in USD
+  description: Current price of the product in USD, typically ranging from $5 to $500 with prices clustered around common price points
 
 description:
   type: text
@@ -39,21 +39,21 @@ description:
 
 weight:
   type: number
-  description: Weight of the product in kg
+  description: Weight of the product in kg, typically between 0.1kg for small items and up to 50kg for larger items
 
 dimensions:
   type: text
   constraints:
     max_length: 100
-  description: Dimensions of the product in format LxWxH cm
+  description: Dimensions of the product in format LxWxH cm (e.g., '25x40x10 cm'), with measurements typically between 1-100cm per dimension
 
 in_stock:
   type: boolean
-  description: Whether the product is currently in stock
+  description: Whether the product is currently in stock, with approximately 80% of products typically being in stock
 
 reorder_level:
   type: number
-  description: Minimum stock level before reordering
+  description: Minimum stock level before reordering, typically set between 5-50 units depending on product demand
 
 supplier_id:
   type: foreign_key
