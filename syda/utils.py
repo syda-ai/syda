@@ -112,38 +112,6 @@ def sqlalchemy_model_to_schema(model_class) -> Tuple[dict, dict, str]:
     
     return table_schema, metadata, table_description
 
-def extract_sqlalchemy_relationships(model_class) -> Dict[str, Dict]:
-    """
-    Extract relationship information from a SQLAlchemy model.
-    
-    Returns:
-        dict: Dictionary of relationship name to target model details
-    """
-    relationships = {}
-    
-    if not hasattr(model_class, '__mapper__') or not hasattr(model_class.__mapper__, 'relationships'):
-        return relationships
-    
-    for relationship_name, relationship in model_class.__mapper__.relationships.items():
-        target_model = relationship.argument
-        if callable(target_model):
-            target_model = target_model()
-        
-        # Get target model name
-        if hasattr(target_model, '__name__'):
-            target_model_name = target_model.__name__
-        else:
-            target_model_name = str(target_model)
-        
-        relationships[relationship_name] = {
-            'target_model': target_model_name,
-            'direction': 'many_to_one' if relationship.direction.name == 'MANYTOONE' else 
-                        'one_to_many' if relationship.direction.name == 'ONETOMANY' else 
-                        'many_to_many' if relationship.direction.name == 'MANYTOMANY' else 'one_to_one'
-        }
-    
-    return relationships
-
 def create_empty_dataframe(schema: Dict) -> pd.DataFrame:
     """
     Create an empty DataFrame with columns based on the schema.
