@@ -1,17 +1,16 @@
 import os
 import magic
 import io
+import re
 from PIL import Image
 import pytesseract
 import pdfplumber
 from docx import Document
 import pandas as pd
-from typing import Dict, List, Optional, Union
-from .synthetic import SyntheticDataGenerator
+from typing import Dict, List, Optional, Union, Any, Set, Tuple
 
 class UnstructuredDataProcessor:
     def __init__(self):
-        self.generator = SyntheticDataGenerator()
         self.supported_types = {
             'application/pdf': self._process_pdf,
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document': self._process_docx,
@@ -80,12 +79,8 @@ class UnstructuredDataProcessor:
             # Read Excel file
             df = pd.read_excel(file_path)
             
-            # Generate synthetic data
-            synthetic_df = self.generator.generate_synthetic_data(df)
-            
             return {
                 'original_data': df.to_dict(orient='records'),
-                'synthetic_data': synthetic_df.to_dict(orient='records'),
                 'type': 'excel'
             }
         except Exception as e:
@@ -135,23 +130,10 @@ class UnstructuredDataProcessor:
         if 'error' in result:
             return result
         
-        if file_type in ['image/jpeg', 'image/png', 'application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain']:
-            # For these types, we can't generate synthetic data directly
-            return {
-                'error': "Synthetic data generation not supported for this file type",
-                'type': file_type
-            }
-        
-        # For Excel files, we can generate synthetic data
-        if file_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-            df = pd.DataFrame(result['original_data'])
-            synthetic_df = self.generator.generate_synthetic_data(df, n_samples)
-            return {
-                'synthetic_data': synthetic_df.to_dict(orient='records'),
-                'type': file_type
-            }
-        
+        # For now, we don't support direct synthetic data generation in this class
+        # This functionality has been moved to the SyntheticDataGenerator class
         return {
-            'error': "Synthetic data generation not supported for this file type",
-            'type': file_type
+            'error': "Synthetic data generation now requires using the SyntheticDataGenerator class",
+            'type': file_type,
+            'original_data': result.get('original_data', None)
         }

@@ -1,5 +1,5 @@
 """
-Structured synthetic data generation using LLMs with SQLAlchemy integration.
+Synthetic data generation for both structured and unstructured data using LLMs.
 """
 
 import pandas as pd
@@ -11,7 +11,7 @@ import importlib
 import inspect
 from pathlib import Path
 import networkx as nx
-from typing import Dict, List, Optional, Callable, Union, Type, Any, Tuple
+from typing import Dict, List, Optional, Callable, Union, Type, Any, Tuple, Set
 from pydantic import create_model, TypeAdapter
 from .schemas import ModelConfig
 from .llm import create_llm_client, LLMClient
@@ -23,6 +23,17 @@ from .utils import (
     get_schema_prompt,
     parse_dataframe_output
 )
+
+# Import template handling
+from .templates import SydaTemplate, TemplateProcessor
+from .unstructured import UnstructuredDataProcessor
+
+# Import unified generation utilities
+from .generator_utils import process_template_schemas, identify_schema_types, infer_values_from_documents
+from .schema_loader import load_schema_from_file
+
+# Import unified schema handler
+from .unified_schema_handler import _load_schema_from_file, unified_generate_for_schemas, _generate_structured_schemas
 
 try:
     from sqlalchemy.orm import DeclarativeMeta
@@ -246,6 +257,9 @@ class SyntheticDataGenerator:
         if custom_generators is None:
             custom_generators = {}
             
+        # Note: SQLAlchemy models don't use template schemas, 
+        # they are always structured data schemas
+            
         # Handle single SQLAlchemy model case
         if not isinstance(sqlalchemy_models, list):
             sqlalchemy_models = [sqlalchemy_models]
@@ -328,8 +342,8 @@ class SyntheticDataGenerator:
                 # Extract schema information first
                 llm_schema, metadata, model_description, _ = self._get_schema_info(model_class)
                 
-                # Use the renamed _generate_data method with pre-extracted schema info
-                df = self._generate_data(
+                # Use the _generate_structured_data method with pre-extracted schema info
+                df = self._generate_structured_data(
                     table_schema=llm_schema, 
                     metadata=metadata, 
                     table_description=model_description,
@@ -395,6 +409,27 @@ class SyntheticDataGenerator:
             
         return results
         
+    def _generate_structured_schemas(self, schemas, prompts, sample_sizes, output_dir, default_sample_size, default_prompt, custom_generators, output_format, inferred_values=None):
+        """
+        Process structured schemas using the existing implementation.
+        This is a wrapper around the existing functionality.
+        
+        Args:
+            schemas: Dictionary mapping schema names to schema sources
+            prompts: Dictionary mapping schema names to prompts
+            sample_sizes: Dictionary mapping schema names to sample sizes
+            output_dir: Optional directory to save output files
+            default_sample_size: Default sample size
+            default_prompt: Default prompt
+            custom_generators: Custom generators dictionary
+            output_format: Output format (csv or json)
+            inferred_values: Optional dictionary of inferred values
+            
+        Returns:
+            Dictionary mapping schema names to DataFrames
+        """
+        return _generate_structured_schemas(self, schemas, prompts, sample_sizes, output_dir, default_sample_size, default_prompt, custom_generators, output_format, inferred_values)
+    
     def generate_for_schemas(
         self,
         schemas: Dict[str, Union[Dict[str, str], str]],
@@ -404,11 +439,17 @@ class SyntheticDataGenerator:
         default_sample_size: int = 10,
         default_prompt: str = "Generate synthetic data",
         custom_generators: Optional[Dict[str, Dict[str, Callable]]] = None,
-        output_format: str = 'csv'
-    ) -> Dict[str, pd.DataFrame]:
+        output_format: str = 'csv',
+        document_folder: Optional[str] = None,
+        document_extensions: Optional[List[str]] = None,
+        infer_from_documents: bool = False
+    ) -> Dict[str, Union[pd.DataFrame, List[str]]]:
         """
         Generate synthetic data for multiple related schemas with automatic 
         dependency resolution based on foreign key relationships.
+        
+        This function now supports both structured data schemas and template schemas,
+        automatically determining dependencies and generation order.
         
         This function supports different schema input formats:
         - Dictionary schemas directly in the code
@@ -421,27 +462,35 @@ class SyntheticDataGenerator:
         3. Automatically determines the correct order to generate data
         4. Handles foreign key relationships between schemas
         5. Applies custom generators where registered
+        6. Processes template schemas to generate documents with placeholders replaced
         
         Foreign key relationships can be defined in three ways:
         
         1. Using the '__foreign_keys__' special section in a schema:
-           "__foreign_keys__": {
-               "customer_id": ["Customer", "id"]
-           }
+        "__foreign_keys__": {
+            "customer_id": ["Customer", "id"]
+        }
         
         2. Using field-level references with type and references properties:
-           "order_id": {
-               "type": "foreign_key",
-               "references": {
-                   "schema": "Order",
-                   "field": "id"
-               }
-           }
+        "order_id": {
+            "type": "foreign_key",
+            "references": {
+                "schema": "Order",
+                "field": "id"
+            }
+        }
         
         3. Using type-based detection with naming conventions:
-           "customer_id": "foreign_key"
-           (The system will attempt to infer the relationship based on naming conventions)
+        "customer_id": "foreign_key"
+        (The system will attempt to infer the relationship based on naming conventions)
         
+        Template schemas are identified by the presence of a '__template__' section:
+        "InvoiceTemplate": {
+            "__template__": {
+                "source": "templates/invoice.pdf"
+            },
+            ...field definitions...
+        }
         
         Args:
             schemas: Dictionary mapping schema names to either:
@@ -453,314 +502,45 @@ class SyntheticDataGenerator:
             default_sample_size: Default number of records if not specified in sample_sizes
             default_prompt: Default prompt if not specified in prompts
             custom_generators: Optional dictionary specifying custom generators for schemas and columns
-                              Format: {"SchemaName": {"column_name": generator_function}}
+                            Format: {"SchemaName": {"column_name": generator_function}}
             output_format: Format to use when saving files ('csv' or 'json')
+            document_folder: Optional path to folder containing documents to infer values from
+            document_extensions: Optional list of file extensions to include
+            infer_from_documents: Whether to infer values from documents
             
         Returns:
-            Dictionary mapping schema names to DataFrames of generated data
-        
-        Example with dictionary schemas:
-            schemas = {
-                'Customer': {
-                    'id': 'number', 
-                    'name': 'text', 
-                    'email': 'email'
-                },
-                'Order': {
-                    '__foreign_keys__': {
-                        'customer_id': ["Customer", "id"]
-                    },
-                    'id': 'number', 
-                    'customer_id': 'foreign_key', 
-                    'total': 'number'
-                },
-                'OrderItem': {
-                    'id': 'number', 
-                    'order_id': {
-                        'type': 'foreign_key',
-                        'references': {
-                            'schema': 'Order',
-                            'field': 'id'
-                        }
-                    }, 
-                    'product': 'text'
-                }
-            }
-            
-            generator.generate_for_schemas(
-                schemas=schemas,
-                prompts={'Customer': 'Generate tech company customers'}
-            )
-            
-        Example with file-based schemas:
-            schemas = {
-                'Customer': 'schemas/customer.json',
-                'Order': 'schemas/order.yaml',
-                'OrderItem': 'schemas/order_item.yml'
-            }
-            
-            generator.generate_for_schemas(
-                schemas=schemas
-            )
+            Dictionary mapping schema names to:
+            - DataFrames for structured data schemas
+            - Lists of document strings for template schemas
         """
-        # Initialize default parameters
-        if prompts is None:
-            prompts = {}
-        if sample_sizes is None:
-            sample_sizes = {}
-        if custom_generators is None:
-            custom_generators = {}
-            
-        # Load schemas from various sources
-        processed_schemas = {}
-        schema_metadata = {}
-        schema_descriptions = {}
-        
-        # Dictionary to store extracted foreign keys
-        schema_foreign_keys = {}
-        
-        for schema_name, schema_source in schemas.items():
-            # Use _get_schema_info to extract schema information regardless of source type
-            llm_schema, metadata, desc, extracted_fks = self._get_schema_info(schema_source)
-            
-            # Store processed schema and metadata
-            processed_schemas[schema_name] = llm_schema
-            schema_metadata[schema_name] = metadata or {}
-            schema_descriptions[schema_name] = desc or f"{schema_name} data"
-            
-            # Store extracted foreign keys if any
-            if extracted_fks:
-                schema_foreign_keys[schema_name] = extracted_fks
-            
-        # Build dependency information from foreign key relations
-        schema_dependencies = {}
-        extracted_foreign_keys = {}
-        
-        # Add foreign keys extracted from schema files
-        for schema_name, fks in schema_foreign_keys.items():
-            if schema_name not in extracted_foreign_keys:
-                extracted_foreign_keys[schema_name] = {}
-            # Add each foreign key relationship
-            for fk_column, (parent_schema, parent_column) in fks.items():
-                extracted_foreign_keys[schema_name][fk_column] = (parent_schema, parent_column)
-                print(f"Using schema-defined foreign key: {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
-        
-        # Extract dependencies from foreign key mappings
-        for child_schema, fk_columns in extracted_foreign_keys.items():
-            if child_schema not in processed_schemas:
-                raise ValueError(f"Schema {child_schema} referenced in foreign keys but not found in schemas")
-            
-            # Collect all parent schemas for this child schema
-            dependencies = []
-            for fk_column, (parent_schema, parent_column) in fk_columns.items():
-                if parent_schema not in processed_schemas:
-                    raise ValueError(f"Parent schema {parent_schema} referenced in foreign keys but not found in schemas")
-                
-                # Add parent as a dependency
-                dependencies.append(parent_schema)
-            
-            # Store this schema's dependencies
-            if dependencies:
-                schema_dependencies[child_schema] = dependencies
-        
-        # Use the shared dependency graph builder
-        G = self._build_dependency_graph(
-            nodes=list(processed_schemas.keys()),
-            dependencies=schema_dependencies
+        # Use the unified implementation
+        return unified_generate_for_schemas(
+            self,
+            schemas=schemas,
+            prompts=prompts,
+            sample_sizes=sample_sizes,
+            output_dir=output_dir,
+            default_sample_size=default_sample_size,
+            default_prompt=default_prompt,
+            custom_generators=custom_generators,
+            output_format=output_format,
+            document_folder=document_folder,
+            document_extensions=document_extensions,
+            infer_from_documents=infer_from_documents
         )
-        
-        # Determine generation order using topological sort
-        try:
-            generation_order = list(nx.topological_sort(G))
-        except nx.NetworkXUnfeasible:
-            raise ValueError("Circular dependencies detected between schemas. Cannot determine generation order.")
-            
-        # Dictionary to hold generated data
-        results = {}
-        
-        # Store the original generators to restore them later
-        original_type_generators = self.type_generators.copy()
-        original_column_generators = self.column_generators.copy()
-        
-        try:
-            # Generate data for each schema in the correct order
-            for schema_name in generation_order:
-                schema = processed_schemas[schema_name]
-                metadata = schema_metadata[schema_name]
-                description = schema_descriptions[schema_name]
-                
-                print(f"\nGenerating data for {schema_name} with {len(schema)} columns")
-                print(f"Description: {description}")
-                
-                # Get the prompt and sample size for this schema
-                prompt = prompts.get(schema_name, default_prompt)
-                sample_size = sample_sizes.get(schema_name, default_sample_size)
-                
-                # Register foreign key generators for any foreign key columns
-                if schema_name in extracted_foreign_keys:
-                    for fk_column, (parent_schema, parent_column) in extracted_foreign_keys[schema_name].items():
-                        if parent_schema in results:
-                            # Get the valid IDs from the parent schema
-                            valid_ids = results[parent_schema][parent_column].tolist()
-                            
-                            if not valid_ids:
-                                print(f"⚠️ Warning: No valid IDs found in {parent_schema}.{parent_column} for foreign key {schema_name}.{fk_column}")
-                                continue
-                                
-                            # Create a generator that returns a random valid ID
-                            valid_ids_copy = valid_ids.copy()  # Make a copy to avoid reference issues
-                            fk_generator = lambda row, col, ids=valid_ids_copy: random.choice(ids)
-                            
-                            # Register the generator for this column
-                            print(f"Registering foreign key generator for {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
-                            self.register_generator('foreign_key', fk_generator, column_name=fk_column)
-                        else:
-                            print(f"⚠️ Warning: Parent schema {parent_schema} not available for foreign key {schema_name}.{fk_column}")
-                
-                # We'll let generate_data handle the prompt building with metadata
-                # by passing the schema directly, along with the base prompt
-                # This eliminates duplicated prompt-building logic
-                # Use AI-based generation for meaningful data
-                print(f"Creating data for {schema_name} with schema: {schema}")
-                
-                # Use the schema information we already extracted earlier
-                llm_schema = processed_schemas[schema_name]
-                metadata = schema_metadata[schema_name]
-                model_description = schema_descriptions[schema_name]
-                
-                # Try to use the AI generation first
-                try:
-                    # Use the _generate_data method to generate data for this schema
-                    print(f"Generating data for {schema_name} using _generate_data")
-                    # Pass the already extracted schema information to avoid redundant extraction
-                    df = self._generate_data(
-                        table_schema=llm_schema, 
-                        metadata=metadata, 
-                        table_description=model_description,
-                        prompt=prompt, 
-                        sample_size=sample_size
-                    )
-                    
-                    # Check if we have the requested sample size
-                    if len(df) < sample_size:
-                        print(f"Warning: LLM generated only {len(df)} records instead of {sample_size} for {schema_name}")
-                        # We don't fill with placeholder data - we'll use what the LLM gave us
-                    
-                    # Truncate if we got more data than needed
-                    if len(df) > sample_size:
-                        df = df.iloc[:sample_size]
-                        
-                except Exception as e:
-                    print(f"Error using AI generation for {schema_name}: {str(e)}")
-                    # We don't use placeholder data - require a real LLM
-                    raise Exception(f"Failed to generate data for {schema_name} using LLM: {str(e)}")
-                
-                # Add placeholder methods needed for AI generation
-                
-                # Second pass: handle foreign key fields
-                for field_name, field_info in schema.items():
-                    if field_name.startswith('__'):
-                        continue
-                        
-                    field_type = field_info if isinstance(field_info, str) else field_info.get('type', 'text')
-                    
-                    # Now handle foreign key fields
-                    if field_type.lower() == 'foreign_key':
-                        # Extract references info
-                        references = None
-                        if isinstance(field_info, dict) and 'references' in field_info:
-                            references = field_info['references']
-                            parent_schema = references.get('schema')
-                            parent_field = references.get('field')
-                            
-                            # Handle self-referential foreign keys specially
-                            if parent_schema == schema_name:
-                                # For self-references, we need to be careful
-                                # First row should have NULL or 0 as parent (root)
-                                values = [None]  # Start with NULL for first item (root)
-                                
-                                # Then for the rest, reference existing rows
-                                for i in range(1, sample_size):
-                                    # For each item, reference one of the previous items
-                                    if i > 1:
-                                        # Choose a random ID from existing rows
-                                        # But ensure we don't create cycles (limit parent options)
-                                        valid_parent_idx = random.randint(0, i-1)
-                                        if valid_parent_idx == 0:
-                                            values.append(None)  # Some items are also roots
-                                        else:
-                                            parent_id = df['id'].iloc[valid_parent_idx]
-                                            values.append(parent_id)
-                                    else:
-                                        # Second item can reference the first or be null
-                                        if random.choice([True, False]):
-                                            values.append(df['id'].iloc[0])
-                                        else:
-                                            values.append(None)
-                                
-                                df[field_name] = values
-                                print(f"Created hierarchical self-references for {schema_name}.{field_name}")
-                            
-                            # Use existing results if the parent schema has already been processed (not self-referential)
-                            elif parent_schema in results and parent_field in results[parent_schema].columns:
-                                valid_ids = results[parent_schema][parent_field].tolist()
-                                # Ensure we have enough IDs (repeat if necessary)
-                                while len(valid_ids) < sample_size:
-                                    valid_ids.extend(valid_ids)
-                                # Select random IDs from the parent schema
-                                df[field_name] = [random.choice(valid_ids) for _ in range(sample_size)]
-                            else:
-                                # Parent schema not yet processed, use placeholder IDs
-                                print(f"WARNING: Parent schema {parent_schema} not yet processed. Using placeholder IDs for {field_name}")
-                                df[field_name] = [random.randint(1, 1000) for _ in range(sample_size)]
-                
-                # Apply custom generators if any
-                schema_custom_generators = custom_generators.get(schema_name, {})
-                df = self._apply_custom_generators(df, schema_name, schema_custom_generators)
-                
-                # Store the result
-                results[schema_name] = df
-                
-            # Save files if output_dir is specified
-            if output_dir:
-                save_dataframes(results, output_dir, format=output_format)
-            
-            # Verify referential integrity
-            print("\n🔍 Verifying referential integrity:")
-            all_valid = True
-            for schema_name, fk_columns in extracted_foreign_keys.items():
-                for fk_column, (parent_schema, parent_column) in fk_columns.items():
-                    # Skip validation if we don't have both tables
-                    if schema_name not in results or parent_schema not in results:
-                        print(f"  ⚠️ Cannot verify {schema_name}.{fk_column} references - missing tables")
-                        continue
-                        
-                    # Get the values used in the foreign key column
-                    fk_values = results[schema_name][fk_column].tolist()
-                    # Get the valid values from the parent table
-                    valid_values = results[parent_schema][parent_column].tolist()
-                    
-                    # Check if all foreign key values are valid
-                    invalid_values = [v for v in fk_values if v not in valid_values]
-                    if invalid_values:
-                        print(f"  ❌ Invalid {schema_name}.{fk_column} references detected")
-                        all_valid = False
-                    else:
-                        print(f"  ✅ All {schema_name}.{fk_column} values reference valid {parent_schema}.{parent_column}")
-            
-            if not all_valid:
-                print("\n⚠️ Some foreign key constraints were violated. This may affect data integrity.")
-            elif not extracted_foreign_keys:
-                print("  ℹ️ No foreign key relationships defined in schemas")
-                    
-        except Exception as e:
-            # Restore original generators in case of error
-            self.type_generators = original_type_generators
-            self.column_generators = original_column_generators
-            raise e
-            
-        return results
 
+    def _load_schema_from_file(self, file_path):
+        """
+        Load a schema from a JSON or YAML file.
+        
+        Args:
+            file_path: Path to the schema file (JSON or YAML)
+            
+        Returns:
+            Dictionary containing the schema definition
+        """
+        return load_schema_from_file(file_path)
+        
     def _get_schema_info(self, schema):
         """
         Extract schema information based on the type of schema provided.
@@ -1135,11 +915,12 @@ class SyntheticDataGenerator:
     
     # Method _save_output has been moved to output.py module
 
-    def _generate_data(self, table_schema: Dict[str, str],
+    def _generate_structured_data(self, table_schema: Dict[str, str],
                      metadata: Dict[str, Dict],
                      table_description: Optional[str] = None,
                      prompt: str = "Generate synthetic data",
-                     sample_size: int = 10) -> pd.DataFrame:
+                     sample_size: int = 10,
+                     inferred_values: Optional[Dict[str, Any]] = None) -> pd.DataFrame:
         """
         Generate synthetic data based on schema using AI.
         
@@ -1190,3 +971,246 @@ class SyntheticDataGenerator:
                 df[col_name] = df.apply(lambda row: self.column_generators[col_name](row, col_name), axis=1)
         
         return df
+    #---------------------------------------------------------------------------
+    # Template and Unstructured Data Generation Methods
+    #---------------------------------------------------------------------------
+
+    def _get_template_content(self, template_path: str) -> str:
+        """
+        Get content from a template file.
+        
+        Args:
+            template_path: Path to the template file
+            
+        Returns:
+            Template text content
+        """
+        processor = UnstructuredDataProcessor()
+        result = processor.process_file(template_path)
+        
+        if 'error' in result:
+            raise ValueError(f"Error processing template: {result['error']}")
+            
+        if 'text' not in result:
+            raise ValueError(f"Unable to extract text from template of type {result.get('type', 'unknown')}")
+            
+        return result['text']
+    
+    def _extract_placeholders(self, text: str) -> Set[str]:
+        """
+        Extract placeholder field names from text.
+        
+        Args:
+            text: The template text containing placeholders
+            
+        Returns:
+            Set of placeholder field names without the {{ }} delimiters
+        """
+        template_processor = TemplateProcessor()
+        return template_processor.extract_placeholders(text)
+    
+    def _create_schema_from_placeholders(self, placeholders: Set[str]) -> Dict[str, str]:
+        """
+        Create a data schema from extracted placeholders.
+        
+        Args:
+            placeholders: Set of placeholder field names
+            
+        Returns:
+            Dictionary mapping field names to field types
+        """
+        template_processor = TemplateProcessor()
+        return template_processor.create_schema_from_placeholders(placeholders)
+    
+    def _replace_placeholders(self, template_content: str, values: Dict[str, Any]) -> str:
+        """
+        Replace placeholders in a template with provided values.
+        
+        Args:
+            template_content: Template text with placeholders
+            values: Dictionary mapping field names to values
+            
+        Returns:
+            Template with placeholders replaced by values
+        """
+        template_processor = TemplateProcessor()
+        return template_processor.replace_placeholders(template_content, values)
+    
+    def _extract_template_model_mappings(self, model_class, structured_data):
+        """
+        Extract field mappings from a template model to structured data.
+        
+        Args:
+            model_class: SQLAlchemy template model class
+            structured_data: Dictionary mapping model names to DataFrames
+            
+        Returns:
+            Dictionary mapping template fields to source data
+        """
+        mappings = {}
+        
+        # Skip if not a SQLAlchemy model or not a SydaTemplate
+        if not hasattr(model_class, '__table__') or not hasattr(model_class, 'get_foreign_keys'):
+            return mappings
+            
+        # Get foreign keys from the template model
+        foreign_keys = model_class.get_foreign_keys()
+        
+        for field, fk_info in foreign_keys.items():
+            target_table = fk_info['target_table']
+            target_column = fk_info['target_column']
+            
+            # Find corresponding DataFrame
+            for model_name, df in structured_data.items():
+                model_table = model_name.lower()
+                if model_table == target_table:
+                    mappings[field] = {
+                        'dataframe': df,
+                        'column': target_column
+                    }
+                    break
+        
+        return mappings
+    
+    def _generate_template_values(self, schema, sample_size=1):
+        """
+        Generate values for a template schema.
+        
+        Args:
+            schema: Dictionary mapping field names to field types
+            sample_size: Number of samples to generate
+            
+        Returns:
+            DataFrame with generated values
+        """
+        # Generate data using the existing method
+        df = self._generate_structured_data(
+            table_schema=schema,
+            metadata={},
+            table_description="Template data",
+            prompt=f"Generate data for document template with fields: {', '.join(schema.keys())}",
+            sample_size=sample_size
+        )
+        
+        return df
+    
+    def _is_template_schema(self, schema_dict):
+        """
+        Check if a schema dictionary is a template schema.
+        
+        Args:
+            schema_dict: Schema dictionary to check
+            
+        Returns:
+            True if it's a template schema, False otherwise
+        """
+        return isinstance(schema_dict, dict) and '__template__' in schema_dict
+    
+    def _process_template_schema(self, schema_name, schema_dict, structured_data=None, sample_size=1):
+        """
+        Process a template schema and generate documents.
+        
+        Args:
+            schema_name: Name of the template schema
+            schema_dict: Template schema dictionary
+            structured_data: Optional dictionary of structured data DataFrames
+            sample_size: Number of documents to generate
+            
+        Returns:
+            List of generated document strings
+        """
+        # Get template source path
+        if '__template__' not in schema_dict or 'source' not in schema_dict['__template__']:
+            raise ValueError(f"Template schema {schema_name} missing source path in '__template__' section")
+            
+        template_path = schema_dict['__template__']['source']
+        
+        # Check if the template file exists
+        if not os.path.exists(template_path):
+            raise ValueError(f"Template file not found: {template_path}")
+            
+        # Get template content
+        template_content = self._get_template_content(template_path)
+        
+        # Extract placeholders
+        placeholders = self._extract_placeholders(template_content)
+        
+        if not placeholders:
+            print(f"Warning: No placeholders found in template {template_path}")
+            return [template_content] * sample_size
+            
+        # Create field schema from template
+        field_schema = {}
+        
+        # Extract field types from schema dictionary
+        for field in placeholders:
+            if field in schema_dict:
+                field_type = schema_dict[field]
+                if isinstance(field_type, dict) and 'type' in field_type:
+                    field_schema[field] = field_type['type']
+                else:
+                    field_schema[field] = field_type
+            else:
+                # If field not in schema, infer type from name
+                inferred_schema = self._create_schema_from_placeholders({field})
+                field_schema[field] = inferred_schema[field]
+        
+        # Initialize document values
+        all_values = []
+        
+        # If we have structured data and foreign keys, use them
+        if structured_data and '__foreign_keys__' in schema_dict:
+            foreign_keys = schema_dict['__foreign_keys__']
+            
+            # Determine maximum number of documents based on structured data
+            max_docs = sample_size
+            for field, target in foreign_keys.items():
+                if len(target) == 2:
+                    target_schema, target_field = target
+                    if target_schema in structured_data:
+                        df = structured_data[target_schema]
+                        max_docs = min(max_docs, len(df))
+            
+            # Generate values for each document
+            for i in range(max_docs):
+                values = {}
+                
+                # Add values from foreign keys
+                for field, target in foreign_keys.items():
+                    if len(target) == 2:
+                        target_schema, target_field = target
+                        if target_schema in structured_data:
+                            df = structured_data[target_schema]
+                            if i < len(df) and target_field in df.columns:
+                                values[field] = df.iloc[i][target_field]
+                
+                # Generate any missing values
+                missing_fields = {f: field_schema[f] for f in placeholders if f not in values}
+                if missing_fields:
+                    template_df = self._generate_template_values(missing_fields, 1)
+                    for field in missing_fields:
+                        if field in template_df.columns:
+                            values[field] = template_df.iloc[0][field]
+                
+                all_values.append(values)
+        else:
+            # Generate all values from scratch
+            template_df = self._generate_template_values(field_schema, sample_size)
+            
+            # Convert DataFrame to list of dictionaries
+            for i in range(min(len(template_df), sample_size)):
+                values = {}
+                for field in placeholders:
+                    if field in template_df.columns:
+                        values[field] = template_df.iloc[i][field]
+                    else:
+                        values[field] = f"{{{{ {field} }}}}"  # Leave placeholder if value not generated
+                all_values.append(values)
+        
+        # Generate documents by replacing placeholders
+        documents = []
+        for values in all_values:
+            doc = self._replace_placeholders(template_content, values)
+            documents.append(doc)
+        
+        return documents

@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 # Add the parent directory to the path so we can import the syda package
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from syda.structured import SyntheticDataGenerator
+from syda.generate import SyntheticDataGenerator
 from syda.schemas import ModelConfig, ProxyConfig
 
 # Load environment variables from .env file if it exists

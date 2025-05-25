@@ -28,7 +28,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 load_dotenv()
 
 # Import the synthetic data generator
-from syda.structured import SyntheticDataGenerator
+from syda.generate import SyntheticDataGenerator
 
 # Create a Base for our models
 Base = declarative_base()
