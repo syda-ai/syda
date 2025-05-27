@@ -1,0 +1,167 @@
+__template__: true
+__description__: Retail receipt template
+__name__: Receipt
+__depends_on__: [Product, Transaction, Customer]
+__foreign_keys__:
+  customer_name: [Customer, first_name]
+template_source: /home/ramkumar2606/syda-fresh/examples/retail/templates/receipt.html
+input_file_type: html
+output_file_type: pdf
+
+# Receipt header
+store_name:
+  type: string
+  length: 50
+  description: Name of the retail store
+
+store_address:
+  type: address
+  length: 150
+  description: Full address of the store
+
+store_phone:
+  type: string
+  pattern: '^\+\d{1,3}-\d{3}-\d{3}-\d{4}$'
+  length: 20
+  description: Store phone number
+
+store_website:
+  type: url
+  length: 100
+  description: Store website URL
+
+# Receipt details
+receipt_number:
+  type: string
+  pattern: '^RCP-\d{8}$'
+  length: 12
+  description: Unique receipt identifier
+
+transaction_date:
+  type: date
+  format: YYYY-MM-DD
+  description: Date of the transaction
+
+transaction_time:
+  type: string
+  pattern: '^([01]\d|2[0-3]):([0-5]\d)$'
+  length: 5
+  description: Time of the transaction in 24-hour format
+
+# Customer information
+customer_name:
+  type: string
+  length: 100
+  description: Full name of the customer
+
+customer_id:
+  type: string
+  pattern: '^CUST-\d{6}$'
+  length: 11
+  description: Customer ID number
+  references: 
+    table: Customer
+    column: id
+
+# Payment information
+payment_method:
+  type: string
+  enum: ["Credit Card", "Debit Card", "Cash", "Gift Card", "Store Credit", "Mobile Payment"]
+  description: Method of payment used
+
+card_last_four:
+  type: string
+  pattern: '^\d{4}$'
+  length: 4
+  description: Last four digits of the payment card (if applicable)
+
+# Product purchase details
+items:
+  type: array
+  description: List of purchased items with product details
+  example: [
+    {"product_name": "Wireless Headphones", "sku": "WH-100", "quantity": 1, "unit_price": 89.99, "item_total": 89.99},
+    {"product_name": "Phone Case", "sku": "PC-200", "quantity": 2, "unit_price": 19.99, "item_total": 39.98}
+  ]
+  items:
+    type: object
+    properties:
+      product_id:
+        type: integer
+        description: Product ID
+        references: 
+          table: Product
+          column: id
+      product_name:
+        type: string
+        length: 100
+        description: Name of the product
+      sku:
+        type: string
+        pattern: '^P[A-Z]{2}-\d{5}$'
+        length: 10
+        description: Product SKU
+      quantity:
+        type: integer
+        min: 1
+        max: 100
+        description: Quantity purchased
+      unit_price:
+        type: float
+        min: 0.99
+        max: 9999.99
+        decimals: 2
+        description: Price per unit
+      item_total:
+        type: float
+        min: 0.99
+        max: 999999.99
+        decimals: 2
+        description: Total price for this item
+
+# Totals
+subtotal:
+  type: float
+  min: 0.99
+  max: 999999.99
+  decimals: 2
+  description: Sum of all item totals before tax
+
+tax_rate:
+  type: float
+  min: 0
+  max: 15
+  decimals: 2
+  description: Tax rate percentage
+
+tax_amount:
+  type: float
+  min: 0
+  max: 99999.99
+  decimals: 2
+  description: Total tax amount
+
+discount_amount:
+  type: float
+  min: 0
+  max: 99999.99
+  decimals: 2
+  description: Total discount amount applied
+
+total:
+  type: float
+  min: 0.99
+  max: 999999.99
+  decimals: 2
+  description: Final total amount
+
+# Footer
+cashier_name:
+  type: string
+  length: 100
+  description: Name of the cashier who processed the transaction
+
+return_policy:
+  type: string
+  length: 500
+  description: Store return policy text

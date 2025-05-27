@@ -1,0 +1,25 @@
+{
+  "__template__": {
+    "source": "/home/ramkumar2606/syda-fresh/examples/templates/invoice_template.html",
+    "input_file_type": "html",
+    "output_file_type": "pdf"
+  },
+  "invoice_number": "string",
+  "invoice_date": "date",
+  "due_date": "date",
+  "company_name": "string",
+  "company_address": "address",
+  "company_email": "email",
+  "client_name": "string",
+  "client_address": "address",
+  "client_email": "email",
+  "item_description": "string",
+  "quantity": "integer",
+  "unit_price": "float",
+  "item_total": "float",
+  "subtotal": "float",
+  "tax_rate": "float",
+  "tax_amount": "float",
+  "total": "float",
+  "payment_terms": "integer"
+}
