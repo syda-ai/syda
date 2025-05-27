@@ -114,35 +114,6 @@ class SyntheticDataGenerator:
         
         return G
 
-    # Method _save_results_to_csv has been moved to output.py module
-    
-    def _apply_custom_generators(self, df, model_name, model_custom_generators):
-        """
-        Apply custom generators to a DataFrame based on model and column specifications.
-        
-        Args:
-            df: DataFrame to modify
-            model_name: Name of the model
-            model_custom_generators: Dict mapping column names to generator functions
-            
-        Returns:
-            pd.DataFrame: Modified DataFrame with custom values
-        """
-        if not model_custom_generators:
-            return df
-            
-        num_custom_generators = len(model_custom_generators)
-        if num_custom_generators > 0:
-            print(f"Found {num_custom_generators} custom generators for {model_name}")
-            for col_name, generator_fn in model_custom_generators.items():
-                if col_name in df.columns:
-                    print(f"Applying custom generator for {model_name}.{col_name}")
-                    # Apply the custom generator row by row
-                    for i in range(len(df)):
-                        row = df.iloc[i].copy()
-                        df.at[i, col_name] = generator_fn(row, col_name)
-        return df
-
     def _handle_missing_columns(self, df, model_name, schema, foreign_key_info=None, custom_generators=None):
         """
         Add any missing columns to the DataFrame with appropriate values.
