@@ -310,10 +310,20 @@ class SyntheticDataGenerator:
         original_column_generators = self.column_generators.copy()
         
         try:
+            # Debug the complete generation order
+            print("\n🔄 DEBUG: Model generation order:")
+            for i, model_name in enumerate(generation_order):
+                print(f"  {i+1}. {model_name}")
+            print("")
+                
             # Generate data for each model in the correct order
             for model_name in generation_order:
                 print(f"\nGenerating data for {model_name} with {len(model_info[model_name]['schema'])} columns")
                 print(f"Schema: {model_info[model_name]['schema']}")
+                
+                # Debug dependencies for this model
+                if model_name in model_dependencies and model_dependencies[model_name]:
+                    print(f"Dependencies for {model_name}: {model_dependencies[model_name]}")
                 
                 # Get model info
                 model_class = model_info[model_name]['model_class']
@@ -546,6 +556,10 @@ class SyntheticDataGenerator:
             schema_metadata[schema_name] = metadata or {}
             schema_descriptions[schema_name] = desc or f"{schema_name} data"
             
+            # Debug the metadata extraction - especially for template schemas
+            if metadata and '__depends_on__' in metadata:
+                print(f"Found __depends_on__ for {schema_name}: {metadata['__depends_on__']}")
+                
             # Store extracted foreign keys if any
             if extracted_fks:
                 schema_foreign_keys[schema_name] = extracted_fks
@@ -564,17 +578,47 @@ class SyntheticDataGenerator:
                 print(f"Using schema-defined foreign key: {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
         
         # Extract all dependencies - both foreign keys and explicit __depends_on__
-        for schema_name, schema_dict in schemas.items():
+        for schema_name, schema_source in schemas.items():
             # Initialize the dependency list for this schema
             if schema_name not in all_dependencies:
                 all_dependencies[schema_name] = []
             
-            # Get schema metadata to check for explicit dependencies
+            # For YAML/JSON files, we need to check the file contents for __depends_on__
+            if isinstance(schema_source, str) and os.path.isfile(schema_source):
+                with open(schema_source, 'r') as f:
+                    if schema_source.endswith('.json') or schema_source.endswith('.yml') or schema_source.endswith('.yaml'):
+                        import yaml
+                        import json
+                        try:
+                            # Try to parse as YAML first (works for both YAML and JSON)
+                            try:
+                                file_content = yaml.safe_load(f)
+                            except Exception:
+                                # If YAML parsing fails, try JSON
+                                f.seek(0)  # Reset file pointer
+                                file_content = json.load(f)
+                                
+                            # Check for __depends_on__ in the file content
+                            if file_content and isinstance(file_content, dict) and '__depends_on__' in file_content:
+                                explicit_deps = file_content['__depends_on__']
+                                print(f"DEBUG: Found __depends_on__ in file {schema_source}: {explicit_deps}")
+                                if isinstance(explicit_deps, list):
+                                    all_dependencies[schema_name].extend(explicit_deps)
+                                    for dep in explicit_deps:
+                                        print(f"Using explicit dependency from file: {schema_name} depends on {dep}")
+                                elif isinstance(explicit_deps, str):
+                                    all_dependencies[schema_name].append(explicit_deps)
+                                    print(f"Using explicit dependency from file: {schema_name} depends on {explicit_deps}")
+                        except Exception as e:
+                            print(f"Warning: Could not check for dependencies in {schema_source}: {str(e)}")
+            
+            # Get schema metadata to check for explicit dependencies from the metadata dictionary
             metadata_dict = schema_metadata.get(schema_name, {})
             
             # Add explicit dependencies from __depends_on__ field
             if isinstance(metadata_dict, dict) and '__depends_on__' in metadata_dict:
                 explicit_deps = metadata_dict['__depends_on__']
+                print(f"DEBUG: Found __depends_on__ for {schema_name}: {explicit_deps} (type: {type(explicit_deps)})")
                 if isinstance(explicit_deps, list):
                     all_dependencies[schema_name].extend(explicit_deps)
                     for dep in explicit_deps:
@@ -582,6 +626,8 @@ class SyntheticDataGenerator:
                 elif isinstance(explicit_deps, str):
                     all_dependencies[schema_name].append(explicit_deps)
                     print(f"Using explicit dependency: {schema_name} depends on {explicit_deps}")
+                else:
+                    print(f"WARNING: Invalid __depends_on__ format for {schema_name}: {explicit_deps}")
             
             # Add foreign key dependencies
             if schema_name in extracted_foreign_keys:
@@ -618,6 +664,14 @@ class SyntheticDataGenerator:
         original_column_generators = self.column_generators.copy()
         
         try:
+            # Debug the complete generation order
+            print("\n🔄 DEBUG: Schema generation order:")
+            for i, schema in enumerate(generation_order):
+                deps = all_dependencies.get(schema, [])
+                deps_str = ", ".join(deps) if deps else "none"
+                print(f"  {i+1}. {schema} (depends on: {deps_str})")
+            print("")
+            
             # Generate data for each schema in the correct order
             for schema_name in generation_order:
                 schema = processed_schemas[schema_name]
@@ -714,26 +768,40 @@ class SyntheticDataGenerator:
                                 # First row should have NULL or 0 as parent (root)
                                 values = [None]  # Start with NULL for first item (root)
                                 
-                                # Then for the rest, reference existing rows
-                                for i in range(1, sample_size):
-                                    # For each item, reference one of the previous items
-                                    if i > 1:
-                                        # Choose a random ID from existing rows
-                                        # But ensure we don't create cycles (limit parent options)
-                                        valid_parent_idx = random.randint(0, i-1)
-                                        if valid_parent_idx == 0:
-                                            values.append(None)  # Some items are also roots
-                                        else:
-                                            parent_id = df['id'].iloc[valid_parent_idx]
-                                            values.append(parent_id)
+                                for key, value in yaml_content.items():
+                                    # Handle special metadata fields
+                                    if key.startswith('__') and key.endswith('__'):
+                                        # Store metadata but don't include in schema
+                                        metadata[key] = value
+                                        # Extract description if available
+                                        if key == '__description__':
+                                            description = value
+                                        # Extract foreign keys if defined
+                                        elif key == '__foreign_keys__' and isinstance(value, dict):
+                                            for fk_column, fk_ref in value.items():
+                                                # Handle both list format [parent_table, parent_column] and string format
+                                                if isinstance(fk_ref, list) and len(fk_ref) == 2:
+                                                    parent_table, parent_column = fk_ref
+                                                    foreign_keys[fk_column] = (parent_table, parent_column)
+                                                elif isinstance(fk_ref, str):
+                                                    # If string format, assume column name is 'id'
+                                                    foreign_keys[fk_column] = (fk_ref, 'id')
+                                                else:
+                                                    print(f"Warning: Invalid foreign key format for {key}.{fk_column}")
+                                        # Extract explicit dependencies
+                                        elif key == '__depends_on__':
+                                            # Just store it in metadata, we'll process it later
+                                            print(f"Storing dependency info: {key} = {value} (type: {type(value)})")
                                     else:
-                                        # Second item can reference the first or be null
-                                        if random.choice([True, False]):
-                                            values.append(df['id'].iloc[0])
+                                        # Regular field - add to schema
+                                        field_type = None
+                                        if isinstance(value, dict) and 'type' in value:
+                                            field_type = value['type']
                                         else:
-                                            values.append(None)
-                                
-                                df[field_name] = values
+                                            # Default to string if type not specified
+                                            field_type = 'string'
+                                        
+                                        table_schema[key] = field_type
                                 print(f"Created hierarchical self-references for {schema_name}.{field_name}")
                             
                             # Use existing results if the parent schema has already been processed (not self-referential)

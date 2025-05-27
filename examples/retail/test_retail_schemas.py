@@ -71,6 +71,10 @@ def main():
         return round(row["subtotal"] + row["tax_amount"] - row["discount_amount"], 2)
         
     def generate_receipt_items(row, col_name=None, parent_dfs=None):
+        print(f"\n🚨 DEBUG: generate_receipt_items called with col_name={col_name}")
+        # Print parent_dfs keys to verify it's passed correctly
+        if parent_dfs:
+            print(f"  - Available parent dataframes: {list(parent_dfs.keys())}")
         """Generate a list of items for a receipt based on transaction and product data.
         
         Uses the Product and Transaction data from parent_dfs to populate receipt items.
@@ -92,13 +96,39 @@ def main():
             print(f"\n🔍 DEBUG: Generating receipt items for customer ID: {customer_id}")
             
             # Use the parent_dfs parameter which contains the generated data
-            if parent_dfs and 'Transaction' in parent_dfs and 'Product' in parent_dfs:
-                transactions_df = parent_dfs['Transaction']
+            if parent_dfs and 'Product' in parent_dfs:
+                # Get Product data from parent_dfs
                 products_df = parent_dfs['Product']
+                print(f"  - Using product dataframe with {len(products_df)} products")
                 
-                print(f"  - Using parent dataframes: {len(transactions_df)} transactions and {len(products_df)} products")
+                # For Transaction data, we need to handle a potential issue with dependency order
+                if 'Transaction' in parent_dfs:
+                    # If Transaction data is in parent_dfs, use it directly
+                    transactions_df = parent_dfs['Transaction']
+                    print(f"  - Using transaction dataframe with {len(transactions_df)} transactions")
+                else:
+                    # Otherwise, try to load it from CSV as a fallback
+                    print("  - Transaction data not in parent_dfs due to dependency order issue")
+                    try:
+                        import os
+                        output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
+                        transactions_path = os.path.join(output_dir, "transaction.csv")
+                        if os.path.exists(transactions_path):
+                            transactions_df = pd.read_csv(transactions_path)
+                            print(f"  - Loaded {len(transactions_df)} transactions from CSV file")
+                        else:
+                            # No Transaction data available - generate some dummy data for demo
+                            print("  - No Transaction CSV file, generating random transaction data")
+                            transactions_df = pd.DataFrame({
+                                'product_id': products_df['id'].sample(n=min(5, len(products_df))).tolist(),
+                                'quantity': [1, 2, 1, 3, 1][:min(5, len(products_df))],
+                                'customer_id': [customer_id] * min(5, len(products_df))
+                            })
+                    except Exception as e:
+                        print(f"  - Error loading transaction data: {str(e)}")
+                        return []
             else:
-                print("  - Parent dataframes not available or missing required data")
+                print("  - Required parent dataframes not available")
                 return []
             
             # Filter transactions for this customer if possible
