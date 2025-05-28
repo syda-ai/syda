@@ -15,7 +15,8 @@ class UnstructuredDataProcessor:
             'application/pdf': self._process_pdf,
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document': self._process_docx,
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': self._process_excel,
-            'text/plain': self._process_text
+            'text/plain': self._process_text,
+            'text/html': self._process_html, 
         }
 
     def _get_file_type(self, file_path: str) -> str:
@@ -23,6 +24,20 @@ class UnstructuredDataProcessor:
         mime = magic.Magic(mime=True)
         return mime.from_file(file_path)
 
+    def _process_html(self, file_path: str) -> Dict:
+        """Process HTML files"""
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # Return the HTML content directly
+                return {
+                'text': content,
+                'type': 'html'
+            }
+        except Exception as e:
+            return {'error': str(e), 'type': 'html'}
+    
     def _process_image(self, file_path: str) -> Dict:
         """Process image files (JPEG, PNG)"""
         try:

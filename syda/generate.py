@@ -114,6 +114,72 @@ class SyntheticDataGenerator:
         
         return G
 
+    def _sqlalchemy_models_to_schemas(self, sqlalchemy_models):
+        """
+        Convert a list of SQLAlchemy models to the schema format expected by generate_for_schemas.
+        
+        Args:
+            sqlalchemy_models: List of SQLAlchemy model classes
+            
+        Returns:
+            Dictionary mapping schema names to schema definitions
+        """
+        from syda.utils import sqlalchemy_model_to_schema
+        
+        schemas = {}
+        
+        for model_class in sqlalchemy_models:
+            model_name = model_class.__name__
+            
+            # Convert SQLAlchemy model to schema format
+            # Get table name, schema dict, and metadata dict
+            table_name, schema_dict, metadata_dict = sqlalchemy_model_to_schema(model_class)
+            
+            # Use table_name as the key in our schemas dictionary (not model_name)
+            schema_name = table_name
+            description = metadata_dict.get('__description__', f"{schema_name} data")
+            
+            # Combine schema with metadata in format expected by generate_for_schemas
+            combined_schema = schema_dict.copy()
+            
+            # Add regular fields
+            for key, value in schema_dict.items():
+                if not key.startswith('__') and not isinstance(value, str):
+                    combined_schema[key] = value
+            
+            # Add special fields with double underscores
+            for key, value in schema_dict.items():
+                if key.startswith('__'):
+                    combined_schema[key] = value
+
+            # Handle case where schema_dict[key] is a string (type)
+            # such as schema_dict['field_name'] = 'text'
+            # This is the normal format in our schema dicts
+            # Add metadata attributes from metadata_dict
+            for key, value in metadata_dict.items():
+                if key.startswith('__') and key.endswith('__'):
+                    combined_schema[key] = value
+            
+            # Add description if available
+            if description:
+                combined_schema['__description__'] = description
+            
+            # Special handling for template dependencies
+            if hasattr(model_class, '__depends_on__'):
+                combined_schema['__depends_on__'] = getattr(model_class, '__depends_on__')
+            
+            # Special handling for template classes
+            if '__template_source__' in metadata_dict:
+                # Copy template source to actual value
+                combined_schema['template_source'] = metadata_dict['__template_source__']
+                combined_schema['input_file_type'] = metadata_dict.get('__input_file_type__', 'html')
+                combined_schema['output_file_type'] = metadata_dict.get('__output_file_type__', 'pdf')
+            
+            # Add to schemas dictionary
+            schemas[schema_name] = combined_schema
+            
+        return schemas
+    
     def _handle_missing_columns(self, df, model_name, schema, foreign_key_info=None, custom_generators=None):
         """
         Add any missing columns to the DataFrame with appropriate values.
@@ -170,11 +236,14 @@ class SyntheticDataGenerator:
         Generate synthetic data for multiple relational SQLAlchemy models with automatic 
         dependency resolution based on foreign key relationships.
         
+        This function supports both regular SQLAlchemy models and pure template classes
+        (without SQLAlchemy tables) by converting them to schema format and then using
+        the generate_for_schemas method for data generation.
+        
         This function:
-        1. Analyzes SQLAlchemy model dependencies (which SQLAlchemy models reference others)
-        2. Automatically determines the correct order to generate data
-        3. Handles foreign key relationships between SQLAlchemy models
-        4. Applies custom generators where registered
+        1. Converts SQLAlchemy models to schema format
+        2. Calls generate_for_schemas to handle the data generation
+        3. This ensures consistent handling of both regular models and template classes
         
         Args:
             sqlalchemy_models: A list of SQLAlchemy model classes, a single SQLAlchemy model class, 
@@ -190,24 +259,6 @@ class SyntheticDataGenerator:
             
         Returns:
             Dictionary mapping model names to DataFrames of generated data
-            
-        Example:
-            # Define custom generators for specific columns in specific SQLAlchemy models
-            custom_gens = {
-                "Customer": {
-                    "status": lambda row, col: random.choice(["Active", "Inactive", "Prospect"])
-                },
-                "Product": {
-                    "price": lambda row, col: round(random.uniform(50, 500), 2)
-                }
-            }
-            
-            results = generator.generate_for_sqlalchemy_models(
-                sqlalchemy_models=[Customer, Order, OrderItem, Product],
-                prompts={"Customer": "Generate tech companies"},
-                sample_sizes={"Customer": 10, "Order": 30},
-                custom_generators=custom_gens
-            )
         """
         # Initialize default parameters
         if prompts is None:
@@ -220,161 +271,21 @@ class SyntheticDataGenerator:
         # Handle single SQLAlchemy model case
         if not isinstance(sqlalchemy_models, list):
             sqlalchemy_models = [sqlalchemy_models]
-            
-        # Extract schema and metadata information for each model
-        model_info = {}
-        model_names = []
-        model_dependencies = {}
         
-        # Create model to schema mapping
-        for model_class in sqlalchemy_models:
-            model_name = model_class.__name__
-            model_names.append(model_name)
-            
-            # Extract schema, metadata, and docstring from the SQLAlchemy model
-            schema, metadata, docstring = sqlalchemy_model_to_schema(model_class)
-            
-            # Store model info
-            model_info[model_name] = {
-                'model_class': model_class,
-                'schema': schema,
-                'metadata': metadata,
-                'docstring': docstring,
-                'references': set(),  # Will contain names of models this model references
-                'referenced_by': set()  # Will contain names of models that reference this model
-            }
+        # Convert SQLAlchemy models to schema format
+        schemas = self._sqlalchemy_models_to_schemas(sqlalchemy_models)
         
-        # Find foreign key dependencies between models
-        table_to_model_name = {m.__table__.name: m.__name__ for m in sqlalchemy_models}
-        
-        for model_name, info in model_info.items():
-            model_class = info['model_class']
-            dependencies = []
-            
-            # Search for foreign keys and extract dependencies
-            for column in model_class.__table__.columns:
-                for fk in column.foreign_keys:
-                    target_table = fk.column.table.name
-                    if target_table in table_to_model_name:
-                        target_model = table_to_model_name[target_table]
-                        if target_model != model_name:  # Avoid self-references
-                            dependencies.append(target_model)
-                            # Update references info
-                            info['references'].add(target_model)
-                            model_info[target_model]['referenced_by'].add(model_name)
-            
-            # Store this model's dependencies
-            if dependencies:
-                model_dependencies[model_name] = dependencies
-        
-        # Use the shared dependency graph builder
-        G = self._build_dependency_graph(nodes=model_names, dependencies=model_dependencies)
-        
-        # Determine generation order using topological sort
-        generation_order = list(nx.topological_sort(G))
-        
-        # Dictionary to hold generated data
-        results = {}
-        
-        # Store the original generators to restore them later
-        original_type_generators = self.type_generators.copy()
-        original_column_generators = self.column_generators.copy()
-        
-        try:
-            # Debug the complete generation order
-            print("\n🔄 DEBUG: Model generation order:")
-            for i, model_name in enumerate(generation_order):
-                print(f"  {i+1}. {model_name}")
-            print("")
-                
-            # Generate data for each model in the correct order
-            for model_name in generation_order:
-                print(f"\nGenerating data for {model_name} with {len(model_info[model_name]['schema'])} columns")
-                print(f"Schema: {model_info[model_name]['schema']}")
-                
-                # Debug dependencies for this model
-                if model_name in model_dependencies and model_dependencies[model_name]:
-                    print(f"Dependencies for {model_name}: {model_dependencies[model_name]}")
-                
-                # Get model info
-                model_class = model_info[model_name]['model_class']
-                schema = model_info[model_name]['schema']
-                
-                # Get the prompt and sample size for this model
-                prompt = prompts.get(model_name, default_prompt)
-                sample_size = sample_sizes.get(model_name, default_sample_size)
-                print(f"Using prompt: {prompt[:50]}..." if len(prompt) > 50 else f"Using prompt: {prompt}")
-                
-                # Generate the data
-                # Extract schema information first
-                llm_schema, metadata, model_description, _ = self._get_schema_info(model_class)
-                
-                # Use the renamed _generate_data method with pre-extracted schema info
-                df = self._generate_data(
-                    table_schema=llm_schema, 
-                    metadata=metadata, 
-                    table_description=model_description,
-                    prompt=prompt, 
-                    sample_size=sample_size
-                )
-                
-                # Handle any missing columns
-                df = self._handle_missing_columns(df, model_name, schema, None, custom_generators)
-                
-                # Apply custom generators
-                model_custom_generators = custom_generators.get(model_name, {})
-                df = self._apply_custom_generators(df, model_name, model_custom_generators, parent_dfs=results)
-                
-                # Store the generated data
-                results[model_name] = df
-                
-                # After generating a model, register foreign key generators for any models that reference it
-                # and store valid IDs for later use
-                for dependent_model, info in model_info.items():
-                    if model_name in info['references']:
-                        # This model references the model we just generated
-                        # Find the foreign key columns that reference this model
-                        dependent_model_class = model_info[dependent_model]['model_class']
-                        # Create a column-specific foreign key generator that samples from the IDs we just generated
-                        for col_name, col_type in model_info[dependent_model]['schema'].items():
-                            if col_type == 'foreign_key':
-                                inspector = inspect(dependent_model_class)
-                                for fk in inspector.columns[col_name].foreign_keys:
-                                    target_fullname = fk.target_fullname
-                                    target_table = target_fullname.split('.')[0]
-                                    target_column = target_fullname.split('.')[1]
-                                    # If this column references the current model
-                                    if model_info[model_name]['model_class'].__table__.name == target_table:
-                                        # Capture the valid IDs from the parent model
-                                        # Ensure we use the actual primary key values
-                                        valid_ids = df[target_column].tolist() if target_column in df.columns else df['id'].tolist()
-                                        
-                                        # Save these valid IDs for later validation
-                                        if 'fk_values' not in model_info[dependent_model]:
-                                            model_info[dependent_model]['fk_values'] = {}
-                                        model_info[dependent_model]['fk_values'][col_name] = valid_ids
-                                        
-                                        # Create a stable generator function that captures valid_ids
-                                        valid_ids_copy = valid_ids.copy()  # Make a copy to avoid reference issues
-                                        fk_generator = lambda row, col, ids=valid_ids_copy: random.choice(ids)
-                                        
-                                        # Register this generator for the specific column
-                                        print(f"Registering foreign key generator for {dependent_model}.{col_name} -> {model_name}")
-                                        self.register_generator('foreign_key', fk_generator, column_name=col_name)
-                
-                # Save to file if output_dir is specified
-                if output_dir:
-                    # Save individual model result
-                    model_results = {model_name: df}
-                    save_dataframes(model_results, output_dir, format=output_format)
-                    
-        except Exception as e:
-            # Restore original generators in case of error
-            self.type_generators = original_type_generators
-            self.column_generators = original_column_generators
-            raise e
-            
-        return results
+        # Call generate_for_schemas with the converted schemas
+        return self.generate_for_schemas(
+            schemas=schemas,
+            prompts=prompts,
+            sample_sizes=sample_sizes,
+            custom_generators=custom_generators,
+            output_dir=output_dir,
+            default_sample_size=default_sample_size,
+            default_prompt=default_prompt,
+            output_format=output_format
+        )
         
     def generate_for_schemas(
         self,
@@ -544,7 +455,15 @@ class SyntheticDataGenerator:
             if schema_name not in extracted_foreign_keys:
                 extracted_foreign_keys[schema_name] = {}
             # Add each foreign key relationship
-            for fk_column, (parent_schema, parent_column) in fks.items():
+            for fk_column, fk_info in fks.items():
+                # Handle different formats of foreign key info
+                if isinstance(fk_info, tuple) and len(fk_info) == 2:
+                    # Already in the correct format: (parent_schema, parent_column)
+                    parent_schema, parent_column = fk_info
+                elif isinstance(fk_info, dict) and 'references' in fk_info:
+                    # Dictionary format with 'references' key
+                    ref_parts = fk_info['references'].split('.')
+                    parent_schema, parent_column = ref_parts[0], ref_parts[1]
                 extracted_foreign_keys[schema_name][fk_column] = (parent_schema, parent_column)
                 print(f"Using schema-defined foreign key: {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
         

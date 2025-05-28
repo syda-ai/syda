@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2em;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 1em;
+        }
+        .title {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5em;
+        }
+        .subtitle {
+            font-size: 16pt;
+            color: #34495e;
+            margin-bottom: 1em;
+        }
+        .prepared-for {
+            font-size: 12pt;
+            margin-top: 1em;
+        }
+        .prepared-by {
+            font-size: 12pt;
+            margin-top: 0.5em;
+        }
+        .date {
+            font-size: 12pt;
+            margin-top: 0.5em;
+        }
+        .section {
+            margin-top: 2em;
+            margin-bottom: 2em;
+        }
+        .section-title {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.25em;
+        }
+        .section-content {
+            font-size: 11pt;
+            margin-left: 1em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            margin-top: 2em;
+            padding-top: 1em;
+            border-top: 1px solid #eee;
+            font-size: 10pt;
+            color: #7f8c8d;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">{{ title }}</div>
+        <div class="subtitle">{{ subtitle }}</div>
+        <div class="prepared-for">Prepared for: {{ customer_name }}</div>
+        <div class="prepared-by">Prepared by: {{ prepared_by }}</div>
+        <div class="date">Date: {{ created_date }}</div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <p>This proposal outlines our recommended solutions to address the needs of {{ customer_name }} regarding {{ opportunity_name }}. The total investment for this solution is estimated at ${{ opportunity_value }}.</p>
+            <p>{{ opportunity_description }}</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Proposed Solutions</div>
+        <div class="section-content">
+            {{ proposed_solutions }}
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Implementation Timeline</div>
+        <div class="section-content">
+            {{ implementation_timeline }}
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Pricing & Investment</div>
+        <div class="section-content">
+            {{ pricing_details }}
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Terms & Conditions</div>
+        <div class="section-content">
+            {{ terms_and_conditions }}
+        </div>
+    </div>
+    
+    <div class="footer">
+        This document is confidential and contains proprietary information of our company.<br>
+        © {{ created_date.split('-')[0] }} All rights reserved.
+    </div>
+</body>
+</html>

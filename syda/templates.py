@@ -12,31 +12,55 @@ import jinja2
 class SydaTemplate:
     """Base class for document templates with placeholder fields."""
     
+    # Legacy attribute
     source_path = None  # Path to template file
+    
+    # New template configuration attributes using double-underscore style
+    __template__ = False  # Flag to indicate this is a template class
+    __template_source__ = None  # Path to template file
+    __input_file_type__ = None  # Input file type (html, txt, etc.)
+    __output_file_type__ = None  # Output file type (pdf, html, etc.)
+    __depends_on__ = []  # List of model names this template depends on
     
     def __init__(self, **kwargs):
         """Initialize the template with optional overrides."""
         if 'source_path' in kwargs:
             self.source_path = kwargs['source_path']
+        
+        # Copy all provided kwargs to instance attributes
+        for key, value in kwargs.items():
+            setattr(self, key, value)
             
     @classmethod
     def get_source_path(cls):
         """Get the template source path."""
-        return cls.source_path
+        # First check for new attribute, fall back to legacy
+        return cls.__template_source__ if hasattr(cls, '__template_source__') else cls.source_path
     
     @classmethod
     def get_fields(cls):
         """Get all field definitions from the template class."""
-        if not hasattr(cls, '__table__'):
-            return {}
-            
         fields = {}
-        for column in cls.__table__.columns:
-            # Skip primary key
-            if column.primary_key:
-                continue
-                
-            fields[column.name] = column
+        
+        # If SQLAlchemy model, get columns from table
+        if hasattr(cls, '__table__'):
+            for column in cls.__table__.columns:
+                # Skip primary key
+                if column.primary_key:
+                    continue
+                    
+                fields[column.name] = column
+        
+        # Otherwise get all non-special attributes directly from class
+        else:
+            for attr_name in dir(cls):
+                # Skip special attributes, methods, and private attributes
+                if (attr_name.startswith('__') and attr_name.endswith('__')) or \
+                   callable(getattr(cls, attr_name)) or \
+                   attr_name.startswith('_'):
+                    continue
+                    
+                fields[attr_name] = getattr(cls, attr_name)
                 
         return fields
     
