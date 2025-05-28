@@ -4,7 +4,7 @@ __name__: Receipt
 __depends_on__: [Product, Transaction, Customer]
 __foreign_keys__:
   customer_name: [Customer, first_name]
-template_source: /home/ramkumar2606/syda-fresh/examples/retail/templates/receipt.html
+template_source: ../../retail/templates/receipt.html
 input_file_type: html
 output_file_type: pdf
 

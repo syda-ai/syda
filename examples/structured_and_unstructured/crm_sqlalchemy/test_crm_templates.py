@@ -23,7 +23,7 @@ from syda.generate import SyntheticDataGenerator
 from syda.schemas import ModelConfig
 
 # Import CRM data models
-from examples.crm import models
+import models
 
 
 def main():

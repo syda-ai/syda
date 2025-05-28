@@ -44,7 +44,7 @@ def main():
     output_dir = "inventory_data"
     
     # Define paths to schema files
-    schema_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "schema_files/yaml_only")
+    schema_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "schema_files/yaml")
     
     # Dictionary mapping schema names to their YAML file paths
     schemas = {

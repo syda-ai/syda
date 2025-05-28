@@ -45,7 +45,7 @@ def main():
     output_dir = "blog_data"
     
     # Define paths to schema files
-    schema_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "schema_files/json_only")
+    schema_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "schema_files/json")
     
     # Dictionary mapping schema names to their JSON file paths
     schemas = {

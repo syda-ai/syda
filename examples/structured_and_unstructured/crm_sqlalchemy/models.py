@@ -5,6 +5,7 @@ from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from syda.templates import SydaTemplate
+import os
 
 Base = declarative_base()
 
@@ -63,6 +64,7 @@ class Opportunity(Base):
     # Relationships
     customer = relationship("Customer", back_populates="opportunities")
 
+templates_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates")
 
 # Template models that depend on structured data
 class ProposalDocument(SydaTemplate):
@@ -72,7 +74,7 @@ class ProposalDocument(SydaTemplate):
     __depends_on__ = ['Opportunity']
     
     # Template configuration as regular fields (these become columns in the generated data)
-    __template_source__ = '/home/ramkumar2606/syda-fresh/examples/crm/templates/proposal.html'
+    __template_source__ = os.path.join(templates_dir, 'proposal.html')
     __input_file_type__ = 'html'
     __output_file_type__ = 'pdf'
     
@@ -100,7 +102,7 @@ class ContractDocument(SydaTemplate):
     __depends_on__ = ['Opportunity']
     
     # Template configuration as regular fields (these become columns in the generated data)
-    __template_source__ = '/home/ramkumar2606/syda-fresh/examples/crm/templates/contract.html'
+    __template_source__ = os.path.join(templates_dir, 'contract.html')
     __input_file_type__ = 'html'
     __output_file_type__ = 'pdf'
     
