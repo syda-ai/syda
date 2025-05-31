@@ -66,6 +66,74 @@ def main():
     
     print(f"\nData files saved to directory: {output_dir}")
     
+    # Analyze randomness of parent schema selections
+    print("\n🔍 Analyzing randomness of parent schema references:")
+    
+    # Check opportunity references in ProposalDocument
+    if 'ProposalDocument' in results and 'opportunities' in results:
+        proposal_df = results['ProposalDocument']
+        opp_df = results['opportunities']
+        
+        referenced_opps = {}
+        for _, row in proposal_df.iterrows():
+            opp_id = row.get('opportunity_id')
+            if opp_id in referenced_opps:
+                referenced_opps[opp_id] += 1
+            else:
+                referenced_opps[opp_id] = 1
+        
+        print("  ProposalDocument references:")
+        print(f"    - Unique opportunities referenced: {len(referenced_opps)} out of {len(proposal_df)} documents")
+        print(f"    - Distribution: {referenced_opps}")
+        
+        # Check variety - are we using different opportunities?
+        if len(referenced_opps) < len(proposal_df) and len(proposal_df) <= len(opp_df):
+            print("    ⚠️  Some opportunities are referenced multiple times while others aren't used at all")
+        elif len(referenced_opps) == 1 and len(opp_df) > 1:
+            print("    ⚠️  All ProposalDocuments reference the same opportunity!")
+        else:
+            print("    ✅  Good variety in opportunity references")
+    
+    # Check opportunity references in ContractDocument
+    if 'ContractDocument' in results and 'opportunities' in results:
+        contract_df = results['ContractDocument']
+        opp_df = results['opportunities']
+        
+        referenced_opps = {}
+        for _, row in contract_df.iterrows():
+            opp_id = row.get('opportunity_id')
+            if opp_id in referenced_opps:
+                referenced_opps[opp_id] += 1
+            else:
+                referenced_opps[opp_id] = 1
+        
+        print("  ContractDocument references:")
+        print(f"    - Unique opportunities referenced: {len(referenced_opps)} out of {len(contract_df)} documents")
+        print(f"    - Distribution: {referenced_opps}")
+        
+        # Check variety - are we using different opportunities?
+        if len(referenced_opps) < len(contract_df) and len(contract_df) <= len(opp_df):
+            print("    ⚠️  Some opportunities are referenced multiple times while others aren't used at all")
+        elif len(referenced_opps) == 1 and len(opp_df) > 1:
+            print("    ⚠️  All ContractDocuments reference the same opportunity!")
+        else:
+            print("    ✅  Good variety in opportunity references")
+        
+        # Check indirect customer references
+        customer_ids = set()
+        for opp_id in referenced_opps.keys():
+            matching_opps = opp_df[opp_df['id'] == opp_id]
+            if not matching_opps.empty:
+                customer_ids.add(matching_opps.iloc[0]['customer_id'])
+        
+        print(f"    - Unique customers indirectly referenced: {len(customer_ids)}")
+        if len(customer_ids) < len(referenced_opps) and len(referenced_opps) > 1:
+            print("    ⚠️  Multiple opportunities from the same customer")
+        elif len(customer_ids) == 1 and 'customers' in results and len(results['customers']) > 1:
+            print("    ⚠️  All ContractDocuments reference opportunities from the same customer!")
+        else:
+            print("    ✅  Good variety in customer references")
+    
     # Verify foreign key reference consistency
     print("\n🔍 Verifying data consistency within documents:")
     
