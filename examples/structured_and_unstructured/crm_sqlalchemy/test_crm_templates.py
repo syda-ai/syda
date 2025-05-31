@@ -57,12 +57,116 @@ def main():
         output_dir=output_dir
     )
     
+
+    
     # Print summary of generated data
     print("\n✅ Data generation complete!")
     for model_name, df in results.items():
         print(f"  {model_name}: {len(df)} records")
     
     print(f"\nData files saved to directory: {output_dir}")
+    
+    # Verify foreign key reference consistency
+    print("\n🔍 Verifying data consistency within documents:")
+    
+    # Check if referential integrity is maintained
+    print("\n🔍 Verifying referential integrity:")
+    
+    # Check ProposalDocument consistency
+    proposal_df = results.get('ProposalDocument')
+    opportunities_df = results.get('opportunities')
+    customers_df = results.get('customers')
+    
+    if proposal_df is not None and opportunities_df is not None and customers_df is not None:
+        # For each proposal document
+        for idx, row in proposal_df.iterrows():
+            proposal_opp_id = row.get('opportunity_id')
+            proposal_opp_name = row.get('opportunity_name')
+            proposal_opp_value = row.get('opportunity_value')
+            proposal_opp_desc = row.get('opportunity_description')
+            
+            # Find the referenced opportunity
+            opp_match = opportunities_df[opportunities_df['id'] == proposal_opp_id]
+            if not opp_match.empty:
+                opp_row = opp_match.iloc[0]
+                # Check if all opportunity fields match
+                name_match = proposal_opp_name == opp_row['name']
+                value_match = proposal_opp_value == opp_row['value']
+                desc_match = proposal_opp_desc == opp_row['description']
+                
+                if not (name_match and value_match and desc_match):
+                    print(f"  ❌ Inconsistency in ProposalDocument {idx+1} opportunity references:")
+                    print(f"     - ID: {proposal_opp_id}")
+                    print(f"     - Name match: {name_match}")
+                    print(f"     - Value match: {value_match}")
+                    print(f"     - Description match: {desc_match}")
+                else:
+                    print(f"  ✅ All ProposalDocument.opportunity_id values reference valid opportunities.id")
+                    print(f"  ✅ All ProposalDocument.opportunity_name values reference valid opportunities.name")
+                    print(f"  ✅ All ProposalDocument.opportunity_value values reference valid opportunities.value")
+                    print(f"  ✅ All ProposalDocument.opportunity_description values reference valid opportunities.description")
+            
+            # Check customer consistency
+            proposal_cust_name = row.get('customer_name')
+            proposal_cust_addr = row.get('customer_address')
+            
+            # Find the referenced customer
+            cust_match = customers_df[customers_df['name'] == proposal_cust_name]
+            if not cust_match.empty:
+                cust_row = cust_match.iloc[0]
+                # Check if address matches
+                addr_match = proposal_cust_addr == cust_row['address']
+                
+                if not addr_match:
+                    print(f"  ❌ Inconsistency in ProposalDocument {idx+1} customer references:")
+                    print(f"     - Name: {proposal_cust_name}")
+                    print(f"     - Address match: {addr_match}")
+                else:
+                    print(f"  ✅ All ProposalDocument.customer_name values reference valid customers.name")
+                    print(f"  ✅ All ProposalDocument.customer_address values reference valid customers.address")
+    
+    # Check ContractDocument consistency
+    contract_df = results.get('ContractDocument')
+    if contract_df is not None and opportunities_df is not None and customers_df is not None:
+        # For each contract document
+        for idx, row in contract_df.iterrows():
+            contract_opp_id = row.get('opportunity_id')
+            contract_value = row.get('contract_value')
+            
+            # Find the referenced opportunity
+            opp_match = opportunities_df[opportunities_df['id'] == contract_opp_id]
+            if not opp_match.empty:
+                opp_row = opp_match.iloc[0]
+                # Check if contract value matches opportunity value
+                value_match = contract_value == opp_row['value']
+                
+                if not value_match:
+                    print(f"  ❌ Inconsistency in ContractDocument {idx+1} opportunity references:")
+                    print(f"     - ID: {contract_opp_id}")
+                    print(f"     - Value match: {value_match}")
+                else:
+                    print(f"  ✅ All ContractDocument.opportunity_id values reference valid opportunities.id")
+                    print(f"  ✅ All ContractDocument.contract_value values reference valid opportunities.value")
+            
+            # Check customer consistency
+            contract_cust_name = row.get('customer_name')
+            contract_cust_addr = row.get('customer_address')
+            
+            # Find the referenced customer
+            cust_match = customers_df[customers_df['name'] == contract_cust_name]
+            if not cust_match.empty:
+                cust_row = cust_match.iloc[0]
+                # Check if address matches
+                addr_match = contract_cust_addr == cust_row['address']
+                
+                if not addr_match:
+                    print(f"  ❌ Inconsistency in ContractDocument {idx+1} customer references:")
+                    print(f"     - Name: {contract_cust_name}")
+                    print(f"     - Address match: {addr_match}")
+                else:
+                    print(f"  ✅ All ContractDocument.customer_name values reference valid customers.name")
+                    print(f"  ✅ All ContractDocument.customer_address values reference valid customers.address")
+            
     
     # Check if document templates were generated - fix the paths to match actual output
     output_path = Path(output_dir)

@@ -603,9 +603,10 @@ class SyntheticDataGenerator:
                                 # We need a consistent set of indices across all columns in this group
                                 # Create a shared state between all generators
                                 shared_state = {
-                                    'row_to_parent': [random.choice(parent_indices) for _ in range(sample_size)],
                                     'parent_df': parent_df,
-                                    'row_cache': {}  # Cache to store row-to-parent mappings
+                                    'row_cache': {},  # Cache to store row-to-parent mappings
+                                    'parent_indices': parent_indices,  # Store all available parent indices
+                                    'parent_schema': parent_schema  # Store which parent table this is for
                                 }
                                 
                                 # Register a generator for each column that uses the shared mapping
@@ -613,17 +614,32 @@ class SyntheticDataGenerator:
                                     # Create a generator that uses the shared state to return consistent values
                                     def create_consistent_generator(col, state, parent_col):
                                         def generator(row, col_name):
-                                            # Get a stable identifier for this row
-                                            # We use repr(row) as a stable key for the row
-                                            row_key = repr(row)
+                                            # Get a stable identifier for this row - use the row index which is stable
+                                            # across column generation rather than object ID which changes
+                                            if hasattr(row, 'name'):
+                                                # For pandas rows, the name attribute contains the stable index
+                                                row_key = row.name  # This is the pandas row index/position
+                                            else:
+                                                # Fallback to hash of string representation if not a pandas row
+                                                row_key = hash(str(row))
                                             
-                                            # If we haven't seen this row before, assign it a parent
+                                            # Two-level cache: by row and parent table
                                             if row_key not in state['row_cache']:
-                                                row_idx = len(state['row_cache']) % len(state['row_to_parent'])
-                                                state['row_cache'][row_key] = state['row_to_parent'][row_idx]
+                                                state['row_cache'][row_key] = {}
                                                 
-                                            # Get the parent index for this row
-                                            parent_idx = state['row_cache'][row_key]
+                                            # If we haven't assigned a parent for this row and this parent table
+                                            if state['parent_schema'] not in state['row_cache'][row_key]:
+                                                # Use truly random selection for each new row
+                                                if state['parent_indices']:
+                                                    parent_idx = random.choice(state['parent_indices'])
+                                                else:
+                                                    parent_idx = 0  # Fallback if no parent indices available
+                                                    
+                                                # Store it in the cache under both row key and parent schema
+                                                state['row_cache'][row_key][state['parent_schema']] = parent_idx
+                                                
+                                            # Get the parent index for this row and parent table
+                                            parent_idx = state['row_cache'][row_key][state['parent_schema']]
                                             
                                             # Return the value from the parent record
                                             return state['parent_df'].iloc[parent_idx][parent_col]
