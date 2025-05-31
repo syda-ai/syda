@@ -6,7 +6,7 @@ import pandas as pd
 import random
 import string
 from datetime import datetime, date, timedelta
-from sqlalchemy import inspect as sqla_inspect
+from sqlalchemy import inspect as sqla_inspect, Column
 
 
 def sqlalchemy_model_to_schema(model_class):
@@ -60,11 +60,36 @@ def sqlalchemy_model_to_schema(model_class):
             if hasattr(model_class, '__depends_on__'):
                 metadata['__depends_on__'] = getattr(model_class, '__depends_on__')
             
+            # Extract foreign keys using the template's get_foreign_keys method
+            template_foreign_keys = model_class.get_foreign_keys()
+            if template_foreign_keys:
+                foreign_keys_dict = {}
+                for fk_field, fk_info in template_foreign_keys.items():
+                    foreign_keys_dict[fk_field] = [fk_info['target_table'], fk_info['target_column']]
+                metadata['__foreign_keys__'] = foreign_keys_dict
+            
             # Get regular fields from class attributes (not starting with __)
             for attr_name, attr_value in model_class.__dict__.items():
                 if not attr_name.startswith('__') and not attr_name.startswith('_') and not callable(attr_value):
                     # Add each field to the schema
-                    table_schema[attr_name] = 'text'  # Default type
+                    if isinstance(attr_value, Column):
+                        # Handle SQLAlchemy Column objects
+                        column_type = attr_value.type.__class__.__name__.lower()
+                        if column_type in ('integer', 'biginteger', 'smallinteger'):
+                            table_schema[attr_name] = 'integer'
+                        elif column_type in ('float', 'numeric', 'decimal'):
+                            table_schema[attr_name] = 'float'
+                        elif column_type == 'boolean':
+                            table_schema[attr_name] = 'boolean'
+                        elif column_type == 'date':
+                            table_schema[attr_name] = 'date'
+                        elif column_type == 'datetime':
+                            table_schema[attr_name] = 'datetime'
+                        else:
+                            table_schema[attr_name] = 'text'
+                    else:
+                        # Default for non-Column attributes
+                        table_schema[attr_name] = 'text'  # Default type
         
         return table_name, table_schema, metadata
     

@@ -67,24 +67,59 @@ class SydaTemplate:
     @classmethod
     def get_foreign_keys(cls):
         """Get foreign key relationships from the template class."""
-        if not hasattr(cls, '__table__'):
-            return {}
-            
         foreign_keys = {}
-        for column in cls.__table__.columns:
-            # Skip columns without foreign keys
-            if not column.foreign_keys:
+        
+        # Case 1: Check for explicitly defined __foreign_keys__ dictionary
+        if hasattr(cls, '__foreign_keys__'):
+            for fk_col, fk_ref in cls.__foreign_keys__.items():
+                if isinstance(fk_ref, (list, tuple)) and len(fk_ref) == 2:
+                    target_table, target_column = fk_ref
+                    foreign_keys[fk_col] = {
+                        'target_table': target_table,
+                        'target_column': target_column
+                    }
+        
+        # Case 2: Check for SQLAlchemy Column objects with ForeignKey constraints
+        for attr_name in dir(cls):
+            # Skip special attributes, methods, and private attributes
+            if (attr_name.startswith('__') and attr_name.endswith('__')) or \
+               callable(getattr(cls, attr_name)) or \
+               attr_name.startswith('_'):
                 continue
-                
-            # Get the first foreign key (there's usually only one per column)
-            fk = next(iter(column.foreign_keys))
-            target_table = fk.column.table.name
-            target_column = fk.column.name
             
-            foreign_keys[column.name] = {
-                'target_table': target_table,
-                'target_column': target_column
-            }
+            attr_value = getattr(cls, attr_name)
+            
+            # Check if the attribute is a Column with ForeignKey
+            if isinstance(attr_value, Column) and hasattr(attr_value, 'foreign_keys') and attr_value.foreign_keys:
+                # Extract the foreign key reference
+                for fk in attr_value.foreign_keys:
+                    if hasattr(fk, '_colspec') and fk._colspec is not None:
+                        # Parse the colspec which is in format 'table.column'
+                        parts = fk._colspec.split('.')
+                        if len(parts) == 2:
+                            target_table, target_column = parts
+                            foreign_keys[attr_name] = {
+                                'target_table': target_table,
+                                'target_column': target_column
+                            }
+                            break
+        
+        # Case 3: If the class has a __table__, also check column foreign_keys from there
+        if hasattr(cls, '__table__'):
+            for column in cls.__table__.columns:
+                # Skip columns without foreign keys
+                if not column.foreign_keys:
+                    continue
+                    
+                # Get the first foreign key (there's usually only one per column)
+                fk = next(iter(column.foreign_keys))
+                target_table = fk.column.table.name
+                target_column = fk.column.name
+                
+                foreign_keys[column.name] = {
+                    'target_table': target_table,
+                    'target_column': target_column
+                }
                 
         return foreign_keys
 

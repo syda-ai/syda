@@ -577,24 +577,82 @@ class SyntheticDataGenerator:
                 
                 # Register foreign key generators for any foreign key columns
                 if schema_name in extracted_foreign_keys:
+                    # Group foreign keys by parent table
+                    fk_by_parent = {}
                     for fk_column, (parent_schema, parent_column) in extracted_foreign_keys[schema_name].items():
+                        if parent_schema not in fk_by_parent:
+                            fk_by_parent[parent_schema] = []
+                        fk_by_parent[parent_schema].append((fk_column, parent_column))
+                    
+                    # Process each parent table group
+                    for parent_schema, fk_list in fk_by_parent.items():
                         if parent_schema in results:
-                            # Get the valid IDs from the parent schema
-                            valid_ids = results[parent_schema][parent_column].tolist()
+                            parent_df = results[parent_schema]
                             
-                            if not valid_ids:
-                                print(f"⚠️ Warning: No valid IDs found in {parent_schema}.{parent_column} for foreign key {schema_name}.{fk_column}")
-                                continue
+                            # Multiple columns referencing the same parent table
+                            if len(fk_list) > 1:
+                                print(f"Ensuring consistent foreign keys for {len(fk_list)} columns in {schema_name} referencing {parent_schema}")
                                 
-                            # Create a generator that returns a random valid ID
-                            valid_ids_copy = valid_ids.copy()  # Make a copy to avoid reference issues
-                            fk_generator = lambda row, col, ids=valid_ids_copy: random.choice(ids)
-                            
-                            # Register the generator for this column
-                            print(f"Registering foreign key generator for {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
-                            self.register_generator('foreign_key', fk_generator, column_name=fk_column)
+                                # For each row we'll generate, select a consistent parent record index
+                                # This ensures all foreign keys referencing the same parent table will be from the same record
+                                parent_indices = list(range(len(parent_df)))
+                                if not parent_indices:
+                                    print(f"⚠️ Warning: No records in {parent_schema} for foreign keys in {schema_name}")
+                                    continue
+                                
+                                # We need a consistent set of indices across all columns in this group
+                                # Create a shared state between all generators
+                                shared_state = {
+                                    'row_to_parent': [random.choice(parent_indices) for _ in range(sample_size)],
+                                    'parent_df': parent_df,
+                                    'row_cache': {}  # Cache to store row-to-parent mappings
+                                }
+                                
+                                # Register a generator for each column that uses the shared mapping
+                                for fk_column, parent_column in fk_list:
+                                    # Create a generator that uses the shared state to return consistent values
+                                    def create_consistent_generator(col, state, parent_col):
+                                        def generator(row, col_name):
+                                            # Get a stable identifier for this row
+                                            # We use repr(row) as a stable key for the row
+                                            row_key = repr(row)
+                                            
+                                            # If we haven't seen this row before, assign it a parent
+                                            if row_key not in state['row_cache']:
+                                                row_idx = len(state['row_cache']) % len(state['row_to_parent'])
+                                                state['row_cache'][row_key] = state['row_to_parent'][row_idx]
+                                                
+                                            # Get the parent index for this row
+                                            parent_idx = state['row_cache'][row_key]
+                                            
+                                            # Return the value from the parent record
+                                            return state['parent_df'].iloc[parent_idx][parent_col]
+                                        
+                                        return generator
+                                    
+                                    fk_generator = create_consistent_generator(fk_column, shared_state, parent_column)
+                                    
+                                    print(f"Registering consistent foreign key generator for {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
+                                    self.register_generator('foreign_key', fk_generator, column_name=fk_column)
+                            else:
+                                # Only one column referencing this parent table, use regular random selection
+                                for fk_column, parent_column in fk_list:
+                                    valid_values = parent_df[parent_column].tolist()
+                                    
+                                    if not valid_values:
+                                        print(f"⚠️ Warning: No valid values found in {parent_schema}.{parent_column} for foreign key {schema_name}.{fk_column}")
+                                        continue
+                                    
+                                    # Create a generator that returns a random valid value
+                                    values_copy = valid_values.copy()  # Make a copy to avoid reference issues
+                                    fk_generator = lambda row, col, values=values_copy: random.choice(values)
+                                    
+                                    # Register the generator for this column
+                                    print(f"Registering foreign key generator for {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
+                                    self.register_generator('foreign_key', fk_generator, column_name=fk_column)
                         else:
-                            print(f"⚠️ Warning: Parent schema {parent_schema} not available for foreign key {schema_name}.{fk_column}")
+                            for fk_column, parent_column in fk_list:
+                                print(f"⚠️ Warning: Parent schema {parent_schema} not available for foreign key {schema_name}.{fk_column}")
                 
                 # We'll let generate_data handle the prompt building with metadata
                 # by passing the schema directly, along with the base prompt

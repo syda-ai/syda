@@ -79,20 +79,20 @@ class ProposalDocument(SydaTemplate):
     __output_file_type__ = 'pdf'
     
     # Fields needed for the template
-    opportunity_id = None  # This will be filled in at runtime
-    created_date = None
-    title = None
-    subtitle = None
-    prepared_by = None
-    customer_name = None
-    customer_address = None
-    opportunity_name = None
-    opportunity_value = None
-    opportunity_description = None
-    proposed_solutions = None
-    implementation_timeline = None
-    pricing_details = None
-    terms_and_conditions = None
+    opportunity_id = Column(Integer, ForeignKey('opportunities.id'), nullable=False)  # This will be filled in at runtime
+    created_date = Column(Date)
+    title = Column(String(200))
+    subtitle = Column(String(300))
+    prepared_by = Column(String(100))
+    customer_name = Column(String(100), ForeignKey('customers.name'))
+    customer_address = Column(String(200), ForeignKey('customers.address'))
+    opportunity_name = Column(String(100), ForeignKey('opportunities.name'))
+    opportunity_value = Column(Float, ForeignKey('opportunities.value'))
+    opportunity_description = Column(Text, ForeignKey('opportunities.description'))
+    proposed_solutions = Column(Text)
+    implementation_timeline = Column(Text)
+    pricing_details = Column(Text)
+    terms_and_conditions = Column(Text)
 
 
 class ContractDocument(SydaTemplate):
@@ -107,15 +107,15 @@ class ContractDocument(SydaTemplate):
     __output_file_type__ = 'pdf'
     
     # Fields needed for the template
-    opportunity_id = None  # This will be filled in at runtime
-    effective_date = None
-    expiration_date = None
-    contract_number = None
-    customer_name = None
-    customer_address = None
-    service_description = None
-    payment_terms = None
-    contract_value = None
-    renewal_terms = None
-    legal_terms = None
-    signatures = None
+    opportunity_id = Column(Integer, ForeignKey('opportunities.id'), nullable=False)
+    effective_date = Column(Date)
+    expiration_date = Column(Date)
+    contract_number = Column(String(50))
+    customer_name = Column(String(100), ForeignKey('customers.name'))
+    customer_address = Column(String(200), ForeignKey('customers.address'))
+    service_description = Column(Text)
+    payment_terms = Column(Text)
+    contract_value = Column(Float, ForeignKey('opportunities.value'))
+    renewal_terms = Column(Text)
+    legal_terms = Column(Text)
+    signatures = Column(Text)
