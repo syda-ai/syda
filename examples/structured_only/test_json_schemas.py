@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 load_dotenv()
 
 # Import the synthetic data generator
-from syda.structured import SyntheticDataGenerator
+from syda.generate import SyntheticDataGenerator
 from syda.schemas import ModelConfig
 
 
@@ -45,7 +45,7 @@ def main():
     output_dir = "blog_data"
     
     # Define paths to schema files
-    schema_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "schema_files/json_only")
+    schema_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "schema_files/json")
     
     # Dictionary mapping schema names to their JSON file paths
     schemas = {
@@ -104,10 +104,6 @@ def main():
                 ["published", "draft", "archived"],
                 weights=[0.7, 0.2, 0.1]
             )[0]
-        },
-        "Comment": {
-            # Ensure hierarchical relationships work correctly
-            "parent_comment_id": lambda row, col: None if random.random() > 0.3 else row["parent_comment_id"]
         }
     }
     
@@ -175,6 +171,11 @@ def main():
         print("  ✅ All Comment.user_id values reference valid Users")
     else:
         print("  ❌ Invalid Comment.user_id references detected")
+        
+    # Display comment hierarchy information
+    top_level_comments = results["Comment"][results["Comment"]["parent_comment_id"] == 0]
+    threaded_comments = results["Comment"][results["Comment"]["parent_comment_id"] > 0]
+    print(f"  ℹ️ Comment hierarchy: {len(top_level_comments)} top-level comments, {len(threaded_comments)} threaded replies")
 
 
 if __name__ == "__main__":

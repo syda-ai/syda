@@ -28,7 +28,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 load_dotenv()
 
 # Import the synthetic data generator
-from syda.structured import SyntheticDataGenerator
+from syda.generate import SyntheticDataGenerator
 
 # Create a Base for our models
 Base = declarative_base()
@@ -158,28 +158,28 @@ def main():
     
     # Define custom prompts for each model (optional)
     prompts = {
-        "Customer": """
+        "customers": """
         Generate diverse customer organizations for a B2B SaaS company.
         Include a mix of industries like technology, healthcare, finance, etc.
         """,
         
-        "Product": """
+        "products": """
         Generate products for a cloud software company.
         Products should include various software services, support packages, and consulting.
         """,
         
-        "Order": """
+        "orders": """
         Generate realistic orders with appropriate dates and statuses.
         """,
     }
     
     # Define sample sizes for each model (optional)
     sample_sizes = {
-        "Customer": 10,        # Base entities
-        "Contact": 25,         # ~2-3 contacts per customer
-        "Product": 15,         # Products catalog
-        "Order": 30,           # ~3 orders per customer
-        "OrderItem": 60,       # ~2 items per order
+        "customers": 10,        # Base entities
+        "contacts": 25,         # ~2-3 contacts per customer
+        "products": 15,         # Products catalog
+        "orders": 30,           # ~3 orders per customer
+        "order_items": 60,       # ~2 items per order
     }
     
     # Define custom generators for specific model columns
@@ -191,11 +191,11 @@ def main():
     # This example shows a balanced approach with just a few strategic custom generators:
     #
     custom_generators = {
-        "Customer": {
+        "customers": {
             # Ensure a specific distribution of customer statuses for business reporting
             "status": lambda row, col: random.choice(["Active", "Inactive", "Prospect"]),
         },
-        "Product": {
+        "products": {
             # Control price ranges more precisely than the AI might
             "price": lambda row, col: round(random.uniform(50, 5000), 2),
             # Ensure product categories match your specific business domains
@@ -204,7 +204,7 @@ def main():
                 "Data Analytics", "Custom Development", "Support Package", "API Services"
             ])
         },
-        "OrderItem": {
+        "order_items": {
             # Example of a simple numeric distribution
             "quantity": lambda row, col: random.randint(1, 10),
         },
@@ -235,19 +235,19 @@ def main():
     print("\n📊 Sample data with custom generators:")
     
     print("\nCustomer statuses (custom generator):")
-    status_counts = results["Customer"]["status"].value_counts().to_dict()
+    status_counts = results["customers"]["status"].value_counts().to_dict()
     for status, count in status_counts.items():
         print(f"  - {status}: {count} customers")
     
     print("\nProduct categories (custom generator):")
-    category_counts = results["Product"]["category"].value_counts().to_dict()
+    category_counts = results["products"]["category"].value_counts().to_dict()
     for category, count in sorted(category_counts.items(), key=lambda x: x[1], reverse=True):
         print(f"  - {category}: {count} products")
     
     print("\nProduct prices (custom generator):")
-    price_min = results["Product"]["price"].min()
-    price_max = results["Product"]["price"].max()
-    price_avg = results["Product"]["price"].mean()
+    price_min = results["products"]["price"].min()
+    price_max = results["products"]["price"].max()
+    price_avg = results["products"]["price"].mean()
     print(f"  - Price range: ${price_min:.2f} to ${price_max:.2f}")
     print(f"  - Average price: ${price_avg:.2f}")
     
@@ -255,31 +255,31 @@ def main():
     print("\n🔍 Verifying referential integrity:")
     
     # Check Contacts → Customers
-    contact_customer_ids = set(results["Contact"]["customer_id"].tolist())
-    valid_customer_ids = set(results["Customer"]["id"].tolist())
+    contact_customer_ids = set(results["contacts"]["customer_id"].tolist())
+    valid_customer_ids = set(results["customers"]["id"].tolist())
     if contact_customer_ids.issubset(valid_customer_ids):
         print("  ✅ All Contact.customer_id values reference valid Customers")
     else:
         print("  ❌ Invalid Contact.customer_id references detected")
     
     # Check Orders → Customers
-    order_customer_ids = set(results["Order"]["customer_id"].tolist())
+    order_customer_ids = set(results["orders"]["customer_id"].tolist())
     if order_customer_ids.issubset(valid_customer_ids):
         print("  ✅ All Order.customer_id values reference valid Customers")
     else:
         print("  ❌ Invalid Order.customer_id references detected")
     
     # Check OrderItems → Orders
-    order_item_order_ids = set(results["OrderItem"]["order_id"].tolist())
-    valid_order_ids = set(results["Order"]["id"].tolist())
+    order_item_order_ids = set(results["order_items"]["order_id"].tolist())
+    valid_order_ids = set(results["orders"]["id"].tolist())
     if order_item_order_ids.issubset(valid_order_ids):
         print("  ✅ All OrderItem.order_id values reference valid Orders")
     else:
         print("  ❌ Invalid OrderItem.order_id references detected")
     
     # Check OrderItems → Products
-    order_item_product_ids = set(results["OrderItem"]["product_id"].tolist())
-    valid_product_ids = set(results["Product"]["id"].tolist())
+    order_item_product_ids = set(results["order_items"]["product_id"].tolist())
+    valid_product_ids = set(results["products"]["id"].tolist())
     if order_item_product_ids.issubset(valid_product_ids):
         print("  ✅ All OrderItem.product_id values reference valid Products")
     else:

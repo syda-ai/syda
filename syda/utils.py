@@ -1,270 +1,272 @@
-"""
-Utility functions for the syda package.
-Contains helper functions for data conversion, type mapping, and SQLAlchemy integration.
-"""
-
-from typing import Dict, Optional, List, Union, Callable, Tuple, Type, Any
-import random
-import pandas as pd
+import inspect
+import os
+import yaml
 import json
+import pandas as pd
+import random
+import string
+from datetime import datetime, date, timedelta
+from sqlalchemy import inspect as sqla_inspect, Column
 
-try:
-    from sqlalchemy.orm import DeclarativeMeta
-    from sqlalchemy import inspect
-except ImportError:
-    DeclarativeMeta = None
 
-def sqlalchemy_model_to_schema(model_class) -> Tuple[dict, dict, str]:
-    """
-    Convert a SQLAlchemy declarative model class to a schema dict, metadata dict,
-    and extract docstrings.
+def sqlalchemy_model_to_schema(model_class):
+    """Convert a SQLAlchemy model class to a schema format compatible with the data generator.
     
+    Args:
+        model_class: SQLAlchemy model class
+        
     Returns:
-        tuple: (table_schema, metadata_dict, table_description)
-            - table_schema: Dictionary mapping column names to data types
-            - metadata_dict: Dictionary containing column metadata (comments, constraints, etc.)
-            - table_description: Docstring of the model class if available
+        A tuple of (table_name, table_schema, metadata) where table_schema is a dictionary
+        mapping column names to column types.
     """
+    # Initialize schema dict and metadata
     table_schema = {}
     metadata = {}
     
-    # Extract model docstring if available
-    table_description = model_class.__doc__ or ""
-    table_description = table_description.strip()
+    # Get table name from model class name (overridden below for SQLAlchemy models)
+    # Get table name from model class name
+    table_name = model_class.__name__
     
-    # Process columns
-    for col in model_class.__table__.columns:
-        # Handle data type
-        if col.foreign_keys:
-            table_schema[col.name] = 'foreign_key'
-        elif hasattr(col.type, 'python_type'):
-            py_type = col.type.python_type
+    # Add description if available
+    metadata['__description__'] = model_class.__doc__ if model_class.__doc__ else f"{table_name} data"
+    
+    # Check if this is a regular SQLAlchemy model or a template class
+    if not hasattr(model_class, '__table__'):
+        # For template classes, extract schema from class attributes
+        from syda.templates import SydaTemplate
+        if issubclass(model_class, SydaTemplate):
+            print(f"Creating schema for template class: {model_class.__name__}")
             
-            # Map python types to our schema types
-            if py_type == str:
-                table_schema[col.name] = 'text'
-            elif py_type == int:
-                table_schema[col.name] = 'number'
-            elif py_type == float:
-                table_schema[col.name] = 'number'
-            elif py_type == bool:
-                table_schema[col.name] = 'boolean'
-            elif py_type.__name__ == 'date':
-                table_schema[col.name] = 'date'
-            elif py_type.__name__ == 'datetime':
-                table_schema[col.name] = 'datetime'
-            else:
-                table_schema[col.name] = 'text'  # Default to text
-        else:
-            table_schema[col.name] = 'text'  # Default to text
-        
-        # Collect metadata
-        col_metadata = {}
-        
-        # Add description if available (using SQLAlchemy column comment as description)
-        if col.comment:
-            col_metadata['description'] = col.comment
-        
-        # Add constraints as a dictionary (key-value pairs)
-        constraints = {}
-        
-        # Primary key constraint
-        if col.primary_key:
-            constraints['primary_key'] = True
-            
-        # Unique constraint
-        if col.unique:
-            constraints['unique'] = True
-            
-        # Not null constraint
-        if not col.nullable:
-            constraints['not_null'] = True
-            
-        # Length constraints - extract from various SQLAlchemy column types
-        if hasattr(col.type, 'length') and col.type.length is not None:
-            constraints['max_length'] = col.type.length
-        
-        # For string columns with length information
-        if str(col.type).startswith('VARCHAR') or str(col.type).startswith('CHAR'):
-            # Try to extract length information from the column type
-            try:
-                length_str = str(col.type).split('(')[1].split(')')[0]
-                if length_str.isdigit():
-                    constraints['max_length'] = int(length_str)
-            except (IndexError, ValueError):
-                pass
+            # Handle template configuration attributes with double underscores
+            # Add them to metadata rather than schema fields
+            if hasattr(model_class, '__template_source__'):
+                metadata['__template_source__'] = getattr(model_class, '__template_source__')
+                # Also add as field to make template processing work
+                table_schema['template_source'] = 'text'
                 
-        # Foreign key constraints
-        if col.foreign_keys:
-            # Get foreign key target table and column
-            for fk in col.foreign_keys:
-                target = fk.target_fullname
-                constraints['foreign_key_to'] = target
-                break  # Only use the first foreign key if multiple exist
+            if hasattr(model_class, '__input_file_type__'):
+                metadata['__input_file_type__'] = getattr(model_class, '__input_file_type__')
+                # Also add as field to make template processing work
+                table_schema['input_file_type'] = 'text'
+                
+            if hasattr(model_class, '__output_file_type__'):
+                metadata['__output_file_type__'] = getattr(model_class, '__output_file_type__')
+                # Also add as field to make template processing work
+                table_schema['output_file_type'] = 'text'
+            
+            # Add special metadata attributes
+            if hasattr(model_class, '__template__'):
+                metadata['__template__'] = getattr(model_class, '__template__')
+            if hasattr(model_class, '__depends_on__'):
+                metadata['__depends_on__'] = getattr(model_class, '__depends_on__')
+            
+            # Extract foreign keys using the template's get_foreign_keys method
+            template_foreign_keys = model_class.get_foreign_keys()
+            if template_foreign_keys:
+                foreign_keys_dict = {}
+                for fk_field, fk_info in template_foreign_keys.items():
+                    foreign_keys_dict[fk_field] = [fk_info['target_table'], fk_info['target_column']]
+                metadata['__foreign_keys__'] = foreign_keys_dict
+            
+            # Get regular fields from class attributes (not starting with __)
+            for attr_name, attr_value in model_class.__dict__.items():
+                if not attr_name.startswith('__') and not attr_name.startswith('_') and not callable(attr_value):
+                    # Add each field to the schema
+                    if isinstance(attr_value, Column):
+                        # Handle SQLAlchemy Column objects
+                        column_type = attr_value.type.__class__.__name__.lower()
+                        if column_type in ('integer', 'biginteger', 'smallinteger'):
+                            table_schema[attr_name] = 'integer'
+                        elif column_type in ('float', 'numeric', 'decimal'):
+                            table_schema[attr_name] = 'float'
+                        elif column_type == 'boolean':
+                            table_schema[attr_name] = 'boolean'
+                        elif column_type == 'date':
+                            table_schema[attr_name] = 'date'
+                        elif column_type == 'datetime':
+                            table_schema[attr_name] = 'datetime'
+                        else:
+                            table_schema[attr_name] = 'text'
+                    else:
+                        # Default for non-Column attributes
+                        table_schema[attr_name] = 'text'  # Default type
         
-        # Only add constraints to metadata if we have any
-        if constraints:
-            col_metadata['constraints'] = constraints
+        return table_name, table_schema, metadata
+    
+    # For regular SQLAlchemy models with tables
+    # Extract table columns
+    mapper = sqla_inspect(model_class)
+    for column in mapper.columns:
+        # Get column type
+        column_type = column.type.__class__.__name__.lower()
         
-        # Store metadata
-        if col_metadata:
-            metadata[col.name] = col_metadata
-    
-    return table_schema, metadata, table_description
-
-def extract_sqlalchemy_relationships(model_class) -> Dict[str, Dict]:
-    """
-    Extract relationship information from a SQLAlchemy model.
-    
-    Returns:
-        dict: Dictionary of relationship name to target model details
-    """
-    relationships = {}
-    
-    if not hasattr(model_class, '__mapper__') or not hasattr(model_class.__mapper__, 'relationships'):
-        return relationships
-    
-    for relationship_name, relationship in model_class.__mapper__.relationships.items():
-        target_model = relationship.argument
-        if callable(target_model):
-            target_model = target_model()
-        
-        # Get target model name
-        if hasattr(target_model, '__name__'):
-            target_model_name = target_model.__name__
+        # Map SQLAlchemy types to schema types
+        if column_type in ('integer', 'biginteger', 'smallinteger'):
+            table_schema[column.name] = 'integer'
+        elif column_type in ('float', 'numeric', 'decimal'):
+            table_schema[column.name] = 'float'
+        elif column_type == 'boolean':
+            table_schema[column.name] = 'boolean'
+        elif column_type == 'date':
+            table_schema[column.name] = 'date'
+        elif column_type == 'datetime':
+            table_schema[column.name] = 'datetime'
         else:
-            target_model_name = str(target_model)
-        
-        relationships[relationship_name] = {
-            'target_model': target_model_name,
-            'direction': 'many_to_one' if relationship.direction.name == 'MANYTOONE' else 
-                        'one_to_many' if relationship.direction.name == 'ONETOMANY' else 
-                        'many_to_many' if relationship.direction.name == 'MANYTOMANY' else 'one_to_one'
-        }
+            table_schema[column.name] = 'text'
     
-    return relationships
+    # Use actual table name from SQLAlchemy model
+    if hasattr(model_class, '__tablename__'):
+        table_name = getattr(model_class, '__tablename__')
+        print(f"Using SQLAlchemy table name: {table_name}")
+    
+    # Extract foreign keys
+    foreign_keys = {}
+    for column in mapper.columns:
+        if column.foreign_keys:
+            # Get foreign key reference
+            for fk in column.foreign_keys:
+                target_table = fk.column.table.name
+                target_column = fk.column.name
+                foreign_keys[column.name] = {
+                    'references': f"{target_table}.{target_column}"
+                }
+    
+    # Add foreign keys to metadata if any exist
+    if foreign_keys:
+        metadata['__foreign_keys__'] = foreign_keys
+    
+    return table_name, table_schema, metadata
 
-def create_empty_dataframe(schema: Dict) -> pd.DataFrame:
-    """
-    Create an empty DataFrame with columns based on the schema.
-    
-    Args:
-        schema: Dictionary mapping column names to column types
-        
-    Returns:
-        pd.DataFrame: Empty DataFrame with appropriate columns
-    """
-    return pd.DataFrame({k: [] for k in schema.keys()})
 
-def generate_random_value(col_type: str) -> Any:
-    """
-    Generate a random value for a given column type.
+def create_empty_dataframe(schema):
+    """Create an empty pandas DataFrame with columns matching the schema types."""
+    columns = {}
+    for field, field_type in schema.items():
+        # Skip metadata fields
+        if field.startswith('__') and field.endswith('__'):
+            continue
+        # Map schema types to pandas dtypes
+        if field_type == 'integer':
+            columns[field] = pd.Series(dtype='int64')
+        elif field_type == 'float':
+            columns[field] = pd.Series(dtype='float64')
+        elif field_type == 'boolean':
+            columns[field] = pd.Series(dtype='bool')
+        elif field_type in ('date', 'datetime'):
+            columns[field] = pd.Series(dtype='datetime64[ns]')
+        else:
+            columns[field] = pd.Series(dtype='object')
     
-    Args:
-        col_type: Type of column (text, number, boolean, date, datetime)
-        
-    Returns:
-        Any: Random value appropriate for the column type
-    """
-    if col_type == 'text':
-        return f"value_{random.randint(1, 1000)}"
-    elif col_type == 'number':
+    return pd.DataFrame(columns)
+
+
+def generate_random_value(field_type):
+    """Generate a random value based on field type for placeholder data."""
+    if field_type == 'integer':
         return random.randint(1, 1000)
-    elif col_type == 'boolean':
+    elif field_type == 'float':
+        return round(random.uniform(1.0, 1000.0), 2)
+    elif field_type == 'boolean':
         return random.choice([True, False])
-    elif col_type == 'date':
-        return f"{random.randint(2000, 2023)}-{random.randint(1, 12):02d}-{random.randint(1, 28):02d}"
-    elif col_type == 'datetime':
-        return f"{random.randint(2000, 2023)}-{random.randint(1, 12):02d}-{random.randint(1, 28):02d} {random.randint(0, 23):02d}:{random.randint(0, 59):02d}:{random.randint(0, 59):02d}"
-    else:
-        return f"value_{random.randint(1, 1000)}"  # Default to text-like
+    elif field_type == 'date':
+        # Random date in last 5 years
+        days = random.randint(0, 365 * 5)
+        return (date.today() - timedelta(days=days)).isoformat()
+    elif field_type == 'datetime':
+        # Random datetime in last 5 years
+        days = random.randint(0, 365 * 5)
+        hours = random.randint(0, 23)
+        minutes = random.randint(0, 59)
+        seconds = random.randint(0, 59)
+        dt = datetime.now() - timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds)
+        return dt.isoformat()
+    else:  # text or any other type
+        # Generate random string
+        length = random.randint(5, 15)
+        return ''.join(random.choice(string.ascii_letters) for _ in range(length))
 
-def get_schema_prompt(schema: Dict, metadata: Optional[Dict] = None, model_docstring: Optional[str] = None) -> str:
-    """
-    Generate a prompt describing the schema for the LLM.
-    
-    Args:
-        schema: Dictionary mapping column names to column types
-        metadata: Optional dictionary of column metadata
-        model_docstring: Optional model docstring
-        
-    Returns:
-        str: Formatted prompt section describing the schema
-    """
-    prompt_parts = []
-    
-    # Add model description if available
-    if model_docstring:
-        prompt_parts.append(f"Model Description: {model_docstring}\n")
-    
-    prompt_parts.append("The schema has the following columns:")
-    
-    # Process each column
-    for col_name, col_type in schema.items():
-        col_desc = f"- {col_name} ({col_type})"
-        
-        # Add metadata if available
-        if metadata and col_name in metadata:
-            col_meta = metadata[col_name]
-            
-            # Add comment
-            if 'comment' in col_meta:
-                col_desc += f": {col_meta['comment']}"
-            
-            # Add constraints
-            if 'constraints' in col_meta:
-                constraints = ", ".join(col_meta['constraints'])
-                col_desc += f" [Constraints: {constraints}]"
-                
-        prompt_parts.append(col_desc)
-    
-    return "\n".join(prompt_parts)
 
-def parse_dataframe_output(df_output: str) -> pd.DataFrame:
-    """
-    Parse DataFrame output from LLM response.
-    
-    Args:
-        df_output: String representation of dataframe data (JSON, CSV, etc.)
-        
-    Returns:
-        pd.DataFrame: Parsed DataFrame
-    """
-    # Try parsing as JSON
+def get_schema_prompt(schema, table_name, description=None):
+    """Generate a prompt for the LLM based on schema information."""
+    prompt = f"Generate data for {table_name}"
+    if description:
+        prompt += f": {description}"
+    return prompt
+
+
+def parse_dataframe_output(text, schema):
+    """Parse LLM output text into a pandas DataFrame based on schema."""
     try:
-        # Clean up common issues in JSON responses
-        clean_output = df_output.strip()
+        # Try to parse as JSON
+        data = json.loads(text)
         
-        # Handle triple backticks in code blocks
-        if clean_output.startswith("```") and clean_output.endswith("```"):
-            # Extract just the JSON part
-            clean_output = clean_output[clean_output.find("\n")+1:clean_output.rfind("```")].strip()
-        
-        # Handle if json keyword is included
-        if clean_output.startswith("json"):
-            clean_output = clean_output[4:].strip()
-            
-        # Parse the JSON
-        data = json.loads(clean_output)
-        
-        # Handle various JSON formats
+        # Convert to DataFrame
         if isinstance(data, list):
-            # List of records
-            return pd.DataFrame(data)
+            df = pd.DataFrame(data)
         elif isinstance(data, dict):
-            if 'data' in data and isinstance(data['data'], list):
-                # Some LLMs wrap the data in a 'data' key
-                return pd.DataFrame(data['data'])
-            elif all(isinstance(v, list) for v in data.values()):
-                # Columns as lists
-                return pd.DataFrame(data)
-            else:
-                # Single record
-                return pd.DataFrame([data])
+            df = pd.DataFrame([data])
         else:
-            # Fallback empty DataFrame
-            return pd.DataFrame()
+            # If not a valid JSON structure, raise error
+            raise ValueError("Output is not a valid JSON structure")
+        
+        # Type conversion based on schema
+        for col, dtype in schema.items():
+            if col in df.columns:
+                if dtype == 'integer':
+                    df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0).astype(int)
+                elif dtype == 'float':
+                    df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0.0)
+                elif dtype == 'boolean':
+                    df[col] = df[col].astype(bool)
+                elif dtype in ('date', 'datetime'):
+                    df[col] = pd.to_datetime(df[col], errors='coerce')
+        
+        return df
     except Exception as e:
-        # Fallback to empty DataFrame on parsing errors
-        print(f"Error parsing LLM output as DataFrame: {str(e)}")
-        return pd.DataFrame()
+        print(f"Error parsing output: {e}")
+        # Return empty DataFrame matching schema
+        return create_empty_dataframe(schema)
+
+
+def read_schema_file(schema_file):
+    """Read a schema file (JSON or YAML) and return the schema dictionary."""
+    try:
+        with open(schema_file, 'r') as file:
+            if schema_file.endswith('.json'):
+                return json.load(file)
+            elif schema_file.endswith(('.yaml', '.yml')):
+                return yaml.safe_load(file)
+            else:
+                raise ValueError(f"Unsupported schema file format: {schema_file}")
+    except Exception as e:
+        print(f"Error reading schema file {schema_file}: {e}")
+        return {}
+
+
+def save_dataframe(df, output_file):
+    """Save a dataframe to a file (CSV, Excel, JSON, or Parquet)."""
+    # Create output directory if it doesn't exist
+    output_dir = os.path.dirname(output_file)
+    if output_dir and not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    
+    # Save based on file extension
+    file_ext = os.path.splitext(output_file)[1].lower()
+    
+    if file_ext == '.csv':
+        df.to_csv(output_file, index=False)
+        print(f"✓ Successfully wrote {len(df)} rows to {output_file}")
+    elif file_ext in ('.xls', '.xlsx'):
+        df.to_excel(output_file, index=False)
+        print(f"✓ Successfully wrote {len(df)} rows to {output_file}")
+    elif file_ext == '.json':
+        df.to_json(output_file, orient='records', lines=True)
+        print(f"✓ Successfully wrote {len(df)} rows to {output_file}")
+    elif file_ext == '.parquet':
+        df.to_parquet(output_file, index=False)
+        print(f"✓ Successfully wrote {len(df)} rows to {output_file}")
+    else:
+        print(f"⚠️ Unsupported file format: {file_ext}. Defaulting to CSV.")
+        csv_file = os.path.splitext(output_file)[0] + '.csv'
+        df.to_csv(csv_file, index=False)
+        print(f"✓ Successfully wrote {len(df)} rows to {csv_file}")

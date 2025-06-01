@@ -43,3 +43,5 @@ service/alembic/versions/*
 *~
 *.csv
 logs/
+*.pdf
+.windsurf/
