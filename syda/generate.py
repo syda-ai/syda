@@ -1061,7 +1061,6 @@ class SyntheticDataGenerator:
                 raise ValueError("No records extracted from LLM response")
             else:
                 print(f"✓ Successfully generated {len(records)} records")
-                print(f"  Fields in first record: {list(records[0].keys()) if records else 'None'}")
             
             # Create DataFrame from records
             df = pd.DataFrame(records)
