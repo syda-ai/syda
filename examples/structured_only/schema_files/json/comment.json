@@ -2,8 +2,7 @@
   "__table_description__": "Comments on blog posts by users",
   "__foreign_keys__": {
     "post_id": ["Post", "id"],
-    "user_id": ["User", "id"],
-    "parent_comment_id": ["Comment", "id"]
+    "user_id": ["User", "id"]
   },
   "id": {
     "type": "number",
@@ -44,11 +43,7 @@
     "description": "Whether the comment has been approved by moderators"
   },
   "parent_comment_id": {
-    "type": "foreign_key",
-    "description": "Reference to the parent comment (for threaded comments)",
-    "references": {
-      "schema": "Comment",
-      "field": "id"
-    }
+    "type": "number",
+    "description": "Reference to the parent comment (for threaded comments), indicate 0 if it is a top-level comment or if it is a parent comment on the post"
   }
 }

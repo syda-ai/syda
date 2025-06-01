@@ -20,8 +20,5 @@ description:
     max_length: 1000
 
 parent_id:
-  type: foreign_key
-  description: Reference to the parent category (for hierarchical categories)
-  references:
-    schema: Category
-    field: id
+  type: number
+  description: Reference to the parent category (for hierarchical categories), indicate 0 if it is a parent category
