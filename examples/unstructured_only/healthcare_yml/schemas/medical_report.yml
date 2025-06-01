@@ -59,14 +59,8 @@ treatment_plan:
 medications:
   type: array
   items:
-    type: object
-    properties:
-      name:
-        type: string
-      dosage:
-        type: string
-      frequency:
-        type: string
+    type: string
+  description: List of medications in format "Name - Dosage - Frequency"
 
 follow_up:
   type: string

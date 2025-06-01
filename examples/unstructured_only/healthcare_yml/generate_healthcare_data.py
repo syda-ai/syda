@@ -8,7 +8,6 @@ and template processing with PDF output.
 
 import os
 import sys
-import logging
 from pathlib import Path
 
 # Add the parent directory to the path so we can import the SYDA module
@@ -16,11 +15,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
 from syda.generate import SyntheticDataGenerator
 from syda.schemas import ModelConfig
-
-# Set up logging
-logging.basicConfig(level=logging.INFO, 
-                   format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
 
 # Define paths
 BASE_DIR = Path(__file__).parent

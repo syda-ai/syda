@@ -104,22 +104,18 @@
         <table>
             <tr>
                 <th>Medication</th>
-                <th>Dosage</th>
-                <th>Frequency</th>
             </tr>
             {% if medications %}
-            {% for med in medications %}
-            <tr>
-                <td>{{ med.name }}</td>
-                <td>{{ med.dosage }}</td>
-                <td>{{ med.frequency }}</td>
-            </tr>
-            {% endfor %}
-        {% else %}
-            <tr>
-                <td colspan="3">No medications prescribed</td>
-            </tr>
-        {% endif %}
+                {% for med in medications %}
+                <tr>
+                    <td>{{ med }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td>No medications prescribed</td>
+                </tr>
+            {% endif %}
         </table>
     </div>
     
