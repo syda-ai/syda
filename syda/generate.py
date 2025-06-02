@@ -256,6 +256,37 @@ class SyntheticDataGenerator:
             output_format=output_format
         )
         
+    def _process_foreign_keys(self, schema_foreign_keys):
+        """
+        Process foreign keys extracted from schemas into a standardized format.
+        
+        Args:
+            schema_foreign_keys: Dictionary mapping schema names to foreign key definitions
+            
+        Returns:
+            Dictionary of standardized foreign key definitions
+        """
+        extracted_foreign_keys = {}
+        
+        # Process the foreign keys extracted from schema files
+        for schema_name, fks in schema_foreign_keys.items():
+            if schema_name not in extracted_foreign_keys:
+                extracted_foreign_keys[schema_name] = {}
+            # Add each foreign key relationship
+            for fk_column, fk_info in fks.items():
+                # Handle different formats of foreign key info
+                if isinstance(fk_info, tuple) and len(fk_info) == 2:
+                    # Already in the correct format: (parent_schema, parent_column)
+                    parent_schema, parent_column = fk_info
+                elif isinstance(fk_info, dict) and 'references' in fk_info:
+                    # Dictionary format with 'references' key
+                    ref_parts = fk_info['references'].split('.')
+                    parent_schema, parent_column = ref_parts[0], ref_parts[1]
+                extracted_foreign_keys[schema_name][fk_column] = (parent_schema, parent_column)
+                print(f"Using schema-defined foreign key: {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
+                
+        return extracted_foreign_keys
+
     def generate_for_schemas(
         self,
         schemas: Dict[str, Union[Dict[str, str], str]],
@@ -415,25 +446,8 @@ class SyntheticDataGenerator:
             if extracted_fks:
                 schema_foreign_keys[schema_name] = extracted_fks
             
-        # Extract foreign keys from schemas and build dependency information using DependencyHandler
-        extracted_foreign_keys = {}
-        
-        # Process the foreign keys extracted from schema files
-        for schema_name, fks in schema_foreign_keys.items():
-            if schema_name not in extracted_foreign_keys:
-                extracted_foreign_keys[schema_name] = {}
-            # Add each foreign key relationship
-            for fk_column, fk_info in fks.items():
-                # Handle different formats of foreign key info
-                if isinstance(fk_info, tuple) and len(fk_info) == 2:
-                    # Already in the correct format: (parent_schema, parent_column)
-                    parent_schema, parent_column = fk_info
-                elif isinstance(fk_info, dict) and 'references' in fk_info:
-                    # Dictionary format with 'references' key
-                    ref_parts = fk_info['references'].split('.')
-                    parent_schema, parent_column = ref_parts[0], ref_parts[1]
-                extracted_foreign_keys[schema_name][fk_column] = (parent_schema, parent_column)
-                print(f"Using schema-defined foreign key: {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
+        # Extract and process foreign keys from schemas
+        extracted_foreign_keys = self._process_foreign_keys(schema_foreign_keys)
         
         # Use DependencyHandler to extract all dependencies
         all_dependencies = DependencyHandler.extract_dependencies(
@@ -733,32 +747,7 @@ class SyntheticDataGenerator:
                 save_dataframes(structured_results, output_dir, format=output_format)
             
             # Verify referential integrity
-            print("\n🔍 Verifying referential integrity:")
-            all_valid = True
-            for schema_name, fk_columns in extracted_foreign_keys.items():
-                for fk_column, (parent_schema, parent_column) in fk_columns.items():
-                    # Skip validation if we don't have both tables
-                    if schema_name not in results or parent_schema not in results:
-                        print(f"  ⚠️ Cannot verify {schema_name}.{fk_column} references - missing tables")
-                        continue
-                        
-                    # Get the values used in the foreign key column
-                    fk_values = results[schema_name][fk_column].tolist()
-                    # Get the valid values from the parent table
-                    valid_values = results[parent_schema][parent_column].tolist()
-                    
-                    # Check if all foreign key values are valid
-                    invalid_values = [v for v in fk_values if v not in valid_values]
-                    if invalid_values:
-                        print(f"  ❌ Invalid {schema_name}.{fk_column} references detected")
-                        all_valid = False
-                    else:
-                        print(f"  ✅ All {schema_name}.{fk_column} values reference valid {parent_schema}.{parent_column}")
-            
-            if not all_valid:
-                print("\n⚠️ Some foreign key constraints were violated. This may affect data integrity.")
-            elif not extracted_foreign_keys:
-                print("  ℹ️ No foreign key relationships defined in schemas")
+            self._verify_referential_integrity(results, extracted_foreign_keys)
                     
         except Exception as e:
             # Restore original generators in case of error
@@ -767,6 +756,47 @@ class SyntheticDataGenerator:
             raise e
             
         return results
+
+    def _verify_referential_integrity(self, results, extracted_foreign_keys):
+        """
+        Verify referential integrity between generated tables.
+        
+        Args:
+            results: Dictionary of dataframes containing the generated data
+            extracted_foreign_keys: Dictionary mapping schema names to their foreign key definitions
+            
+        Returns:
+            bool: True if all foreign key relationships are valid, False otherwise
+        """
+        print("\n🔍 Verifying referential integrity:")
+        all_valid = True
+        
+        for schema_name, fk_columns in extracted_foreign_keys.items():
+            for fk_column, (parent_schema, parent_column) in fk_columns.items():
+                # Skip validation if we don't have both tables
+                if schema_name not in results or parent_schema not in results:
+                    print(f"  ⚠️ Cannot verify {schema_name}.{fk_column} references - missing tables")
+                    continue
+                    
+                # Get the values used in the foreign key column
+                fk_values = results[schema_name][fk_column].tolist()
+                # Get the valid values from the parent table
+                valid_values = results[parent_schema][parent_column].tolist()
+                
+                # Check if all foreign key values are valid
+                invalid_values = [v for v in fk_values if v not in valid_values]
+                if invalid_values:
+                    print(f"  ❌ Invalid {schema_name}.{fk_column} references detected")
+                    all_valid = False
+                else:
+                    print(f"  ✅ All {schema_name}.{fk_column} values reference valid {parent_schema}.{parent_column}")
+        
+        if not all_valid:
+            print("\n⚠️ Some foreign key constraints were violated. This may affect data integrity.")
+        elif not extracted_foreign_keys:
+            print("  ℹ️ No foreign key relationships defined in schemas")
+            
+        return all_valid
 
     def _get_schema_info(self, schema):
         """
@@ -1095,16 +1125,16 @@ class SyntheticDataGenerator:
         Returns:
             DataFrame with custom generators applied
         """
-        if not custom_generators or model_name not in custom_generators:
+        if not custom_generators:
             return df
             
-        # Delegate to the generator manager
-        return self.generator_manager.apply_custom_generators(
-            df=df,
-            model_name=model_name,
-            custom_generators=custom_generators,
-            parent_dfs=parent_dfs
-        )
+        # For backward compatibility, register the custom generators in self.column_generators
+        # This is necessary because _generate_data directly uses self.column_generators in lines 1219-1222
+        for col_name, generator in custom_generators.items():
+            # Register in self.column_generators for direct application
+            self.column_generators[col_name] = generator
+        
+        return df
 
     def _apply_type_generators(self, df, llm_schema):
         """

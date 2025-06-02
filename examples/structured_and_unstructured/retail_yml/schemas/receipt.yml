@@ -4,6 +4,7 @@ __name__: Receipt
 __depends_on__: [Product, Transaction, Customer]
 __foreign_keys__:
   customer_name: [Customer, first_name]
+  
 template_source: /home/ramkumar2606/syda-fresh/examples/structured_and_unstructured/retail_yml/templates/receipt.html
 input_file_type: html
 output_file_type: pdf
@@ -78,46 +79,7 @@ card_last_four:
 # Product purchase details
 items:
   type: array
-  description: List of purchased items with product details
-  example: [
-    {"product_name": "Wireless Headphones", "sku": "WH-100", "quantity": 1, "unit_price": 89.99, "item_total": 89.99},
-    {"product_name": "Phone Case", "sku": "PC-200", "quantity": 2, "unit_price": 19.99, "item_total": 39.98}
-  ]
-  items:
-    type: object
-    properties:
-      product_id:
-        type: integer
-        description: Product ID
-        references: 
-          table: Product
-          column: id
-      product_name:
-        type: string
-        length: 100
-        description: Name of the product
-      sku:
-        type: string
-        pattern: '^P[A-Z]{2}-\d{5}$'
-        length: 10
-        description: Product SKU
-      quantity:
-        type: integer
-        min: 1
-        max: 100
-        description: Quantity purchased
-      unit_price:
-        type: float
-        min: 0.99
-        max: 9999.99
-        decimals: 2
-        description: Price per unit
-      item_total:
-        type: float
-        min: 0.99
-        max: 999999.99
-        decimals: 2
-        description: Total price for this item
+  description: "List of purchased items with product details"
   
 # Totals
 subtotal:
