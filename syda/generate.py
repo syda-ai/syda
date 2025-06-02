@@ -689,58 +689,19 @@ class SyntheticDataGenerator:
             for schema_name, df in results.items():
                 # Check if this is a template schema by looking for template_source field
                 if df is not None and 'template_source' in df.columns:
-                    template_schemas[schema_name] = schemas[schema_name]
+                    template_schemas[schema_name] = df
                 else:
                     structured_results[schema_name] = df
             
             # Process template schemas if any
+            template_results = {}
             if template_schemas and output_dir:
-                # Process each template schema
+                # Process each template schema using the TemplateProcessor
                 from syda.templates import TemplateProcessor
                 processor = TemplateProcessor()
                 
-                for schema_name, df in results.items():
-                    # Skip if not a template schema
-                    if not ('template_source' in df.columns):
-                        continue
-                        
-                    print(f"Processing {schema_name} templates...")
-                    
-                    # Create output directory for this schema
-                    template_output_dir = os.path.join(output_dir, schema_name)
-                    os.makedirs(template_output_dir, exist_ok=True)
-                    
-                    # Process each row in the dataframe
-                    documents_generated = 0
-                    
-                    for idx, row in df.iterrows():
-                        template_path = row.get('template_source')
-                        input_file_type = row.get('input_file_type', '').lower()
-                        output_file_type = row.get('output_file_type', '').lower()
-                        
-                        # Skip if missing required fields
-                        if not template_path or not os.path.exists(template_path) or not input_file_type or not output_file_type:
-                            print(f"Warning: Invalid template configuration for {schema_name} row {idx}")
-                            continue
-                            
-                        # Output path for this document
-                        output_path = os.path.join(template_output_dir, f"document_{idx+1}.{output_file_type}")
-                        
-                        try:
-                            # Process the template with data
-                            processor.process_template_with_data(
-                                template_path=template_path,
-                                data=row.to_dict(),
-                                output_path=output_path,
-                                input_file_type=input_file_type,
-                                output_file_type=output_file_type
-                            )
-                            documents_generated += 1
-                            print(f"✓ Successfully generated: {output_path}")
-                        except Exception as e:
-                            print(f"Error generating document for {schema_name} row {idx}: {str(e)}")
-                    
-                    print(f"Generated {documents_generated} documents for {schema_name}")
+                # Use the new method to process all template dataframes at once
+                template_results = processor.process_template_dataframes(template_schemas, output_dir)
             
             # Save files if output_dir is specified
             if output_dir:

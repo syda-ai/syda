@@ -423,3 +423,70 @@ class TemplateProcessor:
             f.write(content)
             
         return output_path
+        
+    def process_template_dataframes(self, template_dataframes, output_dir=None):
+        """
+        Process multiple template dataframes, generating documents for each row.
+        
+        Args:
+            template_dataframes: Dictionary mapping schema names to dataframes with template data
+            output_dir: Base directory for output files
+            
+        Returns:
+            Dictionary mapping schema names to lists of generated document paths
+            
+        Raises:
+            ValueError: If processing fails or output_dir is not provided
+        """
+        if not output_dir:
+            raise ValueError("Output directory must be specified for template processing")
+            
+        results = {}
+        
+        for schema_name, df in template_dataframes.items():
+            # Skip if not a template dataframe
+            if df is None or 'template_source' not in df.columns:
+                continue
+                
+            print(f"Processing {schema_name} templates...")
+            
+            # Create output directory for this schema
+            template_output_dir = os.path.join(output_dir, schema_name)
+            os.makedirs(template_output_dir, exist_ok=True)
+            
+            # Process each row in the dataframe
+            documents_generated = 0
+            schema_results = []
+            
+            for idx, row in df.iterrows():
+                template_path = row.get('template_source')
+                input_file_type = row.get('input_file_type', '').lower()
+                output_file_type = row.get('output_file_type', '').lower()
+                
+                # Skip if missing required fields
+                if not template_path or not os.path.exists(template_path) or not input_file_type or not output_file_type:
+                    print(f"Warning: Invalid template configuration for {schema_name} row {idx}")
+                    continue
+                    
+                # Output path for this document
+                output_path = os.path.join(template_output_dir, f"document_{idx+1}.{output_file_type}")
+                
+                try:
+                    # Process the template with data
+                    self.process_template_with_data(
+                        template_path=template_path,
+                        data=row.to_dict(),
+                        output_path=output_path,
+                        input_file_type=input_file_type,
+                        output_file_type=output_file_type
+                    )
+                    documents_generated += 1
+                    schema_results.append(output_path)
+                    print(f"✓ Successfully generated: {output_path}")
+                except Exception as e:
+                    print(f"Error generating document for {schema_name} row {idx}: {str(e)}")
+            
+            print(f"Generated {documents_generated} documents for {schema_name}")
+            results[schema_name] = schema_results
+            
+        return results
