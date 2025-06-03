@@ -228,21 +228,6 @@ def parse_dataframe_output(text, schema):
         return create_empty_dataframe(schema)
 
 
-def read_schema_file(schema_file):
-    """Read a schema file (JSON or YAML) and return the schema dictionary."""
-    try:
-        with open(schema_file, 'r') as file:
-            if schema_file.endswith('.json'):
-                return json.load(file)
-            elif schema_file.endswith(('.yaml', '.yml')):
-                return yaml.safe_load(file)
-            else:
-                raise ValueError(f"Unsupported schema file format: {schema_file}")
-    except Exception as e:
-        print(f"Error reading schema file {schema_file}: {e}")
-        return {}
-
-
 def save_dataframe(df, output_file):
     """Save a dataframe to a file (CSV, Excel, JSON, or Parquet)."""
     # Create output directory if it doesn't exist
