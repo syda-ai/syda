@@ -544,76 +544,7 @@ class SyntheticDataGenerator:
                     raise Exception(f"Failed to generate data for {schema_name} using LLM: {str(e)}")
                 
                 
-                # Second pass: handle foreign key fields
-                for field_name, field_info in schema.items():
-                    if field_name.startswith('__'):
-                        continue
-                        
-                    field_type = field_info if isinstance(field_info, str) else field_info.get('type', 'text')
-                    
-                    # Now handle foreign key fields
-                    if field_type.lower() == 'foreign_key':
-                        # Extract references info
-                        references = None
-                        if isinstance(field_info, dict) and 'references' in field_info:
-                            references = field_info['references']
-                            parent_schema = references.get('schema')
-                            parent_field = references.get('field')
-                            
-                            # Handle self-referential foreign keys specially
-                            if parent_schema == schema_name:
-                                # For self-references, we need to be careful
-                                # First row should have NULL or 0 as parent (root)
-                                values = [None]  # Start with NULL for first item (root)
-                                
-                                for key, value in yaml_content.items():
-                                    # Handle special metadata fields
-                                    if key.startswith('__') and key.endswith('__'):
-                                        # Store metadata but don't include in schema
-                                        metadata[key] = value
-                                        # Extract description if available
-                                        if key == '__description__':
-                                            description = value
-                                        # Extract foreign keys if defined
-                                        elif key == '__foreign_keys__' and isinstance(value, dict):
-                                            for fk_column, fk_ref in value.items():
-                                                # Handle both list format [parent_table, parent_column] and string format
-                                                if isinstance(fk_ref, list) and len(fk_ref) == 2:
-                                                    parent_table, parent_column = fk_ref
-                                                    foreign_keys[fk_column] = (parent_table, parent_column)
-                                                elif isinstance(fk_ref, str):
-                                                    # If string format, assume column name is 'id'
-                                                    foreign_keys[fk_column] = (fk_ref, 'id')
-                                                else:
-                                                    print(f"Warning: Invalid foreign key format for {key}.{fk_column}")
-                                        # Extract explicit dependencies
-                                        elif key == '__depends_on__':
-                                            # Just store it in metadata, we'll process it later
-                                            print(f"Storing dependency info: {key} = {value} (type: {type(value)})")
-                                    else:
-                                        # Regular field - add to schema
-                                        field_type = None
-                                        if isinstance(value, dict) and 'type' in value:
-                                            field_type = value['type']
-                                        else:
-                                            # Default to string if type not specified
-                                            field_type = 'string'
-                                        
-                                        table_schema[key] = field_type
-                                print(f"Created hierarchical self-references for {schema_name}.{field_name}")
-                            
-                            # Use existing results if the parent schema has already been processed (not self-referential)
-                            elif parent_schema in results and parent_field in results[parent_schema].columns:
-                                valid_ids = results[parent_schema][parent_field].tolist()
-                                # Ensure we have enough IDs (repeat if necessary)
-                                while len(valid_ids) < sample_size:
-                                    valid_ids.extend(valid_ids)
-                                # Select random IDs from the parent schema
-                                df[field_name] = [random.choice(valid_ids) for _ in range(sample_size)]
-                            else:
-                                # Parent schema not yet processed, use placeholder IDs
-                                print(f"WARNING: Parent schema {parent_schema} not yet processed. Using placeholder IDs for {field_name}")
-                                df[field_name] = [random.randint(1, 1000) for _ in range(sample_size)]
+                # Foreign key handling is now done by the ForeignKeyHandler.apply_foreign_keys method
                 
                 # Apply custom generators if any
                 schema_custom_generators = custom_generators.get(schema_name, {})
