@@ -23,7 +23,7 @@ from .utils import (
     get_schema_prompt,
     parse_dataframe_output
 )
-from .dependency_handler import DependencyHandler
+from .dependency_handler import DependencyHandler, ForeignKeyHandler
 from .custom_generators import GeneratorManager
 
 try:
@@ -65,6 +65,9 @@ class SyntheticDataGenerator:
         
         # Initialize the generator manager
         self.generator_manager = GeneratorManager()
+        
+        # Initialize the foreign key handler
+        self.fk_handler = ForeignKeyHandler(self.generator_manager)
         
         # For backward compatibility, provide direct access to these dictionaries
         self.type_generators = self.generator_manager.type_generators
@@ -486,14 +489,6 @@ class SyntheticDataGenerator:
         original_column_generators = self.column_generators.copy()
         
         try:
-            # Debug the complete generation order
-            print("\n🔄 DEBUG: Schema generation order:")
-            for i, schema in enumerate(generation_order):
-                deps = all_dependencies.get(schema, [])
-                deps_str = ", ".join(deps) if deps else "none"
-                print(f"  {i+1}. {schema} (depends on: {deps_str})")
-            print("")
-            
             # Generate data for each schema in the correct order
             for schema_name in generation_order:
                 schema = processed_schemas[schema_name]
@@ -507,62 +502,8 @@ class SyntheticDataGenerator:
                 prompt = prompts.get(schema_name, default_prompt)
                 sample_size = sample_sizes.get(schema_name, default_sample_size)
                 
-                # Register foreign key generators for any foreign key columns using GeneratorManager
-                if schema_name in extracted_foreign_keys:
-                    # Group foreign keys by parent table
-                    fk_by_parent = {}
-                    for fk_column, (parent_schema, parent_column) in extracted_foreign_keys[schema_name].items():
-                        if parent_schema not in fk_by_parent:
-                            fk_by_parent[parent_schema] = []
-                        fk_by_parent[parent_schema].append((fk_column, parent_column))
-                    
-                    # Process each parent table group
-                    for parent_schema, fk_list in fk_by_parent.items():
-                        if parent_schema in results:
-                            parent_df = results[parent_schema]
-                            
-                            # Multiple columns referencing the same parent table
-                            if len(fk_list) > 1:
-                                print(f"Ensuring consistent foreign keys for {len(fk_list)} columns in {schema_name} referencing {parent_schema}")
-                                
-                                # Get the list of column pairs for registration
-                                column_pairs = [(fk_column, parent_column) for fk_column, parent_column in fk_list]
-                                
-                                # Register consistent foreign key generators for these columns
-                                parent_indices = list(range(len(parent_df)))
-                                if not parent_indices:
-                                    print(f"⚠️ Warning: No records in {parent_schema} for foreign keys in {schema_name}")
-                                    continue
-                                
-                                # Register all consistent foreign key generators at once
-                                print(f"Registering consistent foreign key generators for {schema_name} -> {parent_schema}")
-                                self.generator_manager._register_consistent_fk_generators(
-                                    schema_name=schema_name,
-                                    parent_schema=parent_schema,
-                                    parent_df=parent_df,
-                                    fk_list=fk_list
-                                )
-                            else:
-                                # Only one column referencing this parent table, use simple generator
-                                for fk_column, parent_column in fk_list:
-                                    valid_values = parent_df[parent_column].tolist()
-                                    
-                                    if not valid_values:
-                                        print(f"⚠️ Warning: No valid values found in {parent_schema}.{parent_column} for foreign key {schema_name}.{fk_column}")
-                                        continue
-                                    
-                                    # Register a simple foreign key generator
-                                    print(f"Registering foreign key generator for {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
-                                    self.generator_manager._register_simple_fk_generator(
-                                        schema_name=schema_name,
-                                        parent_schema=parent_schema,
-                                        parent_df=parent_df,
-                                        fk_column=fk_column,
-                                        parent_column=parent_column
-                                    )
-                        else:
-                            for fk_column, parent_column in fk_list:
-                                print(f"⚠️ Warning: Parent schema {parent_schema} not available for foreign key {schema_name}.{fk_column}")
+                # Apply foreign key constraints using the ForeignKeyHandler
+                self.fk_handler.apply_foreign_keys(schema_name, extracted_foreign_keys, results)
                 
                 # We'll let generate_data handle the prompt building with metadata
                 # by passing the schema directly, along with the base prompt
@@ -602,7 +543,6 @@ class SyntheticDataGenerator:
                     # We don't use placeholder data - require a real LLM
                     raise Exception(f"Failed to generate data for {schema_name} using LLM: {str(e)}")
                 
-                # Add placeholder methods needed for AI generation
                 
                 # Second pass: handle foreign key fields
                 for field_name, field_info in schema.items():
@@ -707,8 +647,8 @@ class SyntheticDataGenerator:
             if output_dir:
                 save_dataframes(structured_results, output_dir, format=output_format)
             
-            # Verify referential integrity
-            self._verify_referential_integrity(results, extracted_foreign_keys)
+            # Verify referential integrity using ForeignKeyHandler
+            self.fk_handler.verify_referential_integrity(results, extracted_foreign_keys)
                     
         except Exception as e:
             # Restore original generators in case of error
@@ -718,46 +658,6 @@ class SyntheticDataGenerator:
             
         return results
 
-    def _verify_referential_integrity(self, results, extracted_foreign_keys):
-        """
-        Verify referential integrity between generated tables.
-        
-        Args:
-            results: Dictionary of dataframes containing the generated data
-            extracted_foreign_keys: Dictionary mapping schema names to their foreign key definitions
-            
-        Returns:
-            bool: True if all foreign key relationships are valid, False otherwise
-        """
-        print("\n🔍 Verifying referential integrity:")
-        all_valid = True
-        
-        for schema_name, fk_columns in extracted_foreign_keys.items():
-            for fk_column, (parent_schema, parent_column) in fk_columns.items():
-                # Skip validation if we don't have both tables
-                if schema_name not in results or parent_schema not in results:
-                    print(f"  ⚠️ Cannot verify {schema_name}.{fk_column} references - missing tables")
-                    continue
-                    
-                # Get the values used in the foreign key column
-                fk_values = results[schema_name][fk_column].tolist()
-                # Get the valid values from the parent table
-                valid_values = results[parent_schema][parent_column].tolist()
-                
-                # Check if all foreign key values are valid
-                invalid_values = [v for v in fk_values if v not in valid_values]
-                if invalid_values:
-                    print(f"  ❌ Invalid {schema_name}.{fk_column} references detected")
-                    all_valid = False
-                else:
-                    print(f"  ✅ All {schema_name}.{fk_column} values reference valid {parent_schema}.{parent_column}")
-        
-        if not all_valid:
-            print("\n⚠️ Some foreign key constraints were violated. This may affect data integrity.")
-        elif not extracted_foreign_keys:
-            print("  ℹ️ No foreign key relationships defined in schemas")
-            
-        return all_valid
 
     def _get_schema_info(self, schema):
         """
