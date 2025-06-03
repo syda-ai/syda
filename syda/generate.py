@@ -489,69 +489,19 @@ class SyntheticDataGenerator:
         original_column_generators = self.column_generators.copy()
         
         try:
-            # Generate data for each schema in the correct order
-            for schema_name in generation_order:
-                schema = processed_schemas[schema_name]
-                metadata = schema_metadata[schema_name]
-                description = schema_descriptions[schema_name]
-                
-                print(f"\nGenerating data for {schema_name} with {len(schema)} columns")
-                print(f"Description: {description}")
-                
-                # Get the prompt and sample size for this schema
-                prompt = prompts.get(schema_name, default_prompt)
-                sample_size = sample_sizes.get(schema_name, default_sample_size)
-                
-                # Apply foreign key constraints using the ForeignKeyHandler
-                self.fk_handler.apply_foreign_keys(schema_name, extracted_foreign_keys, results)
-                
-                # We'll let generate_data handle the prompt building with metadata
-                # by passing the schema directly, along with the base prompt
-                # This eliminates duplicated prompt-building logic
-                # Use AI-based generation for meaningful data
-                print(f"Creating data for {schema_name} with schema: {schema}")
-                
-                # Use the schema information we already extracted earlier
-                llm_schema = processed_schemas[schema_name]
-                metadata = schema_metadata[schema_name]
-                model_description = schema_descriptions[schema_name]
-                
-                # Try to use the AI generation first
-                try:
-                    # Use the _generate_data method to generate data for this schema
-                    print(f"Generating data for {schema_name} using _generate_data")
-                    # Pass the already extracted schema information to avoid redundant extraction
-                    df = self._generate_data(
-                        table_schema=llm_schema, 
-                        metadata=metadata, 
-                        table_description=model_description,
-                        prompt=prompt, 
-                        sample_size=sample_size
-                    )
-                    
-                    # Check if we have the requested sample size
-                    if len(df) < sample_size:
-                        print(f"Warning: LLM generated only {len(df)} records instead of {sample_size} for {schema_name}")
-                        # We don't fill with placeholder data - we'll use what the LLM gave us
-                    
-                    # Truncate if we got more data than needed
-                    if len(df) > sample_size:
-                        df = df.iloc[:sample_size]
-                        
-                except Exception as e:
-                    print(f"Error using AI generation for {schema_name}: {str(e)}")
-                    # We don't use placeholder data - require a real LLM
-                    raise Exception(f"Failed to generate data for {schema_name} using LLM: {str(e)}")
-                
-                
-                # Foreign key handling is now done by the ForeignKeyHandler.apply_foreign_keys method
-                
-                # Apply custom generators if any
-                schema_custom_generators = custom_generators.get(schema_name, {})
-                df = self._apply_custom_generators(df, schema_name, schema_custom_generators, parent_dfs=results)
-                
-                # Store the result
-                results[schema_name] = df
+            # Generate structured data using the extracted method
+            results = self._generate_structured_data(
+                processed_schemas=processed_schemas,
+                schema_metadata=schema_metadata,
+                schema_descriptions=schema_descriptions,
+                generation_order=generation_order,
+                extracted_foreign_keys=extracted_foreign_keys,
+                prompts=prompts,
+                sample_sizes=sample_sizes,
+                custom_generators=custom_generators,
+                default_prompt=default_prompt,
+                default_sample_size=default_sample_size
+            )
                 
             # Separate template schemas from structured schemas
             template_schemas = {}
@@ -589,6 +539,95 @@ class SyntheticDataGenerator:
             
         return results
 
+
+    def _generate_structured_data(self, processed_schemas, schema_metadata, schema_descriptions,
+                             generation_order, extracted_foreign_keys, prompts, sample_sizes,
+                             custom_generators, default_prompt, default_sample_size):
+        """
+        Generate structured data for each schema in the specified generation order.
+        
+        Args:
+            processed_schemas: Dictionary of processed schemas
+            schema_metadata: Dictionary of metadata for each schema
+            schema_descriptions: Dictionary of descriptions for each schema
+            generation_order: List of schema names in the order they should be generated
+            extracted_foreign_keys: Dictionary of foreign key relationships
+            prompts: Dictionary of prompts for each schema
+            sample_sizes: Dictionary of sample sizes for each schema
+            custom_generators: Dictionary of custom generators for each schema
+            default_prompt: Default prompt to use if no schema-specific prompt is provided
+            default_sample_size: Default sample size to use if no schema-specific sample size is provided
+            
+        Returns:
+            Dictionary mapping schema names to generated DataFrames
+        """
+        results = {}
+        
+        # Generate data for each schema in the correct order
+        for schema_name in generation_order:
+            schema = processed_schemas[schema_name]
+            metadata = schema_metadata[schema_name]
+            description = schema_descriptions[schema_name]
+            
+            print(f"\nGenerating data for {schema_name} with {len(schema)} columns")
+            print(f"Description: {description}")
+            
+            # Get the prompt and sample size for this schema
+            prompt = prompts.get(schema_name, default_prompt)
+            sample_size = sample_sizes.get(schema_name, default_sample_size)
+            
+            # Apply foreign key constraints using the ForeignKeyHandler
+            self.fk_handler.apply_foreign_keys(schema_name, extracted_foreign_keys, results)
+            
+            # We'll let generate_data handle the prompt building with metadata
+            # by passing the schema directly, along with the base prompt
+            # This eliminates duplicated prompt-building logic
+            # Use AI-based generation for meaningful data
+            print(f"Creating data for {schema_name} with schema: {schema}")
+            
+            # Use the schema information we already extracted earlier
+            llm_schema = processed_schemas[schema_name]
+            metadata = schema_metadata[schema_name]
+            model_description = schema_descriptions[schema_name]
+            
+            # Try to use the AI generation first
+            try:
+                # Use the _generate_data method to generate data for this schema
+                print(f"Generating data for {schema_name} using _generate_data")
+                # Pass the already extracted schema information to avoid redundant extraction
+                df = self._generate_data(
+                    table_schema=llm_schema, 
+                    metadata=metadata, 
+                    table_description=model_description,
+                    prompt=prompt, 
+                    sample_size=sample_size
+                )
+                
+                # Check if we have the requested sample size
+                if len(df) < sample_size:
+                    print(f"Warning: LLM generated only {len(df)} records instead of {sample_size} for {schema_name}")
+                    # We don't fill with placeholder data - we'll use what the LLM gave us
+                
+                # Truncate if we got more data than needed
+                if len(df) > sample_size:
+                    df = df.iloc[:sample_size]
+                    
+            except Exception as e:
+                print(f"Error using AI generation for {schema_name}: {str(e)}")
+                # We don't use placeholder data - require a real LLM
+                raise Exception(f"Failed to generate data for {schema_name} using LLM: {str(e)}")
+            
+            
+            # Foreign key handling is now done by the ForeignKeyHandler.apply_foreign_keys method
+            
+            # Apply custom generators if any
+            schema_custom_generators = custom_generators.get(schema_name, {})
+            df = self._apply_custom_generators(df, schema_name, schema_custom_generators, parent_dfs=results)
+            
+            # Store the result
+            results[schema_name] = df
+            
+        return results
 
     def _get_schema_info(self, schema):
         """
