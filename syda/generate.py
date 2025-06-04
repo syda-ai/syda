@@ -25,6 +25,7 @@ from .utils import (
 )
 from .dependency_handler import DependencyHandler, ForeignKeyHandler
 from .custom_generators import GeneratorManager
+from .schema_loader import SchemaLoader
 
 try:
     from sqlalchemy.orm import DeclarativeMeta
@@ -69,6 +70,9 @@ class SyntheticDataGenerator:
         # Initialize the foreign key handler
         self.fk_handler = ForeignKeyHandler(self.generator_manager)
         
+        # Initialize the schema loader
+        self.schema_loader = SchemaLoader()
+        
         # For backward compatibility, provide direct access to these dictionaries
         self.type_generators = self.generator_manager.type_generators
         self.column_generators = self.generator_manager.column_generators
@@ -96,59 +100,47 @@ class SyntheticDataGenerator:
         Returns:
             Dictionary mapping schema names to schema definitions
         """
-        from syda.utils import sqlalchemy_model_to_schema
-        
         schemas = {}
         
         for model_class in sqlalchemy_models:
-            model_name = model_class.__name__
+            # Use our SchemaLoader to load the model
+            schema_dict, metadata_dict, description, foreign_keys = self.schema_loader.load_schema(model_class)
             
-            # Convert SQLAlchemy model to schema format
-            # Get table name, schema dict, and metadata dict
-            table_name, schema_dict, metadata_dict = sqlalchemy_model_to_schema(model_class)
-            
-            # Use table_name as the key in our schemas dictionary (not model_name)
-            schema_name = table_name
-            description = metadata_dict.get('__description__', f"{schema_name} data")
+            # Determine the table name (either from tablename attribute or class name)
+            if hasattr(model_class, '__tablename__'):
+                table_name = model_class.__tablename__
+            else:
+                table_name = model_class.__name__
             
             # Combine schema with metadata in format expected by generate_for_schemas
             combined_schema = schema_dict.copy()
             
-            # Add regular fields
-            for key, value in schema_dict.items():
-                if not key.startswith('__') and not isinstance(value, str):
-                    combined_schema[key] = value
+            # Add metadata under __metadata__ key
+            if metadata_dict:
+                combined_schema['__metadata__'] = metadata_dict
             
-            # Add special fields with double underscores
-            for key, value in schema_dict.items():
-                if key.startswith('__'):
-                    combined_schema[key] = value
-
-            # Handle case where schema_dict[key] is a string (type)
-            # such as schema_dict['field_name'] = 'text'
-            # This is the normal format in our schema dicts
-            # Add metadata attributes from metadata_dict
-            for key, value in metadata_dict.items():
-                if key.startswith('__') and key.endswith('__'):
-                    combined_schema[key] = value
-            
-            # Add description if available
+            # Add docstring as description if available
             if description:
                 combined_schema['__description__'] = description
             
-            # Special handling for template dependencies
-            if hasattr(model_class, '__depends_on__'):
-                combined_schema['__depends_on__'] = getattr(model_class, '__depends_on__')
+            # Add foreign keys if available
+            if foreign_keys:
+                combined_schema['__foreign_keys__'] = {}
+                for field, (target_table, target_column) in foreign_keys.items():
+                    combined_schema['__foreign_keys__'][field] = (target_table, target_column)
             
-            # Special handling for template classes
-            if '__template_source__' in metadata_dict:
-                # Copy template source to actual value
-                combined_schema['template_source'] = metadata_dict['__template_source__']
-                combined_schema['input_file_type'] = metadata_dict.get('__input_file_type__', 'html')
-                combined_schema['output_file_type'] = metadata_dict.get('__output_file_type__', 'pdf')
+            # Handle template-specific fields if it's a template class
+            if metadata_dict and metadata_dict.get('__template__'):
+                # Copy template metadata to fields
+                if '__template_source__' in metadata_dict:
+                    combined_schema['template_source'] = metadata_dict['__template_source__']
+                if '__input_file_type__' in metadata_dict:
+                    combined_schema['input_file_type'] = metadata_dict['__input_file_type__']
+                if '__output_file_type__' in metadata_dict:
+                    combined_schema['output_file_type'] = metadata_dict['__output_file_type__']
             
             # Add to schemas dictionary
-            schemas[schema_name] = combined_schema
+            schemas[table_name] = combined_schema
             
         return schemas
     
@@ -703,62 +695,20 @@ class SyntheticDataGenerator:
                         if "schema" in references and "field" in references:
                             # Add to foreign keys dictionary
                             foreign_keys[field_name] = (references["schema"], references["field"])
-                    
-                    # Add constraints if available
-                    constraints = {}
-                    
-                    # Check for length constraints directly in the field definition
-                    if "length" in field_info:
-                        if not "constraints" in field_metadata:
-                            field_metadata["constraints"] = {}
-                        field_metadata["constraints"]["length"] = field_info["length"]
-                    
-                    if "max_length" in field_info:
-                        if not "constraints" in field_metadata:
-                            field_metadata["constraints"] = {}
-                        field_metadata["constraints"]["max_length"] = field_info["max_length"]
-                    
-                    if "min_length" in field_info:
-                        if not "constraints" in field_metadata:
-                            field_metadata["constraints"] = {}
-                        field_metadata["constraints"]["min_length"] = field_info["min_length"]
-                    
-                    # Add constraints if explicitly defined in constraints section
-                    if "constraints" in field_info:
-                        if not "constraints" in field_metadata:
-                            field_metadata["constraints"] = {}
-                        # Add all constraints from the constraints dict
-                        for k, v in field_info["constraints"].items():
-                            field_metadata["constraints"][k] = v
-                    
-                    metadata[field_name] = field_metadata
             
-        # Case 2: SQLAlchemy model - check for __table__ attribute which all SQLAlchemy models have
-        elif isinstance(schema, type) and hasattr(schema, '__table__'):
-            table_schema, metadata, table_description = sqlalchemy_model_to_schema(schema)
-            # SQLAlchemy foreign keys are handled differently, return empty dict for now
-            foreign_keys = {}
+    def _get_schema_info(self, schema):
+        """
+        Extract schema information based on the type of schema provided.
         
-        # Case 3: Path to JSON schema file
-        elif isinstance(schema, str) and (schema.endswith('.json') or schema.endswith('.schema')):
-            with open(schema, 'r') as f:
-                schema_dict = json.load(f)
-                # Process the loaded dictionary recursively
-                return self._get_schema_info(schema_dict)
-                
-        # Case 4: Path to YAML schema file
-        elif isinstance(schema, str) and (schema.endswith('.yml') or schema.endswith('.yaml')):
-            try:
-                import yaml
-                with open(schema, 'r') as f:
-                    schema_dict = yaml.safe_load(f)
-                    # Process the loaded dictionary recursively
-                    return self._get_schema_info(schema_dict)
-            except ImportError:
-                raise ImportError("PyYAML is required for YAML schema support. Install it with 'pip install pyyaml'.")
-            except Exception as e:
-                raise ValueError(f"Error loading YAML schema file {schema}: {str(e)}")
-        return table_schema, metadata, table_description, foreign_keys
+        Args:
+            schema: Either a dictionary mapping field names to types,
+                   a SQLAlchemy model class, or a path to a JSON/YAML schema file
+                   
+        Returns:
+            Tuple of (table_schema, metadata, table_description, foreign_keys)
+        """
+        # Use our SchemaLoader to load the schema
+        return self.schema_loader.load_schema(schema)
 
     def _build_prompt(self, table_schema, metadata, table_description, primary_key_fields, prompt, sample_size):
         """
