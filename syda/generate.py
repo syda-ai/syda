@@ -144,47 +144,6 @@ class SyntheticDataGenerator:
             
         return schemas
     
-    def _handle_missing_columns(self, df, model_name, schema, foreign_key_info=None, custom_generators=None):
-        """
-        Add any missing columns to the DataFrame with appropriate values.
-        
-        Args:
-            df: DataFrame to modify
-            model_name: Name of the model
-            schema: Schema definition
-            foreign_key_info: Optional dict with foreign key information
-            custom_generators: Optional dict with custom generators
-            
-        Returns:
-            pd.DataFrame: DataFrame with all required columns
-        """
-        for col_name in schema.keys():
-            if col_name not in df.columns:
-                print(f"⚠️ Adding missing column '{col_name}' to {model_name}")
-                # Check if this is a foreign key column first
-                if foreign_key_info and col_name in foreign_key_info and foreign_key_info[col_name]['values']:
-                    fk_info = foreign_key_info[col_name]
-                    print(f"  Using foreign key values from {fk_info['target_model']}.{fk_info['target_col']} for {col_name}")
-                    df[col_name] = pd.Series([random.choice(fk_info['values']) for _ in range(len(df))])
-                else:
-                    # Register custom generator if available
-                    if custom_generators and model_name in custom_generators and col_name in custom_generators[model_name]:
-                        print(f"  Using custom generator for {col_name}")
-                        self.register_generator(schema[col_name], custom_generators[model_name][col_name], column_name=col_name)
-                    
-                    # Generate missing column with appropriate data
-                    col_type = schema[col_name]
-                    if col_name in self.column_generators:
-                        # Use column-specific generator
-                        df[col_name] = pd.Series([None for _ in range(len(df))])
-                    elif col_type.lower() in self.type_generators:
-                        # Use type-based generator
-                        df[col_name] = pd.Series([None for _ in range(len(df))])
-                    else:
-                        # Generate placeholder values based on column type
-                        df[col_name] = pd.Series([generate_random_value(col_type) for _ in range(len(df))])
-        return df
-
     def generate_for_sqlalchemy_models(
         self,
         sqlalchemy_models: Union[List[Type], Type, str],
@@ -475,10 +434,6 @@ class SyntheticDataGenerator:
         # Dictionary to hold generated data
         results = {}
         
-        # Store the original generators to restore them later
-        original_type_generators = self.type_generators.copy()
-        original_column_generators = self.column_generators.copy()
-        
         try:
             # Generate structured data using the extracted method
             results = self._generate_structured_data(
@@ -523,9 +478,6 @@ class SyntheticDataGenerator:
             self.fk_handler.verify_referential_integrity(results, extracted_foreign_keys)
                     
         except Exception as e:
-            # Restore original generators in case of error
-            self.type_generators = original_type_generators
-            self.column_generators = original_column_generators
             raise e
             
         return results
