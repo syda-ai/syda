@@ -425,8 +425,7 @@ class SyntheticDataGenerator:
         schema_foreign_keys = {}
         
         for schema_name, schema_source in schemas.items():
-            # Use _get_schema_info to extract schema information regardless of source type
-            llm_schema, metadata, desc, extracted_fks = self._get_schema_info(schema_source)
+            llm_schema, metadata, desc, extracted_fks = self.schema_loader.load_schema(schema_source)
             
             # Store processed schema and metadata
             processed_schemas[schema_name] = llm_schema
@@ -609,9 +608,6 @@ class SyntheticDataGenerator:
                 # We don't use placeholder data - require a real LLM
                 raise Exception(f"Failed to generate data for {schema_name} using LLM: {str(e)}")
             
-            
-            # Foreign key handling is now done by the ForeignKeyHandler.apply_foreign_keys method
-            
             # Apply custom generators if any
             schema_custom_generators = custom_generators.get(schema_name, {})
             df = self._apply_custom_generators(df, schema_name, schema_custom_generators, parent_dfs=results)
@@ -620,96 +616,7 @@ class SyntheticDataGenerator:
             results[schema_name] = df
             
         return results
-
-    def _get_schema_info(self, schema):
-        """
-        Extract schema information based on the type of schema provided.
         
-        Args:
-            schema: Either a dictionary mapping field names to types,
-                    a SQLAlchemy model class, or a path to a JSON/YAML schema file
-                    
-        Returns:
-            Tuple of (table_schema, metadata, table_description, foreign_keys)
-            
-            Example return values:
-                - table_schema: {'id': 'number', 'name': 'text', 'email': 'email', 'created_at': 'date'}
-                - metadata: {
-                    'id': {'description': 'Primary key', 'constraints': {'primary_key': True}},
-                    'name': {'description': 'User full name', 'constraints': {'max_length': 100}},
-                    'email': {'description': 'User email address', 'constraints': {'unique': True}},
-                    'created_at': {'description': 'Account creation date'}
-                }
-                - table_description: "User account information for the system"
-                - foreign_keys: {'user_id': ('User', 'id')}
-        """
-        table_schema = {}
-        metadata = {}
-        table_description = None
-        foreign_keys = {}
-        
-        # Case 1: Dictionary schema
-        if isinstance(schema, dict):
-            # Make a copy of the schema, but filter out special fields (starting with __)
-            table_schema = {k: v for k, v in schema.items() if not k.startswith('__')}
-            
-            # Extract table description if present using the special key
-            if "__table_description__" in schema:
-                table_description = schema["__table_description__"]
-                
-            # Extract foreign keys if present using the special key
-            if "__foreign_keys__" in schema:
-                # Convert lists to tuples if needed since JSON uses lists instead of tuples
-                for fk_col, fk_ref in schema["__foreign_keys__"].items():
-                    if isinstance(fk_ref, list) and len(fk_ref) == 2:
-                        foreign_keys[fk_col] = (fk_ref[0], fk_ref[1])
-                    else:
-                        foreign_keys[fk_col] = fk_ref
-            
-            # Process each field in the schema
-            for field_name, field_info in schema.items():
-                # Skip special fields that start with __
-                if field_name.startswith("__"):
-                    continue
-                    
-                # Handle simple field definition (field: "type")
-                if isinstance(field_info, str):
-                    table_schema[field_name] = field_info
-                    metadata[field_name] = {}
-                # Handle complex field definition with metadata
-                elif isinstance(field_info, dict):
-                    # Extract the field type
-                    field_type = field_info.get("type", "text")
-                    table_schema[field_name] = field_type
-                    
-                    # Extract metadata for this field
-                    field_metadata = {}
-                    
-                    # Add description if available
-                    if "description" in field_info:
-                        field_metadata["description"] = field_info["description"]
-                    
-                    # Extract foreign key relationships from references
-                    if field_type == "foreign_key" and "references" in field_info:
-                        references = field_info["references"]
-                        if "schema" in references and "field" in references:
-                            # Add to foreign keys dictionary
-                            foreign_keys[field_name] = (references["schema"], references["field"])
-            
-    def _get_schema_info(self, schema):
-        """
-        Extract schema information based on the type of schema provided.
-        
-        Args:
-            schema: Either a dictionary mapping field names to types,
-                   a SQLAlchemy model class, or a path to a JSON/YAML schema file
-                   
-        Returns:
-            Tuple of (table_schema, metadata, table_description, foreign_keys)
-        """
-        # Use our SchemaLoader to load the schema
-        return self.schema_loader.load_schema(schema)
-
     def _build_prompt(self, table_schema, metadata, table_description, primary_key_fields, prompt, sample_size):
         """
         Build a structured prompt for the LLM to generate data.
