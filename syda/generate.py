@@ -815,12 +815,18 @@ class SyntheticDataGenerator:
         """
         if not custom_generators:
             return df
-            
+        
         # For backward compatibility, register the custom generators in self.column_generators
-        # This is necessary because _generate_data directly uses self.column_generators in lines 1219-1222
         for col_name, generator in custom_generators.items():
-            # Register in self.column_generators for direct application
+            # Register in self.column_generators
             self.column_generators[col_name] = generator
+            
+            # Apply the generator if the column exists in the dataframe
+            if col_name in df.columns:
+                print(f"Applying custom generator for {col_name}")
+                # Apply the generator to each row
+                for idx, row in df.iterrows():
+                    df.at[idx, col_name] = generator(row, col_name)
         
         return df
 
