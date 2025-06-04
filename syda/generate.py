@@ -743,10 +743,6 @@ class SyntheticDataGenerator:
             # If no data was returned, fail
             if df.empty:
                 raise ValueError("Empty DataFrame returned from data generation")
-                
-            # Validate DataFrame structure
-            print(f"DataFrame shape: {df.shape} with columns: {list(df.columns)}")
-            
             return df
                 
         except Exception as e:
@@ -852,9 +848,6 @@ class SyntheticDataGenerator:
             ValueError: If the data generation fails or produces invalid results
         """
         
-        print("Using extracted schema information")
-        print("table_schema", table_schema)
-        
         # Identify primary key fields
         primary_key_fields = []
         for col, col_meta in metadata.items():
@@ -873,10 +866,6 @@ class SyntheticDataGenerator:
         
         # Convert column types based on schema
         df = self._convert_column_types(df, table_schema)
-        
-        # Apply custom generators if they exist
-        if hasattr(self, 'model_custom_generators') and self.model_custom_generators:
-            df = self._apply_custom_generators(df, "model", self.model_custom_generators, parent_dfs={})
             
         # Apply column-specific generators
         for col_name in df.columns:
