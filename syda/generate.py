@@ -379,22 +379,21 @@ class SyntheticDataGenerator:
         processed_schemas = {}
         schema_metadata = {}
         schema_descriptions = {}
-        
+        template_schemas = {}
         # Dictionary to store extracted foreign keys
         schema_foreign_keys = {}
-        #print("input schemas: ", schemas)
+        
         for schema_name, schema_source in schemas.items():
-            llm_schema, metadata, desc, extracted_fks = self.schema_loader.load_schema(schema_source)
-            
+            llm_schema, metadata, desc, extracted_fks, template_fields = self.schema_loader.load_schema(schema_source)
             # Store processed schema and metadata
             processed_schemas[schema_name] = llm_schema
             schema_metadata[schema_name] = metadata or {}
             schema_descriptions[schema_name] = desc or f"{schema_name} data"
-                
+            if "__template__" in template_fields:
+                template_schemas[schema_name] = template_fields
             # Store extracted foreign keys if any
             if extracted_fks:
                 schema_foreign_keys[schema_name] = extracted_fks
-            
         # Extract and process foreign keys from schemas
         extracted_foreign_keys = self._process_foreign_keys(schema_foreign_keys)
         
@@ -404,7 +403,6 @@ class SyntheticDataGenerator:
             schema_metadata=schema_metadata,
             foreign_keys=extracted_foreign_keys
         )
-        
         # Calculate the generation order based on all dependencies using DependencyHandler
         generation_order = list(schemas.keys())
         try:
@@ -444,27 +442,28 @@ class SyntheticDataGenerator:
                 default_prompt=default_prompt,
                 default_sample_size=default_sample_size
             )
-                
+          
             # Separate template schemas from structured schemas
-            template_schemas = {}
+            template_schemas_dfs = {}
             structured_results = {}
             #print("results: ", results)
             for schema_name, df in results.items():
                 # Check if this is a template schema by looking for __template_source__ field
-                if df is not None and '__template_source__' in schemas[schema_name]:
-                    template_schemas[schema_name] = (df, schemas[schema_name])
+                if df is not None and schema_name in template_schemas:
+                    template_schemas_dfs[schema_name] = (df, template_schemas[schema_name])
                 else:
                     structured_results[schema_name] = df
             
             # Process template schemas if any
             template_results = {}
-            if template_schemas and output_dir:
+            print("\n===== Preccings TEMPLATE SCHEMAS =====", template_schemas_dfs.keys())
+            if template_schemas_dfs and output_dir:
                 # Process each template schema using the TemplateProcessor
                 from syda.templates import TemplateProcessor
                 processor = TemplateProcessor()
                 
                 # Use the new method to process all template dataframes at once
-                template_results = processor.process_template_dataframes(template_schemas, output_dir)
+                template_results = processor.process_template_dataframes(template_schemas_dfs, output_dir)
             
             # Save files if output_dir is specified
             if output_dir:
@@ -479,9 +478,18 @@ class SyntheticDataGenerator:
         return results
 
 
-    def _generate_structured_data(self, processed_schemas, schema_metadata, schema_descriptions,
-                             generation_order, extracted_foreign_keys, prompts, sample_sizes,
-                             custom_generators, default_prompt, default_sample_size):
+    def _generate_structured_data(
+        self, 
+        processed_schemas,
+        schema_metadata,
+        schema_descriptions,
+        generation_order, 
+        extracted_foreign_keys,
+        prompts, sample_sizes,
+        custom_generators,
+        default_prompt, 
+        default_sample_size
+    ):
         """
         Generate structured data for each schema in the specified generation order.
         
@@ -539,7 +547,7 @@ class SyntheticDataGenerator:
                     metadata=metadata, 
                     table_description=model_description,
                     prompt=prompt, 
-                    sample_size=sample_size
+                    sample_size=sample_size,
                 )
                 
                 # Check if we have the requested sample size
@@ -555,11 +563,11 @@ class SyntheticDataGenerator:
                 print(f"Error using AI generation for {schema_name}: {str(e)}")
                 # We don't use placeholder data - require a real LLM
                 raise Exception(f"Failed to generate data for {schema_name} using LLM: {str(e)}")
-            
             # Apply custom generators if any
             schema_custom_generators = custom_generators.get(schema_name, {})
-            df = self._apply_custom_generators(df, schema_name, schema_custom_generators, parent_dfs=results)
-            
+            print(f"Applying custom generators for schema {schema_name}")
+            df = self.generator_manager.apply_custom_generators(
+                df, schema_name, schema_custom_generators, parent_dfs=results)
             # Store the result
             results[schema_name] = df
             
@@ -743,36 +751,6 @@ class SyntheticDataGenerator:
                 
         except Exception as e:
             raise ValueError(f"Error generating data: {str(e)}")
-
-    def _apply_custom_generators(self, df, model_name, custom_generators, parent_dfs=None):
-        """
-        Apply custom generators to the generated data.
-        
-        Args:
-            df: DataFrame to apply generators to
-            model_name: Name of the model being processed
-            custom_generators: Dictionary of custom generators for the model
-            parent_dfs: Optional dictionary of previously generated dataframes
-            
-        Returns:
-            DataFrame with custom generators applied
-        """
-        if not custom_generators:
-            return df
-        
-        # For backward compatibility, register the custom generators in self.column_generators
-        for col_name, generator in custom_generators.items():
-            # Register in self.column_generators
-            self.column_generators[col_name] = generator
-            
-            # Apply the generator if the column exists in the dataframe
-            if col_name in df.columns:
-                print(f"Applying custom generator for {col_name}")
-                # Apply the generator to each row
-                for idx, row in df.iterrows():
-                    df.at[idx, col_name] = generator(row, col_name)
-        
-        return df
 
     def _apply_type_generators(self, df, llm_schema):
         """

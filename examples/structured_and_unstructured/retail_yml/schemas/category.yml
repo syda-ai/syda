@@ -20,7 +20,7 @@ name:
 
 parent_id:
   type: integer
-  description: Parent category ID for hierarchical categories
+  description: Parent category ID for hierarchical categories, if it is a parent category, this field should be 0
   constraints:
     min: 0
     max: 1000
@@ -43,6 +43,3 @@ active:
   description: Whether the category is active
   constraints:
     not_null: true
-
-__foreign_keys__:
-  parent_id: [Category, id]

@@ -114,11 +114,13 @@ class SchemaLoader:
                     foreign_keys[fk_col] = (fk_ref[0], fk_ref[1])
                 else:
                     foreign_keys[fk_col] = fk_ref
-        
+        template_fields = {}
         # Extract fields and metadata
         for field_name, field_info in schema_dict.items():
             # Skip special fields with double underscores
             if field_name.startswith("__"):
+                if field_name in ["__template__", "__template_source__", "__input_file_type__", "__output_file_type__"]:
+                    template_fields[field_name] = field_info
                 continue
             
             # Handle simple field definition (field: "type")
@@ -169,7 +171,7 @@ class SchemaLoader:
                 if field_metadata:
                     metadata[field_name] = field_metadata
         
-        return table_schema, metadata, table_description, foreign_keys
+        return table_schema, metadata, table_description, foreign_keys, template_fields
     
     def _load_sqlalchemy_model(self, model_class: Type) -> Tuple[Dict, Dict, Optional[str], Dict]:
         """

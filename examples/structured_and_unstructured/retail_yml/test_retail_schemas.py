@@ -80,12 +80,7 @@ def main():
             col_name: The name of the column being generated
             parent_dfs: Dictionary of previously generated dataframes (schema name as key)
         """
-        print("\n===== CUSTOM GENERATOR CALLED: generate_receipt_items =====")
-        print(f"Row data: {row}")
-        print(f"Column name: {col_name}")
-        print(f"Parent dataframes keys: {parent_dfs.keys() if parent_dfs else None}")
-        print(f"\n🔴 IMPORTANT: Receipt.items CUSTOM GENERATOR IS BEING CALLED 🔴")
-        
+        print("\n===== CUSTOM GENERATOR CALLED: generate_receipt_items =====")        
         import pandas as pd
         
         items = []
@@ -95,40 +90,12 @@ def main():
             # Get customer ID
             customer_id = row.get('customer_id', None)
             
-            print(f"\n🔍 DEBUG: Generating receipt items for customer ID: {customer_id}")
-            
             # Use the parent_dfs parameter which contains the generated data
-            if parent_dfs and 'Product' in parent_dfs:
+            if parent_dfs and 'Product' in parent_dfs and 'Transaction' in parent_dfs:
                 # Get Product data from parent_dfs
                 products_df = parent_dfs['Product']
-                print(f"  - Using product dataframe with {len(products_df)} products")
-                
-                # For Transaction data, we need to handle a potential issue with dependency order
-                if 'Transaction' in parent_dfs:
-                    # If Transaction data is in parent_dfs, use it directly
-                    transactions_df = parent_dfs['Transaction']
-                    print(f"  - Using transaction dataframe with {len(transactions_df)} transactions")
-                else:
-                    # Otherwise, try to load it from CSV as a fallback
-                    print("  - Transaction data not in parent_dfs due to dependency order issue")
-                    try:
-                        import os
-                        output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
-                        transactions_path = os.path.join(output_dir, "transaction.csv")
-                        if os.path.exists(transactions_path):
-                            transactions_df = pd.read_csv(transactions_path)
-                            print(f"  - Loaded {len(transactions_df)} transactions from CSV file")
-                        else:
-                            # No Transaction data available - generate some dummy data for demo
-                            print("  - No Transaction CSV file, generating random transaction data")
-                            transactions_df = pd.DataFrame({
-                                'product_id': products_df['id'].sample(n=min(5, len(products_df))).tolist(),
-                                'quantity': [1, 2, 1, 3, 1][:min(5, len(products_df))],
-                                'customer_id': [customer_id] * min(5, len(products_df))
-                            })
-                    except Exception as e:
-                        print(f"  - Error loading transaction data: {str(e)}")
-                        return []
+                transactions_df = parent_dfs['Transaction']
+                    
             else:
                 print("  - Required parent dataframes not available")
                 return []
@@ -197,18 +164,6 @@ def main():
             row["subtotal"] = 0.0
             
         print("\n===== ITEMS GENERATED =====")
-        print(f"Number of items: {len(items)}")
-        if items:
-            print(f"First item structure: {items[0]}")
-            print(f"First item type: {type(items[0])}")
-            print(f"unit_price type: {type(items[0]['unit_price'])}")
-            print(f"unit_price value: {items[0]['unit_price']}")
-            print(f"Can access via bracket notation: {items[0]['unit_price']}")
-            try:
-                print(f"Can access via dot notation: {items[0].unit_price}")
-            except Exception as e:
-                print(f"Cannot access via dot notation: {e}")
-            
         return items
             
     # Custom generators dictionary - simpler now with foreign keys
@@ -224,15 +179,7 @@ def main():
     print("  The system will automatically determine the right generation order")
     print("  and handle foreign key relationships and template processing\n")
     
-    # Add debug print to verify custom_generators content
-    print("\n🔍 DEBUG: Custom generators configuration:")
-    for schema, field_gens in custom_generators.items():
-        print(f"  - Schema: {schema}, Fields: {list(field_gens.keys())}")
-    
-    # Store our custom generator function reference directly
-    print("\n🔎 Ensuring custom generator for Receipt.items is used...")
-    receipt_items_generator = generate_receipt_items
-    
+
     # Generate data for all schemas in a single step
     # The __depends_on__ mechanism in receipt.yml ensures the correct generation order
     results = generator.generate_for_schemas(
@@ -243,68 +190,10 @@ def main():
         custom_generators=custom_generators
     )
     
-    # Debug - check the Receipt dataframe after generation
-    if 'Receipt' in results:
-        print("\n🔍 DEBUG: Receipt data structure after generation:")
-        receipt_df = results['Receipt']
-        if receipt_df is not None and not receipt_df.empty:
-            print(f"  - DataFrame columns: {receipt_df.columns}")
-            print(f"  - Sample row keys: {list(receipt_df.iloc[0].keys())}")
-            # Check what 'items' contains in the first receipt
-            if 'items' in receipt_df.columns:
-                items = receipt_df.iloc[0]['items']
-                print(f"  - Items type: {type(items)}")
-                if isinstance(items, list) and len(items) > 0:
-                    print(f"  - First item: {items[0]}")
-                    print(f"  - First item type: {type(items[0])}")
-                    # Check if item has unit_price and how it can be accessed
-                    if isinstance(items[0], dict):
-                        print(f"  - Item keys: {list(items[0].keys())}")
-                        if 'unit_price' in items[0]:
-                            print(f"  - unit_price from key: {items[0]['unit_price']}")
-                            try:
-                                price = items[0].unit_price
-                                print(f"  - Can access via dot notation: {price}")
-                            except Exception as e:
-                                print(f"  - Cannot access via dot notation: {e}")
-                else:
-                    print("  - No items found or items is empty")
-            else:
-                print("  - 'items' field not found in receipt dataframe")
-        else:
-            print("  - Receipt dataframe is empty or None")
-    else:
-        print("  - No Receipt data found in results")
-    
+
     # Print summary of generated files
     print("\nGeneration Complete!")
-    print("=" * 40)
-    
-    for schema_name, df in results.items():
-        if df is not None:
-            if schema_name == "Receipt":
-                # This is a template schema
-                template_dir = os.path.join(OUTPUT_DIR, schema_name)
-                if os.path.exists(template_dir):
-                    files = os.listdir(template_dir)
-                    print(f"{schema_name}: {len(files)} documents generated")
-                    for i, file in enumerate(files):
-                        if i < 3:
-                            print(f"  - {file}")
-                        elif i == 3:
-                            print(f"  - ... and {len(files) - 3} more")
-                        if i >= 3:
-                            break
-            else:
-                # This is a structured schema
-                rows, cols = df.shape
-                print(f"{schema_name}: {rows} rows x {cols} columns")
-                if df.shape[0] > 0:
-                    first_row = df.iloc[0]
-                    num_fields = min(3, len(first_row))
-                    fields = list(first_row.index)[:num_fields]
-                    print(f"  Sample fields: {', '.join(fields)}...")
-    
+    print("=" * 40)  
     print(f"\nOutput saved to: {OUTPUT_DIR}")
     
     # Check for PDF files in template directories
