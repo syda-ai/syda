@@ -5,9 +5,9 @@ __depends_on__: [Product, Transaction, Customer]
 __foreign_keys__:
   customer_name: [Customer, first_name]
   
-template_source: /home/ramkumar2606/syda-fresh/examples/structured_and_unstructured/retail_yml/templates/receipt.html
-input_file_type: html
-output_file_type: pdf
+__template_source__: /home/ramkumar2606/syda-fresh/examples/structured_and_unstructured/retail_yml/templates/receipt.html
+__input_file_type__: html
+__output_file_type__: pdf
 
 # Receipt header
 store_name:

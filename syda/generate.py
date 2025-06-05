@@ -133,11 +133,11 @@ class SyntheticDataGenerator:
             if metadata_dict and metadata_dict.get('__template__'):
                 # Copy template metadata to fields
                 if '__template_source__' in metadata_dict:
-                    combined_schema['template_source'] = metadata_dict['__template_source__']
+                    combined_schema['__template_source__'] = metadata_dict['__template_source__']
                 if '__input_file_type__' in metadata_dict:
-                    combined_schema['input_file_type'] = metadata_dict['__input_file_type__']
+                    combined_schema['__input_file_type__'] = metadata_dict['__input_file_type__']
                 if '__output_file_type__' in metadata_dict:
-                    combined_schema['output_file_type'] = metadata_dict['__output_file_type__']
+                    combined_schema['__output_file_type__'] = metadata_dict['__output_file_type__']
             
             # Add to schemas dictionary
             schemas[table_name] = combined_schema
@@ -382,7 +382,7 @@ class SyntheticDataGenerator:
         
         # Dictionary to store extracted foreign keys
         schema_foreign_keys = {}
-        
+        #print("input schemas: ", schemas)
         for schema_name, schema_source in schemas.items():
             llm_schema, metadata, desc, extracted_fks = self.schema_loader.load_schema(schema_source)
             
@@ -390,10 +390,6 @@ class SyntheticDataGenerator:
             processed_schemas[schema_name] = llm_schema
             schema_metadata[schema_name] = metadata or {}
             schema_descriptions[schema_name] = desc or f"{schema_name} data"
-            
-            # Debug the metadata extraction - especially for template schemas
-            if metadata and '__depends_on__' in metadata:
-                print(f"Found __depends_on__ for {schema_name}: {metadata['__depends_on__']}")
                 
             # Store extracted foreign keys if any
             if extracted_fks:
@@ -452,11 +448,11 @@ class SyntheticDataGenerator:
             # Separate template schemas from structured schemas
             template_schemas = {}
             structured_results = {}
-            
+            #print("results: ", results)
             for schema_name, df in results.items():
-                # Check if this is a template schema by looking for template_source field
-                if df is not None and 'template_source' in df.columns:
-                    template_schemas[schema_name] = df
+                # Check if this is a template schema by looking for __template_source__ field
+                if df is not None and '__template_source__' in schemas[schema_name]:
+                    template_schemas[schema_name] = (df, schemas[schema_name])
                 else:
                     structured_results[schema_name] = df
             

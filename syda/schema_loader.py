@@ -335,17 +335,17 @@ class SchemaLoader:
         if hasattr(template_class, '__template_source__'):
             metadata['__template_source__'] = template_class.__template_source__
             # Add as field for template processing
-            table_schema['template_source'] = 'text'
+            table_schema['__template_source__'] = 'text'
             
         if hasattr(template_class, '__input_file_type__'):
             metadata['__input_file_type__'] = template_class.__input_file_type__
             # Add as field for template processing
-            table_schema['input_file_type'] = 'text'
+            table_schema['__input_file_type__'] = 'text'
             
         if hasattr(template_class, '__output_file_type__'):
             metadata['__output_file_type__'] = template_class.__output_file_type__
             # Add as field for template processing
-            table_schema['output_file_type'] = 'text'
+            table_schema['__output_file_type__'] = 'text'
         
         # Add __template__ flag to metadata
         metadata['__template__'] = True

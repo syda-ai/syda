@@ -124,8 +124,8 @@ For template schemas, defines the template source and file types:
 {
   "__template__": {
     "source": "/path/to/template.html",
-    "input_file_type": "html",
-    "output_file_type": "pdf"
+    "__input_file_type__": "html",
+    "__output_file_type__": "pdf"
   }
 }
 ```

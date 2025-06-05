@@ -443,11 +443,7 @@ class TemplateProcessor:
             
         results = {}
         
-        for schema_name, df in template_dataframes.items():
-            # Skip if not a template dataframe
-            if df is None or 'template_source' not in df.columns:
-                continue
-                
+        for schema_name, (df, schema) in template_dataframes.items():
             print(f"Processing {schema_name} templates...")
             
             # Create output directory for this schema
@@ -457,21 +453,25 @@ class TemplateProcessor:
             # Process each row in the dataframe
             documents_generated = 0
             schema_results = []
+            template_path = schema.get('__template_source__')
+            input_file_type = schema.get('__input_file_type__', '').lower()
+            output_file_type = schema.get('__output_file_type__', '').lower()
+            
+            # Skip if missing required fields
+            if not template_path:
+                print(f"Warning: __template_source__ is missing for {schema_name}") 
+            if not os.path.exists(template_path):
+                print(f"Warning: Template file {template_path} does not exist for {schema_name}")
+            if not input_file_type:
+                print(f"Warning: __input_file_type__ is missing for {schema_name} for template {template_path}") 
+            if not output_file_type:
+                print(f"Warning: __output_file_type__ is missing for {schema_name} for template {template_path}")
+                 
+            # Output path for this document
             
             for idx, row in df.iterrows():
-                template_path = row.get('template_source')
-                input_file_type = row.get('input_file_type', '').lower()
-                output_file_type = row.get('output_file_type', '').lower()
-                
-                # Skip if missing required fields
-                if not template_path or not os.path.exists(template_path) or not input_file_type or not output_file_type:
-                    print(f"Warning: Invalid template configuration for {schema_name} row {idx}")
-                    continue
-                    
-                # Output path for this document
-                output_path = os.path.join(template_output_dir, f"document_{idx+1}.{output_file_type}")
-                
                 try:
+                    output_path = os.path.join(template_output_dir, f"document_{idx+1}.{output_file_type}")
                     # Process the template with data
                     self.process_template_with_data(
                         template_path=template_path,

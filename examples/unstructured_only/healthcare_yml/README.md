@@ -55,9 +55,9 @@ HTML templates in the `templates/` directory define how medical reports and lab 
 
 ```yaml
 __template__: true
-template_source: path/to/template.html
-input_file_type: html
-output_file_type: pdf
+__template_source: path/to/template.html
+__input_file_type__: html
+__output_file_type__: pdf
 ```
 
 ## Using the Results

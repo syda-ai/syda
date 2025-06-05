@@ -2,9 +2,9 @@ __template__: true
 __description__: Medical report template for patient visits
 __name__: MedicalReport
 __foreign_keys__: {}
-template_source: /home/ramkumar2606/syda-fresh/examples/unstructured_only/healthcare_yml/templates/medical_report_template.html
-input_file_type: html
-output_file_type: pdf
+__template_source__: /home/ramkumar2606/syda-fresh/examples/unstructured_only/healthcare_yml/templates/medical_report_template.html
+__input_file_type__: html
+__output_file_type__: pdf
 
 # Patient information
 patient_id:

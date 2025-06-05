@@ -42,17 +42,17 @@ def sqlalchemy_model_to_schema(model_class):
             if hasattr(model_class, '__template_source__'):
                 metadata['__template_source__'] = getattr(model_class, '__template_source__')
                 # Also add as field to make template processing work
-                table_schema['template_source'] = 'text'
+                table_schema['__template_source__'] = 'text'
                 
             if hasattr(model_class, '__input_file_type__'):
                 metadata['__input_file_type__'] = getattr(model_class, '__input_file_type__')
                 # Also add as field to make template processing work
-                table_schema['input_file_type'] = 'text'
+                table_schema['__input_file_type__'] = 'text'
                 
             if hasattr(model_class, '__output_file_type__'):
                 metadata['__output_file_type__'] = getattr(model_class, '__output_file_type__')
                 # Also add as field to make template processing work
-                table_schema['output_file_type'] = 'text'
+                table_schema['__output_file_type__'] = 'text'
             
             # Add special metadata attributes
             if hasattr(model_class, '__template__'):
