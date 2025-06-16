@@ -1,0 +1,69 @@
+__table_name__: PerformanceReview
+__description__: Employee performance reviews
+__foreign_keys__:
+  employee_id: [Employee, id]
+
+id:
+  type: integer
+  description: Unique identifier for the performance review
+  constraints:
+    primary_key: true
+    min: 1
+    max: 5000
+
+employee_id:
+  type: integer
+  description: Employee ID for whom the review is written
+  constraints:
+    not_null: true
+    min: 1
+    max: 1000
+
+review_date:
+  type: date
+  description: Date when the review was conducted
+  constraints:
+    format: YYYY-MM-DD
+
+performance_score:
+  type: number
+  description: Overall performance score (1-5 where 5 is best)
+  constraints:
+    min: 1.0
+    max: 5.0
+
+review_period_start:
+  type: date
+  description: Start date of the review period
+  constraints:
+    format: YYYY-MM-DD
+
+review_period_end:
+  type: date
+  description: End date of the review period
+  constraints:
+    format: YYYY-MM-DD
+
+strengths:
+  type: text
+  description: Employee strengths noted in the review
+  constraints:
+    max_length: 500
+
+areas_for_improvement:
+  type: text
+  description: Areas where the employee can improve
+  constraints:
+    max_length: 500
+
+goals_set:
+  type: text
+  description: Goals set for the next review period
+  constraints:
+    max_length: 500
+
+reviewer_comments:
+  type: text
+  description: Additional comments from the reviewer
+  constraints:
+    max_length: 1000
