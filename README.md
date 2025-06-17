@@ -38,6 +38,7 @@ A Python-based open-source library for generating synthetic data with AI while p
   * [Connecting Documents to Structured Data](#connecting-documents-to-structured-data)
   * [Schema Dependencies for Documents](#schema-dependencies-for-documents)
   * [Custom Generators for Document Data](#custom-generators-for-document-data)
+  * [SQLAlchemy Models with Templates](#sqlalchemy-models-with-templates)
 * [Configuration and Error Handling](#configuration-and-error-handling)
   * [API Keys Management](#api-keys-management)
     * [Environment Variables (Recommended)](#1-environment-variables-recommended)
@@ -1234,6 +1235,7 @@ SYDA excels at generating both structured data (tables/databases) and unstructur
 
 For working examples, see the [examples/structured_and_unstructured](examples/structured_and_unstructured) directory, which contains retail receipt generation and CRM document examples.
 
+
 ### Connecting Documents to Structured Data
 
 You can create relationships between document schemas and structured data schemas:
@@ -1490,6 +1492,94 @@ generator.register_generator('array', generate_receipt_items, column_name='items
 ```
 
 The `parent_dfs` parameter gives access to all previously generated structured data, allowing you to create rich, interconnected documents.
+
+
+
+## SQLAlchemy Models with Templates
+
+You can also use SQLAlchemy models to define both your structured data schema and template-based documents. This approach is great for applications that already use SQLAlchemy ORM:
+
+```python
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+from syda.templates import SydaTemplate
+
+Base = declarative_base()
+
+# Regular structured SQLAlchemy model
+class Customer(Base):
+    __tablename__ = 'customers'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
+    industry = Column(String(50))
+    annual_revenue = Column(Float)
+    website = Column(String(100))
+    
+    # Relationships
+    opportunities = relationship("Opportunity", back_populates="customer")
+
+# Another structured model
+class Opportunity(Base):
+    __tablename__ = 'opportunities'
+    
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
+    name = Column(String(100), nullable=False)
+    value = Column(Float, nullable=False)
+    description = Column(Text)
+    
+    # Relationships
+    customer = relationship("Customer", back_populates="opportunities")
+
+# Template model inheriting from SydaTemplate
+class ProposalDocument(SydaTemplate):
+    # Special template attributes
+    __template__ = True
+    __depends_on__ = ['Opportunity']  # This template depends on the Opportunity model
+    
+    # Template source configuration
+    __template_source__ = 'templates/proposal.html'
+    __input_file_type__ = 'html'
+    __output_file_type__ = 'pdf'
+    
+    # Fields needed for the template (these become columns in the generated data)
+    opportunity_id = Column(Integer, ForeignKey('opportunities.id'), nullable=False)
+    title = Column(String(200))
+    customer_name = Column(String(100), ForeignKey('customers.name'))
+    opportunity_value = Column(Float, ForeignKey('opportunities.value'))
+    proposed_solutions = Column(Text)
+```
+
+Then generate all data in one call:
+
+```python
+from syda.generate import SyntheticDataGenerator
+from syda.schemas import ModelConfig
+
+# Initialize generator
+config = ModelConfig(provider="anthropic", model_name="claude-3-5-haiku-20241022")
+generator = SyntheticDataGenerator(model_config=config)
+
+# Generate all data at once
+results = generator.generate_for_sqlalchemy_models(
+    sqlalchemy_models=[Customer, Opportunity, ProposalDocument],
+    sample_sizes={'customers': 5, 'opportunities': 8, 'ProposalDocument': 3},
+    output_dir="output"
+)
+
+# Access results
+customer_df = results['customers']
+opportunity_df = results['opportunities']
+proposal_df = results['ProposalDocument']  # Includes PDF document paths
+```
+
+The example above demonstrates:
+1. Regular SQLAlchemy models for structured data (Customer, Opportunity)
+2. A template model (ProposalDocument) that inherits from `SydaTemplate`
+3. Foreign key relationships between the template and structured models
+4. Generating everything together with `generate_for_sqlalchemy_models`
 
 ## Configuration and Error Handling
 
