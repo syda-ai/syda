@@ -1,4 +1,4 @@
-# SYDA Schema Reference - v1.0
+# SYDA Schema Reference
 
 This document defines the schema format for the SYDA (Synthetic Data) library. It describes the supported field types, constraints, and special schema sections.
 
@@ -21,11 +21,11 @@ The following field types are supported:
 | `text` | Generic text field | `"name": "text"` |
 | `string` | Same as text | `"title": "string"` |
 | `number` | Numeric field (integer or decimal) | `"id": "number"` |
-| `integer` | Integer value | `"age": "integer"` |
+| `integer` | Integer value (alias: `int`) | `"age": "integer"` |
 | `float` | Floating-point number | `"price": "float"` |
 | `date` | Date value | `"birth_date": "date"` |
 | `datetime` | Date and time value | `"created_at": "datetime"` |
-| `boolean` | True/false value | `"is_active": "boolean"` |
+| `boolean` | True/false value (alias: `bool`) | `"is_active": "boolean"` |
 | `email` | Email address | `"contact": "email"` |
 | `phone` | Phone number | `"telephone": "phone"` |
 | `address` | Physical address | `"location": "address"` |
@@ -62,6 +62,8 @@ name:
 | `pattern` | Regex pattern | `"pattern": "^[A-Z][a-z]+$"` |
 | `references` | Foreign key reference | `"references": {"schema": "User", "field": "id"}` |
 
+> **Note**: Field properties are validated during schema validation. For example, using an invalid field type will cause validation to fail with a detailed error message.
+
 ### Field Constraints
 
 Constraints can be specified directly in the field definition or in a separate `constraints` object:
@@ -87,17 +89,21 @@ email:
 | `max_length` | Maximum string length | `"max_length": 50` |
 | `length` | Exact string length | `"length": 10` |
 
+> **Note**: Constraints are validated during schema validation. For example, if both `length` and `max_length` are specified for a string field, validation will fail with an appropriate error message.
+
 ## Special Schema Sections
 
-Special sections in the schema are prefixed with double underscores:
+Special sections in the schema are prefixed with double underscores. These special sections are validated during schema validation:
 
 ### Table Identification
 
 ```yaml
-__table_name__: Customer
-__name__: Customer # alternative to __table_name__
+__name__: Customer # preferred method (recommended for new schemas)
+__table_name__: Customer # alternative (supported for backward compatibility)
 __description__: Customer information for e-commerce site
 ```
+
+> **Note**: `__name__` is preferred in newer code, though both are supported for backward compatibility.
 
 ### `__foreign_keys__`
 
@@ -124,13 +130,15 @@ This ensures that Product and Customer data are generated before the current sch
 For schemas that generate unstructured document outputs:
 
 ```yaml
-__template__: true
-__template_source__: /path/to/template.html
+__template__: true  # can be boolean or string
+__template_source__: /path/to/template.html  # required when __template__ is true
 __input_file_type__: html
 __output_file_type__: pdf
 ```
 
 These fields enable document generation from templates with the synthetic data.
+
+> **Important**: When `__template__` is set to `true`, the `__template_source__` field is required. Schema validation will fail if this relationship is not maintained.
 
 ## Multiple Ways to Define Foreign Keys
 

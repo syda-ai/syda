@@ -210,7 +210,12 @@ employees_df = results['Employee']
 4. **Referential Integrity Preservation**: The foreign key generator samples from actual existing IDs in the parent table, ensuring all references are valid.
 5. **Metadata-Enhanced Foreign Keys**: Column comments on foreign key fields are preserved and included in the prompt, helping the LLM understand the relationship context.
 
+
 ### Multiple Schema Definition Formats
+
+
+> **Note:** For detailed information on supported field types and schema format, see the [Schema Reference](schema_reference.md) document.
+
 
 Syda supports defining your data models in multiple formats, all leading to the same synthetic data generation capabilities. Choose the format that best suits your workflow:
 
