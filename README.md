@@ -30,6 +30,14 @@ A Python-based open-source library for generating synthetic data with AI while p
     * [Provider-Specific Optimizations](#provider-specific-optimizations)
   * [Advanced: Direct Access to LLM Client](#advanced-direct-access-to-llm-client)
 * [Output Options](#output-options)
+* [Unstructured Document Generation](#unstructured-document-generation)
+  * [Template-Based Document Generation](#template-based-document-generation)
+  * [Template Schema Requirements](#template-schema-requirements)
+  * [Supported Template Types](#supported-template-types)
+* [Combined Structured and Unstructured Data](#combined-structured-and-unstructured-data)
+  * [Connecting Documents to Structured Data](#connecting-documents-to-structured-data)
+  * [Schema Dependencies for Documents](#schema-dependencies-for-documents)
+  * [Custom Generators for Document Data](#custom-generators-for-document-data)
 * [Configuration and Error Handling](#configuration-and-error-handling)
   * [API Keys Management](#api-keys-management)
     * [Environment Variables (Recommended)](#1-environment-variables-recommended)
@@ -1030,6 +1038,148 @@ Each schema will be saved to a separate file with the schema name as the filenam
 * JSON format: `output_directory/customer.json`, `output_directory/order.json`, etc.
 
 The `results` dictionary will still contain all generated DataFrames, so you can both save to files and work with the data directly in your code.
+
+## Unstructured Document Generation
+
+SYDA can generate realistic unstructured documents such as PDF reports, letters, and forms based on templates. This is useful for applications that require document generation with synthetic data.
+
+For complete examples, see the [examples/unstructured_only](examples/unstructured_only) directory, which includes healthcare document generation samples.
+
+### Template-Based Document Generation
+
+Create template-based document schemas by specifying template fields in your schema:
+
+```python
+from syda.generate import SyntheticDataGenerator
+from syda.schemas import ModelConfig
+
+# Initialize generator 
+config = ModelConfig(provider="anthropic", model_name="claude-3-5-haiku-20241022")
+generator = SyntheticDataGenerator(model_config=config)
+
+# Define template-based schemas
+schemas = {
+    'MedicalReport': 'schemas/medical_report.yml',
+    'LabResult': 'schemas/lab_result.yml'
+}
+
+# Generate data and PDF documents
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    sample_sizes={
+        'MedicalReport': 5,
+        'LabResult': 5
+    },
+    prompts={
+        'MedicalReport': 'Generate synthetic medical reports for patients',
+        'LabResult': 'Generate synthetic laboratory test results for patients'
+    },
+    output_dir="output"
+)
+```
+
+### Template Schema Requirements
+
+Template-based schemas must include these special fields:
+
+```yaml
+__template__: true
+__template_source__: /path/to/template.html
+__input_file_type__: html
+__output_file_type__: pdf
+```
+
+The template file (like HTML) includes variable placeholders that get replaced with generated data.
+
+### Supported Template Types
+
+- HTML → PDF: Best supported with complete styling control
+- Markdown → PDF: Simple text formatting
+- Plain Text → PDF: For simple document formats
+
+## Combined Structured and Unstructured Data
+
+SYDA excels at generating both structured data (tables/databases) and unstructured content (documents) in a coordinated way.
+
+For working examples, see the [examples/structured_and_unstructured](examples/structured_and_unstructured) directory, which contains retail receipt generation and CRM document examples.
+
+### Connecting Documents to Structured Data
+
+You can create relationships between document schemas and structured data schemas:
+
+```python
+from syda.generate import SyntheticDataGenerator
+
+generator = SyntheticDataGenerator()
+
+# Define both structured and template-based schemas
+schemas = {
+    'Customer': 'schemas/customer.yml',            # Structured data
+    'Product': 'schemas/product.yml',              # Structured data
+    'Transaction': 'schemas/transaction.yml',      # Structured data
+    'Receipt': 'schemas/receipt.yml'               # Template-based document
+}
+
+# Generate everything - maintains relationships between structured and document data
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    output_dir="output"
+)
+
+# Results include both DataFrames and generated documents
+customers_df = results['Customer']
+receipts_df = results['Receipt']     # Contains metadata about generated documents
+```
+
+### Schema Dependencies for Documents
+
+Template schemas can specify dependencies on structured schemas:
+
+```yaml
+# Receipt template schema (receipt.yml)
+__template__: true
+__name__: Receipt
+__depends_on__: [Product, Transaction, Customer]
+__foreign_keys__:
+  customer_id: [Customer, id]
+__template_source__: templates/receipt.html
+__input_file_type__: html
+__output_file_type__: pdf
+```
+
+This ensures that dependent structured data is generated first, and related documents can reference that data.
+
+### Custom Generators for Document Data
+
+For advanced use cases, you can define custom generators to map structured data into document fields:
+
+```python
+def generate_receipt_items(row, col_name=None, parent_dfs=None):
+    """Generate receipt line items based on transaction and product data."""
+    items = []
+    if parent_dfs and 'Product' in parent_dfs and 'Transaction' in parent_dfs:
+        products_df = parent_dfs['Product']
+        transactions_df = parent_dfs['Transaction']
+        
+        # Find transactions for this customer
+        customer_transactions = transactions_df[transactions_df['customer_id'] == row['customer_id']]
+        
+        # Add products from transactions to receipt
+        for _, tx in customer_transactions.iterrows():
+            product = products_df[products_df['id'] == tx['product_id']].iloc[0]
+            items.append({
+                "product_name": product['name'],
+                "quantity": tx['quantity'],
+                "unit_price": product['price'],
+                "item_total": tx['quantity'] * product['price']
+            })
+    return items
+
+# Register the custom generator
+generator.register_generator('array', generate_receipt_items, column_name='items')
+```
+
+The `parent_dfs` parameter gives access to all previously generated structured data, allowing you to create rich, interconnected documents.
 
 ## Configuration and Error Handling
 
