@@ -345,13 +345,29 @@ def validate_schema(schema_dict: Dict) -> Dict:
         schema_dict: Dictionary containing the schema definition
         
     Returns:
-        The validated schema dictionary
+        The validated schema dictionary (original structure preserved)
         
     Raises:
         ValueError: If validation fails
     """
     try:
-        schema = Schema.model_validate(schema_dict)
-        return schema_dict  # Return original if validation passes
+        # Create a copy of the schema dict to not modify the original
+        validation_copy = dict(schema_dict)
+        
+        # Pre-process the template field if it exists to ensure it's compatible
+        if "__template__" in validation_copy and isinstance(validation_copy["__template__"], bool):
+            # If it's a boolean, we already made the model accept it, so that's fine
+            pass
+            
+        # Validate with pydantic
+        schema = Schema.model_validate(validation_copy)
+        
+        # Important: Return the original schema_dict, not the validated one
+        # This preserves the original structure
+        return schema_dict
     except Exception as e:
-        raise ValueError(f"Schema validation failed: {str(e)}")
+        error_msg = f"Schema validation failed: {str(e)}\n"
+        # Add more debug info about which fields seem to be causing problems
+        if "__template__" in schema_dict:
+            error_msg += f"__template__ field type: {type(schema_dict['__template__']).__name__}, value: {schema_dict['__template__']}\n"
+        raise ValueError(error_msg)

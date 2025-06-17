@@ -5,6 +5,7 @@ Schema loading and processing for synthetic data generation.
 import json
 import os
 from typing import Dict, List, Optional, Tuple, Union, Type, Any
+from .schemas import validate_schema
 
 # Check if yaml is available
 try:
@@ -60,6 +61,13 @@ class SchemaLoader:
         """
         # Case 1: Dictionary schema
         if isinstance(schema_source, dict):
+            try:
+                validate_schema(schema_source)
+            except ValueError as e:
+                # For dictionary schemas, include schema name if available or field count for better context
+                schema_name = schema_source.get('__name__', 'Unknown schema')
+                field_count = len([k for k in schema_source.keys() if not k.startswith('__')])
+                raise ValueError(f"Schema validation failed for dictionary schema '{schema_name}' with {field_count} fields: {str(e)}")
             return self._load_dict_schema(schema_source)
         
         # Case 2: SQLAlchemy model - check for __table__ attribute which all SQLAlchemy models have
@@ -68,10 +76,15 @@ class SchemaLoader:
                 
         # Case 3: Path to JSON/YAML schema file
         elif isinstance(schema_source, str):
-            if os.path.exists(schema_source):
-                return self._load_schema_file(schema_source)
-            else:
+            if not os.path.exists(schema_source):
                 raise ValueError(f"Schema file not found: {schema_source}")
+            schema_dict = self._load_schema_file(schema_source)
+            try:
+                validate_schema(schema_dict)
+            except ValueError as e:
+                # Enhance error message with file path information
+                raise ValueError(f"Schema validation failed for '{schema_source}': {str(e)}")
+            return self._load_dict_schema(schema_dict)
         
         # Case 4: Template class - check for __template__ attribute or SydaTemplate inheritance
         elif isinstance(schema_source, type) and (
@@ -288,8 +301,7 @@ class SchemaLoader:
             try:
                 with open(file_path, 'r') as f:
                     schema_dict = json.load(f)
-                    # Process as dictionary schema
-                    return self._load_dict_schema(schema_dict)
+                    return schema_dict
             except Exception as e:
                 raise ValueError(f"Error loading JSON schema file {file_path}: {str(e)}")
                 
@@ -301,8 +313,7 @@ class SchemaLoader:
             try:
                 with open(file_path, 'r') as f:
                     schema_dict = yaml.safe_load(f)
-                    # Process as dictionary schema
-                    return self._load_dict_schema(schema_dict)
+                    return schema_dict
             except Exception as e:
                 raise ValueError(f"Error loading YAML schema file {file_path}: {str(e)}")
         
