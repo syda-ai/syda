@@ -1062,6 +1062,61 @@ schemas = {
     'MedicalReport': 'schemas/medical_report.yml',
     'LabResult': 'schemas/lab_result.yml'
 }
+```
+
+Here's an example of a medical report template schema:
+
+```yaml
+# Medical report template schema (medical_report.yml)
+__template__: true
+__description__: Medical report template for patient visits
+__name__: MedicalReport
+__foreign_keys__: {}
+__template_source__: templates/medical_report_template.html
+__input_file_type__: html
+__output_file_type__: pdf
+
+# Patient information
+patient_id:
+  type: string
+  format: uuid
+
+patient_name:
+  type: string
+
+date_of_birth:
+  type: string
+  format: date
+
+visit_date:
+  type: string
+  format: date-time
+
+chief_complaint:
+  type: string
+
+medical_history:
+  type: string
+
+# Vital signs
+blood_pressure:
+  type: string
+
+heart_rate:
+  type: integer
+
+respiratory_rate:
+  type: integer
+
+temperature:
+  type: number
+
+oxygen_saturation:
+  type: integer
+
+# Clinical information
+assessment:
+  type: string
 
 # Generate data and PDF documents
 results = generator.generate_for_schemas(
@@ -1119,6 +1174,84 @@ schemas = {
     'Transaction': 'schemas/transaction.yml',      # Structured data
     'Receipt': 'schemas/receipt.yml'               # Template-based document
 }
+```
+
+Here's what a structured data schema for a `Customer` might look like:
+
+```yaml
+# Customer schema (customer.yml)
+__table_name__: Customer
+__description__: Retail customers
+
+id:
+  type: integer
+  description: Unique customer ID
+  constraints:
+    primary_key: true
+    not_null: true
+    min: 1
+
+first_name:
+  type: string
+  description: Customer's first name
+  constraints:
+    not_null: true
+    length: 50
+
+last_name:
+  type: string
+  description: Customer's last name
+  constraints:
+    not_null: true
+    length: 50
+    
+email:
+  type: email
+  description: Customer's email address
+  constraints:
+    not_null: true
+    unique: true
+    length: 100
+```
+
+And here's a template-based document schema for a `Receipt` that references the structured data:
+
+```yaml
+# Receipt template schema (receipt.yml)
+__template__: true
+__description__: Retail receipt template
+__name__: Receipt
+__depends_on__: [Product, Transaction, Customer]
+__foreign_keys__:
+  customer_name: [Customer, first_name]
+  
+__template_source__: templates/receipt.html
+__input_file_type__: html
+__output_file_type__: pdf
+
+# Receipt header
+store_name:
+  type: string
+  length: 50
+  description: Name of the retail store
+
+store_address:
+  type: address
+  length: 150
+  description: Full address of the store
+
+# Receipt details
+receipt_number:
+  type: string
+  pattern: '^RCP-\d{8}$'
+  length: 12
+  description: Unique receipt identifier
+
+# Product purchase details
+items:
+  type: array
+  description: "List of purchased items with product details"
+
 
 # Generate everything - maintains relationships between structured and document data
 results = generator.generate_for_schemas(
