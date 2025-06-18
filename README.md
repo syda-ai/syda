@@ -18,6 +18,10 @@ A Python-based open-source library for generating synthetic data with AI while p
     * [Dictionary-Based Schemas](#4-dictionary-based-schemas)
     * [Foreign Key Definition Methods](#foreign-key-definition-methods)
   * [Automatic Management of Multiple Related Models](#automatic-management-of-multiple-related-models)
+    * [Using SQLAlchemy Models](#using-sqlalchemy-models)
+    * [Using YAML Schema Files](#using-yaml-schema-files)
+    * [Using JSON Schema Files](#using-json-schema-files)
+    * [Using Dictionary-Based Schemas](#using-dictionary-based-schemas)
   * [Complete CRM Example](#complete-crm-example)
 * [Metadata Enhancement Benefits with SQLAlchemy Models](#metadata-enhancement-benefits-with-sqlalchemy-models)
 * [Custom Generators for Domain-Specific Data](#custom-generators-for-domain-specific-data)
@@ -458,35 +462,452 @@ There are three ways to define foreign key relationships:
 
 ### Automatic Management of Multiple Related Models
 
+#### Using SQLAlchemy Models
+
 Simplify multi-table workflows with `generate_for_sqlalchemy_models`:
 
 ```python
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Date, Text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+from datetime import datetime, timedelta
+import random
+from syda.generate import SyntheticDataGenerator
+
+Base = declarative_base()
+
+# Customer model
+class Customer(Base):
+    __tablename__ = 'customers'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
+    industry = Column(String(50))
+    status = Column(String(20))
+    contacts = relationship("Contact", back_populates="customer")
+    orders = relationship("Order", back_populates="customer")
+
+# Contact model with foreign key to Customer
+class Contact(Base):
+    __tablename__ = 'contacts'
+    
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
+    name = Column(String(100), nullable=False)
+    email = Column(String(120), nullable=False)
+    phone = Column(String(20))
+    customer = relationship("Customer", back_populates="contacts")
+
+# Product model
+class Product(Base):
+    __tablename__ = 'products'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
+    description = Column(Text)
+    price = Column(Float, nullable=False)
+    order_items = relationship("OrderItem", back_populates="product")
+
+# Order model with foreign key to Customer
+class Order(Base):
+    __tablename__ = 'orders'
+    
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
+    order_date = Column(Date, nullable=False)
+    total_amount = Column(Float)
+    customer = relationship("Customer", back_populates="orders")
+    order_items = relationship("OrderItem", back_populates="order")
+
+# OrderItem model with foreign keys to Order and Product
+class OrderItem(Base):
+    __tablename__ = 'order_items'
+    
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
+    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
+    quantity = Column(Integer, nullable=False)
+    price = Column(Float, nullable=False)
+    order = relationship("Order", back_populates="order_items")
+    product = relationship("Product", back_populates="order_items")
+
+# Initialize generator
+generator = SyntheticDataGenerator()
+
+# Generate data for all models in one call
 results = generator.generate_for_sqlalchemy_models(
-    sqlalchemy_models=[Customer, Contact, Product, Order, OrderItem],
+    models=[Customer, Contact, Product, Order, OrderItem],
+    prompts={
+        "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
+        "Product": "Generate cloud software products and services."
+    },
+    sample_sizes={
+{{ ... }}
+```
+
+#### Using YAML Schema Files
+
+The same relationship management is available with YAML schemas:
+
+```yaml
+# customer.yaml
+__table_name__: customers
+__description__: Customer organizations
+
+id:
+  type: integer
+  constraints:
+    primary_key: true
+    not_null: true
+
+name:
+  type: string
+  constraints:
+    not_null: true
+    max_length: 100
+
+industry:
+  type: string
+  constraints:
+    max_length: 50
+
+status:
+  type: string
+  constraints:
+    max_length: 20
+```
+
+```yaml
+# contact.yaml
+__table_name__: contacts
+__description__: Customer contacts
+__foreign_keys__:
+  customer_id: [customers, id]
+
+id:
+  type: integer
+  constraints:
+    primary_key: true
+    not_null: true
+
+customer_id:
+  type: integer
+  constraints:
+    not_null: true
+
+name:
+  type: string
+  constraints:
+    not_null: true
+    max_length: 100
+
+email:
+  type: string
+  constraints:
+    not_null: true
+    max_length: 120
+
+phone:
+  type: string
+  constraints:
+    max_length: 20
+```
+
+```yaml
+# order.yaml
+__table_name__: orders
+__description__: Customer orders
+__foreign_keys__:
+  customer_id: [customers, id]
+
+id:
+  type: integer
+  constraints:
+    primary_key: true
+    not_null: true
+
+customer_id:
+  type: integer
+  constraints:
+    not_null: true
+
+order_date:
+  type: string
+  format: date
+  constraints:
+    not_null: true
+
+total_amount:
+  type: number
+  format: float
+```
+
+```python
+# Generate data for multiple related tables with YAML schemas
+results = generator.generate_for_schemas(
+    schemas={
+        'Customer': 'schemas/customer.yaml',
+        'Contact': 'schemas/contact.yaml',
+        'Product': 'schemas/product.yaml',
+        'Order': 'schemas/order.yaml',
+        'OrderItem': 'schemas/order_item.yaml'
+    },
     prompts={
         "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
         "Product": "Generate cloud software products and services."
     },
     sample_sizes={
         "Customer": 10,
-        "Contact": 25,
+        "Contact": 20,
         "Product": 15,
         "Order": 30,
         "OrderItem": 60
-    },
-    output_dir="output_data",
-    custom_generators={
-        "Customer": {"status": lambda row, col: random.choice(["Active", "Inactive", "Prospect"])},
-        "Product": {"price": lambda row, col: round(random.uniform(50, 5000), 2)}
     }
 )
 ```
 
-This method:
+#### Using JSON Schema Files
 
-* Automatically analyzes model dependencies and orders generation.
-* Manages foreign keys by sampling valid parent IDs.
-* Supports custom generators and preserves referential integrity.
+JSON schema files offer the same capabilities:
+
+```json
+// customer.json
+{
+  "__table_name__": "customers",
+  "__description__": "Customer organizations",
+  "id": {
+    "type": "integer",
+    "constraints": {
+      "primary_key": true,
+      "not_null": true
+    }
+  },
+  "name": {
+    "type": "string",
+    "constraints": {
+      "not_null": true,
+      "max_length": 100
+    }
+  },
+  "industry": {
+    "type": "string",
+    "constraints": {
+      "max_length": 50
+    }
+  },
+  "status": {
+    "type": "string",
+    "constraints": {
+      "max_length": 20
+    }
+  }
+}
+```
+
+```json
+// contact.json
+{
+  "__table_name__": "contacts",
+  "__description__": "Customer contacts",
+  "__foreign_keys__": {
+    "customer_id": ["customers", "id"]
+  },
+  "id": {
+    "type": "integer",
+    "constraints": {
+      "primary_key": true,
+      "not_null": true
+    }
+  },
+  "customer_id": {
+    "type": "integer",
+    "constraints": {
+      "not_null": true
+    }
+  },
+  "name": {
+    "type": "string",
+    "constraints": {
+      "not_null": true,
+      "max_length": 100
+    }
+  },
+  "email": {
+    "type": "string",
+    "constraints": {
+      "not_null": true,
+      "max_length": 120
+    }
+  },
+  "phone": {
+    "type": "string",
+    "constraints": {
+      "max_length": 20
+    }
+  }
+}
+```
+
+```json
+// order.json
+{
+  "__table_name__": "orders",
+  "__description__": "Customer orders",
+  "__foreign_keys__": {
+    "customer_id": ["customers", "id"]
+  },
+  "id": {
+    "type": "integer",
+    "constraints": {
+      "primary_key": true,
+      "not_null": true
+    }
+  },
+  "customer_id": {
+    "type": "integer",
+    "constraints": {
+      "not_null": true
+    }
+  },
+  "order_date": {
+    "type": "string",
+    "format": "date",
+    "constraints": {
+      "not_null": true
+    }
+  },
+  "total_amount": {
+    "type": "number",
+    "format": "float"
+  }
+}
+```
+
+```python
+# Generate data for multiple related tables with JSON schemas
+results = generator.generate_for_schemas(
+    schemas={
+        'Customer': 'schemas/customer.json',
+        'Contact': 'schemas/contact.json',
+        'Product': 'schemas/product.json',
+        'Order': 'schemas/order.json',
+        'OrderItem': 'schemas/order_item.json'
+    },
+    prompts={
+        "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
+        "Product": "Generate cloud software products and services."
+    },
+    sample_sizes={
+        "Customer": 10,
+        "Contact": 20,
+        "Product": 15,
+        "Order": 30,
+        "OrderItem": 60
+    }
+)
+```
+
+#### Using Dictionary-Based Schemas
+
+Similar relationship management works with dictionary schemas:
+
+```python
+# Define schemas as Python dictionaries
+schemas = {
+    'Customer': {
+        '__table_name__': 'customers',
+        '__description__': 'Customer organizations',
+        'id': {
+            'type': 'integer',
+            'constraints': {'primary_key': True, 'not_null': True}
+        },
+        'name': {
+            'type': 'string',
+            'constraints': {'not_null': True, 'max_length': 100}
+        },
+        'industry': {
+            'type': 'string',
+            'constraints': {'max_length': 50}
+        },
+        'status': {
+            'type': 'string',
+            'constraints': {'max_length': 20}
+        }
+    },
+    'Contact': {
+        '__table_name__': 'contacts',
+        '__description__': 'Customer contacts',
+        '__foreign_keys__': {
+            'customer_id': ['customers', 'id']
+        },
+        'id': {
+            'type': 'integer',
+            'constraints': {'primary_key': True, 'not_null': True}
+        },
+        'customer_id': {
+            'type': 'integer',
+            'constraints': {'not_null': True}
+        },
+        'name': {
+            'type': 'string',
+            'constraints': {'not_null': True, 'max_length': 100}
+        },
+        'email': {
+            'type': 'string',
+            'constraints': {'not_null': True, 'max_length': 120}
+        },
+        'phone': {
+            'type': 'string',
+            'constraints': {'max_length': 20}
+        }
+    },
+    'Order': {
+        '__table_name__': 'orders',
+        '__description__': 'Customer orders',
+        '__foreign_keys__': {
+            'customer_id': ['customers', 'id']
+        },
+        'id': {
+            'type': 'integer',
+            'constraints': {'primary_key': True, 'not_null': True}
+        },
+        'customer_id': {
+            'type': 'integer',
+            'constraints': {'not_null': True}
+        },
+        'order_date': {
+            'type': 'string',
+            'format': 'date',
+            'constraints': {'not_null': True}
+        },
+        'total_amount': {
+            'type': 'number',
+            'format': 'float'
+        }
+    }
+}
+
+# Generate data for dictionary schemas
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    prompts={
+        'Customer': 'Generate diverse customer organizations for a B2B SaaS company.'
+    },
+    sample_sizes={
+        'Customer': 10,
+        'Contact': 20,
+        'Order': 30
+    }
+)
+```
+
+In all cases, the generator will:
+1. Analyze relationships between models/schemas
+2. Determine the correct generation order using topological sorting
+3. Generate parent tables first
+4. Use existing primary keys when populating foreign keys in child tables
+5. Maintain referential integrity across the entire dataset
+
 
 ### Complete CRM Example
 
