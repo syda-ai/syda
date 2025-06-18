@@ -21,6 +21,15 @@ A Python-based open-source library for generating synthetic data with AI while p
   * [Complete CRM Example](#complete-crm-example)
 * [Metadata Enhancement Benefits with SQLAlchemy Models](#metadata-enhancement-benefits-with-sqlalchemy-models)
 * [Custom Generators for Domain-Specific Data](#custom-generators-for-domain-specific-data)
+* [Unstructured Document Generation](#unstructured-document-generation)
+  * [Template-Based Document Generation](#template-based-document-generation)
+  * [Template Schema Requirements](#template-schema-requirements)
+  * [Supported Template Types](#supported-template-types)
+* [Combined Structured and Unstructured Data](#combined-structured-and-unstructured-data)
+  * [Connecting Documents to Structured Data](#connecting-documents-to-structured-data)
+  * [Schema Dependencies for Documents](#schema-dependencies-for-documents)
+  * [Custom Generators for Document Data](#custom-generators-for-document-data)
+* [SQLAlchemy Models with Templates](#sqlalchemy-models-with-templates)
 * [Model Selection and Configuration](#model-selection-and-configuration)
   * [Basic Configuration](#basic-configuration)
   * [Using Different Model Providers](#using-different-model-providers)
@@ -30,15 +39,6 @@ A Python-based open-source library for generating synthetic data with AI while p
     * [Provider-Specific Optimizations](#provider-specific-optimizations)
   * [Advanced: Direct Access to LLM Client](#advanced-direct-access-to-llm-client)
 * [Output Options](#output-options)
-* [Unstructured Document Generation](#unstructured-document-generation)
-  * [Template-Based Document Generation](#template-based-document-generation)
-  * [Template Schema Requirements](#template-schema-requirements)
-  * [Supported Template Types](#supported-template-types)
-* [Combined Structured and Unstructured Data](#combined-structured-and-unstructured-data)
-  * [Connecting Documents to Structured Data](#connecting-documents-to-structured-data)
-  * [Schema Dependencies for Documents](#schema-dependencies-for-documents)
-  * [Custom Generators for Document Data](#custom-generators-for-document-data)
-  * [SQLAlchemy Models with Templates](#sqlalchemy-models-with-templates)
 * [Configuration and Error Handling](#configuration-and-error-handling)
   * [API Keys Management](#api-keys-management)
     * [Environment Variables (Recommended)](#1-environment-variables-recommended)
@@ -185,8 +185,8 @@ results = generator.generate_for_sqlalchemy_models(
 
 The library provides robust support for handling foreign key relationships with referential integrity:
 
-1. **Automatic Foreign Key Detection**: Foreign keys are automatically detected from your SQLAlchemy models and assigned the type `'foreign_key'`.
-2. **Column-Specific Foreign Key Generators**: Register different generators for each foreign key column when dealing with multiple relationships:
+1. **Automatic Foreign Key Detection**: Foreign keys are automatically detected from your yml, json, dict, SQLAlchemy models and assigned the type `'foreign_key'`.
+2. **Manual Column-Specific Foreign Key Generators**: You can also manually define foreign key generators for specific columns as below snippet
 
 ```python
 # After generating departments and loading them into departments_df:
@@ -846,199 +846,6 @@ This example demonstrates several powerful features of custom generators:
 
 Custom generators can significantly enhance the quality and realism of your synthetic data, especially for specialized domains with complex rules, codes, and relationships.
 
-## Model Selection and Configuration
-
-Syda currently supports two AI providers: OpenAI and Anthropic (Claude).
-
-
-
-### Basic Configuration
-
-Configure provider, model, temperature, tokens, and proxy settings using the `ModelConfig` class:
-
-```python
-from syda.schemas import ModelConfig, ProxyConfig
-
-# Create a model configuration
-config = ModelConfig(
-    provider='openai',  # Choose from: 'openai', 'anthropic', etc.
-    model_name='gpt-4-turbo',  # Model name for the selected provider
-    temperature=0.7,    # Controls randomness (0.0-1.0)
-    top_p=0.95,         # Nucleus sampling parameter
-    seed=42,            # For reproducible outputs (provider-specific)
-    max_tokens=4000,    # Maximum response length (default: 4000)
-    proxy=ProxyConfig(  # Optional proxy configuration
-        base_url='https://ai-proxy.company.com/v1',
-        headers={'X-Company-Auth':'internal-token'},
-        params={'team':'data-science'}
-    )
-)
-
-# Initialize generator with the configuration
-generator = SyntheticDataGenerator(model_config=config)
-```
-
-### Using Different Model Providers
-
-The library currently supports OpenAI and Anthropic (Claude) models and allows you to easily switch between these providers while maintaining a consistent interface.
-
-#### OpenAI Models
-
-```python
-# Default configuration - uses OpenAI's GPT-4 if no model_config provided
-default_generator = SyntheticDataGenerator()
-
-# Explicitly configure for GPT-3.5 Turbo (faster and more cost-effective)
-openai_config = ModelConfig(
-    provider='openai',
-    model_name='gpt-3.5-turbo',  # You can also use 'gpt-3.5-turbo-1106' for better JSON handling
-    temperature=0.7,
-    response_format={"type": "json_object"}  # Forces JSON response format (GPT models)
-)
-gpt35_generator = SyntheticDataGenerator(model_config=openai_config)
-
-# Generate data with specific model configuration
-data = gpt35_generator.generate_data(
-    schema={'product_id': 'number', 'product_name': 'text', 'price': 'number'},
-    prompt="Generate electronic product data with prices between $500-$2000",
-    sample_size=10
-)
-```
-
-#### Anthropic Claude Models
-
-```python
-# Configure for Claude (requires ANTHROPIC_API_KEY environment variable)
-claude_config = ModelConfig(
-    provider='anthropic',
-    model_name='claude-3-sonnet-20240229',  # Available models: claude-3-opus, claude-3-sonnet, claude-3-haiku
-    temperature=0.7,
-    max_tokens=2000  # Claude can sometimes need more tokens for structured output
-)
-claude_generator = SyntheticDataGenerator(model_config=claude_config)
-
-# Generate data with Claude
-data = claude_generator.generate_data(
-    schema={'product_id': 'number', 'product_name': 'text', 'price': 'number', 'description': 'text'},
-    prompt="Generate luxury product data with realistic prices over $1000",
-    sample_size=5
-)
-```
-
-#### Maximum Tokens Parameter
-
-The library now uses a default of 4000 tokens for `max_tokens` to ensure complete responses with all expected columns. This helps prevent incomplete data generation issues.
-
-```python
-# Override the default max_tokens setting
-config = ModelConfig(
-    provider="openai",
-    model_name="gpt-4",
-    max_tokens=8000,  # Increase for very complex schemas or large sample sizes
-    temperature=0.7
-)
-```
-
-When generating complex data or data with many columns, consider increasing this value if you notice missing columns in your generated data.
-
-#### Provider-Specific Optimizations
-
-Each AI provider has different strengths and parameter requirements. The library automatically handles most of the differences, but you can optimize for specific providers:
-
-```python
-# OpenAI-specific optimization
-openai_optimized = ModelConfig(
-    provider='openai',
-    model_name='gpt-4-turbo',
-    temperature=0.7,
-    response_format={"type": "json_object"},  # Only works with OpenAI
-    seed=42  # For reproducible outputs
-)
-
-# Anthropic-specific optimization
-anthropic_optimized = ModelConfig(
-    provider='anthropic',
-    model_name='claude-3-opus-20240229',
-    temperature=0.7,
-    system="You are a synthetic data generator that creates realistic, high-quality datasets based on the provided schema."  # System prompt works best with Anthropic
-)
-```
-
-### Advanced: Direct Access to LLM Client
-
-For advanced use cases, you can access the underlying LLM client directly for additional control:
-
-```python
-from syda.llm import create_llm_client
-
-# Create a standalone LLM client
-llm_client = create_llm_client(
-    model_config=ModelConfig(
-        provider='anthropic', 
-        model_name='claude-3-opus-20240229'
-    ),
-    # API key is optional if set in environment variables
-    anthropic_api_key="your_api_key"  
-)
-
-# Define a Pydantic model for structured output
-from pydantic import BaseModel
-from typing import List
-
-class Book(BaseModel):
-    title: str
-    author: str
-    year: int
-    genre: str
-    pages: int
-
-class BookCollection(BaseModel):
-    books: List[Book]
-
-# Use the client for structured responses
-books = llm_client.client.chat.completions.create(
-    model="claude-3-opus-20240229",
-    response_model=BookCollection,  # Automatically parses the response to this model
-    messages=[{"role": "user", "content": "Generate 5 fictional sci-fi books."}]
-)
-
-# Access the structured data directly
-for book in books.books:
-    print(f"{book.title} by {book.author} ({book.year}) - {book.pages} pages")
-```
-
-This approach gives you direct control over the client while still providing structured data extraction capabilities.
-
-## Output Options
-
-Syda offers flexible output options to suit different use cases:
-
-### Multiple Schema Generation
-
-When generating data for multiple schemas using `generate_for_schemas` or `generate_for_sqlalchemy_models`, you can specify an output directory and format:
-
-```python
-# Generate and save data to CSV files (default)
-results = generator.generate_for_schemas(
-    schemas=schemas,
-    output_dir="output_directory",
-    output_format="csv"  # Default format
-)
-
-# Generate and save data to JSON files
-results = generator.generate_for_schemas(
-    schemas=schemas,
-    output_dir="output_directory",
-    output_format="json"
-)
-```
-
-Each schema will be saved to a separate file with the schema name as the filename. For example:
-
-* CSV format: `output_directory/customer.csv`, `output_directory/order.csv`, etc.
-* JSON format: `output_directory/customer.json`, `output_directory/order.json`, etc.
-
-The `results` dictionary will still contain all generated DataFrames, so you can both save to files and work with the data directly in your code.
 
 ## Unstructured Document Generation
 
@@ -1494,7 +1301,6 @@ generator.register_generator('array', generate_receipt_items, column_name='items
 The `parent_dfs` parameter gives access to all previously generated structured data, allowing you to create rich, interconnected documents.
 
 
-
 ## SQLAlchemy Models with Templates
 
 You can also use SQLAlchemy models to define both your structured data schema and template-based documents. This approach is great for applications that already use SQLAlchemy ORM:
@@ -1580,6 +1386,202 @@ The example above demonstrates:
 2. A template model (ProposalDocument) that inherits from `SydaTemplate`
 3. Foreign key relationships between the template and structured models
 4. Generating everything together with `generate_for_sqlalchemy_models`
+
+
+## Model Selection and Configuration
+
+Syda currently supports two AI providers: OpenAI and Anthropic (Claude).
+
+
+
+### Basic Configuration
+
+Configure provider, model, temperature, tokens, and proxy settings using the `ModelConfig` class:
+
+```python
+from syda.schemas import ModelConfig, ProxyConfig
+
+# Create a model configuration
+config = ModelConfig(
+    provider='openai',  # Choose from: 'openai', 'anthropic', etc.
+    model_name='gpt-4-turbo',  # Model name for the selected provider
+    temperature=0.7,    # Controls randomness (0.0-1.0)
+    top_p=0.95,         # Nucleus sampling parameter
+    seed=42,            # For reproducible outputs (provider-specific)
+    max_tokens=4000,    # Maximum response length (default: 4000)
+    proxy=ProxyConfig(  # Optional proxy configuration
+        base_url='https://ai-proxy.company.com/v1',
+        headers={'X-Company-Auth':'internal-token'},
+        params={'team':'data-science'}
+    )
+)
+
+# Initialize generator with the configuration
+generator = SyntheticDataGenerator(model_config=config)
+```
+
+### Using Different Model Providers
+
+The library currently supports OpenAI and Anthropic (Claude) models and allows you to easily switch between these providers while maintaining a consistent interface.
+
+#### OpenAI Models
+
+```python
+# Default configuration - uses OpenAI's GPT-4 if no model_config provided
+default_generator = SyntheticDataGenerator()
+
+# Explicitly configure for GPT-3.5 Turbo (faster and more cost-effective)
+openai_config = ModelConfig(
+    provider='openai',
+    model_name='gpt-3.5-turbo',  # You can also use 'gpt-3.5-turbo-1106' for better JSON handling
+    temperature=0.7,
+    response_format={"type": "json_object"}  # Forces JSON response format (GPT models)
+)
+gpt35_generator = SyntheticDataGenerator(model_config=openai_config)
+
+# Generate data with specific model configuration
+data = gpt35_generator.generate_data(
+    schema={'product_id': 'number', 'product_name': 'text', 'price': 'number'},
+    prompt="Generate electronic product data with prices between $500-$2000",
+    sample_size=10
+)
+```
+
+#### Anthropic Claude Models
+
+```python
+# Configure for Claude (requires ANTHROPIC_API_KEY environment variable)
+claude_config = ModelConfig(
+    provider='anthropic',
+    model_name='claude-3-sonnet-20240229',  # Available models: claude-3-opus, claude-3-sonnet, claude-3-haiku
+    temperature=0.7,
+    max_tokens=2000  # Claude can sometimes need more tokens for structured output
+)
+claude_generator = SyntheticDataGenerator(model_config=claude_config)
+
+# Generate data with Claude
+data = claude_generator.generate_data(
+    schema={'product_id': 'number', 'product_name': 'text', 'price': 'number', 'description': 'text'},
+    prompt="Generate luxury product data with realistic prices over $1000",
+    sample_size=5
+)
+```
+
+#### Maximum Tokens Parameter
+
+The library now uses a default of 4000 tokens for `max_tokens` to ensure complete responses with all expected columns. This helps prevent incomplete data generation issues.
+
+```python
+# Override the default max_tokens setting
+config = ModelConfig(
+    provider="openai",
+    model_name="gpt-4",
+    max_tokens=8000,  # Increase for very complex schemas or large sample sizes
+    temperature=0.7
+)
+```
+
+When generating complex data or data with many columns, consider increasing this value if you notice missing columns in your generated data.
+
+#### Provider-Specific Optimizations
+
+Each AI provider has different strengths and parameter requirements. The library automatically handles most of the differences, but you can optimize for specific providers:
+
+```python
+# OpenAI-specific optimization
+openai_optimized = ModelConfig(
+    provider='openai',
+    model_name='gpt-4-turbo',
+    temperature=0.7,
+    response_format={"type": "json_object"},  # Only works with OpenAI
+    seed=42  # For reproducible outputs
+)
+
+# Anthropic-specific optimization
+anthropic_optimized = ModelConfig(
+    provider='anthropic',
+    model_name='claude-3-opus-20240229',
+    temperature=0.7,
+    system="You are a synthetic data generator that creates realistic, high-quality datasets based on the provided schema."  # System prompt works best with Anthropic
+)
+```
+
+### Advanced: Direct Access to LLM Client
+
+For advanced use cases, you can access the underlying LLM client directly for additional control:
+
+```python
+from syda.llm import create_llm_client
+
+# Create a standalone LLM client
+llm_client = create_llm_client(
+    model_config=ModelConfig(
+        provider='anthropic', 
+        model_name='claude-3-opus-20240229'
+    ),
+    # API key is optional if set in environment variables
+    anthropic_api_key="your_api_key"  
+)
+
+# Define a Pydantic model for structured output
+from pydantic import BaseModel
+from typing import List
+
+class Book(BaseModel):
+    title: str
+    author: str
+    year: int
+    genre: str
+    pages: int
+
+class BookCollection(BaseModel):
+    books: List[Book]
+
+# Use the client for structured responses
+books = llm_client.client.chat.completions.create(
+    model="claude-3-opus-20240229",
+    response_model=BookCollection,  # Automatically parses the response to this model
+    messages=[{"role": "user", "content": "Generate 5 fictional sci-fi books."}]
+)
+
+# Access the structured data directly
+for book in books.books:
+    print(f"{book.title} by {book.author} ({book.year}) - {book.pages} pages")
+```
+
+This approach gives you direct control over the client while still providing structured data extraction capabilities.
+
+## Output Options
+
+Syda offers flexible output options to suit different use cases:
+
+### Multiple Schema Generation
+
+When generating data for multiple schemas using `generate_for_schemas` or `generate_for_sqlalchemy_models`, you can specify an output directory and format:
+
+```python
+# Generate and save data to CSV files (default)
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    output_dir="output_directory",
+    output_format="csv"  # Default format
+)
+
+# Generate and save data to JSON files
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    output_dir="output_directory",
+    output_format="json"
+)
+```
+
+Each schema will be saved to a separate file with the schema name as the filename. For example:
+
+* CSV format: `output_directory/customer.csv`, `output_directory/order.csv`, etc.
+* JSON format: `output_directory/customer.json`, `output_directory/order.json`, etc.
+
+The `results` dictionary will still contain all generated DataFrames, so you can both save to files and work with the data directly in your code.
+
 
 ## Configuration and Error Handling
 
