@@ -7,9 +7,9 @@ import random
 import string
 from datetime import datetime, date, timedelta
 from sqlalchemy import inspect as sqla_inspect, Column
+from typing import Dict, Optional, Any, Union
 
-
-def create_empty_dataframe(schema):
+def create_empty_dataframe(schema: Dict[str, str]) -> pd.DataFrame:
     """Create an empty pandas DataFrame with columns matching the schema types."""
     columns = {}
     for field, field_type in schema.items():
@@ -31,7 +31,7 @@ def create_empty_dataframe(schema):
     return pd.DataFrame(columns)
 
 
-def generate_random_value(field_type):
+def generate_random_value(field_type: str) -> Any:
     """Generate a random value based on field type for placeholder data."""
     if field_type == 'integer':
         return random.randint(1, 1000)
@@ -57,7 +57,11 @@ def generate_random_value(field_type):
         return ''.join(random.choice(string.ascii_letters) for _ in range(length))
 
 
-def get_schema_prompt(schema, table_name, description=None):
+def get_schema_prompt(
+    schema: Dict[str, str],
+    table_name: str,
+    description: Optional[str] = None
+) -> str:
     """Generate a prompt for the LLM based on schema information."""
     prompt = f"Generate data for {table_name}"
     if description:
@@ -65,7 +69,10 @@ def get_schema_prompt(schema, table_name, description=None):
     return prompt
 
 
-def parse_dataframe_output(text, schema):
+def parse_dataframe_output(
+    text: str,
+    schema: Dict[str, str]
+) -> pd.DataFrame:
     """Parse LLM output text into a pandas DataFrame based on schema."""
     try:
         # Try to parse as JSON
@@ -99,7 +106,10 @@ def parse_dataframe_output(text, schema):
         return create_empty_dataframe(schema)
 
 
-def save_dataframe(df, output_file):
+def save_dataframe(
+    df: pd.DataFrame,
+    output_file: str
+) -> str:
     """Save a dataframe to a file (CSV, Excel, JSON, or Parquet)."""
     # Create output directory if it doesn't exist
     output_dir = os.path.dirname(output_file)
