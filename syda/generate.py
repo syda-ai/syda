@@ -1,5 +1,21 @@
 """
 Structured synthetic data generation using LLMs with SQLAlchemy integration.
+
+This module provides the primary interface for generating synthetic structured data
+using Large Language Models (LLMs) with the option to use SQLAlchemy models.
+
+The SyntheticDataGenerator class is the main entry point for generating synthetic
+structured data. It takes in a set of schemas (either as YAML/JSON files or Python
+dicts) and a set of prompts to generate data for those schemas. The generator
+supports generating data for multiple related schemas, including automatically
+resolving foreign key dependencies.
+
+The module also provides support for generating unstructured data (such as text or
+PDF documents) using templates and LLMs. See the `syda.unstructured` module for
+more information.
+
+The library is designed to be extensible, with the ability to add new LLM providers
+and custom generators for specific data types.
 """
 
 import pandas as pd
@@ -36,9 +52,12 @@ except ImportError:
 class SyntheticDataGenerator:
     """Generator for synthetic data using LLMs."""
     
-    def __init__(self, model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
-                 openai_api_key: Optional[str] = None,
-                 anthropic_api_key: Optional[str] = None):
+    def __init__(
+        self,
+        model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
+        openai_api_key: Optional[str] = None,
+        anthropic_api_key: Optional[str] = None
+    ):
         """
         Initialize the synthetic data generator with the specified model configuration.
         
@@ -76,22 +95,17 @@ class SyntheticDataGenerator:
         self.type_generators = self.generator_manager.type_generators
         self.column_generators = self.generator_manager.column_generators
 
-    def register_generator(self, type_name: str, func: Callable[[pd.Series, str], any], column_name: Optional[str] = None):
-        """
-        Register a custom generator for a specific data type or column name.
-        
-        Args:
-            type_name: The data type this generator handles (e.g., 'number', 'text', 'foreign_key')
-            func: Function that takes (row: pd.Series, col_name: str) and returns a generated value
-            column_name: If specified, this generator only applies to the named column
-                        rather than all columns of the specified type
-        """
-        # Delegate to the generator manager
-        self.generator_manager.register_generator(type_name.lower(), func, column_name)
-
-    def _sqlalchemy_models_to_schemas(self, sqlalchemy_models):
+    def _sqlalchemy_models_to_schemas(
+        self,
+        sqlalchemy_models: Union[List[Type], Type, str],
+    ):
         """
         Convert a list of SQLAlchemy models to the schema format expected by generate_for_schemas.
+        
+        This function takes a list of SQLAlchemy model classes and converts them to the dictionary
+        format expected by generate_for_schemas. The output is a dictionary mapping schema names
+        (i.e. table names) to schema definitions, which are dictionaries containing the field
+        names and their metadata.
         
         Args:
             sqlalchemy_models: List of SQLAlchemy model classes
@@ -127,29 +141,27 @@ class SyntheticDataGenerator:
         Generate synthetic data for multiple relational SQLAlchemy models with automatic 
         dependency resolution based on foreign key relationships.
         
-        This function supports both regular SQLAlchemy models and pure template classes
-        (without SQLAlchemy tables) by converting them to schema format and then using
-        the generate_for_schemas method for data generation.
+        This function supports both regular SQLAlchemy models and models with template attributes
+        by converting them to schema format and then using the generate_for_schemas method for data generation.
         
         This function:
         1. Converts SQLAlchemy models to schema format
         2. Calls generate_for_schemas to handle the data generation
-        3. This ensures consistent handling of both regular models and template classes
         
         Args:
             sqlalchemy_models: A list of SQLAlchemy model classes, a single SQLAlchemy model class, 
                     or a string pattern to match class names
-            prompts: Optional dictionary mapping model names to custom prompts
-            sample_sizes: Optional dictionary mapping model names to sample sizes
-            output_dir: Optional directory to save files (one per model)
+            prompts: Optional dictionary mapping table names to custom prompts
+            sample_sizes: Optional dictionary mapping table names to sample sizes
+            output_dir: Optional directory to save files (one per table)
             default_sample_size: Default number of records if not specified in sample_sizes
             default_prompt: Default prompt if not specified in prompts
             custom_generators: Optional dictionary specifying custom generators for SQLAlchemy models and columns.
-                              Format: {"ModelName": {"column_name": generator_function}}
+                              Format: {"TableName": {"column_name": generator_function}}
             output_format: Format to use when saving files ('csv' or 'json')
             
         Returns:
-            Dictionary mapping model names to DataFrames of generated data
+            Dictionary mapping table names to DataFrames of generated data
         """
         # Initialize default parameters
         if prompts is None:

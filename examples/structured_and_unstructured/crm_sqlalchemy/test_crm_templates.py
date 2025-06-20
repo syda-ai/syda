@@ -54,6 +54,13 @@ def main():
             'proposal_documents': 3,
             'contract_documents': 2
         },
+        prompts={
+            'customers': "Generate a customer for the opportunity",
+            'contacts': "Generate a contact for the customer",
+            'opportunities': "Generate an opportunity for the customer",
+            'proposal_documents': "Generate a proposal document for the opportunity",
+            'contract_documents': "Generate a contract document for the opportunity"
+        },
         output_dir=output_dir
     )
     
