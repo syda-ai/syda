@@ -17,7 +17,6 @@ from .schemas import ModelConfig
 from .llm import create_llm_client, LLMClient
 from .output import save_dataframe, save_dataframes
 from .utils import (
-    sqlalchemy_model_to_schema,
     create_empty_dataframe,
     generate_random_value,
     get_schema_prompt,

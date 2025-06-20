@@ -3,8 +3,7 @@ CRM Example models using SQLAlchemy with template support.
 """
 from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, Boolean, Text
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-from syda.templates import SydaTemplate
+from sqlalchemy.orm import relationship 
 import os
 
 Base = declarative_base()

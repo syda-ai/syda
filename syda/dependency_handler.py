@@ -1,5 +1,13 @@
+"""
+This module contains the ForeignKeyHandler class, responsible for managing
+foreign key relationships and referential integrity during the data generation
+process.
+"""
+
+
 import networkx as nx
 from typing import Dict, List, Tuple, Any, Set
+from .custom_generators import GeneratorManager
 import pandas as pd
 
 
@@ -12,7 +20,7 @@ class ForeignKeyHandler:
     - Verifying referential integrity of generated data
     """
     
-    def __init__(self, generator_manager):
+    def __init__(self, generator_manager: GeneratorManager):
         """
         Initialize the ForeignKeyHandler.
         
@@ -21,7 +29,12 @@ class ForeignKeyHandler:
         """
         self.generator_manager = generator_manager
     
-    def apply_foreign_keys(self, schema_name, extracted_foreign_keys, results):
+    def apply_foreign_keys(
+        self,
+        schema_name: str,
+        extracted_foreign_keys: Dict[str, Dict[str, Tuple[str, str]]],
+        results: Dict[str, pd.DataFrame]
+    ) -> None:
         """
         Apply foreign key constraints to the specified schema.
         
@@ -95,7 +108,11 @@ class ForeignKeyHandler:
                 for fk_column, parent_column in fk_list:
                     print(f"⚠️ Warning: Parent schema {parent_schema} not available for foreign key {schema_name}.{fk_column}")
     
-    def verify_referential_integrity(self, results, extracted_foreign_keys):
+    def verify_referential_integrity(
+        self,
+        results: Dict[str, pd.DataFrame],
+        extracted_foreign_keys: Dict[str, Dict[str, Tuple[str, str]]]
+    ) -> bool:
         """
         Verify that all foreign key relationships are valid in the generated data.
         
@@ -157,7 +174,10 @@ class DependencyHandler:
     """Handles dependency resolution for related schemas."""
     
     @staticmethod
-    def build_dependency_graph(nodes, dependencies):
+    def build_dependency_graph(
+        nodes: List[str],
+        dependencies: Dict[str, List[str]]
+    ) -> nx.DiGraph:
         """
         Build a directed graph of dependencies.
         
@@ -230,7 +250,9 @@ class DependencyHandler:
         return all_dependencies
     
     @staticmethod
-    def determine_generation_order(dependency_graph):
+    def determine_generation_order(
+        dependency_graph: nx.DiGraph
+    ) -> List[str]:
         """
         Determine the optimal generation order based on a dependency graph.
         
