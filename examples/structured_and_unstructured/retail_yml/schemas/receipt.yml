@@ -4,6 +4,7 @@ __name__: Receipt
 __depends_on__: [Product, Transaction, Customer]
 __foreign_keys__:
   customer_name: [Customer, first_name]
+  customer_id: [Customer, id]
   
 __template_source__: /home/ramkumar2606/syda-fresh/examples/structured_and_unstructured/retail_yml/templates/receipt.html
 __input_file_type__: html
@@ -56,13 +57,9 @@ customer_name:
   description: Full name of the customer
 
 customer_id:
-  type: string
-  pattern: '^CUST-\d{6}$'
-  length: 11
+  type: integer
   description: Customer ID number
-  references: 
-    table: Customer
-    column: id
+
 
 # Payment information
 payment_method:

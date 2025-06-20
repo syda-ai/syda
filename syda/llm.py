@@ -49,7 +49,7 @@ class LLMClient:
         # Initialize the client
         self.client = self._initialize_client()
         
-    def get_model_kwargs(self):
+    def get_model_kwargs(self) -> Dict[str, Any]:
         """
         Get model kwargs based on the model configuration.
         
@@ -88,7 +88,7 @@ class LLMClient:
             
         return kwargs
         
-    def _initialize_client(self):
+    def _initialize_client(self) -> Any:
         """
         Initialize and return the appropriate LLM client based on the model configuration.
         
