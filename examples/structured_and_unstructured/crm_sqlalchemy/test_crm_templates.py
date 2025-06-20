@@ -51,8 +51,8 @@ def main():
             'customers': 5,
             'contacts': 10,
             'opportunities': 8,
-            'ProposalDocument': 3,
-            'ContractDocument': 2
+            'proposal_documents': 3,
+            'contract_documents': 2
         },
         output_dir=output_dir
     )

@@ -1,12 +1,66 @@
+"""
+Custom data generators for structured synthetic data generation.
+
+This module provides a set of custom data generators that can be used
+to generate synthetic data for structured data models.
+
+The custom generators are functions that take in a row of data
+and a column name, and return a generated value for that column.
+
+The generators are registered with the GeneratorManager, which
+provides a way to look up generators by column name.
+
+"""
+
+
 import random
 import pandas as pd
 from typing import Dict, List, Tuple, Any, Callable, Optional, Union
 
 class GeneratorManager:
-    """Manages custom generators for data generation."""
+    """
+    Manages custom generators for data generation.
+
+    The GeneratorManager is responsible for registering custom data generators
+    for structured data models. It provides a way to look up generators by type
+    or column name.
+
+    The custom generators are functions that take in a row of data and a column
+    name, and return a generated value for that column.
+
+    The generators are registered with the GeneratorManager, which provides a way
+    to look up generators by column name.
+
+    The GeneratorManager is used by the SyntheticDataGenerator to generate
+    synthetic data for structured data models.
+
+    Args:
+        type_name: The data type this generator handles
+        func: The custom generator function
+        column_name: The column name this generator should be registered for
+
+    Attributes:
+        type_generators: A dictionary mapping data types to custom generators
+        column_generators: A dictionary mapping column names to custom generators
+    """
     
     def __init__(self):
-        """Initialize the generator manager."""
+        """
+        Initialize the generator manager.
+
+        The GeneratorManager is responsible for registering custom data generators
+        for structured data models. It provides a way to look up generators by type
+        or column name.
+
+        The custom generators are functions that take in a row of data and a column
+        name, and return a generated value for that column.
+
+        The generators are registered with the GeneratorManager, which provides a way
+        to look up generators by column name.
+
+        The GeneratorManager is used by the SyntheticDataGenerator to generate
+        synthetic data for structured data models.
+        """
         # Registry for custom generators by type: type_name -> fn(row: pd.Series, col_name: str) -> value
         self.type_generators: Dict[str, Callable[[pd.Series, str], any]] = {}
         
@@ -22,7 +76,9 @@ class GeneratorManager:
             type_name: The data type this generator handles (e.g., 'number', 'text', 'foreign_key')
             func: Function that takes (row: pd.Series, col_name: str) and returns a generated value
             column_name: If specified, this generator only applies to the named column
-                        rather than all columns of the specified type
+            
+        Returns:
+            None
         """
         if column_name:
             self.column_generators[column_name] = func
@@ -44,6 +100,9 @@ class GeneratorManager:
         
         Args:
             state: Tuple of (type_generators, column_generators)
+            
+        Returns:
+            None
         """
         self.type_generators, self.column_generators = state
     
@@ -56,6 +115,9 @@ class GeneratorManager:
             fk_columns: Dictionary mapping foreign key columns to (parent_schema, parent_column) tuples
             results: Dictionary of already generated dataframes
             sample_size: Number of records to generate for this schema
+            
+        Returns:
+            None
         """
         if not fk_columns:
             return
@@ -84,7 +146,13 @@ class GeneratorManager:
                 for fk_column, parent_column in fk_list:
                     self._register_simple_fk_generator(schema_name, parent_schema, parent_df, fk_column, parent_column)
     
-    def _register_consistent_fk_generators(self, schema_name, parent_schema, parent_df, fk_list):
+    def _register_consistent_fk_generators(
+        self, 
+        schema_name: str, 
+        parent_schema: str, 
+        parent_df: pd.DataFrame, 
+        fk_list: List[Tuple[str, str]]
+    ):
         """
         Register foreign key generators that ensure consistency across multiple columns 
         referencing the same parent table.
@@ -94,6 +162,9 @@ class GeneratorManager:
             parent_schema: Name of the parent schema
             parent_df: DataFrame containing parent data
             fk_list: List of (fk_column, parent_column) tuples
+            
+        Returns:
+            None
         """
         print(f"Ensuring consistent foreign keys for {len(fk_list)} columns in {schema_name} referencing {parent_schema}")
         
@@ -117,7 +188,12 @@ class GeneratorManager:
             print(f"Registering consistent foreign key generator for {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
             self.register_generator('foreign_key', fk_generator, column_name=fk_column)
     
-    def _create_consistent_generator(self, col, state, parent_col):
+    def _create_consistent_generator(
+        self, 
+        col: str, 
+        state: Dict, 
+        parent_col: str
+    ):
         """
         Create a generator function that produces consistent foreign key values
         for a given row across multiple columns referencing the same parent.
@@ -160,7 +236,14 @@ class GeneratorManager:
         
         return generator
     
-    def _register_simple_fk_generator(self, schema_name, parent_schema, parent_df, fk_column, parent_column):
+    def _register_simple_fk_generator(
+        self, 
+        schema_name: str, 
+        parent_schema: str, 
+        parent_df: pd.DataFrame, 
+        fk_column: str, 
+        parent_column: str
+    ):
         """
         Register a simple foreign key generator that randomly selects from valid parent values.
         
@@ -185,8 +268,13 @@ class GeneratorManager:
         print(f"Registering foreign key generator for {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
         self.register_generator('foreign_key', fk_generator, column_name=fk_column)
         
-    def apply_custom_generators(self, df: pd.DataFrame, model_name: str, 
-                               custom_generators: Dict, parent_dfs: Optional[Dict] = None):
+    def apply_custom_generators(
+        self, 
+        df: pd.DataFrame, 
+        model_name: str, 
+        custom_generators: Dict, 
+        parent_dfs: Optional[Dict] = None
+    ) -> pd.DataFrame:
         """
         Apply custom generators to the generated data.
         
@@ -222,7 +310,11 @@ class GeneratorManager:
         
         return df
     
-    def apply_type_generators(self, df: pd.DataFrame, llm_schema: Dict):
+    def apply_type_generators(
+        self, 
+        df: pd.DataFrame, 
+        llm_schema: Dict
+    ) -> pd.DataFrame:
         """
         Apply custom type-based and column-specific generators to the data.
         

@@ -1,9 +1,9 @@
 id,customer_id,name,value,stage,probability,expected_close_date,description
-1,5,Enterprise Cloud Migration Project,250000.5,Proposal,65.5,2024-03-15,"Large-scale cloud migration for a financial services company, involving comprehensive infrastructure redesign and cloud strategy optimization."
-2,5,Cybersecurity Solutions Implementation,175000.75,Negotiation,80.0,2024-02-28,"Advanced cybersecurity package for a healthcare network, including threat detection, incident response, and comprehensive security audit."
-3,3,AI-Powered Analytics Platform,350000.0,Qualification,45.5,2024-04-30,Cutting-edge AI analytics solution for a retail chain to improve customer insights and operational efficiency.
-4,2,Digital Transformation Consulting,125000.25,Lead,30.0,2024-05-15,Comprehensive digital transformation strategy for a manufacturing company looking to modernize their business processes.
-5,3,Custom ERP System Development,450000.0,Negotiation,75.5,2024-03-01,Tailored Enterprise Resource Planning system for a global logistics company with complex operational requirements.
-6,5,IoT Smart City Infrastructure,620000.5,Proposal,55.0,2024-06-30,"Comprehensive IoT infrastructure project for urban management, including smart sensors, data analytics, and city-wide connectivity solutions."
-7,5,E-commerce Platform Upgrade,95000.0,Qualification,40.5,2024-04-15,"Modernization of existing e-commerce platform with enhanced user experience, payment integrations, and scalability improvements."
-8,5,Machine Learning Training Program,85000.75,Lead,25.0,2024-05-30,Comprehensive machine learning training and consulting program for a tech startup looking to build internal AI capabilities.
+1,3,Enterprise Cloud Migration Project,250000.5,Proposal,65.5,2024-03-15,"Large-scale cloud migration project for a financial services company, involving comprehensive infrastructure redesign and cloud architecture implementation."
+2,2,Cybersecurity Solution Deployment,175000.75,Negotiation,82.3,2024-02-28,"Advanced cybersecurity solution for a mid-sized healthcare provider, including threat detection, incident response, and compliance monitoring systems."
+3,4,AI-Powered Analytics Platform,350000.0,Qualification,45.2,2024-04-30,"Cutting-edge AI analytics platform for a global retail chain, designed to optimize inventory management and customer insights."
+4,4,Network Infrastructure Upgrade,125000.25,Lead,30.0,2024-05-15,"Comprehensive network infrastructure upgrade for a regional telecommunications company, including hardware replacement and network optimization."
+5,2,Customer Relationship Management System,200000.0,Closed Won,100.0,2024-01-20,"Full-scale CRM implementation for a growing marketing agency, including custom integrations and user training."
+6,1,IoT Smart Manufacturing Solution,275000.75,Proposal,55.8,2024-04-10,Internet of Things (IoT) solution for a manufacturing company to improve production efficiency and real-time monitoring.
+7,2,E-commerce Platform Modernization,150000.5,Closed Lost,0.0,2024-01-15,"Proposed modernization of e-commerce platform for an online retailer, ultimately not proceeding due to budget constraints."
+8,2,Data Center Consolidation Project,425000.0,Negotiation,75.5,2024-03-31,"Strategic data center consolidation and optimization project for a multinational technology corporation, aiming to reduce operational costs and improve infrastructure efficiency."

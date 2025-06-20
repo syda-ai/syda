@@ -1,6 +1,6 @@
 id,name,industry,annual_revenue,employees,website,address,city,state,zip_code,status
-1,TechInnovate Solutions,Information Technology,5750000.5,250,https://www.techinnovate.com,1234 Silicon Valley Drive,San Jose,CA,95110,Active
-2,GreenEnergy Dynamics,Renewable Energy,12300000.75,475,https://www.greenenergydynamics.com,567 Sustainable Way,Austin,TX,78701,Active
-3,HealthCare Innovations Inc.,Healthcare,8900000.25,350,https://www.healthcareinnovations.org,890 Medical Center Boulevard,Boston,MA,02115,Prospect
-4,Global Manufacturing Systems,Manufacturing,15600000.0,650,https://www.globalmanufacturing.com,2345 Industrial Park Road,Chicago,IL,60601,Active
-5,Financial Strategies Group,Financial Services,7200000.9,180,https://www.financialstrategies.net,678 Wall Street Plaza,New York,NY,10005,Inactive
+1,TechInnovate Solutions,Information Technology,5750000.5,250,https://techinnovate.com,1234 Silicon Valley Drive,San Jose,CA,95110,Active
+2,GreenEnergy Dynamics,Renewable Energy,12300000.75,450,https://greenenergydynamics.com,5678 Sustainability Lane,Austin,TX,78701,Active
+3,HealthCare Innovations Inc.,Healthcare,8900000.25,175,https://hcinnovations.com,9012 Medical Center Road,Boston,MA,02115,Prospect
+4,Global Manufacturing Systems,Manufacturing,22500000.0,750,https://globalmfgsystems.com,3456 Industrial Parkway,Chicago,IL,60601,Active
+5,Financial Strategies Group,Financial Services,15600000.5,300,https://financialstrategies.com,7890 Wall Street Plaza,New York,NY,10005,Inactive
