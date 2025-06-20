@@ -7,7 +7,11 @@ import pandas as pd
 from typing import Dict, Optional, Union, List
 
 
-def save_dataframe(df: pd.DataFrame, file_path: str, format: Optional[str] = None) -> str:
+def save_dataframe(
+    df: pd.DataFrame,
+    file_path: str,
+    format: Optional[str] = None
+) -> str:
     """
     Save a single DataFrame to a file with format detection and validation.
     
@@ -50,7 +54,11 @@ def save_dataframe(df: pd.DataFrame, file_path: str, format: Optional[str] = Non
     return file_path
 
 
-def save_dataframes(data_dict: Dict[str, pd.DataFrame], output_dir: str, format: str = 'csv') -> List[str]:
+def save_dataframes(
+    data_dict: Dict[str, pd.DataFrame],
+    output_dir: str,
+    format: str = 'csv'
+) -> List[str]:
     """
     Save multiple DataFrames to files in a directory.
     
