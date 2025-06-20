@@ -36,7 +36,10 @@ class SchemaLoader:
         """Initialize the schema loader."""
         pass
         
-    def load_schema(self, schema_source: Union[Dict, str, Type], schema_name: Optional[str] = None) -> Tuple[Dict, Dict, Optional[str], Dict]:
+    def load_schema(
+        self, 
+        schema_source: Union[Dict, str, Type], 
+        schema_name: Optional[str] = None) -> Tuple[Dict, Dict, Optional[str], Dict, List]:
         """
         Load and process a schema from various source formats.
         
@@ -58,6 +61,7 @@ class SchemaLoader:
                 }
                 - table_description: "User account information for the system"
                 - foreign_keys: {'user_id': ('User', 'id')}
+                - depends_on_schemas: ['User', 'Department']
         """
         # Case 1: Dictionary schema
         if isinstance(schema_source, dict):
@@ -79,6 +83,8 @@ class SchemaLoader:
             if not os.path.exists(schema_source):
                 raise ValueError(f"Schema file not found: {schema_source}")
             schema_dict = self._load_schema_file(schema_source)
+            print("schema_dict", schema_dict)
+           # exit(0)
             try:
                 validate_schema(schema_dict)
             except ValueError as e:
@@ -86,19 +92,12 @@ class SchemaLoader:
                 raise ValueError(f"Schema validation failed for '{schema_source}': {str(e)}")
             return self._load_dict_schema(schema_dict)
         
-        # Case 4: Template class - check for __template__ attribute or SydaTemplate inheritance
-        elif isinstance(schema_source, type) and (
-            hasattr(schema_source, '__template__') or 
-            any('SydaTemplate' == base.__name__ for base in schema_source.__mro__ if hasattr(base, '__name__'))
-        ):
-            return self._load_template_class(schema_source)
-        
-        # Case 5: Unsupported type
+        # Case 4: Unsupported type
         else:
             schema_type = type(schema_source).__name__
             raise ValueError(f"Unsupported schema type: {schema_type} for schema {schema_name or 'unknown'}")
     
-    def _load_dict_schema(self, schema_dict: Dict) -> Tuple[Dict, Dict, Optional[str], Dict]:
+    def _load_dict_schema(self, schema_dict: Dict) -> Tuple[Dict, Dict, Optional[str], Dict, List]:
         """
         Process a dictionary schema.
         
@@ -106,18 +105,20 @@ class SchemaLoader:
             schema_dict: Dictionary schema definition
             
         Returns:
-            Tuple of (table_schema, metadata, table_description, foreign_keys)
+            Tuple of (table_schema, metadata, table_description, foreign_keys, depends_on_schemas)
         """
         table_schema = {}
         metadata = {}
         table_description = None
         foreign_keys = {}
-        
+        depends_on_schemas = []
         # Extract table description if present
         if "__description__" in schema_dict:
             table_description = schema_dict["__description__"]
         elif "__table_description__" in schema_dict:
             table_description = schema_dict["__table_description__"]
+        if "__depends_on__" in schema_dict:
+            depends_on_schemas = schema_dict["__depends_on__"]
         
         # Extract foreign keys if present
         if "__foreign_keys__" in schema_dict:
@@ -184,104 +185,7 @@ class SchemaLoader:
                 if field_metadata:
                     metadata[field_name] = field_metadata
         
-        return table_schema, metadata, table_description, foreign_keys, template_fields
-    
-    def _load_sqlalchemy_model(self, model_class: Type) -> Tuple[Dict, Dict, Optional[str], Dict]:
-        """
-        Process a SQLAlchemy model class.
-        
-        Args:
-            model_class: SQLAlchemy model class
-            
-        Returns:
-            Tuple of (table_schema, metadata, table_description, foreign_keys)
-        """
-        if not SQLALCH_INSTALLED:
-            raise ImportError("SQLAlchemy is required but not installed. Install it with 'pip install sqlalchemy'.")
-        
-        table_schema = {}
-        metadata = {}
-        foreign_keys = {}
-        
-        # Get table name from model
-        table_name = model_class.__table__.name
-        metadata['__table_name__'] = table_name
-        
-        # Get docstring as description
-        table_description = model_class.__doc__ or f"{table_name} data"
-        
-        # Use SQLAlchemy inspection to get columns
-        mapper = sqla_inspect(model_class)
-        
-        # Process each column
-        for column in mapper.columns:
-            # Get column type
-            column_type = column.type.__class__.__name__.lower()
-            
-            # Map SQLAlchemy types to schema types
-            if column_type in ('integer', 'biginteger', 'smallinteger'):
-                table_schema[column.name] = 'integer'
-            elif column_type in ('float', 'numeric', 'decimal'):
-                table_schema[column.name] = 'float'
-            elif column_type == 'boolean':
-                table_schema[column.name] = 'boolean'
-            elif column_type == 'date':
-                table_schema[column.name] = 'date'
-            elif column_type == 'datetime':
-                table_schema[column.name] = 'datetime'
-            elif column_type in ('text', 'string', 'unicode', 'varchar'):
-                table_schema[column.name] = 'text'
-            elif column_type == 'json':
-                table_schema[column.name] = 'json'
-            else:
-                # Default to text for unknown types
-                table_schema[column.name] = 'text'
-            
-            # Add column metadata
-            field_metadata = {}
-            
-            # Add description if available (from comment)
-            if column.comment:
-                field_metadata['description'] = column.comment
-            
-            # Check for foreign keys
-            if column.foreign_keys:
-                for fk in column.foreign_keys:
-                    if fk.column is not None:
-                        # Extract table and column name from foreign key target
-                        target_table = fk.column.table.name
-                        target_column = fk.column.name
-                        foreign_keys[column.name] = (target_table, target_column)
-                        # Mark field as foreign_key type
-                        table_schema[column.name] = 'foreign_key'
-                        break
-            
-            # Add constraints
-            constraints = {}
-            
-            # Check for nullable
-            constraints['nullable'] = column.nullable
-            
-            # Check for primary key
-            if column.primary_key:
-                constraints['primary_key'] = True
-            
-            # Check for unique constraint
-            if column.unique:
-                constraints['unique'] = True
-            
-            # Add length constraint for string types
-            if hasattr(column.type, 'length') and column.type.length is not None:
-                constraints['max_length'] = column.type.length
-            
-            if constraints:
-                field_metadata['constraints'] = constraints
-            
-            # Add field metadata if any was collected
-            if field_metadata:
-                metadata[column.name] = field_metadata
-        
-        return table_schema, metadata, table_description, foreign_keys
+        return table_schema, metadata, table_description, foreign_keys, template_fields, depends_on_schemas
     
     def _load_schema_file(self, file_path: str) -> Tuple[Dict, Dict, Optional[str], Dict]:
         """
@@ -320,158 +224,184 @@ class SchemaLoader:
         # Unsupported file type
         else:
             raise ValueError(f"Unsupported schema file type: {file_ext} for file {file_path}")
-            
-    def _load_template_class(self, template_class: Type) -> Tuple[Dict, Dict, Optional[str], Dict]:
+         
+    def _load_sqlalchemy_model(self, model_class: Type) -> Dict:
         """
-        Process a template class derived from SydaTemplate or with __template__ attribute.
+        Process a SQLAlchemy model class. Can also process template models that extend the Base class.
         
         Args:
-            template_class: A class that represents a template
+            model_class: SQLAlchemy model class (or template model class)
             
         Returns:
-            Tuple of (table_schema, metadata, table_description, foreign_keys)
+            Dictionary containing the schema definition
         """
-        table_schema = {}
-        metadata = {}
+        if not SQLALCH_INSTALLED:
+            raise ImportError("SQLAlchemy is required but not installed. Install it with 'pip install sqlalchemy'.")
+        
+        schema_dict = {}
         foreign_keys = {}
         
-        # Get the class name as table name
-        template_name = template_class.__name__
+        # Get table name from model
+        if hasattr(model_class, '__table__'):
+            table_name = model_class.__table__.name
+        else:
+            table_name = model_class.__name__
+        schema_dict['__table_name__'] = table_name
         
-        # Get the class docstring as description
-        table_description = template_class.__doc__ or f"{template_name} template"
+        # Get docstring as description
+        table_description = model_class.__doc__ or f"{table_name} data"
+        schema_dict['__description__'] = table_description
         
-        # Extract special metadata attributes
-        if hasattr(template_class, '__depends_on__'):
-            metadata['__depends_on__'] = template_class.__depends_on__
+        # Check if this is a template model
+        is_template = hasattr(model_class, '__template__') and model_class.__template__
         
-        if hasattr(template_class, '__template_source__'):
-            metadata['__template_source__'] = template_class.__template_source__
-            # Add as field for template processing
-            table_schema['__template_source__'] = 'text'
+        # Add template-specific flag and attributes if it's a template model
+        if is_template:
+            schema_dict['__template__'] = True
             
-        if hasattr(template_class, '__input_file_type__'):
-            metadata['__input_file_type__'] = template_class.__input_file_type__
-            # Add as field for template processing
-            table_schema['__input_file_type__'] = 'text'
-            
-        if hasattr(template_class, '__output_file_type__'):
-            metadata['__output_file_type__'] = template_class.__output_file_type__
-            # Add as field for template processing
-            table_schema['__output_file_type__'] = 'text'
+            # Get template-specific attributes
+            if hasattr(model_class, '__template_source__'):
+                schema_dict['__template_source__'] = model_class.__template_source__
+                
+            if hasattr(model_class, '__input_file_type__'):
+                schema_dict['__input_file_type__'] = model_class.__input_file_type__
+                
+            if hasattr(model_class, '__output_file_type__'):
+                schema_dict['__output_file_type__'] = model_class.__output_file_type__
         
-        # Add __template__ flag to metadata
-        metadata['__template__'] = True
+        # Get dependencies if defined
+        if hasattr(model_class, '__depends_on__'):
+            schema_dict['__depends_on__'] = model_class.__depends_on__
         
-        # Process class attributes that might be SQLAlchemy Column objects
-        for attr_name in dir(template_class):
-            # Skip private attributes, methods, and special attributes
-            if attr_name.startswith('_') or callable(getattr(template_class, attr_name)) or attr_name in [
-                '__template__', '__depends_on__', '__template_source__', 
-                '__input_file_type__', '__output_file_type__'
-            ]:
+        # Process columns using SQLAlchemy inspection if possible
+        columns = []
+        try:
+            # Use SQLAlchemy inspection to get columns
+            mapper = sqla_inspect(model_class)
+            columns = mapper.columns
+        except Exception as e:
+            # If inspection fails (e.g., for template models without proper mapping),
+            # try to find columns as attributes
+            for attr_name in dir(model_class):
+                if not attr_name.startswith('_') and not callable(getattr(model_class, attr_name)):
+                    attr = getattr(model_class, attr_name)
+                    if hasattr(attr, 'type') and hasattr(attr.type, 'python_type'):
+                        columns.append(attr)
+        
+        # Process each column
+        for column in columns:
+            # Skip if this isn't actually a column
+            if not hasattr(column, 'type') or not hasattr(column.type, 'python_type'):
                 continue
                 
-            attr = getattr(template_class, attr_name)
+            column_name = getattr(column, 'name', None) or getattr(column, 'key', None)
+            if not column_name:
+                continue
+                
+            # Get column type
+            column_type = column.type.__class__.__name__.lower()
             
-            # Check if it's a SQLAlchemy Column
-            if hasattr(attr, 'type') and hasattr(attr.type, 'python_type'):
-                # Get the column type
-                column_type = attr.type.__class__.__name__.lower()
+            # Initialize field dictionary
+            field_dict = {}
+            
+            # Map SQLAlchemy types to schema types
+            if column_type in ('integer', 'biginteger', 'smallinteger'):
+                field_dict['type'] = 'integer'
+            elif column_type in ('float', 'numeric', 'decimal'):
+                field_dict['type'] = 'float'
+            elif column_type == 'boolean':
+                field_dict['type'] = 'boolean'
+            elif column_type == 'date':
+                field_dict['type'] = 'date'
+            elif column_type == 'datetime':
+                field_dict['type'] = 'datetime'
+            elif column_type in ('text', 'string', 'unicode', 'varchar'):
+                field_dict['type'] = 'text'
+            elif column_type == 'json':
+                field_dict['type'] = 'json'
+            else:
+                # Default to text for unknown types
+                field_dict['type'] = 'text'
+            
+            # Add description if available (from comment)
+            if hasattr(column, 'comment') and column.comment:
+                field_dict['description'] = column.comment
+            
+            # Handle foreign keys
+            if hasattr(column, 'foreign_keys') and column.foreign_keys:
+                try:
+                    for fk in column.foreign_keys:
+                        if hasattr(fk, 'column') and fk.column is not None:
+                            # Extract table and column name from foreign key target
+                            target_table = fk.column.table.name
+                            target_column = fk.column.name
+                            foreign_keys[column_name] = (target_table, target_column)
+                            # Mark field as foreign_key type
+                            field_dict['type'] = 'foreign_key'
+                            break
+                except Exception as e:
+                    # Try to infer foreign key from name (e.g., user_id -> users.id)
+                    if column_name.endswith('_id'):
+                        target_entity = column_name[:-3]  # Remove '_id' suffix
+                        foreign_keys[column_name] = (target_entity + 's', 'id')  # Assume plural table name
+                        field_dict['type'] = 'foreign_key'
+            
+            # Add constraints
+            constraints = {}
+            
+            # Check for primary key
+            if hasattr(column, 'primary_key') and column.primary_key:
+                constraints['primary_key'] = True
+            
+            # Check for nullable
+            if hasattr(column, 'nullable'):
+                if not column.nullable:
+                    constraints['not_null'] = True
+            
+            # Check for unique constraint
+            if hasattr(column, 'unique') and column.unique:
+                constraints['unique'] = True
+            
+            # Add length constraint for string types
+            if hasattr(column.type, 'length') and column.type.length is not None:
+                constraints['length'] = column.type.length
+            
+            # Add numeric constraints if available
+            if hasattr(column.type, 'precision') and column.type.precision is not None:
+                constraints['precision'] = column.type.precision
+            if hasattr(column.type, 'scale') and column.type.scale is not None:
+                constraints['scale'] = column.type.scale
                 
-                # Map SQLAlchemy types to schema types
-                if column_type in ('integer', 'biginteger', 'smallinteger'):
-                    table_schema[attr_name] = 'integer'
-                elif column_type in ('float', 'numeric', 'decimal'):
-                    table_schema[attr_name] = 'float'
-                elif column_type == 'boolean':
-                    table_schema[attr_name] = 'boolean'
-                elif column_type == 'date':
-                    table_schema[attr_name] = 'date'
-                elif column_type == 'datetime':
-                    table_schema[attr_name] = 'datetime'
-                elif column_type == 'text':
-                    table_schema[attr_name] = 'text'
-                else:
-                    table_schema[attr_name] = 'text'
+            # Add min/max if defined in column info
+            if hasattr(column, 'info'):
+                if 'min' in column.info:
+                    constraints['min'] = column.info['min']
+                if 'max' in column.info:
+                    constraints['max'] = column.info['max']
+                    
+            if constraints:
+                field_dict['constraints'] = constraints
                 
-                # Add column metadata
-                field_metadata = {}
-                
-                # Add description if available (from comment)
-                if hasattr(attr, 'comment') and attr.comment:
-                    field_metadata['description'] = attr.comment
-                
-                # Check for foreign keys
-                if hasattr(attr, 'foreign_keys') and attr.foreign_keys:
-                    try:
-                        for fk in attr.foreign_keys:
-                            # Safely check if we can extract column info
-                            try:
-                                if hasattr(fk, 'column') and fk.column is not None:
-                                    # Extract table and column name from foreign key target
-                                    target_table = fk.column.table.name
-                                    target_column = fk.column.name
-                                    foreign_keys[attr_name] = (target_table, target_column)
-                                    # Mark field as foreign_key type
-                                    table_schema[attr_name] = 'foreign_key'
-                                    print(f"Found template class foreign key: {attr_name} -> {target_table}.{target_column}")
-                                    break
-                            except Exception as e:
-                                # Try to extract from the attribute name - common pattern is field_id -> field.id
-                                if attr_name.endswith('_id'):
-                                    target_entity = attr_name[:-3]  # Remove '_id' suffix
-                                    foreign_keys[attr_name] = (target_entity + 's', 'id')  # Assume plural table name and 'id' field
-                                    table_schema[attr_name] = 'foreign_key'
-                                    print(f"Inferred foreign key from name: {attr_name} -> {target_entity + 's'}.id")
-                    except Exception as e:
-                        print(f"Warning: Error processing foreign keys for {attr_name}: {e}")
-                        # Handle explicitly declared foreign keys using ForeignKey string notation if available
-                        if hasattr(attr, 'target') and hasattr(attr.target, 'name') and '.' in attr.target.name:
-                            try:
-                                target_parts = attr.target.name.split('.')
-                                if len(target_parts) == 2:
-                                    target_table, target_column = target_parts
-                                    foreign_keys[attr_name] = (target_table, target_column)
-                                    table_schema[attr_name] = 'foreign_key'
-                                    print(f"Using string-based foreign key: {attr_name} -> {target_table}.{target_column}")
-                            except Exception:
-                                pass
-                
-                # Add constraints
-                constraints = {}
-                
-                # Check for nullable
-                if hasattr(attr, 'nullable'):
-                    constraints['nullable'] = attr.nullable
-                
-                # Check for primary key
-                if hasattr(attr, 'primary_key') and attr.primary_key:
-                    constraints['primary_key'] = True
-                
-                # Check for unique constraint
-                if hasattr(attr, 'unique') and attr.unique:
-                    constraints['unique'] = True
-                
-                # Add length constraint for string types
-                if column_type in ('string', 'varchar', 'text') and hasattr(attr.type, 'length') and attr.type.length is not None:
-                    constraints['max_length'] = attr.type.length
-                
-                if constraints:
-                    field_metadata['constraints'] = constraints
-                
-                # Add field metadata if any was collected
-                if field_metadata:
-                    metadata[attr_name] = field_metadata
-        
-        # Handle foreign key extraction from template class method if available
-        if hasattr(template_class, 'get_foreign_keys') and callable(getattr(template_class, 'get_foreign_keys')):
+            # Add field to schema dictionary
+            schema_dict[column_name] = field_dict
+            
+        # Handle template-specific foreign keys extraction if it's a template model
+        if is_template and hasattr(model_class, 'get_foreign_keys') and callable(getattr(model_class, 'get_foreign_keys')):
             try:
-                template_foreign_keys = template_class.get_foreign_keys()
+                template_foreign_keys = model_class.get_foreign_keys()
                 for fk_field, fk_info in template_foreign_keys.items():
+                    # Update existing field to be a foreign key
+                    if fk_field in schema_dict:
+                        schema_dict[fk_field]['type'] = 'foreign_key'
+                    
+                    # Add foreign key relationship
                     foreign_keys[fk_field] = (fk_info['target_table'], fk_info['target_column'])
                     print(f"Using template-defined foreign key: {fk_field} -> {fk_info['target_table']}.{fk_info['target_column']}")
             except Exception as e:
                 print(f"Warning: Error extracting foreign keys from template class: {e}")
-        
-        return table_schema, metadata, table_description, foreign_keys
+            
+        # Add foreign keys to schema if any
+        if foreign_keys:
+            schema_dict['__foreign_keys__'] = foreign_keys
+            
+        return schema_dict

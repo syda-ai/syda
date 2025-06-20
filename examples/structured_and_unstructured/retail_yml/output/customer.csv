@@ -1,0 +1,11 @@
+id,first_name,last_name,email,phone,address,city,state,postal_code,country,date_registered,loyalty_points,last_purchase_date
+12345,Emma,Johnson,emma.johnson@example.com,+1-555-123-4567,1234 Maple Street,Austin,Texas,78701,United States,2022-03-15,5250,2023-06-22
+12346,Liam,Chen,liam.chen@example.net,+1-555-987-6543,567 Oak Avenue,Vancouver,British Columbia,V6B 1A1,Canada,2021-11-05,8750,2023-07-01
+12347,Sophia,Rodriguez,sophia.rodriguez@example.org,+52-555-234-5678,789 Calle Principal,Guadalajara,Jalisco,44100,Mexico,2022-09-20,3500,2023-05-18
+12348,Oliver,Smith,oliver.smith@example.co.uk,+44-555-678-9012,22 Baker Street,London,Greater London,NW1 6XE,United Kingdom,2023-01-10,1250,2023-07-05
+12349,Ava,Williams,ava.williams@example.com,+1-555-456-7890,456 Pine Road,Seattle,Washington,98101,United States,2022-07-30,6500,2023-06-15
+12350,Noah,Brown,noah.brown@example.com.au,+61-555-345-6789,789 Eucalyptus Lane,Sydney,New South Wales,2000,Australia,2022-12-05,4750,2023-06-30
+12351,Isabella,Garcia,isabella.garcia@example.net,+1-555-789-0123,234 Maple Drive,Toronto,Ontario,M5V 2T6,Canada,2023-02-14,2500,2023-07-03
+12352,Ethan,Miller,ethan.miller@example.org,+1-555-234-5678,567 Sunset Boulevard,Los Angeles,California,90001,United States,2022-05-22,9250,2023-06-25
+12353,Mia,Taylor,mia.taylor@example.co.uk,+44-555-901-2345,11 Royal Crescent,Manchester,Greater Manchester,M1 1AE,United Kingdom,2022-10-18,5750,2023-07-02
+12354,Lucas,Anderson,lucas.anderson@example.com.au,+61-555-678-9012,456 Kangaroo Street,Melbourne,Victoria,3000,Australia,2023-04-07,3250,2023-06-28

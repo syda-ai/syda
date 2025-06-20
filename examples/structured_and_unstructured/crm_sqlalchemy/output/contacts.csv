@@ -1,0 +1,11 @@
+id,customer_id,first_name,last_name,email,phone,position,is_primary
+1,2,John,Smith,john.smith@techcorp.com,+1-555-123-4567,Chief Technology Officer,
+2,1,Emily,Johnson,emily.johnson@globalinc.net,+44-20-7946-0958,Sales Director,
+3,1,Michael,Wong,michael.wong@asiapacific.com,+86-10-6532-1890,Operations Manager,
+4,4,Sarah,Miller,sarah.miller@techcorp.com,+1-555-987-6543,IT Manager,
+5,5,David,Garcia,david.garcia@innovatech.org,+34-91-123-4567,Research Lead,
+6,2,Anna,Kowalski,anna.kowalski@globalinc.net,+48-22-345-6789,Finance Manager,
+7,2,Robert,Kim,robert.kim@startupsolutions.io,+82-2-3456-7890,Founder & CEO,
+8,2,Maria,Rodriguez,maria.rodriguez@asiapacific.com,+52-55-8765-4321,Marketing Coordinator,
+9,1,Thomas,Mueller,thomas.mueller@innovatech.org,+49-30-9876-5432,Product Manager,
+10,1,Lisa,Chen,lisa.chen@startupsolutions.io,+886-2-2345-6789,Head of Business Development,

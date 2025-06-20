@@ -189,7 +189,13 @@ class DependencyHandler:
         return graph
     
     @classmethod
-    def extract_dependencies(cls, schemas: Dict, schema_metadata: Dict, foreign_keys: Dict) -> Dict:
+    def extract_dependencies(
+        cls, 
+        schemas: Dict, 
+        schema_metadata: Dict, 
+        foreign_keys: Dict, 
+        schema_depends_on_schemas: Dict = {}
+    ) -> Dict:
         """
         Extract all dependencies from schemas, metadata, and foreign keys.
         
@@ -205,8 +211,8 @@ class DependencyHandler:
         
         # Extract explicit dependencies from metadata
         for schema_name, metadata_dict in schema_metadata.items():
-            if isinstance(metadata_dict, dict) and '__depends_on__' in metadata_dict:
-                explicit_deps = metadata_dict['__depends_on__']
+            if isinstance(metadata_dict, dict) and schema_name in schema_depends_on_schemas:
+                explicit_deps = schema_depends_on_schemas[schema_name]
                 if isinstance(explicit_deps, list):
                     for dep in explicit_deps:
                         if dep not in all_dependencies[schema_name]:

@@ -104,44 +104,13 @@ class SyntheticDataGenerator:
         
         for model_class in sqlalchemy_models:
             # Use our SchemaLoader to load the model
-            schema_dict, metadata_dict, description, foreign_keys = self.schema_loader.load_schema(model_class)
+            schema_dict = self.schema_loader.load_schema(model_class)
             
-            # Determine the table name (either from tablename attribute or class name)
-            if hasattr(model_class, '__tablename__'):
-                table_name = model_class.__tablename__
-            else:
-                table_name = model_class.__name__
-            
-            # Combine schema with metadata in format expected by generate_for_schemas
-            combined_schema = schema_dict.copy()
-            
-            # Add metadata under __metadata__ key
-            if metadata_dict:
-                combined_schema['__metadata__'] = metadata_dict
-            
-            # Add docstring as description if available
-            if description:
-                combined_schema['__description__'] = description
-            
-            # Add foreign keys if available
-            if foreign_keys:
-                combined_schema['__foreign_keys__'] = {}
-                for field, (target_table, target_column) in foreign_keys.items():
-                    combined_schema['__foreign_keys__'][field] = (target_table, target_column)
-            
-            # Handle template-specific fields if it's a template class
-            if metadata_dict and metadata_dict.get('__template__'):
-                # Copy template metadata to fields
-                if '__template_source__' in metadata_dict:
-                    combined_schema['__template_source__'] = metadata_dict['__template_source__']
-                if '__input_file_type__' in metadata_dict:
-                    combined_schema['__input_file_type__'] = metadata_dict['__input_file_type__']
-                if '__output_file_type__' in metadata_dict:
-                    combined_schema['__output_file_type__'] = metadata_dict['__output_file_type__']
-            
-            # Add to schemas dictionary
-            schemas[table_name] = combined_schema
-            
+            # Determine the table name (either from tablename attribute or class name)  
+            schema_name = model_class.__tablename__
+            schemas[schema_name] = schema_dict
+        # print("schemas", schemas)
+        # exit(0)
         return schemas
     
     def generate_for_sqlalchemy_models(
@@ -380,13 +349,15 @@ class SyntheticDataGenerator:
         schema_metadata = {}
         schema_descriptions = {}
         template_schemas = {}
+        schema_depends_on_schemas = {}
         # Dictionary to store extracted foreign keys
         schema_foreign_keys = {}
         
         for schema_name, schema_source in schemas.items():
-            llm_schema, metadata, desc, extracted_fks, template_fields = self.schema_loader.load_schema(schema_source)
+            llm_schema, metadata, desc, extracted_fks, template_fields, depends_on_schemas = self.schema_loader.load_schema(schema_source)
             # Store processed schema and metadata
             processed_schemas[schema_name] = llm_schema
+            schema_depends_on_schemas[schema_name] = depends_on_schemas
             schema_metadata[schema_name] = metadata or {}
             schema_descriptions[schema_name] = desc or f"{schema_name} data"
             if "__template__" in template_fields:
@@ -401,10 +372,13 @@ class SyntheticDataGenerator:
         all_dependencies = DependencyHandler.extract_dependencies(
             schemas=schemas,
             schema_metadata=schema_metadata,
-            foreign_keys=extracted_foreign_keys
+            foreign_keys=extracted_foreign_keys,
+            schema_depends_on_schemas=schema_depends_on_schemas
         )
+        
         # Calculate the generation order based on all dependencies using DependencyHandler
         generation_order = list(schemas.keys())
+        
         try:
             # Build dependency graph and determine generation order
             dependency_graph = DependencyHandler.build_dependency_graph(
@@ -456,7 +430,7 @@ class SyntheticDataGenerator:
             
             # Process template schemas if any
             template_results = {}
-            print("\n===== Preccings TEMPLATE SCHEMAS =====", template_schemas_dfs.keys())
+            print("\n===== Processing TEMPLATE SCHEMAS =====", template_schemas_dfs.keys())
             if template_schemas_dfs and output_dir:
                 # Process each template schema using the TemplateProcessor
                 from syda.templates import TemplateProcessor
@@ -540,7 +514,6 @@ class SyntheticDataGenerator:
             # Try to use the AI generation first
             try:
                 # Use the _generate_data method to generate data for this schema
-                print(f"Generating data for {schema_name} using _generate_data")
                 # Pass the already extracted schema information to avoid redundant extraction
                 df = self._generate_data(
                     table_schema=llm_schema, 

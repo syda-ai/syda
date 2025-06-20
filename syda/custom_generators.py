@@ -199,6 +199,7 @@ class GeneratorManager:
         Returns:
             DataFrame with custom generators applied
         """
+       
         if not df.empty and custom_generators:
             for col_name, generator in custom_generators.items():
                 # Skip if column doesn't exist
