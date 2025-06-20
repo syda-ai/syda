@@ -1,7 +1,6 @@
 import networkx as nx
-from typing import Dict, List, Tuple, Any, Set, Optional, Union, Callable
+from typing import Dict, List, Tuple, Any, Set
 import pandas as pd
-from syda.custom_generators import GeneratorManager
 
 
 class ForeignKeyHandler:
@@ -11,33 +10,28 @@ class ForeignKeyHandler:
     This class encapsulates all operations related to foreign keys, including:
     - Applying foreign key constraints during data generation
     - Verifying referential integrity of generated data
-    - Maintaining consistency across multiple related tables
     """
     
-    def __init__(self, generator_manager: GeneratorManager):
+    def __init__(self, generator_manager):
         """
         Initialize the ForeignKeyHandler.
         
         Args:
-            generator_manager: Generator manager instance for registering foreign key generators that
-                              handles the creation and registration of value generation functions
+            generator_manager: Generator manager instance for registering foreign key generators
         """
         self.generator_manager = generator_manager
     
-    def apply_foreign_keys(self, schema_name: str, extracted_foreign_keys: Dict[str, Dict[str, Tuple[str, str]]], results: Dict[str, pd.DataFrame]) -> None:
+    def apply_foreign_keys(self, schema_name, extracted_foreign_keys, results):
         """
         Apply foreign key constraints to the specified schema.
         
         This method registers appropriate generators for foreign key columns to ensure
-        that foreign key relationships are maintained in the generated data. It handles
-        both simple foreign key relationships and complex cases where multiple columns
-        reference the same parent table, ensuring consistency where needed.
+        that foreign key relationships are maintained in the generated data.
         
         Args:
             schema_name: Name of the schema being processed
-            extracted_foreign_keys: Dictionary mapping schema names to dictionaries of foreign key definitions,
-                                   where inner dictionaries map column names to (parent_schema, parent_column) tuples
-            results: Dictionary of dataframes with already generated data, keyed by schema name
+            extracted_foreign_keys: Dictionary of foreign key definitions
+            results: Dictionary of dataframes with already generated data
             
         Returns:
             None
@@ -101,22 +95,16 @@ class ForeignKeyHandler:
                 for fk_column, parent_column in fk_list:
                     print(f"⚠️ Warning: Parent schema {parent_schema} not available for foreign key {schema_name}.{fk_column}")
     
-    def verify_referential_integrity(self, results: Dict[str, pd.DataFrame], 
-                               extracted_foreign_keys: Dict[str, Dict[str, Tuple[str, str]]]) -> bool:
+    def verify_referential_integrity(self, results, extracted_foreign_keys):
         """
         Verify that all foreign key relationships are valid in the generated data.
         
-        Checks each foreign key column in every schema to ensure that all values reference
-        existing values in the corresponding parent table column. Reports validation
-        errors and warnings for any referential integrity issues found.
-        
         Args:
-            results: Dictionary of dataframes with generated data, keyed by schema name
-            extracted_foreign_keys: Dictionary mapping schema names to dictionaries of foreign key definitions,
-                                  where inner dictionaries map column names to (parent_schema, parent_column) tuples
+            results: Dictionary of dataframes with generated data
+            extracted_foreign_keys: Dictionary of foreign key definitions
             
         Returns:
-            bool: True if all foreign key relationships are valid, False otherwise
+            Boolean indicating if all foreign key relationships are valid
         """
         print("\n🔍 Verifying referential integrity:")
         
@@ -166,29 +154,19 @@ class ForeignKeyHandler:
 
 
 class DependencyHandler:
-    """Handles dependency resolution for related schemas.
-    
-    This class provides functionality to analyze dependencies between schemas,
-    build dependency graphs, and determine the optimal order for data generation
-    to ensure referential integrity is maintained.
-    """
+    """Handles dependency resolution for related schemas."""
     
     @staticmethod
-    def build_dependency_graph(nodes: List[str], dependencies: Dict[str, List[str]]) -> nx.DiGraph:
+    def build_dependency_graph(nodes, dependencies):
         """
         Build a directed graph of dependencies.
         
-        Constructs a directed graph where each node represents a schema, and edges
-        represent dependencies between schemas. The direction of edges is from
-        dependency (parent) to dependent (child).
-        
         Args:
-            nodes: List of node names (schema names) to add to the graph
-            dependencies: Dict mapping node names to lists of their dependencies
+            nodes: List of node names to add to the graph
+            dependencies: Dict mapping node names to their dependencies
             
         Returns:
-            nx.DiGraph: NetworkX directed graph representing dependencies between nodes,
-                      where edges point from dependencies to dependents
+            NetworkX DiGraph representing dependencies between nodes
         """
         # Create a directed graph
         graph = nx.DiGraph()
@@ -211,22 +189,17 @@ class DependencyHandler:
         return graph
     
     @classmethod
-    def extract_dependencies(cls, schemas: Dict[str, Any], schema_metadata: Dict[str, Any], 
-                           foreign_keys: Dict[str, Dict[str, Tuple[str, str]]]) -> Dict[str, List[str]]:
+    def extract_dependencies(cls, schemas: Dict, schema_metadata: Dict, foreign_keys: Dict) -> Dict:
         """
-        Extract all dependencies from schemas, metadata, and foreign key relationships.
-        
-        Analyzes both explicit dependencies (from __depends_on__ metadata) and implicit
-        dependencies (from foreign key relationships) to build a complete dependency map.
+        Extract all dependencies from schemas, metadata, and foreign keys.
         
         Args:
-            schemas: Dictionary of schema definitions mapping schema names to schema objects
-            schema_metadata: Dictionary of schema metadata with optional __depends_on__ attributes
-            foreign_keys: Dictionary mapping schema names to their foreign key definitions,
-                        where inner dictionaries map column names to (parent_schema, parent_column) tuples
+            schemas: Dictionary of schema definitions
+            schema_metadata: Dictionary of schema metadata
+            foreign_keys: Dictionary mapping schema names to their foreign key definitions
             
         Returns:
-            Dict[str, List[str]]: Dictionary mapping schema names to lists of their dependencies
+            Dictionary mapping schema names to lists of dependencies
         """
         all_dependencies = {schema_name: [] for schema_name in schemas.keys()}
         
@@ -251,23 +224,15 @@ class DependencyHandler:
         return all_dependencies
     
     @staticmethod
-    def determine_generation_order(dependency_graph: nx.DiGraph) -> List[str]:
+    def determine_generation_order(dependency_graph):
         """
         Determine the optimal generation order based on a dependency graph.
-        
-        Uses topological sorting to order schemas such that all dependencies of a schema
-        are processed before the schema itself. This ensures that parent tables are
-        generated before child tables that reference them via foreign keys.
         
         Args:
             dependency_graph: NetworkX DiGraph representing schema dependencies
             
         Returns:
-            List[str]: List of schema names in optimal generation order (dependencies first)
-        
-        Note:
-            If cycles are detected in the dependency graph (indicating circular dependencies),
-            falls back to an arbitrary order and issues a warning.
+            List of schema names in optimal generation order
         """
         try:
             return list(nx.topological_sort(dependency_graph))
