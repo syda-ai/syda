@@ -1,5 +1,16 @@
 """
 Schema loading and processing for synthetic data generation.
+
+This module provides a single class, `SchemaLoader`, for loading and processing
+schemas in various formats:
+
+- Dictionary schemas
+- JSON/YAML schema files
+- SQLAlchemy models
+
+The `SchemaLoader` class handles loading, normalization, metadata extraction, and
+foreign key parsing of schemas. It also provides useful methods for accessing and
+manipulating the loaded schemas.
 """
 
 import json
@@ -27,7 +38,6 @@ class SchemaLoader:
     - Dictionary schemas
     - JSON/YAML schema files
     - SQLAlchemy models
-    - Template classes
     
     Handles loading, normalization, metadata extraction, and foreign key parsing.
     """
@@ -45,11 +55,11 @@ class SchemaLoader:
         
         Args:
             schema_source: Either a dictionary mapping field names to types,
-                      a file path to a JSON/YAML schema file, a SQLAlchemy model class, or a template class
+                      a file path to a JSON/YAML schema file, a SQLAlchemy model class
             schema_name: Optional name of the schema, used for error reporting
             
         Returns:
-            Tuple of (table_schema, metadata, table_description, foreign_keys)
+            Tuple of (table_schema, metadata, table_description, foreign_keys, depends_on_schemas)
             
             Example return values:
                 - table_schema: {'id': 'number', 'name': 'text', 'email': 'email', 'created_at': 'date'}
@@ -99,11 +109,12 @@ class SchemaLoader:
     
     def _load_dict_schema(self, schema_dict: Dict) -> Tuple[Dict, Dict, Optional[str], Dict, List]:
         """
-        Process a dictionary schema.
-        
+        Process a dictionary schema definition into the standard format used by
+        the SyntheticDataGenerator class.
+
         Args:
             schema_dict: Dictionary schema definition
-            
+
         Returns:
             Tuple of (table_schema, metadata, table_description, foreign_keys, depends_on_schemas)
         """
@@ -195,7 +206,7 @@ class SchemaLoader:
             file_path: Path to schema file
             
         Returns:
-            Tuple of (table_schema, metadata, table_description, foreign_keys)
+            Dict representing the schema file in dictionary format
         """
         # Load file based on extension
         file_ext = os.path.splitext(file_path)[1].lower()
