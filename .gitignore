@@ -42,5 +42,4 @@ service/alembic/versions/*
 *.swo
 *~
 logs/
-*.pdf
 .windsurf/
