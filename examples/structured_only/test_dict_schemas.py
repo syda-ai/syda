@@ -45,7 +45,11 @@ def main():
     generator = SyntheticDataGenerator(model_config=model_config)
     
     # Define output directory
-    output_dir = "ecommerce_data"
+    output_dir = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 
+        "output", "test_dict_schemas", 
+        "ecommerce"
+    )
     
     # Define schema dictionaries for an e-commerce system with descriptions
     schemas = {

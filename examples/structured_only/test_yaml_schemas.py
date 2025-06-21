@@ -41,7 +41,12 @@ def main():
     generator = SyntheticDataGenerator(model_config=model_config)
     
     # Define output directory
-    output_dir = "inventory_data"
+    output_dir = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 
+        "output", 
+        "test_yaml_schemas", 
+        "inventory_data"
+    )
     
     # Define paths to schema files
     schema_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "schema_files/yaml")

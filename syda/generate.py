@@ -190,7 +190,10 @@ class SyntheticDataGenerator:
             output_format=output_format
         )
         
-    def _process_foreign_keys(self, schema_foreign_keys):
+    def _process_foreign_keys(
+        self, 
+        schema_foreign_keys: Dict[str, Dict[str, Tuple[str, str]]],
+    ):
         """
         Process foreign keys extracted from schemas into a standardized format.
         

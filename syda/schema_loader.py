@@ -93,8 +93,6 @@ class SchemaLoader:
             if not os.path.exists(schema_source):
                 raise ValueError(f"Schema file not found: {schema_source}")
             schema_dict = self._load_schema_file(schema_source)
-            print("schema_dict", schema_dict)
-           # exit(0)
             try:
                 validate_schema(schema_dict)
             except ValueError as e:

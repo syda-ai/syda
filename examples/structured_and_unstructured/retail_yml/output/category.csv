@@ -1,6 +1,6 @@
 id,name,parent_id,description,display_order,active
-1,Electronics,0,Main category for all electronic devices and accessories,1,
-2,Smartphones,1,Mobile phones and smart devices including latest smartphones,2,
-3,Computers,1,"Laptops, desktops, tablets, and computer accessories",3,
-4,Home Appliances,0,Essential home electronic and mechanical devices,4,
-5,Kitchen Appliances,4,Cooking and food preparation devices for modern kitchens,5,
+1,Electronics,0,Main category for all electronic devices and gadgets,1,
+2,Smartphones,1,Mobile phones and smart devices subcategory under Electronics,2,
+3,Computers,1,"Laptops, desktops, and computer accessories subcategory",3,
+4,Home Appliances,0,Major household electrical and electronic appliances,4,
+5,Refrigerators,4,Cooling appliances for kitchen and food storage,5,
