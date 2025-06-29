@@ -1,16 +1,16 @@
 claim_id,patient_id,diagnosis_code,email,visit_date,notes
-1,1001,E11.9,john.smith@example.com,2023-05-15,Type 2 diabetes mellitus without complications. Patient advised on diet and exercise management.
-2,1014,J45.90,emily.jones@example.com,2023-05-16,Mild intermittent asthma. Prescribed albuterol inhaler and recommended allergy testing.
-3,1008,M17.9,michael.brown@example.com,2023-05-17,Unspecified osteoarthritis of knee. Suggested physical therapy and pain management.
-4,1003,F32.9,sarah.wilson@example.com,2023-05-18,"Major depressive disorder, unspecified. Referred to mental health counseling."
-5,1005,I10,david.miller@example.com,2023-05-19,Essential (primary) hypertension. Prescribed medication and recommended lifestyle modifications.
-6,1007,K35.2,lisa.taylor@example.com,2023-05-20,Acute appendicitis with generalized peritonitis. Immediate surgical intervention required.
-7,1015,N39.0,robert.anderson@example.com,2023-05-21,"Urinary tract infection, site not specified. Prescribed antibiotics and hydration advice."
-8,1008,L20.9,jennifer.thomas@example.com,2023-05-22,"Atopic dermatitis, unspecified. Recommended topical corticosteroids and allergen avoidance."
-9,1006,H10.9,william.jackson@example.com,2023-05-23,Unspecified conjunctivitis. Prescribed antibiotic eye drops and hygiene instructions.
-10,1015,A09,emma.white@example.com,2023-05-24,"Infectious gastroenteritis. Advised on hydration, rest, and diet modifications."
-11,1013,R50.9,james.martin@example.com,2023-05-25,Fever of unknown origin. Ordered blood tests and recommended follow-up.
-12,1011,S52.50XA,olivia.johnson@example.com,2023-05-26,"Fracture of lower end of radius, initial encounter. Fitted with temporary cast."
-13,1004,G43.909,daniel.lee@example.com,2023-05-27,"Migraine, unspecified, without mention of intractability. Prescribed preventive medication."
-14,1014,B02.9,sophia.garcia@example.com,2023-05-28,Herpes zoster without complications. Prescribed antiviral medication and pain management.
-15,1006,Z23,ethan.martinez@example.com,2023-05-29,Encounter for immunization. Administered seasonal flu vaccine and updated immunization record.
+1,1004,E11.9,john.smith@example.com,2023-05-15,Type 2 diabetes mellitus without complications. Patient advised on diet and exercise management.
+2,1011,J45.909,emily.jones@gmail.com,2023-04-22,Mild intermittent asthma. Prescribed albuterol inhaler and recommended allergy testing.
+3,1012,M17.9,michael.brown@outlook.com,2023-03-10,"Osteoarthritis of knee, unspecified. Discussed physical therapy and pain management options."
+4,1012,F32.9,sarah.wilson@yahoo.com,2023-05-02,"Major depressive disorder, unspecified. Referred to mental health counseling."
+5,1005,I10,david.miller@example.com,2023-04-18,Essential (primary) hypertension. Prescribed medication and recommended lifestyle modifications.
+6,1008,K35.2,emma.davis@gmail.com,2023-03-25,Acute appendicitis with generalized peritonitis. Immediate surgical intervention recommended.
+7,1002,N39.0,robert.johnson@outlook.com,2023-05-08,"Urinary tract infection, site not specified. Prescribed antibiotics and hydration advice."
+8,1006,L20.9,olivia.taylor@yahoo.com,2023-04-05,"Atopic dermatitis, unspecified. Recommended topical corticosteroids and allergen avoidance."
+9,1001,H10.9,james.anderson@example.com,2023-03-15,Unspecified conjunctivitis. Prescribed antibiotic eye drops and follow-up in one week.
+10,1014,A09,sophia.martinez@gmail.com,2023-05-20,"Infectious gastroenteritis and colitis, unspecified. Advised on hydration and rest."
+11,1008,R50.9,ethan.thompson@outlook.com,2023-04-12,"Fever, unspecified. Conducted basic viral screening and recommended symptomatic treatment."
+12,1004,S52.521A,ava.white@yahoo.com,2023-03-30,"Torus fracture of lower end of right radius, initial encounter. Fitted with temporary cast."
+13,1002,Z23,noah.martin@example.com,2023-05-05,Encounter for immunization. Administered annual flu vaccine and tetanus booster.
+14,1011,G43.909,isabella.lee@gmail.com,2023-04-28,"Migraine, unspecified, without mention of intractability. Prescribed preventive medication."
+15,1002,B02.9,william.garcia@outlook.com,2023-03-20,Herpes zoster without complications. Prescribed antiviral medication and pain management.

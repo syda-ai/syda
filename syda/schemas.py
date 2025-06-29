@@ -68,9 +68,9 @@ class ModelConfig(BaseModel):
     provider: Literal["openai", "anthropic"] = "anthropic"
     model_name: str = "claude-3-5-haiku-20241022"
     
-    # Common parameters
-    temperature: float = Field(0.7, ge=0.0, le=2.0, description="Controls randomness: 0.0 is deterministic, higher values are more random")
-    max_tokens: int = Field(8192, description="Maximum number of tokens to generate. Larger values allow for more complete responses.")
+    
+    temperature: float = Field(None, ge=0.0, le=1.0, description="Controls randomness: 0.0 is deterministic, higher values are more random")
+    max_tokens: int = Field(None, description="Maximum number of tokens to generate. Larger values allow for more complete responses.")
     top_p: Optional[float] = Field(None, ge=0.0, le=1.0, description="Nucleus sampling parameter")
     
     # Streaming parameters
@@ -86,6 +86,7 @@ class ModelConfig(BaseModel):
     # OpenAI specific parameters
     seed: Optional[int] = Field(None, description="Random seed for reproducibility (OpenAI only)")
     response_format: Optional[Dict[str, Any]] = Field(None, description="Format for responses (OpenAI only)")
+    max_completion_tokens: Optional[int] = Field(None, description="Maximum completion tokens (OpenAI only)")
     
     # Anthropic specific parameters
     top_k: Optional[int] = Field(None, description="Top K sampling parameter (Anthropic only)")
@@ -97,13 +98,15 @@ class ModelConfig(BaseModel):
     def get_model_kwargs(self) -> Dict[str, Any]:
         """Get model-specific kwargs for API calls."""
         # Start with common parameters
-        kwargs = {
-            "temperature": self.temperature,
-            "max_tokens": self.max_tokens,  # Always include max_tokens
-        }
+        kwargs = {}
         
         # Always include the model name, which is required for OpenAI and used for other providers
         kwargs["model"] = self.model_name
+        
+        if self.temperature is not None:
+            kwargs["temperature"] = self.temperature
+        if self.max_tokens is not None:
+            kwargs["max_tokens"] = self.max_tokens
         
         # Add provider-specific parameters
         if self.provider == "openai":
@@ -113,6 +116,10 @@ class ModelConfig(BaseModel):
                 kwargs["seed"] = self.seed
             if self.response_format:
                 kwargs["response_format"] = self.response_format
+            if self.max_completion_tokens:
+                kwargs["max_completion_tokens"] = self.max_completion_tokens
+    
+               
         
         elif self.provider == "anthropic":
             # The updated Anthropic API via instructor now uses the same parameter names as OpenAI

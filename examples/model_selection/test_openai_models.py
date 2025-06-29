@@ -29,14 +29,15 @@ prompts={
     'Patient': 'Generate realistic synthetic patient records with ICD-10 diagnosis codes, emails, visit dates, and clinical notes.', 
     'Claim': 'Generate realistic synthetic claim records with ICD-10 diagnosis codes, emails, visit dates, and clinical notes.'
 }
-sample_sizes={'Patient': 15, 'Claim': 15}
+
 
 print("--------------Testing openai gpt-4o----------------")
+sample_sizes={'Patient': 15, 'Claim': 15}
 model_config = ModelConfig(
     provider="openai",
     model_name="gpt-4o-2024-08-06",
     temperature=0.7,
-    max_tokens=16000  # Larger value for more complete responses
+    max_completion_tokens=16000  # Larger value for more complete responses
 )
 
 generator = SyntheticDataGenerator(model_config=model_config)
@@ -61,8 +62,7 @@ print("--------------Testing openai o3----------------")
 model_config = ModelConfig(
     provider="openai",
     model_name="o3-2025-04-16",
-    temperature=0.7,
-    max_tokens=100000  # Larger value for more complete responses
+    max_completion_tokens=100000  # Larger value for more complete responses
 )
 
 generator = SyntheticDataGenerator(model_config=model_config)
@@ -73,6 +73,7 @@ output_dir = os.path.join(
         "test_openai_models", 
         "o3"
 )
+sample_sizes={'Patient': 100, 'Claim': 200}
 # Generate and save to CSV
 results = generator.generate_for_schemas(
     schemas=schemas,
