@@ -1,0 +1,16 @@
+claim_id,patient_id,diagnosis_code,email,visit_date,notes
+1,7,J20.9,patient1@example.com,2023-01-15,Patient presented with acute bronchitis symptoms. Prescribed rest and fluids.
+2,4,E11.9,patient2@example.com,2023-02-10,Routine check-up for Type 2 diabetes. Blood sugar levels stable.
+3,7,I10,patient3@example.com,2023-03-05,Hypertension follow-up. Medication dosage adjusted.
+4,15,M54.5,patient4@example.com,2023-04-12,Complaints of lower back pain. Advised physical therapy.
+5,4,F32.9,patient5@example.com,2023-05-20,Patient diagnosed with depressive disorder. Referred to counseling.
+6,15,K21.9,patient6@example.com,2023-06-17,Symptoms of gastroesophageal reflux disease. Prescribed antacids.
+7,12,J45.909,patient7@example.com,2023-07-08,Asthma management plan reviewed. Inhaler prescription updated.
+8,7,Z00.00,patient8@example.com,2023-08-14,Annual physical examination. All vitals within normal range.
+9,2,L60.0,patient9@example.com,2023-09-21,Patient treated for ingrown toenail. Follow-up in two weeks.
+10,8,H52.4,patient10@example.com,2023-10-02,Prescribed glasses for presbyopia. Vision test conducted.
+11,7,N39.0,patient11@example.com,2023-11-11,Urinary tract infection diagnosed. Antibiotics prescribed.
+12,3,R51,patient12@example.com,2023-12-22,Complaint of headache. No serious underlying condition found.
+13,14,B34.9,patient13@example.com,2023-01-30,Viral infection suspected. Recommended rest and hydration.
+14,1,E66.9,patient14@example.com,2023-03-25,Patient advised on weight management. Diet plan provided.
+15,5,F41.1,patient15@example.com,2023-04-18,Generalized anxiety disorder noted. Counseling sessions scheduled.

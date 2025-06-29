@@ -1,0 +1,16 @@
+patient_id,diagnosis_code,email,visit_date,notes
+1,E11.9,john.doe@example.com,2023-01-15,Patient showing signs of stable type 2 diabetes. Advised on dietary changes and regular exercise.
+2,J45.909,jane.smith@example.com,2023-02-20,Asthma under control with current medication. Follow-up in 3 months.
+3,I10,michael.jones@example.com,2023-03-05,Hypertension. Prescribed lisinopril 10mg daily.
+4,M54.5,emily.johnson@example.com,2023-03-18,Lower back pain. Recommended physiotherapy and stretching exercises.
+5,F32.1,william.brown@example.com,2023-04-10,Moderate depressive episode. Initiated sertraline 50mg.
+6,K21.9,olivia.wilson@example.com,2023-05-22,Gastroesophageal reflux disease. Advised on lifestyle modifications and prescribed omeprazole.
+7,L20.9,noah.moore@example.com,2023-06-14,Atopic dermatitis. Prescribed topical corticosteroids.
+8,N40.0,sophia.taylor@example.com,2023-07-07,Benign prostatic hyperplasia. Discussed surgical options.
+9,E66.9,liam.anderson@example.com,2023-08-22,Obesity. Referred to dietitian for weight management program.
+10,J30.9,emma.thomas@example.com,2023-09-12,Allergic rhinitis. Advised on allergen avoidance and prescribed antihistamines.
+11,G43.909,mason.jackson@example.com,2023-10-01,Migraine without aura. Prescribed sumatriptan as needed.
+12,Z71.3,mia.white@example.com,2023-10-15,Dietary counseling. Patient interested in a plant-based diet.
+13,H52.4,lucas.harris@example.com,2023-10-20,Presbyopia. Recommended reading glasses.
+14,R53.81,isabella.martin@example.com,2023-10-22,Chronic fatigue. Suggested evaluation for underlying causes.
+15,C34.90,charlotte.lee@example.com,2023-10-25,"Lung cancer, unspecified. Referred to oncology for further management."

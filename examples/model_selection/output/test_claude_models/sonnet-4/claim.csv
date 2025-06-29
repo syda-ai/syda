@@ -1,0 +1,201 @@
+claim_id,patient_id,diagnosis_code,email,visit_date,notes
+1001,1088,J45.9,john.smith@email.com,2024-01-15,Patient presented with acute asthma exacerbation. Administered nebulizer treatment. Prescribed inhaler and follow-up in 2 weeks.
+1002,1027,M79.3,sarah.johnson@gmail.com,2024-01-16,Lower back pain following lifting incident. Physical examination shows muscle strain. Recommended rest and anti-inflammatory medication.
+1003,1051,K21.9,mike.davis@yahoo.com,2024-01-17,Gastroesophageal reflux disease symptoms. Patient reports heartburn and acid regurgitation. Prescribed PPI therapy.
+1004,1063,I10,lisa.wilson@hotmail.com,2024-01-18,Routine hypertension follow-up. Blood pressure 145/92. Medication compliance good. Continue current ACE inhibitor.
+1005,1034,E11.9,robert.brown@outlook.com,2024-01-19,Type 2 diabetes mellitus check-up. HbA1c 7.2%. Discussed dietary modifications and exercise plan. Metformin dosage adjusted.
+1006,1017,F32.9,emily.taylor@gmail.com,2024-01-20,Patient reports depressive symptoms for 3 weeks. PHQ-9 score 14. Initiated SSRI therapy and referred to counseling.
+1007,1004,Z00.00,david.anderson@email.com,2024-01-21,Annual physical examination. Vital signs normal. Laboratory results pending. Immunizations up to date.
+1008,1069,H66.90,jennifer.martinez@yahoo.com,2024-01-22,"Acute otitis media, right ear. Tympanic membrane erythematous and bulging. Prescribed antibiotic course."
+1009,1054,N39.0,christopher.garcia@gmail.com,2024-01-23,Urinary tract infection symptoms. Urinalysis positive for bacteria and WBCs. Started on trimethoprim-sulfamethoxazole.
+1010,1081,M25.511,amanda.rodriguez@hotmail.com,2024-01-24,Right shoulder pain for 2 weeks. Range of motion limited. X-ray shows no fracture. Diagnosed with shoulder impingement.
+1011,1079,J06.9,matthew.lee@outlook.com,2024-01-25,"Upper respiratory tract infection. Sore throat, congestion, and mild fever. Symptomatic treatment recommended."
+1012,1029,L30.9,jessica.thompson@email.com,2024-01-26,Dermatitis on both hands. Likely contact dermatitis from cleaning products. Prescribed topical corticosteroid.
+1013,1061,G43.909,daniel.white@gmail.com,2024-01-27,"Migraine headache, severe intensity. Patient reports photophobia and nausea. Administered sumatriptan injection."
+1014,1004,K59.00,ashley.harris@yahoo.com,2024-01-28,Constipation for 5 days. Abdominal examination unremarkable. Dietary counseling provided and stool softener prescribed.
+1015,1036,R50.9,joshua.clark@hotmail.com,2024-01-29,"Fever of unknown origin, 101.5°F for 2 days. Physical exam normal. Blood work ordered for further evaluation."
+1016,1001,S93.401A,megan.lewis@outlook.com,2024-01-30,Right ankle sprain during jogging. Swelling and tenderness present. X-ray negative for fracture. RICE protocol advised.
+1017,1019,F41.1,andrew.walker@gmail.com,2024-01-31,Generalized anxiety disorder symptoms worsening. GAD-7 score 16. Increased medication dosage and stress management techniques discussed.
+1018,1009,B34.9,stephanie.hall@email.com,2024-02-01,Viral infection with body aches and fatigue. Symptoms for 4 days. Supportive care and rest recommended.
+1019,1083,H10.9,kevin.allen@yahoo.com,2024-02-02,"Conjunctivitis, bilateral. Eyes red and watery. Likely viral etiology. Artificial tears and cool compresses advised."
+1020,1004,M54.5,nicole.young@hotmail.com,2024-02-03,Low back pain radiating to left leg. Straight leg raise test positive. MRI ordered to rule out disc herniation.
+1021,1008,R06.02,brian.king@outlook.com,2024-02-04,Shortness of breath on exertion for 1 week. Chest X-ray clear. ECG normal. Pulmonary function tests scheduled.
+1022,1072,K30,rachel.wright@gmail.com,2024-02-05,Functional dyspepsia with upper abdominal discomfort. No alarm symptoms. Dietary modifications and PPI trial initiated.
+1023,1006,I25.10,tyler.lopez@email.com,2024-02-06,Atherosclerotic heart disease follow-up. Chest pain stable. Stress test scheduled. Continue dual antiplatelet therapy.
+1024,1039,N18.6,samantha.hill@yahoo.com,2024-02-07,End-stage renal disease on hemodialysis. Routine follow-up. Access site functioning well. Laboratory values stable.
+1025,1046,J44.1,jonathan.scott@hotmail.com,2024-02-08,COPD exacerbation with increased dyspnea and cough. Prescribed oral corticosteroids and bronchodilator nebulizer treatments.
+1026,1044,E78.5,lauren.green@outlook.com,2024-02-09,Hyperlipidemia management. Total cholesterol 245 mg/dL. Lifestyle counseling provided. Statin therapy initiated.
+1027,1030,M06.9,nathan.adams@gmail.com,2024-02-10,Rheumatoid arthritis flare with joint swelling and morning stiffness. Increased methotrexate dosage and added short-term prednisone.
+1028,1088,R11.10,brittany.baker@email.com,2024-02-11,Nausea and vomiting for 2 days. Possible viral gastroenteritis. Antiemetic prescribed and fluid replacement advised.
+1029,1099,L70.0,justin.gonzalez@yahoo.com,2024-02-12,Acne vulgaris on face and back. Moderate severity. Topical retinoid and benzoyl peroxide combination prescribed.
+1030,1094,H35.30,crystal.nelson@hotmail.com,2024-02-13,"Macular degeneration, age-related. Visual acuity declining. Referred to ophthalmologist for anti-VEGF injection consideration."
+1031,1022,Z51.11,gregory.carter@outlook.com,2024-02-14,Chemotherapy session for lung cancer. Cycle 4 of 6 completed. Tolerated well with minimal side effects.
+1032,1096,F10.20,vanessa.mitchell@gmail.com,2024-02-15,Alcohol use disorder counseling session. Patient reports 2 weeks sobriety. Naltrexone therapy discussed.
+1033,1088,O80,marcus.perez@email.com,2024-02-16,Normal delivery of healthy baby boy. Labor duration 8 hours. Mother and baby doing well postpartum.
+1034,1074,T78.40XA,alexandria.roberts@yahoo.com,2024-02-17,Allergic reaction to unknown food allergen. Urticaria and mild angioedema. Epinephrine administered and antihistamines prescribed.
+1035,1003,S72.001A,derek.turner@hotmail.com,2024-02-18,Right femur fracture from motor vehicle accident. Open reduction internal fixation performed. Post-operative recovery stable.
+1036,1091,N40.1,courtney.phillips@outlook.com,2024-02-19,Benign prostatic hyperplasia with urinary retention. Alpha-blocker initiated. Urology referral for further evaluation.
+1037,1083,K80.20,trevor.campbell@gmail.com,2024-02-20,Cholelithiasis with acute cholecystitis. Right upper quadrant pain and Murphy's sign positive. Surgery consultation arranged.
+1038,1003,R42,melody.parker@email.com,2024-02-21,Dizziness and vertigo symptoms for 3 days. Benign paroxysmal positional vertigo suspected. Epley maneuver performed.
+1039,1003,D50.9,corey.evans@yahoo.com,2024-02-22,Iron deficiency anemia. Hemoglobin 9.2 g/dL. Iron supplementation started. Colonoscopy scheduled to rule out GI bleeding.
+1040,1010,G47.00,tiffany.edwards@hotmail.com,2024-02-23,Insomnia for 2 months. Sleep hygiene counseling provided. Short-term sleep aid prescribed and sleep study considered.
+1041,1066,M79.1,bradley.collins@outlook.com,2024-02-24,Myalgia following flu-like illness. Generalized muscle aches and fatigue. Supportive care and gradual activity resumption advised.
+1042,1087,K92.2,morgan.stewart@gmail.com,2024-02-25,"Gastrointestinal bleeding, lower. Melena present for 2 days. Hemoglobin stable. Gastroenterology consultation urgent."
+1043,1078,J30.9,austin.sanchez@email.com,2024-02-26,Allergic rhinitis seasonal pattern. Nasal congestion and sneezing. Antihistamine and nasal corticosteroid prescribed.
+1044,1055,N20.0,paige.morris@yahoo.com,2024-02-27,"Kidney stone, left side. Severe flank pain and hematuria. CT confirms 4mm stone. Pain management and increased fluid intake."
+1045,1048,H93.1,cameron.rogers@hotmail.com,2024-02-28,Tinnitus bilateral for 6 months. Hearing test shows mild high-frequency loss. Referred to ENT for further evaluation.
+1046,1024,L02.91,sierra.reed@outlook.com,2024-02-29,Cutaneous abscess on left thigh. Fluctuant mass with surrounding erythema. Incision and drainage performed.
+1047,1039,R31.9,blake.cook@gmail.com,2024-03-01,Hematuria microscopic on routine urinalysis. No urinary symptoms. Urology referral for cystoscopy and imaging.
+1048,1013,E66.9,destiny.morgan@email.com,2024-03-02,"Obesity counseling visit. BMI 34.2. Discussed weight loss strategies, diet modification, and exercise program initiation."
+1049,1009,I48.91,jordan.bailey@yahoo.com,2024-03-03,"Atrial fibrillation, paroxysmal. Palpitations and irregular heart rate. Anticoagulation started and cardiology referral made."
+1050,1069,M17.11,taylor.rivera@hotmail.com,2024-03-04,Osteoarthritis of right knee. Pain and stiffness limiting mobility. Physical therapy referral and NSAIDs prescribed.
+1051,1060,R19.7,hunter.cooper@outlook.com,2024-03-05,"Diarrhea for 4 days, watery stools. No fever or blood. Likely viral gastroenteritis. Oral rehydration therapy advised."
+1052,1086,Z12.11,alexis.richardson@gmail.com,2024-03-06,"Screening mammography, routine. Age 45, no family history. Results normal, continue annual screening."
+1053,1098,F43.10,chase.cox@email.com,2024-03-07,Post-traumatic stress disorder following car accident. Sleep disturbances and flashbacks. Trauma-focused therapy initiated.
+1054,1073,H61.20,sydney.ward@yahoo.com,2024-03-08,Cerumen impaction bilateral ears. Hearing loss and fullness sensation. Irrigation performed with good results.
+1055,1082,M25.561,logan.torres@hotmail.com,2024-03-09,Left knee pain after basketball injury. Swelling and limited range of motion. MRI shows meniscal tear. Orthopedic referral.
+1056,1088,R60.9,savannah.peterson@outlook.com,2024-03-10,Edema bilateral lower extremities. No shortness of breath. Echocardiogram and BNP ordered to evaluate cardiac function.
+1057,1089,K76.0,mason.gray@gmail.com,2024-03-11,Fatty liver disease on ultrasound. Elevated ALT and AST. Weight loss and alcohol cessation counseling provided.
+1058,1021,R05,chloe.ramirez@email.com,2024-03-12,"Chronic cough for 6 weeks. Non-productive, worse at night. Chest X-ray normal. ACE inhibitor cough suspected."
+1059,1065,N95.1,ethan.james@yahoo.com,2024-03-13,Menopausal symptoms with hot flashes and sleep disturbances. Hormone replacement therapy discussed. Non-hormonal options considered.
+1060,1079,S06.0X0A,grace.watson@hotmail.com,2024-03-14,Concussion from fall. Brief loss of consciousness and headache. Neurological exam normal. Return-to-activity protocol initiated.
+1061,1064,R73.03,caleb.brooks@outlook.com,2024-03-15,Prediabetes diagnosed on glucose tolerance test. HbA1c 6.1%. Lifestyle modification counseling and diabetes prevention program referral.
+1062,1077,L20.9,isabella.kelly@gmail.com,2024-03-16,"Atopic dermatitis flare on arms and legs. Dry, itchy patches with excoriation. Topical corticosteroid and moisturizer prescribed."
+1063,1083,R94.31,owen.sanders@email.com,2024-03-17,Abnormal ECG with T-wave inversions. No chest pain or symptoms. Stress test and echocardiogram scheduled for evaluation.
+1064,1021,M62.81,zoe.price@yahoo.com,2024-03-18,Muscle weakness in legs for 2 weeks. No sensory changes. Creatine kinase elevated. Neurology referral for further workup.
+1065,1034,K57.30,ian.bennett@hotmail.com,2024-03-19,Diverticulosis on colonoscopy screening. No complications noted. High-fiber diet and regular exercise recommended.
+1066,1008,R26.2,lily.wood@outlook.com,2024-03-20,Difficulty walking and balance issues. Gait unsteady for 1 month. Neurological examination and brain MRI ordered.
+1067,1092,J02.9,connor.barnes@gmail.com,2024-03-21,Acute pharyngitis with sore throat and fever. Throat culture negative for strep. Viral etiology likely. Symptomatic treatment.
+1068,1067,N76.0,aria.ross@email.com,2024-03-22,Acute vaginitis with discharge and itching. Candida albicans identified on wet mount. Antifungal medication prescribed.
+1069,1094,M13.10,luke.henderson@yahoo.com,2024-03-23,Monoarthritis of right wrist. Swelling and pain for 5 days. Synovial fluid analysis pending. Anti-inflammatory treatment started.
+1070,1078,R87.610,maya.coleman@hotmail.com,2024-03-24,Abnormal Pap smear with atypical squamous cells. HPV testing positive. Colposcopy scheduled for further evaluation.
+1071,1031,G44.1,wyatt.jenkins@outlook.com,2024-03-25,"Vascular headache, cluster type. Severe unilateral headache with lacrimation. High-flow oxygen therapy provided."
+1072,1012,R53.83,addison.perry@gmail.com,2024-03-26,Chronic fatigue syndrome symptoms for 8 months. Sleep unrefreshing and post-exertional malaise. Supportive care plan developed.
+1073,1066,H52.4,nolan.powell@email.com,2024-03-27,Presbyopia with difficulty reading. Near vision blurred. Reading glasses prescribed and follow-up in 6 months.
+1074,1044,K04.7,stella.long@yahoo.com,2024-03-28,"Periapical abscess, lower left molar. Severe tooth pain and facial swelling. Antibiotics prescribed and dental referral urgent."
+1075,1002,R10.84,easton.patterson@hotmail.com,2024-03-29,Generalized abdominal pain for 3 days. No fever or vomiting. Physical exam benign. Observation and symptomatic treatment.
+1076,1066,F90.9,ruby.hughes@outlook.com,2024-03-30,ADHD evaluation in adult patient. Concentration difficulties affecting work performance. ADHD rating scales completed.
+1077,1050,M75.30,jaxon.flores@gmail.com,2024-03-31,Calcific tendinitis of shoulder. Severe pain with movement. X-ray shows calcium deposits. Steroid injection performed.
+1078,1022,R21,scarlett.washington@email.com,2024-04-01,Rash on trunk and arms for 1 week. Erythematous and maculopapular. Drug reaction suspected. Antihistamine prescribed.
+1079,1055,N28.9,grayson.butler@yahoo.com,2024-04-02,Kidney disorder unspecified. Proteinuria on urinalysis. Nephrology referral for further evaluation and management.
+1080,1071,R25.1,violet.simmons@hotmail.com,2024-04-03,Tremor of hands for 2 months. Essential tremor suspected. Propranolol trial initiated and neurology follow-up arranged.
+1081,1083,J43.9,eli.foster@outlook.com,2024-04-04,Emphysema with progressive dyspnea. Pulmonary function tests show obstruction. Bronchodilator therapy optimized.
+1082,1011,R29.6,hazel.gonzales@gmail.com,2024-04-05,Repeated falls in elderly patient. Gait assessment and home safety evaluation recommended. Physical therapy referral.
+1083,1076,K25.9,max.bryant@email.com,2024-04-06,Gastric ulcer on endoscopy. Epigastric pain and H. pylori positive. Triple therapy antibiotic regimen started.
+1084,1091,R40.20,luna.alexander@yahoo.com,2024-04-07,Unspecified coma following drug overdose. Glasgow Coma Scale 8. Intensive care monitoring and supportive treatment.
+1085,1053,M48.06,cooper.russell@hotmail.com,2024-04-08,Spinal stenosis lumbar region. Neurogenic claudication symptoms. MRI confirms stenosis. Surgical consultation arranged.
+1086,1046,R68.83,aurora.griffin@outlook.com,2024-04-09,"Chills without fever for 2 days. No other symptoms. Physical examination normal. Viral syndrome likely, supportive care."
+1087,1023,H81.10,river.diaz@gmail.com,2024-04-10,Benign paroxysmal positional vertigo. Dizziness with head movements. Dix-Hallpike test positive. Canalith repositioning performed.
+1088,1010,R06.00,nova.hayes@email.com,2024-04-11,Dyspnea unspecified. Shortness of breath on minimal exertion. Chest X-ray and echocardiogram ordered for evaluation.
+1089,1017,M79.2,axel.myers@yahoo.com,2024-04-12,Neuralgia and neuritis unspecified. Shooting pain in left arm. Nerve conduction studies scheduled. Gabapentin started.
+1090,1076,R35.0,willow.ford@hotmail.com,2024-04-13,Frequency of micturition. Urinating every hour for 1 week. Urinalysis normal. Overactive bladder suspected.
+1091,1018,K44.9,phoenix.hamilton@outlook.com,2024-04-14,Diaphragmatic hernia without obstruction. Chest X-ray shows elevated hemidiaphragm. Surgical evaluation recommended.
+1092,1023,R79.89,sage.graham@gmail.com,2024-04-15,Abnormal blood chemistry findings. Elevated calcium and phosphorus levels. Endocrinology referral for parathyroid evaluation.
+1093,1099,M70.03,atlas.sullivan@email.com,2024-04-16,Crepitant synovitis of wrist. Pain and crackling sensation with movement. Rest and anti-inflammatory medication prescribed.
+1094,1088,R58,ivy.wallace@yahoo.com,2024-04-17,Hemorrhage not elsewhere classified. Unexplained bruising and petechiae. Complete blood count and coagulation studies ordered.
+1095,1096,G93.1,orion.woods@hotmail.com,2024-04-18,Anoxic brain damage. Post-cardiac arrest patient with neurological deficits. Rehabilitation therapy and family counseling.
+1096,1050,R20.2,ember.kennedy@outlook.com,2024-04-19,Paresthesia of skin. Tingling and numbness in feet for 3 weeks. Diabetes screening and B12 level ordered.
+1097,1042,M65.4,kai.lawson@gmail.com,2024-04-20,Radial styloid tenosynovitis (de Quervain's). Thumb pain with movement. Thumb spica splint and corticosteroid injection.
+1098,1057,R22.2,ocean.webb@email.com,2024-04-21,Localized swelling of trunk. Lymph node enlargement in axilla. Biopsy scheduled to rule out malignancy.
+1099,1034,N13.30,storm.tucker@yahoo.com,2024-04-22,Other and unspecified hydronephrosis. Kidney swelling on ultrasound. Urology referral for obstruction evaluation.
+1100,1030,R57.0,meadow.freeman@hotmail.com,2024-04-23,Cardiogenic shock following myocardial infarction. Blood pressure 80/50. Inotropic support and cardiac catheterization urgent.
+1101,1015,M23.205,river.porter@outlook.com,2024-04-24,Meniscus derangement of left knee. Locking and catching sensation. MRI confirms complex tear. Arthroscopic surgery planned.
+1102,1090,R76.11,sage.hunter@gmail.com,2024-04-25,Nonspecific reaction to tuberculin skin test. Positive PPD with no symptoms. Chest X-ray normal. IGRA test ordered.
+1103,1014,M26.4,luna.hicks@email.com,2024-04-26,Malocclusion unspecified. Dental crowding and bite problems. Orthodontic consultation recommended for treatment planning.
+1104,1055,R82.90,atlas.crawford@yahoo.com,2024-04-27,Unspecified abnormal findings in urine. Microscopic hematuria and proteinuria. Nephrology referral for further evaluation.
+1105,1046,G25.3,nova.boyd@hotmail.com,2024-04-28,Myoclonus. Involuntary muscle jerks affecting sleep. Neurological evaluation and EEG scheduled. Clonazepam trial initiated.
+1106,1097,R91.8,sage.mason@outlook.com,2024-04-29,Other nonspecific abnormal finding of lung field. Pulmonary nodule on chest CT. Pulmonology referral for biopsy consideration.
+1107,1071,M77.9,river.morales@gmail.com,2024-04-30,Enthesopathy unspecified. Pain at tendon insertion sites. Physical therapy and anti-inflammatory medications prescribed.
+1108,1033,R44.3,ember.reynolds@email.com,2024-05-01,Hallucinations unspecified. Visual and auditory hallucinations for 2 days. Psychiatric evaluation and medication adjustment.
+1109,1042,N32.81,phoenix.fisher@yahoo.com,2024-05-02,Overactive bladder. Urgency and frequency symptoms for 6 months. Bladder training and anticholinergic medication started.
+1110,1006,R85.610,storm.ellis@hotmail.com,2024-05-03,Atypical squamous cells on cervical cytology. Follow-up Pap smear in 6 months. HPV testing recommended.
+1111,1037,M35.9,meadow.roy@outlook.com,2024-05-04,Systemic involvement of connective tissue unspecified. Joint pain and skin changes. Rheumatology referral for autoimmune workup.
+1112,1044,R15.9,ocean.little@gmail.com,2024-05-05,Full incontinence of feces. Bowel control issues for 2 weeks. Gastroenterology referral and pelvic floor exercises recommended.
+1113,1097,G56.00,atlas.warren@email.com,2024-05-06,Carpal tunnel syndrome bilateral. Numbness and tingling in hands. Nerve conduction studies confirm diagnosis. Wrist splints prescribed.
+1114,1004,R74.0,sage.marshall@yahoo.com,2024-05-07,Nonspecific elevation of transaminase and LDH. Liver enzymes elevated without symptoms. Hepatitis panel and ultrasound ordered.
+1115,1020,M84.40XA,river.fowler@hotmail.com,2024-05-08,Pathological fracture unspecified site. Fracture with minimal trauma. Bone density test and endocrinology referral arranged.
+1116,1068,R96.0,nova.schwartz@outlook.com,2024-05-09,Instantaneous death. Sudden cardiac death witnessed by family. Autopsy and family genetic counseling recommended.
+1117,1055,M51.36,ember.hopkins@gmail.com,2024-05-10,Other intervertebral disc degeneration lumbar region. Back pain and stiffness. Physical therapy and pain management referral.
+1118,1055,R18.8,phoenix.garrett@email.com,2024-05-11,Other ascites. Abdominal distension and fluid accumulation. Paracentesis performed and liver function tests ordered.
+1119,1096,N83.20,storm.harvey@yahoo.com,2024-05-12,Unspecified ovarian cysts. Pelvic pain and ultrasound shows cystic lesion. Gynecology follow-up in 6 weeks.
+1120,1035,R70.0,meadow.armstrong@hotmail.com,2024-05-13,Elevated erythrocyte sedimentation rate. ESR 65 mm/hr without obvious cause. Further inflammatory workup initiated.
+1121,1055,M32.9,ocean.carpenter@outlook.com,2024-05-14,Systemic lupus erythematosus unspecified. Malar rash and joint pain. ANA positive. Rheumatology referral urgent.
+1122,1089,R39.15,atlas.weaver@gmail.com,2024-05-15,Urgency of urination. Sudden urge to urinate with occasional incontinence. Bladder diary and anticholinergic medication started.
+1123,1019,G47.30,sage.greene@email.com,2024-05-16,Sleep apnea unspecified. Loud snoring and daytime sleepiness. Sleep study scheduled and CPAP trial discussed.
+1124,1045,R89.9,river.lawrence@yahoo.com,2024-05-17,Unspecified abnormal finding in specimens from female genital organs. Abnormal vaginal discharge. STI testing and culture sent.
+1125,1049,M72.6,nova.elliott@hotmail.com,2024-05-18,Necrotizing fasciitis. Rapidly spreading skin infection with systemic toxicity. Emergency surgical debridement and IV antibiotics.
+1126,1035,R83.2,ember.stone@outlook.com,2024-05-19,Abnormal level of other drugs in cerebrospinal fluid. Lumbar puncture shows elevated protein. Neurology consultation arranged.
+1127,1091,N15.9,phoenix.montgomery@gmail.com,2024-05-20,Renal tubulo-interstitial disease unspecified. Kidney function declining. Nephrology referral for biopsy consideration.
+1128,1006,R78.4,storm.bishop@email.com,2024-05-21,Finding of other drugs in blood. Positive drug screen without prescription. Substance abuse counseling referral made.
+1129,1022,M19.90,meadow.richmond@yahoo.com,2024-05-22,Unspecified osteoarthritis unspecified site. Generalized joint pain and stiffness. Anti-inflammatory medication and physical therapy.
+1130,1006,R90.0,ocean.lucas@hotmail.com,2024-05-23,Intracranial space-occupying lesion found on imaging. Brain MRI shows mass lesion. Neurosurgery consultation urgent.
+1131,1061,G71.0,atlas.francis@outlook.com,2024-05-24,Muscular dystrophy. Progressive muscle weakness and elevated CK. Genetics referral for further testing and counseling.
+1132,1067,R77.9,sage.bowman@gmail.com,2024-05-25,Other abnormalities of plasma proteins. Abnormal protein electrophoresis pattern. Hematology referral for further evaluation.
+1133,1061,N26.9,river.hansen@email.com,2024-05-26,Unspecified contracted kidney. Small kidney on imaging. Hypertension present. Nephrology follow-up for management.
+1134,1096,R86.9,nova.chen@yahoo.com,2024-05-27,Unspecified abnormal cytological findings in specimens from cervix uteri. Atypical cells on Pap smear. Colposcopy scheduled.
+1135,1059,M99.23,ember.coleman@hotmail.com,2024-05-28,Subluxation stenosis of neural canal of cervical region. Neck pain and arm numbness. Chiropractic treatment and MRI ordered.
+1136,1042,R75,phoenix.jenkins@outlook.com,2024-05-29,Inconclusive laboratory evidence of HIV. Western blot indeterminate. Repeat testing in 3 months and safe practices counseling.
+1137,1073,N99.89,storm.perry@gmail.com,2024-05-30,Other postprocedural complications of genitourinary system. Post-surgical urinary retention. Catheter placement and urology follow-up.
+1138,1008,R84.9,meadow.powell@email.com,2024-05-31,Unspecified abnormal cytological findings in specimens from female genital organs. Abnormal endometrial biopsy. Gynecology referral.
+1139,1009,G58.9,ocean.long@yahoo.com,2024-06-01,Other specified mononeuropathies. Isolated nerve dysfunction with weakness. EMG studies and neurology consultation arranged.
+1140,1066,R80.9,atlas.patterson@hotmail.com,2024-06-02,Proteinuria unspecified. Protein in urine on routine screening. 24-hour urine collection and nephrology referral.
+1141,1043,M53.3,sage.hughes@outlook.com,2024-06-03,Sacrococcygeal disorders not elsewhere classified. Tailbone pain for 6 weeks. Cushion and anti-inflammatory medication prescribed.
+1142,1026,R88.8,river.flores@gmail.com,2024-06-04,Abnormal cytological findings in other body fluids. Pleural fluid cytology atypical. Pulmonology referral for further evaluation.
+1143,1039,N64.4,nova.washington@email.com,2024-06-05,Mastodynia. Bilateral breast pain cyclical with menstruation. Supportive bra and evening primrose oil recommended.
+1144,1030,R71.0,ember.butler@yahoo.com,2024-06-06,Precipitous drop in hematocrit. Hemoglobin dropped from 12 to 8 g/dL. Transfusion given and bleeding source investigation.
+1145,1009,G54.5,phoenix.simmons@hotmail.com,2024-06-07,Neuralgic amyotrophy. Shoulder and arm pain with weakness. EMG shows denervation. Supportive care and physical therapy.
+1146,1003,R93.1,storm.foster@outlook.com,2024-06-08,Abnormal findings on diagnostic imaging of heart and coronary circulation. Stress test abnormal. Cardiology referral urgent.
+1147,1008,M85.9,meadow.gonzales@gmail.com,2024-06-09,Disorder of bone density and structure unspecified. Osteopenia on DEXA scan. Calcium and vitamin D supplementation started.
+1148,1023,R81,ocean.bryant@email.com,2024-06-10,Glycosuria. Glucose in urine without diabetes symptoms. Glucose tolerance test ordered to rule out diabetes mellitus.
+1149,1056,G62.9,atlas.alexander@yahoo.com,2024-06-11,Polyneuropathy unspecified. Numbness and tingling in hands and feet. B12 level and nerve conduction studies ordered.
+1150,1045,R92.8,sage.russell@hotmail.com,2024-06-12,Other abnormal and inconclusive findings on diagnostic imaging of breast. Mammogram shows asymmetric density. Biopsy recommended.
+1151,1011,N25.9,river.griffin@outlook.com,2024-06-13,Disorder resulting from impaired renal tubular function unspecified. Electrolyte abnormalities. Nephrology consultation arranged.
+1152,1017,R87.9,nova.diaz@gmail.com,2024-06-14,Unspecified abnormal cytological findings in specimens from female genital organs. Pap smear unsatisfactory. Repeat in 6 weeks.
+1153,1084,G73.3,ember.hayes@email.com,2024-06-15,Myasthenic syndromes in other diseases classified elsewhere. Muscle weakness and fatigue. Tensilon test and AChR antibodies ordered.
+1154,1017,R72,phoenix.myers@yahoo.com,2024-06-16,Abnormality of red blood cells. Anisocytosis and poikilocytosis on blood smear. Hematology referral for further evaluation.
+1155,1091,M87.9,storm.ford@hotmail.com,2024-06-17,Osteonecrosis unspecified. Hip pain and limited range of motion. MRI shows avascular necrosis. Orthopedic referral.
+1156,1066,R95,meadow.hamilton@outlook.com,2024-06-18,Sudden infant death syndrome. Infant found unresponsive in crib. Autopsy and family support services arranged.
+1157,1075,N42.9,ocean.graham@gmail.com,2024-06-19,Disorder of prostate unspecified. Urinary symptoms and enlarged prostate on exam. PSA elevated. Urology referral.
+1158,1079,R79.9,atlas.sullivan@email.com,2024-06-20,Abnormal finding of blood chemistry unspecified. Multiple lab abnormalities without clear pattern. Repeat testing ordered.
+1159,1045,G95.9,sage.wallace@yahoo.com,2024-06-21,Disease of spinal cord unspecified. Progressive weakness in legs. Spinal MRI and neurology consultation urgent.
+1160,1011,R85.9,river.woods@hotmail.com,2024-06-22,Unspecified abnormal cytological findings in specimens from cervix uteri. High-grade squamous lesion. Gynecologic oncology referral.
+1161,1026,N50.9,nova.kennedy@outlook.com,2024-06-23,Disorder of male genital organs unspecified. Testicular pain and swelling. Ultrasound ordered and urology referral.
+1162,1082,R73.9,ember.lawson@gmail.com,2024-06-24,Hyperglycemia unspecified. Random glucose 180 mg/dL. HbA1c ordered and diabetes education referral made.
+1163,1073,G96.9,phoenix.webb@email.com,2024-06-25,Disorder of central nervous system unspecified. Neurological symptoms of unclear etiology. Comprehensive workup initiated.
+1164,1056,R87.2,storm.tucker@yahoo.com,2024-06-26,Atypical squamous cells cannot exclude high-grade lesion on cytology. Colposcopy with biopsy scheduled urgently.
+1165,1042,N94.6,meadow.freeman@hotmail.com,2024-06-27,Dysmenorrhea unspecified. Severe menstrual cramps affecting daily activities. NSAIDs and hormonal therapy discussed.
+1166,1010,R76.9,ocean.porter@outlook.com,2024-06-28,Other specified abnormal immunological findings in serum. Elevated autoantibodies. Rheumatology referral for autoimmune evaluation.
+1167,1057,G82.20,atlas.hunter@gmail.com,2024-06-29,Paraplegia unspecified. Complete loss of lower extremity function. Spinal cord injury rehabilitation and support services.
+1168,1085,R94.8,sage.hicks@email.com,2024-06-30,Abnormal results of other specified function studies. Abnormal pulmonary function tests. Pulmonology follow-up arranged.
+1169,1074,N39.3,river.crawford@yahoo.com,2024-07-01,Stress incontinence female. Urine leakage with coughing and sneezing. Pelvic floor exercises and urogynecology referral.
+1170,1035,R83.9,nova.boyd@hotmail.com,2024-07-02,Unspecified abnormal finding in cerebrospinal fluid. Lumbar puncture shows pleocytosis. Infectious disease consultation.
+1171,1003,G04.90,ember.mason@outlook.com,2024-07-03,Encephalitis and encephalomyelitis unspecified. Altered mental status and fever. MRI brain and lumbar puncture performed.
+1172,1088,R78.9,phoenix.morales@gmail.com,2024-07-04,Finding of unspecified substance in blood. Toxicology screen positive for unknown substance. Poison control consultation.
+1173,1018,N92.6,storm.reynolds@email.com,2024-07-05,Irregular menstruation unspecified. Menstrual cycle irregularities for 6 months. Hormonal evaluation and gynecology referral.
+1174,1004,R71.8,meadow.fisher@yahoo.com,2024-07-06,Other abnormality of red blood cells. Macrocytosis on blood smear. B12 and folate levels ordered. Hematology referral.
+1175,1059,G83.9,ocean.ellis@hotmail.com,2024-07-07,Other paralytic syndrome. Focal weakness of unclear etiology. Neurological examination and MRI brain ordered.
+1176,1001,R86.6,atlas.roy@outlook.com,2024-07-08,Cytological evidence of malignancy on cervical cytology. High-grade lesion identified. Gynecologic oncology referral urgent.
+1177,1070,N43.3,sage.little@gmail.com,2024-07-09,Hydrocele unspecified. Scrotal swelling and fluid collection. Ultrasound confirms diagnosis. Urology consultation.
+1178,1100,R77.2,river.warren@email.com,2024-07-10,Abnormality of globulin. Hypergammaglobulinemia on protein electrophoresis. Hematology referral for further evaluation.
+1179,1085,G90.9,nova.marshall@yahoo.com,2024-07-11,Disorder of autonomic nervous system unspecified. Orthostatic hypotension and syncope. Tilt table test scheduled.
+1180,1062,R84.6,ember.fowler@hotmail.com,2024-07-12,Cytological evidence of malignancy in specimens from female genital organs. Endometrial biopsy shows cancer. Oncology referral urgent.
+1181,1073,N48.9,phoenix.schwartz@outlook.com,2024-07-13,Disorder of penis unspecified. Penile pain and deformity. Physical examination and ultrasound ordered. Urology referral.
+1182,1092,R74.8,storm.hopkins@gmail.com,2024-07-14,Abnormal levels of other serum enzymes. Elevated alkaline phosphatase. Liver imaging and hepatology referral arranged.
+1183,1077,G98.0,meadow.garrett@email.com,2024-07-15,Neurologic neglect syndrome. Spatial neglect following stroke. Occupational therapy and neuropsychology evaluation.
+1184,1009,R85.2,ocean.harvey@yahoo.com,2024-07-16,Atypical squamous cells cannot exclude high-grade lesion. Cervical cytology abnormal. Immediate colposcopy scheduled.
+1185,1092,N91.2,atlas.armstrong@hotmail.com,2024-07-17,Amenorrhea unspecified. Absence of menstruation for 6 months. Pregnancy test negative. Endocrinology referral.
+1186,1015,R73.02,sage.carpenter@outlook.com,2024-07-18,Impaired glucose tolerance. 2-hour glucose 165 mg/dL on OGTT. Lifestyle counseling and diabetes prevention program.
+1187,1088,G91.9,river.weaver@gmail.com,2024-07-19,Hydrocephalus unspecified. Ventricular enlargement on brain MRI. Neurosurgery consultation for shunt evaluation.
+1188,1093,R86.2,nova.greene@email.com,2024-07-20,Atypical squamous cells cannot exclude high-grade lesion on cervical cytology. Urgent colposcopy and biopsy arranged.
+1189,1017,N44.00,ember.lawrence@yahoo.com,2024-07-21,Torsion of testis unspecified. Acute scrotal pain and swelling. Emergency surgical exploration and orchiopexy performed.
+1190,1023,R77.8,phoenix.elliott@hotmail.com,2024-07-22,Other specified abnormalities of plasma proteins. Paraproteinemia detected. Hematology referral for myeloma workup.
+1191,1082,G89.3,storm.stone@outlook.com,2024-07-23,Neoplasm related pain (acute)(chronic). Cancer pain management. Opioid rotation and palliative care consultation.
+1192,1084,R83.8,meadow.montgomery@gmail.com,2024-07-24,Other abnormal findings in cerebrospinal fluid. CSF oligoclonal bands present. Multiple sclerosis workup initiated.
+1193,1098,N36.9,ocean.bishop@email.com,2024-07-25,Urethral disorder unspecified. Urethral pain and discharge. STI testing and urology referral for further evaluation.
+1194,1002,R70.1,atlas.richmond@yahoo.com,2024-07-26,Abnormal plasma viscosity. Hyperviscosity syndrome symptoms. Plasmapheresis and hematology consultation arranged.
+1195,1070,G81.90,sage.lucas@hotmail.com,2024-07-27,Hemiplegia unspecified affecting unspecified side. Sudden onset weakness. Stroke workup with CT and MRI brain.
+1196,1077,R85.8,river.francis@outlook.com,2024-07-28,Other abnormal cytological findings on specimens from cervix uteri. Glandular cells abnormal. Gynecology referral urgent.
+1197,1054,N30.90,nova.bowman@gmail.com,2024-07-29,Cystitis unspecified without hematuria. Bladder pain and urinary frequency. Urinalysis and antibiotic treatment.
+1198,1085,R79.82,ember.hansen@email.com,2024-07-30,Elevated C-reactive protein. CRP 45 mg/L without obvious infection. Further inflammatory workup and monitoring.
+1199,1096,G80.9,phoenix.chen@yahoo.com,2024-07-31,Cerebral palsy unspecified. Developmental delays and spasticity. Physical therapy and developmental pediatrics referral.
+1200,1022,R82.5,storm.coleman@hotmail.com,2024-08-01,Elevated urine levels of drugs and biological substances. Positive drug screen in urine. Substance abuse counseling referral.

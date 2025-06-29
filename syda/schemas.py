@@ -73,6 +73,16 @@ class ModelConfig(BaseModel):
     max_tokens: int = Field(8192, description="Maximum number of tokens to generate. Larger values allow for more complete responses.")
     top_p: Optional[float] = Field(None, ge=0.0, le=1.0, description="Nucleus sampling parameter")
     
+    # Streaming parameters
+    stream: Optional[bool] = Field(
+        False, 
+        description="""
+        Enable streaming responses for certain models.
+        If not provided or set to False, 
+        streaming for models will be enabled if sample size is >50 or for certain anthropic models.
+        """
+    )
+
     # OpenAI specific parameters
     seed: Optional[int] = Field(None, description="Random seed for reproducibility (OpenAI only)")
     response_format: Optional[Dict[str, Any]] = Field(None, description="Format for responses (OpenAI only)")

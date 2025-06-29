@@ -1,0 +1,16 @@
+patient_id,diagnosis_code,email,visit_date,notes
+1001,E11.9,john.smith@example.com,2023-06-15,Type 2 diabetes mellitus without complications. Recommended diet and exercise plan.
+1002,I10,emma.johnson@example.net,2023-06-12,Essential (primary) hypertension. Prescribed blood pressure medication.
+1003,F32.9,michael.brown@example.org,2023-06-10,"Major depressive disorder, unspecified. Referred to mental health counseling."
+1004,M17.9,sarah.wilson@example.com,2023-06-08,"Osteoarthritis of knee, unspecified. Recommended physical therapy."
+1005,J45.909,david.lee@example.net,2023-06-05,Unspecified asthma with acute exacerbation. Prescribed inhaler.
+1006,K35.2,olivia.martinez@example.org,2023-06-03,Acute appendicitis with generalized peritonitis. Immediate surgical intervention required.
+1007,N39.0,james.taylor@example.com,2023-06-01,"Urinary tract infection, site not specified. Prescribed antibiotics."
+1008,L02.91,sophia.anderson@example.net,2023-05-30,Cutaneous abscess of trunk. Incision and drainage performed.
+1009,G43.909,ethan.rodriguez@example.org,2023-05-28,"Migraine, unspecified, without mention of intractability. Recommended stress management."
+1010,H10.9,isabella.thomas@example.com,2023-05-25,Unspecified conjunctivitis. Prescribed topical antibiotics.
+1011,A09,william.garcia@example.net,2023-05-22,"Infectious gastroenteritis and colitis, unspecified. Advised hydration and rest."
+1012,S52.521A,emily.miller@example.org,2023-05-20,"Torus fracture of lower end of right radius, initial encounter. Placed in short arm cast."
+1013,R53.83,alexander.white@example.com,2023-05-18,Other fatigue. Recommended comprehensive health screening.
+1014,Z23,ava.jackson@example.net,2023-05-15,Encounter for immunization. Administered seasonal flu vaccine.
+1015,R07.9,noah.harris@example.org,2023-05-12,Unspecified chest pain. Conducted cardiac evaluation and ECG.

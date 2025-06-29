@@ -28,7 +28,7 @@ import inspect
 from pathlib import Path
 import networkx as nx
 from typing import Dict, List, Optional, Callable, Union, Type, Any, Tuple
-from pydantic import create_model, TypeAdapter
+from pydantic import create_model, TypeAdapter, Field
 from .schemas import ModelConfig
 from .llm import create_llm_client, LLMClient
 from .output import save_dataframe, save_dataframes
@@ -648,7 +648,6 @@ class SyntheticDataGenerator:
         
         return full_prompt
             
-
     def _generate_data_with_llm(self, llm_schema, full_prompt, sample_size):
         """
         Generate data using the LLM based on the schema and prompt.
@@ -664,7 +663,7 @@ class SyntheticDataGenerator:
         Raises:
             ValueError: If LLM data generation fails
         """
-        # Build Pydantic model for parsing with proper type mapping
+        # Helper function to map schema types to Python types
         def get_python_type(field_type):
             """Map schema types to Python types."""
             if isinstance(field_type, str):
@@ -682,34 +681,61 @@ class SyntheticDataGenerator:
             elif isinstance(field_type, dict) and 'type' in field_type:
                 return get_python_type(field_type['type'])
             return str  # Default to string for unknown types
-        
-        fields = {}
-        for col, field_info in llm_schema.items():
-            if isinstance(field_info, dict) and 'type' in field_info:
-                fields[col] = (get_python_type(field_info['type']), ...)
-            elif isinstance(field_info, str):
-                fields[col] = (get_python_type(field_info), ...)
-            else:
-                fields[col] = (str, ...)  # Default to string
-        DynamicInstructorModel = create_model("DynamicModel", **fields)
 
-        print(f"Generating data using {self.model_config.provider}/{self.model_config.model_name}...")
+        # Create the dynamic model for this schema with proper types and descriptions
+        model_fields = {}
+        for name, field_info in llm_schema.items():
+            if isinstance(field_info, dict) and 'type' in field_info:
+                model_fields[name] = (get_python_type(field_info['type']), Field(description=name))
+            elif isinstance(field_info, str):
+                model_fields[name] = (get_python_type(field_info), Field(description=name))
+            else:
+                model_fields[name] = (str, Field(description=name))  # Default to string
+                
+        DynamicInstructorModel = create_model("DynamicModel", **model_fields)
         
-        # Get model kwargs with proper API key handling
-        model_kwargs = self.llm_client.get_model_kwargs()  # This ensures api_keys are not passed directly
+        # Get default model parameters or use structured output mode if available
+        model_kwargs = self.llm_client.get_model_kwargs()
         
         # Ensure the model name is always included
         if 'model' not in model_kwargs:
             model_kwargs['model'] = self.model_config.model_name
         
         try:
+            print(f"Generating data using {self.model_config.provider}/{self.model_config.model_name}...")
             print(f"Full Prompt: {full_prompt}")
-            # Call the LLM through instructor's unified interface
-            ai_objs = self.client.chat.completions.create(
-                response_model=List[DynamicInstructorModel],
-                messages=[{"role": "user", "content": full_prompt}],
-                **model_kwargs,
+            
+            # Check if streaming is explicitly set in model config
+            is_stream_set = hasattr(self.model_config, 'stream') and self.model_config.stream is True
+            
+            # Determine if we should use streaming:
+            # 1. If explicitly set in model_config, use that value
+            # 2. Otherwise use streaming for Anthropic models or when sample_size is large
+            provider = self.model_config.provider.lower()
+            model_name = self.model_config.model_name
+            use_streaming = (
+                self.model_config.stream if is_stream_set
+                else (sample_size >= 50)
             )
+            
+            if use_streaming:
+                print(f"Using streaming for {provider} {model_name} model with sample_size={sample_size}")
+                # Use create_iterable for streaming multiple objects
+                ai_obj_stream = self.client.chat.completions.create_iterable(
+                    response_model=DynamicInstructorModel,
+                    messages=[{"role": "user", "content": full_prompt}],
+                    **model_kwargs,
+                )
+                
+                # Collect objects from the stream
+                ai_objs = list(ai_obj_stream)
+            else:
+                # Regular non-streaming call for other providers or smaller sample sizes
+                ai_objs = self.client.chat.completions.create(
+                    response_model=List[DynamicInstructorModel],
+                    messages=[{"role": "user", "content": full_prompt}],
+                    **model_kwargs,
+                )
             
             if not ai_objs:
                 raise ValueError("No objects returned from LLM call")
