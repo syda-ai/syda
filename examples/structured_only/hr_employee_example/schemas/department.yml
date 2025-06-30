@@ -1,0 +1,44 @@
+__table_name__: Department
+__description__: Department information for the organization
+
+id:
+  type: integer
+  description: Unique identifier for the department
+  constraints:
+    primary_key: true
+    min: 1
+    max: 100
+
+name:
+  type: text
+  description: Name of the department
+  constraints:
+    not_null: true
+    min_length: 3
+    max_length: 50
+
+location:
+  type: text
+  description: Physical location of the department
+  constraints:
+    max_length: 100
+
+budget:
+  type: number
+  description: Annual budget allocated to the department
+  constraints:
+    min: 10000
+    max: 10000000
+
+manager_id:
+  type: integer
+  description: Employee ID of the department manager
+  constraints:
+    min: 1
+    max: 1000
+
+created_date:
+  type: date
+  description: Date when the department was created
+  constraints:
+    format: YYYY-MM-DD

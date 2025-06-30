@@ -1,0 +1,16 @@
+patient_id,diagnosis_code,email,visit_date,notes
+1,E11.9,john.doe@example.com,2023-01-15,"Routine check-up, blood sugar levels stable."
+2,I10,jane.smith@example.com,2023-02-10,"Follow-up on hypertension medication, blood pressure within normal range."
+3,J45.909,michael.brown@example.com,2023-03-12,"Asthma management plan reviewed, prescribed inhaler."
+4,F32.9,emily.jones@example.com,2023-04-22,Patient reports improvement in mood with current antidepressant.
+5,M54.5,chris.johnson@example.com,2023-05-05,"Complaints of lower back pain, advised physical therapy."
+6,K21.9,patricia.lee@example.com,2023-06-18,"Symptoms of GERD, recommended dietary changes."
+7,N39.0,robert.miller@example.com,2023-07-30,"Urinary tract infection diagnosed, prescribed antibiotics."
+8,E78.5,linda.taylor@example.com,2023-08-19,"Cholesterol levels high, advised medication and lifestyle changes."
+9,G47.00,david.wilson@example.com,2023-09-08,"Patient reports insomnia, prescribed sleep aid."
+10,L40.0,susan.moore@example.com,2023-10-02,"Psoriasis flare-up, adjusted topical treatment."
+11,H52.4,thomas.anderson@example.com,2023-01-23,New prescription for reading glasses.
+12,R51,barbara.thomas@example.com,2023-02-14,"Patient experiencing headaches, MRI scheduled."
+13,Z71.3,joseph.jackson@example.com,2023-03-25,Patient counseling for lifestyle modifications.
+14,B97.7,nancy.white@example.com,2023-04-16,"Confirmed viral infection, symptomatic treatment advised."
+15,M79.1,kevin.harris@example.com,2023-05-29,"Myalgia, recommended stretching exercises and rest."

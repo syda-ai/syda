@@ -49,46 +49,50 @@ class LLMClient:
         # Initialize the client
         self.client = self._initialize_client()
         
-    def get_model_kwargs(self):
-        """
-        Get model kwargs based on the model configuration.
+    # def get_model_kwargs(self) -> Dict[str, Any]:
+    #     """
+    #     Get model kwargs based on the model configuration.
         
-        Returns:
-            Dictionary of keyword arguments for the model
-        """
-        kwargs = {}
+    #     Returns:
+    #         Dictionary of keyword arguments for the model
+    #     """
+    #     kwargs = {}
         
-        # Add temperature if specified
-        if self.model_config.temperature is not None:
-            kwargs['temperature'] = self.model_config.temperature
+    #     # Add temperature if specified
+    #     if self.model_config.temperature is not None:
+    #         kwargs['temperature'] = self.model_config.temperature
             
-        # Add max_tokens if specified
-        if self.model_config.max_tokens is not None:
-            kwargs['max_tokens'] = self.model_config.max_tokens
+    #     # Add max_tokens if specified
+    #     if self.model_config.max_tokens is not None:
+    #         kwargs['max_tokens'] = self.model_config.max_tokens
             
-        # Add top_p if specified
-        if self.model_config.top_p is not None:
-            kwargs['top_p'] = self.model_config.top_p
+    #     # Add max_completion_tokens if specified
+    #     if self.model_config.max_completion_tokens is not None:
+    #         kwargs['max_completion_tokens'] = self.model_config.max_completion_tokens
             
-        # Add seed if specified
-        if self.model_config.seed is not None:
-            kwargs['seed'] = self.model_config.seed
+    #     # Add top_p if specified
+    #     if self.model_config.top_p is not None:
+    #         kwargs['top_p'] = self.model_config.top_p
             
-        # Add response_format if specified (OpenAI only)
-        if self.model_config.response_format is not None and self.model_config.provider == 'openai':
-            kwargs['response_format'] = self.model_config.response_format
+    #     # Add seed if specified
+    #     if self.model_config.seed is not None:
+    #         kwargs['seed'] = self.model_config.seed
             
-        # Add top_k if specified (Anthropic only)
-        if self.model_config.top_k is not None and self.model_config.provider == 'anthropic':
-            kwargs['top_k'] = self.model_config.top_k
+    #     # Add response_format if specified (OpenAI only)
+    #     if self.model_config.response_format is not None and self.model_config.provider == 'openai':
+    #         kwargs['response_format'] = self.model_config.response_format
             
-        # Add max_tokens_to_sample if specified (Anthropic only)
-        if self.model_config.max_tokens_to_sample is not None and self.model_config.provider == 'anthropic':
-            kwargs['max_tokens_to_sample'] = self.model_config.max_tokens_to_sample
+    #     # Add top_k if specified (Anthropic only)
+    #     if self.model_config.top_k is not None and self.model_config.provider == 'anthropic':
+    #         kwargs['top_k'] = self.model_config.top_k
             
-        return kwargs
+    #     # Add max_tokens_to_sample if specified (Anthropic only)
+    #     if self.model_config.max_tokens_to_sample is not None and self.model_config.provider == 'anthropic':
+    #         kwargs['max_tokens_to_sample'] = self.model_config.max_tokens_to_sample
+            
+    #     return kwargs
         
-    def _initialize_client(self):
+    def _initialize_client(self) -> Any:
         """
         Initialize and return the appropriate LLM client based on the model configuration.
         
@@ -114,7 +118,7 @@ class LLMClient:
             raw_client = openai.OpenAI(**proxy_kwargs)
             
             # Patch with instructor and return
-            return instructor.patch(raw_client)
+            return instructor.from_openai(raw_client)
             
         elif provider == "anthropic":
             # Set up environment variable for Anthropic instead of passing directly

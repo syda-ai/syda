@@ -41,5 +41,5 @@ service/alembic/versions/*
 *.swp
 *.swo
 *~
-*.csv
 logs/
+.windsurf/

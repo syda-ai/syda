@@ -1,0 +1,43 @@
+__table_name__: Position
+__description__: Job positions within the organization
+
+id:
+  type: integer
+  description: Unique identifier for the position
+  constraints:
+    primary_key: true
+    min: 1
+    max: 50
+
+title:
+  type: text
+  description: Job title of the position
+  constraints:
+    not_null: true
+    min_length: 3
+    max_length: 100
+
+level:
+  type: integer
+  description: Job level (1-10 where 10 is highest)
+  constraints:
+    min: 1
+    max: 10
+
+min_salary:
+  type: number
+  description: Minimum salary range for the position
+  constraints:
+    min: 30000
+    max: 200000
+
+max_salary:
+  type: number
+  description: Maximum salary range for the position
+  constraints:
+    min: 50000
+    max: 300000
+
+is_management:
+  type: boolean
+  description: Whether the position has management responsibilities

@@ -1,0 +1,45 @@
+__table_name__: Category
+__description__: Retail product categories
+
+id:
+  type: integer
+  description: Unique category ID
+  constraints:
+    primary_key: true
+    not_null: true
+    min: 1
+    max: 1000
+
+name:
+  type: string
+  description: Category name
+  constraints:
+    not_null: true
+    length: 50
+    unique: true
+
+parent_id:
+  type: integer
+  description: Parent category ID for hierarchical categories, if it is a parent category, this field should be 0
+  constraints:
+    min: 0
+    max: 1000
+
+description:
+  type: text
+  description: Detailed category description
+  constraints:
+    length: 500
+
+display_order:
+  type: integer
+  description: Order for displaying the category
+  constraints:
+    min: 1
+    max: 100
+
+active:
+  type: boolean
+  description: Whether the category is active
+  constraints:
+    not_null: true

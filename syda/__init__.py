@@ -1,4 +1,4 @@
-from .structured import SyntheticDataGenerator
+from .generate import SyntheticDataGenerator
 
 __all__ = ['SyntheticDataGenerator']
 

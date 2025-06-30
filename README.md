@@ -18,9 +18,22 @@ A Python-based open-source library for generating synthetic data with AI while p
     * [Dictionary-Based Schemas](#4-dictionary-based-schemas)
     * [Foreign Key Definition Methods](#foreign-key-definition-methods)
   * [Automatic Management of Multiple Related Models](#automatic-management-of-multiple-related-models)
+    * [Using SQLAlchemy Models](#using-sqlalchemy-models)
+    * [Using YAML Schema Files](#using-yaml-schema-files)
+    * [Using JSON Schema Files](#using-json-schema-files)
+    * [Using Dictionary-Based Schemas](#using-dictionary-based-schemas)
   * [Complete CRM Example](#complete-crm-example)
 * [Metadata Enhancement Benefits with SQLAlchemy Models](#metadata-enhancement-benefits-with-sqlalchemy-models)
 * [Custom Generators for Domain-Specific Data](#custom-generators-for-domain-specific-data)
+* [Unstructured Document Generation](#unstructured-document-generation)
+  * [Template-Based Document Generation](#template-based-document-generation)
+  * [Template Schema Requirements](#template-schema-requirements)
+  * [Supported Template Types](#supported-template-types)
+* [Combined Structured and Unstructured Data](#combined-structured-and-unstructured-data)
+  * [Connecting Documents to Structured Data](#connecting-documents-to-structured-data)
+  * [Schema Dependencies for Documents](#schema-dependencies-for-documents)
+  * [Custom Generators for Document Data](#custom-generators-for-document-data)
+* [SQLAlchemy Models with Templates](#sqlalchemy-models-with-templates)
 * [Model Selection and Configuration](#model-selection-and-configuration)
   * [Basic Configuration](#basic-configuration)
   * [Using Different Model Providers](#using-different-model-providers)
@@ -172,12 +185,40 @@ results = generator.generate_for_sqlalchemy_models(
 )
 ```
 
+### SQLAlchemy Model Integration
+
+Pass declarative models directly—docstrings and column metadata inform the prompt:
+
+```python
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
+from syda.structured import SyntheticDataGenerator
+from syda.schemas import ModelConfig
+
+Base = declarative_base()
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, comment="Full name of the user")
+
+model_config = ModelConfig(provider='anthropic', model_name='claude-3-5-haiku-20241022')
+generator = SyntheticDataGenerator(model_config=model_config)
+results = generator.generate_for_sqlalchemy_models(
+    sqlalchemy_models=[User], 
+    prompts={'User': 'Generate users'}, 
+    sample_sizes={'User': 5}
+)
+```
+
+> **Important:** SQLAlchemy models **must** have either `__table__` or `__tablename__` specified. Without one of these attributes, the model cannot be properly processed by the system. The `__tablename__` attribute defines the name of the database table and is used as the schema name when generating data. For example, a model with `__tablename__ = 'users'` will be referenced as 'users' in prompts, sample_sizes, custom generators and the returned results dictionary.
+
+
 ### Handling Foreign Key Relationships
 
 The library provides robust support for handling foreign key relationships with referential integrity:
 
-1. **Automatic Foreign Key Detection**: Foreign keys are automatically detected from your SQLAlchemy models and assigned the type `'foreign_key'`.
-2. **Column-Specific Foreign Key Generators**: Register different generators for each foreign key column when dealing with multiple relationships:
+1. **Automatic Foreign Key Detection**: Foreign keys are automatically detected from your yml, json, dict, SQLAlchemy models and assigned the type `'foreign_key'`.
+2. **Manual Column-Specific Foreign Key Generators**: You can also manually define foreign key generators for specific columns as below snippet
 
 ```python
 # After generating departments and loading them into departments_df:
@@ -210,7 +251,12 @@ employees_df = results['Employee']
 4. **Referential Integrity Preservation**: The foreign key generator samples from actual existing IDs in the parent table, ensuring all references are valid.
 5. **Metadata-Enhanced Foreign Keys**: Column comments on foreign key fields are preserved and included in the prompt, helping the LLM understand the relationship context.
 
+
 ### Multiple Schema Definition Formats
+
+
+> **Note:** For detailed information on supported field types and schema format, see the [Schema Reference](schema_reference.md) document.
+
 
 Syda supports defining your data models in multiple formats, all leading to the same synthetic data generation capabilities. Choose the format that best suits your workflow:
 
@@ -242,8 +288,8 @@ class Order(Base):
 # Generate data from SQLAlchemy models
 results = generator.generate_for_sqlalchemy_models(
     sqlalchemy_models=[Customer, Order],
-    prompts={"Customer": "Generate tech companies"},
-    sample_sizes={"Customer": 10, "Order": 30}
+    prompts={"customers": "Generate tech companies"},
+    sample_sizes={"customers": 10, "orders": 30}
 )
 ```
 
@@ -444,35 +490,471 @@ There are three ways to define foreign key relationships:
 
 ### Automatic Management of Multiple Related Models
 
+#### Using SQLAlchemy Models
+
 Simplify multi-table workflows with `generate_for_sqlalchemy_models`:
 
 ```python
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Date, Text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+from datetime import datetime, timedelta
+import random
+from syda.generate import SyntheticDataGenerator
+
+Base = declarative_base()
+
+# Customer model
+class Customer(Base):
+    __tablename__ = 'customers'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
+    industry = Column(String(50))
+    status = Column(String(20))
+    contacts = relationship("Contact", back_populates="customer")
+    orders = relationship("Order", back_populates="customer")
+
+# Contact model with foreign key to Customer
+class Contact(Base):
+    __tablename__ = 'contacts'
+    
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
+    name = Column(String(100), nullable=False)
+    email = Column(String(120), nullable=False)
+    phone = Column(String(20))
+    customer = relationship("Customer", back_populates="contacts")
+
+# Product model
+class Product(Base):
+    __tablename__ = 'products'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
+    description = Column(Text)
+    price = Column(Float, nullable=False)
+    order_items = relationship("OrderItem", back_populates="product")
+
+# Order model with foreign key to Customer
+class Order(Base):
+    __tablename__ = 'orders'
+    
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
+    order_date = Column(Date, nullable=False)
+    total_amount = Column(Float)
+    customer = relationship("Customer", back_populates="orders")
+    order_items = relationship("OrderItem", back_populates="order")
+
+# OrderItem model with foreign keys to Order and Product
+class OrderItem(Base):
+    __tablename__ = 'order_items'
+    
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
+    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
+    quantity = Column(Integer, nullable=False)
+    price = Column(Float, nullable=False)
+    order = relationship("Order", back_populates="order_items")
+    product = relationship("Product", back_populates="order_items")
+
+# Initialize generator
+generator = SyntheticDataGenerator()
+
+# Generate data for all models in one call
 results = generator.generate_for_sqlalchemy_models(
-    sqlalchemy_models=[Customer, Contact, Product, Order, OrderItem],
+    models=[Customer, Contact, Product, Order, OrderItem],
+    prompts={
+        "customers": "Generate diverse customer organizations for a B2B SaaS company.",
+        "contacts": "Generate cloud software products and services."
+    },
+    sample_sizes={
+        "customers": 10,
+        "contacts": 25,
+        "products": 15,
+        "orders": 30,
+        "order_items": 60
+    },
+    custom_generators={
+        "customers": {
+            # Ensure a specific distribution of customer statuses for business reporting
+            "status": lambda row, col: random.choice(["Active", "Inactive", "Prospect"]),
+        },
+        "products": {
+            # Ensure product categories match your specific business domains
+            "category": lambda row, col: random.choice([
+                "Cloud Infrastructure", "Business Intelligence", "Security Services",
+                "Data Analytics", "Custom Development", "Support Package", "API Services"
+            ])
+        },
+    }
+)
+```
+
+#### Using YAML Schema Files
+
+The same relationship management is available with YAML schemas:
+
+```yaml
+# customer.yaml
+__table_name__: customers
+__description__: Customer organizations
+
+id:
+  type: integer
+  constraints:
+    primary_key: true
+    not_null: true
+
+name:
+  type: string
+  constraints:
+    not_null: true
+    max_length: 100
+
+industry:
+  type: string
+  constraints:
+    max_length: 50
+
+status:
+  type: string
+  constraints:
+    max_length: 20
+```
+
+```yaml
+# contact.yaml
+__table_name__: contacts
+__description__: Customer contacts
+__foreign_keys__:
+  customer_id: [customers, id]
+
+id:
+  type: integer
+  constraints:
+    primary_key: true
+    not_null: true
+
+customer_id:
+  type: integer
+  constraints:
+    not_null: true
+
+name:
+  type: string
+  constraints:
+    not_null: true
+    max_length: 100
+
+email:
+  type: string
+  constraints:
+    not_null: true
+    max_length: 120
+
+phone:
+  type: string
+  constraints:
+    max_length: 20
+```
+
+```yaml
+# order.yaml
+__table_name__: orders
+__description__: Customer orders
+__foreign_keys__:
+  customer_id: [customers, id]
+
+id:
+  type: integer
+  constraints:
+    primary_key: true
+    not_null: true
+
+customer_id:
+  type: integer
+  constraints:
+    not_null: true
+
+order_date:
+  type: string
+  format: date
+  constraints:
+    not_null: true
+
+total_amount:
+  type: number
+  format: float
+```
+
+```python
+# Generate data for multiple related tables with YAML schemas
+results = generator.generate_for_schemas(
+    schemas={
+        'Customer': 'schemas/customer.yaml',
+        'Contact': 'schemas/contact.yaml',
+        'Product': 'schemas/product.yaml',
+        'Order': 'schemas/order.yaml',
+        'OrderItem': 'schemas/order_item.yaml'
+    },
     prompts={
         "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
         "Product": "Generate cloud software products and services."
     },
     sample_sizes={
         "Customer": 10,
-        "Contact": 25,
+        "Contact": 20,
         "Product": 15,
         "Order": 30,
         "OrderItem": 60
-    },
-    output_dir="output_data",
-    custom_generators={
-        "Customer": {"status": lambda row, col: random.choice(["Active", "Inactive", "Prospect"])},
-        "Product": {"price": lambda row, col: round(random.uniform(50, 5000), 2)}
     }
 )
 ```
 
-This method:
+#### Using JSON Schema Files
 
-* Automatically analyzes model dependencies and orders generation.
-* Manages foreign keys by sampling valid parent IDs.
-* Supports custom generators and preserves referential integrity.
+JSON schema files offer the same capabilities:
+
+```json
+// customer.json
+{
+  "__table_name__": "customers",
+  "__description__": "Customer organizations",
+  "id": {
+    "type": "integer",
+    "constraints": {
+      "primary_key": true,
+      "not_null": true
+    }
+  },
+  "name": {
+    "type": "string",
+    "constraints": {
+      "not_null": true,
+      "max_length": 100
+    }
+  },
+  "industry": {
+    "type": "string",
+    "constraints": {
+      "max_length": 50
+    }
+  },
+  "status": {
+    "type": "string",
+    "constraints": {
+      "max_length": 20
+    }
+  }
+}
+```
+
+```json
+// contact.json
+{
+  "__table_name__": "contacts",
+  "__description__": "Customer contacts",
+  "__foreign_keys__": {
+    "customer_id": ["customers", "id"]
+  },
+  "id": {
+    "type": "integer",
+    "constraints": {
+      "primary_key": true,
+      "not_null": true
+    }
+  },
+  "customer_id": {
+    "type": "integer",
+    "constraints": {
+      "not_null": true
+    }
+  },
+  "name": {
+    "type": "string",
+    "constraints": {
+      "not_null": true,
+      "max_length": 100
+    }
+  },
+  "email": {
+    "type": "string",
+    "constraints": {
+      "not_null": true,
+      "max_length": 120
+    }
+  },
+  "phone": {
+    "type": "string",
+    "constraints": {
+      "max_length": 20
+    }
+  }
+}
+```
+
+```json
+// order.json
+{
+  "__table_name__": "orders",
+  "__description__": "Customer orders",
+  "__foreign_keys__": {
+    "customer_id": ["customers", "id"]
+  },
+  "id": {
+    "type": "integer",
+    "constraints": {
+      "primary_key": true,
+      "not_null": true
+    }
+  },
+  "customer_id": {
+    "type": "integer",
+    "constraints": {
+      "not_null": true
+    }
+  },
+  "order_date": {
+    "type": "string",
+    "format": "date",
+    "constraints": {
+      "not_null": true
+    }
+  },
+  "total_amount": {
+    "type": "number",
+    "format": "float"
+  }
+}
+```
+
+```python
+# Generate data for multiple related tables with JSON schemas
+results = generator.generate_for_schemas(
+    schemas={
+        'Customer': 'schemas/customer.json',
+        'Contact': 'schemas/contact.json',
+        'Product': 'schemas/product.json',
+        'Order': 'schemas/order.json',
+        'OrderItem': 'schemas/order_item.json'
+    },
+    prompts={
+        "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
+        "Product": "Generate cloud software products and services."
+    },
+    sample_sizes={
+        "Customer": 10,
+        "Contact": 20,
+        "Product": 15,
+        "Order": 30,
+        "OrderItem": 60
+    }
+)
+```
+
+#### Using Dictionary-Based Schemas
+
+Similar relationship management works with dictionary schemas:
+
+```python
+# Define schemas as Python dictionaries
+schemas = {
+    'Customer': {
+        '__table_name__': 'customers',
+        '__description__': 'Customer organizations',
+        'id': {
+            'type': 'integer',
+            'constraints': {'primary_key': True, 'not_null': True}
+        },
+        'name': {
+            'type': 'string',
+            'constraints': {'not_null': True, 'max_length': 100}
+        },
+        'industry': {
+            'type': 'string',
+            'constraints': {'max_length': 50}
+        },
+        'status': {
+            'type': 'string',
+            'constraints': {'max_length': 20}
+        }
+    },
+    'Contact': {
+        '__table_name__': 'contacts',
+        '__description__': 'Customer contacts',
+        '__foreign_keys__': {
+            'customer_id': ['customers', 'id']
+        },
+        'id': {
+            'type': 'integer',
+            'constraints': {'primary_key': True, 'not_null': True}
+        },
+        'customer_id': {
+            'type': 'integer',
+            'constraints': {'not_null': True}
+        },
+        'name': {
+            'type': 'string',
+            'constraints': {'not_null': True, 'max_length': 100}
+        },
+        'email': {
+            'type': 'string',
+            'constraints': {'not_null': True, 'max_length': 120}
+        },
+        'phone': {
+            'type': 'string',
+            'constraints': {'max_length': 20}
+        }
+    },
+    'Order': {
+        '__table_name__': 'orders',
+        '__description__': 'Customer orders',
+        '__foreign_keys__': {
+            'customer_id': ['customers', 'id']
+        },
+        'id': {
+            'type': 'integer',
+            'constraints': {'primary_key': True, 'not_null': True}
+        },
+        'customer_id': {
+            'type': 'integer',
+            'constraints': {'not_null': True}
+        },
+        'order_date': {
+            'type': 'string',
+            'format': 'date',
+            'constraints': {'not_null': True}
+        },
+        'total_amount': {
+            'type': 'number',
+            'format': 'float'
+        }
+    }
+}
+
+# Generate data for dictionary schemas
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    prompts={
+        'Customer': 'Generate diverse customer organizations for a B2B SaaS company.'
+    },
+    sample_sizes={
+        'Customer': 10,
+        'Contact': 20,
+        'Order': 30
+    }
+)
+```
+
+In all cases, the generator will:
+1. Analyze relationships between models/schemas
+2. Determine the correct generation order using topological sorting
+3. Generate parent tables first
+4. Use existing primary keys when populating foreign keys in child tables
+5. Maintain referential integrity across the entire dataset
+
 
 ### Complete CRM Example
 
@@ -545,11 +1027,11 @@ def main():
     generator = SyntheticDataGenerator(model='gpt-4')
     output_dir = 'crm_data'
     prompts = {
-        "Customer": "Generate diverse customer organizations for a B2B SaaS company.",
-        "Product": "Generate products for a cloud software company.",
-        "Order": "Generate realistic orders with appropriate dates and statuses."
+        "customers": "Generate diverse customer organizations for a B2B SaaS company.",
+        "products": "Generate products for a cloud software company.",
+        "orders": "Generate realistic orders with appropriate dates and statuses."
     }
-    sample_sizes = {"Customer": 10, "Contact": 25, "Product": 15, "Order": 30, "OrderItem": 60}
+    sample_sizes = {"customers": 10, "contacts": 25, "products": 15, "orders": 30, "order_items": 60}
 
     results = generator.generate_for_sqlalchemy_models(
         sqlalchemy_models=[Customer, Contact, Product, Order, OrderItem],
@@ -574,263 +1056,545 @@ def main():
 * **Custom Generators**: Column-level functions for fine-tuned data.
 * **Automatic Docstring Utilization**: Embeds business context from model definitions.
 
-## Custom Generators for Domain-Specific Data
 
-For specialized domains like healthcare, finance, or logistics, you can register custom generators to produce highly accurate and domain-compliant synthetic data. Here's an example with healthcare insurance data:
+## Unstructured Document Generation
+
+SYDA can generate realistic unstructured documents such as PDF reports, letters, and forms based on templates. This is useful for applications that require document generation with synthetic data.
+
+For complete examples, see the [examples/unstructured_only](examples/unstructured_only) directory, which includes healthcare document generation samples.
+
+### Template-Based Document Generation
+
+Create template-based document schemas by specifying template fields in your schema:
 
 ```python
-from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
+from syda.generate import SyntheticDataGenerator
+from syda.schemas import ModelConfig
+
+# Initialize generator 
+config = ModelConfig(provider="anthropic", model_name="claude-3-5-haiku-20241022")
+generator = SyntheticDataGenerator(model_config=config)
+
+# Define template-based schemas
+schemas = {
+    'MedicalReport': 'schemas/medical_report.yml',
+    'LabResult': 'schemas/lab_result.yml'
+}
+```
+
+Here's an example of a medical report template schema:
+
+```yaml
+# Medical report template schema (medical_report.yml)
+__template__: true
+__description__: Medical report template for patient visits
+__name__: MedicalReport
+__foreign_keys__: {}
+__template_source__: templates/medical_report_template.html
+__input_file_type__: html
+__output_file_type__: pdf
+
+# Patient information
+patient_id:
+  type: string
+  format: uuid
+
+patient_name:
+  type: string
+
+date_of_birth:
+  type: string
+  format: date
+
+visit_date:
+  type: string
+  format: date-time
+
+chief_complaint:
+  type: string
+
+medical_history:
+  type: string
+
+# Vital signs
+blood_pressure:
+  type: string
+
+heart_rate:
+  type: integer
+
+respiratory_rate:
+  type: integer
+
+temperature:
+  type: number
+
+oxygen_saturation:
+  type: integer
+
+# Clinical information
+assessment:
+  type: string
+
+# Generate data and PDF documents
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    sample_sizes={
+        'MedicalReport': 5,
+        'LabResult': 5
+    },
+    prompts={
+        'MedicalReport': 'Generate synthetic medical reports for patients',
+        'LabResult': 'Generate synthetic laboratory test results for patients'
+    },
+    output_dir="output"
+)
+```
+
+### Template Schema Requirements
+
+Template-based schemas must include these special fields:
+
+```yaml
+__template__: true
+__template_source__: /path/to/template.html
+__input_file_type__: html
+__output_file_type__: pdf
+```
+
+The template file (like HTML) includes variable placeholders that get replaced with generated data. Here's an example of a Jinja2 HTML template for medical reports corresponding to the schema above:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Medical Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>MEDICAL REPORT</h1>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">PATIENT INFORMATION</div>
+        <p>
+            <strong>Patient ID:</strong> {{ patient_id }}<br>
+            <strong>Name:</strong> {{ patient_name }}<br>
+            <strong>Date of Birth:</strong> {{ date_of_birth }}
+        </p>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">VISIT INFORMATION</div>
+        <p>
+            <strong>Visit Date:</strong> {{ visit_date }}<br>
+            <strong>Chief Complaint:</strong> {{ chief_complaint }}
+        </p>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">MEDICAL HISTORY</div>
+        <p>{{ medical_history }}</p>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">VITAL SIGNS</div>
+        <p>
+            <strong>Blood Pressure:</strong> {{ blood_pressure }}<br>
+            <strong>Heart Rate:</strong> {{ heart_rate }} bpm<br>
+            <strong>Respiratory Rate:</strong> {{ respiratory_rate }} breaths/min<br>
+            <strong>Temperature:</strong> {{ temperature }}°F<br>
+            <strong>Oxygen Saturation:</strong> {{ oxygen_saturation }}%
+        </p>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">ASSESSMENT</div>
+        <p>{{ assessment }}</p>
+    </div>
+</body>
+</html>
+```
+
+As you can see, the template uses Jinja2's `{{ variable_name }}` syntax to insert the data from the generated schema fields into the HTML document.
+
+### Supported Template Types
+
+- HTML → PDF: Best supported with complete styling control
+- HTML → HTML: Simple text formatting
+
+More template formats will be supported in next versions
+
+## Combined Structured and Unstructured Data
+
+SYDA excels at generating both structured data (tables/databases) and unstructured content (documents) in a coordinated way.
+
+For working examples, see the [examples/structured_and_unstructured](examples/structured_and_unstructured) directory, which contains retail receipt generation and CRM document examples.
+
+
+### Connecting Documents to Structured Data
+
+You can create relationships between document schemas and structured data schemas:
+
+```python
+from syda.generate import SyntheticDataGenerator
+
+generator = SyntheticDataGenerator()
+
+# Define both structured and template-based schemas
+schemas = {
+    'Customer': 'schemas/customer.yml',            # Structured data
+    'Product': 'schemas/product.yml',              # Structured data
+    'Transaction': 'schemas/transaction.yml',      # Structured data
+    'Receipt': 'schemas/receipt.yml'               # Template-based document
+}
+```
+
+Here's what a structured data schema for a `Customer` might look like:
+
+```yaml
+# Customer schema (customer.yml)
+__table_name__: Customer
+__description__: Retail customers
+
+id:
+  type: integer
+  description: Unique customer ID
+  constraints:
+    primary_key: true
+    not_null: true
+    min: 1
+
+first_name:
+  type: string
+  description: Customer's first name
+  constraints:
+    not_null: true
+    length: 50
+
+last_name:
+  type: string
+  description: Customer's last name
+  constraints:
+    not_null: true
+    length: 50
+    
+email:
+  type: email
+  description: Customer's email address
+  constraints:
+    not_null: true
+    unique: true
+    length: 100
+```
+
+And here's a template-based document schema for a `Receipt` that references the structured data:
+
+```yaml
+# Receipt template schema (receipt.yml)
+__template__: true
+__description__: Retail receipt template
+__name__: Receipt
+__depends_on__: [Product, Transaction, Customer]
+__foreign_keys__:
+  customer_name: [Customer, first_name]
+  
+__template_source__: templates/receipt.html
+__input_file_type__: html
+__output_file_type__: pdf
+
+# Receipt header
+store_name:
+  type: string
+  length: 50
+  description: Name of the retail store
+
+store_address:
+  type: address
+  length: 150
+  description: Full address of the store
+
+# Receipt details
+receipt_number:
+  type: string
+  pattern: '^RCP-\d{8}$'
+  length: 12
+  description: Unique receipt identifier
+
+# Product purchase details
+items:
+  type: array
+  description: "List of purchased items with product details"
+
+
+# Generate everything - maintains relationships between structured and document data
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    output_dir="output"
+)
+
+# Results include both DataFrames and generated documents
+customers_df = results['Customer']
+receipts_df = results['Receipt']     # Contains metadata about generated documents
+```
+
+### Schema Dependencies for Documents
+
+Template schemas can specify dependencies on structured schemas:
+
+```yaml
+# Receipt template schema (receipt.yml)
+__template__: true
+__name__: Receipt
+__depends_on__: [Product, Transaction, Customer]
+__foreign_keys__:
+  customer_id: [Customer, id]
+__template_source__: templates/receipt.html
+__input_file_type__: html
+__output_file_type__: pdf
+```
+
+This ensures that dependent structured data is generated first, and related documents can reference that data.
+
+Here's an example of a receipt HTML template that uses data from both the receipt schema and the related structured data:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Receipt</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            line-height: 1.3;
+            max-width: 380px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        .header, .footer {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .items-table {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .totals {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="store-name">{{ store_name }}</div>
+        <div>{{ store_address }}</div>
+        <div>Tel: {{ store_phone }}</div>
+    </div>
+
+    <div class="receipt-details">
+        <div>
+            <div>Receipt #: {{ receipt_number }}</div>
+            <div>Date: {{ transaction_date }}</div>
+            <div>Time: {{ transaction_time }}</div>
+        </div>
+    </div>
+
+    <div class="customer-info">
+        <div>Customer: {{ customer_name }}</div>
+        <div>Cust ID: {{ customer_id }}</div>
+    </div>
+
+    <!-- This iterates through items array generated by the custom generator -->
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.product_name }}<br><small>SKU: {{ item.sku }}</small></td>
+                <td>{{ item.quantity }}</td>
+                <td>${{ "%.2f"|format(item.unit_price) }}</td>
+                <td>${{ "%.2f"|format(item.item_total) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="totals">
+        <tr>
+            <td>Subtotal:</td>
+            <td>${{ "%.2f"|format(subtotal) }}</td>
+        </tr>
+        <tr>
+            <td>Tax ({{ "%.2f"|format(tax_rate) }}%):</td>
+            <td>${{ "%.2f"|format(tax_amount) }}</td>
+        </tr>
+        <tr>
+            <td>TOTAL:</td>
+            <td>${{ "%.2f"|format(total) }}</td>
+        </tr>
+    </table>
+
+    <div class="payment-info">
+        <div>Payment Method: {{ payment_method }}</div>
+    </div>
+
+    <div class="thank-you">
+        Thank you for shopping with us!
+    </div>
+</body>
+</html>
+```
+
+Note the use of Jinja2's `{% for item in items %}...{% endfor %}` loop to iterate through the array of items that was generated with our custom generator.
+
+### Custom Generators for Document Data
+
+For advanced use cases, you can define custom generators to map structured data into document fields:
+
+```python
+def generate_receipt_items(row, col_name=None, parent_dfs=None):
+    """Generate receipt line items based on transaction and product data."""
+    items = []
+    if parent_dfs and 'Product' in parent_dfs and 'Transaction' in parent_dfs:
+        products_df = parent_dfs['Product']
+        transactions_df = parent_dfs['Transaction']
+        
+        # Find transactions for this customer
+        customer_transactions = transactions_df[transactions_df['customer_id'] == row['customer_id']]
+        
+        # Add products from transactions to receipt
+        for _, tx in customer_transactions.iterrows():
+            product = products_df[products_df['id'] == tx['product_id']].iloc[0]
+            items.append({
+                "product_name": product['name'],
+                "quantity": tx['quantity'],
+                "unit_price": product['price'],
+                "item_total": tx['quantity'] * product['price']
+            })
+    return items
+
+# Register the custom generator
+generator.register_generator('array', generate_receipt_items, column_name='items')
+```
+
+The `parent_dfs` parameter gives access to all previously generated structured data, allowing you to create rich, interconnected documents.
+
+
+## SQLAlchemy Models with Templates
+
+You can also use SQLAlchemy models to define both your structured data schema and template-based documents. This approach is great for applications that already use SQLAlchemy ORM:
+
+```python
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Text
 from sqlalchemy.ext.declarative import declarative_base
-import datetime
-import random
-from syda.structured import SyntheticDataGenerator
+from sqlalchemy.orm import relationship
+from syda.templates import SydaTemplate
 
 Base = declarative_base()
 
-class Patient(Base):
-    """Healthcare patient record with demographic and insurance information."""
-    __tablename__ = 'patients'
+# Regular structured SQLAlchemy model
+class Customer(Base):
+    __tablename__ = 'customers'
     
     id = Column(Integer, primary_key=True)
-    member_id = Column(String(20), unique=True, comment="Insurance member identifier")
-    first_name = Column(String(50), comment="Patient's first name")
-    last_name = Column(String(50), comment="Patient's last name")
-    birth_date = Column(Date, comment="Patient's date of birth")
-    gender = Column(String(10), comment="Patient's gender identity")
-    plan_type = Column(String(20), comment="Insurance plan type (HMO, PPO, etc.)")
+    name = Column(String(100), nullable=False)
+    industry = Column(String(50))
+    annual_revenue = Column(Float)
+    website = Column(String(100))
+    
+    # Relationships
+    opportunities = relationship("Opportunity", back_populates="customer")
 
-class Claim(Base):
-    """Healthcare insurance claim record for patient services."""
-    __tablename__ = 'claims'
+# Another structured model
+class Opportunity(Base):
+    __tablename__ = 'opportunities'
     
     id = Column(Integer, primary_key=True)
-    patient_id = Column(Integer, ForeignKey('patients.id'), comment="Reference to patient")
-    claim_number = Column(String(20), unique=True, comment="Unique claim identifier")
-    date_of_service = Column(Date, comment="Date medical service was provided")
-    primary_diagnosis = Column(String(10), comment="Primary ICD-10 diagnosis code")
-    procedure_code = Column(String(10), comment="CPT procedure code")
-    billed_amount = Column(Float, comment="Amount billed for service in USD")
-    allowed_amount = Column(Float, comment="Amount allowed by insurance in USD")
-    status = Column(String(20), comment="Claim status (Pending, Approved, Denied, etc.)")
-
-# Create the generator instance
-generator = SyntheticDataGenerator()
-
-# Generate patients first
-patients_df = generator.generate_data(
-    schema=Patient,
-    prompt="Generate realistic patient demographic data for a health insurance company.",
-    sample_size=50,
-    output_path="patients.csv"
-)
-
-# Register custom generators for domain-specific fields
-
-# 1. Custom generator for contextually relevant ICD-10 diagnosis codes
-def icd10_generator(row, col_name):
-    # Get procedure code and patient age (calculated from birth_date)
-    procedure = row.get("procedure_code", "")
-    try:
-        birth_date = datetime.datetime.strptime(row.get("birth_date", ""), "%Y-%m-%d").date()
-        age = (datetime.date.today() - birth_date).days // 365
-    except (ValueError, TypeError):
-        # Default to middle-aged adult if birth_date is missing or invalid
-        age = 45
+    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
+    name = Column(String(100), nullable=False)
+    value = Column(Float, nullable=False)
+    description = Column(Text)
     
-    gender = row.get("gender", "").lower()
+    # Relationships
+    customer = relationship("Customer", back_populates="opportunities")
+
+# Template model
+class ProposalDocument(Base):
+    __tablename__ = 'proposal_documents'
     
-    # Map of diagnosis codes by category
-    diagnosis_codes = {
-        # Cardiovascular conditions (more common in older patients)
-        "cardiovascular": [
-            ("I10", "Essential hypertension"),
-            ("I25.10", "Atherosclerotic heart disease"),
-            ("I48.91", "Atrial fibrillation"),
-            ("I50.9", "Heart failure, unspecified")
-        ],
-        # Respiratory conditions
-        "respiratory": [
-            ("J45.909", "Unspecified asthma"),
-            ("J02.9", "Acute pharyngitis"),
-            ("J40", "Bronchitis, not specified as acute or chronic"),
-            ("J06.9", "Acute upper respiratory infection")
-        ],
-        # Musculoskeletal conditions 
-        "musculoskeletal": [
-            ("M54.5", "Low back pain"),
-            ("M25.511", "Pain in right shoulder"),
-            ("M17.9", "Osteoarthritis of knee"),
-            ("M79.1", "Myalgia (muscle pain)")
-        ],
-        # Endocrine conditions
-        "endocrine": [
-            ("E11.9", "Type 2 diabetes without complications"),
-            ("E78.5", "Hyperlipidemia"),
-            ("E03.9", "Hypothyroidism"),
-            ("E66.9", "Obesity")
-        ],
-        # Gastrointestinal conditions
-        "gastrointestinal": [
-            ("K21.9", "Gastro-esophageal reflux disease"),
-            ("K29.70", "Gastritis"),
-            ("K58.9", "Irritable bowel syndrome"),
-            ("K52.9", "Noninfective gastroenteritis and colitis")
-        ],
-        # Mental health conditions
-        "mental_health": [
-            ("F41.9", "Anxiety disorder"),
-            ("F32.9", "Major depressive disorder"),
-            ("F41.1", "Generalized anxiety disorder"),
-            ("F43.0", "Acute stress reaction")
-        ],
-        # Genitourinary conditions (more common in females)
-        "genitourinary_female": [
-            ("N39.0", "Urinary tract infection"),
-            ("N95.1", "Menopausal state"),
-            ("N93.9", "Abnormal uterine and vaginal bleeding"),
-            ("N76.0", "Acute vaginitis")
-        ],
-        # Genitourinary conditions (more common in males)
-        "genitourinary_male": [
-            ("N40.0", "Benign prostatic hyperplasia"),
-            ("N41.0", "Acute prostatitis"),
-            ("N13.5", "Kidney stone"),
-            ("N45.1", "Epididymitis")
-        ],
-        # Common in all demographics
-        "general": [
-            ("R51", "Headache"),
-            ("Z00.00", "General adult medical examination"),
-            ("R42", "Dizziness and giddiness"),
-            ("R53.83", "Fatigue")
-        ]
-    }
+    # Special template attributes
+    __template__ = True
+    __depends_on__ = ['Opportunity']  # This template depends on the Opportunity model
     
-    # Determine relevant categories based on procedure code
-    if procedure.startswith("99"):  # Office visits
-        # For general visits, use demographics to determine likely conditions
-        if age > 60:
-            # Older patients more likely to have chronic conditions
-            categories = ["cardiovascular", "endocrine", "musculoskeletal"]
-            # Add gender-specific conditions
-            if gender == "male":
-                categories.append("genitourinary_male")
-            elif gender == "female":
-                categories.append("genitourinary_female")
-        elif age > 40:
-            # Middle-aged adults
-            categories = ["endocrine", "musculoskeletal", "gastrointestinal", "mental_health"]
-        else:
-            # Younger adults
-            categories = ["respiratory", "mental_health", "general"]
-    elif procedure in ["93000"]:  # ECG
-        # Heart-related procedures indicate cardiovascular diagnosis
-        categories = ["cardiovascular"]
-    elif procedure in ["71045"]:  # Chest X-ray
-        # X-rays often for respiratory issues
-        categories = ["respiratory"]
-    elif procedure in ["85025", "80053"]:  # Blood tests
-        # Lab work often for chronic disease management
-        categories = ["endocrine", "cardiovascular"]
-    elif procedure in ["97110"]:  # Physical therapy
-        # Therapy for musculoskeletal issues
-        categories = ["musculoskeletal"]
-    else:
-        # Default to general categories plus gender-specific
-        categories = ["general", "respiratory", "gastrointestinal"]
+    # Template source configuration
+    __template_source__ = 'templates/proposal.html'
+    __input_file_type__ = 'html'
+    __output_file_type__ = 'pdf'
     
-    # Select a random category from the relevant ones, then a diagnosis from that category
-    selected_category = random.choice(categories)
-    selected_diagnosis = random.choice(diagnosis_codes[selected_category])
-    
-    # Return just the code (not the description)
-    return selected_diagnosis[0]
-
-# 2. Custom generator for CPT procedure codes
-def cpt_generator(row, col_name):
-    # Common CPT codes for demonstration
-    common_codes = [
-        "99213",  # Office visit, established patient (15 min)
-        "99214",  # Office visit, established patient (25 min)
-        "99203",  # Office visit, new patient (30 min)
-        "90471",  # Immunization administration
-        "82607",  # Vitamin B-12 blood test
-        "80053",  # Comprehensive metabolic panel
-        "85025",  # Complete blood count (CBC)
-        "93000",  # Electrocardiogram (ECG)
-        "71045",  # X-ray, chest, single view
-        "97110"   # Therapeutic exercises (15 min)
-    ]
-    return random.choice(common_codes)
-
-# 3. Custom generator for claim status
-def claim_status_generator(row, col_name):
-    statuses = ["Pending", "Approved", "Denied", "Under Review", "Appealed"]
-    weights = [0.2, 0.6, 0.1, 0.05, 0.05]  # Weighted distribution
-    return random.choices(statuses, weights=weights)[0]
-
-# 4. Custom generator for realistic claim amounts
-def billed_amount_generator(row, col_name):
-    # Different procedures have different typical cost ranges
-    cpt = row["procedure_code"]
-    
-    # Office visits typically $100-300
-    if cpt.startswith("992"):
-        return round(random.uniform(100, 300), 2)
-    # Diagnostic tests typically $200-800
-    elif cpt in ["82607", "80053", "85025", "93000"]:
-        return round(random.uniform(200, 800), 2)
-    # Imaging typically $500-1500
-    elif cpt in ["71045"]:
-        return round(random.uniform(500, 1500), 2)
-    # Treatments typically $100-500
-    else:
-        return round(random.uniform(100, 500), 2)
-
-# 5. Custom generator for allowed amounts (always less than billed)
-def allowed_amount_generator(row, col_name):
-    billed = row["billed_amount"]
-    # Allowed amount is typically 60-90% of billed amount
-    return round(billed * random.uniform(0.6, 0.9), 2)
-
-# Register the custom generators
-generator.register_generator("text", icd10_generator, column_name="primary_diagnosis")
-generator.register_generator("text", cpt_generator, column_name="procedure_code")
-generator.register_generator("text", claim_status_generator, column_name="status")
-generator.register_generator("float", billed_amount_generator, column_name="billed_amount")
-generator.register_generator("float", allowed_amount_generator, column_name="allowed_amount")
-
-# Register a foreign key generator for patient_id
-def patient_id_generator(row, col_name):
-    return random.choice(patients_df["id"].tolist())
-
-generator.register_generator("foreign_key", patient_id_generator, column_name="patient_id")
-
-# Generate claims with the custom generators
-claims_df = generator.generate_data(
-    schema=Claim,
-    prompt="Generate realistic health insurance claims data.",
-    sample_size=200,
-    output_path="claims.csv"
-)
-
-print(f"Generated {len(patients_df)} patient records and {len(claims_df)} claim records")
-print(f"Claims summary: {claims_df['status'].value_counts()}")
+    # Fields needed for the template (these become columns in the generated data)
+    id = Column(Integer, primary_key=True)
+    opportunity_id = Column(Integer, ForeignKey('opportunities.id'), nullable=False)
+    title = Column(String(200))
+    customer_name = Column(String(100), ForeignKey('customers.name'))
+    opportunity_value = Column(Float, ForeignKey('opportunities.value'))
+    proposed_solutions = Column(Text)
 ```
 
-This example demonstrates several powerful features of custom generators:
+Then generate all data in one call:
 
-1. **Domain-Specific Codes**: Generate actual ICD-10 and CPT codes that conform to real-world patterns.
+```python
+from syda.generate import SyntheticDataGenerator
+from syda.schemas import ModelConfig
 
-2. **Interdependent Values**: The `allowed_amount` generator depends on the value of `billed_amount`, showing how generators can reference other fields.
+# Initialize generator
+config = ModelConfig(provider="anthropic", model_name="claude-3-5-haiku-20241022")
+generator = SyntheticDataGenerator(model_config=config)
 
-3. **Weighted Distributions**: The claim status generator uses weighted probabilities to create a realistic distribution (most claims approved, few denied).
+# Generate all data at once
+results = generator.generate_for_sqlalchemy_models(
+    sqlalchemy_models=[Customer, Opportunity, ProposalDocument],
+    sample_sizes={'customers': 5, 'opportunities': 8, 'proposal_documents': 3},
+    output_dir="output"
+)
+```
 
-4. **Conditional Logic**: The billed amount generator produces different ranges based on the procedure code, creating more realistic correlations.
+The example above demonstrates:
+1. Regular SQLAlchemy models for structured data (Customer, Opportunity)
+2. A template model (ProposalDocument)
+3. Foreign key relationships between the template and structured models
+4. Generating everything together with `generate_for_sqlalchemy_models`
 
-5. **Referential Integrity**: The patient_id generator ensures each claim references a valid patient record.
-
-Custom generators can significantly enhance the quality and realism of your synthetic data, especially for specialized domains with complex rules, codes, and relationships.
 
 ## Model Selection and Configuration
 
@@ -1026,6 +1790,7 @@ Each schema will be saved to a separate file with the schema name as the filenam
 
 The `results` dictionary will still contain all generated DataFrames, so you can both save to files and work with the data directly in your code.
 
+
 ## Configuration and Error Handling
 
 ### API Keys Management
@@ -1100,4 +1865,4 @@ except ValueError as e:
 
 ## License
 
-This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). See [LICENSE](LICENSE) for details.
+See [LICENSE](LICENSE) for details.

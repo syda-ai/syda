@@ -1,0 +1,11 @@
+id,company_name,contact_name,email,phone,address,website,payment_terms,active
+1,GlobalTech Electronics,Michael Chen,michael.chen@globaltech.com,+1-408-555-7890,"1234 Innovation Drive, San Jose, CA 95110",www.globaltechelectronics.com,Net 15,True
+2,Green Harvest Organics,Sarah Rodriguez,sarah.rodriguez@greenharvest.org,+1-650-555-2345,"567 Farm Road, Salinas, CA 93901",www.greenharvestorganics.com,Net 15,True
+3,Precision Machinery Parts,Robert Williams,robert.williams@precisionparts.com,+1-312-555-9876,"890 Industrial Park Way, Chicago, IL 60601",www.precisionmachineryparts.com,Net 60,True
+4,Textile Solutions Inc.,Emily Thompson,emily.thompson@textilesolutions.com,+1-212-555-4567,"456 Fashion Avenue, New York, NY 10016",www.textilesolutionsinc.com,Net 30,True
+5,Ocean Seafood Distributors,David Kim,david.kim@oceanseafood.com,+1-206-555-3210,"789 Fisherman's Wharf, Seattle, WA 98101",www.oceanseafooddistributors.com,Net 30,True
+6,Quantum Pharmaceuticals,Jennifer Martinez,jennifer.martinez@quantumpharma.com,+1-617-555-8901,"234 Medical Research Park, Boston, MA 02115",www.quantumpharmaceuticals.com,Net 60,True
+7,Eco-Friendly Packaging Solutions,Alex Johnson,alex.johnson@ecopackaging.com,+1-415-555-6543,"678 Green Boulevard, San Francisco, CA 94105",www.ecofriendlypackaging.com,COD,True
+8,Automotive Components Direct,Mark Anderson,mark.anderson@autocomponents.com,+1-248-555-1234,"345 Motor City Lane, Detroit, MI 48201",www.automotivecomponentsdirect.com,Net 60,True
+9,Gourmet Ingredients Wholesaler,Lisa Chang,lisa.chang@gourmetingredients.com,+1-702-555-9012,"901 Culinary Street, Las Vegas, NV 89101",www.gourmetingredientswholesaler.com,COD,True
+10,Advanced Robotics Systems,Daniel Smith,daniel.smith@advancedrobotics.com,+1-503-555-6789,"567 Tech Innovation Road, Portland, OR 97201",www.advancedroboticsystems.com,Prepaid,False

@@ -1,0 +1,66 @@
+__template__: true
+__description__: Medical report template for patient visits
+__name__: MedicalReport
+__foreign_keys__: {}
+__template_source__: /home/ramkumar2606/syda-fresh/examples/unstructured_only/healthcare_yml/templates/medical_report_template.html
+__input_file_type__: html
+__output_file_type__: pdf
+
+# Patient information
+patient_id:
+  type: string
+  format: uuid
+
+patient_name:
+  type: string
+
+date_of_birth:
+  type: string
+  format: date
+
+visit_date:
+  type: string
+  format: date-time
+
+chief_complaint:
+  type: string
+
+medical_history:
+  type: string
+
+# Vital signs
+blood_pressure:
+  type: string
+
+heart_rate:
+  type: integer
+
+respiratory_rate:
+  type: integer
+
+temperature:
+  type: number
+
+oxygen_saturation:
+  type: integer
+
+# Clinical information
+assessment:
+  type: string
+
+diagnosis:
+  type: array
+  items:
+    type: string
+
+treatment_plan:
+  type: string
+
+medications:
+  type: array
+  items:
+    type: string
+  description: List of medications in format "Name - Dosage - Frequency"
+
+follow_up:
+  type: string

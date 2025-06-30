@@ -1,0 +1,16 @@
+id,username,email,full_name,join_date,bio,is_admin
+1,techwriter23,sarah.johnson@example.com,Sarah Johnson,2019-03-15,Professional technical writer passionate about clear communication and technology trends.,False
+2,codingwizard,michael.chen@example.com,Michael Chen,2020-07-22,Software engineer and open-source enthusiast. Love solving complex coding challenges.,True
+3,creativemind,emily.rodriguez@example.com,Emily Rodriguez,2018-11-05,Graphic designer and digital artist exploring the intersection of art and technology.,False
+4,travelblogs,david.kim@example.com,David Kim,2021-02-14,"Globetrotter sharing adventures, travel tips, and cultural insights from around the world.",True
+5,platformadmin,alex.wilson@example.com,Alex Wilson,2017-09-01,Lead administrator of the blog platform. Ensuring smooth operations and user experience.,False
+6,foodblogger,olivia.martinez@example.com,Olivia Martinez,2020-05-30,Culinary explorer and recipe developer. Sharing delicious recipes and food photography.,False
+7,techsupport,ryan.thompson@example.com,Ryan Thompson,2019-12-10,Technical support specialist helping users navigate and resolve platform issues.,False
+8,healthwellness,jessica.lee@example.com,Jessica Lee,2021-08-17,Fitness trainer and wellness advocate sharing health tips and motivational content.,False
+9,musicreviewer,daniel.garcia@example.com,Daniel Garcia,2018-06-25,Independent music critic and enthusiast reviewing indie and emerging artists.,True
+10,contentmanager,sophia.nguyen@example.com,Sophia Nguyen,2017-04-12,Content strategy expert managing editorial guidelines and platform content.,False
+11,environmentalist,ethan.brown@example.com,Ethan Brown,2020-11-08,Environmental researcher documenting climate change and sustainability efforts.,False
+12,gamingzone,lucas.santos@example.com,Lucas Santos,2021-01-20,Professional gamer and esports enthusiast sharing gaming strategies and reviews.,False
+13,financeblogger,isabella.taylor@example.com,Isabella Taylor,2019-07-03,Financial advisor providing investment tips and personal finance insights.,False
+14,securityadmin,andrew.patel@example.com,Andrew Patel,2018-02-28,Cybersecurity expert managing platform security and user data protection.,False
+15,sciencenerd,rachel.zhang@example.com,Rachel Zhang,2021-06-05,Science communicator breaking down complex scientific concepts for everyone.,False

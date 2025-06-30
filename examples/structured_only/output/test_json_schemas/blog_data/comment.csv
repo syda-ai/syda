@@ -1,0 +1,61 @@
+id,post_id,user_id,content,created_at,is_approved,parent_comment_id
+1,18,11,Great article! Really helped me understand the topic better.,2023-06-15T09:23:41Z,,0
+2,29,10,I disagree with some of the points made. The author seems to oversimplify a complex issue.,2023-06-15T10:45:12Z,,0
+3,8,14,This is an incredibly insightful piece of writing. The research and depth of analysis are truly impressive.,2023-06-15T11:15:33Z,,0
+4,2,2,Could you elaborate more on the third point? I'm having trouble understanding the nuance.,2023-06-15T12:01:22Z,,1
+5,3,1,Spam comment linking to suspicious website,2023-06-15T13:30:45Z,,0
+6,19,10,"As someone working in this field, I can confirm the accuracy of this article. Excellent work!",2023-06-15T14:12:56Z,,0
+7,30,10,This post raises more questions than it answers. What are the potential long-term implications of this approach?,2023-06-15T15:45:01Z,,0
+8,25,13,Thanks for explaining this complex topic in such an accessible way!,2023-06-15T16:22:33Z,,0
+9,27,5,I have a different perspective. Here's why...,2023-06-15T17:05:44Z,,0
+10,7,12,Fascinating research! Can you provide more details about the methodology?,2023-06-15T18:30:55Z,,0
+11,7,5,This is exactly what I needed to read today. Thank you for sharing your insights.,2023-06-15T19:15:22Z,,0
+12,29,9,"In response to the previous comment, I think the key point is...",2023-06-15T20:01:33Z,,2
+13,17,9,Incredible depth of analysis. This article should be required reading in academic circles.,2023-06-15T21:45:44Z,,0
+14,25,10,I'm skeptical about some of the claims made here. Can you provide more evidence?,2023-06-15T22:30:55Z,,0
+15,21,15,Excellent breakdown of a complex topic. Your writing style makes it so easy to understand!,2023-06-16T08:15:11Z,,0
+16,4,1,Quick question - how does this relate to recent developments in the field?,2023-06-16T09:22:33Z,,0
+17,13,9,Potential inappropriate content detected,2023-06-16T10:45:44Z,,0
+18,12,8,This article perfectly captures the nuances of the subject. Bravo!,2023-06-16T11:30:55Z,,0
+19,3,1,Could you expand on the implications for small businesses?,2023-06-16T12:15:22Z,,7
+20,4,15,"I've been following this topic for years, and this is one of the most comprehensive overviews I've seen.",2023-06-16T13:01:33Z,,0
+21,17,13,This changes everything I thought I knew about the subject!,2023-06-16T14:45:44Z,,0
+22,23,9,"Interesting perspective, but I'm not entirely convinced.",2023-06-16T15:30:55Z,,0
+23,26,9,Your analysis is spot on! Here's an additional insight...,2023-06-16T16:15:22Z,,11
+24,13,9,Some technical jargon could be simplified for better understanding.,2023-06-16T17:01:33Z,,0
+25,22,15,Controversial topic alert! Expecting some heated discussions.,2023-06-16T18:45:44Z,,0
+26,18,4,This research could have significant implications for future studies.,2023-06-16T19:30:55Z,,0
+27,19,7,I appreciate the balanced approach in presenting different viewpoints.,2023-06-16T20:15:22Z,,0
+28,1,9,Minor correction to an earlier point...,2023-06-16T21:01:33Z,,1
+29,5,9,Potentially offensive language detected,2023-06-16T22:45:44Z,,0
+30,3,5,This article provides a fresh perspective on an old debate.,2023-06-17T08:30:55Z,,0
+31,19,7,Follow-up question to the previous discussion...,2023-06-17T09:15:22Z,,7
+32,7,12,"Wow, this really opened my eyes to a new way of thinking!",2023-06-17T10:01:33Z,,0
+33,25,2,The methodology seems flawed. Here's why...,2023-06-17T11:45:44Z,,0
+34,27,4,Sharing this with my colleagues - it's too good not to spread!,2023-06-17T12:30:55Z,,0
+35,10,9,Brilliant analysis that connects several complex ideas.,2023-06-17T13:15:22Z,,0
+36,24,10,"In my experience, the reality is a bit more nuanced...",2023-06-17T14:01:33Z,,2
+37,15,5,This seems like a potential breakthrough in the field!,2023-06-17T15:45:44Z,,0
+38,27,8,Needs more empirical evidence to support these claims.,2023-06-17T16:30:55Z,,0
+39,7,8,A thought-provoking piece that challenges existing paradigms.,2023-06-17T17:15:22Z,,0
+40,16,8,Quick clarification about one of the key points...,2023-06-17T18:01:33Z,,1
+41,11,13,Potentially misleading information,2023-06-17T19:45:44Z,,0
+42,10,2,This could be a game-changer in our understanding of the topic.,2023-06-17T20:30:55Z,,0
+43,22,2,Expanding on the previous point about implications...,2023-06-17T21:15:22Z,,7
+44,22,10,This article perfectly captures the complexity of the issue.,2023-06-17T22:01:33Z,,0
+45,9,1,Challenging the conventional wisdom in this field.,2023-06-18T08:45:44Z,,0
+46,13,7,An excellent summary of a complex topic.,2023-06-18T09:30:55Z,,0
+47,27,6,This raises important questions about future developments.,2023-06-18T10:15:22Z,,0
+48,8,11,Responding to the earlier critique with additional context...,2023-06-18T11:01:33Z,,2
+49,18,3,Potentially inappropriate content,2023-06-18T12:45:44Z,,0
+50,24,14,This research could revolutionize our understanding.,2023-06-18T13:30:55Z,,0
+51,10,11,Fascinating insights that connect multiple perspectives.,2023-06-18T14:15:22Z,,0
+52,19,7,Building upon the previous discussion...,2023-06-18T15:01:33Z,,1
+53,11,14,Some counterpoints to consider...,2023-06-18T16:45:44Z,,0
+54,17,11,A comprehensive and balanced exploration of the topic.,2023-06-18T17:30:55Z,,0
+55,16,5,Diving deeper into the implications mentioned earlier...,2023-06-18T18:15:22Z,,7
+56,17,8,This article provides a fresh perspective I hadn't considered before.,2023-06-18T19:01:33Z,,0
+57,5,2,Challenging the methodology and conclusions.,2023-06-18T20:45:44Z,,0
+58,20,4,Incredibly insightful and well-researched piece.,2023-06-18T21:30:55Z,,0
+59,8,5,This analysis opens up new avenues for research.,2023-06-18T22:15:22Z,,0
+60,24,13,Final thoughts on the ongoing discussion...,2023-06-19T08:01:33Z,,2
