@@ -1,16 +1,16 @@
 patient_id,diagnosis_code,email,visit_date,notes
 1001,E11.9,john.smith@example.com,2023-05-15,Type 2 diabetes mellitus without complications. Recommended diet and exercise plan.
-1002,I10,emily.jones@example.net,2023-05-16,Essential (primary) hypertension. Prescribed lisinopril 10mg daily.
-1003,J45.909,michael.brown@example.org,2023-05-17,Unspecified asthma with acute exacerbation. Provided rescue inhaler and action plan.
-1004,F32.9,sarah.wilson@example.com,2023-05-18,"Major depressive disorder, unspecified. Referred to mental health counseling."
-1005,M17.9,david.lee@example.net,2023-05-19,"Osteoarthritis of knee, unspecified. Recommended physical therapy and pain management."
-1006,K35.2,jessica.taylor@example.org,2023-05-20,Acute appendicitis with generalized peritonitis. Immediate surgical consultation ordered.
-1007,N39.0,robert.martin@example.com,2023-05-21,"Urinary tract infection, site not specified. Prescribed antibiotics and hydration advice."
-1008,L20.9,amanda.white@example.net,2023-05-22,"Atopic dermatitis, unspecified. Recommended topical corticosteroid and moisturizer."
-1009,H10.9,christopher.davis@example.org,2023-05-23,Unspecified conjunctivitis. Prescribed antibiotic eye drops.
-1010,A09,olivia.miller@example.com,2023-05-24,"Infectious gastroenteritis and colitis, unspecified. Advised rest and hydration."
-1011,S52.501A,james.anderson@example.net,2023-05-25,"Fracture of lower end of right radius, initial encounter. X-ray ordered and splint applied."
-1012,R10.2,emma.thomas@example.org,2023-05-26,Pelvic and perineal pain. Recommended further diagnostic tests.
-1013,Z23,daniel.jackson@example.com,2023-05-27,Encounter for immunization. Administered seasonal flu vaccine.
-1014,G43.909,sophia.martinez@example.net,2023-05-28,"Migraine, unspecified, without mention of intractability. Prescribed preventive medication."
-1015,R07.9,ethan.robinson@example.org,2023-05-29,Unspecified chest pain. Conducted ECG and basic cardiac workup.
+1002,I10,emily.jones@example.net,2023-04-22,Essential hypertension. Prescribed blood pressure medication and lifestyle modifications.
+1003,J45.909,michael.brown@example.org,2023-03-10,Mild intermittent asthma. Provided inhaler and asthma management guidance.
+1004,M17.9,sarah.wilson@example.com,2023-02-18,"Osteoarthritis of knee, unspecified. Recommended physical therapy and pain management."
+1005,F32.9,david.miller@example.net,2023-01-05,"Major depressive disorder, unspecified. Referred to mental health counseling."
+1006,K35.2,lisa.taylor@example.org,2023-06-03,Acute appendicitis with generalized peritonitis. Immediate surgical intervention recommended.
+1007,N18.5,robert.anderson@example.com,2023-05-20,"Chronic kidney disease, stage 5. Ongoing nephrology monitoring required."
+1008,C50.919,jennifer.thomas@example.net,2023-04-12,Malignant neoplasm of unspecified female breast. Referred to oncology for further treatment.
+1009,G35,william.jackson@example.org,2023-03-25,Multiple sclerosis. Prescribed disease-modifying therapy and neurological follow-up.
+1010,A09,elizabeth.white@example.com,2023-02-14,"Infectious gastroenteritis. Advised hydration and rest, prescribed supportive medication."
+1011,L20.9,james.martin@example.net,2023-01-30,"Atopic dermatitis, unspecified. Prescribed topical corticosteroids and skin care routine."
+1012,H25.9,emma.harris@example.org,2023-06-08,Unspecified age-related cataract. Recommended comprehensive eye examination.
+1013,D50.9,christopher.lewis@example.com,2023-05-05,"Iron deficiency anemia, unspecified. Prescribed iron supplements and dietary counseling."
+1014,S52.521A,olivia.walker@example.net,2023-04-01,"Torus fracture of lower end of right radius, initial encounter. Fitted with temporary cast."
+1015,Z23,daniel.scott@example.org,2023-03-15,Encounter for immunization. Administered annual influenza vaccine and tetanus booster.
