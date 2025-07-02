@@ -250,6 +250,28 @@ class DependencyHandler:
         return all_dependencies
     
     @staticmethod
+    def has_cycle(dependency_graph: nx.DiGraph) -> bool:
+        """
+        Check if a dependency graph contains cycles.
+        
+        Args:
+            dependency_graph: NetworkX DiGraph representing dependencies
+            
+        Returns:
+            Boolean indicating whether the graph contains cycles
+        """
+        try:
+            # If topological sort succeeds, there's no cycle
+            list(nx.topological_sort(dependency_graph))
+            return False
+        except nx.NetworkXUnfeasible:
+            # If topological sort fails with NetworkXUnfeasible, there's a cycle
+            return True
+        except Exception:
+            # For any other exception, assume there might be a cycle
+            return True
+    
+    @staticmethod
     def determine_generation_order(
         dependency_graph: nx.DiGraph
     ) -> List[str]:
