@@ -49,7 +49,7 @@ class SchemaLoader:
     def load_schema(
         self, 
         schema_source: Union[Dict, str, Type], 
-        schema_name: Optional[str] = None) -> Tuple[Dict, Dict, Optional[str], Dict, List]:
+        schema_name: Optional[str] = None) -> Tuple[Dict, Dict, Optional[str], Dict, Dict, List]:
         """
         Load and process a schema from various source formats.
         
@@ -59,7 +59,7 @@ class SchemaLoader:
             schema_name: Optional name of the schema, used for error reporting
             
         Returns:
-            Tuple of (table_schema, metadata, table_description, foreign_keys, depends_on_schemas)
+            Tuple of (table_schema, metadata, table_description, foreign_keys, template_fields, depends_on_schemas)
             
             Example return values:
                 - table_schema: {'id': 'number', 'name': 'text', 'email': 'email', 'created_at': 'date'}
@@ -105,7 +105,7 @@ class SchemaLoader:
             schema_type = type(schema_source).__name__
             raise ValueError(f"Unsupported schema type: {schema_type} for schema {schema_name or 'unknown'}")
     
-    def _load_dict_schema(self, schema_dict: Dict) -> Tuple[Dict, Dict, Optional[str], Dict, List]:
+    def _load_dict_schema(self, schema_dict: Dict) -> Tuple[Dict, Dict, Optional[str], Dict, Dict, List]:
         """
         Process a dictionary schema definition into the standard format used by
         the SyntheticDataGenerator class.
@@ -114,7 +114,7 @@ class SchemaLoader:
             schema_dict: Dictionary schema definition
 
         Returns:
-            Tuple of (table_schema, metadata, table_description, foreign_keys, depends_on_schemas)
+            Tuple of (table_schema, metadata, table_description, foreign_keys, template_fields, depends_on_schemas)
         """
         table_schema = {}
         metadata = {}
