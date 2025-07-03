@@ -45,7 +45,7 @@ def main():
     output_dir = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), 
         "output", 
-        "test_json_schemas", 
+        "example_json_schemas", 
         "blog_data"
     )
     

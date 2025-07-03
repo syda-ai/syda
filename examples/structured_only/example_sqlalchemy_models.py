@@ -157,7 +157,7 @@ def main():
     output_dir = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), 
         "output", 
-        "test_sqlalchemy_models", 
+        "example_sqlalchemy_models", 
         "crm_data"
     )
     # Define custom prompts for each model (optional)

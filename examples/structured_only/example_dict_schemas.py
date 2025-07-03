@@ -47,7 +47,7 @@ def main():
     # Define output directory
     output_dir = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), 
-        "output", "test_dict_schemas", 
+        "output", "example_dict_schemas", 
         "ecommerce"
     )
     

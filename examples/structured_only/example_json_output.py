@@ -43,7 +43,7 @@ def main():
     # Define output directory
     output_dir = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), 
-        "output", "test_json_output", 
+        "output", "example_json_output", 
         "inventory_data_json"
     )
     

@@ -44,7 +44,7 @@ def main():
     output_dir = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), 
         "output", 
-        "test_yaml_schemas", 
+        "example_yaml_schemas", 
         "inventory_data"
     )
     

@@ -1,101 +1,101 @@
 patient_id,diagnosis_code,email,visit_date,notes
-1001,J06.9,sarah.johnson@email.com,2024-01-15,Patient presents with acute upper respiratory infection. Mild fever and congestion reported. Prescribed rest and fluids. Follow-up in 1 week if symptoms persist.
-1002,M79.3,michael.davis@gmail.com,2024-01-18,Lower back pain following heavy lifting at work. No neurological deficits observed. Recommended physical therapy and anti-inflammatory medication.
-1003,E11.9,maria.rodriguez@yahoo.com,2024-01-22,Type 2 diabetes mellitus routine follow-up. HbA1c levels stable at 7.2%. Continue current metformin regimen. Diet counseling provided.
-1004,I10,robert.wilson@outlook.com,2024-01-25,Essential hypertension monitoring visit. BP 145/92. Adjusted lisinopril dosage. Patient advised on sodium reduction and regular exercise.
-1005,K21.9,jennifer.brown@email.com,2024-01-28,Gastroesophageal reflux disease symptoms. Heartburn and acid regurgitation reported. Prescribed proton pump inhibitor. Dietary modifications discussed.
-1006,F32.1,david.miller@gmail.com,2024-02-01,Moderate depressive episode. Patient reports persistent sadness and loss of interest. Started on SSRI therapy. Referred to counseling services.
-1007,L20.9,emily.garcia@yahoo.com,2024-02-05,"Atopic dermatitis flare-up on arms and legs. Dry, itchy skin with mild inflammation. Prescribed topical corticosteroid and moisturizing regimen."
-1008,M25.511,james.anderson@email.com,2024-02-08,Right shoulder pain limiting range of motion. Possible rotator cuff strain from sports activity. Physical therapy referral and NSAIDs prescribed.
-1009,N39.0,lisa.taylor@gmail.com,2024-02-12,Urinary tract infection with dysuria and frequency. Urine culture positive for E. coli. Prescribed appropriate antibiotic course.
-1010,H66.90,christopher.thomas@outlook.com,2024-02-15,Acute otitis media with ear pain and mild hearing loss. Tympanic membrane appears inflamed. Prescribed antibiotic and analgesic.
-1011,Z00.00,amanda.jackson@email.com,2024-02-18,Annual general medical examination. All vital signs within normal limits. Mammography and colonoscopy screening discussed and scheduled.
-1012,J45.9,matthew.white@gmail.com,2024-02-22,Asthma exacerbation with increased wheezing and shortness of breath. Peak flow measurements decreased. Adjusted inhaler therapy and steroid course.
-1013,S93.401A,stephanie.harris@yahoo.com,2024-02-25,Right ankle sprain from fall while jogging. Moderate swelling and tenderness. X-ray negative for fracture. RICE protocol and crutches provided.
-1014,G43.909,daniel.martin@email.com,2024-02-28,Migraine headache with photophobia and nausea. Frequency increasing over past month. Prescribed triptan medication and lifestyle modifications discussed.
-1015,K59.00,rachel.thompson@gmail.com,2024-03-03,Chronic constipation with abdominal discomfort. Bowel movements less than 3 per week. Dietary fiber increase and laxative therapy recommended.
-1016,B37.9,kevin.garcia@outlook.com,2024-03-06,Oral thrush with white patches on tongue and inner cheeks. Recent antibiotic use history. Prescribed antifungal medication and probiotics.
-1017,M54.5,nicole.martinez@email.com,2024-03-10,Low back pain radiating to left leg. Possible sciatica from herniated disc. MRI ordered and physical therapy referral provided.
-1018,R06.02,andrew.robinson@gmail.com,2024-03-13,Shortness of breath on exertion for past 2 weeks. Chest X-ray and ECG ordered. Possible cardiac or pulmonary etiology being investigated.
-1019,L70.0,megan.clark@yahoo.com,2024-03-17,Acne vulgaris on face and upper back. Multiple comedones and inflammatory lesions present. Topical retinoid and antibiotic gel prescribed.
-1020,F41.1,tyler.rodriguez@email.com,2024-03-20,Generalized anxiety disorder with persistent worry and restlessness. Sleep disturbances reported. Started on anxiolytic therapy and relaxation techniques taught.
-1021,H10.9,ashley.lewis@gmail.com,2024-03-24,Conjunctivitis with redness and discharge in both eyes. Likely viral etiology. Supportive care with artificial tears and cold compresses recommended.
-1022,N76.0,joshua.lee@outlook.com,2024-03-27,Acute vaginitis with itching and abnormal discharge. Candida infection suspected. Antifungal medication prescribed and follow-up scheduled.
-1023,R51,brittany.walker@email.com,2024-03-31,Tension-type headache with bilateral pressure sensation. Stress-related triggers identified. Pain management and stress reduction techniques discussed.
-1024,K30,jonathan.hall@gmail.com,2024-04-03,Functional dyspepsia with upper abdominal pain and early satiety. No alarm symptoms present. Dietary modifications and acid suppression therapy initiated.
-1025,M19.90,samantha.allen@yahoo.com,2024-04-07,Osteoarthritis of knee joints with morning stiffness and pain on movement. X-rays show mild joint space narrowing. NSAIDs and physical therapy recommended.
-1026,I25.10,brandon.young@email.com,2024-04-10,Atherosclerotic heart disease with chest pain on exertion. Stress test scheduled. Cardiac catheterization may be needed. Antiplatelet therapy started.
-1027,J20.9,christina.hernandez@gmail.com,2024-04-14,Acute bronchitis with productive cough and chest congestion. No fever present. Supportive care with expectorants and bronchodilators prescribed.
-1028,E78.5,ryan.king@outlook.com,2024-04-17,Hyperlipidemia with elevated LDL cholesterol. Total cholesterol 280 mg/dL. Statin therapy initiated and dietary counseling provided.
-1029,N18.6,michelle.wright@email.com,2024-04-21,End-stage renal disease on hemodialysis. Routine monitoring visit. Electrolyte levels stable. Vascular access site examined and functioning well.
-1030,F43.10,jacob.lopez@gmail.com,2024-04-24,Post-traumatic stress disorder following motor vehicle accident. Flashbacks and sleep disturbances reported. Referred to trauma counseling specialist.
-1031,D50.9,kayla.hill@yahoo.com,2024-04-28,Iron deficiency anemia with fatigue and pallor. Hemoglobin 9.2 g/dL. Iron supplementation started and dietary sources of iron discussed.
-1032,M06.9,nathan.scott@email.com,2024-05-01,Rheumatoid arthritis with joint pain and morning stiffness. RF positive. Disease-modifying antirheumatic drug therapy initiated.
-1033,G47.00,taylor.green@gmail.com,2024-05-05,Insomnia with difficulty falling asleep and frequent awakening. Sleep hygiene counseling provided. Short-term sleep aid prescribed.
-1034,L30.9,austin.adams@outlook.com,2024-05-08,Contact dermatitis on hands from occupational exposure. Vesicular rash with intense itching. Topical corticosteroids and avoidance measures recommended.
-1035,K80.20,morgan.baker@email.com,2024-05-12,Cholelithiasis with right upper quadrant pain. Ultrasound confirms gallstones. Surgical consultation scheduled for possible cholecystectomy.
-1036,H52.4,jordan.gonzalez@gmail.com,2024-05-15,Presbyopia with difficulty reading small print. Near vision correction needed. Reading glasses prescribed and eye examination scheduled.
-1037,R42,alexis.nelson@yahoo.com,2024-05-19,Dizziness and lightheadedness with position changes. Possible orthostatic hypotension. Blood pressure monitoring and hydration counseling provided.
-1038,J44.1,cameron.carter@email.com,2024-05-22,Chronic obstructive pulmonary disease exacerbation. Increased dyspnea and sputum production. Bronchodilator therapy optimized and steroid course prescribed.
-1039,N40.1,sierra.mitchell@gmail.com,2024-05-26,Benign prostatic hyperplasia with urinary frequency and hesitancy. PSA levels within normal range. Alpha-blocker therapy initiated.
-1040,M75.30,dakota.perez@outlook.com,2024-05-29,Calcific tendinitis of shoulder with severe pain and limited mobility. X-ray shows calcium deposits. Corticosteroid injection and physical therapy planned.
-1041,F50.9,riley.roberts@email.com,2024-06-02,Eating disorder with restrictive eating patterns and weight loss. BMI below normal range. Nutritional counseling and psychological support initiated.
-1042,T78.40XA,casey.turner@gmail.com,2024-06-05,Allergic reaction to unknown substance with urticaria and mild swelling. Antihistamines prescribed and allergy testing recommended.
-1043,O80,jordan.phillips@yahoo.com,2024-06-09,Normal spontaneous vaginal delivery of healthy infant. Labor duration 8 hours. Mother and baby both stable. Postpartum care instructions provided.
-1044,Z51.11,avery.campbell@email.com,2024-06-12,Encounter for antineoplastic chemotherapy. Cycle 4 of treatment protocol completed. Mild nausea and fatigue reported. Supportive medications adjusted.
-1045,S72.001A,quinn.parker@gmail.com,2024-06-16,Fracture of right femoral neck from fall. X-ray confirms displaced fracture. Orthopedic surgery consultation urgent. Pain management initiated.
-1046,I48.91,sage.evans@outlook.com,2024-06-19,Atrial fibrillation with rapid ventricular response. ECG shows irregular rhythm. Rate control achieved with beta-blockers. Anticoagulation started.
-1047,K92.2,phoenix.edwards@email.com,2024-06-23,Gastrointestinal hemorrhage with melena and anemia. Hemoglobin dropped to 8.5 g/dL. Upper endoscopy scheduled urgently. IV iron supplementation started.
-1048,M79.1,river.collins@gmail.com,2024-06-26,Myalgia with widespread muscle pain and tenderness. Possible fibromyalgia syndrome. Pain management strategies discussed and gentle exercise recommended.
-1049,H61.20,skylar.stewart@yahoo.com,2024-06-30,Impacted cerumen in both ears causing hearing loss. Ear irrigation performed successfully. Hearing restored to normal levels.
-1050,R50.9,indigo.sanchez@email.com,2024-07-03,Fever of unknown origin lasting 5 days. Temperature 102.5°F. Blood cultures obtained and broad-spectrum antibiotics started pending results.
-1051,M17.11,rowan.morris@gmail.com,2024-07-07,Unilateral primary osteoarthritis of right knee. Joint space narrowing on X-ray. Intra-articular corticosteroid injection performed.
-1052,F31.9,sage.rogers@outlook.com,2024-07-10,Bipolar disorder with recent manic episode. Mood stabilizer therapy adjusted. Psychiatric follow-up scheduled in 2 weeks.
-1053,N20.0,ember.reed@email.com,2024-07-14,Kidney stone with severe left flank pain and hematuria. CT scan confirms 6mm stone in ureter. Pain management and increased fluid intake advised.
-1054,J30.1,storm.cook@gmail.com,2024-07-17,"Allergic rhinitis with seasonal symptoms. Sneezing, nasal congestion, and watery eyes. Antihistamine and nasal corticosteroid prescribed."
-1055,L02.91,nova.morgan@yahoo.com,2024-07-21,Cutaneous abscess on right thigh. Fluctuant mass with surrounding erythema. Incision and drainage performed. Antibiotic therapy initiated.
-1056,G93.1,atlas.bailey@email.com,2024-07-24,Anoxic brain injury following cardiac arrest. Neurological assessment shows improvement. Rehabilitation therapy continued with occupational and physical therapy.
-1057,E03.9,luna.rivera@gmail.com,2024-07-28,Hypothyroidism with fatigue and weight gain. TSH elevated at 12.5 mIU/L. Levothyroxine dosage increased. Follow-up labs in 6 weeks.
-1058,M48.06,orion.cooper@outlook.com,2024-07-31,Spinal stenosis with neurogenic claudication. MRI shows narrowing at L4-L5. Physical therapy referral and epidural steroid injection considered.
-1059,R11.10,iris.richardson@email.com,2024-08-04,Nausea and vomiting for 3 days. Dehydration present. IV fluid resuscitation provided. Antiemetic medication prescribed and dietary modifications advised.
-1060,H90.3,felix.cox@gmail.com,2024-08-07,Sensorineural hearing loss in both ears. Audiometry confirms moderate hearing impairment. Hearing aid evaluation scheduled with audiologist.
-1061,K64.9,willow.ward@yahoo.com,2024-08-11,Hemorrhoids with rectal bleeding and pain. Grade 2 internal hemorrhoids on examination. Conservative management with fiber supplements and topical treatments.
-1062,M35.9,cedar.torres@email.com,2024-08-14,Systemic connective tissue disorder with joint pain and skin changes. ANA positive. Rheumatology referral for further evaluation and management.
-1063,F20.9,sage.peterson@gmail.com,2024-08-18,Schizophrenia with auditory hallucinations and delusions. Antipsychotic medication compliance issues. Case management and family support arranged.
-1064,N83.20,aspen.gray@outlook.com,2024-08-21,Ovarian cyst causing pelvic pain. Ultrasound shows 4cm simple cyst on right ovary. Conservative management with pain control and follow-up imaging.
-1065,I73.9,maple.ramirez@email.com,2024-08-25,Peripheral vascular disease with claudication. Ankle-brachial index abnormal. Vascular surgery consultation and exercise therapy recommended.
-1066,G40.909,oak.james@gmail.com,2024-08-28,Epilepsy with breakthrough seizure. Witnessed tonic-clonic seizure lasting 2 minutes. Antiepileptic drug levels checked and dosage adjustment made.
-1067,C78.00,pine.watson@yahoo.com,2024-09-01,Secondary malignant neoplasm of lung. Metastatic disease from primary breast cancer. Oncology consultation for palliative care planning.
-1068,R73.09,birch.brooks@email.com,2024-09-04,"Abnormal glucose tolerance test. Fasting glucose 118 mg/dL, 2-hour glucose 165 mg/dL. Pre-diabetes counseling and lifestyle modifications discussed."
-1069,M70.03,elm.kelly@gmail.com,2024-09-08,"Crepitant synovitis of wrist from repetitive motion. Occupational injury with pain and swelling. Rest, splinting, and ergonomic assessment recommended."
-1070,R06.00,hazel.sanders@outlook.com,2024-09-11,Dyspnea with exertion and at rest. Chest X-ray shows bilateral infiltrates. Pulmonary function tests ordered and cardiopulmonary evaluation planned.
-1071,L50.9,juniper.price@email.com,2024-09-15,Chronic urticaria with recurrent hives and itching. No identifiable triggers found. Antihistamine therapy optimized and allergy testing scheduled.
-1072,N95.1,cypress.bennett@gmail.com,2024-09-18,Menopausal syndrome with hot flashes and sleep disturbances. Estrogen levels low. Hormone replacement therapy discussed and lifestyle modifications recommended.
-1073,K57.90,sequoia.wood@yahoo.com,2024-09-22,Diverticulosis with mild abdominal pain. Colonoscopy shows multiple diverticula in sigmoid colon. High-fiber diet and increased fluid intake advised.
-1074,H35.30,redwood.barnes@email.com,2024-09-25,Macular degeneration with central vision loss. Ophthalmologic examination confirms dry AMD. Vitamin supplementation and monitoring scheduled.
-1075,I20.9,magnolia.ross@gmail.com,2024-09-29,Angina pectoris with chest pain on exertion. ECG shows ST depression. Cardiac catheterization scheduled and antianginal therapy initiated.
-1076,N30.90,poplar.henderson@outlook.com,2024-10-02,Cystitis with urinary frequency and burning sensation. Urine dipstick positive for nitrites and leukocytes. Antibiotic therapy prescribed.
-1077,M53.3,willow.coleman@email.com,2024-10-06,Sacrococcygeal disorders with tailbone pain after fall. X-ray negative for fracture. Cushioned seating and pain management recommended.
-1078,F10.20,cedar.jenkins@gmail.com,2024-10-09,Alcohol use disorder with withdrawal symptoms. Tremors and anxiety present. Detoxification protocol initiated and addiction counseling arranged.
-1079,R60.9,ash.perry@yahoo.com,2024-10-13,Generalized edema with bilateral lower extremity swelling. Cardiac and renal function evaluated. Diuretic therapy started and sodium restriction advised.
-1080,H81.10,beech.powell@email.com,2024-10-16,Benign paroxysmal positional vertigo with spinning sensation triggered by head movements. Dix-Hallpike test positive. Canalith repositioning maneuver performed.
-1081,M62.81,hickory.long@gmail.com,2024-10-20,Muscle weakness in bilateral lower extremities. Neurological examination shows decreased strength. EMG and nerve conduction studies ordered.
-1082,K76.0,chestnut.patterson@outlook.com,2024-10-23,"Fatty liver disease with elevated liver enzymes. ALT 85 U/L, AST 78 U/L. Weight loss counseling and alcohol cessation discussed."
-1083,R25.1,walnut.hughes@email.com,2024-10-27,Tremor of hands interfering with daily activities. Essential tremor suspected. Beta-blocker therapy initiated and occupational therapy referral made.
-1084,N42.1,pecan.flores@gmail.com,2024-10-30,Congestion and edema of prostate causing urinary retention. Foley catheter placed temporarily. Alpha-blocker therapy and urology consultation arranged.
-1085,L85.3,mahogany.washington@yahoo.com,2024-11-03,"Xerosis cutis with dry, scaly skin. More prominent in winter months. Moisturizing regimen recommended and topical treatments prescribed."
-1086,G44.209,ebony.butler@email.com,2024-11-06,Tension-type headache with bilateral pressure and muscle tension. Stress management techniques taught and muscle relaxant prescribed.
-1087,I83.90,teak.simmons@gmail.com,2024-11-10,Varicose veins of lower extremities with aching and swelling. Compression stockings recommended and vascular surgery consultation offered.
-1088,R79.89,bamboo.foster@outlook.com,2024-11-13,Abnormal blood chemistry with elevated uric acid levels. Hyperuricemia noted at 9.2 mg/dL. Dietary modifications and uric acid-lowering therapy discussed.
-1089,M25.561,rosewood.gonzales@email.com,2024-11-17,Pain in right knee with mechanical symptoms. Possible meniscal tear from sports injury. MRI ordered and orthopedic consultation scheduled.
-1090,F84.0,cherry.bryant@gmail.com,2024-11-20,Autistic disorder with communication difficulties and repetitive behaviors. Behavioral therapy continued and family support services provided.
-1091,R22.2,maple.alexander@yahoo.com,2024-11-24,Localized swelling and mass in trunk region. Palpable lymph nodes noted. Biopsy scheduled and imaging studies ordered for further evaluation.
-1092,H04.20,sycamore.russell@email.com,2024-11-27,Epiphora with excessive tearing from blocked tear duct. Dacryocystorhinostomy procedure discussed and ophthalmology referral made.
-1093,K22.70,dogwood.griffin@gmail.com,2024-12-01,Barrett's esophagus without dysplasia found on endoscopy. Proton pump inhibitor therapy continued and surveillance endoscopy scheduled annually.
-1094,R94.31,cottonwood.diaz@outlook.com,2024-12-04,Abnormal electrocardiogram with prolonged QT interval. Medication review performed and cardiology consultation scheduled for risk assessment.
-1095,M99.03,buttonwood.hayes@email.com,2024-12-08,Segmental and somatic dysfunction of cervical region. Neck pain and restricted range of motion. Osteopathic manipulation and physical therapy prescribed.
-1096,R40.20,basswood.myers@gmail.com,2024-12-11,Unspecified coma with altered level of consciousness. Neurological workup initiated including CT scan and lumbar puncture. ICU monitoring continued.
-1097,L72.9,ironwood.ford@yahoo.com,2024-12-15,Follicular cyst of skin on back. Sebaceous cyst with mild inflammation. Surgical excision scheduled and antibiotic prophylaxis prescribed.
-1098,N13.30,sandalwood.hamilton@email.com,2024-12-18,Other and unspecified hydronephrosis. Kidney function declining with creatinine 2.1 mg/dL. Nephrology referral and imaging studies ordered.
-1099,R87.610,cedarwood.graham@gmail.com,2024-12-22,Atypical squamous cells of undetermined significance on Pap smear. HPV testing ordered and follow-up cytology scheduled in 6 months.
-1100,Z12.11,heartwood.sullivan@outlook.com,2024-12-25,Encounter for screening for malignant neoplasm of colon. Colonoscopy performed with normal findings. Next screening recommended in 10 years.
+1001,J44.1,sarah.johnson@email.com,2024-01-15,Patient presents with chronic obstructive pulmonary disease exacerbation. Prescribed bronchodilator therapy and advised smoking cessation counseling.
+1002,E11.9,michael.davis@gmail.com,2024-01-18,Type 2 diabetes mellitus without complications. Blood glucose levels elevated. Adjusted metformin dosage and scheduled follow-up in 3 months.
+1003,I10,emma.wilson@yahoo.com,2024-01-22,Essential hypertension. Blood pressure 150/95. Started on ACE inhibitor and recommended dietary modifications with reduced sodium intake.
+1004,M54.5,james.brown@hotmail.com,2024-01-25,Low back pain without radiculopathy. Physical examination shows muscle tension. Prescribed NSAIDs and referred to physical therapy.
+1005,F32.1,olivia.martinez@outlook.com,2024-01-28,"Major depressive disorder, moderate episode. Patient reports persistent sadness and loss of interest. Initiated SSRI therapy and scheduled counseling."
+1006,K21.9,david.garcia@email.com,2024-02-01,Gastroesophageal reflux disease without esophagitis. Symptoms include heartburn and regurgitation. Prescribed proton pump inhibitor.
+1007,N39.0,sophia.rodriguez@gmail.com,2024-02-05,Urinary tract infection. Urinalysis shows bacteria and white blood cells. Prescribed antibiotic course and increased fluid intake advised.
+1008,H52.1,william.lee@yahoo.com,2024-02-08,Myopia. Vision examination reveals nearsightedness. Prescribed corrective lenses and scheduled annual eye exam follow-up.
+1009,J06.9,ava.anderson@hotmail.com,2024-02-12,"Acute upper respiratory infection. Symptoms include nasal congestion, sore throat, and mild fever. Supportive care recommended."
+1010,L20.9,noah.thomas@outlook.com,2024-02-15,Atopic dermatitis. Skin examination shows eczematous lesions on arms and legs. Prescribed topical corticosteroid cream.
+1011,G43.9,isabella.jackson@email.com,2024-02-18,Migraine headache. Patient reports severe throbbing headache with photophobia. Prescribed triptan medication for acute episodes.
+1012,Z00.00,ethan.white@gmail.com,2024-02-22,General adult medical examination. Routine health screening shows normal vital signs. Recommended annual preventive care schedule.
+1013,M79.3,mia.harris@yahoo.com,2024-02-25,Panniculitis. Inflammation of subcutaneous fat tissue. Prescribed anti-inflammatory medication and warm compresses.
+1014,R50.9,alexander.martin@hotmail.com,2024-02-28,Fever of unknown origin. Temperature 101.5°F. Ordered blood work and urine culture to identify underlying cause.
+1015,S72.001A,charlotte.thompson@outlook.com,2024-03-03,"Fracture of unspecified part of neck of right femur, initial encounter. X-ray confirms hip fracture. Referred to orthopedic surgeon."
+1016,F41.1,benjamin.garcia@email.com,2024-03-07,Generalized anxiety disorder. Patient reports excessive worry and restlessness. Initiated anxiolytic therapy and relaxation techniques.
+1017,K59.00,amelia.martinez@gmail.com,2024-03-10,Constipation. Patient reports difficulty with bowel movements. Recommended dietary fiber increase and stool softener.
+1018,H66.90,lucas.rodriguez@yahoo.com,2024-03-14,Otitis media. Ear examination shows inflammation of middle ear. Prescribed antibiotic and pain management.
+1019,N18.6,harper.wilson@hotmail.com,2024-03-17,End stage renal disease. Kidney function severely compromised. Discussed dialysis options and transplant evaluation.
+1020,I25.10,mason.davis@outlook.com,2024-03-21,Atherosclerotic heart disease of native coronary artery. EKG shows ischemic changes. Prescribed cardiac medications and lifestyle modifications.
+1021,J45.9,evelyn.brown@email.com,2024-03-24,Asthma. Patient reports wheezing and shortness of breath. Prescribed inhaled bronchodilator and corticosteroid.
+1022,E78.5,logan.johnson@gmail.com,2024-03-28,Hyperlipidemia. Cholesterol levels elevated. Initiated statin therapy and recommended dietary changes with exercise.
+1023,M25.551,abigail.miller@yahoo.com,2024-04-01,Pain in right hip. Physical examination shows decreased range of motion. Ordered hip X-ray and prescribed pain medication.
+1024,R06.02,jackson.moore@hotmail.com,2024-04-04,Shortness of breath. Pulmonary function tests show mild restriction. Referred to pulmonologist for further evaluation.
+1025,N40.1,ella.taylor@outlook.com,2024-04-08,Benign prostatic hyperplasia with lower urinary tract symptoms. Prescribed alpha-blocker and scheduled urology follow-up.
+1026,D50.9,aiden.anderson@email.com,2024-04-11,Iron deficiency anemia. Complete blood count shows low hemoglobin. Prescribed iron supplements and dietary counseling.
+1027,G47.00,scarlett.thomas@gmail.com,2024-04-15,Insomnia. Patient reports difficulty falling and staying asleep. Discussed sleep hygiene and prescribed short-term sleep aid.
+1028,K80.20,carter.jackson@yahoo.com,2024-04-18,Calculus of gallbladder without cholecystitis. Ultrasound confirms gallstones. Referred to general surgeon for evaluation.
+1029,M06.9,madison.white@hotmail.com,2024-04-22,Rheumatoid arthritis. Joint examination shows inflammation and stiffness. Initiated disease-modifying antirheumatic drug therapy.
+1030,H35.30,grayson.harris@outlook.com,2024-04-25,Degeneration of macula and posterior pole. Ophthalmologic examination shows macular changes. Referred to retinal specialist.
+1031,F10.20,layla.martin@email.com,2024-04-29,Alcohol use disorder with intoxication. Patient admits to excessive drinking. Referred to addiction counseling and support groups.
+1032,T78.40XA,wyatt.thompson@gmail.com,2024-05-02,"Allergy, unspecified, initial encounter. Patient reports allergic reaction with rash and itching. Prescribed antihistamine and epinephrine auto-injector."
+1033,B37.9,aria.garcia@yahoo.com,2024-05-06,Candidiasis. Oral examination shows white patches consistent with thrush. Prescribed antifungal medication.
+1034,R10.9,luke.martinez@hotmail.com,2024-05-09,Unspecified abdominal pain. Physical examination shows mild tenderness. Ordered abdominal ultrasound and prescribed antispasmodic.
+1035,Z51.11,chloe.rodriguez@outlook.com,2024-05-13,Encounter for antineoplastic chemotherapy. Patient receiving treatment for breast cancer. Monitored for side effects and blood counts.
+1036,M17.11,owen.lee@email.com,2024-05-16,"Unilateral primary osteoarthritis, right knee. X-ray shows joint space narrowing. Prescribed NSAIDs and physical therapy."
+1037,R42,zoey.anderson@gmail.com,2024-05-20,Dizziness and giddiness. Patient reports episodes of vertigo. Performed vestibular assessment and prescribed meclizine.
+1038,J44.0,levi.thomas@yahoo.com,2024-05-23,Chronic obstructive pulmonary disease with acute lower respiratory infection. Prescribed antibiotics and bronchodilator therapy.
+1039,E11.65,natalie.jackson@hotmail.com,2024-05-27,Type 2 diabetes mellitus with hyperglycemia. Blood glucose 280 mg/dL. Adjusted insulin regimen and scheduled diabetes education.
+1040,I50.9,isaac.white@outlook.com,2024-05-30,"Heart failure. Echocardiogram shows reduced ejection fraction. Prescribed ACE inhibitor, beta-blocker, and diuretic."
+1041,N20.0,aubrey.harris@email.com,2024-06-03,Calculus of kidney. CT scan confirms kidney stone. Prescribed pain medication and increased fluid intake. Referred to urology.
+1042,G35,connor.martin@gmail.com,2024-06-06,Multiple sclerosis. MRI shows demyelinating lesions. Initiated disease-modifying therapy and referred to neurologist.
+1043,L40.9,maya.thompson@yahoo.com,2024-06-10,Psoriasis. Skin examination shows characteristic plaques on elbows and knees. Prescribed topical corticosteroid and vitamin D analog.
+1044,R51,cooper.garcia@hotmail.com,2024-06-13,Headache. Patient reports tension-type headache. Prescribed analgesic and stress management techniques.
+1045,J30.9,kennedy.martinez@outlook.com,2024-06-17,Allergic rhinitis. Patient reports seasonal symptoms with sneezing and nasal congestion. Prescribed antihistamine and nasal spray.
+1046,M79.1,parker.rodriguez@email.com,2024-06-20,Myalgia. Patient reports muscle pain and stiffness. Physical examination shows muscle tenderness. Prescribed muscle relaxant.
+1047,K29.70,savannah.lee@gmail.com,2024-06-24,Gastritis. Patient reports epigastric pain and nausea. Prescribed proton pump inhibitor and dietary modifications.
+1048,H93.1,blake.anderson@yahoo.com,2024-06-27,Tinnitus. Patient reports ringing in ears. Audiometry shows mild hearing loss. Referred to ENT specialist.
+1049,F33.1,skylar.thomas@hotmail.com,2024-07-01,"Major depressive disorder, recurrent, moderate. Patient reports worsening mood symptoms. Adjusted antidepressant dosage."
+1050,N94.6,cameron.jackson@outlook.com,2024-07-04,Dysmenorrhea. Patient reports severe menstrual cramps. Prescribed NSAIDs and hormonal therapy options discussed.
+1051,J02.9,peyton.white@email.com,2024-07-08,Acute pharyngitis. Throat examination shows erythema and exudate. Prescribed antibiotics and supportive care.
+1052,M54.2,avery.harris@gmail.com,2024-07-11,Cervicalgia. Patient reports neck pain and stiffness. Physical therapy recommended and prescribed muscle relaxant.
+1053,R73.9,riley.martin@yahoo.com,2024-07-15,Hyperglycemia. Fasting glucose 126 mg/dL. Ordered glucose tolerance test and discussed lifestyle modifications.
+1054,H61.20,jordan.thompson@hotmail.com,2024-07-18,Impacted cerumen. Ear examination shows wax impaction. Performed cerumen removal and advised proper ear hygiene.
+1055,K92.2,taylor.garcia@outlook.com,2024-07-22,Gastrointestinal hemorrhage. Patient reports melena. Ordered upper endoscopy and prescribed proton pump inhibitor.
+1056,M75.30,alex.martinez@email.com,2024-07-25,Calcific tendinitis of shoulder. X-ray shows calcium deposits. Prescribed NSAIDs and physical therapy.
+1057,R05,casey.rodriguez@gmail.com,2024-07-29,Cough. Patient reports persistent dry cough. Chest X-ray normal. Prescribed cough suppressant and follow-up scheduled.
+1058,N30.90,drew.lee@yahoo.com,2024-08-01,Cystitis. Urinalysis shows bacteria and white blood cells. Prescribed antibiotic course and increased fluid intake.
+1059,G44.209,morgan.anderson@hotmail.com,2024-08-05,Tension-type headache. Patient reports bilateral headache. Prescribed analgesic and stress reduction techniques.
+1060,L30.9,quinn.thomas@outlook.com,2024-08-08,Dermatitis. Skin examination shows eczematous changes. Prescribed topical corticosteroid and moisturizer.
+1061,R60.9,sage.jackson@email.com,2024-08-12,Edema. Patient reports swelling in lower extremities. Ordered echocardiogram and prescribed diuretic.
+1062,J18.9,river.white@gmail.com,2024-08-15,Pneumonia. Chest X-ray shows infiltrate. Prescribed antibiotics and supportive care with follow-up in one week.
+1063,M23.90,dakota.harris@yahoo.com,2024-08-19,Internal derangement of knee. MRI shows meniscal tear. Referred to orthopedic surgeon for arthroscopic evaluation.
+1064,R11.10,phoenix.martin@hotmail.com,2024-08-22,Vomiting. Patient reports nausea and vomiting. Prescribed antiemetic and advised clear liquid diet.
+1065,H10.9,rowan.thompson@outlook.com,2024-08-26,Conjunctivitis. Eye examination shows inflammation and discharge. Prescribed antibiotic eye drops.
+1066,N76.0,emery.garcia@email.com,2024-08-29,Acute vaginitis. Pelvic examination shows inflammation. Prescribed antifungal medication and hygiene counseling.
+1067,M62.830,finley.martinez@gmail.com,2024-09-02,Muscle spasm of back. Patient reports acute back spasm. Prescribed muscle relaxant and heat therapy.
+1068,R19.7,hayden.rodriguez@yahoo.com,2024-09-05,Diarrhea. Patient reports loose stools. Stool culture ordered and prescribed probiotics and fluid replacement.
+1069,S93.40XA,charlie.lee@hotmail.com,2024-09-09,"Sprain of ankle, initial encounter. X-ray shows no fracture. Prescribed RICE protocol and ankle brace."
+1070,R53.83,jamie.anderson@outlook.com,2024-09-12,Fatigue. Patient reports persistent tiredness. Ordered complete blood count and thyroid function tests.
+1071,K30,riley.thomas@email.com,2024-09-16,Functional dyspepsia. Patient reports epigastric discomfort. Prescribed proton pump inhibitor and dietary modifications.
+1072,M25.50,jordan.jackson@gmail.com,2024-09-19,Joint pain. Patient reports generalized joint aches. Prescribed NSAIDs and ordered inflammatory markers.
+1073,R06.00,casey.white@yahoo.com,2024-09-23,Dyspnea. Patient reports shortness of breath on exertion. Ordered chest X-ray and pulmonary function tests.
+1074,H57.1,taylor.harris@hotmail.com,2024-09-26,Ocular pain. Patient reports eye pain and photophobia. Ophthalmologic examination shows mild inflammation.
+1075,R25.1,alex.martin@outlook.com,2024-09-30,Tremor. Patient reports hand tremor. Neurological examination shows essential tremor. Prescribed beta-blocker.
+1076,K76.9,drew.thompson@email.com,2024-10-03,Liver disease. Elevated liver enzymes on blood work. Ordered hepatitis panel and abdominal ultrasound.
+1077,R20.2,morgan.garcia@gmail.com,2024-10-07,Paresthesia of skin. Patient reports tingling in hands and feet. Ordered nerve conduction studies.
+1078,N95.1,quinn.martinez@yahoo.com,2024-10-10,Menopausal and female climacteric states. Patient reports hot flashes and mood changes. Discussed hormone replacement therapy.
+1079,R29.6,sage.rodriguez@hotmail.com,2024-10-14,Repeated falls. Patient reports multiple falls. Ordered balance assessment and prescribed fall prevention measures.
+1080,J34.2,river.lee@outlook.com,2024-10-17,Deviated nasal septum. Nasal examination shows septal deviation. Referred to ENT for surgical evaluation.
+1081,R35.0,dakota.anderson@email.com,2024-10-21,Frequency of micturition. Patient reports urinary frequency. Ordered urinalysis and bladder scan.
+1082,M70.03,phoenix.thomas@gmail.com,2024-10-24,Crepitant synovitis of wrist. Physical examination shows joint crepitus. Prescribed NSAIDs and wrist splint.
+1083,R04.2,rowan.jackson@yahoo.com,2024-10-28,Hemoptysis. Patient reports coughing up blood. Ordered chest CT and referred to pulmonologist.
+1084,N32.81,emery.white@hotmail.com,2024-10-31,Overactive bladder. Patient reports urinary urgency and frequency. Prescribed anticholinergic medication.
+1085,R41.0,finley.harris@outlook.com,2024-11-04,Disorientation. Patient reports confusion and memory problems. Ordered cognitive assessment and brain MRI.
+1086,M48.06,hayden.martin@email.com,2024-11-07,"Spinal stenosis, lumbar region. MRI shows narrowing of spinal canal. Referred to neurosurgeon for evaluation."
+1087,R50.2,charlie.thompson@gmail.com,2024-11-11,Drug induced fever. Patient developed fever after medication. Discontinued offending drug and prescribed antipyretic.
+1088,H81.10,jamie.garcia@yahoo.com,2024-11-14,Benign paroxysmal positional vertigo. Dix-Hallpike test positive. Performed canalith repositioning maneuver.
+1089,R63.4,riley.martinez@hotmail.com,2024-11-18,Abnormal weight loss. Patient reports 15-pound weight loss. Ordered comprehensive metabolic panel and cancer screening.
+1090,M77.9,jordan.rodriguez@outlook.com,2024-11-21,Enthesopathy. Patient reports heel pain. X-ray shows plantar fasciitis. Prescribed NSAIDs and heel pad.
+1091,R58,casey.lee@email.com,2024-11-25,Hemorrhage not elsewhere classified. Patient reports unexplained bleeding. Ordered coagulation studies and CBC.
+1092,H92.01,taylor.anderson@gmail.com,2024-11-28,"Otalgia, right ear. Patient reports ear pain. Otoscopic examination shows inflammation. Prescribed antibiotic ear drops."
+1093,R32,alex.thomas@yahoo.com,2024-12-02,Unspecified urinary incontinence. Patient reports loss of bladder control. Ordered urodynamic studies and pelvic floor exercises.
+1094,M79.0,drew.jackson@hotmail.com,2024-12-05,Rheumatism. Patient reports joint and muscle pain. Prescribed NSAIDs and ordered rheumatoid factor.
+1095,R26.2,morgan.white@outlook.com,2024-12-09,Difficulty in walking. Patient reports gait instability. Ordered neurological evaluation and physical therapy.
+1096,K64.9,quinn.harris@email.com,2024-12-12,Hemorrhoids. Patient reports rectal bleeding and pain. Prescribed topical treatment and dietary fiber increase.
+1097,R40.20,sage.martin@gmail.com,2024-12-16,Unspecified coma. Patient found unconscious. Ordered CT scan and comprehensive metabolic panel.
+1098,N23,river.thompson@yahoo.com,2024-12-19,Unspecified renal colic. Patient reports severe flank pain. Ordered CT urogram and prescribed pain medication.
+1099,R55,dakota.garcia@hotmail.com,2024-12-23,Syncope and collapse. Patient reports fainting episode. Ordered EKG and orthostatic vital signs.
+1100,M25.40,phoenix.martinez@outlook.com,2024-12-26,Joint effusion. Patient reports knee swelling. Performed joint aspiration and prescribed anti-inflammatory medication.
