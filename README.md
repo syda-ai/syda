@@ -205,8 +205,8 @@ model_config = ModelConfig(provider='anthropic', model_name='claude-3-5-haiku-20
 generator = SyntheticDataGenerator(model_config=model_config)
 results = generator.generate_for_sqlalchemy_models(
     sqlalchemy_models=[User], 
-    prompts={'User': 'Generate users'}, 
-    sample_sizes={'User': 5}
+    prompts={'users': 'Generate users'}, 
+    sample_sizes={'users': 5}
 )
 ```
 
@@ -234,18 +234,18 @@ generator.register_generator('foreign_key', department_id_fk_generator, column_n
 results = generator.generate_for_sqlalchemy_models(
     sqlalchemy_models=[Department, Employee],
     prompts={
-        'Department': 'Generate company departments',
-        'Employee': 'Generate realistic employee data'
+        'departments': 'Generate company departments',
+        'employees': 'Generate realistic employee data'
     },
     sample_sizes={
-        'Department': 5,
-        'Employee': 10
+        'departments': 5,
+        'employees': 10
     }
 )
 
 # Access the generated dataframes
-departments_df = results['Department']
-employees_df = results['Employee']
+departments_df = results['departments']
+employees_df = results['employees']
 ```
 
 4. **Referential Integrity Preservation**: The foreign key generator samples from actual existing IDs in the parent table, ensuring all references are valid.
