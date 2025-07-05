@@ -151,6 +151,9 @@ class LLMClient:
                     # All methods failed
                     error_msg = f"Failed to initialize Anthropic client: {e}, {inner_e}"
                     raise ValueError(error_msg)
+        elif provider == "gemini":
+            # Gemini code goes here
+            print('Add Gemini Code here')
         else:
             # For other providers, use from_provider with empty kwargs
             try:
