@@ -153,7 +153,7 @@ class LLMClient:
                     raise ValueError(error_msg)
         elif provider == "gemini":
             # Gemini code goes here
-            print('Add Gemini Code here')
+            raise ValueError("Gemini Provider will be added in future releases")
         else:
             # For other providers, use from_provider with empty kwargs
             try:
