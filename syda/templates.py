@@ -9,119 +9,6 @@ from typing import Dict, List, Optional, Union, Any, Set, Tuple
 from sqlalchemy import Column, inspect
 import jinja2
 
-class SydaTemplate:
-    """Base class for document templates with placeholder fields."""
-    
-    # Legacy attribute
-    source_path = None  # Path to template file
-    
-    # New template configuration attributes using double-underscore style
-    __template__ = False  # Flag to indicate this is a template class
-    __template_source__ = None  # Path to template file
-    __input_file_type__ = None  # Input file type (html, txt, etc.)
-    __output_file_type__ = None  # Output file type (pdf, html, etc.)
-    __depends_on__ = []  # List of model names this template depends on
-    
-    def __init__(self, **kwargs):
-        """Initialize the template with optional overrides."""
-        if 'source_path' in kwargs:
-            self.source_path = kwargs['source_path']
-        
-        # Copy all provided kwargs to instance attributes
-        for key, value in kwargs.items():
-            setattr(self, key, value)
-            
-    @classmethod
-    def get_source_path(cls):
-        """Get the template source path."""
-        # First check for new attribute, fall back to legacy
-        return cls.__template_source__ if hasattr(cls, '__template_source__') else cls.source_path
-    
-    @classmethod
-    def get_fields(cls):
-        """Get all field definitions from the template class."""
-        fields = {}
-        
-        # If SQLAlchemy model, get columns from table
-        if hasattr(cls, '__table__'):
-            for column in cls.__table__.columns:
-                # Skip primary key
-                if column.primary_key:
-                    continue
-                    
-                fields[column.name] = column
-        
-        # Otherwise get all non-special attributes directly from class
-        else:
-            for attr_name in dir(cls):
-                # Skip special attributes, methods, and private attributes
-                if (attr_name.startswith('__') and attr_name.endswith('__')) or \
-                   callable(getattr(cls, attr_name)) or \
-                   attr_name.startswith('_'):
-                    continue
-                    
-                fields[attr_name] = getattr(cls, attr_name)
-                
-        return fields
-    
-    @classmethod
-    def get_foreign_keys(cls):
-        """Get foreign key relationships from the template class."""
-        foreign_keys = {}
-        
-        # Case 1: Check for explicitly defined __foreign_keys__ dictionary
-        if hasattr(cls, '__foreign_keys__'):
-            for fk_col, fk_ref in cls.__foreign_keys__.items():
-                if isinstance(fk_ref, (list, tuple)) and len(fk_ref) == 2:
-                    target_table, target_column = fk_ref
-                    foreign_keys[fk_col] = {
-                        'target_table': target_table,
-                        'target_column': target_column
-                    }
-        
-        # Case 2: Check for SQLAlchemy Column objects with ForeignKey constraints
-        for attr_name in dir(cls):
-            # Skip special attributes, methods, and private attributes
-            if (attr_name.startswith('__') and attr_name.endswith('__')) or \
-               callable(getattr(cls, attr_name)) or \
-               attr_name.startswith('_'):
-                continue
-            
-            attr_value = getattr(cls, attr_name)
-            
-            # Check if the attribute is a Column with ForeignKey
-            if isinstance(attr_value, Column) and hasattr(attr_value, 'foreign_keys') and attr_value.foreign_keys:
-                # Extract the foreign key reference
-                for fk in attr_value.foreign_keys:
-                    if hasattr(fk, '_colspec') and fk._colspec is not None:
-                        # Parse the colspec which is in format 'table.column'
-                        parts = fk._colspec.split('.')
-                        if len(parts) == 2:
-                            target_table, target_column = parts
-                            foreign_keys[attr_name] = {
-                                'target_table': target_table,
-                                'target_column': target_column
-                            }
-                            break
-        
-        # Case 3: If the class has a __table__, also check column foreign_keys from there
-        if hasattr(cls, '__table__'):
-            for column in cls.__table__.columns:
-                # Skip columns without foreign keys
-                if not column.foreign_keys:
-                    continue
-                    
-                # Get the first foreign key (there's usually only one per column)
-                fk = next(iter(column.foreign_keys))
-                target_table = fk.column.table.name
-                target_column = fk.column.name
-                
-                foreign_keys[column.name] = {
-                    'target_table': target_table,
-                    'target_column': target_column
-                }
-                
-        return foreign_keys
 
 class TemplateProcessor:
     """Process document templates with placeholders and generate synthetic data."""
@@ -423,3 +310,70 @@ class TemplateProcessor:
             f.write(content)
             
         return output_path
+        
+    def process_template_dataframes(self, template_dataframes, output_dir=None):
+        """
+        Process multiple template dataframes, generating documents for each row.
+        
+        Args:
+            template_dataframes: Dictionary mapping schema names to dataframes with template data
+            output_dir: Base directory for output files
+            
+        Returns:
+            Dictionary mapping schema names to lists of generated document paths
+            
+        Raises:
+            ValueError: If processing fails or output_dir is not provided
+        """
+        if not output_dir:
+            raise ValueError("Output directory must be specified for template processing")
+            
+        results = {}
+        
+        for schema_name, (df, schema) in template_dataframes.items():
+            print(f"Processing {schema_name} templates...")
+            
+            # Create output directory for this schema
+            template_output_dir = os.path.join(output_dir, schema_name)
+            os.makedirs(template_output_dir, exist_ok=True)
+            
+            # Process each row in the dataframe
+            documents_generated = 0
+            schema_results = []
+            template_path = schema.get('__template_source__')
+            input_file_type = schema.get('__input_file_type__', '').lower()
+            output_file_type = schema.get('__output_file_type__', '').lower()
+            
+            # Skip if missing required fields
+            if not template_path:
+                print(f"Warning: __template_source__ is missing for {schema_name}") 
+            if not os.path.exists(template_path):
+                print(f"Warning: Template file {template_path} does not exist for {schema_name}")
+            if not input_file_type:
+                print(f"Warning: __input_file_type__ is missing for {schema_name} for template {template_path}") 
+            if not output_file_type:
+                print(f"Warning: __output_file_type__ is missing for {schema_name} for template {template_path}")
+                 
+            # Output path for this document
+            
+            for idx, row in df.iterrows():
+                try:
+                    output_path = os.path.join(template_output_dir, f"document_{idx+1}.{output_file_type}")
+                    # Process the template with data
+                    self.process_template_with_data(
+                        template_path=template_path,
+                        data=row.to_dict(),
+                        output_path=output_path,
+                        input_file_type=input_file_type,
+                        output_file_type=output_file_type
+                    )
+                    documents_generated += 1
+                    schema_results.append(output_path)
+                    print(f"✓ Successfully generated: {output_path}")
+                except Exception as e:
+                    print(f"Error generating document for {schema_name} row {idx}: {str(e)}")
+            
+            print(f"Generated {documents_generated} documents for {schema_name}")
+            results[schema_name] = schema_results
+            
+        return results

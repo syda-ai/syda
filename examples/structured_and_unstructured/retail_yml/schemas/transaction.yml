@@ -1,6 +1,9 @@
 __table_name__: Transaction
 __description__: Retail transactions
-
+__foreign_keys__:
+  customer_id: [Customer, id]
+  product_id: [Product, id]
+  
 id:
   type: integer
   description: Unique transaction ID
@@ -103,7 +106,3 @@ employee_id:
     not_null: true
     min: 1
     max: 10000
-
-__foreign_keys__:
-  customer_id: [Customer, id]
-  product_id: [Product, id]

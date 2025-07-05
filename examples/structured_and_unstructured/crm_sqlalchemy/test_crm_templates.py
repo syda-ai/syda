@@ -51,8 +51,15 @@ def main():
             'customers': 5,
             'contacts': 10,
             'opportunities': 8,
-            'ProposalDocument': 3,
-            'ContractDocument': 2
+            'proposal_documents': 3,
+            'contract_documents': 2
+        },
+        prompts={
+            'customers': "Generate a customer for the opportunity",
+            'contacts': "Generate a contact for the customer",
+            'opportunities': "Generate an opportunity for the customer",
+            'proposal_documents': "Generate a proposal document for the opportunity",
+            'contract_documents': "Generate a contract document for the opportunity"
         },
         output_dir=output_dir
     )
@@ -69,9 +76,9 @@ def main():
     # Analyze randomness of parent schema selections
     print("\n🔍 Analyzing randomness of parent schema references:")
     
-    # Check opportunity references in ProposalDocument
-    if 'ProposalDocument' in results and 'opportunities' in results:
-        proposal_df = results['ProposalDocument']
+    # Check opportunity references in proposal_documents
+    if 'proposal_documents' in results and 'opportunities' in results:
+        proposal_df = results['proposal_documents']
         opp_df = results['opportunities']
         
         referenced_opps = {}
@@ -82,7 +89,7 @@ def main():
             else:
                 referenced_opps[opp_id] = 1
         
-        print("  ProposalDocument references:")
+        print("  proposal_documents references:")
         print(f"    - Unique opportunities referenced: {len(referenced_opps)} out of {len(proposal_df)} documents")
         print(f"    - Distribution: {referenced_opps}")
         
@@ -90,13 +97,13 @@ def main():
         if len(referenced_opps) < len(proposal_df) and len(proposal_df) <= len(opp_df):
             print("    ⚠️  Some opportunities are referenced multiple times while others aren't used at all")
         elif len(referenced_opps) == 1 and len(opp_df) > 1:
-            print("    ⚠️  All ProposalDocuments reference the same opportunity!")
+            print("    ⚠️  All proposal_documents reference the same opportunity!")
         else:
             print("    ✅  Good variety in opportunity references")
     
-    # Check opportunity references in ContractDocument
-    if 'ContractDocument' in results and 'opportunities' in results:
-        contract_df = results['ContractDocument']
+    # Check opportunity references in contract_documents
+    if 'contract_documents' in results and 'opportunities' in results:
+        contract_df = results['contract_documents']
         opp_df = results['opportunities']
         
         referenced_opps = {}
@@ -107,7 +114,7 @@ def main():
             else:
                 referenced_opps[opp_id] = 1
         
-        print("  ContractDocument references:")
+        print("  contract_documents references:")
         print(f"    - Unique opportunities referenced: {len(referenced_opps)} out of {len(contract_df)} documents")
         print(f"    - Distribution: {referenced_opps}")
         
@@ -115,7 +122,7 @@ def main():
         if len(referenced_opps) < len(contract_df) and len(contract_df) <= len(opp_df):
             print("    ⚠️  Some opportunities are referenced multiple times while others aren't used at all")
         elif len(referenced_opps) == 1 and len(opp_df) > 1:
-            print("    ⚠️  All ContractDocuments reference the same opportunity!")
+            print("    ⚠️  All contract_documents reference the same opportunity!")
         else:
             print("    ✅  Good variety in opportunity references")
         
@@ -130,7 +137,7 @@ def main():
         if len(customer_ids) < len(referenced_opps) and len(referenced_opps) > 1:
             print("    ⚠️  Multiple opportunities from the same customer")
         elif len(customer_ids) == 1 and 'customers' in results and len(results['customers']) > 1:
-            print("    ⚠️  All ContractDocuments reference opportunities from the same customer!")
+            print("    ⚠️  All contract_documents reference opportunities from the same customer!")
         else:
             print("    ✅  Good variety in customer references")
     
@@ -140,8 +147,8 @@ def main():
     # Check if referential integrity is maintained
     print("\n🔍 Verifying referential integrity:")
     
-    # Check ProposalDocument consistency
-    proposal_df = results.get('ProposalDocument')
+    # Check proposal_documents consistency
+    proposal_df = results.get('proposal_documents')
     opportunities_df = results.get('opportunities')
     customers_df = results.get('customers')
     
@@ -163,16 +170,16 @@ def main():
                 desc_match = proposal_opp_desc == opp_row['description']
                 
                 if not (name_match and value_match and desc_match):
-                    print(f"  ❌ Inconsistency in ProposalDocument {idx+1} opportunity references:")
+                    print(f"  ❌ Inconsistency in proposal_documents {idx+1} opportunity references:")
                     print(f"     - ID: {proposal_opp_id}")
                     print(f"     - Name match: {name_match}")
                     print(f"     - Value match: {value_match}")
                     print(f"     - Description match: {desc_match}")
                 else:
-                    print(f"  ✅ All ProposalDocument.opportunity_id values reference valid opportunities.id")
-                    print(f"  ✅ All ProposalDocument.opportunity_name values reference valid opportunities.name")
-                    print(f"  ✅ All ProposalDocument.opportunity_value values reference valid opportunities.value")
-                    print(f"  ✅ All ProposalDocument.opportunity_description values reference valid opportunities.description")
+                    print(f"  ✅ All proposal_documents.opportunity_id values reference valid opportunities.id")
+                    print(f"  ✅ All proposal_documents.opportunity_name values reference valid opportunities.name")
+                    print(f"  ✅ All proposal_documents.opportunity_value values reference valid opportunities.value")
+                    print(f"  ✅ All proposal_documents.opportunity_description values reference valid opportunities.description")
             
             # Check customer consistency
             proposal_cust_name = row.get('customer_name')
@@ -186,15 +193,15 @@ def main():
                 addr_match = proposal_cust_addr == cust_row['address']
                 
                 if not addr_match:
-                    print(f"  ❌ Inconsistency in ProposalDocument {idx+1} customer references:")
+                    print(f"  ❌ Inconsistency in proposal_documents {idx+1} customer references:")
                     print(f"     - Name: {proposal_cust_name}")
                     print(f"     - Address match: {addr_match}")
                 else:
-                    print(f"  ✅ All ProposalDocument.customer_name values reference valid customers.name")
-                    print(f"  ✅ All ProposalDocument.customer_address values reference valid customers.address")
+                    print(f"  ✅ All proposal_documents.customer_name values reference valid customers.name")
+                    print(f"  ✅ All proposal_documents.customer_address values reference valid customers.address")
     
-    # Check ContractDocument consistency
-    contract_df = results.get('ContractDocument')
+    # Check contract_documents consistency
+    contract_df = results.get('contract_documents')
     if contract_df is not None and opportunities_df is not None and customers_df is not None:
         # For each contract document
         for idx, row in contract_df.iterrows():
@@ -209,12 +216,12 @@ def main():
                 value_match = contract_value == opp_row['value']
                 
                 if not value_match:
-                    print(f"  ❌ Inconsistency in ContractDocument {idx+1} opportunity references:")
+                    print(f"  ❌ Inconsistency in contract_documents {idx+1} opportunity references:")
                     print(f"     - ID: {contract_opp_id}")
                     print(f"     - Value match: {value_match}")
                 else:
-                    print(f"  ✅ All ContractDocument.opportunity_id values reference valid opportunities.id")
-                    print(f"  ✅ All ContractDocument.contract_value values reference valid opportunities.value")
+                    print(f"  ✅ All contract_documents.opportunity_id values reference valid opportunities.id")
+                    print(f"  ✅ All contract_documents.contract_value values reference valid opportunities.value")
             
             # Check customer consistency
             contract_cust_name = row.get('customer_name')
@@ -228,23 +235,23 @@ def main():
                 addr_match = contract_cust_addr == cust_row['address']
                 
                 if not addr_match:
-                    print(f"  ❌ Inconsistency in ContractDocument {idx+1} customer references:")
+                    print(f"  ❌ Inconsistency in contract_documents {idx+1} customer references:")
                     print(f"     - Name: {contract_cust_name}")
                     print(f"     - Address match: {addr_match}")
                 else:
-                    print(f"  ✅ All ContractDocument.customer_name values reference valid customers.name")
-                    print(f"  ✅ All ContractDocument.customer_address values reference valid customers.address")
+                    print(f"  ✅ All contract_documents.customer_name values reference valid customers.name")
+                    print(f"  ✅ All contract_documents.customer_address values reference valid customers.address")
             
     
     # Check if document templates were generated - fix the paths to match actual output
     output_path = Path(output_dir)
     
     # Look for document_*.pdf files in the ProposalDocument subdirectory
-    proposal_dir = output_path / "ProposalDocument"
+    proposal_dir = output_path / "proposal_documents"
     proposal_docs = list(proposal_dir.glob('document_*.pdf')) if proposal_dir.exists() else []
     
     # Look for document_*.pdf files in the ContractDocument subdirectory
-    contract_dir = output_path / "ContractDocument"
+    contract_dir = output_path / "contract_documents"
     contract_docs = list(contract_dir.glob('document_*.pdf')) if contract_dir.exists() else []
     
     print("\n📄 Generated Documents:")

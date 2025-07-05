@@ -41,7 +41,12 @@ def main():
     generator = SyntheticDataGenerator(model_config=model_config)
     
     # Define output directory
-    output_dir = "inventory_data"
+    output_dir = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 
+        "output", 
+        "test_yaml_schemas", 
+        "inventory_data"
+    )
     
     # Define paths to schema files
     schema_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "schema_files/yaml")
@@ -97,24 +102,53 @@ def main():
     #
     # Below we include only the most important custom generators as examples:
     #
+    
+    # Custom generator call counters for verification
+    call_counters = {
+        "Supplier.active": 0,
+        "Supplier.payment_terms": 0,
+        "Product.price": 0,
+        "Inventory.last_checked": 0
+    }
+    
+    # Define generators with tracking
+    def supplier_active_generator(row, col):
+        call_counters["Supplier.active"] += 1
+        print(f"✓ Custom generator called: Supplier.active (Call #{call_counters['Supplier.active']})")
+        return random.choices([True, False], weights=[0.8, 0.2])[0]
+    
+    def supplier_payment_terms_generator(row, col):
+        call_counters["Supplier.payment_terms"] += 1
+        print(f"✓ Custom generator called: Supplier.payment_terms (Call #{call_counters['Supplier.payment_terms']})")
+        return random.choice(["Net 30", "Net 60", "Net 15", "COD", "Prepaid"])
+    
+    def product_price_generator(row, col):
+        call_counters["Product.price"] += 1
+        print(f"✓ Custom generator called: Product.price (Call #{call_counters['Product.price']})")
+        return round(random.uniform(5.99, 499.99), 2)
+    
+    def inventory_last_checked_generator(row, col):
+        call_counters["Inventory.last_checked"] += 1
+        print(f"✓ Custom generator called: Inventory.last_checked (Call #{call_counters['Inventory.last_checked']})")
+        return (datetime.datetime.now() - datetime.timedelta(days=random.randint(1, 90))).strftime("%Y-%m-%d")
+    
     custom_generators = {
         "Supplier": {
             # Generate a specific distribution of active/inactive suppliers
-            "active": lambda row, col: random.choices([True, False], weights=[0.8, 0.2])[0],
+            "active": supplier_active_generator,
             # Generate values from a fixed set of options
-            "payment_terms": lambda row, col: random.choice(["Net 30", "Net 60", "Net 15", "COD", "Prepaid"])
+            "payment_terms": supplier_payment_terms_generator
         },
         "Category": {
             # No custom generators needed for Category
         },
         "Product": {
             # Just one example of numeric value control
-            "price": lambda row, col: round(random.uniform(5.99, 499.99), 2)
+            "price": product_price_generator
         },
         "Inventory": {
             # Example of a date field with specific distribution
-            "last_checked": lambda row, col: (datetime.datetime.now() - 
-                datetime.timedelta(days=random.randint(1, 90))).strftime("%Y-%m-%d")
+            "last_checked": inventory_last_checked_generator
         }
     }
     
@@ -138,6 +172,57 @@ def main():
         print(f"  - {schema_name}: {len(df)} records")
     
     print(f"\nData files saved to directory: {output_dir}/")
+    
+    # Verify custom generators were called
+    print("\n🔍 Verifying custom generators:")
+    for generator_name, count in call_counters.items():
+        schema_name = generator_name.split('.')[0]
+        field_name = generator_name.split('.')[1]
+        expected_count = sample_sizes.get(schema_name, 0)
+        
+        if count == 0:
+            print(f"  ❌ Custom generator for {generator_name} was NEVER called!")
+        elif count != expected_count:
+            print(f"  ⚠️ Custom generator for {generator_name} was called {count} times (expected {expected_count})")
+        else:
+            print(f"  ✅ Custom generator for {generator_name} was called correctly ({count} times)")
+    
+    # Verify data distributions for custom generators
+    print("\n🔍 Verifying data distributions:")
+    
+    # Supplier.active - should be ~80% True, ~20% False
+    if "Supplier" in results:
+        active_true_count = results["Supplier"]["active"].sum()
+        active_total = len(results["Supplier"])
+        active_true_pct = (active_true_count / active_total) * 100
+        print(f"  Supplier.active: {active_true_pct:.1f}% True (expected ~80%)")
+        
+        # Supplier.payment_terms - should have variety
+        payment_terms_counts = results["Supplier"]["payment_terms"].value_counts()
+        print(f"  Supplier.payment_terms distribution: {dict(payment_terms_counts)}")
+    
+    # Product.price - should be between 5.99 and 499.99
+    if "Product" in results:
+        price_min = results["Product"]["price"].min()
+        price_max = results["Product"]["price"].max()
+        print(f"  Product.price range: ${price_min:.2f} to ${price_max:.2f} (expected $5.99-$499.99)")
+    
+    # Inventory.last_checked - should be within last 90 days
+    if "Inventory" in results:
+        today = datetime.datetime.now().date()
+        last_checked_dates = pd.to_datetime(results["Inventory"]["last_checked"]).dt.date
+        oldest_date = min(last_checked_dates)
+        newest_date = max(last_checked_dates)
+        oldest_days_ago = (today - oldest_date).days
+        newest_days_ago = (today - newest_date).days
+        print(f"  Inventory.last_checked range: {newest_days_ago}-{oldest_days_ago} days ago (expected 1-90 days)")
+    
+    # Sample the generated data
+    print("\n📊 Sample of generated data:")
+    for schema_name, df in results.items():
+        if not df.empty:
+            print(f"\n{schema_name} (sample of first 2 records):")
+            print(df.head(2).to_string())
     
     # Show samples of data with custom generators
     print("\n📊 Sample data statistics:")

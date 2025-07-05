@@ -154,8 +154,12 @@ def main():
     generator = SyntheticDataGenerator(model_config=model_config)
     
     # Define output directory
-    output_dir = "crm_data"
-    
+    output_dir = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 
+        "output", 
+        "test_sqlalchemy_models", 
+        "crm_data"
+    )
     # Define custom prompts for each model (optional)
     prompts = {
         "customers": """

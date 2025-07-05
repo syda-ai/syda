@@ -127,10 +127,10 @@
         <tbody>
             {% for item in items %}
             <tr>
-                <td>{{ item.product_name }}<br><small>SKU: {{ item.sku }}</small></td>
-                <td class="quantity">{{ item.quantity }}</td>
-                <td class="price">${{ "%.2f"|format(item.unit_price) }}</td>
-                <td class="price">${{ "%.2f"|format(item.item_total) }}</td>
+                <td>{{ item.product_name }}<br><small>SKU: {{ item["sku"] }}</small></td>
+                <td class="quantity">{{ item["quantity"] }}</td>
+                <td class="price">${{ "%.2f"|format(item["unit_price"]) }}</td>
+                <td class="price">${{ "%.2f"|format(item["item_total"]) }}</td>
             </tr>
             {% endfor %}
         </tbody>

@@ -1,0 +1,201 @@
+claim_id,patient_id,diagnosis_code,email,visit_date,notes
+1001,1044,J06.9,john.smith@email.com,2024-01-15,"Patient presents with acute upper respiratory infection. Symptoms include sore throat, nasal congestion, and mild cough for 3 days. No fever. Prescribed rest and OTC medications."
+1002,1025,K21.9,sarah.johnson@email.com,2024-01-16,Gastroesophageal reflux disease without esophagitis. Patient reports heartburn after meals. Recommended dietary changes and prescribed omeprazole 20mg daily.
+1003,1055,E11.9,michael.brown@email.com,2024-01-17,Type 2 diabetes mellitus without complications. HbA1c 7.2%. Continued metformin 1000mg twice daily. Discussed importance of diet and exercise.
+1004,1027,I10,emily.davis@email.com,2024-01-18,Essential hypertension. BP 145/92. Started on lisinopril 10mg daily. Advised low sodium diet and regular exercise.
+1005,1016,M79.3,robert.wilson@email.com,2024-01-19,"Myalgia, unspecified. Patient reports muscle pain in lower back for 1 week. No trauma history. Prescribed ibuprofen and muscle relaxants."
+1006,1032,J45.909,jennifer.martinez@email.com,2024-01-22,"Unspecified asthma, uncomplicated. Patient experiencing mild wheezing. Peak flow 85% of baseline. Refilled albuterol inhaler."
+1007,1010,F41.9,david.anderson@email.com,2024-01-23,"Anxiety disorder, unspecified. Patient reports increased worry and difficulty sleeping. Started cognitive behavioral therapy referral."
+1008,1065,R05,lisa.thomas@email.com,2024-01-24,Cough. Persistent dry cough for 2 weeks. No fever or other symptoms. Chest clear on auscultation. Prescribed cough suppressant.
+1009,1058,N39.0,christopher.jackson@email.com,2024-01-25,"Urinary tract infection, site not specified. Dysuria and frequency. Urinalysis positive for bacteria. Started on trimethoprim-sulfamethoxazole."
+1010,1092,R51.9,amanda.white@email.com,2024-01-26,"Headache, unspecified. Tension-type headaches occurring 3-4 times weekly. Advised stress management techniques and prescribed acetaminophen PRN."
+1011,1002,B34.9,matthew.harris@email.com,2024-01-29,"Viral infection, unspecified. Low-grade fever and body aches for 2 days. Supportive care recommended with rest and fluids."
+1012,1027,L30.9,jessica.martin@email.com,2024-01-30,"Dermatitis, unspecified. Itchy rash on forearms. No known allergen exposure. Prescribed topical corticosteroid cream."
+1013,1034,G43.909,daniel.thompson@email.com,2024-01-31,"Migraine, unspecified, not intractable, without status migrainosus. Frequent migraines with photophobia. Started on sumatriptan for acute episodes."
+1014,1002,J02.9,ashley.garcia@email.com,2024-02-01,"Acute pharyngitis, unspecified. Sore throat with difficulty swallowing. Rapid strep test negative. Symptomatic treatment advised."
+1015,1084,M25.569,james.rodriguez@email.com,2024-02-02,Pain in unspecified knee. Right knee pain after running. No swelling or instability. Advised RICE protocol and NSAIDs.
+1016,1086,E78.5,maria.lewis@email.com,2024-02-05,"Hyperlipidemia, unspecified. Total cholesterol 245, LDL 165. Started on atorvastatin 20mg daily. Dietary counseling provided."
+1017,1090,R06.02,kevin.lee@email.com,2024-02-06,Shortness of breath. Dyspnea on exertion for 1 week. Oxygen saturation 96%. Ordered chest X-ray and pulmonary function tests.
+1018,1016,K58.9,michelle.walker@email.com,2024-02-07,Irritable bowel syndrome without diarrhea. Abdominal cramping and bloating. Recommended dietary fiber increase and probiotics.
+1019,1069,H66.90,brian.hall@email.com,2024-02-08,"Otitis media, unspecified, unspecified ear. Ear pain and decreased hearing. Tympanic membrane erythematous. Prescribed amoxicillin."
+1020,1024,R50.9,stephanie.allen@email.com,2024-02-09,"Fever, unspecified. Temperature 101.5°F for 24 hours. No localizing symptoms. Blood work ordered to rule out infection."
+1021,1069,J30.9,richard.young@email.com,2024-02-12,"Allergic rhinitis, unspecified. Seasonal allergies with sneezing and nasal congestion. Started on cetirizine 10mg daily."
+1022,1024,M54.5,patricia.hernandez@email.com,2024-02-13,Low back pain. Chronic lower back pain worsening over 2 weeks. No red flags. Physical therapy referral initiated.
+1023,1084,F32.9,joseph.king@email.com,2024-02-14,"Major depressive disorder, single episode, unspecified. PHQ-9 score 15. Started on sertraline 50mg daily. Follow-up in 4 weeks."
+1024,1039,D64.9,nancy.wright@email.com,2024-02-15,"Anemia, unspecified. Fatigue and pallor. Hemoglobin 10.2 g/dL. Started on iron supplementation. Further workup ordered."
+1025,1055,R42,charles.lopez@email.com,2024-02-16,Dizziness and giddiness. Episodic vertigo for 3 days. No hearing loss or tinnitus. Prescribed meclizine for symptom relief.
+1026,1048,J20.9,karen.hill@email.com,2024-02-19,"Acute bronchitis, unspecified. Productive cough with yellow sputum. Lungs with scattered rhonchi. Supportive care advised."
+1027,1039,N30.00,thomas.scott@email.com,2024-02-20,Acute cystitis without hematuria. Burning on urination and urgency. Urine culture sent. Started empiric antibiotic therapy.
+1028,1004,R21,betty.green@email.com,2024-02-21,Rash and other nonspecific skin eruption. Pruritic rash on trunk. No systemic symptoms. Prescribed antihistamine and moisturizer.
+1029,1015,G44.209,mark.adams@email.com,2024-02-22,"Tension-type headache, unspecified, not intractable. Bilateral pressure-like headaches. Stress-related. Recommended relaxation techniques."
+1030,1086,K92.1,sandra.baker@email.com,2024-02-23,Melena. Black tarry stools for 2 days. Hemoglobin stable. Referred for urgent upper endoscopy.
+1031,1079,R10.9,paul.gonzalez@email.com,2024-02-26,Unspecified abdominal pain. Diffuse abdominal discomfort for 1 week. No alarm symptoms. Ordered basic labs and imaging.
+1032,1029,J01.90,donna.nelson@email.com,2024-02-27,"Acute sinusitis, unspecified. Facial pressure and purulent nasal discharge. Started on amoxicillin-clavulanate."
+1033,1087,E03.9,steven.carter@email.com,2024-02-28,"Hypothyroidism, unspecified. TSH 8.5. Started on levothyroxine 50mcg daily. Recheck thyroid function in 6 weeks."
+1034,1070,L20.9,carol.mitchell@email.com,2024-02-29,"Atopic dermatitis, unspecified. Chronic eczema flare on flexural areas. Prescribed topical tacrolimus and emollients."
+1035,1035,R53.83,kenneth.perez@email.com,2024-03-01,Other fatigue. Persistent fatigue for 2 months. CBC and metabolic panel ordered. Sleep hygiene counseling provided.
+1036,1053,J11.1,laura.roberts@email.com,2024-03-04,"Influenza due to unidentified influenza virus with other respiratory manifestations. Fever, cough, and myalgias. Prescribed oseltamivir."
+1037,1032,M79.1,jason.turner@email.com,2024-03-05,Myalgia. Diffuse muscle aches after starting new exercise routine. Normal CK levels. Advised gradual activity increase.
+1038,1058,R63.4,ruth.phillips@email.com,2024-03-06,Abnormal weight loss. Unintentional 10-pound weight loss over 2 months. Comprehensive metabolic workup initiated.
+1039,1080,K29.70,jerry.campbell@email.com,2024-03-07,"Gastritis, unspecified, without bleeding. Epigastric pain after meals. H. pylori testing ordered. Started PPI therapy."
+1040,1072,R07.9,deborah.parker@email.com,2024-03-08,"Chest pain, unspecified. Non-cardiac chest pain. EKG normal. Reassurance provided. GERD likely cause."
+1041,1078,F43.10,frank.evans@email.com,2024-03-11,"Post-traumatic stress disorder, unspecified. Nightmares and hypervigilance after car accident. Referred to trauma-focused therapy."
+1042,1039,H10.9,angela.edwards@email.com,2024-03-12,Unspecified conjunctivitis. Bilateral red eyes with discharge. No vision changes. Prescribed antibiotic eye drops.
+1043,1005,M62.81,raymond.collins@email.com,2024-03-13,Muscle weakness (generalized). Progressive weakness over 3 weeks. Neurological exam normal. Referred to neurology.
+1044,1050,R11.10,virginia.stewart@email.com,2024-03-14,"Vomiting, unspecified. Nausea and vomiting for 2 days. No fever or diarrhea. Prescribed ondansetron. Advised clear liquids."
+1045,1011,J40,gregory.sanchez@email.com,2024-03-15,"Bronchitis, not specified as acute or chronic. Persistent cough with clear sputum. Chest X-ray clear. Symptomatic treatment."
+1046,1096,R00.0,katherine.morris@email.com,2024-03-18,"Tachycardia, unspecified. Palpitations with heart rate 110. EKG shows sinus tachycardia. Thyroid function tests ordered."
+1047,1014,L50.9,joshua.rogers@email.com,2024-03-19,"Urticaria, unspecified. Widespread hives after eating shellfish. Treated with diphenhydramine and prednisone taper."
+1048,1047,N92.0,marie.reed@email.com,2024-03-20,Excessive and frequent menstruation with regular cycle. Heavy menstrual bleeding. CBC shows mild anemia. Started on tranexamic acid.
+1049,1029,R52,carl.cook@email.com,2024-03-21,"Pain, unspecified. Chronic pain syndrome. Pain affecting multiple sites. Referred to pain management clinic."
+1050,1042,E66.9,dorothy.morgan@email.com,2024-03-22,"Obesity, unspecified. BMI 32. Discussed lifestyle modifications. Referred to nutritionist for weight management program."
+1051,1073,R73.03,harold.bell@email.com,2024-03-25,Prediabetes. Fasting glucose 118 mg/dL. HbA1c 6.2%. Lifestyle counseling provided. Follow-up in 3 months.
+1052,1090,G47.00,teresa.murphy@email.com,2024-03-26,"Insomnia, unspecified. Difficulty falling and staying asleep. Sleep hygiene education. Prescribed melatonin 3mg at bedtime."
+1053,1061,M17.9,gerald.rivera@email.com,2024-03-27,"Osteoarthritis of knee, unspecified. Bilateral knee pain with morning stiffness. X-rays show joint space narrowing. Started on glucosamine."
+1054,1069,R19.7,frances.cooper@email.com,2024-03-28,"Diarrhea, unspecified. Loose stools for 3 days. No blood or fever. Stool studies ordered. Advised BRAT diet."
+1055,1055,J44.0,arthur.richardson@email.com,2024-03-29,Chronic obstructive pulmonary disease with acute lower respiratory infection. COPD exacerbation. Started on prednisone and antibiotics.
+1056,1024,R60.0,sharon.cox@email.com,2024-04-01,Localized edema. Bilateral ankle swelling. No cardiac or renal issues. Advised leg elevation and compression stockings.
+1057,1074,F51.01,peter.howard@email.com,2024-04-02,Primary insomnia. Chronic sleep initiation difficulty. Sleep study ordered. Started cognitive behavioral therapy for insomnia.
+1058,1047,K76.0,diane.ward@email.com,2024-04-03,"Fatty change of liver, not elsewhere classified. Elevated liver enzymes. Ultrasound shows fatty liver. Weight loss counseling provided."
+1059,1027,R06.00,ralph.torres@email.com,2024-04-04,"Dyspnea, unspecified. Shortness of breath with exertion. Pulmonary function tests and echocardiogram ordered."
+1060,1028,L70.0,janet.peterson@email.com,2024-04-05,Acne vulgaris. Moderate facial acne. Started on topical benzoyl peroxide and tretinoin. Follow-up in 8 weeks.
+1061,1009,N18.3,willie.gray@email.com,2024-04-08,"Chronic kidney disease, stage 3 (moderate). GFR 45. Blood pressure controlled. Nephrology referral initiated."
+1062,1005,R26.2,kathryn.ramirez@email.com,2024-04-09,"Difficulty in walking, not elsewhere classified. Gait instability for 2 weeks. Neurological exam unremarkable. MRI brain ordered."
+1063,1095,H91.90,eugene.james@email.com,2024-04-10,"Unspecified hearing loss, unspecified ear. Gradual hearing decline. Audiometry shows mild bilateral hearing loss. Hearing aid evaluation."
+1064,1072,K82.8,judith.watson@email.com,2024-04-11,Other specified diseases of gallbladder. Biliary dyskinesia suspected. HIDA scan ordered. Dietary modifications advised.
+1065,1008,R35.0,russell.brooks@email.com,2024-04-12,Frequency of micturition. Urinary frequency without dysuria. PSA normal. Prescribed oxybutynin for overactive bladder.
+1066,1045,M19.90,rose.kelly@email.com,2024-04-15,"Unspecified osteoarthritis, unspecified site. Multiple joint pain and stiffness. Started on NSAIDs and physical therapy."
+1067,1068,R13.10,johnny.sanders@email.com,2024-04-16,"Dysphagia, unspecified. Difficulty swallowing solids. No weight loss. Barium swallow study ordered."
+1068,1028,F90.9,mildred.price@email.com,2024-04-17,"Attention-deficit hyperactivity disorder, unspecified type. Adult ADHD evaluation. Started on methylphenidate extended-release."
+1069,1065,R94.31,jack.bennett@email.com,2024-04-18,Abnormal electrocardiogram [ECG] [EKG]. Nonspecific ST-T wave changes. No chest pain. Stress test scheduled.
+1070,1097,L03.90,ruby.wood@email.com,2024-04-19,"Cellulitis, unspecified. Left lower leg erythema and warmth. Started on cephalexin. Elevation and rest advised."
+1071,1017,R25.1,henry.barnes@email.com,2024-04-22,"Tremor, unspecified. Bilateral hand tremor worse with movement. No resting tremor. Essential tremor likely. Trial of propranolol."
+1072,1007,K59.00,annie.ross@email.com,2024-04-23,"Constipation, unspecified. Infrequent bowel movements for 2 weeks. Started on polyethylene glycol. Increased fiber intake advised."
+1073,1021,R68.89,fred.henderson@email.com,2024-04-24,Other general symptoms and signs. Malaise and poor appetite. Comprehensive metabolic panel and CBC ordered.
+1074,1079,M47.812,evelyn.coleman@email.com,2024-04-25,"Spondylosis without myelopathy or radiculopathy, cervical region. Neck pain with stiffness. X-ray shows degenerative changes. Physical therapy."
+1075,1008,R20.2,joe.jenkins@email.com,2024-04-26,Paresthesia of skin. Tingling in both feet. B12 level normal. Referred to neurology for EMG/NCS.
+1076,1012,J32.9,edna.perry@email.com,2024-04-29,"Chronic sinusitis, unspecified. Recurrent sinus infections. CT sinuses shows mucosal thickening. ENT referral for evaluation."
+1077,1074,E55.9,clarence.powell@email.com,2024-04-30,"Vitamin D deficiency, unspecified. Vitamin D level 18 ng/mL. Started on vitamin D3 50,000 IU weekly for 8 weeks."
+1078,1003,R31.9,grace.long@email.com,2024-05-01,"Hematuria, unspecified. Microscopic hematuria on routine urinalysis. No symptoms. Urology referral for cystoscopy."
+1079,1062,F33.1,earl.patterson@email.com,2024-05-02,"Major depressive disorder, recurrent, moderate. Depression worsening. Increased sertraline to 100mg. Therapy sessions increased."
+1080,1068,R22.2,joyce.hughes@email.com,2024-05-03,"Localized swelling, mass and lump, trunk. Small lipoma on back. Benign appearance. Reassurance provided. Observation recommended."
+1081,1020,K30,harry.flores@email.com,2024-05-06,Functional dyspepsia. Upper abdominal discomfort after meals. H. pylori negative. Started on famotidine.
+1082,1058,R06.83,emma.washington@email.com,2024-05-07,Snoring. Loud snoring reported by partner. Epworth sleepiness scale elevated. Sleep study ordered to rule out sleep apnea.
+1083,1019,M25.511,lloyd.butler@email.com,2024-05-08,Pain in right shoulder. Rotator cuff tendinitis suspected. Started on NSAIDs. Physical therapy referral.
+1084,1024,L40.9,alice.simmons@email.com,2024-05-09,"Psoriasis, unspecified. Plaque psoriasis on elbows and knees. Started on topical corticosteroids and vitamin D analog."
+1085,1019,R09.81,louis.foster@email.com,2024-05-10,Nasal congestion. Chronic nasal obstruction. No polyps on examination. Trial of intranasal corticosteroids.
+1086,1001,G25.81,phyllis.gonzales@email.com,2024-05-13,Restless legs syndrome. Uncomfortable leg sensations at night. Iron studies normal. Started on pramipexole.
+1087,1077,R40.0,clarence.bryant@email.com,2024-05-14,Somnolence. Excessive daytime sleepiness. Sleep study shows mild OSA. CPAP therapy recommended.
+1088,1009,N40.0,edith.alexander@email.com,2024-05-15,Benign prostatic hyperplasia without lower urinary tract symptoms. Enlarged prostate on exam. PSA normal. Annual monitoring.
+1089,1031,R14.0,jesse.russell@email.com,2024-05-16,Abdominal distension (gaseous). Bloating and gas. Lactose intolerance suspected. Trial of lactase supplements.
+1090,1076,H04.123,hazel.griffin@email.com,2024-05-17,Dry eye syndrome of bilateral lacrimal glands. Burning and foreign body sensation. Started on artificial tears QID.
+1091,1003,R23.0,ernest.diaz@email.com,2024-05-20,Cyanosis. Peripheral cyanosis in cold weather. Raynaud's phenomenon suspected. Advised keeping hands warm.
+1092,1066,K86.1,helen.hayes@email.com,2024-05-21,Other chronic pancreatitis. Chronic abdominal pain. Lipase mildly elevated. Pancreatic enzyme supplementation started.
+1093,1072,R12,phillip.myers@email.com,2024-05-22,Heartburn. GERD symptoms worsening. Increased PPI to twice daily. Lifestyle modifications reinforced.
+1094,1060,M81.0,ann.ford@email.com,2024-05-23,Age-related osteoporosis without current pathological fracture. DEXA scan T-score -2.8. Started on alendronate weekly.
+1095,1039,R55,bruce.hamilton@email.com,2024-05-24,Syncope and collapse. Single syncopal episode. Orthostatic vitals normal. EKG and echo ordered.
+1096,1012,L21.9,jean.graham@email.com,2024-05-28,"Seborrheic dermatitis, unspecified. Scalp flaking and erythema. Started on ketoconazole shampoo twice weekly."
+1097,1021,R01.1,ralph.reynolds@email.com,2024-05-29,"Cardiac murmur, unspecified. New systolic murmur noted. Echocardiogram shows mild mitral regurgitation. Annual follow-up."
+1098,1021,K63.5,doris.fisher@email.com,2024-05-30,Polyp of colon. Colonoscopy found 8mm polyp. Removed and sent for pathology. Repeat colonoscopy in 3 years.
+1099,1085,R04.0,lawrence.ellis@email.com,2024-05-31,Epistaxis. Recurrent nosebleeds. Anterior bleeding site identified. Cauterization performed. Saline spray prescribed.
+1100,1065,M48.06,judy.harrison@email.com,2024-06-03,"Spinal stenosis, lumbar region. Lower back pain with leg numbness. MRI shows moderate stenosis. Epidural injection scheduled."
+1101,1025,R32,wayne.gibson@email.com,2024-06-04,Unspecified urinary incontinence. Stress incontinence symptoms. Pelvic floor exercises recommended. Urology referral.
+1102,1097,H53.2,katherine.mcdonald@email.com,2024-06-05,Diplopia. Double vision for 1 week. No other neurological symptoms. Ophthalmology and neurology referrals.
+1103,1083,R56.9,billy.cruz@email.com,2024-06-06,Unspecified convulsions. First-time seizure. EEG and MRI brain ordered. Started on levetiracetam.
+1104,1097,K52.9,denise.marshall@email.com,2024-06-07,"Noninfective gastroenteritis and colitis, unspecified. Chronic diarrhea. Stool studies negative. Trial of probiotics."
+1105,1033,R79.89,justin.ortiz@email.com,2024-06-10,Other specified abnormal findings of blood chemistry. Elevated alkaline phosphatase. Liver ultrasound ordered.
+1106,1009,L60.0,marilyn.gomez@email.com,2024-06-11,Ingrowing nail. Ingrown toenail with infection. Partial nail avulsion performed. Antibiotics prescribed.
+1107,1069,R76.11,aaron.murray@email.com,2024-06-12,Nonspecific reaction to tuberculin skin test without active tuberculosis. Positive PPD. Chest X-ray clear. Latent TB treatment discussed.
+1108,1095,H26.9,rose.freeman@email.com,2024-06-13,Unspecified cataract. Gradual vision decline. Ophthalmology referral for cataract evaluation.
+1109,1030,R00.2,jeremy.wells@email.com,2024-06-14,Palpitations. Intermittent palpitations. Holter monitor ordered. Thyroid function tests pending.
+1110,1100,K11.7,jacqueline.webb@email.com,2024-06-17,Disturbances of salivary secretion. Dry mouth for 3 months. Medication review performed. Artificial saliva recommended.
+1111,1096,R93.1,kyle.simpson@email.com,2024-06-18,Abnormal findings on diagnostic imaging of heart and coronary circulation. Calcium score elevated. Statin therapy initiated.
+1112,1059,L98.9,maria.stevens@email.com,2024-06-19,"Disorder of the skin and subcutaneous tissue, unspecified. Chronic skin changes. Biopsy scheduled."
+1113,1092,R74.0,nathan.tucker@email.com,2024-06-20,Nonspecific elevation of levels of transaminase and lactic acid dehydrogenase. Mild transaminitis. Hepatitis panel ordered.
+1114,1013,H61.23,theresa.porter@email.com,2024-06-21,"Impacted cerumen, bilateral. Ear irrigation performed. Complete removal of cerumen. Hearing improved."
+1115,1100,R19.5,christian.hunter@email.com,2024-06-24,Other fecal abnormalities. Change in stool caliber. Colonoscopy scheduled to rule out obstruction.
+1116,1002,M75.30,carol.hicks@email.com,2024-06-25,Calcific tendinitis of unspecified shoulder. Shoulder pain with calcification on X-ray. Corticosteroid injection given.
+1117,1026,R27.0,austin.crawford@email.com,2024-06-26,"Ataxia, unspecified. Gait unsteadiness for 2 weeks. Neurological exam shows mild ataxia. MRI brain ordered."
+1118,1041,K57.30,joan.henry@email.com,2024-06-27,Diverticulosis of large intestine without perforation or abscess without bleeding. Incidental finding on colonoscopy. High-fiber diet advised.
+1119,1099,R29.6,dylan.boyd@email.com,2024-06-28,Repeated falls. Two falls in past month. Gait assessment performed. Home safety evaluation recommended.
+1120,1007,L82.1,gloria.mason@email.com,2024-07-01,Other seborrheic keratosis. Multiple seborrheic keratoses on trunk. Benign appearance. No treatment needed.
+1121,1001,R78.81,jordan.morales@email.com,2024-07-02,Bacteremia. Blood cultures positive for E. coli. Started on IV antibiotics. Source investigation ongoing.
+1122,1060,H35.30,beverly.kennedy@email.com,2024-07-03,Unspecified macular degeneration. Gradual central vision loss. OCT shows drusen. AREDS vitamins started.
+1123,1064,R87.619,bryan.warren@email.com,2024-07-05,Unspecified abnormal cytological findings in specimen from cervix uteri. Abnormal Pap smear. Colposcopy scheduled.
+1124,1054,M06.9,amber.dixon@email.com,2024-07-08,"Rheumatoid arthritis, unspecified. Morning stiffness and joint swelling. RF positive. Started on methotrexate."
+1125,1067,R91.8,brandon.ramos@email.com,2024-07-09,Other nonspecific abnormal finding of lung field. Lung nodule on chest X-ray. CT chest ordered for further evaluation.
+1126,1002,K80.20,debra.reyes@email.com,2024-07-10,Calculus of gallbladder without cholecystitis without obstruction. Incidental gallstones on ultrasound. Asymptomatic. Observation.
+1127,1007,R22.1,zachary.burns@email.com,2024-07-11,"Localized swelling, mass and lump, neck. Enlarged lymph node. No other symptoms. Fine needle aspiration scheduled."
+1128,1097,H81.49,cynthia.gordon@email.com,2024-07-12,Vertigo of other origin. Positional vertigo. Dix-Hallpike positive. Epley maneuver performed with improvement.
+1129,1065,R82.90,jacob.shaw@email.com,2024-07-15,Unspecified abnormal findings in urine. Proteinuria on urinalysis. 24-hour urine collection ordered.
+1130,1093,L29.9,joyce.holmes@email.com,2024-07-16,"Pruritus, unspecified. Generalized itching without rash. Liver and kidney function tests ordered."
+1131,1010,R94.5,alexander.rice@email.com,2024-07-17,Abnormal results of liver function studies. Elevated GGT. Ultrasound shows fatty liver. Alcohol cessation counseling.
+1132,1096,H54.7,madison.robertson@email.com,2024-07-18,Unspecified visual loss. Gradual vision decline over 6 months. Comprehensive eye exam scheduled.
+1133,1025,R59.0,tyler.hunt@email.com,2024-07-19,Localized enlarged lymph nodes. Cervical lymphadenopathy. No B symptoms. Monitoring for 4 weeks.
+1134,1024,K90.0,danielle.black@email.com,2024-07-22,Celiac disease. Positive tissue transglutaminase antibody. Duodenal biopsy confirms. Gluten-free diet initiated.
+1135,1023,R93.2,jose.daniels@email.com,2024-07-23,Abnormal findings on diagnostic imaging of liver and biliary tract. Liver lesion on ultrasound. MRI abdomen ordered.
+1136,1096,M10.9,brittany.palmer@email.com,2024-07-24,"Gout, unspecified. Acute toe pain with swelling. Uric acid elevated. Started on colchicine and allopurinol."
+1137,1068,R97.2,noah.mills@email.com,2024-07-25,Elevated prostate specific antigen [PSA]. PSA 6.2. Digital rectal exam normal. Urology referral for biopsy consideration.
+1138,1046,L23.9,sophia.nichols@email.com,2024-07-26,"Allergic contact dermatitis, unspecified cause. Rash after new detergent use. Topical steroids prescribed."
+1139,1061,R06.09,logan.grant@email.com,2024-07-29,Other forms of dyspnea. Dyspnea with minimal exertion. BNP normal. Pulmonary function tests scheduled.
+1140,1071,H40.10X0,victoria.knight@email.com,2024-07-30,"Unspecified open-angle glaucoma, stage unspecified. Elevated intraocular pressure. Started on latanoprost eye drops."
+1141,1069,R10.13,gabriel.ferguson@email.com,2024-07-31,Epigastric pain. Upper abdominal pain after eating. H. pylori breath test ordered. PPI trial started.
+1142,1038,L05.91,rachel.rose@email.com,2024-08-01,Pilonidal cyst without abscess. Pilonidal sinus at sacrococcygeal area. Surgical referral for excision.
+1143,1082,R57.0,ethan.stephens@email.com,2024-08-02,Cardiogenic shock. Acute decompensated heart failure. Admitted to ICU. Inotropic support initiated.
+1144,1027,K22.2,olivia.meyer@email.com,2024-08-05,Esophageal obstruction. Food impaction. Endoscopic removal performed successfully. Esophageal dilation scheduled.
+1145,1053,R94.6,mason.boyd@email.com,2024-08-06,"Abnormal results of thyroid function studies. TSH 0.2, Free T4 elevated. Started on methimazole for hyperthyroidism."
+1146,1001,H93.13,isabella.pierce@email.com,2024-08-07,"Tinnitus, bilateral. Constant ringing in both ears. Audiometry normal. MRI to rule out acoustic neuroma."
+1147,1039,R63.0,william.vasquez@email.com,2024-08-08,Anorexia. Poor appetite for 1 month. Weight loss 8 pounds. Depression screening positive. Antidepressant started.
+1148,1029,L72.3,samantha.curtis@email.com,2024-08-09,Sebaceous cyst. Cyst on scalp. No signs of infection. Elective excision discussed.
+1149,1092,R09.02,jayden.pearson@email.com,2024-08-12,Hypoxemia. Oxygen saturation 88% on room air. Chest X-ray shows pneumonia. Antibiotics and oxygen therapy started.
+1150,1053,K70.30,ava.reynolds@email.com,2024-08-13,Alcoholic cirrhosis of liver without ascites. Elevated liver enzymes. Ultrasound confirms cirrhosis. Alcohol cessation program.
+1151,1002,R80.9,jackson.foster@email.com,2024-08-14,"Proteinuria, unspecified. 2+ protein on dipstick. No edema. 24-hour urine protein quantification ordered."
+1152,1089,H43.393,emma.jimenez@email.com,2024-08-15,"Other vitreous opacities, bilateral. Floaters in both eyes. Dilated exam shows vitreous debris. Reassurance provided."
+1153,1019,R94.2,aiden.powell@email.com,2024-08-16,Abnormal results of pulmonary function studies. FEV1/FVC ratio 65%. Mild obstructive pattern. Bronchodilator therapy started.
+1154,1029,L08.9,mia.long@email.com,2024-08-19,"Local infection of the skin and subcutaneous tissue, unspecified. Skin abscess on thigh. Incision and drainage performed."
+1155,1011,R17,lucas.patterson@email.com,2024-08-20,Unspecified jaundice. Scleral icterus noted. Bilirubin elevated. Hepatitis panel and ultrasound ordered.
+1156,1061,H57.8,charlotte.hughes@email.com,2024-08-21,Other specified disorders of eye and adnexa. Eye strain from computer use. Prescribed computer glasses.
+1157,1077,R06.4,henry.flores@email.com,2024-08-22,Hyperventilation. Anxiety-induced hyperventilation. Paper bag rebreathing helped. Anxiety management discussed.
+1158,1054,K31.89,amelia.washington@email.com,2024-08-23,Other diseases of stomach and duodenum. Gastroparesis suspected. Gastric emptying study ordered.
+1159,1005,R92.8,sebastian.butler@email.com,2024-08-26,Other abnormal and inconclusive findings on diagnostic imaging of breast. BI-RADS 3 lesion. 6-month follow-up mammogram.
+1160,1027,L11.0,harper.simmons@email.com,2024-08-27,Acquired keratosis follicularis. Keratosis pilaris on upper arms. Urea cream and gentle exfoliation recommended.
+1161,1014,R45.851,elijah.foster@email.com,2024-08-28,Suicidal ideations. Passive suicidal thoughts. No plan or intent. Psychiatry referral. Safety plan established.
+1162,1036,K85.90,evelyn.gonzales@email.com,2024-08-29,"Acute pancreatitis without necrosis or infection, unspecified. Epigastric pain with elevated lipase. NPO, IV fluids started."
+1163,1069,R06.81,benjamin.bryant@email.com,2024-08-30,"Apnea, not elsewhere classified. Witnessed apnea episodes during sleep. Sleep study shows severe OSA. CPAP initiated."
+1164,1062,H25.13,abigail.alexander@email.com,2024-09-03,"Age-related nuclear cataract, bilateral. Progressive vision decline. Visual acuity 20/50 OU. Cataract surgery scheduled."
+1165,1088,R33.9,james.russell@email.com,2024-09-04,"Retention of urine, unspecified. Unable to void for 8 hours. Bladder scan shows 600mL. Foley catheter placed."
+1166,1062,L57.0,elizabeth.griffin@email.com,2024-09-05,Actinic keratosis. Multiple AKs on face and scalp. Liquid nitrogen cryotherapy performed. Sunscreen counseling.
+1167,1069,R94.8,michael.diaz@email.com,2024-09-06,Abnormal results of function studies of other organs and systems. Abnormal nerve conduction study. EMG scheduled.
+1168,1085,K64.9,emily.hayes@email.com,2024-09-09,Unspecified hemorrhoids. External hemorrhoids with bleeding. Sitz baths and topical treatment prescribed.
+1169,1087,R22.0,matthew.myers@email.com,2024-09-10,"Localized swelling, mass and lump, head. Scalp lipoma. Benign characteristics. Elective removal if desired."
+1170,1018,H83.3X3,sofia.ford@email.com,2024-09-11,Noise effects on bilateral inner ear. Hearing loss after concert exposure. Audiometry shows temporary threshold shift.
+1171,1038,R15.9,daniel.hamilton@email.com,2024-09-12,Full incontinence of feces. Fecal incontinence for 2 weeks. Colonoscopy and anorectal manometry ordered.
+1172,1062,L84,madison.graham@email.com,2024-09-13,Corns and callosities. Painful corn on fifth toe. Debridement performed. Proper footwear advised.
+1173,1092,R90.89,ryan.reynolds@email.com,2024-09-16,Other abnormal findings on diagnostic imaging of central nervous system. White matter changes on MRI. Neurology referral.
+1174,1073,K14.6,grace.fisher@email.com,2024-09-17,Glossodynia. Burning tongue syndrome. B12 and iron levels normal. Gabapentin trial initiated.
+1175,1057,R93.5,dylan.ellis@email.com,2024-09-18,Abnormal findings on diagnostic imaging of other abdominal regions. Splenic cyst noted. Benign appearance. Annual monitoring.
+1176,1077,H02.409,hannah.harrison@email.com,2024-09-19,Unspecified ptosis of unspecified eyelid. Drooping left eyelid. No diplopia. Ophthalmology evaluation scheduled.
+1177,1089,R94.39,nathan.gibson@email.com,2024-09-20,Abnormal result of other cardiovascular function study. Abnormal tilt table test. Orthostatic intolerance confirmed.
+1178,1014,L65.9,samantha.mcdonald@email.com,2024-09-23,"Nonscarring hair loss, unspecified. Diffuse hair thinning. Thyroid and iron studies ordered. Minoxidil started."
+1179,1072,R87.810,christopher.cruz@email.com,2024-09-24,"Cervical high risk human papillomavirus (HPV) DNA test positive. HPV positive, Pap normal. Repeat co-testing in 1 year."
+1180,1076,K12.2,ashley.marshall@email.com,2024-09-25,Cellulitis and abscess of mouth. Dental abscess with facial swelling. Antibiotics started. Dental referral urgent.
+1181,1059,R79.1,andrew.ortiz@email.com,2024-09-26,Abnormal coagulation profile. INR elevated at 3.8 on warfarin. Dose adjustment made. Recheck in 3 days.
+1182,1030,H47.293,taylor.gomez@email.com,2024-09-27,"Other disorders of optic disc, bilateral. Optic disc swelling noted. MRI brain and lumbar puncture ordered."
+1183,1050,R93.6,joshua.murray@email.com,2024-09-30,Abnormal findings on diagnostic imaging of limbs. Bone lesion on femur X-ray. MRI ordered for characterization.
+1184,1054,L13.0,lauren.freeman@email.com,2024-10-01,Dermatitis herpetiformis. Itchy vesicular rash. Skin biopsy confirms DH. Started on dapsone and gluten-free diet.
+1185,1039,R46.89,justin.wells@email.com,2024-10-02,"Other symptoms and signs involving appearance and behavior. Disheveled appearance, poor hygiene. Social work referral."
+1186,1059,K73.9,kayla.webb@email.com,2024-10-03,"Chronic hepatitis, unspecified. Persistent transaminitis. Viral hepatitis negative. Autoimmune markers ordered."
+1187,1082,R16.0,kevin.simpson@email.com,2024-10-04,"Hepatomegaly, not elsewhere classified. Liver span 16cm. No tenderness. Comprehensive liver workup initiated."
+1188,1074,H52.13,rachel.stevens@email.com,2024-10-07,"Myopia, bilateral. Progressive nearsightedness. Prescription updated. Annual eye exams recommended."
+1189,1002,R85.610,brandon.tucker@email.com,2024-10-08,Atypical squamous cells of undetermined significance on cytologic smear of cervix. ASCUS on Pap. HPV testing ordered.
+1190,1082,L90.5,nicole.porter@email.com,2024-10-09,Scar conditions and fibrosis of skin. Hypertrophic scar from surgery. Silicone sheets and massage recommended.
+1191,1031,R34,adam.hunter@email.com,2024-10-10,Anuria and oliguria. Urine output <400mL/24hr. Creatinine rising. Nephrology consult. IV fluids started.
+1192,1021,H18.9,stephanie.hicks@email.com,2024-10-11,Unspecified disorder of cornea. Corneal abrasion from foreign body. Antibiotic drops. Follow-up in 48 hours.
+1193,1003,R77.0,nicholas.crawford@email.com,2024-10-15,Abnormality of albumin. Low albumin 2.8 g/dL. Nutritional assessment. Protein supplementation started.
+1194,1005,K35.80,alexis.henry@email.com,2024-10-16,Unspecified acute appendicitis. RLQ pain with rebound tenderness. CT confirms appendicitis. Surgical consult.
+1195,1004,R89.5,tyler.boyd@email.com,2024-10-17,Abnormal microbiological findings in specimens from other organs. Positive wound culture for MRSA. Antibiotics adjusted.
+1196,1007,H50.9,jordan.mason@email.com,2024-10-18,Unspecified strabismus. Intermittent eye deviation noted. Ophthalmology referral for evaluation.
+1197,1044,R93.7,austin.morales@email.com,2024-10-21,Abnormal findings on diagnostic imaging of other parts of musculoskeletal system. Bone scan shows increased uptake.
+1198,1038,L25.9,victoria.kennedy@email.com,2024-10-22,"Unspecified contact dermatitis, unspecified cause. Eczematous rash on hands. Patch testing scheduled."
+1199,1087,R16.2,robert.warren@email.com,2024-10-23,"Hepatomegaly with splenomegaly, not elsewhere classified. Enlarged liver and spleen. Hematology referral."
+1200,1010,K21.0,christina.dixon@email.com,2024-10-24,Gastro-esophageal reflux disease with esophagitis. Erosive esophagitis on endoscopy. High-dose PPI therapy started.

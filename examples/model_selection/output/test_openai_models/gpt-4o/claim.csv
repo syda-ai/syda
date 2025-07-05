@@ -1,0 +1,16 @@
+claim_id,patient_id,diagnosis_code,email,visit_date,notes
+1001,14,E11.9,john.doe@example.com,2023-09-15,Routine check-up for diabetes management. Patient is stable.
+1002,8,I10,jane.smith@example.com,2023-09-16,Patient reports frequent headaches. Blood pressure recorded at 150/95.
+1003,10,J20.9,bob.jones@example.com,2023-09-17,Patient experiencing persistent cough and mild fever. Suspected bronchitis.
+1004,11,E66.3,alice.brown@example.com,2023-09-18,Consultation for weight management. Diet plan provided.
+1005,9,K21.0,charlie.white@example.com,2023-09-19,Complaint of acid reflux and heartburn. Prescribed antacids.
+1006,1,M54.5,dave.green@example.com,2023-09-20,Lower back pain noted. Advised exercises and pain relief medication.
+1007,6,N39.0,eve.black@example.com,2023-09-21,Patient has urinary tract infection. Prescribed antibiotics.
+1008,4,F41.1,frank.blue@example.com,2023-09-22,Patient suffers from anxiety disorder. Therapy sessions recommended.
+1009,14,H52.4,gloria.pink@example.com,2023-09-23,Patient reports blurry vision. Prescription for corrective lenses provided.
+1010,13,L20.9,harry.yellow@example.com,2023-09-24,Eczema flare-up. Topical steroids prescribed.
+1011,12,R51,isabel.orange@example.com,2023-09-25,Severe migraine episodes. Neurological evaluation suggested.
+1012,9,G43.0,jason.purple@example.com,2023-09-26,Chronic migraine disorder. New medication regimen started.
+1013,14,Z00.0,karen.red@example.com,2023-09-27,General health check-up. All vitals within normal range.
+1014,13,J30.1,leo.gray@example.com,2023-09-28,Allergic rhinitis due to pollen. Antihistamines prescribed.
+1015,14,S93.4,mia.silver@example.com,2023-09-29,Ankle sprain from sports activity. Rest and ice application advised.

@@ -41,7 +41,11 @@ def main():
     generator = SyntheticDataGenerator(model_config=model_config)
     
     # Define output directory
-    output_dir = "inventory_data_json"
+    output_dir = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 
+        "output", "test_json_output", 
+        "inventory_data_json"
+    )
     
     # Define paths to schema files
     schema_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "schema_files/yaml_only")

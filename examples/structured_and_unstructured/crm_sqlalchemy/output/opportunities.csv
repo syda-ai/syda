@@ -1,0 +1,9 @@
+id,customer_id,name,value,stage,probability,expected_close_date,description
+1,5,Enterprise Cloud Migration Project,250000.5,Proposal,65.5,2024-03-15,"Large-scale cloud migration project for a multinational financial services company, involving infrastructure assessment, migration strategy, and post-migration support."
+2,4,AI-Powered Customer Support Solution,180000.75,Negotiation,82.3,2024-02-28,Implementing an advanced AI chatbot and machine learning-based customer support system for a leading e-commerce platform.
+3,5,Cybersecurity Enhancement Package,95000.25,Qualification,45.0,2024-04-10,Comprehensive cybersecurity assessment and implementation of advanced threat detection systems for a mid-sized healthcare provider.
+4,3,Data Analytics Platform Upgrade,210000.0,Lead,35.7,2024-05-20,"End-to-end data analytics platform modernization for a retail chain, including data warehousing, visualization, and predictive analytics capabilities."
+5,4,IoT Integration for Smart Manufacturing,320000.75,Proposal,72.6,2024-03-05,"Comprehensive IoT solution for industrial automation, including sensor integration, real-time monitoring, and predictive maintenance systems."
+6,4,Digital Transformation Consulting,150000.5,Negotiation,88.2,2024-02-15,"Strategic digital transformation consulting for a traditional manufacturing company, focusing on process optimization and digital strategy."
+7,4,Mobile App Development Project,85000.25,Qualification,55.4,2024-04-25,"Development of a cross-platform mobile application for a startup in the fitness and wellness industry, including UI/UX design and backend integration."
+8,1,Cloud Security and Compliance Solution,275000.0,Lead,40.1,2024-05-30,"Comprehensive cloud security and compliance solution for a government agency, including risk assessment, security implementation, and ongoing monitoring."

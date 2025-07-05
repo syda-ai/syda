@@ -1,5 +1,7 @@
 __table_name__: Product
 __description__: Retail products
+__foreign_keys__:
+  category_id: [Category, id]
 
 id:
   type: integer
@@ -98,6 +100,3 @@ last_updated:
   description: Date when the product was last updated
   constraints:
     format: YYYY-MM-DD
-
-__foreign_keys__:
-  category_id: [Category, id]

@@ -1,0 +1,52 @@
+__template__: true
+__description__: Laboratory test result template
+__name__: LabResult
+__foreign_keys__: {}
+__template_source__: /home/ramkumar2606/syda-fresh/examples/unstructured_only/healthcare_yml/templates/lab_result_template.html
+__input_file_type__: html
+__output_file_type__: pdf
+
+# Report information
+lab_id:
+  type: string
+  format: uuid
+
+patient_id:
+  type: string
+  format: uuid
+
+collection_date:
+  type: string
+  format: date-time
+
+report_date:
+  type: string
+  format: date-time
+
+# Test information
+test_name:
+  type: string
+
+test_category:
+  type: string
+
+result_value:
+  type: string
+
+reference_range:
+  type: string
+
+unit:
+  type: string
+
+interpretation:
+  type: string
+
+ordering_physician:
+  type: string
+
+performing_lab:
+  type: string
+
+is_flagged:
+  type: boolean
