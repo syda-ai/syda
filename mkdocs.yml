@@ -1,0 +1,59 @@
+site_name: Syda Documentation
+site_description: A Python-based open-source library for generating synthetic data with AI while preserving referential integrity
+site_url: https://python.syda.ai/
+repo_url: https://github.com/syda-ai/syda
+repo_name: syda-ai/syda
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.code.annotate
+    - content.code.copy
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.share
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - macros
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# Navigation structure
+nav:
+  - Home: 
+      Introduction: index.md
+      Quick Start: quickstart.md
+  - Schema Reference: schema_reference.md
+  

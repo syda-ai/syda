@@ -74,6 +74,12 @@ A Python-based open-source library for generating synthetic data with AI while p
   * Intelligent column-specific data generation
   * Parameter naming consistency with `sqlalchemy_models`
   
+* **Multiple Schema Formats**:
+
+  * SQLAlchemy model integration with automatic metadata extraction
+  * YAML/JSON schema file support with full foreign key relationship handling
+  * Python dictionary-based schema definitions
+  
 * **Referential Integrity**
 
   * Automatic foreign key detection and resolution
@@ -86,9 +92,6 @@ A Python-based open-source library for generating synthetic data with AI while p
   * Contextual generators that adapt to other fields (like ICD-10 codes based on demographics)
   * Weighted distributions for realistic data patterns
 
-* **Open Core**
-
-  * Core functionality under AGPL-3.0
 
 ## Installation
 

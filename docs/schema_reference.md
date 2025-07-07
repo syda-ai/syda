@@ -95,15 +95,20 @@ email:
 
 Special sections in the schema are prefixed with double underscores. These special sections are validated during schema validation:
 
-### Table Identification
+### `__description__`
+
+It is used to identify the table description for the schema.
 
 ```yaml
-__name__: Customer # preferred method (recommended for new schemas)
-__table_name__: Customer # alternative (supported for backward compatibility)
 __description__: Customer information for e-commerce site
 ```
+### `__table_description__`
 
-> **Note**: `__name__` is preferred in newer code, though both are supported for backward compatibility.
+It can also be used to identify the table description for the schema.
+
+```yaml
+__table_description__: Customer information for e-commerce site
+```
 
 ### `__foreign_keys__`
 
@@ -125,14 +130,40 @@ __depends_on__: [Product, Customer]
 
 This ensures that Product and Customer data are generated before the current schema.
 
-### Template-Related Fields
+
+## Special Template-Related Fields
 
 For schemas that generate unstructured document outputs:
 
+### `__template__`
+
+It can be set to `true` or a string value to enable template generation.
+
 ```yaml
-__template__: true  # can be boolean or string
-__template_source__: /path/to/template.html  # required when __template__ is true
+__template__: true
+```
+
+### `__template_source__`
+
+It is used to specify the path to the template file.
+
+```yaml
+__template_source__: /path/to/template.html
+```
+
+### `__input_file_type__`
+
+It is used to specify the input file type.
+
+```yaml
 __input_file_type__: html
+```
+
+### `__output_file_type__`
+
+It is used to specify the output file type.
+
+```yaml
 __output_file_type__: pdf
 ```
 
@@ -177,11 +208,12 @@ items:
 
 Arrays are typically populated using custom generators in the application code.
 
-## Complete Example
+
+## Structured Data Example
 
 ```yaml
 __table_name__: Order
-__description__: Orders for an e-commerce system
+__table_description__: Orders for an e-commerce system
 __depends_on__: [Customer, Product]
 __foreign_keys__:
   customer_id: [Customer, id]
@@ -223,11 +255,12 @@ items:
   description: Line items in the order
 ```
 
+
 ## Template Schema Example
 
 ```yaml
 __template__: true
-__description__: Invoice document template
+__table_description__: Invoice document template
 __name__: Invoice
 __depends_on__: [Customer, Order, OrderItem]
 __foreign_keys__:
