@@ -55,5 +55,14 @@ nav:
   - Home: 
       Introduction: index.md
       Quick Start: quickstart.md
-  - Schema Reference: schema_reference.md
+  - Schema Reference: 
+    - Field Types: 'schema_reference/field_types.md'
+    - Special Field Types: 'schema_reference/special_field_types.md'
+    - Foreign Keys: 'schema_reference/foreign_keys.md'
+  - Examples: 
+    - Model Selection: 
+      - Anthropic: 'examples/model_selection/anthropic.md'
+      - OpenAI: 'examples/model_selection/openai.md'
+        
+      
   

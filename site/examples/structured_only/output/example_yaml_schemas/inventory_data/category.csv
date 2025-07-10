@@ -1,0 +1,13 @@
+id,name,description,parent_id
+1,Electronics,"Comprehensive category for all electronic devices, including computers, mobile devices, audio equipment, and home entertainment systems.",0
+2,Computers,"Desktop computers, laptops, workstations, and computer components including processors, graphics cards, and memory modules.",1
+3,Mobile Devices,"Smartphones, tablets, smartwatches, and related mobile accessories and communication devices.",1
+4,Home Appliances,"Kitchen appliances, cleaning equipment, climate control devices, and other household electrical machines.",0
+5,Kitchen Appliances,"Cooking equipment, refrigeration units, small countertop appliances, and food preparation tools.",4
+6,Cleaning Equipment,"Vacuum cleaners, steam mops, robotic cleaners, and other home cleaning and maintenance devices.",4
+7,Clothing,"Apparel and fashion items for men, women, and children, including seasonal and everyday wear.",0
+8,Men's Clothing,"Shirts, pants, suits, casual wear, and accessories specifically designed for men.",7
+9,Women's Clothing,"Dresses, blouses, skirts, professional attire, and fashion accessories for women.",7
+10,Sports & Outdoors,"Athletic equipment, outdoor gear, fitness accessories, and recreational products for various sports and activities.",0
+11,Fitness Equipment,"Gym machines, weights, exercise mats, cardio equipment, and personal training accessories.",10
+12,Outdoor Gear,"Camping equipment, hiking gear, tents, sleeping bags, navigation tools, and adventure accessories.",10

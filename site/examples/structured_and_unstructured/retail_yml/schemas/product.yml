@@ -1,0 +1,102 @@
+__table_name__: Product
+__description__: Retail products
+__foreign_keys__:
+  category_id: [Category, id]
+
+id:
+  type: integer
+  description: Unique product ID
+  constraints:
+    primary_key: true
+    not_null: true
+    min: 1
+    max: 10000
+
+name:
+  type: string
+  description: Product name
+  constraints:
+    not_null: true
+    length: 100
+    unique: true
+
+category_id:
+  type: integer
+  description: Category ID for the product
+  constraints:
+    not_null: true
+    min: 1
+    max: 1000
+
+sku:
+  type: string
+  description: Stock Keeping Unit - unique product code
+  constraints:
+    not_null: true
+    pattern: '^P[A-Z]{2}-\d{5}$'
+    length: 10
+    unique: true
+
+description:
+  type: text
+  description: Detailed product description
+  constraints:
+    length: 1000
+
+price:
+  type: float
+  description: Product price in USD
+  constraints:
+    not_null: true
+    min: 0.99
+    max: 9999.99
+    decimals: 2
+
+cost:
+  type: float
+  description: Product cost in USD
+  constraints:
+    not_null: true
+    min: 0.10
+    max: 5000.00
+    decimals: 2
+
+stock_quantity:
+  type: integer
+  description: Current stock level
+  constraints:
+    not_null: true
+    min: 0
+    max: 10000
+
+weight:
+  type: float
+  description: Product weight in kg
+  constraints:
+    min: 0.01
+    max: 500.00
+    decimals: 3
+
+dimensions:
+  type: string
+  description: Product dimensions in cm (LxWxH)
+  constraints:
+    pattern: '^\d+(\.\d+)?x\d+(\.\d+)?x\d+(\.\d+)?$'
+
+is_featured:
+  type: boolean
+  description: Whether the product is featured
+  constraints:
+    not_null: true
+
+date_added:
+  type: date
+  description: Date when the product was added to inventory
+  constraints:
+    format: YYYY-MM-DD
+
+last_updated:
+  type: date
+  description: Date when the product was last updated
+  constraints:
+    format: YYYY-MM-DD

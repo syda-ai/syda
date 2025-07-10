@@ -1,0 +1,24 @@
+__table_description__: Product categories in the inventory system
+
+id:
+  type: number
+  description: Unique identifier for the category
+  constraints:
+    primary_key: true
+
+name:
+  type: text
+  description: Name of the category
+  constraints:
+    unique: true
+    max_length: 100
+
+description:
+  type: text
+  description: Description of the category and what types of products it contains
+  constraints:
+    max_length: 1000
+
+parent_id:
+  type: number
+  description: Reference to the parent category (for hierarchical categories), indicate 0 if it is a parent category

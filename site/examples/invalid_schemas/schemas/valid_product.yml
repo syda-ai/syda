@@ -1,0 +1,49 @@
+__description__: Valid product schema example
+__name__: Product
+
+id:
+  type: integer
+  primary_key: true
+  not_null: true
+  min: 1
+  max: 10000
+  description: Unique product ID
+
+name:
+  type: string
+  length: 100
+  unique: true
+  not_null: true
+  description: Product name
+
+category:
+  type: string
+  length: 50
+  not_null: true
+  description: Product category
+
+price:
+  type: float
+  min: 0.01
+  max: 10000.00
+  decimals: 2
+  not_null: true
+  description: Product price in USD
+
+description:
+  type: text
+  length: 500
+  description: Detailed product description
+
+in_stock:
+  type: boolean
+  not_null: true
+  description: Whether the product is in stock
+
+sku:
+  type: string
+  pattern: '^SKU-\d{6}-[A-Z]{2}$'
+  length: 13
+  unique: true
+  not_null: true
+  description: Stock keeping unit identifier

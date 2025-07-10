@@ -1,0 +1,63 @@
+__table_description__: Products in the inventory management system
+
+id:
+  type: number
+  description: Unique identifier for the product
+  constraints:
+    primary_key: true
+
+name:
+  type: text
+  description: Name of the product
+  constraints:
+    unique: true
+    max_length: 150
+
+category_id:
+  type: foreign_key
+  description: Reference to the product category
+  references:
+    schema: Category
+    field: id
+
+sku:
+  type: text
+  description: Stock Keeping Unit - unique product identifier
+  constraints:
+    unique: true
+    max_length: 50
+
+price:
+  type: number
+  description: Current price of the product in USD, typically ranging from $5 to $500 with prices clustered around common price points
+
+description:
+  type: text
+  description: Detailed description of the product
+  constraints:
+    max_length: 5000
+
+weight:
+  type: number
+  description: Weight of the product in kg, typically between 0.1kg for small items and up to 50kg for larger items
+
+dimensions:
+  type: text
+  constraints:
+    max_length: 100
+  description: Dimensions of the product in format LxWxH cm (e.g., '25x40x10 cm'), with measurements typically between 1-100cm per dimension
+
+in_stock:
+  type: boolean
+  description: Whether the product is currently in stock, with approximately 80% of products typically being in stock
+
+reorder_level:
+  type: number
+  description: Minimum stock level before reordering, typically set between 5-50 units depending on product demand
+
+supplier_id:
+  type: foreign_key
+  description: Reference to the supplier of this product
+  references:
+    schema: Supplier
+    field: id

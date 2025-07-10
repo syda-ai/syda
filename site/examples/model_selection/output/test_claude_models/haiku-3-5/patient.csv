@@ -1,0 +1,16 @@
+patient_id,diagnosis_code,email,visit_date,notes
+1001,E11.9,michael.smith@example.com,2023-06-15,Type 2 diabetes mellitus without complications. Recommended diet and exercise plan.
+1002,I10,emily.jones@example.net,2023-06-12,Essential (primary) hypertension. Prescribed blood pressure medication.
+1003,M17.9,robert.williams@example.org,2023-06-18,Unspecified osteoarthritis of knee. Recommended physical therapy.
+1004,F32.9,sarah.brown@example.com,2023-06-10,"Major depressive disorder, unspecified. Referred to mental health counseling."
+1005,J45.90,david.miller@example.net,2023-06-14,Unspecified asthma without acute exacerbation. Prescribed inhaler.
+1006,K35.2,jessica.davis@example.org,2023-06-16,Acute appendicitis with generalized peritonitis. Immediate surgical intervention required.
+1007,N39.0,christopher.wilson@example.com,2023-06-11,"Urinary tract infection, site not specified. Prescribed antibiotics."
+1008,L02.91,amanda.taylor@example.net,2023-06-13,Cutaneous abscess of trunk. Drainage and wound care recommended.
+1009,H10.9,james.anderson@example.org,2023-06-17,Unspecified conjunctivitis. Prescribed topical antibiotics.
+1010,A09,elizabeth.thomas@example.com,2023-06-19,"Infectious gastroenteritis and colitis, unspecified. Hydration and rest advised."
+1011,S52.50XA,daniel.jackson@example.net,2023-06-20,"Fracture of lower end of radius, initial encounter. Referred for orthopedic consultation."
+1012,R05,olivia.white@example.org,2023-06-09,Chronic cough. Chest X-ray ordered to rule out underlying conditions.
+1013,G43.909,matthew.harris@example.com,2023-06-21,Unspecified migraine without aura. Prescribed preventive medication.
+1014,B02.9,sophia.martin@example.net,2023-06-22,Herpes zoster without complications. Antiviral medication prescribed.
+1015,Z23,ethan.thompson@example.org,2023-06-23,Encounter for immunization. Administered seasonal flu vaccine.

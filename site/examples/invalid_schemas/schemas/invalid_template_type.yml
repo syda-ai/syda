@@ -1,0 +1,16 @@
+__name__: InvalidTemplate
+__description__: Invalid template schema - wrong template field type
+__template__: "not-a-boolean"  # Invalid type, should be boolean true/false
+
+first_name:
+  type: string
+  length: 50
+  description: First name
+
+last_name:
+  type: string
+  length: 50
+  description: Last name
+
+# Missing required fields for a template
+# Missing __template_source__, __input_file_type__, __output_file_type__

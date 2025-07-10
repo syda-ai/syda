@@ -1,0 +1,9 @@
+id,customer_id,name,value,stage,probability,expected_close_date,description
+1,1,Enterprise Cloud Migration Project,250000.0,Proposal,65.5,2024-03-15,"Comprehensive cloud migration solution for a large financial services company, involving infrastructure assessment, migration strategy, and ongoing support."
+2,5,Cybersecurity Enhancement Package,125000.5,Negotiation,80.0,2024-02-28,"Advanced security solutions including threat detection, network monitoring, and incident response services for a mid-sized healthcare provider."
+3,2,AI-Powered Analytics Platform,350000.75,Qualification,45.5,2024-04-30,Cutting-edge AI analytics platform to help a retail chain optimize inventory management and customer insights.
+4,1,Digital Transformation Consulting,175000.25,Lead,30.0,2024-05-15,Comprehensive digital transformation strategy and implementation roadmap for a traditional manufacturing company.
+5,3,Custom CRM Software Development,200000.0,Closed Won,100.0,2024-01-20,Fully customized Customer Relationship Management software tailored to the specific needs of a global marketing agency.
+6,4,IoT Integration Solution,85000.5,Closed Lost,0.0,2024-01-10,"Internet of Things integration project for a smart building management system, ultimately not selected due to budget constraints."
+7,5,Network Infrastructure Upgrade,275000.0,Proposal,70.5,2024-03-31,"Comprehensive network infrastructure overhaul for a large educational institution, including hardware, software, and security upgrades."
+8,2,Machine Learning Consulting Engagement,150000.75,Negotiation,75.5,2024-02-15,Machine learning consulting project to develop predictive models and AI-driven insights for a technology startup in the data analytics space.

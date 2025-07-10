@@ -1,0 +1,209 @@
+# Using Anthropic Models with SYDA
+
+This example demonstrates how to use Anthropic's Claude models with SYDA for synthetic data generation. Anthropic offers several Claude models with different capabilities, token limits, and price points.
+
+## Prerequisites
+
+Before running this example, you need to:
+
+1. Install SYDA and its dependencies
+2. Set up your Anthropic API key in your environment
+
+You can set the API key in your `.env` file:
+
+```
+ANTHROPIC_API_KEY=your_api_key_here
+```
+
+Or set it as an environment variable before running your script:
+
+```bash
+export ANTHROPIC_API_KEY=your_api_key_here
+```
+
+## Example Code
+
+The following example demonstrates how to configure and use different Claude models for synthetic data generation:
+
+```python
+from syda.generate import SyntheticDataGenerator
+from syda.schemas import ModelConfig
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# Define schema for a single table
+schemas = {
+    'Patient': {
+        'patient_id': {'type': 'number', 'description': 'Unique identifier for the patient'},
+        'diagnosis_code': {'type': 'text', 'description': 'ICD-10 diagnosis code'},
+        'email': {'type': 'email', 'description': 'Patient email address used for communication'},
+        'visit_date': {'type': 'date', 'description': 'Date when the patient visited the clinic'},
+        'notes': {'type': 'text', 'description': 'Clinical notes for the patient visit'}
+    },
+    'Claim': {
+        'claim_id': {'type': 'number', 'description': 'Unique identifier for the claim'},
+        'patient_id': {'type': 'foreign_key', 'description': 'Reference to the patient who made the claim', 'references': {'schema': 'Patient', 'field': 'patient_id'}},
+        'diagnosis_code': {'type': 'text', 'description': 'ICD-10 diagnosis code'},
+        'email':    {'type': 'email', 'description': 'Patient email address used for communication'},
+        'visit_date': {'type': 'date', 'description': 'Date when the patient visited the clinic'},
+        'notes': {'type': 'text', 'description': 'Clinical notes for the patient visit'}
+    }
+}
+
+prompts={
+    'Patient': 'Generate realistic synthetic patient records with ICD-10 diagnosis codes, emails, visit dates, and clinical notes.', 
+    'Claim': 'Generate realistic synthetic claim records with ICD-10 diagnosis codes, emails, visit dates, and clinical notes.'
+}
+sample_sizes={'Patient': 15, 'Claim': 15}
+
+print("--------------Testing Claude Haiku----------------")
+model_config = ModelConfig(
+    provider="anthropic",
+    model_name="claude-3-5-haiku-20241022",
+    temperature=0.7,
+    max_tokens=8192  # Larger value for more complete responses
+)
+
+generator = SyntheticDataGenerator(model_config=model_config)
+ # Define output directory
+output_dir = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 
+        "output", 
+        "test_claude_models", 
+        "haiku-3-5"
+)
+# Generate and save to CSV
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    prompts=prompts,
+    sample_sizes=sample_sizes,
+    output_dir=output_dir
+)
+print(f"Data saved to {output_dir}")
+
+
+print("--------------Testing Claude Sonnet----------------")
+model_config = ModelConfig(
+    provider="anthropic",
+    model_name="claude-sonnet-4-20250514",
+    temperature=0.7,
+    max_tokens=64000  # Larger value for more complete responses
+)
+
+generator = SyntheticDataGenerator(model_config=model_config)
+ # Define output directory
+output_dir = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 
+        "output", 
+        "test_claude_models", 
+        "sonnet-4"
+)
+sample_sizes={'Patient': 100, 'Claim': 200}
+# Generate and save to CSV
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    prompts=prompts,
+    sample_sizes=sample_sizes,
+    output_dir=output_dir
+)
+print(f"Data saved to {output_dir}")
+
+print("--------------Testing Claude Opus----------------")
+model_config = ModelConfig(
+    provider="anthropic",
+    model_name="claude-opus-4-20250514",
+    temperature=0.7,
+    max_tokens=32000  # Larger value for more complete responses
+)
+
+generator = SyntheticDataGenerator(model_config=model_config)
+# Define output directory
+output_dir = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 
+        "output", 
+        "test_claude_models", 
+        "opus-4"
+)
+# Generate and save to CSV
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    prompts=prompts,
+    sample_sizes=sample_sizes,
+    output_dir=output_dir
+)
+print(f"Data saved to {output_dir}")
+```
+
+## Claude Model Options
+
+SYDA supports the following Anthropic Claude models:
+
+| Model | Description | Best For | Max Tokens |
+|-------|-------------|----------|------------|
+| `claude-3-5-haiku-20241022` | Fast, efficient model for routine tasks | Quick data generation, smaller datasets | 8,192 |
+| `claude-sonnet-4-20250514` | Strong balance of quality and performance | Medium to large datasets with complex relations | 64,000 |
+| `claude-opus-4-20250514` | Highest capability model | Complex data with sophisticated relationships | 32,000 |
+
+## Key Concepts
+
+### Model Configuration
+
+The `ModelConfig` class is used to specify which model to use:
+
+```python
+model_config = ModelConfig(
+    provider="anthropic",
+    model_name="claude-3-5-haiku-20241022",
+    temperature=0.7,
+    max_tokens=8192
+)
+```
+
+- **provider**: Set to `"anthropic"` to use Claude models
+- **model_name**: Specify which Claude model to use
+- **temperature**: Controls randomness in generation (0.0-1.0)
+- **max_tokens**: Maximum number of tokens in the response
+
+### Scaling to Larger Datasets
+
+When generating larger datasets, consider using more capable models:
+
+```python
+sample_sizes = {'Patient': 100, 'Claim': 200}
+```
+
+The more powerful Claude models (Sonnet and Opus) can handle generating larger datasets in a single request, which is more efficient than making multiple smaller requests.
+
+### Output Directory Structure
+
+The example code creates an organized directory structure for output files:
+
+```
+output/
+├── test_claude_models/
+│   ├── haiku-3-5/
+│   │   ├── Patient.csv
+│   │   └── Claim.csv
+│   ├── sonnet-4/
+│   │   ├── Patient.csv
+│   │   └── Claim.csv
+│   └── opus-4/
+│       ├── Patient.csv
+│       └── Claim.csv
+```
+
+## Best Practices
+
+1. **Choose the right model for your task**: 
+   - Use Haiku for small datasets and simple schemas
+   - Use Sonnet for medium-sized datasets with moderate complexity
+   - Use Opus for complex data structures and relationships
+
+2. **Set appropriate token limits**: Different models have different token limits. Make sure to set the `max_tokens` parameter accordingly.
+
+3. **Use detailed prompts**: Claude models respond well to specific guidance in prompts. Include details about the type of data you want to generate.
+
+4. **Monitor API usage**: Keep track of your API usage to manage costs, especially when working with larger datasets.

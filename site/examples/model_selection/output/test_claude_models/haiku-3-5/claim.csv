@@ -1,0 +1,16 @@
+claim_id,patient_id,diagnosis_code,email,visit_date,notes
+1001,1007,E11.9,john.smith@example.com,2023-05-15,Type 2 diabetes mellitus without complications. Recommended diet and exercise plan.
+1002,1011,M25.50,emily.jones@gmail.com,2023-04-22,"Knee pain, possible osteoarthritis. Prescribed physical therapy and pain management."
+1003,1006,J45.909,michael.wong@hotmail.com,2023-03-10,Mild intermittent asthma. Renewed inhaler prescription and provided asthma management guidance.
+1004,1010,F32.9,sarah.miller@example.com,2023-02-18,"Major depressive disorder, unspecified. Recommended counseling and initial medication assessment."
+1005,1009,I10,david.garcia@gmail.com,2023-01-05,Essential (primary) hypertension. Advised lifestyle modifications and blood pressure monitoring.
+1006,1014,K35.2,lisa.chen@example.com,2023-06-01,Acute appendicitis with generalized peritonitis. Immediate surgical intervention recommended.
+1007,1014,N39.0,robert.taylor@hotmail.com,2023-05-03,Urinary tract infection. Prescribed antibiotics and hydration recommendations.
+1008,1013,L20.9,amanda.wilson@gmail.com,2023-04-12,"Atopic dermatitis, unspecified. Prescribed topical corticosteroids and skin care routine."
+1009,1011,G43.909,james.rodriguez@example.com,2023-03-25,"Migraine, unspecified. Discussed trigger identification and pain management strategies."
+1010,1005,A09,emma.lee@hotmail.com,2023-02-07,"Infectious gastroenteritis. Recommended hydration, rest, and follow-up if symptoms persist."
+1011,1005,S52.521A,thomas.brown@gmail.com,2023-01-20,Torus fracture of lower end of right radius. Applied cast and provided healing instructions.
+1012,1015,B02.9,olivia.martinez@example.com,2023-06-10,Herpes zoster without complications. Prescribed antiviral medication and pain relief.
+1013,1008,H10.9,ryan.kim@hotmail.com,2023-05-17,Unspecified conjunctivitis. Recommended eye drops and hygiene instructions.
+1014,1006,R05,sophia.park@gmail.com,2023-04-05,Chronic cough. Conducted respiratory examination and ordered further tests.
+1015,1007,Z23,ethan.nguyen@example.com,2023-03-15,Encounter for immunization. Administered seasonal flu vaccine.
