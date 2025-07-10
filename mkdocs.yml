@@ -55,6 +55,8 @@ nav:
   - Home: 
       Introduction: index.md
       Quick Start: quickstart.md
+  - Deep Dive: 
+    
   - Schema Reference: 
     - Field Types: 'schema_reference/field_types.md'
     - Special Field Types: 'schema_reference/special_field_types.md'
@@ -63,6 +65,16 @@ nav:
     - Model Selection: 
       - Anthropic: 'examples/model_selection/anthropic.md'
       - OpenAI: 'examples/model_selection/openai.md'
-        
+    - Structured Only:
+      - Dict Schemas: 'examples/structured_only/dict_schemas.md'
+      - YAML Schemas: 'examples/structured_only/yaml_schemas.md'
+      - JSON Schemas: 'examples/structured_only/json_schemas.md'
+      - SQLAlchemy Models: 'examples/structured_only/sqlalchemy_models.md'
+    - Structured and Unstructured Mixed:
+      - YAML Schemas: 'examples/structured_and_unstructured_mixed/yaml_schemas.md'
+      - SQLAlchemy Models: 'examples/structured_and_unstructured_mixed/sqlalchemy_models.md'
+    - Miscellaneous: 'examples/miscellaneous.md'
+  
+    
       
   
