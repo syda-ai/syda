@@ -1617,7 +1617,6 @@ config = ModelConfig(
     provider='openai',  # Choose from: 'openai', 'anthropic', etc.
     model_name='gpt-4-turbo',  # Model name for the selected provider
     temperature=0.7,    # Controls randomness (0.0-1.0)
-    top_p=0.95,         # Nucleus sampling parameter
     seed=42,            # For reproducible outputs (provider-specific)
     max_tokens=4000,    # Maximum response length (default: 4000)
     proxy=ProxyConfig(  # Optional proxy configuration

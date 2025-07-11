@@ -28,7 +28,11 @@ def main():
     print("=========================================")
     
     # Initialize the generator with Claude
-    config = ModelConfig(provider="anthropic", model="claude-3-haiku-20240307")
+    config = ModelConfig(
+        provider="anthropic", 
+        model="claude-3-haiku-20240307",
+        max_tokens=8192,
+    )
     generator = SyntheticDataGenerator(model_config=config)
     
     # Define schema directory paths - simplified paths since we're in the retail folder

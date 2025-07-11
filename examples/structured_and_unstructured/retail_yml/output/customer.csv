@@ -1,11 +1,11 @@
 id,first_name,last_name,email,phone,address,city,state,postal_code,country,date_registered,loyalty_points,last_purchase_date
-12345,Emily,Johnson,emily.johnson@gmail.com,+1-555-234-5678,4567 Maple Street,Seattle,Washington,98101,United States,2022-03-15,2750,2023-06-22
-23456,Michael,Chen,michael.chen@outlook.com,+1-555-789-0123,890 Oak Avenue,Toronto,Ontario,M5V 2T6,Canada,2021-11-05,5600,2023-07-01
-34567,Sofia,Rodriguez,sofia.rodriguez@hotmail.com,+52-555-456-7890,2345 Calle Principal,Mexico City,Mexico City,06000,Mexico,2023-01-20,1200,2023-06-15
-45678,David,Wilson,david.wilson@gmail.com,+44-555-901-2345,678 High Street,Manchester,Greater Manchester,M1 1AE,United Kingdom,2022-07-10,4300,2023-06-30
-56789,Emma,Thompson,emma.thompson@yahoo.com,+61-555-345-6789,1234 Eucalyptus Road,Sydney,New South Wales,2000,Australia,2022-09-25,3800,2023-06-18
-67890,Ryan,Kim,ryan.kim@gmail.com,+1-555-567-8901,5678 Pine Lane,Vancouver,British Columbia,V6B 1V5,Canada,2023-02-14,900,2023-06-25
-78901,Isabella,Martinez,isabella.martinez@outlook.com,+1-555-234-5678,9012 Sunflower Boulevard,Phoenix,Arizona,85001,United States,2022-05-30,6200,2023-07-02
-89012,Oliver,Brown,oliver.brown@hotmail.com,+44-555-678-9012,3456 Riverside Drive,London,Greater London,SW1A 1AA,United Kingdom,2021-12-12,7500,2023-06-28
-90123,Olivia,Garcia,olivia.garcia@yahoo.com,+52-555-123-4567,6789 Avenida Central,Guadalajara,Jalisco,44100,Mexico,2022-08-07,2300,2023-06-20
-11234,Jack,Harris,jack.harris@gmail.com,+61-555-890-1234,7890 Kangaroo Street,Melbourne,Victoria,3000,Australia,2023-04-03,1600,2023-06-16
+1245,Emily,Rodriguez,emily.rodriguez@gmail.com,+1-555-234-5678,3721 Maple Street,Phoenix,Arizona,85001,United States,2022-03-15,2350,2023-06-22
+2367,Michael,Chen,michael.chen@outlook.com,+1-555-789-0123,1592 Oak Avenue,Toronto,Ontario,M5V 2T6,Canada,2021-11-05,5670,2023-07-01
+3489,Sophia,Martinez,sophia.martinez@yahoo.com,+1-555-456-7890,8246 Pine Road,Houston,Texas,77001,United States,2023-01-20,1125,2023-06-30
+4612,Daniel,Wilson,daniel.wilson@hotmail.com,+1-555-901-2345,5713 Cedar Lane,Melbourne,Victoria,3000,Australia,2022-08-12,4890,2023-07-05
+5734,Isabella,Garcia,isabella.garcia@gmail.com,+1-555-345-6789,2189 Birch Street,London,Greater London,SW1A 1AA,United Kingdom,2022-05-30,3675,2023-06-25
+6856,David,Johnson,david.johnson@outlook.com,+1-555-678-9012,7465 Elm Drive,Mexico City,Mexico City,06000,Mexico,2021-09-18,6240,2023-07-03
+7978,Emma,Smith,emma.smith@yahoo.com,+1-555-012-3456,4932 Willow Court,Chicago,Illinois,60601,United States,2023-02-14,890,2023-06-28
+9100,Alexander,Lee,alexander.lee@hotmail.com,+1-555-234-5678,6217 Sycamore Road,Vancouver,British Columbia,V6B 1G1,Canada,2022-10-05,3210,2023-07-02
+10222,Olivia,Brown,olivia.brown@gmail.com,+1-555-567-8901,1876 Magnolia Avenue,Sydney,New South Wales,2000,Australia,2022-06-22,5520,2023-06-29
+11344,James,Taylor,james.taylor@outlook.com,+1-555-890-1234,9543 Redwood Street,Manchester,Greater Manchester,M1 1AE,United Kingdom,2021-12-10,4100,2023-07-04
