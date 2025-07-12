@@ -25,6 +25,7 @@ def save_dataframe(
     
     Raises:
         ValueError: If the DataFrame is empty or invalid
+        ValueError: If the specified format is not supported ('csv' or 'json')
     """
     # Validate DataFrame
     if df.empty or len(df.columns) == 0:
@@ -33,12 +34,21 @@ def save_dataframe(
             "This could be due to an issue with the AI model response or schema definition. "
             "Check your schema, model settings, and API keys."
         )
+        
+    # Validate format if explicitly provided
+    if format and format.lower() not in ['csv', 'json']:
+        raise ValueError(f"Unsupported format: {format}. Supported formats are 'csv' and 'json'.")
     
     # Determine format from extension or override
     if format:
         # If format is explicitly provided, ensure path has correct extension
         if not file_path.endswith(f'.{format}'):
             file_path = f"{file_path}.{format}"
+    
+    # Ensure the output directory exists
+    output_dir = os.path.dirname(file_path)
+    if output_dir and not os.path.exists(output_dir):
+        os.makedirs(output_dir, exist_ok=True)
     
     # Save based on file extension
     if file_path.endswith('.csv'):
@@ -57,7 +67,8 @@ def save_dataframe(
 def save_dataframes(
     data_dict: Dict[str, pd.DataFrame],
     output_dir: str,
-    format: str = 'csv'
+    format: str = 'csv',
+    filenames: Optional[Dict[str, str]] = None
 ) -> List[str]:
     """
     Save multiple DataFrames to files in a directory.
@@ -66,6 +77,8 @@ def save_dataframes(
         data_dict: Dictionary mapping names to DataFrames
         output_dir: Directory where files should be saved
         format: File format to use ('csv' or 'json')
+        filenames: Optional dictionary mapping schema names to custom filenames
+                   (without extension)
     
     Returns:
         List of paths to saved files
@@ -74,7 +87,9 @@ def save_dataframes(
     saved_paths = []
     
     for name, df in data_dict.items():
-        file_name = f"{name.lower()}.{format}"
+        # Use custom filename if provided, otherwise use schema name
+        base_filename = filenames.get(name, name.lower()) if filenames else name.lower()
+        file_name = f"{base_filename}.{format}"
         file_path = os.path.join(output_dir, file_name)
         saved_path = save_dataframe(df, file_path)
         saved_paths.append(saved_path)

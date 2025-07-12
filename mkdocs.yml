@@ -1,0 +1,86 @@
+site_name: Syda Documentation
+site_description: A Python-based open-source library for generating synthetic data with AI while preserving referential integrity
+site_url: https://python.syda.ai/
+repo_url: https://github.com/syda-ai/syda
+repo_name: syda-ai/syda
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.code.annotate
+    - content.code.copy
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.share
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - macros
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# Navigation structure
+nav:
+  - Home: 
+      Introduction: index.md
+      Quick Start: quickstart.md
+  - Deep Dive: 
+      - Structured Data: 'deep_dive/structured_data.md'
+      - Foreign Keys: 'deep_dive/foreign_keys.md'
+      - Unstructured Documents: 'deep_dive/unstructured_documents.md'
+      - Custom Generators: 'deep_dive/custom_generators.md'
+      - Combined Data: 'deep_dive/combined_data.md'
+      - Model Configuration: 'deep_dive/model_configuration.md'
+      - Output Options: 'deep_dive/output_options.md'
+  - Schema Reference: 
+    - Field Types: 'schema_reference/field_types.md'
+    - Special Field Types: 'schema_reference/special_field_types.md'
+    - Foreign Keys: 'schema_reference/foreign_keys.md'
+  - Examples: 
+    - Model Selection: 
+      - Anthropic: 'examples/model_selection/anthropic.md'
+      - OpenAI: 'examples/model_selection/openai.md'
+    - Structured Only:
+      - Dict Schemas: 'examples/structured_only/dict_schemas.md'
+      - YAML Schemas: 'examples/structured_only/yaml_schemas.md'
+      - JSON Schemas: 'examples/structured_only/json_schemas.md'
+      - SQLAlchemy Models: 'examples/structured_only/sqlalchemy_models.md'
+    - Structured and Unstructured Mixed:
+      - YAML Schemas: 'examples/structured_and_unstructured_mixed/yaml_schemas.md'
+      - SQLAlchemy Models: 'examples/structured_and_unstructured_mixed/sqlalchemy_models.md'
+    - Miscellaneous: 'examples/miscellaneous.md'
+  
+    
+      
+  
