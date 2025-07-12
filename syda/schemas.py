@@ -71,7 +71,7 @@ class ModelConfig(BaseModel):
     
     temperature: float = Field(None, ge=0.0, le=1.0, description="Controls randomness: 0.0 is deterministic, higher values are more random")
     max_tokens: int = Field(None, description="Maximum number of tokens to generate. Larger values allow for more complete responses.")
-    top_p: Optional[float] = Field(None, ge=0.0, le=1.0, description="Nucleus sampling parameter")
+    
     
     # Streaming parameters
     stream: Optional[bool] = Field(
@@ -110,8 +110,6 @@ class ModelConfig(BaseModel):
         
         # Add provider-specific parameters
         if self.provider == "openai":
-            if self.top_p:
-                kwargs["top_p"] = self.top_p
             if self.seed:
                 kwargs["seed"] = self.seed
             if self.response_format:
@@ -128,9 +126,6 @@ class ModelConfig(BaseModel):
             # Override max_tokens with max_tokens_to_sample if provided (for backward compatibility)
             if self.max_tokens_to_sample:
                 kwargs["max_tokens"] = self.max_tokens_to_sample
-                
-            if self.top_p:
-                kwargs["top_p"] = self.top_p
                 
             if self.top_k:
                 # This might not be supported in the current instructor integration

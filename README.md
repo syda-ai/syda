@@ -74,6 +74,12 @@ A Python-based open-source library for generating synthetic data with AI while p
   * Intelligent column-specific data generation
   * Parameter naming consistency with `sqlalchemy_models`
   
+* **Multiple Schema Formats**:
+
+  * SQLAlchemy model integration with automatic metadata extraction
+  * YAML/JSON schema file support with full foreign key relationship handling
+  * Python dictionary-based schema definitions
+  
 * **Referential Integrity**
 
   * Automatic foreign key detection and resolution
@@ -86,9 +92,6 @@ A Python-based open-source library for generating synthetic data with AI while p
   * Contextual generators that adapt to other fields (like ICD-10 codes based on demographics)
   * Weighted distributions for realistic data patterns
 
-* **Open Core**
-
-  * Core functionality under AGPL-3.0
 
 ## Installation
 
@@ -205,8 +208,8 @@ model_config = ModelConfig(provider='anthropic', model_name='claude-3-5-haiku-20
 generator = SyntheticDataGenerator(model_config=model_config)
 results = generator.generate_for_sqlalchemy_models(
     sqlalchemy_models=[User], 
-    prompts={'User': 'Generate users'}, 
-    sample_sizes={'User': 5}
+    prompts={'users': 'Generate users'}, 
+    sample_sizes={'users': 5}
 )
 ```
 
@@ -234,18 +237,18 @@ generator.register_generator('foreign_key', department_id_fk_generator, column_n
 results = generator.generate_for_sqlalchemy_models(
     sqlalchemy_models=[Department, Employee],
     prompts={
-        'Department': 'Generate company departments',
-        'Employee': 'Generate realistic employee data'
+        'departments': 'Generate company departments',
+        'employees': 'Generate realistic employee data'
     },
     sample_sizes={
-        'Department': 5,
-        'Employee': 10
+        'departments': 5,
+        'employees': 10
     }
 )
 
 # Access the generated dataframes
-departments_df = results['Department']
-employees_df = results['Employee']
+departments_df = results['departments']
+employees_df = results['employees']
 ```
 
 4. **Referential Integrity Preservation**: The foreign key generator samples from actual existing IDs in the parent table, ensuring all references are valid.
@@ -1614,7 +1617,6 @@ config = ModelConfig(
     provider='openai',  # Choose from: 'openai', 'anthropic', etc.
     model_name='gpt-4-turbo',  # Model name for the selected provider
     temperature=0.7,    # Controls randomness (0.0-1.0)
-    top_p=0.95,         # Nucleus sampling parameter
     seed=42,            # For reproducible outputs (provider-specific)
     max_tokens=4000,    # Maximum response length (default: 4000)
     proxy=ProxyConfig(  # Optional proxy configuration

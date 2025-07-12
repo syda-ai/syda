@@ -1,6 +1,6 @@
 id,name,parent_id,description,display_order,active
 1,Electronics,0,Main category for all electronic devices and gadgets,1,
-2,Smartphones,1,Mobile phones and smart devices under the Electronics category,2,
-3,Laptops,1,Portable computers and notebook devices,3,
-4,Home Appliances,0,Major household electrical and mechanical devices,4,
-5,Refrigerators,4,Cooling and preservation appliances for food and beverages,5,
+2,Smartphones,1,Subcategory of electronics featuring mobile phones and smart devices,2,
+3,Computers,1,"Subcategory of electronics including laptops, desktops, and computer accessories",3,
+4,Clothing,0,Main category for all clothing and fashion items,4,
+5,Men's Clothing,4,Subcategory of clothing specifically for men's fashion,5,
