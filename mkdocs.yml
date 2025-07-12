@@ -56,14 +56,13 @@ nav:
       Introduction: index.md
       Quick Start: quickstart.md
   - Deep Dive: 
-      - Core API: 'deep_dive/core_api.md'
+      - Structured Data: 'deep_dive/structured_data.md'
       - Foreign Keys: 'deep_dive/foreign_keys.md'
       - Unstructured Documents: 'deep_dive/unstructured_documents.md'
       - Custom Generators: 'deep_dive/custom_generators.md'
       - Combined Data: 'deep_dive/combined_data.md'
       - Model Configuration: 'deep_dive/model_configuration.md'
       - Output Options: 'deep_dive/output_options.md'
-      - Error Handling: 'deep_dive/error_handling.md'
   - Schema Reference: 
     - Field Types: 'schema_reference/field_types.md'
     - Special Field Types: 'schema_reference/special_field_types.md'

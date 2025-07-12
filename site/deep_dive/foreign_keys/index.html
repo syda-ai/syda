@@ -10,26 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://python.syda.ai/">
+        <link rel="canonical" href="https://python.syda.ai/deep_dive/foreign_keys/">
       
       
+        <link rel="prev" href="../core_api/">
       
-        <link rel="next" href="quickstart/">
+      
+        <link rel="next" href="../unstructured_documents/">
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
-        <title>Introduction - Syda Documentation</title>
+        <title>Foreign Keys - Syda Documentation</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.342714a4.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,7 +50,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#syda-documentation" class="md-skip">
+        <a href="#foreign-key-handling" class="md-skip">
           Skip to content
         </a>
       
@@ -88,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Syda Documentation" class="md-header__button md-logo" aria-label="Syda Documentation" data-md-component="logo">
+    <a href="../.." title="Syda Documentation" class="md-header__button md-logo" aria-label="Syda Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction
+              Foreign Keys
             
           </span>
         </div>
@@ -222,13 +224,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="." class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
           
   
   
@@ -244,11 +244,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="deep_dive/core_api/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../core_api/" class="md-tabs__link">
           
   
   
@@ -268,7 +270,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="schema_reference/field_types/" class="md-tabs__link">
+        <a href="../../schema_reference/field_types/" class="md-tabs__link">
           
   
   
@@ -295,7 +297,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="examples/model_selection/anthropic/" class="md-tabs__link">
+        <a href="../../examples/model_selection/anthropic/" class="md-tabs__link">
           
   
   
@@ -332,7 +334,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Syda Documentation" class="md-nav__button md-logo" aria-label="Syda Documentation" data-md-component="logo">
+    <a href="../.." title="Syda Documentation" class="md-nav__button md-logo" aria-label="Syda Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -359,31 +361,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
         
           
-          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
             
   
   
@@ -396,7 +393,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
             Home
@@ -407,32 +404,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Introduction
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -443,44 +418,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-syda" class="md-nav__link">
-    <span class="md-ellipsis">
-      What is Syda?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#key-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      Key Features
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -493,7 +430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart/" class="md-nav__link">
+      <a href="../../quickstart/" class="md-nav__link">
         
   
   
@@ -520,26 +457,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -552,7 +494,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Deep Dive
@@ -566,7 +508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/core_api/" class="md-nav__link">
+      <a href="../core_api/" class="md-nav__link">
         
   
   
@@ -586,10 +528,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="deep_dive/foreign_keys/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Foreign Keys
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -600,6 +564,104 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#foreign-key-definition-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Foreign Key Definition Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Foreign Key Definition Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-special-__foreign_keys__-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Special __foreign_keys__ Section
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-field-level-references-property" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Field-Level references Property
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-sqlalchemy-foreignkey-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. SQLAlchemy ForeignKey Definitions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependency Resolution
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#foreign-key-value-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Foreign Key Value Assignment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices-for-foreign-key-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices for Foreign Key Handling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -612,7 +674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/unstructured_documents/" class="md-nav__link">
+      <a href="../unstructured_documents/" class="md-nav__link">
         
   
   
@@ -635,7 +697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/custom_generators/" class="md-nav__link">
+      <a href="../custom_generators/" class="md-nav__link">
         
   
   
@@ -658,7 +720,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/combined_data/" class="md-nav__link">
+      <a href="../combined_data/" class="md-nav__link">
         
   
   
@@ -681,7 +743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/model_configuration/" class="md-nav__link">
+      <a href="../model_configuration/" class="md-nav__link">
         
   
   
@@ -704,7 +766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/output_options/" class="md-nav__link">
+      <a href="../output_options/" class="md-nav__link">
         
   
   
@@ -727,7 +789,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/error_handling/" class="md-nav__link">
+      <a href="../error_handling/" class="md-nav__link">
         
   
   
@@ -800,7 +862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="schema_reference/field_types/" class="md-nav__link">
+      <a href="../../schema_reference/field_types/" class="md-nav__link">
         
   
   
@@ -823,7 +885,7 @@
   
   
     <li class="md-nav__item">
-      <a href="schema_reference/special_field_types/" class="md-nav__link">
+      <a href="../../schema_reference/special_field_types/" class="md-nav__link">
         
   
   
@@ -846,7 +908,7 @@
   
   
     <li class="md-nav__item">
-      <a href="schema_reference/foreign_keys/" class="md-nav__link">
+      <a href="../../schema_reference/foreign_keys/" class="md-nav__link">
         
   
   
@@ -962,7 +1024,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/model_selection/anthropic/" class="md-nav__link">
+      <a href="../../examples/model_selection/anthropic/" class="md-nav__link">
         
   
   
@@ -985,7 +1047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/model_selection/openai/" class="md-nav__link">
+      <a href="../../examples/model_selection/openai/" class="md-nav__link">
         
   
   
@@ -1059,7 +1121,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/structured_only/dict_schemas/" class="md-nav__link">
+      <a href="../../examples/structured_only/dict_schemas/" class="md-nav__link">
         
   
   
@@ -1082,7 +1144,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/structured_only/yaml_schemas/" class="md-nav__link">
+      <a href="../../examples/structured_only/yaml_schemas/" class="md-nav__link">
         
   
   
@@ -1105,7 +1167,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/structured_only/json_schemas/" class="md-nav__link">
+      <a href="../../examples/structured_only/json_schemas/" class="md-nav__link">
         
   
   
@@ -1128,7 +1190,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/structured_only/sqlalchemy_models/" class="md-nav__link">
+      <a href="../../examples/structured_only/sqlalchemy_models/" class="md-nav__link">
         
   
   
@@ -1202,7 +1264,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/structured_and_unstructured_mixed/yaml_schemas/" class="md-nav__link">
+      <a href="../../examples/structured_and_unstructured_mixed/yaml_schemas/" class="md-nav__link">
         
   
   
@@ -1225,7 +1287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/structured_and_unstructured_mixed/sqlalchemy_models/" class="md-nav__link">
+      <a href="../../examples/structured_and_unstructured_mixed/sqlalchemy_models/" class="md-nav__link">
         
   
   
@@ -1256,7 +1318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/miscellaneous/" class="md-nav__link">
+      <a href="../../examples/miscellaneous/" class="md-nav__link">
         
   
   
@@ -1306,18 +1368,78 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-syda" class="md-nav__link">
+  <a href="#foreign-key-definition-methods" class="md-nav__link">
     <span class="md-ellipsis">
-      What is Syda?
+      Foreign Key Definition Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Foreign Key Definition Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-special-__foreign_keys__-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Special __foreign_keys__ Section
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-field-level-references-property" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Field-Level references Property
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-sqlalchemy-foreignkey-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. SQLAlchemy ForeignKey Definitions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependency Resolution
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#key-features" class="md-nav__link">
+  <a href="#foreign-key-value-assignment" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Features
+      Foreign Key Value Assignment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices-for-foreign-key-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices for Foreign Key Handling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
     </span>
   </a>
   
@@ -1342,55 +1464,117 @@
   
 
 
-<h1 id="syda-documentation">Syda Documentation<a class="headerlink" href="#syda-documentation" title="Permanent link">&para;</a></h1>
-<p>A Python-based open-source library for generating synthetic data with AI while preserving referential integrity. Syda allows seamless use of OpenAI, Anthropic (Claude), and other AI models to create realistic synthetic data.</p>
-<h2 id="what-is-syda">What is Syda?<a class="headerlink" href="#what-is-syda" title="Permanent link">&para;</a></h2>
-<p>Syda is a powerful library that helps developers and data scientists generate high-quality synthetic data using large language models. Whether you need to create test data for your application, training datasets for machine learning, or mock data that maintains complex relationships between tables, Syda provides an elegant solution.</p>
-<h2 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
+<h1 id="foreign-key-handling">Foreign Key Handling<a class="headerlink" href="#foreign-key-handling" title="Permanent link">&para;</a></h1>
+<p>One of SYDA's most powerful features is its ability to maintain referential integrity across multiple related tables. This document explains in detail how foreign key relationships are defined, detected, and handled during data generation.</p>
+<h2 id="foreign-key-definition-methods">Foreign Key Definition Methods<a class="headerlink" href="#foreign-key-definition-methods" title="Permanent link">&para;</a></h2>
+<p>SYDA supports three different ways to define foreign key relationships:</p>
+<h3 id="1-special-__foreign_keys__-section">1. Special <code>__foreign_keys__</code> Section<a class="headerlink" href="#1-special-__foreign_keys__-section" title="Permanent link">&para;</a></h3>
+<p>You can explicitly define foreign keys using a special <code>__foreign_keys__</code> section in your schema:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># order.yaml</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">id</span><span class="p">:</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">primary_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">customer_id</span><span class="p">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nt">order_date</span><span class="p">:</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">date</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nt">__foreign_keys__</span><span class="p">:</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="nt">customer_id</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Customer</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">id</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="2-field-level-references-property">2. Field-Level <code>references</code> Property<a class="headerlink" href="#2-field-level-references-property" title="Permanent link">&para;</a></h3>
+<p>You can define foreign keys directly in field definitions using the <code>references</code> property:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># orderitem.yaml</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">id</span><span class="p">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">primary_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nt">order_id</span><span class="p">:</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nt">references</span><span class="p">:</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Order</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">id</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nt">product_id</span><span class="p">:</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="nt">references</span><span class="p">:</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Product</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="nt">field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">id</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="nt">quantity</span><span class="p">:</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+</code></pre></div>
+<p>This approach keeps the foreign key definition close to the field it applies to, making the schema more readable.</p>
+<h3 id="3-sqlalchemy-foreignkey-definitions">3. SQLAlchemy <code>ForeignKey</code> Definitions<a class="headerlink" href="#3-sqlalchemy-foreignkey-definitions" title="Permanent link">&para;</a></h3>
+<p>When using SQLAlchemy models, foreign keys are automatically detected from the <code>ForeignKey</code> definitions:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">Date</span><span class="p">,</span> <span class="n">ForeignKey</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.ext.declarative</span><span class="w"> </span><span class="kn">import</span> <span class="n">declarative_base</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">class</span><span class="w"> </span><span class="nc">Order</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;orders&#39;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">customer_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;customers.id&#39;</span><span class="p">))</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">order_date</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Date</span><span class="p">)</span>
+</code></pre></div>
+<p>SYDA will automatically extract these relationships during schema analysis.</p>
+<h2 id="dependency-resolution">Dependency Resolution<a class="headerlink" href="#dependency-resolution" title="Permanent link">&para;</a></h2>
+<p>Once foreign keys are defined, SYDA automatically determines the correct order for generating data:</p>
+<ol>
+<li><strong>Dependency Graph</strong>: SYDA builds a directed graph of dependencies between tables</li>
+<li><strong>Topological Sort</strong>: It performs a topological sort to determine the generation order</li>
+<li><strong>Execution Order</strong>: Tables are generated in an order that ensures all parent tables exist first</li>
+</ol>
+<p>For example, with these tables:</p>
 <ul>
 <li>
-<p><strong>Multi-Provider AI Integration</strong>:</p>
-<ul>
-<li>Seamless integration with multiple AI providers</li>
-<li>Support for OpenAI (GPT) and Anthropic (Claude). </li>
-<li>Default model is Anthropic Claude model claude-3-5-haiku-20241022</li>
-<li>Consistent interface across different providers</li>
-<li>Provider-specific parameter optimization</li>
-</ul>
+<p>Customer (no dependencies)</p>
 </li>
 <li>
-<p><strong>LLM-based Data Generation</strong>:</p>
-<ul>
-<li>AI-powered schema understanding and data creation</li>
-<li>Contextually-aware synthetic records</li>
-<li>Natural language prompt customization</li>
-<li>Intelligent schema inference</li>
-</ul>
+<p>Product (no dependencies)</p>
 </li>
 <li>
-<p><strong>Multiple Schema Formats</strong>:</p>
-<ul>
-<li>YAML/JSON schema file support with full foreign key relationship handling</li>
-<li>SQLAlchemy model integration with automatic metadata extraction</li>
-<li>Python dictionary-based schema definitions</li>
-</ul>
+<p>Order (depends on Customer)</p>
 </li>
 <li>
-<p><strong>Referential Integrity</strong></p>
-<ul>
-<li>Automatic foreign key detection and resolution</li>
-<li>Multi-model dependency analysis through topological sorting</li>
-<li>Robust handling of related data with referential constraints</li>
+<p>OrderItem (depends on Order and Product)</p>
+</li>
 </ul>
+<p>SYDA would generate them in this order:</p>
+<ol>
+<li>
+<p>Customer and Product (can be generated in parallel)</p>
 </li>
 <li>
-<p><strong>Custom Generators</strong></p>
-<ul>
-<li>Register column- or type-specific functions for domain-specific data</li>
-<li>Contextual generators that adapt to other fields (like ICD-10 codes based on demographics)</li>
-</ul>
+<p>Order (after Customer is available)</p>
 </li>
-</ul>
+<li>
+<p>OrderItem (after both Order and Product are available)</p>
+</li>
+</ol>
+<h2 id="foreign-key-value-assignment">Foreign Key Value Assignment<a class="headerlink" href="#foreign-key-value-assignment" title="Permanent link">&para;</a></h2>
+<p>When generating data with foreign keys, SYDA ensures that each foreign key references a valid primary key in the parent table:</p>
+<ol>
+<li><strong>Parent Table Access</strong>: SYDA maintains access to all previously generated tables</li>
+<li><strong>Random Selection</strong>: By default, it randomly selects a valid foreign key value</li>
+<li><strong>Consistent Foreign Keys</strong>: When multiple columns in the same schema reference the same parent table, SYDA ensures they get the same parent record for consistency</li>
+</ol>
+<h2 id="best-practices-for-foreign-key-handling">Best Practices for Foreign Key Handling<a class="headerlink" href="#best-practices-for-foreign-key-handling" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Be Explicit</strong>: Whenever possible, explicitly define foreign key relationships</li>
+<li><strong>Consistent Naming</strong>: Use consistent naming patterns (e.g., <code>table_id</code>) for foreign keys</li>
+<li><strong>Handle Nullable Keys</strong>: Specify whether foreign keys can be null</li>
+<li><strong>Test Relationships</strong>: Verify that generated data maintains proper referential integrity</li>
+<li><strong>Document Dependencies</strong>: Add comments or documentation about table dependencies</li>
+</ol>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>To see foreign key relationships in action, explore the example projects included with SYDA:</p>
+<ol>
+<li><strong>SQLAlchemy Examples</strong>: Check <a href="../../examples/structured_and_unstructured_mixed/sqlalchemy_models/">sqlalchemy_models</a> for examples of foreign keys with SQLAlchemy models</li>
+<li><strong>Dictionary Schema Examples</strong>: See <a href="../../examples/structured_only/dict_schemas/">Dictionary Examples</a> for dictionary-based foreign key handling</li>
+<li><strong>YAML/JSON Schema Examples</strong>: The <a href="../../examples/structured_only/yaml_schemas/">YAML Examples</a> and <a href="../../examples/structured_only/json_schemas/">JSON Examples</a>  demonstrate foreign keys in file-based schemas</li>
+<li><strong>Retail Example</strong>: <a href="../../examples/structured_and_unstructured_mixed/yaml_schemas/">Retail Example</a> shows foreign keys connecting multiple related tables</li>
+</ol>
+<p>Each example demonstrates different aspects of foreign key handling, including relationship definition, value assignment, and referential integrity verification.</p>
 
 
 
@@ -1445,10 +1629,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": ".", "features": ["content.code.annotate", "content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.share"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
       
     
   </body>

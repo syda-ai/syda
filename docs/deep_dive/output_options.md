@@ -55,7 +55,7 @@ results = generator.generate_for_schemas(
     schemas={...},
     sample_sizes={"Customer": 10, "Order": 25},
     output_dir="output/crm_data",
-    output_formats=["csv", "json", "parquet"]
+    output_formats=["csv", "json"]
 )
 ```
 
@@ -63,8 +63,6 @@ Supported output formats include:
 
 - `csv`: Standard comma-separated values format
 - `json`: JSON format with records orientation
-- `parquet`: Apache Parquet format (efficient columnar storage)
-- `xlsx`: Excel spreadsheet format
 
 ## Document Output
 
@@ -73,8 +71,8 @@ When generating unstructured documents alongside structured data, SYDA saves the
 ```python
 schemas = {
     'Report': {
-        '__template__': 'templates/report.html',
-        '__template_source__': 'file',
+        '__template__': 'true',
+        '__template_source__': 'templates/report.html',
         '__input_file_type__': 'html',
         '__output_file_type__': 'pdf',
         # ...other fields
@@ -89,7 +87,7 @@ results = generator.generate_for_schemas(
 ```
 
 This creates:
-- `Report.csv` - Structured data about the reports
+
 - A `Report` subdirectory with the generated documents (e.g., `Report_1.pdf`, `Report_2.pdf`, etc.)
 
 ## Output Directory Structure
@@ -113,24 +111,6 @@ output/
 
 This structure makes it easy to locate and manage both structured data and generated documents.
 
-## Custom Output File Names
-
-For document outputs, you can customize the file naming pattern:
-
-```python
-schemas = {
-    'Invoice': {
-        '__template__': 'templates/invoice.html',
-        '__template_source__': 'file',
-        '__input_file_type__': 'html',
-        '__output_file_type__': 'pdf',
-        '__output_filename_pattern__': 'INV-{id}-{customer_name}',
-        # ...other fields
-    }
-}
-```
-
-This would create files like `INV-1-Acme_Corp.pdf` instead of the default `Invoice_1.pdf`.
 
 ## Working with Output Programmatically
 
@@ -162,3 +142,7 @@ merged = orders.merge(customers, left_on="customer_id", right_on="id")
 3. **Process DataFrames Before Saving**: Apply transformations before writing to disk when needed
 4. **Check Output Size**: Be mindful of output size for large generations
 5. **Backup Results**: Keep the returned DataFrames for immediate use even when saving to disk
+
+## Examples
+
+Explore  [SQLAlchemy Example](../examples/structured_and_unstructured_mixed/sqlalchemy_models.md) and [Yaml Example](../examples/structured_and_unstructured_mixed/yaml_schemas.md) 

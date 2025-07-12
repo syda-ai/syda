@@ -10,44 +10,105 @@ SYDA provides multiple methods for linking documents with their corresponding st
 
 Documents can reference structured data through foreign key relationships:
 
-```python
-# Dictionary schema example with foreign keys
-schemas = {
-    'Customer': {
-        'id': {'type': 'integer', 'primary_key': True},
-        'name': {'type': 'string'},
-        'industry': {'type': 'string'},
-    },
-    'Contract': {
-        '__template__': 'templates/contract.html',
-        '__template_source__': 'file',
-        '__input_file_type__': 'html',
-        '__output_file_type__': 'pdf',
-        
-        'id': {'type': 'integer', 'primary_key': True},
-        'title': {'type': 'string'},
-        'customer_id': {
-            'type': 'integer',
-            'references': {'table': 'Customer', 'column': 'id'}
-        },
-        'terms': {'type': 'string'},
-        'start_date': {'type': 'date'},
-        'end_date': {'type': 'date'},
-    }
-}
+For example, a receipt document can reference a customer's name and id through a foreign key relationship:
+
+
+```yaml
+# Retail receipt template example
+__template__: true
+__description__: Retail receipt template
+__name__: Receipt
+__depends_on__: [Product, Transaction, Customer]
+__foreign_keys__:
+  customer_name: [Customer, first_name]
+  customer_id: [Customer, id]
+  
+__template_source__: /templates/receipt.html
+__input_file_type__: html
+__output_file_type__: pdf
+
+# Receipt header
+store_name:
+  type: string
+  length: 50
+  description: Name of the retail store
+
+store_address:
+  type: address
+  length: 150
+  description: Full address of the store
+
+# Receipt details
+receipt_number:
+  type: string
+  pattern: '^RCP-\d{8}$'
+  length: 12
+  description: Unique receipt identifier
+
+transaction_date:
+  type: date
+  format: YYYY-MM-DD
+  description: Date of the transaction
+
+# Customer information
+customer_name:
+  type: string
+  length: 100
+  description: Full name of the customer
+
+customer_id:
+  type: integer
+  description: Customer ID number
+
+# Product purchase details
+items:
+  type: array
+  description: "List of purchased items with product details"
+  
+# Totals
+subtotal:
+  type: float
+  min: 0.99
+  max: 999999.99
+  decimals: 2
+  description: Sum of all item totals before tax
 ```
 
 ### 2. Using SQLAlchemy Models with Templates
 
 When using SQLAlchemy, you can define document models with template attributes:
 
+For example, a contract document can reference an opportunity's name and id through a foreign key relationship:
+
 ```python
-class Customer(Base):
-    __tablename__ = 'customers'
+class ContractDocument(Base):
+    """Contract document for a won opportunity."""
+    # Special metadata attributes
+    __tablename__ = 'contract_documents'
+    __depends_on__ = ['opportunities']
     
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100), comment="Name of the customer organization")
-    industry = Column(String(50), comment="Customer's primary industry")
+    # Template configuration as regular fields (these become columns in the generated data)
+    __template__ = True
+    __template_source__ = os.path.join(templates_dir, 'contract.html')
+    __input_file_type__ = 'html'
+    __output_file_type__ = 'pdf'
+    
+    id = Column(Integer, primary_key=True, comment='Primary key for contract document records')
+    opportunity_id = Column(Integer, ForeignKey('opportunities.id'), nullable=False, 
+                           comment='Foreign key reference to the opportunity this contract is for')
+    effective_date = Column(Date, comment='Date when the contract becomes effective')
+    expiration_date = Column(Date, comment='Date when the contract expires')
+    contract_number = Column(String(50), comment='Unique identifier/number for the contract')
+    customer_name = Column(String(100), ForeignKey('customers.name'), 
+                          comment='Name of the customer organization (linked to customers table)')
+    customer_address = Column(String(200), ForeignKey('customers.address'), 
+                             comment='Address of the customer organization (linked to customers table)')
+    service_description = Column(Text, comment='Detailed description of services to be provided')
+    payment_terms = Column(Text, comment='Payment terms including schedule, methods and conditions')
+    contract_value = Column(Float, ForeignKey('opportunities.value'), 
+                           comment='Total monetary value of the contract in USD (linked to opportunities table)')
+    renewal_terms = Column(Text, comment='Terms for contract renewal or extension')
+    legal_terms = Column(Text, comment='Legal terms and conditions including liabilities, warranties, etc.')
 
 class Contract(Base):
     __tablename__ = 'contracts'
@@ -78,189 +139,93 @@ To ensure that document generation occurs after its referenced data is available
 You can define explicit dependencies using the `__depends_on__` attribute:
 
 ```python
-# In dictionary schemas
-schemas = {
-    'Customer': {
-        'id': {'type': 'integer', 'primary_key': True},
-        'name': {'type': 'string'},
-    },
-    'Contract': {
-        '__depends_on__': ['Customer'],  # Explicit dependency
-        '__template__': 'templates/contract.html',
-        'id': {'type': 'integer', 'primary_key': True},
-        'customer_id': {
-            'type': 'integer',
-            'references': {'table': 'Customer', 'column': 'id'}
-        },
-        'content': {'type': 'string'},
-    }
-}
+# In YAML schemas (from retail_yml/schemas/receipt.yml)
+__template__: true
+__description__: Retail receipt template
+__name__: Receipt
+__depends_on__: [Product, Transaction, Customer]  # Explicit dependencies
+__foreign_keys__:
+  customer_name: [Customer, first_name]
+  customer_id: [Customer, id]
+  
+__template_source__: /templates/receipt.html
+__input_file_type__: html
+__output_file_type__: pdf
+
+# In SQLAlchemy models (from crm_sqlalchemy/models.py)
+class ContractDocument(Base):
+    """Contract document for a won opportunity."""
+    # Special metadata attributes
+    __tablename__ = 'contract_documents'
+    __depends_on__ = ['opportunities']  # Explicit dependency
+    
+    # Template configuration
+    __template__ = True
+    __template_source__ = os.path.join(templates_dir, 'contract.html')
+    __input_file_type__ = 'html'
+    __output_file_type__ = 'pdf'
+    
+    id = Column(Integer, primary_key=True)
+    opportunity_id = Column(Integer, ForeignKey('opportunities.id'), nullable=False)
+    customer_name = Column(String(100), ForeignKey('customers.name'))
+    customer_address = Column(String(200), ForeignKey('customers.address'))
 ```
 
-### 2. Automatic Dependency Resolution
+### 2. Implicit Dependencies via Foreign Keys
 
-SYDA also automatically detects dependencies through foreign key relationships. This means that document schemas with foreign keys to other tables will be generated after those tables are available.
+SYDA automatically detects dependencies through foreign key relationships. This means that document schemas with foreign keys to other tables will be generated after those tables are available.
+
+For example, in the retail YAML example, SYDA detects that Receipt depends on Customer through the foreign keys:
 
 ## Template Enrichment from Related Data
 
 Document templates can access fields from related records using custom generators:
 
 ```python
-def enrich_contract_data(table_name, column_name, row_data, dependencies=None):
+def enrich_contract_data(row, col_name=None, parent_dfs=None):
     """
     Enriches contract data with customer information.
+    
+    Args:
+        row: The current row being processed (as a pandas Series or dict-like object)
+        col_name: The name of the column being generated
+        parent_dfs: Dictionary of previously generated dataframes (schema name as key)
     """
-    if not dependencies or 'Customer' not in dependencies:
-        return row_data
+    if parent_dfs is None or 'Customer' not in parent_dfs:
+        return row
     
-    customer_id = row_data.get('customer_id')
+    customer_id = row.get('customer_id')
     if customer_id is None:
-        return row_data
+        return row
     
-    # Find the customer record with this ID
-    customer = None
-    for cust in dependencies['Customer']:
-        if cust['id'] == customer_id:
-            customer = cust
-            break
+    # Find the customer record with this ID using pandas filtering
+    customers_df = parent_dfs['Customer']
+    matching_customers = customers_df[customers_df['id'] == customer_id]
     
-    if customer:
+    if len(matching_customers) > 0:
+        # Get the first matching customer
+        customer = matching_customers.iloc[0]
+    
+    if len(matching_customers) > 0:
         # Add customer fields to the contract data
-        row_data['customer_name'] = customer['name']
-        row_data['customer_industry'] = customer.get('industry', 'Unknown')
+        row['customer_name'] = customer['name']
+        row['customer_industry'] = customer.get('industry', 'Unknown')
     
-    return row_data
+    return row
 ```
 
-## Complete Example: CRM System with Documents
-
-Here's a complete example of a CRM system that generates both structured data and documents:
-
-```python
-from syda import SyntheticDataGenerator, ModelConfig
-from sqlalchemy import Column, Integer, String, Text, Date, ForeignKey, Float
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-
-Base = declarative_base()
-
-# Define SQLAlchemy models
-class Customer(Base):
-    __tablename__ = 'customers'
-    
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100), comment="Customer company name")
-    industry = Column(String(50), comment="Customer's industry")
-    address = Column(String(200), comment="Customer's address")
-
-class Opportunity(Base):
-    __tablename__ = 'opportunities'
-    
-    id = Column(Integer, primary_key=True)
-    customer_id = Column(Integer, ForeignKey('customers.id'))
-    name = Column(String(100), comment="Name/title of the opportunity")
-    value = Column(Float, comment="Potential value of the opportunity")
-    description = Column(Text, comment="Description of the opportunity")
-    
-    customer = relationship("Customer")
-
-class ProposalDocument(Base):
-    __tablename__ = 'proposal_documents'
-    
-    # Template attributes
-    __template__ = 'templates/proposal_template.html'
-    __template_source__ = 'file'
-    __input_file_type__ = 'html'
-    __output_file_type__ = 'pdf'
-    __depends_on__ = ['opportunities']
-    
-    id = Column(Integer, primary_key=True)
-    opportunity_id = Column(Integer, ForeignKey('opportunities.id'))
-    title = Column(String(100), comment="Title of the proposal")
-    subtitle = Column(String(200), comment="Subtitle or tagline")
-    prepared_by = Column(String(100), comment="Name of the sales representative")
-    created_date = Column(Date, comment="Date the proposal was created")
-    proposed_solutions = Column(Text, comment="Detailed description of proposed solutions")
-    implementation_timeline = Column(Text, comment="Timeline for implementation")
-    pricing_details = Column(Text, comment="Pricing breakdown and details")
-    terms_and_conditions = Column(Text, comment="Legal terms and conditions")
-    
-    opportunity = relationship("Opportunity")
-
-# Custom generator to enrich proposals with customer and opportunity data
-def enrich_proposal(table_name, column_name, row_data, dependencies=None):
-    """Enrich proposal with customer and opportunity data for the template."""
-    if not dependencies or 'opportunities' not in dependencies:
-        return row_data
-    
-    opportunity_id = row_data.get('opportunity_id')
-    if opportunity_id is None:
-        return row_data
-    
-    # Find the opportunity
-    opportunity = None
-    for opp in dependencies['opportunities']:
-        if opp['id'] == opportunity_id:
-            opportunity = opp
-            break
-    
-    if opportunity and 'customers' in dependencies:
-        # Add opportunity data to proposal
-        row_data['opportunity_name'] = opportunity['name']
-        row_data['opportunity_value'] = opportunity['value']
-        row_data['opportunity_description'] = opportunity['description']
-        
-        # Find and add customer data
-        customer_id = opportunity['customer_id']
-        for cust in dependencies['customers']:
-            if cust['id'] == customer_id:
-                row_data['customer_name'] = cust['name']
-                row_data['customer_address'] = cust['address']
-                break
-    
-    return row_data
-
-# Generate data
-def main():
-    config = ModelConfig(provider="anthropic", model_name="claude-3-5-haiku-20241022")
-    generator = SyntheticDataGenerator(model_config=config)
-    
-    custom_generators = {
-        'proposal_documents': {
-            '*': enrich_proposal  # Apply to all rows in the table
-        }
-    }
-    
-    # Generate all data with proper dependencies
-    results = generator.generate_for_sqlalchemy_models(
-        sqlalchemy_models=[Customer, Opportunity, ProposalDocument],
-        sample_sizes={
-            "customers": 5,
-            "opportunities": 10,
-            "proposal_documents": 10
-        },
-        prompts={
-            "customers": "Generate diverse B2B technology customers",
-            "opportunities": "Generate sales opportunities for enterprise software",
-            "proposal_documents": "Generate professional sales proposals"
-        },
-        custom_generators=custom_generators,
-        output_dir="output/crm"
-    )
-    
-    print("Generated data:")
-    for model_name, df in results.items():
-        print(f"{model_name}: {len(df)} records")
-
-if __name__ == "__main__":
-    main()
-```
 
 ## Best Practices
 
 1. **Define Clear Dependencies**: Use `__depends_on__` to ensure correct generation order
 2. **Enrich Templates with Custom Generators**: Create custom generators that add fields from related tables
 3. **Use Consistent Naming**: Maintain consistent field names between schemas and templates
-4. **Handle Missing Data**: Ensure custom generators gracefully handle missing related records
-5. **Optimize Template Performance**: Keep templates simple and efficient for large datasets
-6. **Test End-to-End**: Always test the complete generation pipeline from database to documents
+4. **Optimize Template Performance**: Keep templates simple and efficient for large datasets
+5. **Define Foreign Keys Properly**: SYDA supports 2 methods for defining foreign keys:
+   - Using `__foreign_keys__` special section in schemas
+   - Using field-level `references` properties within type definitions
+
+
+## Examples
+
+To see combined data in action, explore  [SQLAlchemy Example](../examples/structured_and_unstructured_mixed/sqlalchemy_models.md) and [Yaml Example](../examples/structured_and_unstructured_mixed/yaml_schemas.md) 

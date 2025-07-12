@@ -6,47 +6,112 @@ SYDA provides powerful capabilities for generating unstructured documents alongs
 
 Document generation in SYDA is based on templates. You define a template that includes both static content and dynamic placeholders, which SYDA will fill with generated data.
 
-### Template Schema Requirements
+## Key template attributes:
 
-To generate documents, your schema must include special template attributes:
+To generate documents, your schema must include special template attributes. 
 
-```python
-schemas = {
-    'Invoice': {
-        # Template attributes
-        '__template__': 'templates/invoice.html',      # Path to template
-        '__template_source__': 'file',                 # Source of template ('file' or 'schema')
-        '__input_file_type__': 'html',                 # Template format
-        '__output_file_type__': 'pdf',                 # Output format
-        
-        # Regular schema fields
-        'id': {'type': 'integer', 'primary_key': True},
-        'customer_name': {'type': 'string'},
-        'issue_date': {'type': 'date'},
-        'due_date': {'type': 'date'},
-        'total_amount': {'type': 'number', 'format': 'float'},
-        'line_items': {'type': 'array'}
-    }
-}
+| Attribute | Description | Example |
+|-----------|-------------|---------|
+| `__template__` | Whether this schema is a template | `true` |
+| `__description__` | Human-readable description of the template | `Retail receipt template` |
+| `__name__` | Name of the template | `Receipt` |
+| `__depends_on__` | Other schemas this template depends on | `[Product, Transaction, Customer]` |
+| `__foreign_keys__` | Field-level foreign key relationships | `customer_name: [Customer, first_name]` |
+| `__template_source__` | Path to the template file | `templates/receipt.html` |
+| `__input_file_type__` | Template format | `html` |
+| `__output_file_type__` | Output document format | `pdf` |
+
+
+Here's an example using YAML format:
+
+
+```yaml
+# receipt.yml
+__template__: true
+__description__: Retail receipt template
+__name__: Receipt
+__depends_on__: [Product, Transaction, Customer]
+__foreign_keys__:
+  customer_name: [Customer, first_name]
+  customer_id: [Customer, id]
+  
+__template_source__: templates/receipt.html
+__input_file_type__: html
+__output_file_type__: pdf
+
+# Regular schema fields
+store_name:
+  type: string
+  length: 50
+  description: Name of the retail store
+
+store_address:
+  type: address
+  length: 150
+  description: Full address of the store
+
+store_phone:
+  type: string
+  length: 20
+  description: Store phone number
+
+receipt_number:
+  type: string
+  length: 12
+  description: Unique receipt identifier
+
+items:
+  type: array
+  description: List of purchased items with product details
 ```
 
-Key template attributes:
+Here's an example using SqlAlchemy model:
 
-| Attribute | Description | Options |
-|-----------|-------------|---------|
-| `__template__` | Template path or content | File path or inline content |
-| `__template_source__` | Where to find the template | 'file' or 'schema' |
-| `__input_file_type__` | Template format | 'html', 'md', 'txt' |
-| `__output_file_type__` | Output document format | 'pdf', 'html', 'txt' |
-| `__output_filename_pattern__` | (Optional) Pattern for output filenames | e.g., 'invoice-{id}' |
+
+### SQLAlchemy Model-Based Templates
+
+When using SQLAlchemy models, you can define template attributes directly as class attributes:
+
+```python
+import os
+from sqlalchemy import Column, Integer, String, Float, Text, Date, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+
+class ContractDocument(Base):
+    """Contract document for a won opportunity."""
+    # Special metadata attributes
+    __tablename__ = 'contract_documents'
+    __depends_on__ = ['opportunities']
+    
+    # Template configuration as class attributes
+    __template__ = True
+    __template_source__ = os.path.join(templates_dir, 'contract.html')
+    __input_file_type__ = 'html'
+    __output_file_type__ = 'pdf'
+    
+    id = Column(Integer, primary_key=True)
+    opportunity_id = Column(Integer, ForeignKey('opportunities.id'), nullable=False)
+    effective_date = Column(Date)
+    expiration_date = Column(Date)
+    contract_number = Column(String(50))
+    customer_name = Column(String(100), ForeignKey('customers.name'))
+    customer_address = Column(String(200), ForeignKey('customers.address'))
+    service_description = Column(Text)
+    payment_terms = Column(Text)
+    contract_value = Column(Float, ForeignKey('opportunities.value'))
+    renewal_terms = Column(Text)
+```
 
 ## Supported Template Formats
 
-SYDA supports multiple template formats:
+As of now SYDA supports HTML templates(Jinja2) for unstructured document generation.
 
-### 1. HTML Templates (recommended)
+### HTML Templates(Jinja2)
 
-HTML templates provide the most flexibility and control over document formatting:
+HTML Jinja2 templates provide the most flexibility and control over document formatting:
 
 ```html
 {% raw %}
@@ -54,11 +119,11 @@ HTML templates provide the most flexibility and control over document formatting
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Invoice #{{ id }}</title>
+    <title>Receipt #{{ receipt_number }}</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 2cm; }
         .header { text-align: center; margin-bottom: 2em; }
-        .invoice-details { margin-bottom: 2em; }
+        .receipt-details { margin-bottom: 2em; }
         .line-items { width: 100%; border-collapse: collapse; }
         .line-items th, .line-items td { border: 1px solid #ddd; padding: 8px; }
         .total { margin-top: 2em; text-align: right; font-weight: bold; }
@@ -66,14 +131,18 @@ HTML templates provide the most flexibility and control over document formatting
 </head>
 <body>
     <div class="header">
-        <h1>INVOICE</h1>
-        <h2>#{{ id }}</h2>
+        <h1>{{ store_name }}</h1>
+        <p>{{ store_address }}</p>
+        <p>{{ store_phone }}</p>
+        <p>{{ store_website }}</p>
     </div>
     
-    <div class="invoice-details">
+    <div class="receipt-details">
+        <p><strong>Receipt Number:</strong> {{ receipt_number }}</p>
+        <p><strong>Date:</strong> {{ transaction_date }}</p>
+        <p><strong>Time:</strong> {{ transaction_time }}</p>
         <p><strong>Customer:</strong> {{ customer_name }}</p>
-        <p><strong>Issue Date:</strong> {{ issue_date }}</p>
-        <p><strong>Due Date:</strong> {{ due_date }}</p>
+        <p><strong>Customer ID:</strong> {{ customer_id }}</p>
     </div>
     
     <table class="line-items">
@@ -86,69 +155,32 @@ HTML templates provide the most flexibility and control over document formatting
             </tr>
         </thead>
         <tbody>
-            {% for item in line_items %}
-            <tr>
-                <td>{{ item.description }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>${{ item.unit_price }}</td>
-                <td>${{ item.quantity * item.unit_price }}</td>
-            </tr>
-            {% endfor %}
+            {% if items %}
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.price }}</td>
+                    <td>${{ item.total }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr><td colspan="4">No items</td></tr>
+            {% endif %}
         </tbody>
     </table>
     
     <div class="total">
-        <p>Total Amount: ${{ total_amount }}</p>
+        <p>Subtotal: ${{ subtotal }}</p>
+        <p>Tax ({{ tax_rate }}%): ${{ tax_amount }}</p>
+        <p>Discount: ${{ discount_amount }}</p>
+        <p><strong>Total Amount: ${{ total }}</strong></p>
     </div>
 </body>
 </html>
 {% endraw %}
 ```
 
-### 2. Markdown Templates
-
-For simpler documents, Markdown templates can be used:
-
-```markdown
-{% raw %}
-# Invoice #{{ id }}
-
-**Customer:** {{ customer_name }}
-**Issue Date:** {{ issue_date }}
-**Due Date:** {{ due_date }}
-
-## Line Items
-
-| Item | Quantity | Unit Price | Total |
-|------|----------|------------|-------|
-{% for item in line_items %}
-| {{ item.description }} | {{ item.quantity }} | ${{ item.unit_price }} | ${{ item.quantity * item.unit_price }} |
-{% endfor %}
-
-**Total Amount:** ${{ total_amount }}
-{% endraw %}
-```
-
-### 3. Plain Text Templates
-
-For the simplest documents, plain text templates are available:
-
-```
-{% raw %}
-INVOICE #{{ id }}
-
-Customer: {{ customer_name }}
-Issue Date: {{ issue_date }}
-Due Date: {{ due_date }}
-
-Line Items:
-{% for item in line_items %}
-- {{ item.description }}: {{ item.quantity }} x ${{ item.unit_price }} = ${{ item.quantity * item.unit_price }}
-{% endfor %}
-
-Total Amount: ${{ total_amount }}
-{% endraw %}
-```
 
 ## Template Design
 
@@ -218,19 +250,40 @@ Summary: {{ description | truncate(100) }}
 {% endraw %}
 ```
 
-### Template Inheritance
 
-For complex documents, you can use template inheritance:
 
-```
+### Jinja2 Template Syntax Requirements
+
+SYDA uses Jinja2 for template rendering. Be sure to follow these syntax requirements:
+
 {% raw %}
-{% extends "base_template.html" %}
+* Use `{{ variable }}` for variable interpolation (with spaces inside the braces)
+* Use `{% for item in items %}...{% endfor %}` for loops
+* Use `{% if condition %}...{% endif %}` for conditionals
+* Use `{# This is a comment #}` for comments
+* Use `{{ variable | filter }}` for applying filters
 
-{% block content %}
-    <h1>Invoice #{{ id }}</h1>
-    <p>Customer: {{ customer_name }}</p>
-{% endblock %}
+**Important:** Do not use Handlebars-style syntax (e.g., `{{variable}}` without spaces or `{{\#each items}}`) as these won't be processed correctly.
 {% endraw %}
+
+#### Example of Correct Jinja2 Syntax:
+
+```html
+<div class="items">
+  {% if items %}
+    <h3>Items Purchased</h3>
+    <table>
+      {% for item in items %}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>${{ item.price }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>No items purchased</p>
+  {% endif %}
+</div>
 ```
 
 ## PDF Generation
@@ -260,78 +313,10 @@ results = generator.generate_for_schemas(
 )
 ```
 
-This will generate:
-1. A `Contract.csv` file with the structured data
-2. A `Contract` directory containing PDF files (e.g., `Contract_1.pdf`, `Contract_2.pdf`, etc.)
+This will generate a `Contract` directory containing PDF files (e.g., `Contract_1.pdf`, `Contract_2.pdf`, etc.)
 
-## Template Source Options
 
-SYDA supports two ways to provide templates:
 
-### 1. File-Based Templates
-
-Store templates in files and reference them by path:
-
-```python
-schemas = {
-    'Report': {
-        '__template__': 'templates/report.html',
-        '__template_source__': 'file',  # Load from file
-        # ... other fields
-    }
-}
-```
-
-### 2. Inline Templates
-
-Define templates directly in your schema:
-
-```python
-schemas = {
-    'SimpleReceipt': {
-        '__template__': """
-        <!DOCTYPE html>
-        <html>
-        <body>
-            <h1>Receipt #{{ id }}</h1>
-            <p>Amount: ${{ amount }}</p>
-            <p>Date: {{ date }}</p>
-        </body>
-        </html>
-        """,
-        '__template_source__': 'schema',  # Template is inline
-        '__input_file_type__': 'html',
-        '__output_file_type__': 'pdf',
-        
-        'id': {'type': 'integer', 'primary_key': True},
-        'amount': {'type': 'number', 'format': 'float'},
-        'date': {'type': 'date'}
-    }
-}
-```
-
-## Working with SQLAlchemy Models
-
-For SQLAlchemy models, define template attributes as class attributes:
-
-```python
-class ContractDocument(Base):
-    __tablename__ = 'contract_documents'
-    
-    # Template attributes
-    __template__ = 'templates/contract.html'
-    __template_source__ = 'file'
-    __input_file_type__ = 'html'
-    __output_file_type__ = 'pdf'
-    
-    id = Column(Integer, primary_key=True)
-    client_id = Column(Integer, ForeignKey('clients.id'))
-    title = Column(String(100))
-    content = Column(Text)
-    signed_date = Column(Date)
-    
-    client = relationship("Client")
-```
 
 ## Best Practices
 
@@ -342,4 +327,9 @@ class ContractDocument(Base):
 5. **Handle Optional Fields**: Use conditionals or defaults for fields that might be missing
 6. **Consider Page Breaks**: For multi-page documents, control page breaks with CSS
 7. **Document Variable Names**: Comment your templates to document expected variables
-8. **Use Raw Tags in Documentation**: When showing templates in Markdown documentation, wrap with `{% raw %}` and `{% endraw %}`
+
+
+
+## Examples
+
+To see unstructured document generation in action, explore  [SQLAlchemy Example](../examples/structured_and_unstructured_mixed/sqlalchemy_models.md) and [Yaml Example](../examples/structured_and_unstructured_mixed/yaml_schemas.md) 

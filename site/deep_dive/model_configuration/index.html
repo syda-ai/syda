@@ -10,26 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://python.syda.ai/">
+        <link rel="canonical" href="https://python.syda.ai/deep_dive/model_configuration/">
       
       
+        <link rel="prev" href="../combined_data/">
       
-        <link rel="next" href="quickstart/">
+      
+        <link rel="next" href="../output_options/">
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
-        <title>Introduction - Syda Documentation</title>
+        <title>Model Configuration - Syda Documentation</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.342714a4.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,7 +50,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#syda-documentation" class="md-skip">
+        <a href="#model-selection-and-configuration" class="md-skip">
           Skip to content
         </a>
       
@@ -88,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Syda Documentation" class="md-header__button md-logo" aria-label="Syda Documentation" data-md-component="logo">
+    <a href="../.." title="Syda Documentation" class="md-header__button md-logo" aria-label="Syda Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction
+              Model Configuration
             
           </span>
         </div>
@@ -222,13 +224,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="." class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
           
   
   
@@ -244,11 +244,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="deep_dive/core_api/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../core_api/" class="md-tabs__link">
           
   
   
@@ -268,7 +270,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="schema_reference/field_types/" class="md-tabs__link">
+        <a href="../../schema_reference/field_types/" class="md-tabs__link">
           
   
   
@@ -295,7 +297,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="examples/model_selection/anthropic/" class="md-tabs__link">
+        <a href="../../examples/model_selection/anthropic/" class="md-tabs__link">
           
   
   
@@ -332,7 +334,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Syda Documentation" class="md-nav__button md-logo" aria-label="Syda Documentation" data-md-component="logo">
+    <a href="../.." title="Syda Documentation" class="md-nav__button md-logo" aria-label="Syda Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -359,31 +361,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
         
           
-          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
             
   
   
@@ -396,7 +393,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
             Home
@@ -407,32 +404,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Introduction
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -443,44 +418,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-syda" class="md-nav__link">
-    <span class="md-ellipsis">
-      What is Syda?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#key-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      Key Features
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -493,7 +430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart/" class="md-nav__link">
+      <a href="../../quickstart/" class="md-nav__link">
         
   
   
@@ -520,26 +457,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -552,7 +494,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Deep Dive
@@ -566,7 +508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/core_api/" class="md-nav__link">
+      <a href="../core_api/" class="md-nav__link">
         
   
   
@@ -589,7 +531,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/foreign_keys/" class="md-nav__link">
+      <a href="../foreign_keys/" class="md-nav__link">
         
   
   
@@ -612,7 +554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/unstructured_documents/" class="md-nav__link">
+      <a href="../unstructured_documents/" class="md-nav__link">
         
   
   
@@ -635,7 +577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/custom_generators/" class="md-nav__link">
+      <a href="../custom_generators/" class="md-nav__link">
         
   
   
@@ -658,7 +600,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/combined_data/" class="md-nav__link">
+      <a href="../combined_data/" class="md-nav__link">
         
   
   
@@ -678,10 +620,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="deep_dive/model_configuration/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Model Configuration
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -692,6 +656,128 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-different-model-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Different Model Providers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using Different Model Providers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#anthropic-claude-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Anthropic Claude Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openai-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenAI Models
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#temperature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Temperature
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      Maximum Tokens
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-specific-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider-Specific Optimizations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-direct-access-to-llm-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced: Direct Access to LLM Client
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -704,7 +790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/output_options/" class="md-nav__link">
+      <a href="../output_options/" class="md-nav__link">
         
   
   
@@ -727,7 +813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deep_dive/error_handling/" class="md-nav__link">
+      <a href="../error_handling/" class="md-nav__link">
         
   
   
@@ -800,7 +886,7 @@
   
   
     <li class="md-nav__item">
-      <a href="schema_reference/field_types/" class="md-nav__link">
+      <a href="../../schema_reference/field_types/" class="md-nav__link">
         
   
   
@@ -823,7 +909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="schema_reference/special_field_types/" class="md-nav__link">
+      <a href="../../schema_reference/special_field_types/" class="md-nav__link">
         
   
   
@@ -846,7 +932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="schema_reference/foreign_keys/" class="md-nav__link">
+      <a href="../../schema_reference/foreign_keys/" class="md-nav__link">
         
   
   
@@ -962,7 +1048,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/model_selection/anthropic/" class="md-nav__link">
+      <a href="../../examples/model_selection/anthropic/" class="md-nav__link">
         
   
   
@@ -985,7 +1071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/model_selection/openai/" class="md-nav__link">
+      <a href="../../examples/model_selection/openai/" class="md-nav__link">
         
   
   
@@ -1059,7 +1145,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/structured_only/dict_schemas/" class="md-nav__link">
+      <a href="../../examples/structured_only/dict_schemas/" class="md-nav__link">
         
   
   
@@ -1082,7 +1168,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/structured_only/yaml_schemas/" class="md-nav__link">
+      <a href="../../examples/structured_only/yaml_schemas/" class="md-nav__link">
         
   
   
@@ -1105,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/structured_only/json_schemas/" class="md-nav__link">
+      <a href="../../examples/structured_only/json_schemas/" class="md-nav__link">
         
   
   
@@ -1128,7 +1214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/structured_only/sqlalchemy_models/" class="md-nav__link">
+      <a href="../../examples/structured_only/sqlalchemy_models/" class="md-nav__link">
         
   
   
@@ -1202,7 +1288,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/structured_and_unstructured_mixed/yaml_schemas/" class="md-nav__link">
+      <a href="../../examples/structured_and_unstructured_mixed/yaml_schemas/" class="md-nav__link">
         
   
   
@@ -1225,7 +1311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/structured_and_unstructured_mixed/sqlalchemy_models/" class="md-nav__link">
+      <a href="../../examples/structured_and_unstructured_mixed/sqlalchemy_models/" class="md-nav__link">
         
   
   
@@ -1256,7 +1342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/miscellaneous/" class="md-nav__link">
+      <a href="../../examples/miscellaneous/" class="md-nav__link">
         
   
   
@@ -1306,18 +1392,102 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-syda" class="md-nav__link">
+  <a href="#basic-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      What is Syda?
+      Basic Configuration
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#key-features" class="md-nav__link">
+  <a href="#using-different-model-providers" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Features
+      Using Different Model Providers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using Different Model Providers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#anthropic-claude-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Anthropic Claude Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openai-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenAI Models
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#temperature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Temperature
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      Maximum Tokens
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-specific-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider-Specific Optimizations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-direct-access-to-llm-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced: Direct Access to LLM Client
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
     </span>
   </a>
   
@@ -1342,55 +1512,132 @@
   
 
 
-<h1 id="syda-documentation">Syda Documentation<a class="headerlink" href="#syda-documentation" title="Permanent link">&para;</a></h1>
-<p>A Python-based open-source library for generating synthetic data with AI while preserving referential integrity. Syda allows seamless use of OpenAI, Anthropic (Claude), and other AI models to create realistic synthetic data.</p>
-<h2 id="what-is-syda">What is Syda?<a class="headerlink" href="#what-is-syda" title="Permanent link">&para;</a></h2>
-<p>Syda is a powerful library that helps developers and data scientists generate high-quality synthetic data using large language models. Whether you need to create test data for your application, training datasets for machine learning, or mock data that maintains complex relationships between tables, Syda provides an elegant solution.</p>
-<h2 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
+<h1 id="model-selection-and-configuration">Model Selection and Configuration<a class="headerlink" href="#model-selection-and-configuration" title="Permanent link">&para;</a></h1>
+<p>SYDA supports multiple large language model (LLM) providers, allowing you to choose the model that best fits your needs in terms of capabilities, cost, and performance.</p>
+<h2 id="basic-configuration">Basic Configuration<a class="headerlink" href="#basic-configuration" title="Permanent link">&para;</a></h2>
+<p>The <code>ModelConfig</code> class is used to specify which LLM provider and model you want to use:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">syda</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyntheticDataGenerator</span><span class="p">,</span> <span class="n">ModelConfig</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Basic configuration with default parameters</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span>  <span class="c1"># Choose provider: &#39;anthropic&#39; or &#39;openai&#39;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;claude-3-5-haiku-20241022&quot;</span>  <span class="c1"># Specify model name</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Initialize generator with this configuration</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">generator</span> <span class="o">=</span> <span class="n">SyntheticDataGenerator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="using-different-model-providers">Using Different Model Providers<a class="headerlink" href="#using-different-model-providers" title="Permanent link">&para;</a></h2>
+<p>SYDA currently supports two main LLM providers:</p>
+<h3 id="anthropic-claude-models">Anthropic Claude Models<a class="headerlink" href="#anthropic-claude-models" title="Permanent link">&para;</a></h3>
+<p>Claude is the default model provider for SYDA, offering strong performance for data generation tasks:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Using Anthropic Claude</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;claude-3-5-haiku-20241022&quot;</span><span class="p">,</span>  <span class="c1"># Default model</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  <span class="c1"># Control randomness (0.0-1.0)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">4000</span>   <span class="c1"># Maximum number of tokens to generate</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">)</span>
+</code></pre></div>
+<p>Available Claude models include:
+- <code>claude-3-5-haiku-20241022</code> (default) - Fastest model, good balance of quality and cost
+- <code>claude-3-opus-20240229</code> - Highest quality model, but slower and more expensive
+- <code>claude-3-sonnet-20240229</code> - Mid-tier model with good balance of capabilities
+- <code>claude-3-haiku-20240307</code> - Previous haiku model version</p>
+<h3 id="openai-models">OpenAI Models<a class="headerlink" href="#openai-models" title="Permanent link">&para;</a></h3>
+<p>SYDA also supports OpenAI's GPT models:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Using OpenAI GPT</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;openai&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;gpt-4-turbo&quot;</span><span class="p">,</span>  <span class="c1"># Recommended OpenAI model</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">4000</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span>
+</code></pre></div>
+<p>Available OpenAI models include:
+- <code>gpt-4-turbo</code> (recommended) - Best balance of quality and cost for OpenAI
+- <code>gpt-4o</code> - Newest model with strong capabilities
+- <code>gpt-3.5-turbo</code> - Faster and cheaper, but less capable</p>
+<h2 id="model-parameters">Model Parameters<a class="headerlink" href="#model-parameters" title="Permanent link">&para;</a></h2>
+<p>You can fine-tune model behavior with these parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Range</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature</code></td>
+<td>Controls randomness in generation</td>
+<td>0.0-1.0</td>
+<td>0.7</td>
+</tr>
+<tr>
+<td><code>max_tokens</code></td>
+<td>Maximum tokens to generate</td>
+<td>Integer</td>
+<td>4000</td>
+</tr>
+</tbody>
+</table>
+<h3 id="temperature">Temperature<a class="headerlink" href="#temperature" title="Permanent link">&para;</a></h3>
+<p>The <code>temperature</code> parameter controls randomness in the model's output:</p>
 <ul>
-<li>
-<p><strong>Multi-Provider AI Integration</strong>:</p>
-<ul>
-<li>Seamless integration with multiple AI providers</li>
-<li>Support for OpenAI (GPT) and Anthropic (Claude). </li>
-<li>Default model is Anthropic Claude model claude-3-5-haiku-20241022</li>
-<li>Consistent interface across different providers</li>
-<li>Provider-specific parameter optimization</li>
+<li><strong>Lower values (0.1-0.4)</strong>: More deterministic, focused results</li>
+<li><strong>Medium values (0.5-0.7)</strong>: Good balance of creativity and coherence (recommended)</li>
+<li><strong>Higher values (0.8-1.0)</strong>: More creative but potentially less coherent</li>
 </ul>
-</li>
-<li>
-<p><strong>LLM-based Data Generation</strong>:</p>
-<ul>
-<li>AI-powered schema understanding and data creation</li>
-<li>Contextually-aware synthetic records</li>
-<li>Natural language prompt customization</li>
-<li>Intelligent schema inference</li>
-</ul>
-</li>
-<li>
-<p><strong>Multiple Schema Formats</strong>:</p>
-<ul>
-<li>YAML/JSON schema file support with full foreign key relationship handling</li>
-<li>SQLAlchemy model integration with automatic metadata extraction</li>
-<li>Python dictionary-based schema definitions</li>
-</ul>
-</li>
-<li>
-<p><strong>Referential Integrity</strong></p>
-<ul>
-<li>Automatic foreign key detection and resolution</li>
-<li>Multi-model dependency analysis through topological sorting</li>
-<li>Robust handling of related data with referential constraints</li>
-</ul>
-</li>
-<li>
-<p><strong>Custom Generators</strong></p>
-<ul>
-<li>Register column- or type-specific functions for domain-specific data</li>
-<li>Contextual generators that adapt to other fields (like ICD-10 codes based on demographics)</li>
-</ul>
-</li>
-</ul>
+<h3 id="maximum-tokens">Maximum Tokens<a class="headerlink" href="#maximum-tokens" title="Permanent link">&para;</a></h3>
+<p>The <code>max_tokens</code> parameter limits the size of the model's response:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># For larger datasets or complex schemas</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;claude-3-5-haiku-20241022&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">8000</span>  <span class="c1"># Increase token limit for complex data generation</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">)</span>
+</code></pre></div>
+<p>For most use cases, the default of 4000 tokens is sufficient. Increase this for very complex schemas or large batch generation.</p>
+<h2 id="provider-specific-optimizations">Provider-Specific Optimizations<a class="headerlink" href="#provider-specific-optimizations" title="Permanent link">&para;</a></h2>
+<p>SYDA automatically applies provider-specific optimizations based on your configuration:</p>
+<ol>
+<li><strong>Prompt Engineering</strong>: Different prompt structures optimized for each model</li>
+<li><strong>Batch Sizing</strong>: Appropriate batch sizes for each provider</li>
+<li><strong>Error Handling</strong>: Provider-specific error recovery</li>
+<li><strong>Token Management</strong>: Efficient token usage based on model context limits</li>
+</ol>
+<h2 id="advanced-direct-access-to-llm-client">Advanced: Direct Access to LLM Client<a class="headerlink" href="#advanced-direct-access-to-llm-client" title="Permanent link">&para;</a></h2>
+<p>For advanced use cases, you can access the underlying LLM client directly:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">syda</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyntheticDataGenerator</span><span class="p">,</span> <span class="n">ModelConfig</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;claude-3-5-haiku-20241022&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">generator</span> <span class="o">=</span> <span class="n">SyntheticDataGenerator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># Access the underlying client</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">llm_client</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">llm_client</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># Use the client directly (provider-specific)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">provider</span> <span class="o">==</span> <span class="s2">&quot;anthropic&quot;</span><span class="p">:</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">llm_client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="n">model</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">model_name</span><span class="p">,</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="n">max_tokens</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Generate a list of book titles about AI&quot;</span><span class="p">}]</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="p">)</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+<p>This gives you direct access to provider-specific features while still using SYDA for schema management.</p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Start with Default Models</strong>: Begin with <code>claude-3-5-haiku-20241022</code> (Anthropic) or <code>gpt-4-turbo</code> (OpenAI)</li>
+<li><strong>Adjust Temperature</strong>: Lower for more consistent results, higher for more variety</li>
+<li><strong>Consider Cost vs. Quality</strong>: Higher-end models provide better quality but at higher cost</li>
+<li><strong>Test Different Models</strong>: Compare results from different models for your specific use case</li>
+<li><strong>Handle API Rate Limits</strong>: Implement appropriate backoff strategies for large generations</li>
+</ol>
 
 
 
@@ -1445,10 +1692,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": ".", "features": ["content.code.annotate", "content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.share"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
       
     
   </body>
