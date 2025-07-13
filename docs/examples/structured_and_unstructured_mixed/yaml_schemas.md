@@ -1,6 +1,6 @@
 # YAML Schemas with Mixed Content
 
-> Source code: [examples/structured_and_unstructured/retail_yml/example_retail_schemas.py](https://github.com/syda-ai/syda/blob/main/examples/structured_and_unstructured/retail_yml/test_retail_schemas.py)
+> Source code: [examples/structured_and_unstructured/retail_yml/example_retail_schemas.py](https://github.com/syda-ai/syda/blob/main/examples/structured_and_unstructured/retail_yml/example_retail_schemas.py)
 
 This example demonstrates how to use YAML schemas to generate both structured data and unstructured document content for a retail application.
 

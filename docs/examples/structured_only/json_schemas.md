@@ -1,6 +1,6 @@
 # JSON Schema Examples
 
-> Source code: [examples/structured_only/example_json_schemas.py](https://github.com/syda-ai/syda/blob/main/examples/structured_only/test_json_schemas.py)
+> Source code: [examples/structured_only/example_json_schemas.py](https://github.com/syda-ai/syda/blob/main/examples/structured_only/example_json_schemas.py)
 
 This example demonstrates how to define and use JSON-based schemas for synthetic data generation with SYDA.
 
@@ -311,4 +311,4 @@ results = generator.generate_for_schemas(
 
 You can view sample outputs generated using these JSON schemas here:
 
-> [Example JSON Schema Outputs](https://github.com/syda-ai/syda/tree/main/examples/structured_only/output/test_json_schemas/blog_data)
+> [Example JSON Schema Outputs](https://github.com/syda-ai/syda/tree/main/examples/structured_only/output/example_json_schemas/blog_data)

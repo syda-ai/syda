@@ -1,6 +1,6 @@
 # SQLAlchemy Models with Mixed Content
 
-> Source code: [examples/structured_and_unstructured/crm_sqlalchemy/example_crm_templates.py](https://github.com/syda-ai/syda/blob/main/examples/structured_and_unstructured/crm_sqlalchemy/test_crm_templates.py)
+> Source code: [examples/structured_and_unstructured/crm_sqlalchemy/example_crm_templates.py](https://github.com/syda-ai/syda/blob/main/examples/structured_and_unstructured/crm_sqlalchemy/example_crm_templates.py)
 
 This example demonstrates how to use SQLAlchemy models to generate both structured database data and unstructured document content for a CRM system.
 

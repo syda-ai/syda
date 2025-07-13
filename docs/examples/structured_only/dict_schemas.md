@@ -1,6 +1,6 @@
 # Dictionary-Based Schema Examples
 
-> Source code: [examples/structured_only/example_dict_schemas.py](https://github.com/syda-ai/syda/blob/main/examples/structured_only/test_dict_schemas.py)
+> Source code: [examples/structured_only/example_dict_schemas.py](https://github.com/syda-ai/syda/blob/main/examples/structured_only/example_dict_schemas.py)
 
 This example demonstrates how to define and use dictionary-based schemas directly in your Python code for synthetic data generation with SYDA.
 
@@ -180,4 +180,4 @@ for schema_name, df in results.items():
 
 You can view sample outputs generated using these dictionary schemas here:
 
-> [Example Dictionary Schema Outputs](https://github.com/syda-ai/syda/tree/main/examples/structured_only/output/test_dict_schemas/ecommerce)
+> [Example Dictionary Schema Outputs](https://github.com/syda-ai/syda/tree/main/examples/structured_only/output/example_dict_schemas/ecommerce)
