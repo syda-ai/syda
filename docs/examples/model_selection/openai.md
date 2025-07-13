@@ -1,6 +1,6 @@
 # Using OpenAI Models with SYDA
 
-> Source code: [examples/model_selection/test_openai_models.py](https://github.com/syda-ai/syda/blob/main/examples/model_selection/test_openai_models.py)
+> Source code: [examples/model_selection/test_openai_models.py](https://github.com/syda-ai/syda/blob/main/examples/model_selection/example_openai_models.py)
 
 This example demonstrates how to use OpenAI's models with SYDA for synthetic data generation. OpenAI offers several models with different capabilities, token limits, and price points.
 

@@ -1,6 +1,6 @@
 # Using Anthropic Models with SYDA
 
-> Source code: [examples/model_selection/test_claude_models.py](https://github.com/syda-ai/syda/blob/main/examples/model_selection/test_claude_models.py)
+> Source code: [examples/model_selection/test_claude_models.py](https://github.com/syda-ai/syda/blob/main/examples/model_selection/example_openai_models.py)
 
 This example demonstrates how to use Anthropic's Claude models with SYDA for synthetic data generation. Anthropic offers several Claude models with different capabilities, token limits, and price points.
 

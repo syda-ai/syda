@@ -250,7 +250,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../core_api/" class="md-tabs__link">
+        <a href="../structured_data/" class="md-tabs__link">
           
   
   
@@ -508,12 +508,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../core_api/" class="md-nav__link">
+      <a href="../structured_data/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Core API
+    Structured Data
     
   </span>
   
@@ -673,6 +673,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#api-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Keys
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basic-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       Basic Configuration
@@ -721,39 +730,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Model Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#temperature" class="md-nav__link">
-    <span class="md-ellipsis">
-      Temperature
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#maximum-tokens" class="md-nav__link">
-    <span class="md-ellipsis">
-      Maximum Tokens
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#provider-specific-optimizations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Provider-Specific Optimizations
-    </span>
-  </a>
-  
 </li>
       
         <li class="md-nav__item">
@@ -769,6 +745,15 @@
   <a href="#best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
     </span>
   </a>
   
@@ -796,29 +781,6 @@
   
   <span class="md-ellipsis">
     Output Options
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../error_handling/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Error Handling
     
   </span>
   
@@ -1392,6 +1354,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#api-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Keys
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basic-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       Basic Configuration
@@ -1440,39 +1411,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Model Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#temperature" class="md-nav__link">
-    <span class="md-ellipsis">
-      Temperature
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#maximum-tokens" class="md-nav__link">
-    <span class="md-ellipsis">
-      Maximum Tokens
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#provider-specific-optimizations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Provider-Specific Optimizations
-    </span>
-  </a>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1488,6 +1426,15 @@
   <a href="#best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
     </span>
   </a>
   
@@ -1514,50 +1461,59 @@
 
 <h1 id="model-selection-and-configuration">Model Selection and Configuration<a class="headerlink" href="#model-selection-and-configuration" title="Permanent link">&para;</a></h1>
 <p>SYDA supports multiple large language model (LLM) providers, allowing you to choose the model that best fits your needs in terms of capabilities, cost, and performance.</p>
+<h2 id="api-keys">API Keys<a class="headerlink" href="#api-keys" title="Permanent link">&para;</a></h2>
+<p>Before using any LLM provider, you must set the appropriate API keys as environment variables:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># For Anthropic Claude</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>your_anthropic_key
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># For OpenAI</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span>your_openai_key
+</code></pre></div>
+<p>Alternatively, you can create a <code>.env</code> file in your project root:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ANTHROPIC_API_KEY=your_anthropic_key
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>OPENAI_API_KEY=your_openai_key
+</code></pre></div>
+<p>Refer to the <a href="../../quickstart/">Quickstart Guide</a> for more details on environment setup.</p>
 <h2 id="basic-configuration">Basic Configuration<a class="headerlink" href="#basic-configuration" title="Permanent link">&para;</a></h2>
 <p>The <code>ModelConfig</code> class is used to specify which LLM provider and model you want to use:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">syda</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyntheticDataGenerator</span><span class="p">,</span> <span class="n">ModelConfig</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Basic configuration with default parameters</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span>  <span class="c1"># Choose provider: &#39;anthropic&#39; or &#39;openai&#39;</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;claude-3-5-haiku-20241022&quot;</span>  <span class="c1"># Specify model name</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Initialize generator with this configuration</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">generator</span> <span class="o">=</span> <span class="n">SyntheticDataGenerator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">syda</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyntheticDataGenerator</span><span class="p">,</span> <span class="n">ModelConfig</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Basic configuration with default parameters</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span>  <span class="c1"># Choose provider: &#39;anthropic&#39; or &#39;openai&#39;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;claude-3-5-haiku-20241022&quot;</span><span class="p">,</span>  <span class="c1"># Specify model name</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>  <span class="c1"># Control randomness (0.0-1.0)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">8000</span>   <span class="c1"># Maximum number of tokens to generate</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1"># Initialize generator with this configuration</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">generator</span> <span class="o">=</span> <span class="n">SyntheticDataGenerator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="using-different-model-providers">Using Different Model Providers<a class="headerlink" href="#using-different-model-providers" title="Permanent link">&para;</a></h2>
 <p>SYDA currently supports two main LLM providers:</p>
 <h3 id="anthropic-claude-models">Anthropic Claude Models<a class="headerlink" href="#anthropic-claude-models" title="Permanent link">&para;</a></h3>
 <p>Claude is the default model provider for SYDA, offering strong performance for data generation tasks:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Using Anthropic Claude</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;claude-3-5-haiku-20241022&quot;</span><span class="p">,</span>  <span class="c1"># Default model</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  <span class="c1"># Control randomness (0.0-1.0)</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">4000</span>   <span class="c1"># Maximum number of tokens to generate</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Using Anthropic Claude</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;claude-3-5-haiku-20241022&quot;</span><span class="p">,</span>  <span class="c1"># Default model</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  <span class="c1"># Control randomness (0.0-1.0)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">8000</span>   <span class="c1"># Maximum number of tokens to generate</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">)</span>
 </code></pre></div>
-<p>Available Claude models include:
-- <code>claude-3-5-haiku-20241022</code> (default) - Fastest model, good balance of quality and cost
-- <code>claude-3-opus-20240229</code> - Highest quality model, but slower and more expensive
-- <code>claude-3-sonnet-20240229</code> - Mid-tier model with good balance of capabilities
-- <code>claude-3-haiku-20240307</code> - Previous haiku model version</p>
+<p>Available Claude models include:</p>
+<p>For the latest information about available Claude models and their capabilities, refer to <a href="https://docs.anthropic.com/en/docs/about-claude/models/overview">Anthropic's Claude documentation</a>.</p>
 <h3 id="openai-models">OpenAI Models<a class="headerlink" href="#openai-models" title="Permanent link">&para;</a></h3>
 <p>SYDA also supports OpenAI's GPT models:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Using OpenAI GPT</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;openai&quot;</span><span class="p">,</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;gpt-4-turbo&quot;</span><span class="p">,</span>  <span class="c1"># Recommended OpenAI model</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">4000</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Using OpenAI GPT</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;openai&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;gpt-4-turbo&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">4000</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">)</span>
 </code></pre></div>
-<p>Available OpenAI models include:
-- <code>gpt-4-turbo</code> (recommended) - Best balance of quality and cost for OpenAI
-- <code>gpt-4o</code> - Newest model with strong capabilities
-- <code>gpt-3.5-turbo</code> - Faster and cheaper, but less capable</p>
+<p>For the latest information about available OpenAI models and their capabilities, refer to <a href="https://platform.openai.com/docs/models">OpenAI's models documentation</a>.</p>
 <h2 id="model-parameters">Model Parameters<a class="headerlink" href="#model-parameters" title="Permanent link">&para;</a></h2>
 <p>You can fine-tune model behavior with these parameters:</p>
 <table>
@@ -1574,60 +1530,41 @@
 <td><code>temperature</code></td>
 <td>Controls randomness in generation</td>
 <td>0.0-1.0</td>
-<td>0.7</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>max_tokens</code></td>
 <td>Maximum tokens to generate</td>
 <td>Integer</td>
-<td>4000</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>max_completion_tokens</code></td>
+<td>Maximum completion tokens to generate for latest openai models</td>
+<td>Integer</td>
+<td>None</td>
 </tr>
 </tbody>
 </table>
-<h3 id="temperature">Temperature<a class="headerlink" href="#temperature" title="Permanent link">&para;</a></h3>
-<p>The <code>temperature</code> parameter controls randomness in the model's output:</p>
-<ul>
-<li><strong>Lower values (0.1-0.4)</strong>: More deterministic, focused results</li>
-<li><strong>Medium values (0.5-0.7)</strong>: Good balance of creativity and coherence (recommended)</li>
-<li><strong>Higher values (0.8-1.0)</strong>: More creative but potentially less coherent</li>
-</ul>
-<h3 id="maximum-tokens">Maximum Tokens<a class="headerlink" href="#maximum-tokens" title="Permanent link">&para;</a></h3>
-<p>The <code>max_tokens</code> parameter limits the size of the model's response:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># For larger datasets or complex schemas</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;claude-3-5-haiku-20241022&quot;</span><span class="p">,</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">8000</span>  <span class="c1"># Increase token limit for complex data generation</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">)</span>
-</code></pre></div>
-<p>For most use cases, the default of 4000 tokens is sufficient. Increase this for very complex schemas or large batch generation.</p>
-<h2 id="provider-specific-optimizations">Provider-Specific Optimizations<a class="headerlink" href="#provider-specific-optimizations" title="Permanent link">&para;</a></h2>
-<p>SYDA automatically applies provider-specific optimizations based on your configuration:</p>
-<ol>
-<li><strong>Prompt Engineering</strong>: Different prompt structures optimized for each model</li>
-<li><strong>Batch Sizing</strong>: Appropriate batch sizes for each provider</li>
-<li><strong>Error Handling</strong>: Provider-specific error recovery</li>
-<li><strong>Token Management</strong>: Efficient token usage based on model context limits</li>
-</ol>
 <h2 id="advanced-direct-access-to-llm-client">Advanced: Direct Access to LLM Client<a class="headerlink" href="#advanced-direct-access-to-llm-client" title="Permanent link">&para;</a></h2>
 <p>For advanced use cases, you can access the underlying LLM client directly:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">syda</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyntheticDataGenerator</span><span class="p">,</span> <span class="n">ModelConfig</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;claude-3-5-haiku-20241022&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">generator</span> <span class="o">=</span> <span class="n">SyntheticDataGenerator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># Access the underlying client</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">llm_client</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">llm_client</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># Use the client directly (provider-specific)</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">provider</span> <span class="o">==</span> <span class="s2">&quot;anthropic&quot;</span><span class="p">:</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">llm_client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="n">model</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">model_name</span><span class="p">,</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="n">max_tokens</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Generate a list of book titles about AI&quot;</span><span class="p">}]</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="p">)</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">syda</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyntheticDataGenerator</span><span class="p">,</span> <span class="n">ModelConfig</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;claude-3-5-haiku-20241022&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">generator</span> <span class="o">=</span> <span class="n">SyntheticDataGenerator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># Access the underlying client</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">llm_client</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">llm_client</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1"># Use the client directly (provider-specific)</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">provider</span> <span class="o">==</span> <span class="s2">&quot;anthropic&quot;</span><span class="p">:</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">llm_client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        <span class="n">model</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">model_name</span><span class="p">,</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>        <span class="n">max_tokens</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>        <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Generate a list of book titles about AI&quot;</span><span class="p">}]</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    <span class="p">)</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </code></pre></div>
 <p>This gives you direct access to provider-specific features while still using SYDA for schema management.</p>
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
@@ -1637,7 +1574,10 @@
 <li><strong>Consider Cost vs. Quality</strong>: Higher-end models provide better quality but at higher cost</li>
 <li><strong>Test Different Models</strong>: Compare results from different models for your specific use case</li>
 <li><strong>Handle API Rate Limits</strong>: Implement appropriate backoff strategies for large generations</li>
+<li><strong>Select Highest Output Token Model for Higher Sample Sizes</strong>: For larger sample sizes, use models with higher <code>max_tokens</code></li>
 </ol>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Explore  <a href="../../examples/model_selection/anthropic/">Anthropic Claude Example</a> and <a href="../../examples/model_selection/openai/">Openai Gpt Example</a> to see model configuration in action. </p>
 
 
 

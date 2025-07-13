@@ -299,4 +299,4 @@ for schema_name, df in results.items():
 
 You can view sample outputs generated using these YAML schemas here:
 
-> [Example YAML Schema Outputs](https://github.com/syda-ai/syda/tree/main/examples/structured_only/output/test_yaml_schemas/inventory_data)
+> [Example YAML Schema Outputs](https://github.com/syda-ai/syda/tree/main/examples/structured_only/output/example_yaml_schemas/inventory_data)

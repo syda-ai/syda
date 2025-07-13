@@ -1,6 +1,6 @@
 # SQLAlchemy Models
 
-> Source code: [examples/structured_only/example_sqlalchemy_models.py](https://github.com/syda-ai/syda/blob/main/examples/structured_only/test_sqlalchemy_models.py)
+> Source code: [examples/structured_only/example_sqlalchemy_models.py](https://github.com/syda-ai/syda/blob/main/examples/structured_only/example_sqlalchemy_models.py)
 
 This example demonstrates how to use SQLAlchemy models for synthetic data generation with SYDA.
 
@@ -279,4 +279,4 @@ results = generator.generate_for_sqlalchemy_models(
 
 You can view sample outputs generated using these SQLAlchemy models here:
 
-> [Example SQLAlchemy Model Outputs](https://github.com/syda-ai/syda/tree/main/examples/structured_only/output/test_sqlalchemy_models/crm_data)
+> [Example SQLAlchemy Model Outputs](https://github.com/syda-ai/syda/tree/main/examples/structured_only/output/example_sqlalchemy_models/crm_data)

@@ -250,7 +250,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../core_api/" class="md-tabs__link">
+        <a href="../structured_data/" class="md-tabs__link">
           
   
   
@@ -508,12 +508,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../core_api/" class="md-nav__link">
+      <a href="../structured_data/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Core API
+    Structured Data
     
   </span>
   
@@ -702,9 +702,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-automatic-dependency-resolution" class="md-nav__link">
+  <a href="#2-implicit-dependencies-via-foreign-keys" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Automatic Dependency Resolution
+      2. Implicit Dependencies via Foreign Keys
     </span>
   </a>
   
@@ -725,18 +725,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#complete-example-crm-system-with-documents" class="md-nav__link">
+  <a href="#best-practices" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete Example: CRM System with Documents
+      Best Practices
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
+  <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Best Practices
+      Examples
     </span>
   </a>
   
@@ -787,29 +787,6 @@
   
   <span class="md-ellipsis">
     Output Options
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../error_handling/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Error Handling
     
   </span>
   
@@ -1435,9 +1412,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-automatic-dependency-resolution" class="md-nav__link">
+  <a href="#2-implicit-dependencies-via-foreign-keys" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Automatic Dependency Resolution
+      2. Implicit Dependencies via Foreign Keys
     </span>
   </a>
   
@@ -1458,18 +1435,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#complete-example-crm-system-with-documents" class="md-nav__link">
+  <a href="#best-practices" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete Example: CRM System with Documents
+      Best Practices
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
+  <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Best Practices
+      Examples
     </span>
   </a>
   
@@ -1500,239 +1477,200 @@
 <p>SYDA provides multiple methods for linking documents with their corresponding structured data:</p>
 <h3 id="1-using-foreign-keys">1. Using Foreign Keys<a class="headerlink" href="#1-using-foreign-keys" title="Permanent link">&para;</a></h3>
 <p>Documents can reference structured data through foreign key relationships:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Dictionary schema example with foreign keys</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">schemas</span> <span class="o">=</span> <span class="p">{</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="s1">&#39;Customer&#39;</span><span class="p">:</span> <span class="p">{</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;integer&#39;</span><span class="p">,</span> <span class="s1">&#39;primary_key&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">},</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="s1">&#39;industry&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">},</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="p">},</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="s1">&#39;Contract&#39;</span><span class="p">:</span> <span class="p">{</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="s1">&#39;__template__&#39;</span><span class="p">:</span> <span class="s1">&#39;templates/contract.html&#39;</span><span class="p">,</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="s1">&#39;__template_source__&#39;</span><span class="p">:</span> <span class="s1">&#39;file&#39;</span><span class="p">,</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="s1">&#39;__input_file_type__&#39;</span><span class="p">:</span> <span class="s1">&#39;html&#39;</span><span class="p">,</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="s1">&#39;__output_file_type__&#39;</span><span class="p">:</span> <span class="s1">&#39;pdf&#39;</span><span class="p">,</span>
+<p>For example, a receipt document can reference a customer's name and id through a foreign key relationship:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Retail receipt template example</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">__template__</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">__description__</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Retail receipt template</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">__name__</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Receipt</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">__depends_on__</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Product</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Transaction</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Customer</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nt">__foreign_keys__</span><span class="p">:</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">customer_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Customer</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">first_name</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="nt">customer_id</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Customer</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">id</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nt">__template_source__</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/templates/receipt.html</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nt">__input_file_type__</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">html</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nt">__output_file_type__</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pdf</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;integer&#39;</span><span class="p">,</span> <span class="s1">&#39;primary_key&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">},</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="s1">&#39;customer_id&#39;</span><span class="p">:</span> <span class="p">{</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;integer&#39;</span><span class="p">,</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>            <span class="s1">&#39;references&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;Customer&#39;</span><span class="p">,</span> <span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="s1">&#39;id&#39;</span><span class="p">}</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        <span class="p">},</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        <span class="s1">&#39;terms&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">},</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span><span class="p">},</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span><span class="p">},</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    <span class="p">}</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="p">}</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1"># Receipt header</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="nt">store_name</span><span class="p">:</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">  </span><span class="nt">length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the retail store</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="nt">store_address</span><span class="p">:</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">address</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">  </span><span class="nt">length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">150</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Full address of the store</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="c1"># Receipt details</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="nt">receipt_number</span><span class="p">:</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">  </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;^RCP-\d{8}$&#39;</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">  </span><span class="nt">length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Unique receipt identifier</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="nt">transaction_date</span><span class="p">:</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">date</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">  </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YYYY-MM-DD</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Date of the transaction</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="c1"># Customer information</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="nt">customer_name</span><span class="p">:</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">  </span><span class="nt">length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Full name of the customer</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="nt">customer_id</span><span class="p">:</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Customer ID number</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="c1"># Product purchase details</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="nt">items</span><span class="p">:</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;List</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">purchased</span><span class="nv"> </span><span class="s">items</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">product</span><span class="nv"> </span><span class="s">details&quot;</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="c1"># Totals</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="nt">subtotal</span><span class="p">:</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="w">  </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.99</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="w">  </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">999999.99</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="w">  </span><span class="nt">decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sum of all item totals before tax</span>
 </code></pre></div>
 <h3 id="2-using-sqlalchemy-models-with-templates">2. Using SQLAlchemy Models with Templates<a class="headerlink" href="#2-using-sqlalchemy-models-with-templates" title="Permanent link">&para;</a></h3>
 <p>When using SQLAlchemy, you can define document models with template attributes:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Customer</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;customers&#39;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Name of the customer organization&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">industry</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Customer&#39;s primary industry&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">class</span><span class="w"> </span><span class="nc">Contract</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;contracts&#39;</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="c1"># Template processing attributes</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="n">__template__</span> <span class="o">=</span> <span class="s1">&#39;templates/contract_template.html&#39;</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="n">__template_source__</span> <span class="o">=</span> <span class="s1">&#39;file&#39;</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="n">__input_file_type__</span> <span class="o">=</span> <span class="s1">&#39;html&#39;</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="n">__output_file_type__</span> <span class="o">=</span> <span class="s1">&#39;pdf&#39;</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    <span class="n">title</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Contract title&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="n">customer_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;customers.id&#39;</span><span class="p">))</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="n">terms</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Legal terms of the contract&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    <span class="n">start_date</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Date</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Contract start date&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="n">end_date</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Date</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Contract end date&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="c1"># Define the relationship</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    <span class="n">customer</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;Customer&quot;</span><span class="p">)</span>
+<p>For example, a contract document can reference an opportunity's name and id through a foreign key relationship:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ContractDocument</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Contract document for a won opportunity.&quot;&quot;&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="c1"># Special metadata attributes</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;contract_documents&#39;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">__depends_on__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;opportunities&#39;</span><span class="p">]</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="c1"># Template configuration as regular fields (these become columns in the generated data)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">__template__</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">__template_source__</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">templates_dir</span><span class="p">,</span> <span class="s1">&#39;contract.html&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">__input_file_type__</span> <span class="o">=</span> <span class="s1">&#39;html&#39;</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">__output_file_type__</span> <span class="o">=</span> <span class="s1">&#39;pdf&#39;</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Primary key for contract document records&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="n">opportunity_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;opportunities.id&#39;</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                           <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Foreign key reference to the opportunity this contract is for&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="n">effective_date</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Date</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Date when the contract becomes effective&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="n">expiration_date</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Date</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Date when the contract expires&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    <span class="n">contract_number</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Unique identifier/number for the contract&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="n">customer_name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;customers.name&#39;</span><span class="p">),</span> 
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>                          <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Name of the customer organization (linked to customers table)&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    <span class="n">customer_address</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;customers.address&#39;</span><span class="p">),</span> 
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>                             <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Address of the customer organization (linked to customers table)&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="n">service_description</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Detailed description of services to be provided&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="n">payment_terms</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Payment terms including schedule, methods and conditions&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    <span class="n">contract_value</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Float</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;opportunities.value&#39;</span><span class="p">),</span> 
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>                           <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Total monetary value of the contract in USD (linked to opportunities table)&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    <span class="n">renewal_terms</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Terms for contract renewal or extension&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    <span class="n">legal_terms</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;Legal terms and conditions including liabilities, warranties, etc.&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="k">class</span><span class="w"> </span><span class="nc">Contract</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;contracts&#39;</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    <span class="c1"># Template processing attributes</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>    <span class="n">__template__</span> <span class="o">=</span> <span class="s1">&#39;templates/contract_template.html&#39;</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>    <span class="n">__template_source__</span> <span class="o">=</span> <span class="s1">&#39;file&#39;</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>    <span class="n">__input_file_type__</span> <span class="o">=</span> <span class="s1">&#39;html&#39;</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>    <span class="n">__output_file_type__</span> <span class="o">=</span> <span class="s1">&#39;pdf&#39;</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>    <span class="n">title</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Contract title&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>    <span class="n">customer_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;customers.id&#39;</span><span class="p">))</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>    <span class="n">terms</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Legal terms of the contract&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>    <span class="n">start_date</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Date</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Contract start date&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>    <span class="n">end_date</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Date</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Contract end date&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>    <span class="c1"># Define the relationship</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>    <span class="n">customer</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;Customer&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="schema-dependencies-for-documents">Schema Dependencies for Documents<a class="headerlink" href="#schema-dependencies-for-documents" title="Permanent link">&para;</a></h2>
 <p>To ensure that document generation occurs after its referenced data is available, SYDA provides dependency management:</p>
 <h3 id="1-explicit-dependencies">1. Explicit Dependencies<a class="headerlink" href="#1-explicit-dependencies" title="Permanent link">&para;</a></h3>
 <p>You can define explicit dependencies using the <code>__depends_on__</code> attribute:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># In dictionary schemas</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">schemas</span> <span class="o">=</span> <span class="p">{</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="s1">&#39;Customer&#39;</span><span class="p">:</span> <span class="p">{</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;integer&#39;</span><span class="p">,</span> <span class="s1">&#39;primary_key&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">},</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="p">},</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="s1">&#39;Contract&#39;</span><span class="p">:</span> <span class="p">{</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="s1">&#39;__depends_on__&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Customer&#39;</span><span class="p">],</span>  <span class="c1"># Explicit dependency</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="s1">&#39;__template__&#39;</span><span class="p">:</span> <span class="s1">&#39;templates/contract.html&#39;</span><span class="p">,</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;integer&#39;</span><span class="p">,</span> <span class="s1">&#39;primary_key&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="s1">&#39;customer_id&#39;</span><span class="p">:</span> <span class="p">{</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;integer&#39;</span><span class="p">,</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>            <span class="s1">&#39;references&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;Customer&#39;</span><span class="p">,</span> <span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="s1">&#39;id&#39;</span><span class="p">}</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="p">},</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">},</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="p">}</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># In YAML schemas (from retail_yml/schemas/receipt.yml)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">__template__</span><span class="p">:</span> <span class="n">true</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">__description__</span><span class="p">:</span> <span class="n">Retail</span> <span class="n">receipt</span> <span class="n">template</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="vm">__name__</span><span class="p">:</span> <span class="n">Receipt</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">__depends_on__</span><span class="p">:</span> <span class="p">[</span><span class="n">Product</span><span class="p">,</span> <span class="n">Transaction</span><span class="p">,</span> <span class="n">Customer</span><span class="p">]</span>  <span class="c1"># Explicit dependencies</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">__foreign_keys__</span><span class="p">:</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  <span class="n">customer_name</span><span class="p">:</span> <span class="p">[</span><span class="n">Customer</span><span class="p">,</span> <span class="n">first_name</span><span class="p">]</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  <span class="n">customer_id</span><span class="p">:</span> <span class="p">[</span><span class="n">Customer</span><span class="p">,</span> <span class="nb">id</span><span class="p">]</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">__template_source__</span><span class="p">:</span> <span class="o">/</span><span class="n">templates</span><span class="o">/</span><span class="n">receipt</span><span class="o">.</span><span class="n">html</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">__input_file_type__</span><span class="p">:</span> <span class="n">html</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">__output_file_type__</span><span class="p">:</span> <span class="n">pdf</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="c1"># In SQLAlchemy models (from crm_sqlalchemy/models.py)</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="k">class</span><span class="w"> </span><span class="nc">ContractDocument</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Contract document for a won opportunity.&quot;&quot;&quot;</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="c1"># Special metadata attributes</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;contract_documents&#39;</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="n">__depends_on__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;opportunities&#39;</span><span class="p">]</span>  <span class="c1"># Explicit dependency</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    <span class="c1"># Template configuration</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    <span class="n">__template__</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    <span class="n">__template_source__</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">templates_dir</span><span class="p">,</span> <span class="s1">&#39;contract.html&#39;</span><span class="p">)</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>    <span class="n">__input_file_type__</span> <span class="o">=</span> <span class="s1">&#39;html&#39;</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    <span class="n">__output_file_type__</span> <span class="o">=</span> <span class="s1">&#39;pdf&#39;</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>    <span class="n">opportunity_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;opportunities.id&#39;</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>    <span class="n">customer_name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;customers.name&#39;</span><span class="p">))</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>    <span class="n">customer_address</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;customers.address&#39;</span><span class="p">))</span>
 </code></pre></div>
-<h3 id="2-automatic-dependency-resolution">2. Automatic Dependency Resolution<a class="headerlink" href="#2-automatic-dependency-resolution" title="Permanent link">&para;</a></h3>
-<p>SYDA also automatically detects dependencies through foreign key relationships. This means that document schemas with foreign keys to other tables will be generated after those tables are available.</p>
+<h3 id="2-implicit-dependencies-via-foreign-keys">2. Implicit Dependencies via Foreign Keys<a class="headerlink" href="#2-implicit-dependencies-via-foreign-keys" title="Permanent link">&para;</a></h3>
+<p>SYDA automatically detects dependencies through foreign key relationships. This means that document schemas with foreign keys to other tables will be generated after those tables are available.</p>
+<p>For example, in the retail YAML example, SYDA detects that Receipt depends on Customer through the foreign keys:</p>
 <h2 id="template-enrichment-from-related-data">Template Enrichment from Related Data<a class="headerlink" href="#template-enrichment-from-related-data" title="Permanent link">&para;</a></h2>
 <p>Document templates can access fields from related records using custom generators:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">enrich_contract_data</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">row_data</span><span class="p">,</span> <span class="n">dependencies</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">enrich_contract_data</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_dfs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="sd">    Enriches contract data with customer information.</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">dependencies</span> <span class="ow">or</span> <span class="s1">&#39;Customer&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">:</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="k">return</span> <span class="n">row_data</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">customer_id</span> <span class="o">=</span> <span class="n">row_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">)</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="k">if</span> <span class="n">customer_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="k">return</span> <span class="n">row_data</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="c1"># Find the customer record with this ID</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">customer</span> <span class="o">=</span> <span class="kc">None</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="k">for</span> <span class="n">cust</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">[</span><span class="s1">&#39;Customer&#39;</span><span class="p">]:</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="k">if</span> <span class="n">cust</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">customer_id</span><span class="p">:</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>            <span class="n">customer</span> <span class="o">=</span> <span class="n">cust</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>            <span class="k">break</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    <span class="k">if</span> <span class="n">customer</span><span class="p">:</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>        <span class="c1"># Add customer fields to the contract data</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>        <span class="n">row_data</span><span class="p">[</span><span class="s1">&#39;customer_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">customer</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>        <span class="n">row_data</span><span class="p">[</span><span class="s1">&#39;customer_industry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">customer</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;industry&#39;</span><span class="p">,</span> <span class="s1">&#39;Unknown&#39;</span><span class="p">)</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    <span class="k">return</span> <span class="n">row_data</span>
-</code></pre></div>
-<h2 id="complete-example-crm-system-with-documents">Complete Example: CRM System with Documents<a class="headerlink" href="#complete-example-crm-system-with-documents" title="Permanent link">&para;</a></h2>
-<p>Here's a complete example of a CRM system that generates both structured data and documents:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">syda</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyntheticDataGenerator</span><span class="p">,</span> <span class="n">ModelConfig</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">Text</span><span class="p">,</span> <span class="n">Date</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">,</span> <span class="n">Float</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.ext.declarative</span><span class="w"> </span><span class="kn">import</span> <span class="n">declarative_base</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="n">relationship</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1"># Define SQLAlchemy models</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="k">class</span><span class="w"> </span><span class="nc">Customer</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;customers&#39;</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Customer company name&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="n">industry</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Customer&#39;s industry&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="n">address</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Customer&#39;s address&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="k">class</span><span class="w"> </span><span class="nc">Opportunity</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;opportunities&#39;</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>    <span class="n">customer_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;customers.id&#39;</span><span class="p">))</span>
-<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>    <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Name/title of the opportunity&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>    <span class="n">value</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Float</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Potential value of the opportunity&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>    <span class="n">description</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Description of the opportunity&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>    <span class="n">customer</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;Customer&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>
-<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="k">class</span><span class="w"> </span><span class="nc">ProposalDocument</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;proposal_documents&#39;</span>
-<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>
-<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>    <span class="c1"># Template attributes</span>
-<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>    <span class="n">__template__</span> <span class="o">=</span> <span class="s1">&#39;templates/proposal_template.html&#39;</span>
-<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>    <span class="n">__template_source__</span> <span class="o">=</span> <span class="s1">&#39;file&#39;</span>
-<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>    <span class="n">__input_file_type__</span> <span class="o">=</span> <span class="s1">&#39;html&#39;</span>
-<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>    <span class="n">__output_file_type__</span> <span class="o">=</span> <span class="s1">&#39;pdf&#39;</span>
-<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>    <span class="n">__depends_on__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;opportunities&#39;</span><span class="p">]</span>
-<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>
-<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>    <span class="n">opportunity_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;opportunities.id&#39;</span><span class="p">))</span>
-<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>    <span class="n">title</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Title of the proposal&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>    <span class="n">subtitle</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Subtitle or tagline&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>    <span class="n">prepared_by</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Name of the sales representative&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a>    <span class="n">created_date</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Date</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Date the proposal was created&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>    <span class="n">proposed_solutions</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Detailed description of proposed solutions&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a>    <span class="n">implementation_timeline</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Timeline for implementation&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a>    <span class="n">pricing_details</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Pricing breakdown and details&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a>    <span class="n">terms_and_conditions</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Legal terms and conditions&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a>
-<a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a>    <span class="n">opportunity</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;Opportunity&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a>
-<a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a><span class="c1"># Custom generator to enrich proposals with customer and opportunity data</span>
-<a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a><span class="k">def</span><span class="w"> </span><span class="nf">enrich_proposal</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">row_data</span><span class="p">,</span> <span class="n">dependencies</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<a id="__codelineno-4-53" name="__codelineno-4-53" href="#__codelineno-4-53"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Enrich proposal with customer and opportunity data for the template.&quot;&quot;&quot;</span>
-<a id="__codelineno-4-54" name="__codelineno-4-54" href="#__codelineno-4-54"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">dependencies</span> <span class="ow">or</span> <span class="s1">&#39;opportunities&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">:</span>
-<a id="__codelineno-4-55" name="__codelineno-4-55" href="#__codelineno-4-55"></a>        <span class="k">return</span> <span class="n">row_data</span>
-<a id="__codelineno-4-56" name="__codelineno-4-56" href="#__codelineno-4-56"></a>
-<a id="__codelineno-4-57" name="__codelineno-4-57" href="#__codelineno-4-57"></a>    <span class="n">opportunity_id</span> <span class="o">=</span> <span class="n">row_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;opportunity_id&#39;</span><span class="p">)</span>
-<a id="__codelineno-4-58" name="__codelineno-4-58" href="#__codelineno-4-58"></a>    <span class="k">if</span> <span class="n">opportunity_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-4-59" name="__codelineno-4-59" href="#__codelineno-4-59"></a>        <span class="k">return</span> <span class="n">row_data</span>
-<a id="__codelineno-4-60" name="__codelineno-4-60" href="#__codelineno-4-60"></a>
-<a id="__codelineno-4-61" name="__codelineno-4-61" href="#__codelineno-4-61"></a>    <span class="c1"># Find the opportunity</span>
-<a id="__codelineno-4-62" name="__codelineno-4-62" href="#__codelineno-4-62"></a>    <span class="n">opportunity</span> <span class="o">=</span> <span class="kc">None</span>
-<a id="__codelineno-4-63" name="__codelineno-4-63" href="#__codelineno-4-63"></a>    <span class="k">for</span> <span class="n">opp</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">[</span><span class="s1">&#39;opportunities&#39;</span><span class="p">]:</span>
-<a id="__codelineno-4-64" name="__codelineno-4-64" href="#__codelineno-4-64"></a>        <span class="k">if</span> <span class="n">opp</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">opportunity_id</span><span class="p">:</span>
-<a id="__codelineno-4-65" name="__codelineno-4-65" href="#__codelineno-4-65"></a>            <span class="n">opportunity</span> <span class="o">=</span> <span class="n">opp</span>
-<a id="__codelineno-4-66" name="__codelineno-4-66" href="#__codelineno-4-66"></a>            <span class="k">break</span>
-<a id="__codelineno-4-67" name="__codelineno-4-67" href="#__codelineno-4-67"></a>
-<a id="__codelineno-4-68" name="__codelineno-4-68" href="#__codelineno-4-68"></a>    <span class="k">if</span> <span class="n">opportunity</span> <span class="ow">and</span> <span class="s1">&#39;customers&#39;</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">:</span>
-<a id="__codelineno-4-69" name="__codelineno-4-69" href="#__codelineno-4-69"></a>        <span class="c1"># Add opportunity data to proposal</span>
-<a id="__codelineno-4-70" name="__codelineno-4-70" href="#__codelineno-4-70"></a>        <span class="n">row_data</span><span class="p">[</span><span class="s1">&#39;opportunity_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opportunity</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-<a id="__codelineno-4-71" name="__codelineno-4-71" href="#__codelineno-4-71"></a>        <span class="n">row_data</span><span class="p">[</span><span class="s1">&#39;opportunity_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opportunity</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
-<a id="__codelineno-4-72" name="__codelineno-4-72" href="#__codelineno-4-72"></a>        <span class="n">row_data</span><span class="p">[</span><span class="s1">&#39;opportunity_description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opportunity</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
-<a id="__codelineno-4-73" name="__codelineno-4-73" href="#__codelineno-4-73"></a>
-<a id="__codelineno-4-74" name="__codelineno-4-74" href="#__codelineno-4-74"></a>        <span class="c1"># Find and add customer data</span>
-<a id="__codelineno-4-75" name="__codelineno-4-75" href="#__codelineno-4-75"></a>        <span class="n">customer_id</span> <span class="o">=</span> <span class="n">opportunity</span><span class="p">[</span><span class="s1">&#39;customer_id&#39;</span><span class="p">]</span>
-<a id="__codelineno-4-76" name="__codelineno-4-76" href="#__codelineno-4-76"></a>        <span class="k">for</span> <span class="n">cust</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">[</span><span class="s1">&#39;customers&#39;</span><span class="p">]:</span>
-<a id="__codelineno-4-77" name="__codelineno-4-77" href="#__codelineno-4-77"></a>            <span class="k">if</span> <span class="n">cust</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">customer_id</span><span class="p">:</span>
-<a id="__codelineno-4-78" name="__codelineno-4-78" href="#__codelineno-4-78"></a>                <span class="n">row_data</span><span class="p">[</span><span class="s1">&#39;customer_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cust</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-<a id="__codelineno-4-79" name="__codelineno-4-79" href="#__codelineno-4-79"></a>                <span class="n">row_data</span><span class="p">[</span><span class="s1">&#39;customer_address&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cust</span><span class="p">[</span><span class="s1">&#39;address&#39;</span><span class="p">]</span>
-<a id="__codelineno-4-80" name="__codelineno-4-80" href="#__codelineno-4-80"></a>                <span class="k">break</span>
-<a id="__codelineno-4-81" name="__codelineno-4-81" href="#__codelineno-4-81"></a>
-<a id="__codelineno-4-82" name="__codelineno-4-82" href="#__codelineno-4-82"></a>    <span class="k">return</span> <span class="n">row_data</span>
-<a id="__codelineno-4-83" name="__codelineno-4-83" href="#__codelineno-4-83"></a>
-<a id="__codelineno-4-84" name="__codelineno-4-84" href="#__codelineno-4-84"></a><span class="c1"># Generate data</span>
-<a id="__codelineno-4-85" name="__codelineno-4-85" href="#__codelineno-4-85"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-<a id="__codelineno-4-86" name="__codelineno-4-86" href="#__codelineno-4-86"></a>    <span class="n">config</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;claude-3-5-haiku-20241022&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-87" name="__codelineno-4-87" href="#__codelineno-4-87"></a>    <span class="n">generator</span> <span class="o">=</span> <span class="n">SyntheticDataGenerator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
-<a id="__codelineno-4-88" name="__codelineno-4-88" href="#__codelineno-4-88"></a>
-<a id="__codelineno-4-89" name="__codelineno-4-89" href="#__codelineno-4-89"></a>    <span class="n">custom_generators</span> <span class="o">=</span> <span class="p">{</span>
-<a id="__codelineno-4-90" name="__codelineno-4-90" href="#__codelineno-4-90"></a>        <span class="s1">&#39;proposal_documents&#39;</span><span class="p">:</span> <span class="p">{</span>
-<a id="__codelineno-4-91" name="__codelineno-4-91" href="#__codelineno-4-91"></a>            <span class="s1">&#39;*&#39;</span><span class="p">:</span> <span class="n">enrich_proposal</span>  <span class="c1"># Apply to all rows in the table</span>
-<a id="__codelineno-4-92" name="__codelineno-4-92" href="#__codelineno-4-92"></a>        <span class="p">}</span>
-<a id="__codelineno-4-93" name="__codelineno-4-93" href="#__codelineno-4-93"></a>    <span class="p">}</span>
-<a id="__codelineno-4-94" name="__codelineno-4-94" href="#__codelineno-4-94"></a>
-<a id="__codelineno-4-95" name="__codelineno-4-95" href="#__codelineno-4-95"></a>    <span class="c1"># Generate all data with proper dependencies</span>
-<a id="__codelineno-4-96" name="__codelineno-4-96" href="#__codelineno-4-96"></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_for_sqlalchemy_models</span><span class="p">(</span>
-<a id="__codelineno-4-97" name="__codelineno-4-97" href="#__codelineno-4-97"></a>        <span class="n">sqlalchemy_models</span><span class="o">=</span><span class="p">[</span><span class="n">Customer</span><span class="p">,</span> <span class="n">Opportunity</span><span class="p">,</span> <span class="n">ProposalDocument</span><span class="p">],</span>
-<a id="__codelineno-4-98" name="__codelineno-4-98" href="#__codelineno-4-98"></a>        <span class="n">sample_sizes</span><span class="o">=</span><span class="p">{</span>
-<a id="__codelineno-4-99" name="__codelineno-4-99" href="#__codelineno-4-99"></a>            <span class="s2">&quot;customers&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-<a id="__codelineno-4-100" name="__codelineno-4-100" href="#__codelineno-4-100"></a>            <span class="s2">&quot;opportunities&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-<a id="__codelineno-4-101" name="__codelineno-4-101" href="#__codelineno-4-101"></a>            <span class="s2">&quot;proposal_documents&quot;</span><span class="p">:</span> <span class="mi">10</span>
-<a id="__codelineno-4-102" name="__codelineno-4-102" href="#__codelineno-4-102"></a>        <span class="p">},</span>
-<a id="__codelineno-4-103" name="__codelineno-4-103" href="#__codelineno-4-103"></a>        <span class="n">prompts</span><span class="o">=</span><span class="p">{</span>
-<a id="__codelineno-4-104" name="__codelineno-4-104" href="#__codelineno-4-104"></a>            <span class="s2">&quot;customers&quot;</span><span class="p">:</span> <span class="s2">&quot;Generate diverse B2B technology customers&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-105" name="__codelineno-4-105" href="#__codelineno-4-105"></a>            <span class="s2">&quot;opportunities&quot;</span><span class="p">:</span> <span class="s2">&quot;Generate sales opportunities for enterprise software&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-106" name="__codelineno-4-106" href="#__codelineno-4-106"></a>            <span class="s2">&quot;proposal_documents&quot;</span><span class="p">:</span> <span class="s2">&quot;Generate professional sales proposals&quot;</span>
-<a id="__codelineno-4-107" name="__codelineno-4-107" href="#__codelineno-4-107"></a>        <span class="p">},</span>
-<a id="__codelineno-4-108" name="__codelineno-4-108" href="#__codelineno-4-108"></a>        <span class="n">custom_generators</span><span class="o">=</span><span class="n">custom_generators</span><span class="p">,</span>
-<a id="__codelineno-4-109" name="__codelineno-4-109" href="#__codelineno-4-109"></a>        <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;output/crm&quot;</span>
-<a id="__codelineno-4-110" name="__codelineno-4-110" href="#__codelineno-4-110"></a>    <span class="p">)</span>
-<a id="__codelineno-4-111" name="__codelineno-4-111" href="#__codelineno-4-111"></a>
-<a id="__codelineno-4-112" name="__codelineno-4-112" href="#__codelineno-4-112"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generated data:&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-113" name="__codelineno-4-113" href="#__codelineno-4-113"></a>    <span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<a id="__codelineno-4-114" name="__codelineno-4-114" href="#__codelineno-4-114"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2"> records&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-115" name="__codelineno-4-115" href="#__codelineno-4-115"></a>
-<a id="__codelineno-4-116" name="__codelineno-4-116" href="#__codelineno-4-116"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-<a id="__codelineno-4-117" name="__codelineno-4-117" href="#__codelineno-4-117"></a>    <span class="n">main</span><span class="p">()</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="sd">    Args:</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="sd">        row: The current row being processed (as a pandas Series or dict-like object)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="sd">        col_name: The name of the column being generated</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="sd">        parent_dfs: Dictionary of previously generated dataframes (schema name as key)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="k">if</span> <span class="n">parent_dfs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="s1">&#39;Customer&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parent_dfs</span><span class="p">:</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="k">return</span> <span class="n">row</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">customer_id</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">)</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="k">if</span> <span class="n">customer_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="k">return</span> <span class="n">row</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="c1"># Find the customer record with this ID using pandas filtering</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="n">customers_df</span> <span class="o">=</span> <span class="n">parent_dfs</span><span class="p">[</span><span class="s1">&#39;Customer&#39;</span><span class="p">]</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    <span class="n">matching_customers</span> <span class="o">=</span> <span class="n">customers_df</span><span class="p">[</span><span class="n">customers_df</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">customer_id</span><span class="p">]</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matching_customers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>        <span class="c1"># Get the first matching customer</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>        <span class="n">customer</span> <span class="o">=</span> <span class="n">matching_customers</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matching_customers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>        <span class="c1"># Add customer fields to the contract data</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>        <span class="n">row</span><span class="p">[</span><span class="s1">&#39;customer_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">customer</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>        <span class="n">row</span><span class="p">[</span><span class="s1">&#39;customer_industry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">customer</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;industry&#39;</span><span class="p">,</span> <span class="s1">&#39;Unknown&#39;</span><span class="p">)</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>    <span class="k">return</span> <span class="n">row</span>
 </code></pre></div>
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Define Clear Dependencies</strong>: Use <code>__depends_on__</code> to ensure correct generation order</li>
 <li><strong>Enrich Templates with Custom Generators</strong>: Create custom generators that add fields from related tables</li>
 <li><strong>Use Consistent Naming</strong>: Maintain consistent field names between schemas and templates</li>
-<li><strong>Handle Missing Data</strong>: Ensure custom generators gracefully handle missing related records</li>
 <li><strong>Optimize Template Performance</strong>: Keep templates simple and efficient for large datasets</li>
-<li><strong>Test End-to-End</strong>: Always test the complete generation pipeline from database to documents</li>
+<li><strong>Define Foreign Keys Properly</strong>: SYDA supports 2 methods for defining foreign keys:</li>
+<li>Using <code>__foreign_keys__</code> special section in schemas</li>
+<li>Using field-level <code>references</code> properties within type definitions</li>
 </ol>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>To see combined data in action, explore  <a href="../../examples/structured_and_unstructured_mixed/sqlalchemy_models/">SQLAlchemy Example</a> and <a href="../../examples/structured_and_unstructured_mixed/yaml_schemas/">Yaml Example</a> </p>
 
 
 
