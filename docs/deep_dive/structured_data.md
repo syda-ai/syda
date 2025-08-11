@@ -178,6 +178,10 @@ from syda import SyntheticDataGenerator, ModelConfig
 from sqlalchemy import Column, Integer, String, Date, Float, ForeignKey, Text, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 Base = declarative_base()
 

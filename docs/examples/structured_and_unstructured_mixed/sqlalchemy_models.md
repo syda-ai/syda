@@ -175,8 +175,12 @@ Here's how to use SQLAlchemy models to generate both structured data and documen
 ```python
 from syda.generate import SyntheticDataGenerator
 from syda.schemas import ModelConfig
+from dotenv import load_dotenv
 import os
 import models  # Import SQLAlchemy model definitions
+
+# Load environment variables from .env file
+load_dotenv()
 
 def main():
     """Main entry point for the example."""
