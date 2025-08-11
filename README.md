@@ -103,6 +103,15 @@ pip install syda
 
 ## Quick Start
 
+
+create .env file based on you model provider
+
+
+```env
+OPENAI_API_KEY=your_openai_key_here
+ANTHROPIC_API_KEY=your_anthropic_key_here
+```
+
 ```python
 from syda.structured import SyntheticDataGenerator
 from syda.schemas import ModelConfig

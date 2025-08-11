@@ -17,6 +17,10 @@ import os
 import pandas as pd
 from syda.generate import SyntheticDataGenerator
 from syda.schemas import ModelConfig
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Define output directory - simplified paths since we're in the retail folder
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")

@@ -24,7 +24,10 @@ from syda.schemas import ModelConfig
 
 # Import CRM data models
 import models
+from dotenv import load_dotenv
 
+# Load environment variables
+load_dotenv()
 
 def main():
     """Main entry point for the example."""
