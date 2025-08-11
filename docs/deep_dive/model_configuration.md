@@ -29,6 +29,10 @@ The `ModelConfig` class is used to specify which LLM provider and model you want
 
 ```python
 from syda import SyntheticDataGenerator, ModelConfig
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Basic configuration with default parameters
 config = ModelConfig(

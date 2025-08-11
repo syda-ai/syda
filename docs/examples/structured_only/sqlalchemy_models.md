@@ -157,11 +157,15 @@ Here's how to use SQLAlchemy models with the SyntheticDataGenerator:
 ```python
 from syda.generate import SyntheticDataGenerator
 from syda.schemas import ModelConfig
+from dotenv import load_dotenv
 import os
 import random
 import datetime
 from sqlalchemy import Column, Integer, String, ForeignKey, Float, Date, Boolean, Text
 from sqlalchemy.orm import declarative_base, relationship
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Create a Base for our models
 Base = declarative_base()

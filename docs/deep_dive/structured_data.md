@@ -6,6 +6,10 @@ The central class in SYDA is `SyntheticDataGenerator`, which provides methods fo
 
 ```python
 from syda import SyntheticDataGenerator, ModelConfig
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Configure the model
 config = ModelConfig(
@@ -29,6 +33,10 @@ You can load schemas from YAML or JSON files, which is useful for storing schema
 
 ```python
 from syda import SyntheticDataGenerator, ModelConfig
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Create a generator instance
 model_config = ModelConfig(
