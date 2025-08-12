@@ -10,7 +10,7 @@ First off, thanks for taking the time to help make **syda – the Synthetic Data
 > 4. **Sign every commit**: `git commit -s` *(DCO compliance)*.
 > 5. **Submit a PR** that passes CI with a clear, single‑sentence title.
 >
-> That’s it!  Read on for the details.
+> That's it!  Read on for the details.
 
 ---
 
@@ -38,7 +38,7 @@ $ cd syda
 
 # 2. Install dev dependencies
 $ python -m venv .venv && source .venv/bin/activate
-$ pip install -r requirements-dev.txt
+$ pip install -e ".[dev]"
 
 # 3. Install pre‑commit hooks
 $ pre-commit install
@@ -50,7 +50,7 @@ All commands below assume you are in the virtual environment.
 
 ## Developer Certificate of Origin (DCO)
 
-We use a **DCO** instead of a CLA.  Each commit must be “signed off” to certify origin:
+We use a **DCO** instead of a CLA.  Each commit must be "signed off" to certify origin:
 
 ```bash
 $ git commit -s -m "feat: add SQLAlchemy FK support"
@@ -62,14 +62,14 @@ The `-s` flag automatically adds the required `Signed-off-by:` trailer using you
 
 ## Project Setup
 
-| Task                             | Command             |
-| -------------------------------- | ------------------- |
-| Install library in editable mode | `pip install -e .`  |
-| Run unit tests                   | `pytest`            |
-| Run full test + lint suite       | `nox -s lint tests` |
-| Build docs locally               | `mkdocs serve`      |
-| Format code                      | `black .`           |
-| Static analysis                  | `ruff check .`      |
+| Task                             | Command                 |
+| -------------------------------- | ----------------------- |
+| Install library in editable mode | `pip install -e ".[dev]`      |
+| Run unit tests                   | `pytest`                |
+| Run tests with coverage          | `pytest --cov=syda`     |
+| Build docs locally               | `mkdocs serve`          |
+| Format code                      | `isort . && autopep8 .` |
+| Static analysis                  | `flake8 . && mypy .`    |
 
 > **Tip:** all of the above are run automatically in CI; passing locally saves time.
 
@@ -77,9 +77,7 @@ The `-s` flag automatically adds the required `Signed-off-by:` trailer using you
 
 ## Coding & Style Guide
 
-* **Python ≥ 3.10**.
-* **Black** for formatting (88‑char lines).
-* **Ruff** for linting (pre‑commit enforced).
+* **Python ≥ 3.8**.
 * Type annotations encouraged; `mypy` runs in CI.
 * Public APIs must include docstrings in Google style.
 * Avoid breaking API changes; if inevitable, update `CHANGELOG.md` and docs.
@@ -88,11 +86,11 @@ The `-s` flag automatically adds the required `Signed-off-by:` trailer using you
 
 ## Testing
 
-We strive for **>90 % coverage**.  Please:
+We strive for **>70 % coverage**.  Please:
 
 1. Add or update **pytest** unit tests for every new feature or bugfix.
 2. Use factories/fakes—never real credentials or customer data.
-3. Run `pytest --cov` before pushing.
+3. Run `pytest --cov=syda` before pushing.
 
 ---
 
@@ -100,9 +98,9 @@ We strive for **>90 % coverage**.  Please:
 
 * [ ] PR title follows *Conventional Commits* (`feat: …`, `fix: …`, `docs: …`).
 * [ ] All commits are signed (`git commit -s`).
-* [ ] Branch is up‑to‑date with `syda-ai/main`.
+* [ ] Branch is up‑to‑date with `main`.
 * [ ] `pre‑commit run --all-files` passes.
-* [ ] `pytest` and `nox` suites pass.
+* [ ] `pytest` and coverage tests pass.
 * [ ] Added/updated docstrings and MkDocs pages.
 * [ ] If the PR changes the public API, updated `CHANGELOG.md`.
 * [ ] Linked the related Issue (e.g., `Fixes #42`).
@@ -130,7 +128,7 @@ We follow **Conventional Commits** to automate changelogs and semantic versionin
 <type>[optional scope]: <description>
 
 [optional body]
-[optional footer(s)]
+[optional footer(
 ```
 
 Common `type` values: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`.
