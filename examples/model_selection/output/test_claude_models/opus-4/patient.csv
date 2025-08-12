@@ -1,101 +1,101 @@
 patient_id,diagnosis_code,email,visit_date,notes
-1001,J06.9,sarah.johnson@email.com,2024-01-15,"Patient presents with acute upper respiratory infection. Symptoms include nasal congestion, mild cough, and sore throat for 3 days. No fever. Advised rest and fluids."
-1002,K21.9,michael.chen@email.com,2024-01-16,"Chronic GERD symptoms. Patient reports heartburn after meals, especially spicy foods. Prescribed omeprazole 20mg daily. Follow-up in 4 weeks."
-1003,E11.9,emma.williams@email.com,2024-01-17,Type 2 diabetes mellitus follow-up. HbA1c 7.2%. Blood glucose logs show good control. Continue metformin 1000mg twice daily. Diet counseling provided.
-1004,I10,robert.davis@email.com,2024-01-18,Essential hypertension. BP 145/92. Started on lisinopril 10mg daily. Lifestyle modifications discussed including low sodium diet and exercise.
-1005,M79.3,lisa.martinez@email.com,2024-01-19,Fibromyalgia follow-up. Patient reports widespread pain and fatigue. Sleep quality poor. Started on duloxetine 30mg. Referred to pain management.
-1006,F41.1,james.wilson@email.com,2024-01-22,"Generalized anxiety disorder. Patient experiencing excessive worry, difficulty concentrating. Started sertraline 50mg daily. Therapy referral provided."
-1007,J45.909,patricia.brown@email.com,2024-01-23,Asthma exacerbation. Increased wheezing and shortness of breath. Peak flow 70% of baseline. Prescribed prednisone taper and albuterol inhaler.
-1008,N39.0,david.garcia@email.com,2024-01-24,Urinary tract infection. Dysuria and frequency for 2 days. Urinalysis positive for nitrites. Started on ciprofloxacin 500mg twice daily for 7 days.
-1009,G43.909,jennifer.miller@email.com,2024-01-25,Migraine without aura. Severe unilateral headache with photophobia. Prescribed sumatriptan for acute episodes. Preventive therapy discussed.
-1010,M25.561,christopher.lee@email.com,2024-01-26,"Right knee pain, chronic. X-ray shows mild osteoarthritis. Started on ibuprofen 600mg three times daily. Physical therapy referral."
-1011,E78.5,amanda.taylor@email.com,2024-01-29,"Hyperlipidemia. Total cholesterol 245, LDL 165. Started atorvastatin 20mg daily. Diet modification counseling provided."
-1012,L30.9,matthew.anderson@email.com,2024-01-30,Atopic dermatitis flare. Eczematous patches on arms and legs. Prescribed triamcinolone cream and moisturizer regimen.
-1013,R05,elizabeth.thomas@email.com,2024-01-31,Persistent cough for 2 weeks. No fever or chest pain. Chest X-ray clear. Likely post-viral. Prescribed tessalon perles for symptom relief.
-1014,B34.9,daniel.jackson@email.com,2024-02-01,"Viral infection, unspecified. Low-grade fever, body aches, fatigue for 3 days. Supportive care advised. Return if symptoms worsen."
-1015,K58.9,sophia.white@email.com,2024-02-02,Irritable bowel syndrome. Alternating constipation and diarrhea. Started on dicyclomine 10mg. FODMAP diet information provided.
-1016,H10.9,joseph.harris@email.com,2024-02-05,"Conjunctivitis, bilateral. Red, itchy eyes with discharge. Prescribed erythromycin ophthalmic ointment. Good hand hygiene emphasized."
-1017,F32.9,olivia.martin@email.com,2024-02-06,"Major depressive disorder, single episode. PHQ-9 score 18. Started on escitalopram 10mg daily. Psychotherapy referral provided."
-1018,M54.5,william.thompson@email.com,2024-02-07,"Low back pain, chronic. Pain radiating to left leg. MRI shows L4-L5 disc bulge. Physical therapy and NSAIDs recommended."
-1019,E03.9,isabella.robinson@email.com,2024-02-08,Hypothyroidism. TSH 8.5. Started levothyroxine 50mcg daily. Recheck thyroid function in 6 weeks.
-1020,J20.9,alexander.clark@email.com,2024-02-09,Acute bronchitis. Productive cough with yellow sputum. Chest clear on exam. Prescribed azithromycin and guaifenesin.
-1021,R51.9,mia.rodriguez@email.com,2024-02-12,Tension headache. Bilateral pressure-like pain. Associated with stress at work. Advised stress management techniques and acetaminophen PRN.
-1022,N18.3,ethan.lewis@email.com,2024-02-13,Chronic kidney disease stage 3. GFR 45. Blood pressure controlled. Continue ACE inhibitor. Nephrology follow-up scheduled.
-1023,G47.33,charlotte.walker@email.com,2024-02-14,Obstructive sleep apnea. AHI 28 on sleep study. CPAP therapy initiated. Follow-up in 1 month to assess compliance.
-1024,D64.9,benjamin.hall@email.com,2024-02-15,"Iron deficiency anemia. Hgb 9.8, ferritin 12. Started ferrous sulfate 325mg twice daily. GI workup ordered."
-1025,R06.02,amelia.allen@email.com,2024-02-16,Shortness of breath on exertion. Started 2 weeks ago. EKG normal. Chest X-ray ordered. Pulmonary function tests scheduled.
-1026,K92.1,jacob.young@email.com,2024-02-19,Melena. Black tarry stools for 3 days. Hemoglobin dropped to 10.2. Urgent GI referral for endoscopy. PPI started.
-1027,M19.90,emily.hernandez@email.com,2024-02-20,"Osteoarthritis, multiple joints. Pain in knees and hands. X-rays show degenerative changes. Started on celecoxib 200mg daily."
-1028,E66.9,mason.king@email.com,2024-02-21,Obesity. BMI 35.2. Discussed weight loss strategies including diet and exercise. Referral to nutritionist. Consider bariatric evaluation.
-1029,J32.9,harper.wright@email.com,2024-02-22,Chronic sinusitis. Facial pressure and postnasal drip for 3 months. CT sinuses shows mucosal thickening. Started nasal steroid spray.
-1030,L20.9,lucas.lopez@email.com,2024-02-23,"Atopic dermatitis. Dry, itchy patches on flexural areas. Prescribed tacrolimus ointment and daily moisturizers."
-1031,R73.09,evelyn.hill@email.com,2024-02-26,Prediabetes. Fasting glucose 118. HbA1c 6.2%. Lifestyle modifications discussed. Metformin considered if no improvement.
-1032,B02.9,logan.scott@email.com,2024-02-27,Herpes zoster. Vesicular rash in T4 dermatome. Started valacyclovir 1g three times daily for 7 days. Pain management with gabapentin.
-1033,F43.10,avery.green@email.com,2024-02-28,Post-traumatic stress disorder. Nightmares and hypervigilance after car accident. Started prazosin for nightmares. Trauma therapy referral.
-1034,K29.70,jackson.adams@email.com,2024-02-29,Gastritis. Epigastric pain and nausea. H. pylori test pending. Started PPI and avoided NSAIDs. Follow-up in 2 weeks.
-1035,I83.90,scarlett.baker@email.com,2024-03-01,"Varicose veins, bilateral legs. Aching and swelling worse with standing. Compression stockings prescribed. Vascular surgery referral."
-1036,R42,henry.gonzalez@email.com,2024-03-04,Vertigo. Room spinning sensation with head movements. Dix-Hallpike positive. BPPV diagnosed. Epley maneuver performed.
-1037,N92.0,luna.nelson@email.com,2024-03-05,Menorrhagia. Heavy menstrual bleeding for 6 months. Hgb 10.5. Pelvic ultrasound ordered. Started tranexamic acid.
-1038,E10.9,sebastian.carter@email.com,2024-03-06,Type 1 diabetes mellitus. Glucose logs show variability. Adjusted insulin-to-carb ratios. Continuous glucose monitor recommended.
-1039,J30.1,grace.mitchell@email.com,2024-03-07,"Seasonal allergic rhinitis. Sneezing, itchy eyes during spring. Started cetirizine 10mg daily and fluticasone nasal spray."
-1040,M79.1,owen.perez@email.com,2024-03-08,Myalgia. Diffuse muscle pain after starting statin. CPK normal. Switched from atorvastatin to rosuvastatin.
-1041,R10.9,chloe.roberts@email.com,2024-03-11,"Abdominal pain, unspecified. Periumbilical pain for 1 week. Exam benign. CBC and metabolic panel ordered. Follow-up if worsens."
-1042,H66.90,noah.turner@email.com,2024-03-12,Otitis media. Right ear pain and decreased hearing. TM erythematous and bulging. Prescribed amoxicillin 875mg twice daily.
-1043,K80.20,zoe.phillips@email.com,2024-03-13,Cholelithiasis without obstruction. RUQ pain after fatty meals. Ultrasound shows gallstones. Surgical referral for elective cholecystectomy.
-1044,G40.909,liam.campbell@email.com,2024-03-14,Epilepsy. Breakthrough seizure on levetiracetam. Dose increased to 1000mg twice daily. Driving restrictions discussed.
-1045,L40.9,layla.parker@email.com,2024-03-15,Psoriasis. Plaque lesions on elbows and scalp. Started calcipotriene cream and coal tar shampoo. Consider systemic therapy if no improvement.
-1046,R21,elijah.evans@email.com,2024-03-18,"Generalized rash. Maculopapular eruption after starting new antibiotic. Drug reaction suspected. Antibiotic discontinued, antihistamine given."
-1047,F90.9,riley.edwards@email.com,2024-03-19,ADHD. Difficulty focusing at school. Vanderbilt scores elevated. Started methylphenidate 10mg daily. Follow-up in 1 month.
-1048,M62.81,nora.collins@email.com,2024-03-20,Muscle weakness. Progressive weakness over 2 months. CK elevated at 450. EMG scheduled. Neurology referral placed.
-1049,R63.4,aaron.stewart@email.com,2024-03-21,Unintentional weight loss. Lost 15 pounds in 3 months. Comprehensive metabolic workup ordered including thyroid studies and CT scan.
-1050,N40.0,hannah.sanchez@email.com,2024-03-22,Benign prostatic hyperplasia. Nocturia and weak stream. PSA 3.2. Started tamsulosin 0.4mg daily. Urology follow-up arranged.
-1051,J44.1,carter.morris@email.com,2024-03-25,COPD exacerbation. Increased dyspnea and sputum production. Started prednisone 40mg daily x5 days and antibiotic. Nebulizer treatments.
-1052,R07.9,ella.rogers@email.com,2024-03-26,"Chest pain, unspecified. Sharp pain with deep breathing. EKG and troponin negative. Likely musculoskeletal. NSAIDs prescribed."
-1053,E05.90,matthew.reed@email.com,2024-03-27,"Hyperthyroidism. Weight loss, tremor, palpitations. TSH <0.01, Free T4 elevated. Started methimazole. Endocrinology referral."
-1054,K59.00,madison.cook@email.com,2024-03-28,Constipation. No BM for 5 days. Abdominal distension. Started polyethylene glycol daily. Increased fiber and fluid intake advised.
-1055,I25.10,ryan.morgan@email.com,2024-03-29,Coronary artery disease. Stable angina with exertion. Stress test positive. Started beta blocker and statin. Cardiology referral.
-1056,L03.90,aubrey.bell@email.com,2024-04-01,"Cellulitis, left leg. Erythema, warmth, and tenderness. Started cephalexin 500mg four times daily. Elevation and follow-up in 48 hours."
-1057,M06.9,dylan.murphy@email.com,2024-04-02,Rheumatoid arthritis. Morning stiffness in hands. RF positive. Started methotrexate 15mg weekly. Folic acid supplementation.
-1058,R50.9,zoey.rivera@email.com,2024-04-03,Fever of unknown origin. Temp 101.5F for 1 week. Extensive workup initiated including blood cultures and imaging.
-1059,G20,nathan.cooper@email.com,2024-04-04,Parkinson's disease. Tremor and bradykinesia noted. Started carbidopa-levodopa. Neurology follow-up for optimization.
-1060,D50.9,hazel.richardson@email.com,2024-04-05,"Iron deficiency anemia. Hgb 8.9, MCV 72. Heavy menses identified as cause. Iron supplementation started. Gynecology referral."
-1061,J18.9,luke.cox@email.com,2024-04-08,"Community-acquired pneumonia. Fever, productive cough, right lower lobe infiltrate. Started azithromycin and ceftriaxone."
-1062,F41.9,violet.howard@email.com,2024-04-09,Anxiety disorder. Panic attacks 2-3 times weekly. Started buspirone 10mg twice daily. CBT referral provided.
-1063,K52.9,gabriel.ward@email.com,2024-04-10,Gastroenteritis. Diarrhea and vomiting for 2 days. Mild dehydration. Oral rehydration advised. BRAT diet. Return if worsens.
-1064,M16.9,aurora.torres@email.com,2024-04-11,Hip osteoarthritis. Groin pain with weight bearing. X-ray shows joint space narrowing. Physical therapy and consider injection.
-1065,R26.89,hunter.peterson@email.com,2024-04-12,Gait abnormality. Unsteady gait for 1 month. Neurological exam shows mild ataxia. MRI brain ordered. B12 level checked.
-1066,J34.2,savannah.gray@email.com,2024-04-15,Deviated nasal septum. Chronic nasal obstruction. CT confirms deviation. ENT referral for surgical evaluation.
-1067,E87.6,christian.ramirez@email.com,2024-04-16,Hypokalemia. K+ 3.1. Muscle cramps and weakness. Started potassium supplementation. Investigating cause.
-1068,L50.9,penelope.james@email.com,2024-04-17,Urticaria. Widespread hives after eating shellfish. Given epinephrine auto-injector. Allergy testing scheduled.
-1069,R11.10,julian.watson@email.com,2024-04-18,Nausea and vomiting. Symptoms for 3 days. No fever. Pregnancy test negative. Ondansetron prescribed. Labs pending.
-1070,K76.0,natalie.brooks@email.com,2024-04-19,Fatty liver disease. Incidental finding on ultrasound. ALT mildly elevated. Weight loss and alcohol cessation advised.
-1071,H81.10,isaac.kelly@email.com,2024-04-22,Benign paroxysmal positional vertigo. Positive Hallpike test. Canalith repositioning performed. Meclizine PRN.
-1072,N95.1,samantha.sanders@email.com,2024-04-23,Menopausal symptoms. Hot flashes and night sweats. Discussed HRT risks/benefits. Started black cohosh supplement.
-1073,R60.0,jonathan.price@email.com,2024-04-24,Peripheral edema. Bilateral ankle swelling. Echo shows normal EF. Started furosemide 20mg daily. Low sodium diet.
-1074,M47.816,maya.bennett@email.com,2024-04-25,Cervical spondylosis. Neck pain with radiculopathy. MRI shows C5-C6 stenosis. Physical therapy and gabapentin started.
-1075,K30,landon.wood@email.com,2024-04-26,Functional dyspepsia. Postprandial fullness and bloating. H. pylori negative. Started famotidine. Small frequent meals advised.
-1076,J01.90,kennedy.barnes@email.com,2024-04-29,"Acute sinusitis. Facial pressure, purulent discharge. Started amoxicillin-clavulanate. Saline irrigation recommended."
-1077,F51.01,jose.ross@email.com,2024-04-30,Primary insomnia. Difficulty initiating sleep. Sleep hygiene discussed. Started trazodone 50mg at bedtime.
-1078,L70.0,caroline.henderson@email.com,2024-05-01,Acne vulgaris. Moderate inflammatory acne on face. Started tretinoin cream and doxycycline 100mg daily.
-1079,R13.10,robert.coleman@email.com,2024-05-02,Dysphagia. Difficulty swallowing solids. Weight loss noted. Barium swallow ordered. GI referral for EGD.
-1080,E11.65,skylar.jenkins@email.com,2024-05-03,Type 2 diabetes with hyperglycemia. A1c 9.8%. Added insulin glargine 10 units at bedtime. Diabetes education reinforced.
-1081,M51.36,kevin.perry@email.com,2024-05-06,Lumbar disc herniation. L5-S1 herniation with sciatica. Epidural steroid injection scheduled. Continue physical therapy.
-1082,R00.2,nova.powell@email.com,2024-05-07,Palpitations. Episodes of rapid heartbeat. Holter monitor ordered. Thyroid function normal. Avoid caffeine.
-1083,K25.9,brandon.long@email.com,2024-05-08,Gastric ulcer. Epigastric pain relieved by food. H. pylori positive. Triple therapy started. Follow-up in 2 weeks.
-1084,N30.00,madeline.patterson@email.com,2024-05-09,Acute cystitis. Dysuria and frequency. UA shows pyuria. Started nitrofurantoin 100mg twice daily for 5 days.
-1085,G44.209,tristan.hughes@email.com,2024-05-10,Tension-type headache. Bilateral pressure sensation. Stress-related. Relaxation techniques taught. Ibuprofen PRN.
-1086,R06.00,delilah.flores@email.com,2024-05-13,Dyspnea. Shortness of breath with exertion. BNP elevated. Echo shows reduced EF 40%. Started ACE inhibitor and beta blocker.
-1087,M10.9,ian.washington@email.com,2024-05-14,Gout. Acute attack in right big toe. Uric acid 9.2. Started indomethacin. Allopurinol to start after acute phase.
-1088,K57.30,josephine.butler@email.com,2024-05-15,Diverticulosis. Incidental finding on colonoscopy. No complications. High fiber diet recommended. Follow-up colonoscopy in 5 years.
-1089,L23.9,adam.simmons@email.com,2024-05-16,Contact dermatitis. Rash on hands after using new detergent. Prescribed topical corticosteroid. Avoid irritant.
-1090,R53.83,sienna.foster@email.com,2024-05-17,"Chronic fatigue. Persistent tiredness for 6 months. CBC, thyroid normal. Sleep study ordered. Consider chronic fatigue syndrome."
-1091,E78.2,jason.gonzales@email.com,2024-05-20,"Mixed hyperlipidemia. Total cholesterol 280, triglycerides 350. Started fenofibrate and statin. Dietary counseling."
-1092,H04.123,eva.bryant@email.com,2024-05-21,"Dry eye syndrome, bilateral. Burning and foreign body sensation. Started artificial tears. Omega-3 supplements recommended."
-1093,F33.1,tyler.alexander@email.com,2024-05-22,"Major depressive disorder, recurrent. PHQ-9 score 22. Increased sertraline to 150mg. Weekly therapy sessions."
-1094,R31.9,naomi.russell@email.com,2024-05-23,Hematuria. Microscopic blood in urine. No pain. CT urogram ordered. Urology referral for cystoscopy.
-1095,M75.30,jordan.griffin@email.com,2024-05-24,Rotator cuff tendinitis. Shoulder pain with overhead activities. MRI confirms tendinopathy. Physical therapy started.
-1096,K86.1,brielle.diaz@email.com,2024-05-27,Chronic pancreatitis. Recurrent abdominal pain. Lipase mildly elevated. Pancreatic enzymes prescribed. Avoid alcohol.
-1097,R25.1,justin.hayes@email.com,2024-05-28,Essential tremor. Bilateral hand tremor worse with action. Started propranolol 40mg twice daily. Improved with medication.
-1098,J84.10,rachel.myers@email.com,2024-05-29,Pulmonary fibrosis. Progressive dyspnea and dry cough. HRCT shows fibrotic changes. Pulmonology referral urgent.
-1099,D69.6,timothy.ford@email.com,2024-05-30,"Thrombocytopenia. Platelet count 85,000. Petechiae noted. Hematology consult. Hold aspirin. Repeat labs in 1 week."
-1100,N28.9,andrea.hamilton@email.com,2024-05-31,"Chronic kidney disease. GFR 55, stable. Blood pressure controlled. Continue current medications. Nephrology follow-up in 3 months."
+1001,J45.909,sarah.johnson@email.com,2024-01-15,Patient presents with moderate persistent asthma. Wheezing noted on auscultation. Prescribed albuterol inhaler and advised on trigger avoidance.
+1002,E11.9,michael.chen@email.com,2024-01-16,Type 2 diabetes mellitus follow-up. HbA1c 7.2%. Continue metformin 1000mg bid. Discussed dietary modifications and exercise plan.
+1003,I10,emma.williams@email.com,2024-01-17,Essential hypertension. BP 145/92. Started on lisinopril 10mg daily. Lifestyle counseling provided. Follow-up in 4 weeks.
+1004,K21.0,james.brown@email.com,2024-01-18,GERD with esophagitis. Heartburn and regurgitation for 3 months. Started omeprazole 20mg daily. Avoid spicy foods and late meals.
+1005,M79.3,olivia.davis@email.com,2024-01-19,Fibromyalgia. Widespread pain and fatigue. Started gabapentin 300mg tid. Referred to rheumatology and physical therapy.
+1006,F32.1,william.miller@email.com,2024-01-22,"Major depressive disorder, moderate. PHQ-9 score 15. Started sertraline 50mg daily. Referred for cognitive behavioral therapy."
+1007,J20.9,sophia.wilson@email.com,2024-01-23,Acute bronchitis. Productive cough for 5 days. Chest clear on exam. Symptomatic treatment with guaifenesin. Rest and fluids advised.
+1008,N39.0,alexander.moore@email.com,2024-01-24,Urinary tract infection. Dysuria and frequency. Urinalysis positive for bacteria. Prescribed nitrofurantoin 100mg bid x 5 days.
+1009,G43.909,isabella.taylor@email.com,2024-01-25,Migraine without aura. Severe unilateral headache with photophobia. Prescribed sumatriptan for acute episodes. Preventive therapy discussed.
+1010,L40.9,mason.anderson@email.com,2024-01-26,Plaque psoriasis affecting elbows and knees. Started topical betamethasone. Moisturizers recommended. Consider systemic therapy if no improvement.
+1011,E78.5,charlotte.thomas@email.com,2024-01-29,"Hyperlipidemia. Total cholesterol 285, LDL 180. Started atorvastatin 20mg daily. Dietary counseling provided. Recheck lipids in 6 weeks."
+1012,B07.9,ethan.jackson@email.com,2024-01-30,Multiple plantar warts. Cryotherapy performed. Salicylic acid treatment prescribed. Follow-up in 2 weeks for reassessment.
+1013,H10.9,amelia.white@email.com,2024-01-31,Viral conjunctivitis. Bilateral red eyes with discharge. Artificial tears and cold compresses recommended. Hygiene measures discussed.
+1014,M25.561,jacob.harris@email.com,2024-02-01,"Right knee pain, likely osteoarthritis. X-ray shows mild joint space narrowing. NSAIDs prescribed. Physical therapy referral placed."
+1015,R50.9,mia.martin@email.com,2024-02-02,Fever of unknown origin. Temperature 38.5°C for 3 days. CBC and blood cultures ordered. Acetaminophen for symptomatic relief.
+1016,J30.1,benjamin.thompson@email.com,2024-02-05,Seasonal allergic rhinitis. Sneezing and nasal congestion. Started cetirizine 10mg daily. Nasal saline rinses recommended.
+1017,K58.9,harper.garcia@email.com,2024-02-06,Irritable bowel syndrome. Alternating constipation and diarrhea. Dietary modifications discussed. Started dicyclomine for cramping.
+1018,D50.9,daniel.martinez@email.com,2024-02-07,"Iron deficiency anemia. Hgb 9.2, ferritin 8. Started ferrous sulfate 325mg daily. GI workup ordered to rule out bleeding source."
+1019,F41.1,abigail.rodriguez@email.com,2024-02-08,Generalized anxiety disorder. GAD-7 score 14. Started escitalopram 10mg daily. Relaxation techniques and therapy referral provided.
+1020,M54.5,matthew.lopez@email.com,2024-02-09,"Low back pain, mechanical. No red flags. NSAIDs and muscle relaxants prescribed. Core strengthening exercises recommended."
+1021,E03.9,emily.gonzalez@email.com,2024-02-12,"Hypothyroidism. TSH 8.5, Free T4 low. Started levothyroxine 50mcg daily. Recheck thyroid function in 6 weeks."
+1022,R06.02,david.hernandez@email.com,2024-02-13,Shortness of breath on exertion. Chest X-ray clear. EKG normal. Pulmonary function tests ordered. Consider cardiac workup.
+1023,N18.3,elizabeth.smith@email.com,2024-02-14,Chronic kidney disease stage 3. GFR 45. Blood pressure control emphasized. ACE inhibitor dose adjusted. Nephrology referral placed.
+1024,G47.33,christopher.jones@email.com,2024-02-15,Obstructive sleep apnea. Excessive daytime sleepiness. Sleep study confirms moderate OSA. CPAP therapy initiated.
+1025,J44.1,victoria.brown@email.com,2024-02-16,COPD with acute exacerbation. Increased dyspnea and sputum. Started prednisone taper and antibiotics. Inhaler technique reviewed.
+1026,K92.1,andrew.davis@email.com,2024-02-19,Melena. Black tarry stools for 2 days. Hemoglobin dropped to 10.2. Urgent GI referral for endoscopy. PPI started.
+1027,M81.0,natalie.miller@email.com,2024-02-20,Osteoporosis. DEXA scan T-score -2.8. Started alendronate 70mg weekly. Calcium and vitamin D supplementation advised.
+1028,R51.9,ryan.wilson@email.com,2024-02-21,Chronic headaches. Tension-type pattern. Stress management discussed. Started amitriptyline 25mg at bedtime for prevention.
+1029,E66.9,samantha.moore@email.com,2024-02-22,Obesity. BMI 34. Comprehensive weight management plan initiated. Nutritionist referral. Consider bariatric surgery evaluation.
+1030,J02.9,joseph.taylor@email.com,2024-02-23,Acute pharyngitis. Throat culture pending. Symptomatic treatment with analgesics and throat lozenges. Return if worsening.
+1031,L20.9,grace.anderson@email.com,2024-02-26,Atopic dermatitis flare. Extensive eczematous patches. Topical corticosteroids and emollients prescribed. Trigger avoidance discussed.
+1032,R42,kevin.thomas@email.com,2024-02-27,Vertigo. Positive Dix-Hallpike test. Benign paroxysmal positional vertigo diagnosed. Epley maneuver performed. Meclizine prescribed.
+1033,I83.90,hannah.jackson@email.com,2024-02-28,"Varicose veins, bilateral legs. Aching and swelling. Compression stockings recommended. Vascular surgery referral for evaluation."
+1034,N40.0,joshua.white@email.com,2024-02-29,Benign prostatic hyperplasia. Nocturia and weak stream. Started tamsulosin 0.4mg daily. PSA ordered. Urology follow-up arranged.
+1035,H26.9,madison.harris@email.com,2024-03-01,"Cataracts, bilateral. Decreased visual acuity. Ophthalmology referral for surgical evaluation. Updated glasses prescription in meantime."
+1036,K80.20,tyler.martin@email.com,2024-03-04,Cholelithiasis without obstruction. RUQ pain after fatty meals. Ultrasound confirms gallstones. Surgical consultation arranged.
+1037,M17.11,lauren.thompson@email.com,2024-03-05,Right knee osteoarthritis. Pain with weight bearing. Intra-articular corticosteroid injection performed. Weight loss encouraged.
+1038,F43.10,nathan.garcia@email.com,2024-03-06,Post-traumatic stress disorder. Nightmares and hypervigilance after MVA. Started prazosin for nightmares. Trauma therapy referral.
+1039,R13.10,alexis.martinez@email.com,2024-03-07,Dysphagia. Difficulty swallowing solids. Barium swallow ordered. PPI trial started. GI referral for possible endoscopy.
+1040,G40.909,christian.rodriguez@email.com,2024-03-08,"Epilepsy, generalized tonic-clonic seizures. Breakthrough seizure reported. Levetiracetam dose increased. Driving restrictions discussed."
+1041,D64.9,anna.lopez@email.com,2024-03-11,"Anemia, unspecified. Fatigue and pallor. CBC shows Hgb 10.5. Iron studies and B12/folate ordered. Further workup pending."
+1042,J18.9,dylan.gonzalez@email.com,2024-03-12,"Community-acquired pneumonia. Fever, cough, and infiltrate on CXR. Started azithromycin. Rest and hydration advised."
+1043,K29.70,julia.hernandez@email.com,2024-03-13,Gastritis without bleeding. Epigastric pain and nausea. H. pylori testing ordered. Started PPI. Avoid NSAIDs and alcohol.
+1044,R73.03,jordan.smith@email.com,2024-03-14,Prediabetes. Fasting glucose 118. HbA1c 6.2%. Lifestyle modifications emphasized. Metformin considered. Recheck in 3 months.
+1045,M75.30,alyssa.jones@email.com,2024-03-15,Rotator cuff tendinitis. Shoulder pain with overhead activities. NSAIDs and physical therapy prescribed. MRI if no improvement.
+1046,H81.09,brandon.brown@email.com,2024-03-18,Meniere's disease. Episodic vertigo with tinnitus. Low-salt diet advised. Started betahistine. ENT referral placed.
+1047,C50.911,rachel.davis@email.com,2024-03-19,Breast cancer screening abnormality. Mammogram shows suspicious calcifications. Biopsy scheduled. Support resources provided.
+1048,I25.10,justin.miller@email.com,2024-03-20,Coronary artery disease. Stable angina on exertion. Stress test ordered. Aspirin and statin therapy optimized. Cardiology referral.
+1049,F90.2,kayla.wilson@email.com,2024-03-21,"ADHD, combined type. Difficulty with focus and hyperactivity. Started methylphenidate 10mg bid. School accommodations discussed."
+1050,R25.1,aaron.moore@email.com,2024-03-22,Essential tremor. Bilateral hand tremor worse with movement. Started propranolol 20mg tid. Occupational therapy referral.
+1051,J32.9,morgan.taylor@email.com,2024-03-25,Chronic sinusitis. Facial pressure and postnasal drip for 3 months. CT sinuses ordered. Started nasal corticosteroids.
+1052,L70.0,cameron.anderson@email.com,2024-03-26,"Acne vulgaris, moderate. Inflammatory papules and comedones. Started tretinoin cream and doxycycline. Skin care routine reviewed."
+1053,K86.1,taylor.thomas@email.com,2024-03-27,Chronic pancreatitis. Recurrent abdominal pain. Pancreatic enzymes prescribed. Low-fat diet emphasized. Pain management discussed.
+1054,R60.0,sydney.jackson@email.com,2024-03-28,Localized edema. Bilateral ankle swelling. Echocardiogram and venous doppler ordered. Diuretic trial started. Elevation advised.
+1055,E05.90,evan.white@email.com,2024-03-29,"Hyperthyroidism. Weight loss and palpitations. TSH suppressed, Free T4 elevated. Started methimazole. Endocrinology referral."
+1056,N92.1,katherine.harris@email.com,2024-04-01,Menorrhagia. Heavy menstrual bleeding. CBC shows mild anemia. Tranexamic acid prescribed. Pelvic ultrasound scheduled.
+1057,G25.81,luke.martin@email.com,2024-04-02,Restless legs syndrome. Uncomfortable leg sensations at night. Iron studies ordered. Started pramipexole 0.125mg at bedtime.
+1058,H53.2,gabriella.thompson@email.com,2024-04-03,Diplopia. Double vision for 1 week. Neurological exam normal. MRI brain ordered. Ophthalmology and neurology referrals.
+1059,K57.30,connor.garcia@email.com,2024-04-04,Diverticulosis without bleeding. Incidental finding on colonoscopy. High-fiber diet recommended. Follow-up colonoscopy in 5 years.
+1060,R11.10,maya.martinez@email.com,2024-04-05,Chronic nausea. Daily nausea for 2 months. Pregnancy test negative. Upper endoscopy scheduled. Ondansetron prescribed PRN.
+1061,M19.90,blake.rodriguez@email.com,2024-04-08,Polyarthralgia. Multiple joint pain without swelling. Rheumatoid factor and ANA ordered. NSAIDs for symptomatic relief.
+1062,F33.1,riley.lopez@email.com,2024-04-09,"Major depressive disorder, recurrent, moderate. PHQ-9 score 16. Increased sertraline to 100mg. Therapy sessions increased."
+1063,J98.9,avery.gonzalez@email.com,2024-04-10,Chronic cough. Dry cough for 6 weeks. Chest X-ray clear. ACE inhibitor cough suspected. Medication change considered.
+1064,I48.91,parker.hernandez@email.com,2024-04-11,Atrial fibrillation. Irregular pulse noted. EKG confirms AFib. Started metoprolol and apixaban. Cardiology referral urgent.
+1065,L50.9,kennedy.smith@email.com,2024-04-12,Chronic urticaria. Recurrent hives for 2 months. Started daily cetirizine. Trigger diary recommended. Allergy testing considered.
+1066,R07.9,peyton.jones@email.com,2024-04-15,"Chest pain, non-cardiac. EKG and troponins normal. GERD suspected. PPI trial started. Follow-up if symptoms persist."
+1067,M47.816,morgan.brown@email.com,2024-04-16,Lumbar spondylosis. Chronic low back pain with stiffness. X-ray shows degenerative changes. Physical therapy and NSAIDs prescribed.
+1068,E10.9,casey.davis@email.com,2024-04-17,"Type 1 diabetes mellitus. Glucose 285, HbA1c 9.1%. Insulin regimen adjusted. Continuous glucose monitor ordered. Education reinforced."
+1069,H04.123,quinn.miller@email.com,2024-04-18,Chronic dacryocystitis. Recurrent tearing and discharge. Antibiotic drops prescribed. Ophthalmology referral for possible DCR.
+1070,K82.8,reese.wilson@email.com,2024-04-19,Biliary dyskinesia. RUQ pain with normal ultrasound. HIDA scan ordered. Low-fat diet advised. Surgical consultation if positive.
+1071,R26.2,drew.moore@email.com,2024-04-22,Difficulty walking. Progressive gait instability. Neurological exam shows mild ataxia. MRI brain and spine ordered. Neurology referral.
+1072,F31.31,jordan.taylor@email.com,2024-04-23,"Bipolar disorder, current episode depressed, mild. Mood stabilizer adjusted. Lithium level checked. Psychiatry follow-up scheduled."
+1073,N95.1,alex.anderson@email.com,2024-04-24,Menopausal symptoms. Hot flashes and night sweats. Discussed HRT risks/benefits. Started low-dose SSRI for symptom relief.
+1074,L03.90,jamie.thomas@email.com,2024-04-25,"Cellulitis, left leg. Erythema and warmth. Started cephalexin 500mg qid. Elevation and marking of borders. Return if worsening."
+1075,R63.4,skyler.jackson@email.com,2024-04-26,Unintentional weight loss. Lost 15 lbs in 2 months. Comprehensive metabolic panel and thyroid function ordered. Cancer screening discussed.
+1076,H35.30,river.white@email.com,2024-04-29,Age-related macular degeneration. Central vision changes. OCT confirms dry AMD. AREDS vitamins started. Regular monitoring scheduled.
+1077,K50.90,sage.harris@email.com,2024-04-30,Crohn's disease. Abdominal pain and diarrhea. Colonoscopy shows active inflammation. Started mesalamine. GI follow-up arranged.
+1078,G20,phoenix.martin@email.com,2024-05-01,Parkinson's disease. Tremor and bradykinesia noted. Started carbidopa-levodopa. Physical therapy and neurology referral placed.
+1079,R21,rowan.thompson@email.com,2024-05-02,Generalized rash. Pruritic maculopapular eruption. Possible drug reaction. Antihistamines prescribed. Medication review performed.
+1080,I73.9,finley.garcia@email.com,2024-05-03,Peripheral vascular disease. Claudication at 2 blocks. ABI 0.7 bilaterally. Started aspirin and statin. Vascular surgery referral.
+1081,F84.0,emery.martinez@email.com,2024-05-06,Autism spectrum disorder. Social communication difficulties. Comprehensive evaluation completed. Early intervention services arranged.
+1082,M62.81,dakota.rodriguez@email.com,2024-05-07,Muscle weakness. Progressive proximal weakness. CPK elevated. EMG scheduled. Rheumatology referral for possible myositis.
+1083,R56.9,hayden.lopez@email.com,2024-05-08,"Seizure, unspecified. First-time seizure witnessed. EEG and MRI brain ordered. Driving restrictions discussed. Neurology follow-up."
+1084,K76.0,charlie.gonzalez@email.com,2024-05-09,Fatty liver disease. Elevated liver enzymes. Ultrasound shows hepatic steatosis. Weight loss and alcohol cessation advised.
+1085,H91.90,remy.hernandez@email.com,2024-05-10,"Hearing loss, bilateral. Difficulty hearing conversations. Audiometry shows moderate loss. Hearing aid evaluation recommended."
+1086,R05,jules.smith@email.com,2024-05-13,Chronic cough. Persistent dry cough for 8 weeks. Chest X-ray normal. Started gabapentin for cough suppression. ENT referral.
+1087,M48.06,kai.jones@email.com,2024-05-14,"Spinal stenosis, lumbar. Neurogenic claudication. MRI confirms stenosis at L4-L5. Epidural injection scheduled. Surgical consultation."
+1088,F50.9,dallas.brown@email.com,2024-05-15,"Eating disorder, unspecified. BMI 17. Concerning eating behaviors. Nutritional counseling started. Psychiatry referral placed."
+1089,N30.00,london.davis@email.com,2024-05-16,Acute cystitis. Dysuria and frequency. Urinalysis positive. Started trimethoprim-sulfamethoxazole. Increased fluid intake advised.
+1090,R94.31,justice.miller@email.com,2024-05-17,Abnormal EKG. Nonspecific ST-T changes. No cardiac symptoms. Echocardiogram ordered. Cardiology consultation for further evaluation.
+1091,L60.0,august.wilson@email.com,2024-05-20,Ingrown toenail. Right great toe affected. Partial nail avulsion performed under local anesthesia. Antibiotic ointment prescribed.
+1092,G44.1,nova.moore@email.com,2024-05-21,Vascular headache. Severe unilateral throbbing. Started verapamil for prevention. Triptan prescribed for acute episodes.
+1093,K59.00,rain.taylor@email.com,2024-05-22,Chronic constipation. Less than 3 BMs per week. Started polyethylene glycol daily. Dietary fiber increased. Follow-up in 4 weeks.
+1094,R53.83,indigo.anderson@email.com,2024-05-23,Chronic fatigue syndrome. Persistent fatigue for 8 months. Comprehensive labs ordered. Graded exercise therapy discussed.
+1095,M35.00,ocean.thomas@email.com,2024-05-24,Sjogren's syndrome suspected. Dry eyes and mouth. Positive ANA and SSA. Rheumatology referral. Artificial tears prescribed.
+1096,I21.9,winter.jackson@email.com,2024-05-27,Acute myocardial infarction. Chest pain with ST elevation. Transferred to cath lab emergently. Dual antiplatelet therapy started.
+1097,F10.20,storm.white@email.com,2024-05-28,"Alcohol use disorder, moderate. CAGE score 3/4. Discussed treatment options. Naltrexone started. AA resources provided."
+1098,R10.9,forest.harris@email.com,2024-05-29,"Abdominal pain, unspecified. Diffuse tenderness. Labs and imaging ordered. Pain management with acetaminophen. Close follow-up."
+1099,E27.40,sky.martin@email.com,2024-05-30,Adrenal insufficiency suspected. Fatigue and hypotension. Morning cortisol low. ACTH stimulation test scheduled. Endocrinology referral.
+1100,Z12.31,meadow.thompson@email.com,2024-05-31,Screening mammogram. Age-appropriate breast cancer screening. Bilateral mammogram ordered. Results pending. Annual screening advised.

@@ -9,6 +9,10 @@ and template processing with PDF output.
 import os
 import sys
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Add the parent directory to the path so we can import the SYDA module
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))

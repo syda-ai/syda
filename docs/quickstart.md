@@ -30,7 +30,11 @@ Before running the example, you need to prepare your environment variables with 
 ```python
 from syda.structured import SyntheticDataGenerator
 from syda.schemas import ModelConfig
+from dotenv import load_dotenv
 import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Create a model config instance with appropriate max_tokens setting
 model_config = ModelConfig(

@@ -1,0 +1,32 @@
+<code_block_to_apply_changes_from>
+include README.md
+include LICENSE
+include CONTRIBUTING.md
+include DCO
+include requirements.txt
+include pyproject.toml
+include MANIFEST.in
+include .gitignore
+
+# Include documentation
+recursive-include docs *.md *.yml *.yaml *.html *.css *.js
+recursive-include docs *.png *.jpg *.gif *.svg
+
+# Include examples
+recursive-include examples *.py *.md *.yml *.yaml *.json *.html *.txt
+
+# Include schema files
+recursive-include syda/schema_versions *.json *.yaml *.yml
+
+# Exclude unwanted files
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * *.so
+recursive-exclude * .DS_Store
+recursive-exclude * .git*
+recursive-exclude * *.egg-info
+recursive-exclude .venv *
+recursive-exclude build *
+recursive-exclude dist *
+recursive-exclude site *
+recursive-exclude .pytest_cache *

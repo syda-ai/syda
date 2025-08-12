@@ -179,9 +179,13 @@ Here's how to use YAML-based schemas with the SyntheticDataGenerator:
 ```python
 from syda.generate import SyntheticDataGenerator
 from syda.schemas import ModelConfig
+from dotenv import load_dotenv
 import os
 import random
 import datetime
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Create a generator instance
 model_config = ModelConfig(

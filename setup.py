@@ -1,50 +1,10 @@
-from setuptools import setup, find_packages
+"""
+Minimal setup.py for backward compatibility.
+The actual configuration is in pyproject.toml
+"""
 
-setup(
-    name='syda',
-    version='0.0.1',
-    description='A Python library for synthetic data generation',
-    long_description=open('README.md').read(),
-    long_description_content_type='text/markdown',
-    author='Your Name',
-    author_email='your.email@example.com',
-    url='https://github.com/yourusername/syntheticdata',
-    packages=find_packages(),
-    install_requires=[
-        'pydantic>=2.4.2',
-        'python-dotenv>=1.0.0',
-        'sqlalchemy>=2.0.23',
-        'pandas>=2.0.3',
-        'numpy>=1.24.3',
-        'openai>=1.0.0',
-        'anthropic>=0.7.0',
-        'python-magic>=0.4.27',
-        'python-docx>=1.0.0',
-        'openpyxl>=3.1.2',
-        'pyyaml>=6.0.1',
-        'pytest>=7.4.0',
-        'boto3>=1.28.0',
-        'azure-storage-blob>=12.19.0',
-        'pdfplumber>=0.10.3',
-        'pillow>=10.0.1',
-        'pytesseract>=0.3.10',
-        'sqlalchemy-utils>=0.41.1',
-        'networkx>=3.1',
-        'instructor>=1.0.0',
-    ],
-    classifiers=[
-        'Development Status :: 3 - Alpha',
-        'Intended Audience :: Developers',
-        'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: 3.11',
-        'Topic :: Scientific/Engineering',
-        'Topic :: Software Development :: Libraries',
-        'Topic :: Utilities'
-    ],
-    python_requires='>=3.8',
-)
+from setuptools import setup
+
+# For backward compatibility, keep a minimal setup.py
+# All configuration is now in pyproject.toml
+setup()

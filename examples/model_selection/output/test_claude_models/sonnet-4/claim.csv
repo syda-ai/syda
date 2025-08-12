@@ -1,201 +1,201 @@
 claim_id,patient_id,diagnosis_code,email,visit_date,notes
-1001,1017,J06.9,john.smith@email.com,2024-01-15,"Patient presented with acute upper respiratory infection. Symptoms include nasal congestion, sore throat, and mild cough. Prescribed rest and symptomatic treatment."
-1002,1064,M79.1,sarah.johnson@gmail.com,2024-01-16,Patient complains of myalgia in lower back region. Physical examination reveals muscle tenderness. Recommended physical therapy and pain management.
-1003,1074,K21.9,michael.brown@yahoo.com,2024-01-17,Patient reports gastroesophageal reflux disease symptoms including heartburn and acid regurgitation. Prescribed proton pump inhibitor and dietary modifications.
-1004,1068,I10,emily.davis@hotmail.com,2024-01-18,Routine blood pressure check revealed essential hypertension. Blood pressure reading 150/95 mmHg. Initiated antihypertensive medication and lifestyle counseling.
-1005,1001,E11.9,robert.wilson@outlook.com,2024-01-19,Type 2 diabetes mellitus follow-up visit. HbA1c level 8.2%. Adjusted metformin dosage and discussed dietary compliance and exercise regimen.
-1006,1014,F32.9,jennifer.garcia@email.com,2024-01-20,"Patient presents with major depressive disorder symptoms including persistent sadness, loss of interest, and sleep disturbances. Initiated SSRI therapy and counseling referral."
-1007,1026,Z00.00,david.martinez@gmail.com,2024-01-21,Annual general medical examination. Patient in good health with no acute complaints. Vital signs within normal limits. Recommended routine preventive care.
-1008,1055,J45.9,lisa.anderson@yahoo.com,2024-01-22,Patient with asthma exacerbation presenting with wheezing and shortness of breath. Administered bronchodilator treatment and prescribed inhaled corticosteroids.
-1009,1033,L30.9,christopher.taylor@hotmail.com,2024-01-23,"Patient presents with dermatitis on both arms. Skin appears red, itchy, and inflamed. Prescribed topical corticosteroid cream and antihistamines."
-1010,1012,G43.9,amanda.thomas@outlook.com,2024-01-24,Patient reports recurrent migraine headaches with photophobia and nausea. Prescribed triptans for acute episodes and discussed trigger avoidance strategies.
-1011,1012,N39.0,james.jackson@email.com,2024-01-25,Patient presents with urinary tract infection symptoms including dysuria and frequency. Urine culture positive for E. coli. Prescribed appropriate antibiotic therapy.
-1012,1092,M25.511,michelle.white@gmail.com,2024-01-26,"Patient complains of right shoulder pain following minor trauma. Physical examination reveals limited range of motion. Recommended rest, ice, and anti-inflammatory medication."
-1013,1037,R06.02,william.harris@yahoo.com,2024-01-27,Patient presents with shortness of breath on exertion. Chest X-ray and ECG ordered. Symptoms appear to be related to recent upper respiratory infection.
-1014,1001,K59.00,stephanie.martin@hotmail.com,2024-01-28,Patient reports chronic constipation with infrequent bowel movements. Dietary fiber intake assessment and recommendations for increased fluid intake and exercise.
-1015,1011,H52.4,daniel.thompson@outlook.com,2024-01-29,Patient complains of presbyopia with difficulty reading small print. Vision examination confirms age-related near vision changes. Referred to optometrist for reading glasses.
-1016,1074,B37.9,nicole.garcia@email.com,2024-01-30,Patient presents with oral thrush symptoms including white patches in mouth and throat discomfort. Prescribed antifungal medication and oral hygiene instructions.
-1017,1096,S93.401A,kevin.rodriguez@gmail.com,2024-01-31,Patient sustained ankle sprain during sports activity. Physical examination reveals swelling and tenderness. Recommended RICE protocol and follow-up in one week.
-1018,1045,R50.9,rachel.lewis@yahoo.com,2024-02-01,"Patient presents with fever of unknown origin, temperature 101.5°F. No obvious source identified on initial examination. Symptomatic treatment and close monitoring recommended."
-1019,1051,Z51.11,matthew.lee@hotmail.com,2024-02-02,Patient receiving chemotherapy for malignancy. Routine follow-up visit to monitor treatment response and manage side effects. Blood work ordered for next visit.
-1020,1049,F41.9,jessica.walker@outlook.com,2024-02-03,"Patient reports anxiety symptoms including restlessness, worry, and panic attacks. Discussed coping strategies and prescribed short-term anxiolytic medication."
-1021,1092,J20.9,andrew.hall@email.com,2024-02-04,Patient presents with acute bronchitis symptoms including productive cough and chest discomfort. Prescribed bronchodilator and cough suppressant medication.
-1022,1013,M54.5,megan.allen@gmail.com,2024-02-05,Patient complains of lower back pain radiating to left leg. Physical examination suggests possible sciatica. Recommended pain management and physical therapy referral.
-1023,1015,H66.90,joshua.young@yahoo.com,2024-02-06,Patient presents with ear pain and hearing loss. Otoscopic examination reveals otitis media. Prescribed antibiotic therapy and analgesics for pain relief.
-1024,1016,R10.9,ashley.hernandez@hotmail.com,2024-02-07,Patient reports abdominal pain of unclear etiology. Physical examination unremarkable. Recommended dietary modifications and follow-up if symptoms persist.
-1025,1088,Z23,tyler.king@outlook.com,2024-02-08,Patient visit for routine immunization. Administered influenza vaccine and updated tetanus-diphtheria booster. No adverse reactions observed.
-1026,1057,E78.5,brittany.wright@email.com,2024-02-09,Patient with hyperlipidemia follow-up visit. Lipid panel shows elevated cholesterol levels. Adjusted statin therapy and discussed dietary modifications.
-1027,1092,G47.00,brandon.lopez@gmail.com,2024-02-10,Patient reports sleep disturbances and insomnia. Sleep hygiene counseling provided and prescribed short-term sleep aid medication.
-1028,1031,K30,samantha.hill@yahoo.com,2024-02-11,Patient presents with functional dyspepsia symptoms including upper abdominal discomfort and early satiety. Prescribed prokinetic agent and dietary advice.
-1029,1056,M79.3,justin.scott@hotmail.com,2024-02-12,Patient complains of panniculitis with tender subcutaneous nodules. Physical examination confirms inflammatory changes. Prescribed anti-inflammatory medication.
-1030,1021,R42,crystal.green@outlook.com,2024-02-13,Patient reports dizziness and vertigo symptoms. Neurological examination normal. Recommended vestibular exercises and symptom monitoring.
-1031,1008,J44.1,nathan.adams@email.com,2024-02-14,Patient with COPD exacerbation presenting with increased dyspnea and cough. Prescribed bronchodilators and short course of oral corticosteroids.
-1032,1043,N30.90,vanessa.baker@gmail.com,2024-02-15,Patient presents with cystitis symptoms including urinary frequency and burning sensation. Urine dipstick positive for nitrites. Prescribed antibiotic therapy.
-1033,1040,T78.40XA,eric.gonzalez@yahoo.com,2024-02-16,Patient experienced allergic reaction with urticaria and pruritus after food consumption. Administered antihistamines and prescribed epinephrine auto-injector.
-1034,1026,R11.10,heather.nelson@hotmail.com,2024-02-17,Patient reports nausea and vomiting for past 24 hours. Physical examination unremarkable. Prescribed antiemetic medication and fluid replacement.
-1035,1050,Z12.11,aaron.carter@outlook.com,2024-02-18,"Patient visit for screening mammography. Routine breast cancer screening as per guidelines. Results pending, follow-up scheduled as needed."
-1036,1060,M62.81,tiffany.mitchell@email.com,2024-02-19,Patient presents with muscle weakness in bilateral upper extremities. Neurological examination ordered to rule out underlying neuromuscular disorder.
-1037,1062,H10.9,jordan.perez@gmail.com,2024-02-20,"Patient presents with conjunctivitis symptoms including red, watery eyes and discharge. Prescribed antibiotic eye drops and hygiene instructions."
-1038,1068,K92.2,lindsay.roberts@yahoo.com,2024-02-21,Patient reports gastrointestinal bleeding with melena. Hemoglobin level checked and gastroenterology referral arranged for further evaluation.
-1039,1063,R06.00,corey.turner@hotmail.com,2024-02-22,Patient presents with dyspnea on exertion. Cardiopulmonary examination reveals no acute findings. Pulmonary function tests ordered for evaluation.
-1040,1022,F43.10,monica.phillips@outlook.com,2024-02-23,Patient diagnosed with post-traumatic stress disorder following recent traumatic event. Referred to mental health specialist for comprehensive treatment.
-1041,1022,J30.9,derek.campbell@email.com,2024-02-24,"Patient presents with allergic rhinitis symptoms including sneezing, nasal congestion, and watery eyes. Prescribed antihistamines and nasal corticosteroids."
-1042,1098,M19.90,kimberly.parker@gmail.com,2024-02-25,"Patient complains of joint pain and stiffness consistent with osteoarthritis. Recommended weight management, exercise, and anti-inflammatory medication."
-1043,1095,R53.83,sean.evans@yahoo.com,2024-02-26,Patient reports chronic fatigue and weakness. Comprehensive metabolic panel ordered to rule out underlying medical conditions.
-1044,1095,L20.9,kelly.edwards@hotmail.com,2024-02-27,"Patient presents with atopic dermatitis flare-up with dry, itchy skin patches. Prescribed topical corticosteroids and moisturizing routine."
-1045,1085,N94.6,travis.collins@outlook.com,2024-02-28,Patient reports dysmenorrhea with severe menstrual cramps. Prescribed NSAIDs and discussed hormonal contraceptive options for symptom management.
-1046,1012,J02.9,rebecca.stewart@email.com,2024-02-29,Patient presents with acute pharyngitis symptoms including sore throat and difficulty swallowing. Throat culture obtained and symptomatic treatment prescribed.
-1047,1025,R19.7,gregory.sanchez@gmail.com,2024-03-01,Patient reports diarrhea and abdominal cramping for past 48 hours. Stool sample collected for analysis and prescribed probiotics and fluid replacement.
-1048,1021,H93.1,christine.morris@yahoo.com,2024-03-02,Patient complains of tinnitus and hearing difficulties. Audiometry testing scheduled and ear wax removal performed during visit.
-1049,1063,M25.561,phillip.rogers@hotmail.com,2024-03-03,Patient presents with knee pain and swelling following minor injury. X-ray ordered to rule out fracture and prescribed rest and ice application.
-1050,1039,R68.2,danielle.reed@outlook.com,2024-03-04,Patient reports dry mouth symptoms affecting daily activities. Medication review conducted and artificial saliva products recommended.
-1051,1054,Z79.4,benjamin.cook@email.com,2024-03-05,Patient on long-term insulin therapy for diabetes management. Routine follow-up visit to assess blood glucose control and adjust dosing as needed.
-1052,1012,F90.9,amber.morgan@gmail.com,2024-03-06,Patient diagnosed with attention deficit hyperactivity disorder. Initiated stimulant medication therapy and discussed behavioral management strategies.
-1053,1043,J34.2,jeremy.bailey@yahoo.com,2024-03-07,Patient presents with deviated nasal septum causing breathing difficulties. Referred to ENT specialist for evaluation and possible surgical correction.
-1054,1057,R60.9,maria.rivera@hotmail.com,2024-03-08,Patient reports generalized edema and swelling in lower extremities. Cardiac and renal function tests ordered to determine underlying cause.
-1055,1058,K76.0,carlos.cooper@outlook.com,2024-03-09,Patient with fatty liver disease follow-up visit. Liver function tests reviewed and dietary counseling provided for weight management.
-1056,1033,M70.03,stephanie.richardson@email.com,2024-03-10,Patient presents with crepitant synovitis in wrist joint. Physical therapy referral provided and anti-inflammatory medication prescribed.
-1057,1076,R25.1,ryan.cox@gmail.com,2024-03-11,Patient reports involuntary tremor affecting daily activities. Neurological examination performed and further testing ordered to determine etiology.
-1058,1030,H54.7,laura.ward@yahoo.com,2024-03-12,Patient complains of unspecified visual loss and blurred vision. Comprehensive eye examination scheduled with ophthalmology referral.
-1059,1074,R73.9,adam.torres@hotmail.com,2024-03-13,Patient found to have hyperglycemia on routine blood work. Glucose tolerance test ordered and diabetes education provided.
-1060,1018,M53.3,nicole.peterson@outlook.com,2024-03-14,Patient presents with sacrococcygeal disorders causing tailbone pain. Recommended cushioned seating and prescribed pain management medication.
-1061,1032,J32.9,scott.gray@email.com,2024-03-15,Patient diagnosed with chronic sinusitis with persistent nasal congestion and facial pressure. Prescribed nasal corticosteroids and saline irrigation.
-1062,1045,R94.31,michelle.ramirez@gmail.com,2024-03-16,Patient shows abnormal electrocardiogram findings during routine screening. Cardiology referral arranged for further cardiac evaluation.
-1063,1014,L70.9,jason.james@yahoo.com,2024-03-17,Patient presents with acne vulgaris on face and back. Prescribed topical retinoids and discussed proper skincare routine.
-1064,1005,R06.03,elizabeth.watson@hotmail.com,2024-03-18,Patient reports acute respiratory distress with wheezing and chest tightness. Administered bronchodilator treatment and prescribed rescue inhaler.
-1065,1032,N18.6,mark.brooks@outlook.com,2024-03-19,Patient with end-stage renal disease on dialysis. Routine follow-up visit to monitor kidney function and adjust treatment plan.
-1066,1070,F31.9,sarah.kelly@email.com,2024-03-20,Patient diagnosed with bipolar disorder with mood swings and sleep disturbances. Initiated mood stabilizer medication and psychiatric follow-up arranged.
-1067,1077,J43.9,robert.sanders@gmail.com,2024-03-21,Patient with emphysema presenting with progressive dyspnea. Pulmonary rehabilitation referral provided and bronchodilator therapy optimized.
-1068,1053,K25.9,jennifer.price@yahoo.com,2024-03-22,Patient diagnosed with gastric ulcer presenting with epigastric pain. Prescribed proton pump inhibitor and H. pylori testing ordered.
-1069,1079,M06.9,thomas.bennett@hotmail.com,2024-03-23,Patient with rheumatoid arthritis follow-up visit. Joint examination reveals active inflammation. Adjusted disease-modifying antirheumatic drug therapy.
-1070,1038,R31.9,patricia.wood@outlook.com,2024-03-24,Patient presents with hematuria discovered on routine urinalysis. Urology referral arranged for further evaluation and cystoscopy.
-1071,1023,G35,michael.barnes@email.com,2024-03-25,Patient with multiple sclerosis experiencing new neurological symptoms. MRI brain ordered and neurology consultation scheduled.
-1072,1010,R29.6,lisa.ross@gmail.com,2024-03-26,Patient reports repeated falls and balance issues. Comprehensive fall risk assessment performed and physical therapy referral provided.
-1073,1065,E66.9,david.henderson@yahoo.com,2024-03-27,"Patient with obesity seeking weight management assistance. Discussed dietary modifications, exercise program, and behavioral counseling options."
-1074,1098,J18.9,amanda.coleman@hotmail.com,2024-03-28,"Patient diagnosed with pneumonia presenting with fever, cough, and chest pain. Prescribed antibiotic therapy and supportive care measures."
-1075,1073,R41.3,christopher.jenkins@outlook.com,2024-03-29,Patient reports memory loss and cognitive difficulties. Cognitive assessment performed and referred to neurology for further evaluation.
-1076,1022,H25.9,stephanie.perry@email.com,2024-03-30,Patient diagnosed with age-related cataract affecting vision. Ophthalmology referral provided for surgical evaluation and treatment options.
-1077,1087,I25.10,kevin.powell@gmail.com,2024-03-31,Patient with atherosclerotic heart disease presenting with chest pain. Stress test ordered and cardiology consultation arranged.
-1078,1069,N40.1,rachel.long@yahoo.com,2024-04-01,Patient presents with benign prostatic hyperplasia causing urinary symptoms. Prescribed alpha-blocker medication and discussed treatment options.
-1079,1084,F20.9,matthew.patterson@hotmail.com,2024-04-02,Patient with schizophrenia follow-up visit for medication management. Antipsychotic therapy adjusted and psychiatric monitoring continued.
-1080,1004,L40.9,jessica.hughes@outlook.com,2024-04-03,Patient presents with psoriasis flare-up affecting skin and joints. Prescribed topical corticosteroids and discussed systemic treatment options.
-1081,1011,R56.9,andrew.flores@email.com,2024-04-04,Patient experienced unspecified convulsions. Neurological examination performed and EEG ordered to evaluate for seizure disorder.
-1082,1049,K57.90,megan.washington@gmail.com,2024-04-05,Patient diagnosed with diverticulosis during routine colonoscopy. Dietary fiber recommendations provided and follow-up scheduled.
-1083,1014,H81.10,joshua.butler@yahoo.com,2024-04-06,Patient presents with benign paroxysmal positional vertigo. Epley maneuver performed and vestibular rehabilitation exercises prescribed.
-1084,1039,R79.89,ashley.simmons@hotmail.com,2024-04-07,Patient shows abnormal findings on blood chemistry panel. Additional laboratory tests ordered to investigate underlying metabolic disorder.
-1085,1091,J84.10,tyler.foster@outlook.com,2024-04-08,Patient diagnosed with pulmonary fibrosis presenting with progressive dyspnea. Pulmonology referral arranged for specialized management.
-1086,1078,M35.9,brittany.gonzales@email.com,2024-04-09,Patient presents with systemic sclerosis affecting skin and internal organs. Rheumatology consultation scheduled for comprehensive evaluation.
-1087,1034,R87.619,brandon.bryant@gmail.com,2024-04-10,Patient received abnormal cervical cytology results. Colposcopy scheduled and HPV testing performed for further evaluation.
-1088,1032,G93.1,samantha.alexander@yahoo.com,2024-04-11,Patient diagnosed with anoxic brain damage following cardiac arrest. Neurological rehabilitation planning and family counseling provided.
-1089,1038,D50.9,justin.russell@hotmail.com,2024-04-12,Patient presents with iron deficiency anemia. Iron supplementation prescribed and dietary counseling provided to increase iron intake.
-1090,1098,R22.2,crystal.griffin@outlook.com,2024-04-13,Patient reports localized swelling and mass in trunk region. Imaging studies ordered to characterize the lesion and determine next steps.
-1091,1002,N83.20,nathan.diaz@email.com,2024-04-14,Patient diagnosed with unspecified ovarian cysts on pelvic ultrasound. Gynecology referral arranged for further evaluation and management.
-1092,1008,R85.619,vanessa.hayes@gmail.com,2024-04-15,Patient received abnormal cervical cytology screening results. Follow-up Pap smear scheduled and patient education provided.
-1093,1091,M48.06,eric.myers@yahoo.com,2024-04-16,Patient presents with spinal stenosis causing back pain and leg weakness. MRI lumbar spine ordered and orthopedic consultation arranged.
-1094,1033,R40.20,heather.ford@hotmail.com,2024-04-17,Patient presents with unspecified coma following head trauma. Neurological monitoring in ICU and neurosurgical consultation obtained.
-1095,1031,J96.90,aaron.hamilton@outlook.com,2024-04-18,Patient with respiratory failure requiring mechanical ventilation. Intensive care management and pulmonology consultation for weaning protocol.
-1096,1012,C78.00,tiffany.graham@email.com,2024-04-19,Patient diagnosed with secondary malignant neoplasm of lung. Oncology referral arranged for staging and treatment planning.
-1097,1016,I50.9,jordan.sullivan@gmail.com,2024-04-20,Patient presents with heart failure symptoms including dyspnea and peripheral edema. Echocardiogram ordered and cardiology consultation scheduled.
-1098,1015,N17.9,lindsay.wallace@yahoo.com,2024-04-21,Patient developed acute kidney injury with elevated creatinine levels. Nephrology consultation obtained and fluid management initiated.
-1099,1027,G40.909,corey.woods@hotmail.com,2024-04-22,Patient with epilepsy experiencing breakthrough seizures. Antiepileptic drug levels checked and medication adjustment made.
-1100,1053,R57.0,monica.cole@outlook.com,2024-04-23,Patient presents with cardiogenic shock requiring intensive care management. Inotropic support initiated and cardiothoracic surgery consulted.
-1101,1037,J12.9,derek.stone@email.com,2024-04-24,Patient diagnosed with viral pneumonia presenting with fever and respiratory symptoms. Supportive care provided and antiviral therapy considered.
-1102,1065,R50.2,kimberly.hawkins@gmail.com,2024-04-25,Patient presents with drug-induced fever following antibiotic therapy. Medication discontinued and symptomatic treatment provided.
-1103,1004,M72.6,sean.gardner@yahoo.com,2024-04-26,Patient diagnosed with necrotizing fasciitis requiring emergency surgical debridement. Infectious disease consultation and IV antibiotic therapy initiated.
-1104,1063,R06.2,kelly.payne@hotmail.com,2024-04-27,Patient presents with wheezing and respiratory distress. Bronchodilator therapy administered and pulmonary function tests ordered.
-1105,1069,T81.4XXA,travis.marshall@outlook.com,2024-04-28,Patient developed infection of procedural wound following recent surgery. Wound culture obtained and antibiotic therapy initiated.
-1106,1033,R33.9,rebecca.warren@email.com,2024-04-29,Patient presents with urinary retention requiring catheterization. Urological evaluation scheduled to determine underlying cause.
-1107,1039,G93.40,gregory.webb@gmail.com,2024-04-30,Patient diagnosed with encephalopathy of unknown etiology. Neurological workup initiated including lumbar puncture and brain imaging.
-1108,1048,R57.1,christine.tucker@yahoo.com,2024-05-01,Patient presents with hypovolemic shock following significant blood loss. Fluid resuscitation and blood transfusion therapy initiated.
-1109,1022,J80,phillip.austin@hotmail.com,2024-05-02,Patient diagnosed with acute respiratory distress syndrome. Mechanical ventilation with lung-protective strategy and prone positioning.
-1110,1078,R65.20,danielle.freeman@outlook.com,2024-05-03,Patient presents with severe sepsis requiring intensive care management. Broad-spectrum antibiotics initiated and source control measures.
-1111,1079,I46.9,benjamin.porter@email.com,2024-05-04,Patient experienced cardiac arrest with successful resuscitation. Post-cardiac arrest care initiated including targeted temperature management.
-1112,1085,R40.2340,amber.berry@gmail.com,2024-05-05,Patient presents with Glasgow coma scale score of 8 following traumatic brain injury. Neurosurgical consultation and ICP monitoring.
-1113,1068,T79.4XXA,jeremy.reid@yahoo.com,2024-05-06,Patient developed traumatic shock following multiple trauma. Damage control surgery and massive transfusion protocol activated.
-1114,1056,J44.0,maria.cruz@hotmail.com,2024-05-07,Patient with COPD exacerbation presenting with acute respiratory failure. Non-invasive ventilation and bronchodilator therapy initiated.
-1115,1072,G91.2,carlos.richardson@outlook.com,2024-05-08,Patient diagnosed with normal pressure hydrocephalus. Neurosurgical evaluation for ventriculoperitoneal shunt placement scheduled.
-1116,1040,R68.13,stephanie.cox@email.com,2024-05-09,Patient presents with apparent life-threatening event. Comprehensive evaluation including cardiology and neurology consultations.
-1117,1077,T88.6XXA,ryan.ward@gmail.com,2024-05-10,Patient experienced anaphylactic reaction to medication. Epinephrine administered and intensive monitoring for delayed reactions.
-1118,1008,R65.10,laura.torres@yahoo.com,2024-05-11,Patient presents with systemic inflammatory response syndrome. Infection workup initiated and empiric antibiotic therapy started.
-1119,1024,J95.851,adam.peterson@hotmail.com,2024-05-12,Patient developed ventilator-associated pneumonia. Bronchoscopy performed and targeted antibiotic therapy based on culture results.
-1120,1079,T85.79XA,nicole.gray@outlook.com,2024-05-13,Patient presents with infection and inflammatory reaction due to other internal prosthetic devices. Surgical removal and antibiotic therapy.
-1121,1100,I95.9,scott.ramirez@email.com,2024-05-14,Patient presents with hypotension of unknown etiology. Fluid resuscitation initiated and underlying causes investigated.
-1122,1007,R68.84,michelle.james@gmail.com,2024-05-15,Patient presents with jaw pain and limited mouth opening. TMJ evaluation performed and prescribed muscle relaxants and anti-inflammatory medication.
-1123,1031,N99.0,jason.watson@yahoo.com,2024-05-16,Patient developed postprocedural kidney failure following contrast imaging. Nephrology consultation and supportive care measures initiated.
-1124,1063,T82.7XXA,elizabeth.brooks@hotmail.com,2024-05-17,Patient presents with infection and inflammatory reaction due to cardiac device. Cardiothoracic surgery consultation for device management.
-1125,1047,R93.1,mark.kelly@outlook.com,2024-05-18,Patient shows abnormal findings on diagnostic imaging of heart and coronary circulation. Cardiology consultation and further testing ordered.
-1126,1056,J69.0,sarah.sanders@email.com,2024-05-19,Patient developed pneumonitis due to inhalation of food and vomit. Respiratory support and antibiotic therapy for aspiration pneumonia.
-1127,1099,G92,robert.price@gmail.com,2024-05-20,Patient presents with toxic encephalopathy following chemical exposure. Neurological monitoring and supportive care measures.
-1128,1087,R68.89,jennifer.bennett@yahoo.com,2024-05-21,Patient presents with other specified general symptoms including malaise and fatigue. Comprehensive metabolic workup initiated.
-1129,1065,T88.7XXA,thomas.wood@hotmail.com,2024-05-22,Patient experienced unspecified adverse effect of drug or medicament. Medication discontinued and supportive care provided.
-1130,1074,R65.21,patricia.barnes@outlook.com,2024-05-23,Patient presents with severe sepsis with septic shock. Vasopressor support and intensive care management initiated.
-1131,1062,J15.9,michael.ross@email.com,2024-05-24,Patient diagnosed with unspecified bacterial pneumonia. Broad-spectrum antibiotic therapy and respiratory support measures.
-1132,1007,R40.2441,lisa.henderson@gmail.com,2024-05-25,Patient presents with Glasgow coma scale score of 3-8 following drug overdose. Toxicology screening and intensive care monitoring.
-1133,1054,I95.1,david.coleman@yahoo.com,2024-05-26,Patient presents with orthostatic hypotension causing syncope. Fluid status evaluation and medication review performed.
-1134,1057,R68.2,amanda.jenkins@hotmail.com,2024-05-27,Patient reports dry mouth and decreased saliva production. Medication-induced xerostomia suspected and treatment options discussed.
-1135,1063,T79.A0XA,christopher.perry@outlook.com,2024-05-28,Patient developed compartment syndrome following trauma. Emergency fasciotomy performed and vascular surgery consultation.
-1136,1050,R57.8,stephanie.powell@email.com,2024-05-29,Patient presents with other shock including neurogenic shock. Spinal cord injury evaluation and hemodynamic support measures.
-1137,1025,J96.00,kevin.long@gmail.com,2024-05-30,Patient with acute respiratory failure with hypoxia. Mechanical ventilation initiated and pulmonology consultation obtained.
-1138,1037,R65.11,rachel.patterson@yahoo.com,2024-05-31,Patient presents with systemic inflammatory response syndrome due to infectious process with organ dysfunction.
-1139,1009,G93.82,matthew.hughes@hotmail.com,2024-06-01,Patient diagnosed with brain death following severe traumatic brain injury. Family counseling and organ donation discussion.
-1140,1053,T88.52XA,jessica.flores@outlook.com,2024-06-02,Patient experienced failed conscious sedation during procedure. Anesthesia consultation and airway management performed.
-1141,1043,R68.83,andrew.washington@email.com,2024-06-03,Patient presents with chills without fever following recent illness. Infection workup negative and symptomatic treatment provided.
-1142,1068,J95.00,megan.butler@gmail.com,2024-06-04,Patient developed unspecified tracheostomy complication. ENT consultation and tracheostomy tube management performed.
-1143,1100,R50.84,joshua.simmons@yahoo.com,2024-06-05,Patient presents with febrile nonhemolytic transfusion reaction. Transfusion stopped and supportive care measures initiated.
-1144,1100,T88.59XA,ashley.foster@hotmail.com,2024-06-06,Patient experienced other complications of anesthesia. Post-anesthesia care unit monitoring and symptom management.
-1145,1080,R68.12,tyler.gonzales@outlook.com,2024-06-07,Patient presents with lassitude and general weakness. Comprehensive evaluation for underlying medical conditions initiated.
-1146,1056,J95.02,brittany.bryant@email.com,2024-06-08,Patient developed mechanical complication of tracheostomy. Emergency tracheostomy revision and airway management.
-1147,1087,R57.2,brandon.alexander@gmail.com,2024-06-09,Patient presents with septic shock requiring vasopressor support. Intensive care management and infection source control.
-1148,1078,T88.3XXA,samantha.russell@yahoo.com,2024-06-10,Patient experienced malignant hyperthermia during surgery. Dantrolene administration and intensive cooling measures.
-1149,1055,R68.81,justin.griffin@hotmail.com,2024-06-11,Patient presents with early satiety affecting nutritional intake. Gastroenterology evaluation and dietary consultation.
-1150,1014,J95.830,crystal.diaz@outlook.com,2024-06-12,Patient developed postprocedural pneumothorax. Chest tube insertion and respiratory monitoring in ICU.
-1151,1047,R40.2342,nathan.hayes@email.com,2024-06-13,Patient presents with Glasgow coma scale score of 6 following head trauma. Neurosurgical intervention and ICP monitoring.
-1152,1069,T88.8XXA,vanessa.myers@gmail.com,2024-06-14,Patient experienced other specified complications following immunization. Observation and symptomatic treatment provided.
-1153,1041,R68.11,eric.ford@yahoo.com,2024-06-15,Patient presents with excessive crying and irritability. Pediatric evaluation and parental counseling provided.
-1154,1009,J95.811,heather.hamilton@hotmail.com,2024-06-16,Patient developed postprocedural pneumonia following surgery. Antibiotic therapy and respiratory support measures.
-1155,1041,R50.83,aaron.graham@outlook.com,2024-06-17,Patient presents with postvaccination fever. Observation period and symptomatic treatment with antipyretics.
-1156,1014,T88.4XXA,tiffany.sullivan@email.com,2024-06-18,Patient experienced failed intubation during emergency procedure. Surgical airway performed and intensive care monitoring.
-1157,1003,R68.0,jordan.wallace@gmail.com,2024-06-19,Patient presents with hypothermia following cold exposure. Rewarming protocol and cardiac monitoring initiated.
-1158,1095,J95.821,lindsay.woods@yahoo.com,2024-06-20,Patient developed acute postprocedural respiratory failure. Mechanical ventilation and pulmonology consultation.
-1159,1025,R50.82,corey.cole@hotmail.com,2024-06-21,Patient presents with postprocedural fever following surgery. Infection workup and empiric antibiotic therapy.
-1160,1099,T88.1XXA,monica.stone@outlook.com,2024-06-22,Patient experienced other complications following immunization. Allergic reaction management and observation.
-1161,1056,R68.3,derek.hawkins@email.com,2024-06-23,Patient presents with clubbing of fingers indicating possible underlying cardiopulmonary disease. Further evaluation ordered.
-1162,1065,J95.01,kimberly.gardner@gmail.com,2024-06-24,Patient developed hemorrhage from tracheostomy stoma. Emergency hemostasis and ENT consultation.
-1163,1047,R50.81,sean.payne@yahoo.com,2024-06-25,Patient presents with fever unspecified. Comprehensive infection workup and empiric treatment initiated.
-1164,1084,T88.0XXA,kelly.marshall@hotmail.com,2024-06-26,Patient experienced infection following immunization. Antibiotic therapy and wound care management.
-1165,1087,R68.1,travis.warren@outlook.com,2024-06-27,Patient presents with nonspecific symptoms including malaise and general discomfort. Comprehensive evaluation initiated.
-1166,1036,J95.03,rebecca.webb@email.com,2024-06-28,Patient developed malfunction of tracheostomy stoma. Emergency tracheostomy revision and airway management.
-1167,1072,R50.9,gregory.tucker@gmail.com,2024-06-29,Patient presents with fever unspecified following recent travel. Travel medicine consultation and tropical disease workup.
-1168,1049,T88.2XXA,christine.austin@yahoo.com,2024-06-30,Patient experienced shock due to anesthesia. Hemodynamic support and intensive care monitoring.
-1169,1091,R68.89,phillip.freeman@hotmail.com,2024-07-01,Patient presents with other specified general symptoms. Comprehensive medical evaluation and symptom management.
-1170,1048,J95.04,danielle.porter@outlook.com,2024-07-02,Patient developed tracheoesophageal fistula. Thoracic surgery consultation and surgical repair planning.
-1171,1043,R50.80,benjamin.berry@email.com,2024-07-03,Patient presents with fever unspecified following recent procedure. Postoperative infection evaluation and management.
-1172,1007,T88.9XXA,amber.reid@gmail.com,2024-07-04,Patient experienced unspecified complication of surgical and medical care. Comprehensive evaluation and supportive care.
-1173,1055,R68.9,jeremy.cruz@yahoo.com,2024-07-05,Patient presents with unspecified general symptoms. Systematic evaluation and diagnostic workup initiated.
-1174,1040,J95.09,maria.richardson@hotmail.com,2024-07-06,Patient developed other tracheostomy complications. ENT evaluation and tracheostomy tube management.
-1175,1064,R50.1,carlos.cox@outlook.com,2024-07-07,Patient presents with persistent fever despite antibiotic therapy. Infectious disease consultation and culture review.
-1176,1060,T88.51XA,stephanie.ward@email.com,2024-07-08,Patient experienced hypothermia following anesthesia. Rewarming protocol and postoperative monitoring.
-1177,1040,R68.82,ryan.torres@gmail.com,2024-07-09,Patient presents with decreased libido affecting quality of life. Endocrinology consultation and hormone evaluation.
-1178,1038,J95.822,laura.peterson@yahoo.com,2024-07-10,Patient developed chronic postprocedural respiratory failure. Long-term ventilatory support and pulmonary rehabilitation.
-1179,1071,R50.0,adam.gray@hotmail.com,2024-07-11,Patient presents with fever with chills following recent infection. Sepsis evaluation and broad-spectrum antibiotic therapy.
-1180,1052,T88.53XA,nicole.ramirez@outlook.com,2024-07-12,Patient experienced unintended awareness under general anesthesia. Psychological support and anesthesia consultation.
-1181,1078,R68.84,scott.james@email.com,2024-07-13,Patient presents with jaw pain and temporomandibular joint dysfunction. Oral surgery consultation and pain management.
-1182,1008,J95.831,michelle.watson@gmail.com,2024-07-14,Patient developed postprocedural subglottic stenosis. ENT evaluation and airway management planning.
-1183,1093,R50.3,jason.brooks@yahoo.com,2024-07-15,Patient presents with hyperpyretic fever requiring aggressive cooling measures. Intensive care monitoring and fever management.
-1184,1035,T88.58XA,elizabeth.kelly@hotmail.com,2024-07-16,Patient experienced other complications of spinal and epidural anesthesia. Neurological evaluation and pain management.
-1185,1026,R68.85,mark.sanders@outlook.com,2024-07-17,Patient presents with decreased fetal movements during pregnancy. Obstetric evaluation and fetal monitoring.
-1186,1025,J95.832,sarah.price@email.com,2024-07-18,Patient developed postprocedural tracheomalacia. Thoracic surgery consultation and airway stenting evaluation.
-1187,1058,R50.4,robert.bennett@gmail.com,2024-07-19,Patient presents with anhidrotic fever and heat exhaustion. Cooling measures and electrolyte replacement therapy.
-1188,1070,T88.5XXA,jennifer.wood@yahoo.com,2024-07-20,Patient experienced other complications of anesthesia. Post-anesthesia care and symptom management.
-1189,1019,R68.86,thomas.barnes@hotmail.com,2024-07-21,Patient presents with decreased mobility and functional decline. Physical therapy evaluation and rehabilitation planning.
-1190,1078,J95.839,patricia.ross@outlook.com,2024-07-22,Patient developed other postprocedural complications of respiratory system. Pulmonology consultation and management.
-1191,1016,R50.5,michael.henderson@email.com,2024-07-23,Patient presents with fever with rigors and severe chills. Sepsis evaluation and intensive care monitoring.
-1192,1045,T88.54XA,lisa.coleman@gmail.com,2024-07-24,Patient experienced neuraxial anesthesia-induced headache. Anesthesia consultation and epidural blood patch.
-1193,1068,R68.87,david.jenkins@yahoo.com,2024-07-25,Patient presents with muscle wasting and sarcopenia. Nutritional evaluation and physical therapy referral.
-1194,1099,J95.841,amanda.perry@hotmail.com,2024-07-26,Patient developed postprocedural aspiration pneumonia. Antibiotic therapy and swallowing evaluation.
-1195,1090,R50.6,christopher.powell@outlook.com,2024-07-27,Patient presents with febrile convulsions requiring seizure management. Neurological evaluation and antipyretic therapy.
-1196,1071,T88.56XA,stephanie.long@email.com,2024-07-28,Patient experienced cardiac arrest due to anesthesia. Cardiopulmonary resuscitation and intensive care management.
-1197,1045,R68.88,kevin.patterson@gmail.com,2024-07-29,Patient presents with other specified general symptoms. Comprehensive evaluation and symptom-directed treatment.
-1198,1002,J95.842,rachel.hughes@yahoo.com,2024-07-30,Patient developed postprocedural pulmonary embolism. Anticoagulation therapy and pulmonary embolism response team.
-1199,1013,R50.7,matthew.flores@hotmail.com,2024-07-31,Patient presents with fever with sweats and night sweats. Infectious disease workup and symptom management.
-1200,1028,T88.57XA,jessica.washington@outlook.com,2024-08-01,Patient experienced other adverse effects of anesthesia. Comprehensive evaluation and supportive care measures.
+1001,1070,J06.9,john.smith@email.com,2024-01-15,"Patient presented with acute upper respiratory infection. Symptoms include sore throat, nasal congestion, and mild fever. Prescribed rest and symptomatic treatment."
+1002,1088,M25.511,sarah.johnson@gmail.com,2024-01-16,Patient complains of right shoulder pain following minor fall. Physical examination reveals limited range of motion. Recommended physical therapy and anti-inflammatory medication.
+1003,1051,E11.9,michael.brown@yahoo.com,2024-01-17,Routine diabetes follow-up. Blood glucose levels slightly elevated. Adjusted medication dosage and reinforced dietary counseling.
+1004,1008,I10,emily.davis@outlook.com,2024-01-18,Annual hypertension check. Blood pressure readings consistently high. Increased ACE inhibitor dose and scheduled follow-up in 4 weeks.
+1005,1040,K21.9,david.wilson@email.com,2024-01-19,Patient reports persistent heartburn and acid reflux symptoms. Prescribed proton pump inhibitor and recommended dietary modifications.
+1006,1020,F32.1,lisa.anderson@gmail.com,2024-01-20,Patient presents with symptoms of moderate depressive episode. Initiated antidepressant therapy and referred to counseling services.
+1007,1026,Z00.00,robert.taylor@yahoo.com,2024-01-21,Annual physical examination. All vital signs within normal limits. Laboratory results pending. Recommended routine screenings appropriate for age.
+1008,1043,H10.9,jennifer.martinez@email.com,2024-01-22,"Patient presents with red, irritated eyes consistent with conjunctivitis. Prescribed antibiotic eye drops and advised proper hygiene measures."
+1009,1069,M79.3,christopher.garcia@outlook.com,2024-01-23,Patient complains of chronic lower back pain. Physical therapy referral provided along with muscle relaxant prescription.
+1010,1097,J20.9,amanda.rodriguez@gmail.com,2024-01-24,Acute bronchitis diagnosis following persistent cough and chest congestion. Prescribed bronchodilator and advised increased fluid intake.
+1011,1062,N39.0,matthew.lee@email.com,2024-01-25,Patient presents with urinary tract infection symptoms. Urine culture positive for E. coli. Prescribed appropriate antibiotic course.
+1012,1099,L20.9,ashley.clark@yahoo.com,2024-01-26,Atopic dermatitis flare-up on arms and legs. Prescribed topical corticosteroid and recommended moisturizing routine.
+1013,1009,G43.909,daniel.lewis@gmail.com,2024-01-27,Patient reports frequent migraine headaches affecting daily activities. Initiated preventive medication and discussed trigger identification.
+1014,1033,R06.02,jessica.walker@outlook.com,2024-01-28,Patient presents with shortness of breath following recent upper respiratory infection. Chest X-ray clear. Prescribed bronchodilator for symptom relief.
+1015,1047,K59.00,anthony.hall@email.com,2024-01-29,"Chronic constipation complaint. Recommended dietary fiber increase, adequate hydration, and prescribed stool softener as needed."
+1016,1019,S93.401A,michelle.allen@gmail.com,2024-01-30,Right ankle sprain sustained during exercise. Physical examination shows swelling and tenderness. Recommended RICE protocol and follow-up in one week.
+1017,1053,Z23,kevin.young@yahoo.com,2024-01-31,Routine immunization visit. Administered influenza vaccine and updated tetanus booster. No adverse reactions observed.
+1018,1072,R51.9,stephanie.king@email.com,2024-02-01,Patient presents with persistent headaches over the past week. No neurological deficits noted. Prescribed pain medication and advised follow-up if symptoms persist.
+1019,1022,J02.9,brian.wright@outlook.com,2024-02-02,Acute pharyngitis with throat culture pending. Symptoms include sore throat and difficulty swallowing. Prescribed symptomatic treatment and throat lozenges.
+1020,1015,M54.5,nicole.lopez@gmail.com,2024-02-03,Lower back pain following heavy lifting. Physical examination reveals muscle spasm. Prescribed muscle relaxant and recommended rest with gradual activity increase.
+1021,1018,R10.84,ryan.hill@email.com,2024-02-04,Patient complains of generalized abdominal pain. Physical examination unremarkable. Recommended dietary modifications and follow-up if symptoms worsen.
+1022,1094,H66.90,lauren.green@yahoo.com,2024-02-05,Acute otitis media with ear pain and hearing reduction. Tympanic membrane appears inflamed. Prescribed antibiotic course and pain management.
+1023,1084,F41.1,justin.adams@gmail.com,2024-02-06,Patient reports symptoms consistent with generalized anxiety disorder. Discussed coping strategies and initiated anxiolytic medication trial.
+1024,1100,B37.9,megan.baker@outlook.com,2024-02-07,Oral thrush diagnosis following antibiotic treatment. White patches observed on tongue and oral mucosa. Prescribed antifungal medication.
+1025,1008,R50.9,tyler.gonzalez@email.com,2024-02-08,Patient presents with fever of unknown origin. Vital signs stable otherwise. Recommended symptomatic treatment and return if fever persists beyond 48 hours.
+1026,1009,K30,crystal.nelson@gmail.com,2024-02-09,Functional dyspepsia with epigastric discomfort after meals. Recommended dietary modifications and prescribed prokinetic agent.
+1027,1021,M25.561,jonathan.carter@yahoo.com,2024-02-10,"Left knee pain following jogging activity. Physical examination shows mild swelling. Recommended rest, ice application, and anti-inflammatory medication."
+1028,1085,R42,samantha.mitchell@email.com,2024-02-11,Patient reports episodes of dizziness and lightheadedness. Blood pressure and neurological examination normal. Advised adequate hydration and gradual position changes.
+1029,1076,J44.1,andrew.perez@outlook.com,2024-02-12,COPD exacerbation with increased dyspnea and cough. Adjusted bronchodilator therapy and prescribed short course of corticosteroids.
+1030,1050,N30.90,rachel.roberts@gmail.com,2024-02-13,Cystitis symptoms including urinary frequency and burning sensation. Prescribed antibiotic treatment and recommended increased fluid intake.
+1031,1037,L30.9,joshua.turner@email.com,2024-02-14,Dermatitis on hands and forearms possibly related to contact allergen. Prescribed topical corticosteroid and advised allergen avoidance.
+1032,1004,R05,heather.phillips@yahoo.com,2024-02-15,Persistent dry cough following recent cold. Chest examination clear. Prescribed cough suppressant and recommended throat lozenges.
+1033,1068,M62.838,nathan.campbell@gmail.com,2024-02-16,Muscle spasm in neck region following poor sleeping position. Physical therapy referral provided along with muscle relaxant prescription.
+1034,1063,R11.10,brittany.parker@outlook.com,2024-02-17,Patient presents with nausea and occasional vomiting. Abdominal examination unremarkable. Prescribed antiemetic and recommended bland diet.
+1035,1041,H53.9,jacob.evans@email.com,2024-02-18,Visual disturbance complaint with occasional blurred vision. Ophthalmology referral recommended for comprehensive eye examination.
+1036,1009,K92.2,courtney.edwards@gmail.com,2024-02-19,Gastrointestinal bleeding suspected based on patient history. Ordered complete blood count and referred for gastroenterology consultation.
+1037,1061,R60.9,alexander.collins@yahoo.com,2024-02-20,Generalized edema in lower extremities. Cardiac and renal function evaluation pending. Prescribed diuretic therapy and sodium restriction.
+1038,1063,T78.40XA,vanessa.stewart@email.com,2024-02-21,Allergic reaction with skin rash following new medication. Discontinued offending agent and prescribed antihistamine treatment.
+1039,1020,M79.1,gregory.sanchez@outlook.com,2024-02-22,"Myalgia affecting multiple muscle groups following viral illness. Recommended rest, hydration, and over-the-counter pain management."
+1040,1025,R19.7,kimberly.morris@gmail.com,2024-02-23,Patient complains of excessive gas and bloating. Dietary assessment conducted. Recommended enzyme supplements and dietary modifications.
+1041,1013,J30.9,sean.rogers@email.com,2024-02-24,Allergic rhinitis with seasonal pattern. Prescribed antihistamine and nasal corticosteroid spray for symptom control.
+1042,1089,F43.10,lindsay.reed@yahoo.com,2024-02-25,Post-traumatic stress symptoms following recent accident. Referred to mental health services for specialized treatment and counseling.
+1043,1071,M70.03,eric.cook@gmail.com,2024-02-26,"Crepitant synovitis of wrist from repetitive motion. Recommended activity modification, wrist splint, and anti-inflammatory medication."
+1044,1097,R73.09,tiffany.morgan@outlook.com,2024-02-27,Abnormal glucose tolerance test results. Initiated lifestyle counseling and scheduled follow-up glucose monitoring in 3 months.
+1045,1022,H61.20,marcus.bailey@email.com,2024-02-28,Cerumen impaction causing hearing difficulty. Performed ear irrigation procedure. Hearing improved post-treatment.
+1046,1097,K76.0,danielle.rivera@gmail.com,2024-02-29,Fatty liver detected on recent imaging. Counseled on weight reduction and alcohol cessation. Liver function tests ordered for monitoring.
+1047,1089,R53.1,patrick.cooper@yahoo.com,2024-03-01,Patient reports persistent weakness and fatigue. Physical examination unremarkable. Ordered comprehensive metabolic panel and thyroid function tests.
+1048,1049,M53.3,monica.richardson@email.com,2024-03-02,"Sacrococcygeal disorders causing tailbone pain. Recommended donut cushion, pain medication, and physical therapy consultation."
+1049,1096,R06.00,carlos.cox@outlook.com,2024-03-03,"Dyspnea on exertion with no obvious cause. Ordered chest X-ray, ECG, and pulmonary function tests for further evaluation."
+1050,1065,L25.9,alicia.howard@gmail.com,2024-03-04,Contact dermatitis on face and neck region. Identified potential allergen in new cosmetic product. Prescribed topical treatment and allergen avoidance.
+1051,1076,R21,benjamin.ward@email.com,2024-03-05,Generalized skin rash of unknown etiology. No systemic symptoms present. Prescribed antihistamine and topical corticosteroid for symptom relief.
+1052,1022,K62.5,christina.torres@yahoo.com,2024-03-06,"Hemorrhoids causing discomfort and occasional bleeding. Recommended dietary fiber increase, sitz baths, and topical hemorrhoid treatment."
+1053,1097,R25.1,timothy.peterson@gmail.com,2024-03-07,Hand tremor affecting daily activities. Neurological examination otherwise normal. Referred to neurology for specialized evaluation.
+1054,1073,N94.6,angela.gray@outlook.com,2024-03-08,Dysmenorrhea causing significant menstrual pain. Prescribed anti-inflammatory medication and discussed hormonal treatment options.
+1055,1057,R35.0,kenneth.ramirez@email.com,2024-03-09,Urinary frequency and nocturia complaints. Prostate examination performed. Referred to urology for further evaluation and treatment options.
+1056,1030,H92.01,rebecca.james@gmail.com,2024-03-10,Right ear otalgia following swimming activities. Otoscopic examination shows external ear canal inflammation. Prescribed antibiotic ear drops.
+1057,1058,R41.0,scott.watson@yahoo.com,2024-03-11,Patient reports disorientation and confusion episodes. Cognitive assessment performed. Referred to neurology for comprehensive evaluation.
+1058,1058,M25.50,kelly.brooks@email.com,2024-03-12,Joint pain affecting multiple joints without obvious cause. Ordered inflammatory markers and rheumatology consultation for further evaluation.
+1059,1011,R22.2,adam.kelly@outlook.com,2024-03-13,Localized swelling in trunk region. Physical examination shows soft tissue mass. Ultrasound ordered for further characterization.
+1060,1075,F51.01,jennifer.sanders@gmail.com,2024-03-14,Primary insomnia affecting sleep quality and daytime function. Discussed sleep hygiene measures and prescribed short-term sleep aid.
+1061,1092,R68.83,jason.price@email.com,2024-03-15,Chills without fever following recent illness. Physical examination unremarkable. Recommended rest and symptomatic treatment.
+1062,1007,K57.90,marie.bennett@yahoo.com,2024-03-16,Diverticulosis discovered on routine colonoscopy. Asymptomatic at present. Counseled on high-fiber diet and regular follow-up.
+1063,1016,R29.6,william.wood@gmail.com,2024-03-17,Tendency to fall with balance issues. Neurological examination shows mild gait instability. Physical therapy referral for balance training.
+1064,1064,H04.20,laura.barnes@outlook.com,2024-03-18,Epiphora with excessive tearing from both eyes. Ophthalmology referral for lacrimal duct evaluation and potential treatment.
+1065,1018,R87.810,joseph.ross@email.com,2024-03-19,Abnormal cervical cytology results requiring follow-up. Discussed findings with patient and scheduled colposcopy examination.
+1066,1007,M84.30XA,elizabeth.henderson@gmail.com,2024-03-20,"Stress fracture in foot following increased running activity. Recommended activity restriction, protective footwear, and gradual return to exercise."
+1067,1048,R40.0,thomas.coleman@yahoo.com,2024-03-21,Somnolence and excessive daytime sleepiness. Sleep study referral recommended to evaluate for sleep disorders.
+1068,1079,L60.0,patricia.jenkins@email.com,2024-03-22,Ingrowing nail on great toe causing pain and inflammation. Performed partial nail avulsion and prescribed antibiotic prophylaxis.
+1069,1046,R94.31,charles.perry@outlook.com,2024-03-23,Abnormal cardiovascular function study results. Cardiology referral scheduled for comprehensive cardiac evaluation and treatment planning.
+1070,1029,N76.0,susan.powell@gmail.com,2024-03-24,Acute vaginitis with discharge and irritation. Performed vaginal examination and prescribed appropriate antifungal treatment.
+1071,1078,R06.03,mark.long@email.com,2024-03-25,Acute respiratory distress following exposure to irritant. Administered bronchodilator treatment and monitored oxygen saturation.
+1072,1050,K44.9,karen.patterson@yahoo.com,2024-03-26,Diaphragmatic hernia detected on chest imaging. Referred to surgery for evaluation and potential repair procedure.
+1073,1046,R15.9,paul.hughes@gmail.com,2024-03-27,Fecal incontinence affecting quality of life. Performed rectal examination and referred to gastroenterology for specialized management.
+1074,1049,H81.10,nancy.flores@outlook.com,2024-03-28,Benign paroxysmal positional vertigo with characteristic symptoms. Performed canalith repositioning procedure with symptom improvement.
+1075,1084,R56.9,steven.washington@email.com,2024-03-29,Unspecified convulsions reported by family member. Neurological examination performed. EEG and neurology referral recommended.
+1076,1043,M72.0,donna.butler@gmail.com,2024-03-30,Palmar fibromatosis causing hand contracture. Referred to hand surgery for evaluation of treatment options including injection therapy.
+1077,1018,R13.10,richard.simmons@yahoo.com,2024-03-31,Dysphagia with difficulty swallowing solid foods. Referred to gastroenterology for barium swallow study and endoscopic evaluation.
+1078,1021,N18.6,helen.foster@email.com,2024-04-01,End-stage renal disease requiring dialysis management. Nephrology consultation for treatment optimization and transplant evaluation.
+1079,1089,R31.9,edward.gonzales@outlook.com,2024-04-02,Hematuria detected on routine urinalysis. Ordered complete urological workup including cystoscopy and imaging studies.
+1080,1007,F20.9,deborah.bryant@gmail.com,2024-04-03,Schizophrenia spectrum disorder requiring medication adjustment. Psychiatry referral for comprehensive mental health evaluation and treatment.
+1081,1063,R57.0,jeffrey.alexander@email.com,2024-04-04,Cardiogenic shock requiring immediate intensive care management. Transferred to cardiac care unit for monitoring and treatment.
+1082,1068,M15.9,cynthia.russell@yahoo.com,2024-04-05,Polyarthrosis affecting multiple joints with progressive symptoms. Rheumatology referral for disease management and joint preservation strategies.
+1083,1013,R73.03,raymond.griffin@gmail.com,2024-04-06,Prediabetes identified through glucose tolerance testing. Initiated lifestyle modification counseling and scheduled regular monitoring.
+1084,1059,H35.30,amy.diaz@outlook.com,2024-04-07,Degeneration of macula affecting central vision. Ophthalmology referral for specialized retinal evaluation and treatment options.
+1085,1100,R06.02,frank.hayes@email.com,2024-04-08,Shortness of breath with exertion limiting daily activities. Pulmonary function tests ordered along with chest imaging for evaluation.
+1086,1079,K25.9,carol.myers@gmail.com,2024-04-09,Gastric ulcer diagnosed via endoscopy. Initiated proton pump inhibitor therapy and H. pylori testing for treatment optimization.
+1087,1064,R29.3,gary.ford@yahoo.com,2024-04-10,Abnormal posture and movement patterns. Neurological evaluation shows extrapyramidal signs. Neurology referral for further assessment.
+1088,1064,N40.1,ruth.hamilton@email.com,2024-04-11,Benign prostatic hyperplasia causing urinary symptoms. Prescribed alpha-blocker therapy and scheduled follow-up for symptom assessment.
+1089,1003,R50.82,harold.graham@outlook.com,2024-04-12,Postprocedural fever following recent surgical intervention. Monitored vital signs and prescribed empiric antibiotic therapy.
+1090,1032,L29.9,joyce.sullivan@gmail.com,2024-04-13,Pruritus of unknown origin causing significant discomfort. Prescribed antihistamine therapy and recommended moisturizing routine.
+1091,1053,R94.39,arthur.wallace@email.com,2024-04-14,Abnormal cardiovascular function study requiring cardiology evaluation. Scheduled stress testing and echocardiogram for comprehensive assessment.
+1092,1073,H90.2,janice.woods@yahoo.com,2024-04-15,Conductive hearing loss affecting communication ability. Audiometry performed and ENT referral for hearing aid evaluation.
+1093,1057,R68.84,wayne.west@gmail.com,2024-04-16,Jaw pain affecting eating and speaking. TMJ evaluation performed. Recommended soft diet and jaw exercises for symptom relief.
+1094,1071,K72.90,gloria.cole@outlook.com,2024-04-17,Hepatic failure requiring immediate medical attention. Gastroenterology consultation for liver transplant evaluation and management.
+1095,1043,R26.2,ralph.tucker@email.com,2024-04-18,Difficulty in walking affecting mobility and independence. Physical therapy evaluation and assistive device assessment recommended.
+1096,1025,N13.30,theresa.flores@gmail.com,2024-04-19,Hydronephrosis detected on renal ultrasound. Urology referral for evaluation of urinary obstruction and treatment planning.
+1097,1040,R47.02,roy.lawson@yahoo.com,2024-04-20,Dysphasia affecting speech communication. Speech therapy referral and neurological evaluation for underlying cause assessment.
+1098,1027,M06.9,phyllis.reid@email.com,2024-04-21,Rheumatoid arthritis with joint inflammation and morning stiffness. Initiated disease-modifying antirheumatic drug therapy.
+1099,1049,R55,eugene.kim@outlook.com,2024-04-22,Syncope episode with brief loss of consciousness. Cardiovascular evaluation including ECG and echocardiogram recommended.
+1100,1039,H25.9,marie.armstrong@gmail.com,2024-04-23,Age-related cataract causing visual impairment. Ophthalmology referral for cataract surgery evaluation and treatment planning.
+1101,1095,R79.89,louis.webb@email.com,2024-04-24,Abnormal blood chemistry findings requiring further investigation. Repeated laboratory studies and specialist consultation recommended.
+1102,1022,F31.9,norma.fisher@yahoo.com,2024-04-25,Bipolar disorder requiring mood stabilization therapy. Psychiatry referral for comprehensive mental health evaluation and treatment.
+1103,1099,R32,bobby.porter@gmail.com,2024-04-26,Unspecified urinary incontinence affecting quality of life. Urology referral for evaluation and management of bladder dysfunction.
+1104,1061,K80.20,jean.hunter@outlook.com,2024-04-27,Calculus of gallbladder without cholangitis. Surgery consultation for laparoscopic cholecystectomy evaluation and planning.
+1105,1070,R29.890,terry.gilbert@email.com,2024-04-28,Loss of height affecting posture and mobility. Bone density testing ordered and endocrinology referral for osteoporosis evaluation.
+1106,1055,I48.91,gloria.stone@gmail.com,2024-04-29,Unspecified atrial fibrillation with palpitations. Cardiology referral for rhythm management and anticoagulation therapy evaluation.
+1107,1007,R20.2,clarence.hawkins@yahoo.com,2024-04-30,Paresthesia in hands and feet affecting sensation. Neurological evaluation and nerve conduction studies recommended.
+1108,1092,N95.1,beverly.arnold@email.com,2024-05-01,Menopausal and female climacteric states with hot flashes. Discussed hormone replacement therapy options and lifestyle modifications.
+1109,1096,R58,antonio.elliott@outlook.com,2024-05-02,Hemorrhage not elsewhere classified requiring immediate evaluation. Emergency department referral for urgent assessment and treatment.
+1110,1087,M35.9,ann.black@gmail.com,2024-05-03,Systemic involvement of connective tissue with multiple symptoms. Rheumatology referral for autoimmune disorder evaluation.
+1111,1038,R45.851,willie.oliver@email.com,2024-05-04,Suicidal ideations requiring immediate mental health intervention. Crisis intervention team contacted and psychiatry consultation arranged.
+1112,1066,H72.90,denise.white@yahoo.com,2024-05-05,Perforation of tympanic membrane affecting hearing. ENT referral for evaluation of repair options and hearing preservation.
+1113,1092,R63.4,lawrence.harris@gmail.com,2024-05-06,Abnormal weight loss requiring investigation for underlying cause. Comprehensive metabolic workup and oncology screening recommended.
+1114,1015,K92.1,alice.clark@outlook.com,2024-05-07,Melena indicating upper gastrointestinal bleeding. Gastroenterology referral for urgent endoscopic evaluation and treatment.
+1115,1033,R40.2,jack.lewis@email.com,2024-05-08,Coma of unspecified cause requiring intensive care monitoring. Neurology consultation for evaluation and management planning.
+1116,1002,N28.9,katherine.robinson@gmail.com,2024-05-09,Disorder of kidney and ureter affecting renal function. Nephrology referral for comprehensive renal evaluation and treatment.
+1117,1062,R44.3,albert.walker@yahoo.com,2024-05-10,Hallucinations affecting mental status and behavior. Psychiatry referral for comprehensive mental health evaluation and treatment.
+1118,1021,M79.81,shirley.hall@email.com,2024-05-11,Nontraumatic compartment syndrome requiring urgent surgical evaluation. Orthopedic surgery consultation for decompression procedure.
+1119,1091,R87.619,wayne.allen@outlook.com,2024-05-12,Abnormal cytological findings on cervical screening. Gynecology referral for colposcopy and further evaluation of abnormal cells.
+1120,1099,I50.9,doris.young@gmail.com,2024-05-13,Heart failure with reduced exercise tolerance. Cardiology referral for optimization of heart failure medications and monitoring.
+1121,1027,R91.8,jesse.hernandez@email.com,2024-05-14,Other nonspecific abnormal finding of lung field on imaging. Pulmonology referral for further evaluation and possible biopsy.
+1122,1070,F10.10,diana.king@yahoo.com,2024-05-15,Alcohol use disorder with mild severity. Addiction medicine referral for comprehensive substance abuse treatment planning.
+1123,1052,R93.1,gerald.wright@gmail.com,2024-05-16,Abnormal findings on diagnostic imaging of heart and coronary circulation. Cardiology referral for cardiac catheterization evaluation.
+1124,1027,N81.10,rose.lopez@outlook.com,2024-05-17,Cystocele affecting bladder function and pelvic support. Urogynecology referral for evaluation of surgical repair options.
+1125,1074,R34,joe.hill@email.com,2024-05-18,Anuria and oliguria requiring urgent evaluation for renal failure. Nephrology consultation for dialysis evaluation and management.
+1126,1057,M32.9,lois.scott@gmail.com,2024-05-19,Systemic lupus erythematosus with multi-organ involvement. Rheumatology referral for immunosuppressive therapy management.
+1127,1003,R70.0,billy.green@yahoo.com,2024-05-20,Elevated erythrocyte sedimentation rate indicating inflammatory process. Further laboratory evaluation and specialist consultation recommended.
+1128,1002,H83.2X3,thelma.adams@email.com,2024-05-21,Labyrinthitis affecting balance and hearing. ENT referral for vestibular evaluation and treatment of inner ear disorder.
+1129,1083,R86.6,roger.baker@outlook.com,2024-05-22,Abnormal cytological findings in specimens from male genital organs. Urology referral for further evaluation and possible biopsy.
+1130,1018,G93.1,betty.gonzalez@gmail.com,2024-05-23,Anoxic brain damage affecting cognitive function. Neurology referral for comprehensive neurological evaluation and rehabilitation planning.
+1131,1025,R82.90,phillip.nelson@email.com,2024-05-24,Unspecified abnormal findings in urine requiring further investigation. Repeated urinalysis and nephrology consultation if persistent.
+1132,1097,M48.06,helen.carter@yahoo.com,2024-05-25,Spinal stenosis in lumbar region causing neurogenic claudication. Orthopedic spine referral for surgical evaluation and treatment.
+1133,1010,R78.81,johnny.mitchell@gmail.com,2024-05-26,Bacteremia detected in blood culture requiring antibiotic therapy. Infectious disease consultation for treatment optimization and source identification.
+1134,1017,N63.10,frances.perez@outlook.com,2024-05-27,Unspecified lump in right breast requiring evaluation. Breast imaging and surgical consultation for diagnostic workup.
+1135,1050,R49.0,carl.roberts@email.com,2024-05-28,Dysphonia affecting voice quality and communication. ENT referral for laryngoscopic evaluation and voice therapy consultation.
+1136,1075,K83.1,martha.turner@gmail.com,2024-05-29,Obstruction of bile duct causing jaundice and abdominal pain. Gastroenterology referral for ERCP evaluation and treatment.
+1137,1069,R89.6,jimmy.phillips@yahoo.com,2024-05-30,Abnormal cytological findings in specimens from other female genital organs. Gynecology referral for comprehensive evaluation and biopsy.
+1138,1081,G47.33,debra.campbell@email.com,2024-05-31,Obstructive sleep apnea affecting sleep quality and daytime function. Sleep study referral and CPAP therapy evaluation recommended.
+1139,1024,R84.6,walter.parker@outlook.com,2024-06-01,Abnormal cytological findings in specimens from cervix uteri. Gynecology referral for colposcopy and further evaluation.
+1140,1033,I95.9,maria.evans@gmail.com,2024-06-02,Hypotension of unspecified cause affecting daily activities. Cardiovascular evaluation and medication review recommended.
+1141,1012,R85.616,harold.edwards@email.com,2024-06-03,Cervical low grade squamous intraepithelial lesion on cytology. Gynecology referral for colposcopy and treatment planning.
+1142,1043,N92.0,janice.collins@yahoo.com,2024-06-04,Excessive and frequent menstruation affecting quality of life. Gynecology referral for evaluation of menorrhagia and treatment options.
+1143,1041,R88.8,peter.stewart@gmail.com,2024-06-05,Abnormal findings in other body fluids requiring investigation. Repeated testing and specialist consultation based on findings.
+1144,1034,M24.10,virginia.sanchez@outlook.com,2024-06-06,Other articular cartilage disorders affecting joint function. Orthopedic referral for arthroscopic evaluation and treatment planning.
+1145,1063,R90.82,douglas.morris@email.com,2024-06-07,White matter disease on brain imaging requiring neurological evaluation. Neurology referral for comprehensive assessment and management.
+1146,1084,N25.9,carolyn.rogers@gmail.com,2024-06-08,Disorder resulting from impaired renal tubular function. Nephrology referral for specialized evaluation and treatment planning.
+1147,1047,R83.6,henry.reed@yahoo.com,2024-06-09,Abnormal cytological findings in cerebrospinal fluid. Neurology referral for lumbar puncture evaluation and central nervous system assessment.
+1148,1029,M33.90,brenda.cook@email.com,2024-06-10,Dermatopolymyositis affecting skin and muscle function. Rheumatology referral for immunosuppressive therapy evaluation and management.
+1149,1067,R80.9,arthur.morgan@outlook.com,2024-06-11,Proteinuria of unspecified cause requiring renal evaluation. Nephrology referral for comprehensive kidney function assessment.
+1150,1093,G25.3,julie.bell@gmail.com,2024-06-12,Myoclonus affecting voluntary movement control. Neurology referral for movement disorder evaluation and treatment optimization.
+1151,1038,R81,fred.murphy@email.com,2024-06-13,Glycosuria detected on routine urinalysis. Diabetes screening and endocrinology consultation for metabolic evaluation.
+1152,1086,M34.9,cheryl.bailey@yahoo.com,2024-06-14,Systemic sclerosis affecting multiple organ systems. Rheumatology referral for disease monitoring and immunosuppressive therapy.
+1153,1095,R77.9,samuel.rivera@gmail.com,2024-06-15,Other abnormalities of plasma proteins requiring investigation. Hematology consultation for protein disorder evaluation and treatment.
+1154,1006,N14.2,marie.cooper@outlook.com,2024-06-16,Nephropathy induced by unspecified drug or medicament. Nephrology referral for medication review and renal function optimization.
+1155,1056,R76.11,clarence.richardson@email.com,2024-06-17,Nonspecific reaction to tuberculin skin test. Infectious disease consultation for tuberculosis screening and evaluation.
+1156,1034,M05.9,kathryn.cox@gmail.com,2024-06-18,Rheumatoid arthritis with rheumatoid factor positive. Rheumatology referral for disease-modifying therapy initiation and monitoring.
+1157,1077,R75,steve.ward@yahoo.com,2024-06-19,Inconclusive laboratory evidence of human immunodeficiency virus. Infectious disease referral for HIV testing confirmation and counseling.
+1158,1053,N17.9,diane.torres@email.com,2024-06-20,Acute kidney failure of unspecified cause requiring immediate intervention. Nephrology consultation for dialysis evaluation and management.
+1159,1022,R74.8,todd.peterson@outlook.com,2024-06-21,Abnormal levels of other serum enzymes requiring investigation. Hepatology consultation for liver enzyme elevation evaluation.
+1160,1086,M31.6,evelyn.gray@gmail.com,2024-06-22,Other giant cell arteritis affecting multiple vessels. Rheumatology referral for corticosteroid therapy and vascular monitoring.
+1161,1027,R71.8,dennis.ramirez@email.com,2024-06-23,Other abnormality of red blood cells requiring hematological evaluation. Hematology referral for comprehensive blood disorder assessment.
+1162,1037,N06.9,lisa.james@yahoo.com,2024-06-24,Isolated proteinuria with unspecified morphological lesion. Nephrology referral for renal biopsy evaluation and treatment planning.
+1163,1018,R73.01,gregory.watson@gmail.com,2024-06-25,Impaired fasting glucose requiring diabetes prevention counseling. Endocrinology referral for metabolic syndrome evaluation and management.
+1164,1083,M30.3,ruth.brooks@outlook.com,2024-06-26,Mucocutaneous lymph node syndrome affecting multiple systems. Rheumatology and cardiology referral for comprehensive evaluation.
+1165,1095,R70.1,jack.kelly@email.com,2024-06-27,Abnormal plasma viscosity affecting circulation. Hematology referral for blood viscosity disorder evaluation and treatment.
+1166,1055,N04.9,anna.sanders@gmail.com,2024-06-28,Nephrotic syndrome with unspecified morphological changes. Nephrology referral for renal biopsy and immunosuppressive therapy evaluation.
+1167,1077,R72.0,ernest.price@yahoo.com,2024-06-29,Lymphadenopathy requiring evaluation for underlying cause. Hematology referral for lymph node biopsy and malignancy screening.
+1168,1090,M36.1,sara.bennett@email.com,2024-06-30,Arthropathy in neoplastic disease affecting joint function. Oncology and rheumatology referral for comprehensive cancer evaluation.
+1169,1061,R69,ralph.wood@outlook.com,2024-07-01,Illness unspecified requiring comprehensive diagnostic evaluation. Multiple specialty consultations and extensive laboratory workup recommended.
+1170,1007,N01.9,theresa.barnes@gmail.com,2024-07-02,Rapidly progressive nephritic syndrome with unspecified morphological changes. Nephrology referral for urgent renal evaluation and treatment.
+1171,1043,R68.89,george.ross@email.com,2024-07-03,Other general symptoms and signs requiring investigation. Comprehensive physical examination and laboratory evaluation recommended.
+1172,1093,M36.8,nancy.henderson@yahoo.com,2024-07-04,Other systemic disorders of connective tissue affecting multiple organs. Rheumatology referral for autoimmune disorder evaluation.
+1173,1067,R68.2,kenneth.coleman@gmail.com,2024-07-05,Dry mouth not elsewhere classified affecting oral health. Dental and rheumatology referral for Sjögren syndrome evaluation.
+1174,1031,N00.9,betty.jenkins@outlook.com,2024-07-06,Acute nephritic syndrome with unspecified morphological changes. Nephrology referral for urgent renal evaluation and treatment.
+1175,1076,R68.0,paul.perry@email.com,2024-07-07,Hypothermia not associated with low environmental temperature. Emergency medicine consultation for temperature regulation disorder evaluation.
+1176,1018,M36.0,sandra.powell@gmail.com,2024-07-08,Dermato(poly)myositis in neoplastic disease. Oncology and rheumatology referral for comprehensive cancer and autoimmune evaluation.
+1177,1003,R68.1,andrew.long@yahoo.com,2024-07-09,Nonspecific symptoms peculiar to infancy. Pediatric referral for comprehensive developmental and health evaluation.
+1178,1065,N05.9,donna.patterson@email.com,2024-07-10,Unspecified hereditary nephritis with unspecified morphological lesions. Nephrology and genetics referral for hereditary kidney disease evaluation.
+1179,1044,R64,joshua.hughes@outlook.com,2024-07-11,Cachexia requiring investigation for underlying malignancy or chronic disease. Oncology and nutrition consultation recommended.
+1180,1082,N16,kimberly.flores@gmail.com,2024-07-12,Renal tubulo-interstitial disorders in diseases classified elsewhere. Nephrology referral for comprehensive renal evaluation and treatment.
+1181,1092,R59.9,christopher.washington@email.com,2024-07-13,Enlarged lymph nodes unspecified requiring evaluation for malignancy. Hematology referral for lymph node biopsy and cancer screening.
+1182,1046,N08,michelle.butler@yahoo.com,2024-07-14,Glomerular disorders in diseases classified elsewhere. Nephrology referral for glomerulonephritis evaluation and treatment planning.
+1183,1008,R59.0,david.simmons@gmail.com,2024-07-15,Localized enlarged lymph nodes requiring biopsy evaluation. General surgery referral for lymph node excision and pathological examination.
+1184,1029,N15.9,lisa.foster@outlook.com,2024-07-16,Renal tubulo-interstitial disease unspecified affecting kidney function. Nephrology referral for comprehensive renal evaluation and management.
+1185,1078,R57.1,james.gonzales@email.com,2024-07-17,Hypovolemic shock requiring immediate fluid resuscitation. Emergency medicine consultation for shock management and underlying cause evaluation.
+1186,1012,N12,patricia.bryant@gmail.com,2024-07-18,Tubulo-interstitial nephritis not specified as acute or chronic. Nephrology referral for renal biopsy and immunosuppressive therapy evaluation.
+1187,1008,R57.8,robert.alexander@yahoo.com,2024-07-19,Other shock conditions requiring intensive care management. Critical care consultation for shock evaluation and hemodynamic support.
+1188,1065,N15.1,barbara.russell@email.com,2024-07-20,Renal and perinephric abscess requiring antibiotic therapy. Urology and infectious disease referral for drainage and treatment.
+1189,1022,R57.2,william.griffin@outlook.com,2024-07-21,Septic shock requiring immediate antibiotic therapy and hemodynamic support. Infectious disease and critical care consultation.
+1190,1095,N11.9,jennifer.diaz@gmail.com,2024-07-22,Chronic tubulo-interstitial nephritis unspecified affecting renal function. Nephrology referral for chronic kidney disease management.
+1191,1054,R50.2,michael.hayes@email.com,2024-07-23,Drug-induced fever requiring medication review and discontinuation. Clinical pharmacology consultation for drug reaction evaluation.
+1192,1039,N15.0,linda.myers@yahoo.com,2024-07-24,Balkan nephropathy affecting kidney function progressively. Nephrology referral for endemic nephropathy evaluation and management.
+1193,1002,R50.83,richard.ford@gmail.com,2024-07-25,Postvaccination fever following recent immunization. Monitoring recommended with symptomatic treatment for vaccine reaction.
+1194,1059,N13.6,maria.hamilton@outlook.com,2024-07-26,Pyonephrosis requiring urgent drainage and antibiotic therapy. Urology referral for nephrostomy tube placement and infection management.
+1195,1085,R50.84,charles.graham@email.com,2024-07-27,Febrile nonhemolytic transfusion reaction. Hematology consultation for transfusion reaction evaluation and future transfusion planning.
+1196,1060,N13.5,susan.sullivan@gmail.com,2024-07-28,Crossing vessel and stricture of ureter without hydronephrosis. Urology referral for ureteroscopy and possible stent placement.
+1197,1010,R50.81,thomas.wallace@yahoo.com,2024-07-29,Fever presenting with conditions classified elsewhere. Investigation for underlying infectious or inflammatory process recommended.
+1198,1059,N13.4,betty.woods@email.com,2024-07-30,Hydroureter affecting urinary drainage. Urology referral for ureteroscopy evaluation and treatment of ureteral obstruction.
+1199,1088,R46.89,daniel.west@outlook.com,2024-07-31,Other symptoms and signs involving appearance and behavior. Psychiatry referral for behavioral evaluation and mental health assessment.
+1200,1089,N13.2,nancy.cole@gmail.com,2024-08-01,Hydronephrosis with renal and ureteral calculous obstruction. Urology referral for stone removal and renal function preservation.

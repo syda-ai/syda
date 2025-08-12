@@ -1,101 +1,101 @@
 patient_id,diagnosis_code,email,visit_date,notes
-1001,J45.909,patient1001@example.com,2023-01-05,Patient reports intermittent wheezing and shortness of breath. Prescribed inhaled corticosteroid and advised to avoid triggers.
-1002,E11.9,patient1002@example.com,2023-01-08,"Routine follow-up for diabetes. HbA1c reviewed, remains at 7.2%. Continue metformin and reinforce diet control."
-1003,I10,patient1003@example.com,2023-01-10,Blood pressure noted at 148/92 mmHg. Increased lisinopril dose and scheduled three-month recheck.
-1004,F32.9,patient1004@example.com,2023-01-12,Patient reports low mood and decreased energy for past month. Initiated sertraline 25 mg daily and referred to counseling.
-1005,M54.5,patient1005@example.com,2023-01-15,Complains of chronic low back pain aggravated by lifting. Recommended physical therapy and NSAIDs as needed.
-1006,K21.9,patient1006@example.com,2023-01-18,Heartburn especially at night. Started omeprazole 20 mg daily and advised weight loss measures.
-1007,R51,patient1007@example.com,2023-01-20,Tension headaches occurring 3–4 times weekly. Suggested stress management and trial of acetaminophen.
-1008,L60.0,patient1008@example.com,2023-01-22,"Ingrown toenail on right hallux, mild infection. Performed partial nail avulsion and prescribed topical antibiotic."
-1009,J02.9,patient1009@example.com,2023-01-25,Sore throat without exudate. Rapid strep negative. Symptomatic care advised.
-1010,N39.0,patient1010@example.com,2023-01-28,Dysuria and frequency for two days. UA positive for leukocytes. Started nitrofurantoin 100 mg BID for 5 days.
-1011,M79.1,patient1011@example.com,2023-02-01,Myalgia after recent viral illness. Recommended hydration and rest; no red flags.
-1012,E78.5,patient1012@example.com,2023-02-03,Lipid panel shows elevated LDL 165 mg/dL. Started atorvastatin 20 mg nightly.
-1013,J30.9,patient1013@example.com,2023-02-05,Seasonal allergic rhinitis with sneezing. Prescribed cetirizine PRN and intranasal fluticasone.
-1014,M25.561,patient1014@example.com,2023-02-07,Right knee pain after running. No swelling. Ordered X-ray and advised RICE protocol.
-1015,B34.9,patient1015@example.com,2023-02-10,"Upper respiratory infection, likely viral. Supportive treatment discussed."
-1016,K52.9,patient1016@example.com,2023-02-12,Acute gastroenteritis with mild dehydration. Oral rehydration encouraged.
-1017,G43.909,patient1017@example.com,2023-02-15,"Migraine without aura, increasing frequency. Initiated sumatriptan as abortive therapy."
-1018,J06.9,patient1018@example.com,2023-02-18,Common cold symptoms. No antibiotics prescribed; advised rest and fluids.
-1019,I25.10,patient1019@example.com,2023-02-20,"History of CAD, routine check. Stable, continue current meds."
-1020,M17.11,patient1020@example.com,2023-02-22,Unilateral primary osteoarthritis of right knee. Discussed NSAIDs and exercise regimen.
-1021,F41.1,patient1021@example.com,2023-02-25,"Generalized anxiety disorder, stable on escitalopram. Follow-up in 3 months."
-1022,E03.9,patient1022@example.com,2023-02-28,"Hypothyroidism, TSH 5.8 mIU/L. Increased levothyroxine dosage."
-1023,J20.9,patient1023@example.com,2023-03-03,Acute bronchitis with productive cough. Provided inhaled bronchodilator and cough suppressant.
-1024,L03.115,patient1024@example.com,2023-03-05,Cellulitis of right lower limb. Started cephalexin 500 mg QID.
-1025,R10.9,patient1025@example.com,2023-03-07,Abdominal pain of unclear etiology. Ordered CBC and abdominal ultrasound.
-1026,K64.4,patient1026@example.com,2023-03-10,External hemorrhoids symptomatic. Recommended topical hydrocortisone and fiber supplementation.
-1027,H52.13,patient1027@example.com,2023-03-13,Myopia bilateral. Referred to optometry for updated lenses.
-1028,M51.26,patient1028@example.com,2023-03-15,Lumbar disc degeneration with radiculopathy. MRI ordered; continue physical therapy.
-1029,E66.9,patient1029@example.com,2023-03-17,Obesity counseling session. Set goal of 5% weight loss over 6 months.
-1030,N92.6,patient1030@example.com,2023-03-20,Irregular menstruation. Ordered hormonal panel and pelvic ultrasound.
-1031,J03.90,patient1031@example.com,2023-03-23,Tonsillitis without abscess; started amoxicillin 500 mg TID.
-1032,F51.9,patient1032@example.com,2023-03-25,Sleep disorder unspecified. Sleep hygiene discussed; consider polysomnography.
-1033,K02.9,patient1033@example.com,2023-03-28,Dental caries noted during physical. Referred to dentistry.
-1034,Z23,patient1034@example.com,2023-03-30,Encounter for influenza vaccination. Vaccine administered without complications.
-1035,H66.90,patient1035@example.com,2023-04-02,"Otitis media, unspecified, right ear. Prescribed amoxicillin-clavulanate."
-1036,I83.90,patient1036@example.com,2023-04-04,Varicose veins of lower extremity without ulcer. Compression stockings advised.
-1037,L40.0,patient1037@example.com,2023-04-06,Psoriasis vulgaris with plaques on elbows. Initiated topical corticosteroid.
-1038,G20,patient1038@example.com,2023-04-09,Parkinson’s disease follow-up. Motor symptoms stable on levodopa.
-1039,E16.2,patient1039@example.com,2023-04-11,"Hypoglycemia, cause unspecified. Reviewed diet and adjusted insulin regimen."
-1040,N20.0,patient1040@example.com,2023-04-13,Kidney stone in pelvis. Pain controlled with NSAIDs; urology referral.
-1041,I48.91,patient1041@example.com,2023-04-15,"Atrial fibrillation, unspecified. Started anticoagulation and scheduled cardiology consult."
-1042,K80.20,patient1042@example.com,2023-04-18,Calculus of gallbladder without cholecystitis. Discussed elective cholecystectomy.
-1043,R42,patient1043@example.com,2023-04-20,Dizziness episodes when standing. Ordered orthostatic vitals and labs.
-1044,M79.7,patient1044@example.com,2023-04-23,Fibromyalgia flare. Reviewed exercise program and medication adherence.
-1045,J45.20,patient1045@example.com,2023-04-25,"Mild intermittent asthma, patient asymptomatic today. Continue PRN albuterol."
-1046,L73.9,patient1046@example.com,2023-04-27,"Follicular disorder of skin, unspecified. Prescribed topical clindamycin."
-1047,K90.0,patient1047@example.com,2023-04-30,Celiac disease with diarrhea. Reinforced strict gluten-free diet.
-1048,N80.9,patient1048@example.com,2023-05-02,"Endometriosis, unspecified site. Discussed hormonal therapy options."
-1049,H10.9,patient1049@example.com,2023-05-05,"Conjunctivitis, unspecified. Provided lubricating drops and hygiene instructions."
-1050,E55.9,patient1050@example.com,2023-05-07,"Vitamin D deficiency. Started cholecalciferol 2,000 IU daily."
-1051,G89.29,patient1051@example.com,2023-05-09,Chronic pain due to osteoarthritis. Adjusted tramadol dosage.
-1052,R07.89,patient1052@example.com,2023-05-11,Chest pain non-cardiac. ECG normal; likely musculoskeletal.
-1053,I11.9,patient1053@example.com,2023-05-14,Hypertensive heart disease without heart failure. Optimized antihypertensive regimen.
-1054,K31.84,patient1054@example.com,2023-05-16,Gastroparesis causing early satiety. Started metoclopramide trial.
-1055,F90.9,patient1055@example.com,2023-05-18,"ADHD, stable on methylphenidate. School performance improved."
-1056,H81.10,patient1056@example.com,2023-05-21,"Meniere’s disease, right ear. Provided low-salt diet instructions."
-1057,L29.9,patient1057@example.com,2023-05-23,Pruritus of unknown origin. Trial of oral antihistamine.
-1058,G57.30,patient1058@example.com,2023-05-25,Carpal tunnel syndrome of bilateral upper limbs. Suggested wrist splints.
-1059,N18.3,patient1059@example.com,2023-05-28,CKD stage 3. Monitored creatinine and advised ACE inhibitor continuation.
-1060,J31.0,patient1060@example.com,2023-05-30,Chronic rhinitis with nasal congestion. Tried intranasal antihistamine.
-1061,E03.8,patient1061@example.com,2023-06-02,Other specified hypothyroidism. Adjusted medication and ordered follow-up labs.
-1062,I95.1,patient1062@example.com,2023-06-04,Orthostatic hypotension causing syncope. Increased fluid intake and reviewed medications.
-1063,L21.0,patient1063@example.com,2023-06-06,Seborrheic dermatitis scalp. Prescribed ketoconazole shampoo.
-1064,K57.30,patient1064@example.com,2023-06-09,Diverticulosis of large intestine without bleeding. High-fiber diet recommended.
-1065,G44.1,patient1065@example.com,2023-06-11,"Vascular headache, cluster type. Referred to neurology for management."
-1066,M62.81,patient1066@example.com,2023-06-13,Muscle weakness generalized. Ordered neuromuscular EMG.
-1067,Z12.11,patient1067@example.com,2023-06-16,Encounter for screening colonoscopy. Procedure scheduled next month.
-1068,R19.7,patient1068@example.com,2023-06-18,Diarrhea unspecified. Stool studies ordered.
-1069,H90.3,patient1069@example.com,2023-06-20,Sensorineural hearing loss bilateral. Audiology referral placed.
-1070,E04.2,patient1070@example.com,2023-06-23,Multinodular goiter. Thyroid ultrasound arranged.
-1071,M72.2,patient1071@example.com,2023-06-25,Plantar fascial fibromatosis. Custom orthotics recommended.
-1072,N76.0,patient1072@example.com,2023-06-28,Acute vaginitis with discharge. Treated with metronidazole gel.
-1073,K12.1,patient1073@example.com,2023-07-01,Recurrent aphthous stomatitis. Topical corticosteroid paste prescribed.
-1074,I87.2,patient1074@example.com,2023-07-03,Venous insufficiency chronic. Advised leg elevation and compression therapy.
-1075,F43.21,patient1075@example.com,2023-07-06,Adjustment disorder with anxiety after job loss. Counseling started.
-1076,L05.01,patient1076@example.com,2023-07-08,Pilondial cyst with abscess. Incision and drainage performed.
-1077,E88.81,patient1077@example.com,2023-07-10,Metabolic syndrome components reviewed. Lifestyle modification emphasized.
-1078,H53.9,patient1078@example.com,2023-07-13,Visual disturbance unspecified. Scheduled ophthalmology evaluation.
-1079,K25.9,patient1079@example.com,2023-07-15,Gastric ulcer unspecified as acute or chronic. Started PPI therapy.
-1080,R63.5,patient1080@example.com,2023-07-18,Abnormal weight gain over 3 months. Checked thyroid and lifestyle factors.
-1081,M81.0,patient1081@example.com,2023-07-20,Age-related osteoporosis without current fracture. Started alendronate weekly.
-1082,G54.0,patient1082@example.com,2023-07-22,Brachial plexus disorders causing arm numbness. Ordered MRI of neck.
-1083,L83,patient1083@example.com,2023-07-25,Acanthosis nigricans on neck folds. Screened for diabetes.
-1084,I70.219,patient1084@example.com,2023-07-27,Atherosclerosis of native arteries extremities with intermittent claudication. Vascular surgery referral.
-1085,K59.00,patient1085@example.com,2023-07-30,"Constipation unspecified. Recommended fiber, fluids, and stool softener."
-1086,N61,patient1086@example.com,2023-08-02,"Inflammatory disorders of breast, mastitis. Started dicloxacillin 500 mg QID."
-1087,G56.01,patient1087@example.com,2023-08-04,"Carpal tunnel syndrome, right upper limb. Discussed surgical option."
-1088,R79.1,patient1088@example.com,2023-08-07,Abnormal coagulation profile on routine labs. Hematology consult scheduled.
-1089,J44.9,patient1089@example.com,2023-08-09,"COPD unspecified, mild exacerbation treated with steroids."
-1090,E28.2,patient1090@example.com,2023-08-11,Polycystic ovarian syndrome. Started combined oral contraceptive.
-1091,H92.01,patient1091@example.com,2023-08-14,Otalgia right ear without infection. Likely TMJ related.
-1092,M25.50,patient1092@example.com,2023-08-16,"Pain in unspecified joint, likely early arthritis. Trial of ibuprofen."
-1093,R11.0,patient1093@example.com,2023-08-18,Nausea with recent travel history. Possible viral gastroenteritis; antiemetic prescribed.
-1094,N63,patient1094@example.com,2023-08-21,"Breast mass, non-specific. Ordered diagnostic mammogram."
-1095,F98.0,patient1095@example.com,2023-08-23,Enuresis nocturna in child. Behavior modification plan reviewed.
-1096,Z71.89,patient1096@example.com,2023-08-25,"Other specified counseling, diet and nutrition advice given."
-1097,I73.9,patient1097@example.com,2023-08-28,Peripheral vascular disease unspecified. ABI test arranged.
-1098,L20.9,patient1098@example.com,2023-08-30,Atopic dermatitis worsening during summer. Increased topical steroid strength.
-1099,Z12.4,patient1099@example.com,2023-09-02,Encounter for screening mammogram. Results pending.
-1100,K76.0,patient1100@example.com,2023-09-04,"Fatty (change of) liver, non-alcoholic. Recommended weight reduction and exercise."
+1,E11.9,patient1@examplehealth.org,2023-01-12,"Established patient with history of type 2 diabetes presented for routine glycemic check. HbA1c reviewed, plan to continue metformin 1000 mg BID. Advised lifestyle modifications."
+2,I10,patient2@examplehealth.org,2023-01-15,Patient reports elevated home BP readings. No dizziness or vision changes. Lisinopril increased to 20 mg daily. Follow-up in 1 month.
+3,J45.909,patient3@examplehealth.org,2023-01-20,Mild asthma exacerbation triggered by cold weather. Provided albuterol inhaler refill and reviewed inhaler technique. Peak flow improved after treatment.
+4,F32.9,patient4@examplehealth.org,2023-01-25,Patient endorses low mood and insomnia for 3 weeks. No suicidal ideation. Initiated sertraline 25 mg daily and referred to counseling.
+5,M54.5,patient5@examplehealth.org,2023-02-02,Acute low back pain after lifting boxes. Negative straight-leg raise. Prescribed naproxen and advised stretching exercises. Given work note for 2 days.
+6,R51,patient6@examplehealth.org,2023-02-04,"Tension headache, recurrent. No aura or neurologic deficits. Recommended hydration, sleep hygiene, and OTC acetaminophen."
+7,K21.9,patient7@examplehealth.org,2023-02-07,Complaints of heartburn twice weekly. Started omeprazole 20 mg daily for 8 weeks. Counselled on avoiding late-night meals.
+8,N39.0,patient8@examplehealth.org,2023-02-10,Dysuria and frequency for 2 days. Urinalysis positive nitrites/leukocytes. Started nitrofurantoin 100 mg BID × 5 days.
+9,L89.152,patient9@examplehealth.org,2023-02-14,"Stage 2 pressure ulcer on sacrum noted in wheelchair-bound patient. Wound cleansed and dressed, arranged home nursing visits."
+10,S93.401A,patient10@examplehealth.org,2023-02-18,Inversion injury of right ankle while playing basketball. Swelling and tenderness over lateral malleolus. X-ray negative. Advised RICE and ankle brace.
+11,G43.909,patient11@examplehealth.org,2023-02-22,Patient experiences migraines 2–3 times per month. Trial of topiramate 25 mg nightly initiated. Trigger diary discussed.
+12,M25.50,patient12@examplehealth.org,2023-02-28,"Left knee pain without trauma. Mild effusion, negative Lachman. Prescribed NSAIDs and referred to physical therapy."
+13,B34.9,patient13@examplehealth.org,2023-03-03,Upper respiratory viral infection. Supportive care advised; no antibiotics indicated. Encouraged rest and fluids.
+14,R07.9,patient14@examplehealth.org,2023-03-07,"Intermittent chest pain, non-cardiac characteristics. Normal ECG and troponin. Likely musculoskeletal strain; ibuprofen prescribed."
+15,R10.9,patient15@examplehealth.org,2023-03-11,Generalized abdominal pain. CBC and CMP pending. Advised to return for worsening symptoms or fever.
+16,H52.4,patient16@examplehealth.org,2023-03-16,Patient reports difficulty reading fine print. Exam consistent with presbyopia. Provided reading glasses prescription.
+17,Z00.00,patient17@examplehealth.org,2023-03-20,"Annual wellness exam. Vitals stable, vaccinations up to date. Discussed diet and exercise goals."
+18,Z23,patient18@examplehealth.org,2023-03-25,Visit for influenza vaccination. No adverse reactions observed. Provided CDC information sheet.
+19,E78.5,patient19@examplehealth.org,2023-03-29,Hyperlipidemia follow-up. LDL 165 mg/dL. Started atorvastatin 20 mg nightly and scheduled lipid panel in 3 months.
+20,J06.9,patient20@examplehealth.org,2023-04-02,Acute viral URI with nasal congestion. Symptomatic treatment recommended. No antibiotics.
+21,E66.9,patient21@examplehealth.org,2023-04-06,Obesity counseling visit. Discussed calorie tracking and referred to dietitian. Set goal of 5% weight loss in 6 months.
+22,L60.0,patient22@examplehealth.org,2023-04-10,Brittle nails causing discomfort. Recommended biotin supplement and protective gloves for cleaning tasks.
+23,M79.1,patient23@examplehealth.org,2023-04-14,"Myalgia after intense gym session. No weakness or swelling. Advised rest, hydration, and NSAIDs PRN."
+24,R42,patient24@examplehealth.org,2023-04-18,Brief episode of dizziness on standing. Orthostatic vitals normal. Suspect dehydration; encouraged increased fluid intake.
+25,K59.00,patient25@examplehealth.org,2023-04-22,Chronic constipation. Increased dietary fiber and started polyethylene glycol daily. Follow-up in 4 weeks.
+26,L40.0,patient26@examplehealth.org,2023-04-27,"Plaque psoriasis on elbows and knees. Rx topical betamethasone cream BID for 14 days, then taper."
+27,Z21,patient27@examplehealth.org,2023-05-01,Asymptomatic HIV infection status. CD4 and viral load monitored. Adherence to ART excellent.
+28,E03.9,patient28@examplehealth.org,2023-05-05,Hypothyroidism follow-up. TSH 6.8. Levothyroxine increased to 100 mcg daily. Re-test in 6 weeks.
+29,G47.33,patient29@examplehealth.org,2023-05-09,"Obstructive sleep apnea, CPAP compliance 4 h/night. Encouraged use >6 h. Ordered mask refit."
+30,R53.1,patient30@examplehealth.org,2023-05-13,Weakness and fatigue after viral illness. Labs normal. Reassurance and advised gradual return to activity.
+31,B35.3,patient31@examplehealth.org,2023-05-17,Tinea pedis between toes. Prescribed topical clotrimazole BID × 4 weeks. Keep feet dry.
+32,M75.51,patient32@examplehealth.org,2023-05-21,Right shoulder bursitis from repetitive overhead work. Gave corticosteroid injection and PT referral.
+33,R05,patient33@examplehealth.org,2023-05-25,Persistent cough 3 weeks post-URI. Lungs clear. Trial of inhaled corticosteroid for post-viral cough.
+34,H66.91,patient34@examplehealth.org,2023-05-29,"Otitis media, unspecified ear. Started amoxicillin 875 mg BID × 7 days. Pain relief with acetaminophen."
+35,I83.90,patient35@examplehealth.org,2023-06-02,Varicose veins with leg heaviness. Advised compression stockings and scheduled Doppler ultrasound.
+36,K02.9,patient36@examplehealth.org,2023-06-06,Dental caries noted during exam. Referred to dentistry. Encouraged twice-daily brushing and flossing.
+37,N92.0,patient37@examplehealth.org,2023-06-10,Excessive menstruation. Hemoglobin 11.2. Started hormonal therapy; pelvic ultrasound ordered.
+38,R11.0,patient38@examplehealth.org,2023-06-14,Nausea without vomiting after starting antibiotics. Recommended taking meds with food and small meals.
+39,F41.1,patient39@examplehealth.org,2023-06-18,Generalized anxiety disorder. CBT discussed; started buspirone 10 mg TID.
+40,D50.9,patient40@examplehealth.org,2023-06-22,Iron deficiency anemia. Ferritin 8 ng/mL. Oral ferrous sulfate 325 mg TID started.
+41,G56.01,patient41@examplehealth.org,2023-06-26,"Carpal tunnel syndrome, right hand. Wrist splint provided; discussed surgical options if no relief."
+42,L03.116,patient42@examplehealth.org,2023-06-30,Cellulitis of left lower limb. Started cephalexin 500 mg QID × 10 days. Marked margins for monitoring.
+43,E55.9,patient43@examplehealth.org,2023-07-04,Vitamin D deficiency. Prescribed cholecalciferol 50 000 IU weekly × 8 weeks.
+44,Z71.89,patient44@examplehealth.org,2023-07-08,"Counseling for travel to South America. Reviewed vaccines, malaria prophylaxis started."
+45,K31.89,patient45@examplehealth.org,2023-07-12,Patient with gastritis symptoms. Started pantoprazole 40 mg daily; scheduled endoscopy.
+46,M62.830,patient46@examplehealth.org,2023-07-16,Muscle spasm of back after yard work. Prescribed cyclobenzaprine 5 mg HS and heat therapy.
+47,Z86.79,patient47@examplehealth.org,2023-07-20,Personal history of gestational diabetes. Discussed future pregnancy planning and glucose screening.
+48,H10.9,patient48@examplehealth.org,2023-07-24,"Conjunctivitis, likely allergic. Prescribed olopatadine drops BID, avoid rubbing eyes."
+49,J30.1,patient49@examplehealth.org,2023-07-28,Allergic rhinitis due to pollen. Started cetirizine 10 mg daily and nasal fluticasone.
+50,M19.90,patient50@examplehealth.org,2023-08-01,"Osteoarthritis, unspecified site. Discussed weight management and started glucosamine supplement."
+51,N95.1,patient51@examplehealth.org,2023-08-05,Menopausal hot flashes. Initiated low-dose HRT after discussing risks/benefits.
+52,K74.60,patient52@examplehealth.org,2023-08-09,Cirrhosis follow-up; no ascites. Labs stable. Scheduled ultrasound to monitor for HCC.
+53,F50.9,patient53@examplehealth.org,2023-08-13,"Eating disorder, unspecified. Referred to multidisciplinary clinic. Nutritional labs ordered."
+54,H81.10,patient54@examplehealth.org,2023-08-17,Meniere’s disease noted. Prescribed meclizine PRN and low-salt diet discussed.
+55,L70.0,patient55@examplehealth.org,2023-08-21,Moderate acne vulgaris. Started topical adapalene and oral doxycycline 100 mg BID.
+56,G44.1,patient56@examplehealth.org,2023-08-25,Vascular headache cluster type. Provided oxygen therapy instructions and sumatriptan injection kit.
+57,Q21.1,patient57@examplehealth.org,2023-08-29,Atrial septal defect (secundum) in adult. Referred to cardiology for echocardiogram.
+58,N18.3,patient58@examplehealth.org,2023-09-02,CKD stage 3. eGFR 48 mL/min. Adjusted ACE inhibitor dose; ordered renal panel in 3 months.
+59,E13.9,patient59@examplehealth.org,2023-09-06,Other specified diabetes mellitus due to pancreatitis. Started basal insulin 10 units nightly.
+60,R32,patient60@examplehealth.org,2023-09-10,Urinary incontinence episodes increasing. Scheduled urodynamic testing; advised pelvic floor exercises.
+61,M51.26,patient61@examplehealth.org,2023-09-14,"Other intervertebral disc displacement, lumbar. MRI reviewed; conservative management continues."
+62,R06.02,patient62@examplehealth.org,2023-09-18,Shortness of breath on exertion. CXR clear. Ordered spirometry to evaluate for COPD.
+63,K57.32,patient63@examplehealth.org,2023-09-22,Diverticulitis without perforation. Started ciprofloxacin and metronidazole. Clear liquid diet for 48 h.
+64,M80.08XA,patient64@examplehealth.org,2023-09-26,Age-related osteoporosis with current pathological fracture of vertebra. Vertebroplasty discussed.
+65,B02.9,patient65@examplehealth.org,2023-09-30,Herpes zoster without complications on thorax. Initiated valacyclovir 1 g TID × 7 days.
+66,J18.9,patient66@examplehealth.org,2023-10-04,Community-acquired pneumonia. Started amoxicillin-clavulanate; follow-up CXR in 6 weeks.
+67,L29.9,patient67@examplehealth.org,2023-10-08,Pruritus of unknown origin. Labs pending. Recommended hypoallergenic detergent and oatmeal baths.
+68,H91.23,patient68@examplehealth.org,2023-10-12,"Sensorineural hearing loss, bilateral. Audiology referral placed for hearing aid evaluation."
+69,G20,patient69@examplehealth.org,2023-10-16,"Parkinson’s disease, early stage. Started carbidopa-levodopa 25/100 mg TID."
+70,M06.9,patient70@examplehealth.org,2023-10-20,"Rheumatoid arthritis, unspecified. ESR 42. Initiated methotrexate 10 mg weekly; folic acid supplementation."
+71,S52.501A,patient71@examplehealth.org,2023-10-24,"Closed fracture of left radius after fall. Placed in cast, ortho follow-up in 1 week."
+72,E16.2,patient72@examplehealth.org,2023-10-28,"Hypoglycemia, unspecified. Occurred after exercise without meal. Reviewed snack strategies."
+73,R41.840,patient73@examplehealth.org,2023-11-01,Attention and concentration deficit affecting work. Referred for neuropsychological evaluation.
+74,N30.00,patient74@examplehealth.org,2023-11-05,Acute cystitis without hematuria. Nitrofurantoin started; increase water intake.
+75,F19.20,patient75@examplehealth.org,2023-11-09,"Multiple substance dependence, uncomplicated. Referred to outpatient rehab program."
+76,E04.2,patient76@examplehealth.org,2023-11-13,Multinodular goiter. Thyroid ultrasound shows multiple nodules; FNA scheduled.
+77,K80.20,patient77@examplehealth.org,2023-11-17,Calculus of gallbladder without obstruction. Discussed elective cholecystectomy.
+78,M62.81,patient78@examplehealth.org,2023-11-21,"Muscle weakness, generalized. TSH and CK ordered to evaluate etiology."
+79,D64.9,patient79@examplehealth.org,2023-11-25,"Anemia, unspecified. Iron studies pending. Advised balanced diet."
+80,R15.9,patient80@examplehealth.org,2023-11-29,Fecal incontinence episodes at night. Scheduled colorectal consult.
+81,L98.7,patient81@examplehealth.org,2023-12-03,"Ulcer of skin, lower leg. Wound care plan established; started silver dressing."
+82,R68.89,patient82@examplehealth.org,2023-12-07,Fever of unknown origin persisted 7 days. Blood cultures drawn; empirical antibiotics withheld for now.
+83,Q61.4,patient83@examplehealth.org,2023-12-11,Medullary cystic kidney disease. Referred to nephrology genetic clinic.
+84,K64.8,patient84@examplehealth.org,2023-12-15,Other hemorrhoids with bleeding. Prescribed topical hydrocortisone suppositories.
+85,M24.571,patient85@examplehealth.org,2023-12-19,Contracture of right ankle joint post-surgery. Beginning aggressive physical therapy.
+86,F90.9,patient86@examplehealth.org,2023-12-23,"ADHD, unspecified type. Trial of methylphenidate XR 18 mg daily."
+87,N80.9,patient87@examplehealth.org,2023-12-27,Endometriosis. Discussed hormonal management; scheduled laparoscopy consult.
+88,R63.4,patient88@examplehealth.org,2024-01-02,"Abnormal weight loss, 10 lbs in 2 months. Ordered GI workup and thyroid panel."
+89,Z12.11,patient89@examplehealth.org,2024-01-06,Encounter for screening colonoscopy. Bowel prep instructions provided.
+90,G25.0,patient90@examplehealth.org,2024-01-10,Essential tremor affecting hands. Started propranolol 40 mg BID.
+91,Z87.891,patient91@examplehealth.org,2024-01-14,Personal history of nicotine dependence. Discussed relapse prevention strategies.
+92,K63.5,patient92@examplehealth.org,2024-01-18,Polyp of colon found on CT. Scheduled colonoscopy for removal.
+93,B07.9,patient93@examplehealth.org,2024-01-22,Viral wart on finger. Applied cryotherapy; advised return if no resolution.
+94,I48.91,patient94@examplehealth.org,2024-01-26,Unspecified atrial fibrillation episode. Initiated anticoagulation with apixaban.
+95,T78.40XA,patient95@examplehealth.org,2024-01-30,"Allergy, unspecified, initial encounter—likely food related. Ordered RAST testing."
+96,H91.92,patient96@examplehealth.org,2024-02-03,"Hearing loss, unspecified ear. Cerumen impaction ruled out; audiogram scheduled."
+97,M17.12,patient97@examplehealth.org,2024-02-07,"Unilateral primary osteoarthritis, left knee. Discussed viscosupplement injection."
+98,R19.5,patient98@examplehealth.org,2024-02-11,Fecal abnormalities—chronic diarrhea. Stool studies ordered.
+99,G60.9,patient99@examplehealth.org,2024-02-15,"Neuropathy, unspecified. Vitamin B12 level pending; EMG scheduled."
+100,Z00.129,patient100@examplehealth.org,2024-02-19,Pre-employment physical exam. Cleared for duty; vision and hearing within normal limits.
