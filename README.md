@@ -410,6 +410,61 @@ print("✅ Generated structured data + AI-powered product catalogs!")
 ```
 
 
+
+## 📊 See It In Action
+
+### **Realistic Retail Data + AI-Generated Product Catalogs**
+
+**Categories Table:**
+```csv
+id,name,parent_id,description,active
+1,Electronics,0,Electronic devices and accessories,true
+2,Smartphones,1,Mobile phones and accessories,true
+3,Laptops,1,Portable computers and accessories,true
+4,Clothing,0,Apparel and fashion items,true
+5,Men's Clothing,4,Men's apparel and accessories,true
+```
+
+**Products Table (with matching category_id):**
+```csv
+id,name,category_id,sku,price,stock_quantity,is_featured
+1,iPhone 15 Pro,2,PSM-12345,999.99,50,true
+2,MacBook Air M3,3,PLA-67890,1299.99,25,true
+3,Samsung Galaxy S24,2,PSA-11111,899.99,75,false
+4,Dell XPS 13,3,PDE-22222,1099.99,30,false
+5,Men's Cotton T-Shirt,5,PMC-33333,24.99,200,false
+```
+
+**Generated Product Catalog PDF Content:**
+```
+IPHONE 15 PRO
+Smartphones Category | SKU: PSM-12345
+
+$999.99
+
+Revolutionary Performance, Unmatched Design
+
+Experience the future of mobile technology with the iPhone 15 Pro. 
+Featuring the powerful A17 Pro chip, this device delivers unprecedented 
+performance for both work and play. The titanium design combines 
+durability with elegance, while the advanced camera system captures 
+professional-quality photos and videos.
+
+KEY FEATURES:
+• A17 Pro chip with 6-core GPU
+• Pro camera system with 3x optical zoom  
+• Titanium design with Action Button
+• USB-C connectivity
+• All-day battery life
+
+"Innovation that fits in your pocket"
+
+Availability: In Stock
+```
+
+> 🎯 **Perfect Integration**: The PDF catalog contains **actual product names, SKUs, and prices** from the CSV data, plus **AI-generated marketing content** - zero inconsistencies!
+
+
 ### 6. Need custom business logic? Add custom generators!
 
 For advanced scenarios requiring **custom calculations** or **complex business rules**, you can add custom generator functions:
@@ -490,63 +545,68 @@ print("✅ Generated data with custom business logic!")
 > - **Generate structured data** (arrays, nested objects, JSON)
 
 
-## 📊 See It In Action
-
-### **Realistic Retail Data + AI-Generated Product Catalogs**
-
-**Categories Table:**
-```csv
-id,name,parent_id,description,active
-1,Electronics,0,Electronic devices and accessories,true
-2,Smartphones,1,Mobile phones and accessories,true
-3,Laptops,1,Portable computers and accessories,true
-4,Clothing,0,Apparel and fashion items,true
-5,Men's Clothing,4,Men's apparel and accessories,true
-```
-
-**Products Table (with matching category_id):**
-```csv
-id,name,category_id,sku,price,stock_quantity,is_featured
-1,iPhone 15 Pro,2,PSM-12345,999.99,50,true
-2,MacBook Air M3,3,PLA-67890,1299.99,25,true
-3,Samsung Galaxy S24,2,PSA-11111,899.99,75,false
-4,Dell XPS 13,3,PDE-22222,1099.99,30,false
-5,Men's Cotton T-Shirt,5,PMC-33333,24.99,200,false
-```
-
-**Generated Product Catalog PDF Content:**
-```
-IPHONE 15 PRO
-Smartphones Category | SKU: PSM-12345
-
-$999.99
-
-Revolutionary Performance, Unmatched Design
-
-Experience the future of mobile technology with the iPhone 15 Pro. 
-Featuring the powerful A17 Pro chip, this device delivers unprecedented 
-performance for both work and play. The titanium design combines 
-durability with elegance, while the advanced camera system captures 
-professional-quality photos and videos.
-
-KEY FEATURES:
-• A17 Pro chip with 6-core GPU
-• Pro camera system with 3x optical zoom  
-• Titanium design with Action Button
-• USB-C connectivity
-• All-day battery life
-
-"Innovation that fits in your pocket"
-
-Availability: In Stock
-```
-
-> 🎯 **Perfect Integration**: The PDF catalog contains **actual product names, SKUs, and prices** from the CSV data, plus **AI-generated marketing content** - zero inconsistencies!
-
-
 ## 🚀 Why Developers Love Syda
 
 | Feature | Benefit | Example |
 |---------|---------|---------|
 | 🤖 **Multi-AI Provider** | No vendor lock-in | Claude, GPT models |
-| 🔗 **Smart Relationships** | Zero orphaned records | `product.category_id` → `category.id`
+| 🔗 **Smart Relationships** | Zero orphaned records | `product.category_id` → `category.id` ✅ |
+| 📊 **Multiple Formats** | Use your existing schemas | SQLAlchemy, YAML, JSON, Dict |
+| 📄 **Document Generation** | AI-powered PDFs linked to data | Product catalogs, receipts, contracts |
+| 🔧 **Custom Generators** | Complex business logic | Tax calculations, pricing rules, arrays |
+| 🛡️ **Privacy-First** | Protect real user data | GDPR/CCPA compliant testing |
+| ⚡ **Developer Experience** | Just works | Type hints, great docs |
+
+### 🎯 **Unique Capabilities**
+
+#### **📄 Connected Document Generation**
+- **AI-generated documents** that reference your structured data
+- **Perfect consistency** between CSV files and PDF content
+- **Jinja templates** with custom styling and business logic
+- **Multiple formats** - HTML → PDF, Word, etc.
+
+#### **🔧 Advanced Custom Generators**
+- **Cross-table calculations** - Access data from related tables
+- **Business rule enforcement** - Implement complex pricing, inventory, validation logic
+- **Dynamic data structures** - Generate arrays, nested objects, JSON fields
+- **Context-aware generation** - Fields that adapt based on other data
+
+#### **🔗 Referential Integrity Guaranteed**
+- **Foreign keys automatically maintained** across all tables and documents
+- **Topological sorting** ensures correct generation order
+- **Dependency resolution** handles complex multi-table relationships
+- **Zero orphaned records** - every reference points to valid data
+
+## 🤝 Contributing
+
+We would **love your contributions**! Syda is an open-source project that thrives on community involvement.
+
+### 🌟 **Ways to Contribute**
+
+- **🐛 Report bugs** - Help us identify and fix issues
+- **💡 Suggest features** - Share your ideas for new capabilities  
+- **📝 Improve docs** - Help make our documentation even better
+- **🔧 Submit code** - Fix bugs, add features, optimize performance
+- **🧪 Add examples** - Show how Syda works in your domain
+- **⭐ Star the repo** - Help others discover Syda
+
+### 📋 **How to Get Started**
+
+1. **Check our [Contributing Guide](CONTRIBUTING.md)** for detailed instructions
+2. **Browse [open issues](https://github.com/syda-ai/syda/issues)** to find something to work on
+3. **Join discussions** in our GitHub Issues and Discussions
+4. **Fork the repo** and submit your first pull request!
+
+### 🎯 **Good First Issues**
+
+Looking for ways to contribute? Check out issues labeled:
+- `good first issue` - Perfect for newcomers
+- `help wanted` - We'd especially appreciate help here
+- `documentation` - Help improve our docs
+- `examples` - Add new use cases and examples
+
+**Every contribution matters - from fixing typos to adding major features!** 🙏
+
+---
+
+**⭐ Star this repo** if Syda helps your workflow • **📖 [Read the docs](https://python.syda.ai)** for detailed guides • **🐛 [Report issues](https://github.com/syda-ai/syda/issues)** to help us improve
