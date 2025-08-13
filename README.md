@@ -544,38 +544,84 @@ print("✅ Generated data with custom business logic!")
 > - **Implement complex business rules** (pricing logic, inventory rules)
 > - **Generate structured data** (arrays, nested objects, JSON)
 
+## 🏗️ Works with Your Existing SQLAlchemy Models
+
+Already using **SQLAlchemy**? Syda works directly with your existing models - no schema conversion needed!
+
+```python
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+from syda import SyntheticDataGenerator, ModelConfig
+from dotenv import load_dotenv
+
+load_dotenv()
+
+Base = declarative_base()
+
+# Your existing SQLAlchemy models
+class Customer(Base):
+    __tablename__ = 'customers'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False, comment='Customer organization name')
+    industry = Column(String(50), comment='Industry sector')
+    annual_revenue = Column(Float, comment='Annual revenue in USD')
+    status = Column(String(20), comment='Active, Inactive, or Prospect')
+    
+    # Relationships work perfectly
+    contacts = relationship("Contact", back_populates="customer")
+
+class Contact(Base):
+    __tablename__ = 'contacts'
+    
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
+    first_name = Column(String(50), nullable=False)
+    last_name = Column(String(50), nullable=False)
+    email = Column(String(100), nullable=False, unique=True)
+    position = Column(String(100), comment='Job title')
+    is_primary = Column(Boolean, comment='Primary contact for customer')
+    
+    customer = relationship("Customer", back_populates="contacts")
+
+# Generate data directly from your models
+config = ModelConfig(provider="anthropic", model_name="claude-3-5-haiku-20241022")
+generator = SyntheticDataGenerator(model_config=config)
+
+results = generator.generate_for_sqlalchemy_models(
+    sqlalchemy_models=[Customer, Contact],
+    sample_sizes={"Customer": 10, "Contact": 25},
+    output_dir="crm_data"
+)
+
+print("✅ Generated CRM data with perfect foreign key relationships!")
+```
+
+**Output:**
+```bash
+📂 crm_data/
+├── 📊 customers.csv     # 10 companies with realistic industry data
+└── 📊 contacts.csv      # 25 contacts, all with valid customer_id references
+```
+
+> 🎯 **Zero Configuration**: Your SQLAlchemy `comments` become AI generation hints, `ForeignKey` relationships are automatically maintained, and `nullable=False` constraints are respected!
+
 
 ## 🚀 Why Developers Love Syda
 
 | Feature | Benefit | Example |
 |---------|---------|---------|
 | 🤖 **Multi-AI Provider** | No vendor lock-in | Claude, GPT models |
-| 🔗 **Smart Relationships** | Zero orphaned records | `product.category_id` → `category.id` ✅ |
-| 📊 **Multiple Formats** | Use your existing schemas | SQLAlchemy, YAML, JSON, Dict |
+| 🔗 **Zero Orphaned Records** | Perfect referential integrity | `product.category_id` → `category.id` ✅ |
+| 🏗️ **SQLAlchemy Native** | Use existing models directly | `Customer`, `Contact` classes → CSV data |
+| 📊 **Multiple Schema Formats** | Flexible input options | SQLAlchemy, YAML, JSON, Dict |
 | 📄 **Document Generation** | AI-powered PDFs linked to data | Product catalogs, receipts, contracts |
 | 🔧 **Custom Generators** | Complex business logic | Tax calculations, pricing rules, arrays |
 | 🛡️ **Privacy-First** | Protect real user data | GDPR/CCPA compliant testing |
 | ⚡ **Developer Experience** | Just works | Type hints, great docs |
 
-### 🎯 **Unique Capabilities**
 
-#### **📄 Connected Document Generation**
-- **AI-generated documents** that reference your structured data
-- **Perfect consistency** between CSV files and PDF content
-- **Jinja templates** with custom styling and business logic
-- **Multiple formats** - HTML → PDF, Word, etc.
-
-#### **🔧 Advanced Custom Generators**
-- **Cross-table calculations** - Access data from related tables
-- **Business rule enforcement** - Implement complex pricing, inventory, validation logic
-- **Dynamic data structures** - Generate arrays, nested objects, JSON fields
-- **Context-aware generation** - Fields that adapt based on other data
-
-#### **🔗 Referential Integrity Guaranteed**
-- **Foreign keys automatically maintained** across all tables and documents
-- **Topological sorting** ensures correct generation order
-- **Dependency resolution** handles complex multi-table relationships
-- **Zero orphaned records** - every reference points to valid data
 
 ## 🤝 Contributing
 
