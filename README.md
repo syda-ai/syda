@@ -14,22 +14,66 @@ Syda seamlessly integrates with **Anthropic Claude** and **OpenAI GPT** models t
 
 **📖 For detailed documentation, examples, and API reference, visit: [https://python.syda.ai/](https://python.syda.ai/)**
 
-## ⚡ Quick Start
+## ⚡ 30-Second Quick Start
 
-### 1. Install Syda
 ```bash
 pip install syda
 ```
 
-### 2. Set up your API keys
-Create a `.env` file in your project root:
+Create `.env` file:
 ```bash
 # .env
 ANTHROPIC_API_KEY=your_anthropic_api_key_here
+# OR
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-### 3. Define your schemas
+```python
+from syda import SyntheticDataGenerator, ModelConfig
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Generate retail data with perfect relationships
+generator = SyntheticDataGenerator(
+    model_config=ModelConfig(provider="anthropic", model_name="claude-3-5-haiku-20241022")
+)
+
+results = generator.generate_for_schemas(
+    schemas={
+        "categories": {"id": "integer", "name": "string", "description": "text"},
+        "products": {"id": "integer", "name": "string", "category_id": "integer", "price": "float"}
+    },
+    sample_sizes={"categories": 5, "products": 20},
+    output_dir="data"
+)
+
+print("✅ Generated realistic data with perfect foreign key relationships!")
+# Check data/ folder for categories.csv and products.csv
+```
+
+
+## 🚀 Why Developers Love Syda
+
+| Feature | Benefit | Example |
+|---------|---------|---------|
+| 🤖 **Multi-AI Provider** | No vendor lock-in | Claude, GPT models |
+| 🔗 **Zero Orphaned Records** | Perfect referential integrity | `product.category_id` → `category.id` ✅ |
+| 🏗️ **SQLAlchemy Native** | Use existing models directly | `Customer`, `Contact` classes → CSV data |
+| 📊 **Multiple Schema Formats** | Flexible input options | SQLAlchemy, YAML, JSON, Dict |
+| 📄 **Document Generation** | AI-powered PDFs linked to data | Product catalogs, receipts, contracts |
+| 🔧 **Custom Generators** | Complex business logic | Tax calculations, pricing rules, arrays |
+| 🛡️ **Privacy-First** | Protect real user data | GDPR/CCPA compliant testing |
+| ⚡ **Developer Experience** | Just works | Type hints, great docs |
+
+
+## 🛒 Retail Example
+
+### 1. Define your schemas
+
+<details>
+<summary><strong>📋 Click to view schema files</strong> (category_schema.yml & product_schema.yml)</summary>
+
 **category_schema.yml:**
 ```yaml
 __table_name__: Category
@@ -137,9 +181,15 @@ is_featured:
     not_null: true
 ```
 
+</details>
 
 
-### 4. Generate structured data
+
+### 2. Generate structured data
+
+<details>
+<summary><strong>🐍 Click to view Python code</strong></summary>
+
 ```python
 from syda import SyntheticDataGenerator, ModelConfig
 from dotenv import load_dotenv
@@ -178,6 +228,8 @@ results = generator.generate_for_schemas(
 print("✅ Generated realistic data with perfect foreign key relationships!")
 ```
 
+</details>
+
 **Output:**
 ```bash
 📂 output/
@@ -185,9 +237,12 @@ print("✅ Generated realistic data with perfect foreign key relationships!")
 └── 📊 products.csv      # 20 products, all with valid category_id references
 ```
 
-### 5. Want to generate documents too? Add document templates!
+### 3. Want to generate documents too? Add document templates!
 
-To generate **AI-powered documents** along with your structured data, simply add the product catalog schema  and update your code:
+To generate **AI-powered documents** along with your structured data, simply add the product catalog schema and update your code:
+
+<details>
+<summary><strong>📄 Click to view document schema</strong> (product_catalog_schema.yml)</summary>
 
 **product_catalog_schema.yml (Document Template):**
 ```yaml
@@ -246,6 +301,11 @@ availability_status:
   enum: ["In Stock", "Limited Stock", "Out of Stock", "Pre-Order"]
   description: Current availability status
 ```
+
+</details>
+
+<details>
+<summary><strong>🎨 Click to view HTML template</strong> (templates/product_catalog.html)</summary>
 
 **Create the Jinja HTML template** (`templates/product_catalog.html`):
 ```html
@@ -358,6 +418,11 @@ availability_status:
 </html>
 ```
 
+</details>
+
+<details>
+<summary><strong>🐍 Click to view updated Python code</strong> (with document generation)</summary>
+
 ```python
 # Same setup as before...
 from syda import SyntheticDataGenerator, ModelConfig
@@ -395,6 +460,8 @@ results = generator.generate_for_schemas(
 
 print("✅ Generated structured data + AI-powered product catalogs!")
 ```
+
+</details>
 
 **Enhanced Output:**
 ```bash
@@ -465,9 +532,12 @@ Availability: In Stock
 > 🎯 **Perfect Integration**: The PDF catalog contains **actual product names, SKUs, and prices** from the CSV data, plus **AI-generated marketing content** - zero inconsistencies!
 
 
-### 6. Need custom business logic? Add custom generators!
+### 4. Need custom business logic? Add custom generators!
 
 For advanced scenarios requiring **custom calculations** or **complex business rules**, you can add custom generator functions:
+
+<details>
+<summary><strong>🔧 Click to view custom generators example</strong></summary>
 
 ```python
 # Define custom generator functions
@@ -538,6 +608,8 @@ results = generator.generate_for_schemas(
 print("✅ Generated data with custom business logic!")
 ```
 
+</details>
+
 > 🎯 **Custom generators let you:**
 > - **Calculate fields** based on other data (taxes, totals, discounts)
 > - **Access related data** from other tables via `parent_dfs`
@@ -547,6 +619,9 @@ print("✅ Generated data with custom business logic!")
 ## 🏗️ Works with Your Existing SQLAlchemy Models
 
 Already using **SQLAlchemy**? Syda works directly with your existing models - no schema conversion needed!
+
+<details>
+<summary><strong>🏗️ Click to view SQLAlchemy example</strong></summary>
 
 ```python
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean
@@ -598,6 +673,8 @@ results = generator.generate_for_sqlalchemy_models(
 print("✅ Generated CRM data with perfect foreign key relationships!")
 ```
 
+</details>
+
 **Output:**
 ```bash
 📂 crm_data/
@@ -606,21 +683,6 @@ print("✅ Generated CRM data with perfect foreign key relationships!")
 ```
 
 > 🎯 **Zero Configuration**: Your SQLAlchemy `comments` become AI generation hints, `ForeignKey` relationships are automatically maintained, and `nullable=False` constraints are respected!
-
-
-## 🚀 Why Developers Love Syda
-
-| Feature | Benefit | Example |
-|---------|---------|---------|
-| 🤖 **Multi-AI Provider** | No vendor lock-in | Claude, GPT models |
-| 🔗 **Zero Orphaned Records** | Perfect referential integrity | `product.category_id` → `category.id` ✅ |
-| 🏗️ **SQLAlchemy Native** | Use existing models directly | `Customer`, `Contact` classes → CSV data |
-| 📊 **Multiple Schema Formats** | Flexible input options | SQLAlchemy, YAML, JSON, Dict |
-| 📄 **Document Generation** | AI-powered PDFs linked to data | Product catalogs, receipts, contracts |
-| 🔧 **Custom Generators** | Complex business logic | Tax calculations, pricing rules, arrays |
-| 🛡️ **Privacy-First** | Protect real user data | GDPR/CCPA compliant testing |
-| ⚡ **Developer Experience** | Just works | Type hints, great docs |
-
 
 
 ## 🤝 Contributing
