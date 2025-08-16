@@ -49,6 +49,14 @@ class TestSyntheticDataGenerator:
         assert generator2.model_config.provider == "anthropic"
         assert generator2.model_config.model_name == "claude-3"
 
+        # Create with Gemini configuration
+        generator3 = SyntheticDataGenerator(
+            model_config=ModelConfig(provider="gemini", model_name="gemini-2.5-flash"),
+            gemini_api_key="test_key"
+        )
+        assert generator3.model_config.provider == "gemini"
+        assert generator3.model_config.model_name == "gemini-2.5-flash"
+
     @patch("syda.generate.SchemaLoader")
     def test_generate_for_schemas(self, mock_schema_loader, sample_schema):
         """Test generating data for schemas."""
