@@ -61,7 +61,7 @@ class ModelConfig(BaseModel):
     Configuration for AI model settings used by the SyntheticDataGenerator.
     
     This class provides a structured way to define the model and its parameters,
-    supporting both OpenAI and Anthropic models with provider-specific settings.
+    supporting OpenAI, Anthropic, and Gemini models with provider-specific settings.
     """
     
     # Model provider and name
