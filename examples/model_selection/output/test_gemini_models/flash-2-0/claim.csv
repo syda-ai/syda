@@ -1,0 +1,76 @@
+claim_id,patient_id,diagnosis_code,email,visit_date,notes
+82749,10,E66.9,patient49@example.com,2023-11-15,Follow-up appointment for obesity management.
+73658,48,I25.10,patient58@example.com,2023-07-22,Routine check-up for coronary artery disease.
+91547,8,M54.5,patient47@example.com,2023-03-10,Patient reports lower back pain.
+64930,35,J45.909,patient30@example.com,2024-01-05,"Asthma exacerbation, prescribed inhaler."
+58201,30,G89.29,patient01@example.com,2023-09-18,Chronic pain management.
+85163,26,E11.9,patient63@example.com,2023-05-27,Diabetes management and education.
+72045,43,N18.30,patient45@example.com,2023-12-02,Chronic kidney disease follow-up.
+93826,31,H40.10X0,patient26@example.com,2023-08-09,Glaucoma screening and management.
+61708,32,K21.9,patient08@example.com,2023-04-16,GERD symptoms and treatment options.
+59412,25,F41.9,patient12@example.com,2024-02-23,Anxiety management and counseling.
+86925,26,M17.10,patient25@example.com,2023-10-30,Osteoarthritis pain management.
+75319,5,I10,patient19@example.com,2023-06-06,Hypertension management and lifestyle advice.
+94103,37,Z00.00,patient03@example.com,2023-01-12,Annual physical exam.
+62847,29,E78.00,patient47@example.com,2024-03-01,Hyperlipidemia management and diet review.
+51690,21,J06.9,patient90@example.com,2023-11-08,Upper respiratory infection.
+87521,41,M81.0,patient21@example.com,2023-07-15,Osteoporosis screening and treatment.
+79304,7,I48.91,patient04@example.com,2023-03-22,Atrial fibrillation management.
+96018,32,F32.9,patient18@example.com,2024-01-19,Depression assessment and treatment plan.
+63752,16,G47.00,patient52@example.com,2023-09-26,Insomnia evaluation and sleep hygiene tips.
+52489,26,K58.9,patient89@example.com,2023-05-03,Irritable bowel syndrome management.
+88136,38,C50.919,patient36@example.com,2023-12-10,Breast cancer follow-up.
+71950,13,D64.9,patient50@example.com,2023-08-17,Anemia evaluation and treatment.
+95723,35,L23.9,patient23@example.com,2023-04-24,Allergic contact dermatitis assessment.
+60591,35,B34.9,patient91@example.com,2024-02-06,Viral infection symptoms and care.
+57364,33,H66.90,patient64@example.com,2023-10-01,Otitis media diagnosis and treatment.
+83075,21,M79.7,patient75@example.com,2023-06-09,Fibromyalgia pain and symptom management.
+76482,45,I63.9,patient82@example.com,2023-01-16,Stroke rehabilitation and follow-up.
+92159,13,E03.9,patient59@example.com,2023-11-23,Hypothyroidism management and medication adjustment.
+61893,14,N40.0,patient93@example.com,2023-07-30,Benign prostatic hyperplasia evaluation.
+54607,41,G20,patient07@example.com,2023-03-07,Parkinson's disease management and support.
+89741,42,K80.20,patient41@example.com,2024-01-02,Cholelithiasis diagnosis and treatment options.
+78534,40,F03.90,patient34@example.com,2023-09-11,Dementia assessment and care planning.
+97216,27,L50.9,patient16@example.com,2023-05-18,Urticaria evaluation and management.
+65380,9,B07,patient80@example.com,2023-12-27,Viral warts treatment.
+53179,29,H52.13,patient79@example.com,2023-08-03,Myopia correction and vision care.
+81465,50,M25.561,patient65@example.com,2023-04-10,Knee pain evaluation and management.
+74298,50,J30.1,patient98@example.com,2024-02-14,Allergic rhinitis treatment.
+90852,33,E85.9,patient52@example.com,2023-10-17,Amyloidosis diagnosis and monitoring.
+67031,49,N80.0,patient31@example.com,2023-06-23,Endometriosis management and pain relief.
+56914,25,G43.909,patient14@example.com,2023-01-30,Migraine headache treatment and prevention.
+82647,38,K29.70,patient47@example.com,2023-11-01,Gastritis diagnosis and management.
+75130,22,I21.9,patient30@example.com,2023-07-08,Acute myocardial infarction follow-up.
+93704,38,Z91.410,patient04@example.com,2023-03-15,Fall risk assessment and prevention strategies.
+64817,25,E10.9,patient17@example.com,2024-01-12,Type 1 diabetes management and education.
+58290,12,G93.1,patient90@example.com,2023-09-25,Chronic fatigue syndrome evaluation.
+85963,12,M80.00XA,patient63@example.com,2023-05-01,Osteoporotic fracture management.
+72146,46,N03.9,patient46@example.com,2023-12-05,Chronic glomerulonephritis monitoring.
+94037,24,H53.14,patient37@example.com,2023-08-12,Visual disturbances assessment.
+61709,21,K30,patient09@example.com,2023-04-19,Functional dyspepsia management.
+59413,36,F43.10,patient13@example.com,2024-02-26,Post-traumatic stress disorder therapy.
+86926,15,M19.079,patient26@example.com,2023-11-02,Arthritis of the foot and ankle treatment.
+75320,26,I12.9,patient20@example.com,2023-06-09,Hypertensive chronic kidney disease management.
+94104,36,Z00.110,patient04@example.com,2023-01-15,Well-child visit and vaccinations.
+62848,30,E78.4,patient48@example.com,2024-03-04,Mixed hyperlipidemia management.
+51691,42,J11.1,patient91@example.com,2023-11-11,Influenza diagnosis and treatment.
+87522,28,M81.6,patient22@example.com,2023-07-18,Localized osteoporosis management.
+79305,2,I49.01,patient05@example.com,2023-03-25,Ventricular fibrillation monitoring.
+96019,35,F33.9,patient19@example.com,2024-01-22,Cyclothymic disorder treatment.
+63753,30,G47.33,patient53@example.com,2023-09-29,Obstructive sleep apnea management.
+52490,10,K59.00,patient90@example.com,2023-05-06,Constipation management.
+88137,49,C50.011,patient37@example.com,2023-12-13,Breast cancer screening and prevention.
+71951,3,D69.6,patient51@example.com,2023-08-20,Thrombocytopenia follow-up.
+95724,40,L24.9,patient24@example.com,2023-04-27,Irritant contact dermatitis treatment.
+60592,23,B35.3,patient92@example.com,2024-02-09,Tinea pedis treatment.
+57365,6,H66.91,patient65@example.com,2023-10-04,Chronic suppurative otitis media management.
+83076,21,M79.606,patient76@example.com,2023-06-12,Pain in limb management.
+76483,45,I64,patient83@example.com,2023-01-19,Unspecified stroke management.
+92160,28,E07.9,patient60@example.com,2023-11-26,Thyroid disorder evaluation.
+61894,46,N41.0,patient94@example.com,2023-08-02,Acute prostatitis treatment.
+54608,27,G21.9,patient08@example.com,2023-03-10,Secondary parkinsonism management.
+89742,10,K80.10,patient42@example.com,2024-01-05,Gallstones with acute cholecystitis management.
+78535,4,F05,patient35@example.com,2023-09-14,Delirium assessment and management.
+97217,42,L51.9,patient17@example.com,2023-05-21,Erythema multiforme diagnosis.
+65381,8,B08.4,patient81@example.com,2023-12-30,Enteroviral vesicular stomatitis with exanthem treatment.
+53180,8,H52.219,patient80@example.com,2023-08-06,Astigmatism correction.

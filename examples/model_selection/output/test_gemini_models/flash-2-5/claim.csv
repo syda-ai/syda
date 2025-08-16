@@ -1,0 +1,16 @@
+claim_id,patient_id,diagnosis_code,email,visit_date,notes
+101,109,J10.0,alice.smith@example.com,2023-01-15,"Patient presented with flu-like symptoms, fever, and body aches. Prescribed rest and fluids."
+102,114,M54.5,bob.johnson@example.com,2023-02-20,"Chronic low back pain, exacerbated after heavy lifting. Advised physical therapy."
+103,104,E11.9,carol.white@example.com,2023-03-10,Follow-up for uncontrolled type 2 diabetes. Adjusted medication dosage.
+104,113,I10,david.brown@example.com,2023-04-05,"Routine check-up, blood pressure elevated. Discussed lifestyle modifications."
+105,105,J30.9,eva.green@example.com,2023-05-12,"Seasonal allergies, sneezing, and watery eyes. Recommended antihistamines."
+106,109,K21.9,frank.black@example.com,2023-06-01,"Symptoms of GERD, heartburn, and regurgitation. Prescribed PPI."
+107,111,R51,grace.taylor@example.com,2023-07-08,"Persistent headaches, throbbing pain. Advised to keep a headache diary."
+108,101,L23.9,henry.wilson@example.com,2023-08-19,"Contact dermatitis on hands, likely from new soap. Recommended avoiding irritants."
+109,107,N39.0,ivy.moore@example.com,2023-09-25,"Urinary tract infection symptoms. Sent urine for culture, prescribed antibiotics."
+110,101,Z00.00,jack.martin@example.com,2023-10-30,"Annual physical examination. All vitals normal, no new concerns."
+111,107,F32.9,karen.davis@example.com,2023-11-14,"Symptoms of depression, low mood, and fatigue. Discussed therapy options."
+112,102,G47.00,liam.roberts@example.com,2023-12-01,"Insomnia, difficulty falling and staying asleep. Advised on sleep hygiene."
+113,111,J02.9,mia.thomas@example.com,2024-01-07,Sore throat and mild fever. Diagnosed with acute pharyngitis.
+114,112,S93.401A,noah.jackson@example.com,2024-02-18,Sprained ankle from sports injury. Advised RICE protocol.
+115,103,H61.20,olivia.harris@example.com,2024-03-22,"Impacted earwax, causing hearing loss. Performed ear irrigation."
