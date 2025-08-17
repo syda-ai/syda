@@ -60,6 +60,30 @@ class TestLLMClient:
         # Check that the client has the expected attributes
         assert client.model_config == config
         assert client.client is not None
+
+    @patch.dict('os.environ', {'GEMINI_API_KEY': 'test_key'})
+    @patch('syda.llm.genai.Client')
+    @patch('syda.llm.instructor.from_genai')
+    def test_initialize_gemini_client(self, mock_from_genai, mock_genai_client):
+        """Test initializing a Gemini client."""
+        # Create a model config for Gemini
+        config = ModelConfig(
+            provider="gemini",
+            model_name="gemini-2.5-flash"
+        )
+        
+        # Create the LLMClient
+        client = LLMClient(model_config=config)
+        
+        # Check that the Gemini client was created
+        mock_genai_client.assert_called_once_with()
+        
+        # Check that the client was patched with instructor
+        mock_from_genai.assert_called_once()
+        
+        # Check that the client has the expected attributes
+        assert client.model_config == config
+        assert client.client is not None
     
     @patch.dict('os.environ', {})
     def test_initialize_client_without_env_keys(self):
