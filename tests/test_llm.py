@@ -149,7 +149,7 @@ class TestCreateLLMClient:
     """Tests for the create_llm_client function."""
     
     @patch('syda.llm.LLMClient')
-    def test_create_llm_client_with_config(self, mock_llm_client):
+    def test_create_llm_client_with_config(self, mock_llm_client): 
         """Test creating an LLM client with a model config."""
         # Create a model config
         config = ModelConfig(
@@ -166,11 +166,12 @@ class TestCreateLLMClient:
             model_config=config, 
             openai_api_key=None, 
             anthropic_api_key=None, 
+            gemini_api_key=None,
             api_key="test_key"
         )
     
     @patch('syda.llm.LLMClient')
-    def test_create_llm_client_without_config(self, mock_llm_client):
+    def test_create_llm_client_without_config(self, mock_llm_client): 
         """Test creating an LLM client without a model config."""
         # In the actual implementation, provider and model_name would be passed as kwargs
         # and the default ModelConfig() would be created inside the LLMClient constructor
@@ -184,6 +185,7 @@ class TestCreateLLMClient:
             model_config=None, 
             openai_api_key=None,
             anthropic_api_key=None,
+            gemini_api_key=None,
             provider="openai", 
             model_name="gpt-4o", 
             api_key="test_key"
