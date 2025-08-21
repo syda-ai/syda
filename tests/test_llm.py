@@ -165,7 +165,8 @@ class TestCreateLLMClient:
         mock_llm_client.assert_called_once_with(
             model_config=config, 
             openai_api_key=None, 
-            anthropic_api_key=None, 
+            anthropic_api_key=None,
+            gemini_api_key=None,  # Add this line
             api_key="test_key"
         )
     
@@ -184,6 +185,7 @@ class TestCreateLLMClient:
             model_config=None, 
             openai_api_key=None,
             anthropic_api_key=None,
+            gemini_api_key=None,  # Add this line
             provider="openai", 
             model_name="gpt-4o", 
             api_key="test_key"
