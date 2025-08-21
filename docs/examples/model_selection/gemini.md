@@ -191,6 +191,9 @@ The example code creates an organized directory structure for output files:
 ```
 output/
 ├── test_gemini_models/
+│   ├── pro-2-5/
+│   │   ├── Patient.csv
+│   │   └── Claim.csv
 │   ├── flash-2-5/
 │   │   ├── Patient.csv
 │   │   └── Claim.csv
@@ -202,9 +205,10 @@ output/
 ## Best Practices
 
 1. **Choose the right model for your task**: 
+   - Use **gemini-2.5-pro** for complex data generation and larger datasets
    - Use **gemini-2.5-flash** for the latest performance and features
    - Use **gemini-2.0-flash** if you need consistency with previous results
-   - Both models work well for small to medium datasets and various schema complexities
+   - Pro models work well for complex schemas and larger datasets
 
 2. **Set appropriate token limits**: Both Flash models support up to 8,192 tokens. Make sure to set the `max_tokens` parameter accordingly.
 
