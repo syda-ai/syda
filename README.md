@@ -1,6 +1,6 @@
 # 🎯 Syda - AI-Powered Synthetic Data Generation
 
-[![PyPI version](https://badge.fury.io/py/syda.svg)](https://badge.fury.io/py/syda)
+[![PyPI version](https://badge.fury.io/py/syda.svg?v=1)](https://badge.fury.io/py/syda)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![Documentation](https://img.shields.io/badge/docs-python.syda.ai-brightgreen.svg)](https://python.syda.ai)
