@@ -169,6 +169,81 @@ class TestModelConfig:
         config_one = ModelConfig(temperature=1.0)
         assert config_one.temperature == 1.0
     
+    def test_gemini_specific_values(self):
+        """Test Gemini-specific parameters."""
+        config = ModelConfig(
+            provider="gemini",
+            model_name="gemini-2.5-flash",
+            temperature=0.8,
+            max_tokens=2048,
+            top_k=30,
+            top_p=0.9
+        )
+        
+        assert config.provider == "gemini"
+        assert config.model_name == "gemini-2.5-flash"
+        assert config.temperature == 0.8
+        assert config.max_tokens == 2048
+        assert config.top_k == 30
+        assert config.top_p == 0.9
+    
+    def test_get_model_kwargs_for_gemini(self):
+        """Test getting model kwargs for Gemini."""
+        config = ModelConfig(
+            provider="gemini",
+            model_name="gemini-2.5-flash",
+            temperature=0.7,
+            max_tokens=1500,
+            top_k=25,
+            top_p=0.85
+        )
+        
+        kwargs = config.get_model_kwargs()
+        
+        assert kwargs["model"] == "gemini-2.5-flash"
+        assert "generation_config" in kwargs
+        
+        generation_config = kwargs["generation_config"]
+        assert generation_config["temperature"] == 0.7
+        assert generation_config["max_tokens"] == 1500
+        assert generation_config["top_k"] == 25
+        assert generation_config["top_p"] == 0.85
+    
+    def test_get_model_kwargs_for_gemini_partial_config(self):
+        """Test Gemini kwargs with only some parameters set."""
+        config = ModelConfig(
+            provider="gemini",
+            model_name="gemini-2.5-flash",
+            temperature=0.5
+            # Other parameters left as None
+        )
+        
+        kwargs = config.get_model_kwargs()
+        
+        assert kwargs["model"] == "gemini-2.5-flash"
+        assert "generation_config" in kwargs
+        
+        generation_config = kwargs["generation_config"]
+        assert generation_config["temperature"] == 0.5
+        # None values should not be included
+        assert "max_tokens" not in generation_config
+        assert "top_k" not in generation_config
+        assert "top_p" not in generation_config
+    
+    def test_get_model_kwargs_for_gemini_no_generation_config(self):
+        """Test Gemini kwargs when no generation config parameters are set."""
+        config = ModelConfig(
+            provider="gemini",
+            model_name="gemini-2.5-flash"
+            # All generation config parameters are None
+        )
+        
+        kwargs = config.get_model_kwargs()
+        
+        assert kwargs["model"] == "gemini-2.5-flash"
+        # generation_config should not be included if empty
+        assert "generation_config" not in kwargs
+
     @patch("syda.schemas.ModelConfig.get_model_kwargs")
     def test_get_model_kwargs_is_called(self, mock_get_model_kwargs):
         """Test that get_model_kwargs method works as expected."""

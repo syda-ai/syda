@@ -1,0 +1,16 @@
+patient_id,diagnosis_code,email,visit_date,notes
+101,I10,john.doe@example.com,2023-01-15,Patient presented with elevated blood pressure. Advised lifestyle modifications and prescribed medication.
+102,J45.909,jane.smith@example.com,2023-02-20,"Chronic asthma exacerbation. Inhaler technique reviewed, rescue medication refilled."
+103,E11.9,robert.johnson@example.com,2023-03-10,Follow-up for uncontrolled type 2 diabetes. Diet and exercise adherence discussed. HbA1c ordered.
+104,M54.5,emily.davis@example.com,2023-04-05,"Lower back pain, acute onset. X-ray negative. Prescribed muscle relaxants and advised rest."
+105,K21.9,michael.brown@example.com,2023-05-12,"GERD symptoms, persistent heartburn. PPI initiated. Lifestyle changes recommended."
+106,F32.9,sarah.wilson@example.com,2023-06-01,Symptoms of depression. Counseling referral provided. Discussed medication options.
+107,G43.909,david.moore@example.com,2023-07-08,Migraine with aura. Triptan prescribed. Advised on trigger avoidance.
+108,N18.9,lisa.taylor@example.com,2023-08-14,"Chronic kidney disease, stage 3. Labs reviewed. Nephrology referral made."
+109,R10.9,chris.anderson@example.com,2023-09-02,"Abdominal pain, generalized. Ultrasound ordered. Advised clear liquid diet."
+110,H61.20,olivia.thomas@example.com,2023-10-11,"Cerumen impaction, left ear. Ear irrigation performed. Patient tolerated procedure well."
+111,L20.9,daniel.jackson@example.com,2023-11-07,Atopic dermatitis flare-up. Topical steroids prescribed. Moisturizer use reinforced.
+112,Z00.00,sophia.white@example.com,2023-12-01,Routine annual physical examination. No acute concerns. Labs drawn for screening.
+113,I25.10,james.harris@example.com,2024-01-03,"Coronary artery disease, stable angina. Discussed medication adherence and exercise plan."
+114,J02.9,mia.martin@example.com,2024-02-19,Acute pharyngitis. Rapid strep test negative. Symptomatic treatment advised.
+115,M17.9,william.thompson@example.com,2024-03-25,"Osteoarthritis of knee, right. Pain management strategies discussed. PT referral provided."

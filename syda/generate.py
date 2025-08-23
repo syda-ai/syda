@@ -56,7 +56,8 @@ class SyntheticDataGenerator:
         self,
         model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
         openai_api_key: Optional[str] = None,
-        anthropic_api_key: Optional[str] = None
+        anthropic_api_key: Optional[str] = None,
+        gemini_api_key: Optional[str] = None
     ):
         """
         Initialize the synthetic data generator with the specified model configuration.
@@ -68,12 +69,14 @@ class SyntheticDataGenerator:
                            environment variable.
             anthropic_api_key: Optional API key for Anthropic. If not provided, will use 
                               ANTHROPIC_API_KEY environment variable.
+            gemini_api_key: Optional API key for Gemini. If not provided, will use GEMINI_API_KEY
         """
         # Initialize the LLM client using our new module
         self.llm_client = create_llm_client(
             model_config=model_config,
             openai_api_key=openai_api_key,
-            anthropic_api_key=anthropic_api_key
+            anthropic_api_key=anthropic_api_key,
+            gemini_api_key=gemini_api_key
         )
         
         # Store the model configuration for easy access

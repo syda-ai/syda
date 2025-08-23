@@ -6,6 +6,7 @@ Provides a standard interface for creating LLM clients with instructor integrati
 import os
 import instructor
 import openai
+from google import genai
 from typing import Optional, Dict, Any, Union, List
 from .schemas import ModelConfig, ProxyConfig
 
@@ -20,6 +21,7 @@ class LLMClient:
         model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
         openai_api_key: Optional[str] = None,
         anthropic_api_key: Optional[str] = None,
+        gemini_api_key: Optional[str] = None,
         **kwargs
     ):
         """
@@ -29,11 +31,13 @@ class LLMClient:
             model_config: Configuration for the LLM model to use
             openai_api_key: Optional API key for OpenAI
             anthropic_api_key: Optional API key for Anthropic
+            gemini_api_key: Optional API key for Gemini
             **kwargs: Additional keyword arguments to pass to the client
         """
         # Set up API keys from arguments or environment variables
         self.openai_api_key = openai_api_key or os.environ.get("OPENAI_API_KEY")
         self.anthropic_api_key = anthropic_api_key or os.environ.get("ANTHROPIC_API_KEY")
+        self.gemini_api_key = gemini_api_key or os.environ.get("GEMINI_API_KEY")
         
         # Set up model configuration
         if model_config is None:
@@ -108,9 +112,23 @@ class LLMClient:
                     # All methods failed
                     error_msg = f"Failed to initialize Anthropic client: {e}, {inner_e}"
                     raise ValueError(error_msg)
+                
         elif provider == "gemini":
-            # Gemini code goes here
-            raise ValueError("Gemini Provider will be added in future releases")
+            # Set up environment variable for Gemini instead of passing directly
+            if self.gemini_api_key:
+                os.environ["GEMINI_API_KEY"] = self.gemini_api_key
+
+            # Get proxy configuration
+            proxy_kwargs = {}
+            if self.model_config.proxy:
+                proxy_kwargs = self.model_config.proxy.get_proxy_kwargs()
+
+            # Create raw client
+            raw_client = genai.Client(**proxy_kwargs)
+
+            # Patch with instructor
+            return instructor.from_genai(raw_client)
+
         else:
             # For other providers, use from_provider with empty kwargs
             try:
@@ -139,6 +157,7 @@ def create_llm_client(
     model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
     openai_api_key: Optional[str] = None,
     anthropic_api_key: Optional[str] = None,
+    gemini_api_key: Optional[str] = None,
     **kwargs
 ) -> LLMClient:
     """
@@ -148,6 +167,7 @@ def create_llm_client(
         model_config: Configuration for the LLM model to use
         openai_api_key: Optional API key for OpenAI
         anthropic_api_key: Optional API key for Anthropic
+        gemini_api_key: Optional API key for Gemini
         **kwargs: Additional keyword arguments to pass to the client
     
     Returns:
@@ -157,5 +177,6 @@ def create_llm_client(
         model_config=model_config,
         openai_api_key=openai_api_key,
         anthropic_api_key=anthropic_api_key,
+        gemini_api_key=gemini_api_key,
         **kwargs
     )

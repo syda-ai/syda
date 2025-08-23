@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "syda"
-version = "0.0.1"
+version = "0.0.2"
 description = "A Python library for AI-powered synthetic data generation with referential integrity"
 readme = "README.md"
 license = {text = "LGPL-3.0-or-later"}
@@ -22,6 +22,8 @@ keywords = [
     "OpenAI",
     "Anthropic",
     "Claude",
+    "Google",
+    "Gemini",
     "GPT"
 ]
 classifiers = [
@@ -60,6 +62,8 @@ dependencies = [
     "pyyaml>=6.0.1",
     "boto3>=1.28.0",
     "azure-storage-blob>=12.19.0",
+    "google-genai>=1.30.0",
+    "jsonref>=1.1.0",
     "pdfplumber>=0.10.3",
     "pillow>=10.0.1",
     "pytesseract>=0.3.10",
@@ -67,6 +71,8 @@ dependencies = [
     "networkx>=3.1",
     "instructor>=1.0.0",
     "weasyprint>=65.1",
+    "jsonref>=1.1.0",
+    "google-genai>=1.30.0"
 ]
 
 [project.optional-dependencies]
