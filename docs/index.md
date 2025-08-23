@@ -11,7 +11,7 @@ Syda is a powerful library that helps developers and data scientists generate hi
 - **Multi-Provider AI Integration**:
 
     * Seamless integration with multiple AI providers
-    * Support for OpenAI (GPT) and Anthropic (Claude). 
+    * Support for OpenAI (GPT), Anthropic (Claude) and Google(Gemini). 
     * Default model is Anthropic Claude model claude-3-5-haiku-20241022
     * Consistent interface across different providers
     * Provider-specific parameter optimization
