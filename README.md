@@ -8,7 +8,7 @@
 
 > **Generate high-quality synthetic data with AI while preserving referential integrity**
 
-Syda seamlessly integrates with **Anthropic Claude** and **OpenAI GPT** models to create realistic test data, maintain privacy compliance, and accelerate development workflows.
+Syda seamlessly integrates with **Anthropic Claude**, **OpenAI GPT** and **Google Gemini** models to create realistic test data, maintain privacy compliance, and accelerate development workflows.
 
 ## 📚 Documentation
 
@@ -26,6 +26,8 @@ Create `.env` file:
 ANTHROPIC_API_KEY=your_anthropic_api_key_here
 # OR
 OPENAI_API_KEY=your_openai_api_key_here
+# OR
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 ```python
@@ -114,7 +116,7 @@ print("📂 Check the 'data' folder for categories.csv and products.csv")
 
 | Feature | Benefit | Example |
 |---------|---------|---------|
-| 🤖 **Multi-AI Provider** | No vendor lock-in | Claude, GPT models |
+| 🤖 **Multi-AI Provider** | No vendor lock-in | Claude, GPT, Gemini models |
 | 🔗 **Zero Orphaned Records** | Perfect referential integrity | `product.category_id` → `category.id` ✅ |
 | 🏗️ **SQLAlchemy Native** | Use existing models directly | `Customer`, `Contact` classes → CSV data |
 | 📊 **Multiple Schema Formats** | Flexible input options | SQLAlchemy, YAML, JSON, Dict |
