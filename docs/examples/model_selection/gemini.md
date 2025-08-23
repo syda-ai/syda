@@ -215,5 +215,3 @@ output/
 3. **Use detailed prompts**: Gemini models respond well to specific guidance in prompts. Include details about the type of data you want to generate.
 
 4. **Monitor API usage**: Keep track of your API usage to manage costs, especially when working with larger datasets.
-
-5. **Leverage generation_config**: Gemini models use a `generation_config` parameter for advanced settings like `top_k` and `top_p` sampling.
