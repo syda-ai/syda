@@ -2,86 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://python.syda.ai/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/quickstart/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/deep_dive/combined_data/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/deep_dive/custom_generators/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/deep_dive/foreign_keys/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/deep_dive/model_configuration/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/deep_dive/output_options/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/deep_dive/structured_data/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/deep_dive/unstructured_documents/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/examples/miscellaneous/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/examples/model_selection/anthropic/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://python.syda.ai/examples/model_selection/gemini/</loc>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/examples/model_selection/openai/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/examples/structured_and_unstructured_mixed/sqlalchemy_models/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/examples/structured_and_unstructured_mixed/yaml_schemas/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/examples/structured_only/dict_schemas/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/examples/structured_only/json_schemas/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/examples/structured_only/sqlalchemy_models/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/examples/structured_only/yaml_schemas/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/schema_reference/field_types/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/schema_reference/foreign_keys/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://python.syda.ai/schema_reference/special_field_types/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
 </urlset>
