@@ -1,0 +1,101 @@
+patient_id,diagnosis_code,email,visit_date,notes
+1,J45.909,patient_1@example.com,2023-05-14,"Patient presents with mild, intermittent asthma symptoms."
+2,I10,patient_2@example.com,2023-01-21,Routine check-up for hypertension.
+3,E11.9,patient_3@example.com,2023-11-23,"Patient with Type 2 diabetes, well-controlled."
+4,J06.9,patient_4@example.com,2023-08-16,"Acute upper respiratory infection, symptomatic relief advised."
+5,M54.5,patient_5@example.com,2023-01-29,Complaining of low back pain.
+6,Z00.00,patient_6@example.com,2023-06-18,Annual general medical examination.
+7,F32.9,patient_7@example.com,2023-02-14,Patient seeking help for depression.
+8,G47.00,patient_8@example.com,2023-07-28,Patient reports difficulty sleeping.
+9,K21.9,patient_9@example.com,2023-04-19,Gastro-esophageal reflux disease without esophagitis.
+10,L03.115,patient_10@example.com,2023-10-06,Cellulitis of right leg.
+11,J45.909,patient_11@example.com,2023-09-02,"Patient presents with mild, intermittent asthma symptoms."
+12,I10,patient_12@example.com,2023-03-25,Routine check-up for hypertension.
+13,E11.9,patient_13@example.com,2023-01-09,"Patient with Type 2 diabetes, well-controlled."
+14,J06.9,patient_14@example.com,2023-12-11,"Acute upper respiratory infection, symptomatic relief advised."
+15,M54.5,patient_15@example.com,2023-08-01,Complaining of low back pain.
+16,Z00.00,patient_16@example.com,2023-02-07,Annual general medical examination.
+17,F32.9,patient_17@example.com,2023-05-19,Patient seeking help for depression.
+18,G47.00,patient_18@example.com,2023-11-04,Patient reports difficulty sleeping.
+19,K21.9,patient_19@example.com,2023-07-13,Gastro-esophageal reflux disease without esophagitis.
+20,L03.115,patient_20@example.com,2023-04-03,Cellulitis of right leg.
+21,J45.909,patient_21@example.com,2023-10-22,"Patient presents with mild, intermittent asthma symptoms."
+22,I10,patient_22@example.com,2023-01-15,Routine check-up for hypertension.
+23,E11.9,patient_23@example.com,2023-06-08,"Patient with Type 2 diabetes, well-controlled."
+24,J06.9,patient_24@example.com,2023-09-14,"Acute upper respiratory infection, symptomatic relief advised."
+25,M54.5,patient_25@example.com,2023-03-01,Complaining of low back pain.
+26,Z00.00,patient_26@example.com,2023-12-28,Annual general medical examination.
+27,F32.9,patient_27@example.com,2023-02-19,Patient seeking help for depression.
+28,G47.00,patient_28@example.com,2023-08-27,Patient reports difficulty sleeping.
+29,K21.9,patient_29@example.com,2023-05-09,Gastro-esophageal reflux disease without esophagitis.
+30,L03.115,patient_30@example.com,2023-11-16,Cellulitis of right leg.
+31,J45.909,patient_31@example.com,2023-07-04,"Patient presents with mild, intermittent asthma symptoms."
+32,I10,patient_32@example.com,2023-04-29,Routine check-up for hypertension.
+33,E11.9,patient_33@example.com,2023-10-11,"Patient with Type 2 diabetes, well-controlled."
+34,J06.9,patient_34@example.com,2023-01-02,"Acute upper respiratory infection, symptomatic relief advised."
+35,M54.5,patient_35@example.com,2023-06-25,Complaining of low back pain.
+36,Z00.00,patient_36@example.com,2023-03-18,Annual general medical examination.
+37,F32.9,patient_37@example.com,2023-09-20,Patient seeking help for depression.
+38,G47.00,patient_38@example.com,2023-12-05,Patient reports difficulty sleeping.
+39,K21.9,patient_39@example.com,2023-08-11,Gastro-esophageal reflux disease without esophagitis.
+40,L03.115,patient_40@example.com,2023-02-23,Cellulitis of right leg.
+41,J45.909,patient_41@example.com,2023-05-27,"Patient presents with mild, intermittent asthma symptoms."
+42,I10,patient_42@example.com,2023-11-28,Routine check-up for hypertension.
+43,E11.9,patient_43@example.com,2023-07-21,"Patient with Type 2 diabetes, well-controlled."
+44,J06.9,patient_44@example.com,2023-04-14,"Acute upper respiratory infection, symptomatic relief advised."
+45,M54.5,patient_45@example.com,2023-10-01,Complaining of low back pain.
+46,Z00.00,patient_46@example.com,2023-01-18,Annual general medical examination.
+47,F32.9,patient_47@example.com,2023-06-13,Patient seeking help for depression.
+48,G47.00,patient_48@example.com,2023-09-08,Patient reports difficulty sleeping.
+49,K21.9,patient_49@example.com,2023-03-09,Gastro-esophageal reflux disease without esophagitis.
+50,L03.115,patient_50@example.com,2023-12-21,Cellulitis of right leg.
+51,J45.909,patient_51@example.com,2023-02-11,"Patient presents with mild, intermittent asthma symptoms."
+52,I10,patient_52@example.com,2023-08-22,Routine check-up for hypertension.
+53,E11.9,patient_53@example.com,2023-05-04,"Patient with Type 2 diabetes, well-controlled."
+54,J06.9,patient_54@example.com,2023-11-11,"Acute upper respiratory infection, symptomatic relief advised."
+55,M54.5,patient_55@example.com,2023-07-09,Complaining of low back pain.
+56,Z00.00,patient_56@example.com,2023-04-24,Annual general medical examination.
+57,F32.9,patient_57@example.com,2023-10-17,Patient seeking help for depression.
+58,G47.00,patient_58@example.com,2023-01-26,Patient reports difficulty sleeping.
+59,K21.9,patient_59@example.com,2023-06-20,Gastro-esophageal reflux disease without esophagitis.
+60,L03.115,patient_60@example.com,2023-09-28,Cellulitis of right leg.
+61,J45.909,patient_61@example.com,2023-03-13,"Patient presents with mild, intermittent asthma symptoms."
+62,I10,patient_62@example.com,2023-12-16,Routine check-up for hypertension.
+63,E11.9,patient_63@example.com,2023-08-06,"Patient with Type 2 diabetes, well-controlled."
+64,J06.9,patient_64@example.com,2023-02-02,"Acute upper respiratory infection, symptomatic relief advised."
+65,M54.5,patient_65@example.com,2023-05-16,Complaining of low back pain.
+66,Z00.00,patient_66@example.com,2023-11-01,Annual general medical examination.
+67,F32.9,patient_67@example.com,2023-07-26,Patient seeking help for depression.
+68,G47.00,patient_68@example.com,2023-04-08,Patient reports difficulty sleeping.
+69,K21.9,patient_69@example.com,2023-10-26,Gastro-esophageal reflux disease without esophagitis.
+70,L03.115,patient_70@example.com,2023-01-11,Cellulitis of right leg.
+71,J45.909,patient_71@example.com,2023-09-18,"Patient presents with mild, intermittent asthma symptoms."
+72,I10,patient_72@example.com,2023-06-03,Routine check-up for hypertension.
+73,E11.9,patient_73@example.com,2023-03-29,"Patient with Type 2 diabetes, well-controlled."
+74,J06.9,patient_74@example.com,2023-12-01,"Acute upper respiratory infection, symptomatic relief advised."
+75,M54.5,patient_75@example.com,2023-08-18,Complaining of low back pain.
+76,Z00.00,patient_76@example.com,2023-02-27,Annual general medical examination.
+77,F32.9,patient_77@example.com,2023-05-22,Patient seeking help for depression.
+78,G47.00,patient_78@example.com,2023-11-20,Patient reports difficulty sleeping.
+79,K21.9,patient_79@example.com,2023-07-18,Gastro-esophageal reflux disease without esophagitis.
+80,L03.115,patient_80@example.com,2023-04-11,Cellulitis of right leg.
+81,J45.909,patient_81@example.com,2023-10-31,"Patient presents with mild, intermittent asthma symptoms."
+82,I10,patient_82@example.com,2023-01-05,Routine check-up for hypertension.
+83,E11.9,patient_83@example.com,2023-06-29,"Patient with Type 2 diabetes, well-controlled."
+84,J06.9,patient_84@example.com,2023-09-24,"Acute upper respiratory infection, symptomatic relief advised."
+85,M54.5,patient_85@example.com,2023-03-22,Complaining of low back pain.
+86,Z00.00,patient_86@example.com,2023-12-25,Annual general medical examination.
+87,F32.9,patient_87@example.com,2023-02-05,Patient seeking help for depression.
+88,G47.00,patient_88@example.com,2023-08-13,Patient reports difficulty sleeping.
+89,K21.9,patient_89@example.com,2023-05-01,Gastro-esophageal reflux disease without esophagitis.
+90,L03.115,patient_90@example.com,2023-11-08,Cellulitis of right leg.
+91,J45.909,patient_91@example.com,2023-07-01,"Patient presents with mild, intermittent asthma symptoms."
+92,I10,patient_92@example.com,2023-04-21,Routine check-up for hypertension.
+93,E11.9,patient_93@example.com,2023-10-14,"Patient with Type 2 diabetes, well-controlled."
+94,J06.9,patient_94@example.com,2023-01-24,"Acute upper respiratory infection, symptomatic relief advised."
+95,M54.5,patient_95@example.com,2023-06-22,Complaining of low back pain.
+96,Z00.00,patient_96@example.com,2023-09-11,Annual general medical examination.
+97,F32.9,patient_97@example.com,2023-03-16,Patient seeking help for depression.
+98,G47.00,patient_98@example.com,2023-12-13,Patient reports difficulty sleeping.
+99,K21.9,patient_99@example.com,2023-08-08,Gastro-esophageal reflux disease without esophagitis.
+100,L03.115,patient_100@example.com,2023-02-25,Cellulitis of right leg.

@@ -89,7 +89,7 @@ model_config = ModelConfig(
     provider="gemini",
     model_name="gemini-2.5-pro",
     temperature=0.7,
-    max_tokens=8192  # Larger value for more complete responses
+    max_tokens=64000  # Larger value for more complete responses
 )
 
 generator = SyntheticDataGenerator(model_config=model_config)
