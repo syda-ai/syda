@@ -2,7 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/syda.svg?v=1)](https://badge.fury.io/py/syda)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Documentation](https://img.shields.io/badge/docs-python.syda.ai-brightgreen.svg)](https://python.syda.ai)
 [![GitHub stars](https://img.shields.io/github/stars/syda-ai/syda.svg)](https://github.com/syda-ai/syda/stargazers)
 
@@ -773,6 +773,68 @@ Looking for ways to contribute? Check out issues labeled:
 - `examples` - Add new use cases and examples
 
 **Every contribution matters - from fixing typos to adding major features!** 🙏
+
+---
+
+## 📄 License
+
+**Syda** is licensed under the **MIT License**.
+
+### 📋 **License Summary**
+
+- ✅ **Commercial Use**: You can use Syda in commercial applications
+- ✅ **Modification**: You can modify the source code
+- ✅ **Distribution**: You can distribute the software
+- ✅ **Private Use**: You can use Syda privately
+- ✅ **Sublicense**: You can sublicense the software
+- ✅ **Sell**: You can sell the software
+
+### 🔒 **Requirements**
+
+- **License and Copyright Notice**: Include the license and copyright notice with the software
+
+### 🆓 **What This Means for You**
+
+- **Use freely** in your applications without any restrictions
+- **No copyleft requirements** - your code stays under your chosen license
+- **Maximum flexibility** for commercial and open-source projects
+- **No warranty** - software provided "as is"
+
+### 📜 **Full License Text**
+
+```
+MIT License
+
+Copyright (c) 2025 Rama Krishna Kumar Lingamgunta
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+For the complete license terms, see the [LICENSE](LICENSE) file in this repository or visit [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT).
+
+### ❓ **Questions About Licensing?**
+
+If you have questions about how the MIT license affects your use case:
+
+- 📖 Read about [MIT License](https://choosealicense.com/licenses/mit/)
+- 💬 Open a [GitHub Discussion](https://github.com/syda-ai/syda/discussions)
+- 📧 Contact us through GitHub Issues
 
 ---
 

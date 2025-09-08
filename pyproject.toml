@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "syda"
-version = "0.0.2"
+version = "0.0.3"
 description = "A Python library for AI-powered synthetic data generation with referential integrity"
 readme = "README.md"
-license = {text = "LGPL-3.0-or-later"}
+license = {text = "MIT"}
 authors = [
     {name = "Rama Krishna Kumar Lingamgunta", email = "lrkkumar2606@gmail.com"}
 ]
@@ -30,7 +30,7 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
