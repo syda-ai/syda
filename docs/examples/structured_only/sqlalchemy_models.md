@@ -1,3 +1,16 @@
+---
+title: SQLAlchemy Models for Synthetic Data | Syda Examples
+description: Generate synthetic test data directly from your SQLAlchemy models with AI - maintain database schema integrity, foreign key relationships, and constraints automatically.
+keywords:
+  - SQLAlchemy synthetic data
+  - ORM data generation
+  - database model testing
+  - SQLAlchemy AI data
+  - synthetic database data
+  - test data from models
+  - database schema generation
+---
+
 # SQLAlchemy Models
 
 > Source code: [examples/structured_only/example_sqlalchemy_models.py](https://github.com/syda-ai/syda/blob/main/examples/structured_only/example_sqlalchemy_models.py)

@@ -1,3 +1,16 @@
+---
+title: Foreign Key Handling & Referential Integrity | Syda Deep Dive
+description: Master foreign key relationships in synthetic data generation - maintain perfect referential integrity across tables with AI-generated data using Syda's advanced dependency resolution.
+keywords:
+  - foreign key relationships
+  - referential integrity
+  - database relationships
+  - synthetic data relationships
+  - AI data integrity
+  - table dependencies
+  - relational data generation
+---
+
 # Foreign Key Handling
 
 One of SYDA's most powerful features is its ability to maintain referential integrity across multiple related tables. This document explains in detail how foreign key relationships are defined, detected, and handled during data generation.

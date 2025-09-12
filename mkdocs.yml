@@ -29,23 +29,31 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.top
+    - navigation.indexes
     - search.highlight
     - search.share
+    - search.suggest
   icon:
     repo: fontawesome/brands/github
 
 plugins:
-  - search
+  - search:
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
   - macros
   - minify:
       minify_html: true
       minify_css: true
       minify_js: true
+      htmlmin_opts:
+        remove_comments: true
+        remove_empty_space: true
+      cache_safe: true
 
 extra:
   sitemap:
     changefreq: weekly
     priority: 0.8
+  generator: false  # Remove "Made with MkDocs" footer
 
 markdown_extensions:
   - admonition
@@ -53,6 +61,7 @@ markdown_extensions:
       guess_lang: false
   - toc:
       permalink: true
+      permalink_title: Anchor link to this section
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.superfences
