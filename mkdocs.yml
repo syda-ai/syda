@@ -1,5 +1,5 @@
 site_name: Syda Documentation
-site_description: A Python-based open-source library for generating synthetic data with AI while preserving referential integrity
+site_description: syda seamlessly generate realistic synthetic test data - structured, unstructured, PDF, and HTML data generation with AI and large language models while preserving referential integrity, maintaining privacy compliance, and accelerating development workflows using OpenAI, Anthropic, and Gemini models
 site_url: https://python.syda.ai/
 repo_url: https://github.com/syda-ai/syda
 repo_name: syda-ai/syda
@@ -37,6 +37,15 @@ theme:
 plugins:
   - search
   - macros
+  - minify:
+      minify_html: true
+      minify_css: true
+      minify_js: true
+
+extra:
+  sitemap:
+    changefreq: weekly
+    priority: 0.8
 
 markdown_extensions:
   - admonition

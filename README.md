@@ -8,7 +8,7 @@
 
 > **Generate high-quality synthetic data with AI while preserving referential integrity**
 
-Syda seamlessly integrates with **Anthropic Claude**, **OpenAI GPT** and **Google Gemini** models to create realistic test data, maintain privacy compliance, and accelerate development workflows.
+Syda seamlessly generate realistic synthetic test data - structured, unstructured, PDF, and HTML data generation with AI and large language models while preserving referential integrity, maintaining privacy compliance, and accelerating development workflows using OpenAI, Anthropic, and Gemini.
 
 ## Documentation
 
