@@ -1,3 +1,15 @@
+---
+title: Anthropic Claude Models for Synthetic Data | Syda Examples
+description: Learn how to use Anthropic Claude models (Claude-3.5, Claude-3) with Syda for AI-powered synthetic data generation - model configuration, pricing, and performance comparison.
+keywords:
+  - Anthropic synthetic data
+  - Claude-3.5 data generation
+  - Claude-3 synthetic data
+  - Anthropic AI models
+  - Syda Claude integration
+  - Claude data generation
+---
+
 # Using Anthropic Models with SYDA
 
 > Source code: [examples/model_selection/test_claude_models.py](https://github.com/syda-ai/syda/blob/main/examples/model_selection/example_openai_models.py)

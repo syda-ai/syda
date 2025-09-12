@@ -1,3 +1,15 @@
+---
+title: Google Gemini Models for Synthetic Data | Syda Examples
+description: Learn how to use Google Gemini models (gemini-pro, gemini-flash) with Syda for AI-powered synthetic data generation - model configuration, pricing, and performance comparison.
+keywords:
+  - Google Gemini synthetic data
+  - Gemini AI data generation
+  - gemini-pro data generation
+  - gemini-flash synthetic data
+  - Google AI models
+  - Syda Gemini integration
+---
+
 # Using Google Gemini Models with SYDA
 
 > Source code: [examples/model_selection/test_gemini_models.py](https://github.com/syda-ai/syda/blob/main/examples/model_selection/example_gemini_models.py)

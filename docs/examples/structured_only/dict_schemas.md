@@ -1,3 +1,14 @@
+---
+title: Dictionary Schema Examples | Syda Structured Data
+description: Learn how to define Python dictionary-based schemas for synthetic data generation with Syda - inline schema definitions and programmatic data generation.
+keywords:
+  - dictionary schemas
+  - Python dict schemas
+  - inline schema definition
+  - programmatic schemas
+  - structured data examples
+---
+
 # Dictionary-Based Schema Examples
 
 > Source code: [examples/structured_only/example_dict_schemas.py](https://github.com/syda-ai/syda/blob/main/examples/structured_only/example_dict_schemas.py)

@@ -1,3 +1,15 @@
+---
+title: Custom Generators & Business Logic | Syda Deep Dive
+description: Create custom generators for advanced synthetic data generation - implement business logic, calculations, and domain-specific data generation with Syda.
+keywords:
+  - custom data generators
+  - business logic data
+  - custom field generation
+  - domain-specific data
+  - calculated fields
+  - data generation functions
+---
+
 # Custom Generators
 
 Custom generators in SYDA provide a powerful way to control and customize the data generation process. They allow you to define specific logic for generating or transforming field values beyond what the LLM can do alone.

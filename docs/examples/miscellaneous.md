@@ -1,3 +1,14 @@
+---
+title: Miscellaneous Examples & Use Cases | Syda Documentation
+description: Explore additional Syda examples and use cases - advanced patterns, integrations, and real-world applications for synthetic data generation.
+keywords:
+  - Syda examples
+  - use cases
+  - advanced patterns
+  - integration examples
+  - real-world applications
+---
+
 # Miscellaneous Examples
 
 This page provides links to additional examples that showcase various features and use cases of SYDA beyond the main documented examples.

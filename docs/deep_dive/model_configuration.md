@@ -1,3 +1,16 @@
+---
+title: AI Model Configuration & Selection | Syda Deep Dive
+description: Configure and select AI models (OpenAI, Anthropic, Gemini) for synthetic data generation with Syda - API keys, model parameters, and performance optimization.
+keywords:
+  - AI model configuration
+  - LLM model selection
+  - OpenAI model setup
+  - Anthropic model setup
+  - Gemini model setup
+  - API key configuration
+  - model parameters
+---
+
 # Model Selection and Configuration
 
 SYDA supports multiple large language model (LLM) providers, allowing you to choose the model that best fits your needs in terms of capabilities, cost, and performance.
