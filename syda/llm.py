@@ -84,9 +84,6 @@ class LLMClient:
             return instructor.from_openai(raw_client)
             
         elif provider == "azureopenai":
-            # Set up environment variable for Azure OpenAI API key if provided
-            if self.openai_api_key:
-                os.environ["AZURE_OPENAI_API_KEY"] = self.openai_api_key
                 
             # Azure OpenAI configuration - users must provide all required params via extra_kwargs
             azure_kwargs = {}
