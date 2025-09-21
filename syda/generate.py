@@ -741,7 +741,26 @@ class SyntheticDataGenerator:
                 )
             
             if not ai_objs:
-                raise ValueError("No objects returned from LLM call")
+                error_msg = f"""No objects returned from LLM call using {provider}/{model_name}.
+
+                            Possible causes:
+                            1. Token limit exceeded (common with reasoning models like O4-mini)
+                            - Current max_tokens: {model_kwargs.get('max_tokens', 'not set')}
+                            - Try increasing max_tokens/max_completion_tokens to 15000+ for reasoning models
+                            
+                            2. Empty response due to content filtering or model constraints
+                            - Check if the prompt violates content policies
+                            - Verify model deployment is working correctly
+                            
+                            3. Network or API issues
+                            - Check API connectivity and authentication
+                            - Verify endpoint URL and API version
+                            - Check model response directly via API to see actual error details
+
+                            Sample size requested: {sample_size}
+                            Streaming mode: {use_streaming}
+                    """
+                raise ValueError(error_msg)
             
             # Convert objects to DataFrame
             records = [obj.model_dump() for obj in ai_objs]

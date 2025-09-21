@@ -6,12 +6,11 @@ Supports multiple AI providers (OpenAI, Anthropic) and various schema formats.
 """
 
 from .generate import SyntheticDataGenerator
-from .schemas import ModelConfig, ProxyConfig
+from .schemas import ModelConfig
 
 __all__ = [
     'SyntheticDataGenerator',
-    'ModelConfig', 
-    'ProxyConfig'
+    'ModelConfig'
 ]
 
 __version__ = '0.0.3'

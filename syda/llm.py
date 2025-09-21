@@ -8,7 +8,7 @@ import instructor
 import openai
 from google import genai
 from typing import Optional, Dict, Any, Union, List
-from .schemas import ModelConfig, ProxyConfig
+from .schemas import ModelConfig
 
 class LLMClient:
     """
@@ -70,13 +70,37 @@ class LLMClient:
             if self.openai_api_key:
                 os.environ["OPENAI_API_KEY"] = self.openai_api_key
                 
-            # Get proxy configuration
-            proxy_kwargs = {}
-            if self.model_config.proxy:
-                proxy_kwargs = self.model_config.proxy.get_proxy_kwargs()
+            # OpenAI configuration with extra_kwargs support
+            openai_kwargs = {}
+            
+            # Add extra_kwargs from model configuration if provided
+            if self.model_config.extra_kwargs:
+                openai_kwargs.update(self.model_config.extra_kwargs)
                 
-            # Initialize raw client
-            raw_client = openai.OpenAI(**proxy_kwargs)
+            # Initialize raw OpenAI client
+            raw_client = openai.OpenAI(**openai_kwargs)
+            
+            # Patch with instructor and return
+            return instructor.from_openai(raw_client)
+            
+        elif provider == "azureopenai":
+            # Set up environment variable for Azure OpenAI API key if provided
+            if self.openai_api_key:
+                os.environ["AZURE_OPENAI_API_KEY"] = self.openai_api_key
+                
+            # Azure OpenAI configuration - users must provide all required params via extra_kwargs
+            azure_kwargs = {}
+            
+            # Add extra_kwargs from model configuration (required by user)
+            if self.model_config.extra_kwargs:
+                azure_kwargs.update(self.model_config.extra_kwargs)
+            
+            # Add API key from environment if not provided in extra_kwargs
+            if "api_key" not in azure_kwargs:
+                azure_kwargs["api_key"] = os.environ.get("AZURE_OPENAI_API_KEY")
+                
+            # Initialize Azure OpenAI client
+            raw_client = openai.AzureOpenAI(**azure_kwargs)
             
             # Patch with instructor and return
             return instructor.from_openai(raw_client)
@@ -86,18 +110,20 @@ class LLMClient:
             if self.anthropic_api_key:
                 os.environ["ANTHROPIC_API_KEY"] = self.anthropic_api_key
                 
-            # Initialize with from_anthropic
+            # Initialize with from_anthropic with extra_kwargs support
             try:
                 # Try using from_anthropic if available
                 from anthropic import Anthropic
                 
-                # Get proxy configuration
-                proxy_kwargs = {}
-                if self.model_config.proxy:
-                    proxy_kwargs = self.model_config.proxy.get_proxy_kwargs()
+                # Anthropic configuration with extra_kwargs support
+                anthropic_kwargs = {}
+                
+                # Add extra_kwargs from model configuration if provided
+                if self.model_config.extra_kwargs:
+                    anthropic_kwargs.update(self.model_config.extra_kwargs)
                     
                 # Create raw client
-                raw_client = Anthropic(**proxy_kwargs)
+                raw_client = Anthropic(**anthropic_kwargs)
                 
                 # Patch with instructor
                 return instructor.patch(raw_client)
@@ -118,13 +144,15 @@ class LLMClient:
             if self.gemini_api_key:
                 os.environ["GEMINI_API_KEY"] = self.gemini_api_key
 
-            # Get proxy configuration
-            proxy_kwargs = {}
-            if self.model_config.proxy:
-                proxy_kwargs = self.model_config.proxy.get_proxy_kwargs()
+            # Gemini configuration with extra_kwargs support
+            gemini_kwargs = {}
+            
+            # Add extra_kwargs from model configuration if provided
+            if self.model_config.extra_kwargs:
+                gemini_kwargs.update(self.model_config.extra_kwargs)
 
             # Create raw client
-            raw_client = genai.Client(**proxy_kwargs)
+            raw_client = genai.Client(**gemini_kwargs)
 
             # Patch with instructor
             return instructor.from_genai(raw_client)

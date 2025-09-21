@@ -8,54 +8,6 @@ from typing import Dict, Optional, Any, Literal, List, Union, Set
 import re
 
 
-class ProxyConfig(BaseModel):
-    """
-    Configuration for API proxy settings, commonly used in enterprise environments.
-    """
-    
-    # Base URL for the proxy service
-    base_url: Optional[str] = Field(None, description="Base URL for the proxy service (e.g. 'https://ai-proxy.company.com/v1')")
-    
-    # Additional headers to include in requests
-    headers: Optional[Dict[str, str]] = Field(None, description="Additional HTTP headers to include in requests to the proxy")
-    
-    # Additional query parameters to include in URL
-    params: Optional[Dict[str, Any]] = Field(None, description="Additional query parameters to include in the URL")
-    
-    # Path modification (some proxies require a different path structure)
-    path_format: Optional[str] = Field(None, description="Optional format string for proxy path, e.g. '/proxy/{provider}/{endpoint}'")
-    
-    def get_proxy_kwargs(self) -> Dict[str, Any]:
-        """Get proxy-specific kwargs for API client initialization."""
-        kwargs = {}
-        
-        # Handle base_url and query parameters
-        if self.base_url:
-            base_url = self.base_url
-            
-            # Add query parameters to the base URL if provided
-            if self.params:
-                # Convert all param values to strings
-                params = {k: str(v) for k, v in self.params.items()}
-                
-                # Create the query string
-                from urllib.parse import urlencode
-                query_string = urlencode(params)
-                
-                # Append to base_url with ? or & depending on whether URL already has params
-                if "?" in base_url:
-                    base_url += "&" + query_string
-                else:
-                    base_url += "?" + query_string
-                    
-            kwargs["base_url"] = base_url
-            
-        # Handle custom headers
-        if self.headers:
-            kwargs["default_headers"] = self.headers
-            
-        return kwargs
-
 class ModelConfig(BaseModel):
     """
     Configuration for AI model settings used by the SyntheticDataGenerator.
@@ -65,7 +17,7 @@ class ModelConfig(BaseModel):
     """
     
     # Model provider and name
-    provider: Literal["openai", "anthropic", "gemini"] = "anthropic"
+    provider: Literal["openai", "anthropic", "gemini", "azureopenai"] = "anthropic"
     model_name: str = "claude-3-5-haiku-20241022"
     
     
@@ -93,8 +45,9 @@ class ModelConfig(BaseModel):
     # Anthropic specific parameters
     max_tokens_to_sample: Optional[int] = Field(None, description="Maximum tokens to generate (Anthropic only)")
 
-    # Proxy configuration
-    proxy: Optional[ProxyConfig] = Field(None, description="Optional proxy configuration for API requests")
+    # Extra kwargs for provider-specific configuration (e.g., azure_endpoint, http_client, base_url etc.)
+    extra_kwargs: Optional[Dict[str, Any]] = Field(None, description="Additional provider-specific kwargs for client initialization")
+    
     
     def get_model_kwargs(self) -> Dict[str, Any]:
         """Get model-specific kwargs for API calls."""
