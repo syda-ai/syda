@@ -71,7 +71,7 @@ print("📊 Generating categories and products...")
 results = generator.generate_for_schemas(
     schemas=schemas,
     sample_sizes={"categories": 5, "products": 20},
-    output_dir="data"
+    output_dir="examples/quickstart_output_data"
 )
 
 print("✅ Generated realistic data with perfect foreign key relationships!")
