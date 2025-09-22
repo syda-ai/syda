@@ -179,66 +179,7 @@ config = ModelConfig(
 )
 ```
 
-### Provider-Specific Examples
 
-#### OpenAI extra_kwargs
-
-```python
-config = ModelConfig(
-    provider="openai",
-    model_name="gpt-4-turbo",
-    extra_kwargs={
-        "base_url": "https://custom-openai-endpoint.com/v1",
-        "timeout": 120,
-        "max_retries": 5,
-        "default_headers": {"Custom-Header": "value"}
-    }
-)
-```
-
-#### Azure OpenAI extra_kwargs (Required)
-
-```python
-config = ModelConfig(
-    provider="azureopenai",
-    model_name="gpt-4o",  # Your deployment name
-    extra_kwargs={
-        "azure_endpoint": "https://your-resource-name.openai.azure.com/",  # Required
-        "api_version": "2024-02-15-preview",  # Required
-        "azure_deployment": "custom-deployment-name",  # Optional if different from model_name
-        "timeout": 60,
-        "max_retries": 2
-    }
-)
-```
-
-#### Anthropic extra_kwargs
-
-```python
-config = ModelConfig(
-    provider="anthropic",
-    model_name="claude-3-5-haiku-20241022",
-    extra_kwargs={
-        "base_url": "https://custom-anthropic-endpoint.com",
-        "timeout": 90,
-        "max_retries": 3,
-        "default_headers": {"Custom-Header": "value"}
-    }
-)
-```
-
-#### Gemini extra_kwargs
-
-```python
-config = ModelConfig(
-    provider="gemini",
-    model_name="gemini-1.5-flash",
-    extra_kwargs={
-        "transport": "grpc",  # or "rest"
-        "client_options": {"api_endpoint": "custom-endpoint.googleapis.com"}
-    }
-)
-```
 
 ### Common extra_kwargs Parameters
 
