@@ -89,6 +89,7 @@ nav:
     - Model Selection: 
       - Anthropic: 'examples/model_selection/anthropic.md'
       - OpenAI: 'examples/model_selection/openai.md'
+      - Azure OpenAI: 'examples/model_selection/azureopenai.md'
       - Gemini: 'examples/model_selection/gemini.md'
     - Structured Only:
       - Dict Schemas: 'examples/structured_only/dict_schemas.md'
