@@ -73,13 +73,6 @@ model_config_gpt4o = ModelConfig(
         # Required Azure OpenAI parameters
         "azure_endpoint": "https://your-resource-name.openai.azure.com/",  # Replace with your endpoint
         "api_version": "2024-02-15-preview",  # Use the latest API version
-        
-        # Optional: If your deployment name differs from model_name
-        # "azure_deployment": "your-gpt4o-deployment-name",
-        
-        # Optional: Additional configuration
-        # "timeout": 60,
-        # "max_retries": 3
     }
 )
 
@@ -101,102 +94,12 @@ output_dir = os.path.join(
 sample_sizes = {'Patient': 20, 'Appointment': 30}
 
 # Generate and save to CSV
-try:
-    results = generator.generate_for_schemas(
-        schemas=schemas,
-        prompts=prompts,
-        sample_sizes=sample_sizes,
-        output_dir=output_dir
-    )
-    print(f"✅ GPT-4o data saved to {output_dir}")
-    print(f"Generated {len(results['Patient'])} patients and {len(results['Appointment'])} appointments")
-except Exception as e:
-    print(f"❌ Error with GPT-4o: {str(e)}")
-    print("Please check your Azure OpenAI configuration and ensure:")
-    print("1. Your azure_endpoint is correct")
-    print("2. Your API key is valid")
-    print("3. Your deployment name matches the model_name")
-    print("4. Your API version is supported")
 
-
-# Example 2: Azure OpenAI with GPT-4o-mini (more cost-effective)
-print("\n--------------Testing Azure OpenAI GPT-4o-mini----------------")
-
-model_config_gpt4o_mini = ModelConfig(
-    provider="azureopenai",
-    model_name="gpt-4o-mini",  # This should match your deployment name
-    temperature=0.8,
-    max_tokens=2000,
-    extra_kwargs={
-        "azure_endpoint": "https://your-resource-name.openai.azure.com/",  # Replace with your endpoint
-        "api_version": "2024-02-15-preview",
-        
-        # Example of using different deployment name
-        # "azure_deployment": "gpt-4o-mini-deployment",
-    }
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    prompts=prompts,
+    sample_sizes=sample_sizes,
+    output_dir=output_dir
 )
-
-generator_mini = SyntheticDataGenerator(model_config=model_config_gpt4o_mini)
-
-output_dir_mini = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), 
-    "output", 
-    "test_azureopenai_models", 
-    "gpt-4o-mini"
-)
-
-sample_sizes_mini = {'Patient': 50, 'Appointment': 75}
-
-try:
-    results_mini = generator_mini.generate_for_schemas(
-        schemas=schemas,
-        prompts=prompts,
-        sample_sizes=sample_sizes_mini,
-        output_dir=output_dir_mini
-    )
-    print(f"✅ GPT-4o-mini data saved to {output_dir_mini}")
-    print(f"Generated {len(results_mini['Patient'])} patients and {len(results_mini['Appointment'])} appointments")
-except Exception as e:
-    print(f"❌ Error with GPT-4o-mini: {str(e)}")
-
-
-# Example 3: Azure OpenAI with custom configuration and streaming
-print("\n--------------Testing Azure OpenAI with Streaming----------------")
-
-model_config_streaming = ModelConfig(
-    provider="azureopenai",
-    model_name="gpt-4o",
-    temperature=0.6,
-    max_tokens=8000,
-    stream=True,  # Enable streaming for large datasets
-    extra_kwargs={
-        "azure_endpoint": "https://your-resource-name.openai.azure.com/",
-        "api_version": "2024-02-15-preview",
-        "timeout": 120,  # Longer timeout for streaming
-        "max_retries": 2
-    }
-)
-
-generator_streaming = SyntheticDataGenerator(model_config=model_config_streaming)
-
-output_dir_streaming = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), 
-    "output", 
-    "test_azureopenai_models", 
-    "streaming"
-)
-
-# Larger sample sizes to demonstrate streaming
-sample_sizes_streaming = {'Patient': 100, 'Appointment': 150}
-
-try:
-    results_streaming = generator_streaming.generate_for_schemas(
-        schemas=schemas,
-        prompts=prompts,
-        sample_sizes=sample_sizes_streaming,
-        output_dir=output_dir_streaming
-    )
-    print(f"✅ Streaming data saved to {output_dir_streaming}")
-    print(f"Generated {len(results_streaming['Patient'])} patients and {len(results_streaming['Appointment'])} appointments")
-except Exception as e:
-    print(f"❌ Error with streaming: {str(e)}")
+print(f"✅ GPT-4o data saved to {output_dir}")
+print(f"Generated {len(results['Patient'])} patients and {len(results['Appointment'])} appointments")
