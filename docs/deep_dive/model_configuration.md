@@ -1,6 +1,6 @@
 ---
 title: AI Model Configuration & Selection | Syda Deep Dive
-description: Configure and select AI models (OpenAI, Anthropic, Gemini, Azure OpenAI, Grok-3) for synthetic data generation with Syda - API keys, model parameters, and performance optimization.
+description: Configure and select AI models (OpenAI, Anthropic, Gemini, Azure OpenAI, Grok) for synthetic data generation with Syda - API keys, model parameters, and performance optimization.
 keywords:
   - AI model configuration
   - LLM model selection
@@ -8,7 +8,7 @@ keywords:
   - Anthropic model setup
   - Gemini model setup
   - Azure OpenAI model setup
-  - Grok-3 model setup
+  - Grok model setup
   - API key configuration
   - model parameters
   - extra_kwargs configuration
@@ -35,7 +35,7 @@ export AZURE_OPENAI_API_KEY=your_azure_openai_key
 # For Gemini
 export GEMINI_API_KEY=your_gemini_key
 
-# For Grok-3
+# For Grok models
 export GROK_API_KEY=your_grok_key
 ```
 
@@ -146,15 +146,24 @@ config = ModelConfig(
 )
 ```
 
-### Grok-3 Models
+### Grok Models
 
-SYDA supports xAI's Grok-3 model:
+SYDA supports xAI's Grok models:
 
 ```python
-# Using Grok-3
+# Using Grok-3 (stable)
 config = ModelConfig(
     provider="grok",
     model_name="grok-3",
+    temperature=0.7,
+    max_tokens=4000,
+    top_p=0.9
+)
+
+# Using Grok-4 (latest)
+config = ModelConfig(
+    provider="grok",
+    model_name="grok-4",
     temperature=0.7,
     max_tokens=4000,
     top_p=0.9

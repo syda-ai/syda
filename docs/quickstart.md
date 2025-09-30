@@ -1,6 +1,6 @@
 ---
 title: Quick Start Guide | Syda Documentation
-description: Get started with Syda synthetic data generation in 5 minutes - install, configure AI models (OpenAI, Anthropic, Gemini, Grok-3), and generate your first realistic test dataset with referential integrity.
+description: Get started with Syda synthetic data generation in 5 minutes - install, configure AI models (OpenAI, Anthropic, Gemini, Grok), and generate your first realistic test dataset with referential integrity.
 keywords:
   - syda quick start
   - synthetic data tutorial

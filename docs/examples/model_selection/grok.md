@@ -88,7 +88,7 @@ schemas = {
     }
 }
 
-# Define custom prompts for Grok-3
+# Define custom prompts for Grok models
 prompts = {
     'companies': """
     Generate innovative technology companies with diverse backgrounds.
@@ -113,7 +113,7 @@ results = generator.generate_for_schemas(
     output_dir="output/test_grok_models"
 )
 
-print("Grok-3 integration test completed successfully!")
+print("Grok integration test completed successfully!")
 ```
 
 ## Sample Outputs
@@ -179,7 +179,7 @@ output/
 
 1. **API Key Security**: Store your Grok API key securely in environment variables
 2. **Model Parameters**: Adjust temperature and top_p for different creativity levels
-3. **Data Quality**: Grok-3 excels at generating realistic business and technology data
+3. **Data Quality**: Grok models excel at generating realistic business and technology data
 4. **Referential Integrity**: Foreign key relationships are automatically maintained
 
 ## Performance Characteristics
