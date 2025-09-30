@@ -1,6 +1,6 @@
 ---
 title: AI Model Configuration & Selection | Syda Deep Dive
-description: Configure and select AI models (OpenAI, Anthropic, Gemini, Azure OpenAI) for synthetic data generation with Syda - API keys, model parameters, and performance optimization.
+description: Configure and select AI models (OpenAI, Anthropic, Gemini, Azure OpenAI, Grok-3) for synthetic data generation with Syda - API keys, model parameters, and performance optimization.
 keywords:
   - AI model configuration
   - LLM model selection
@@ -8,6 +8,7 @@ keywords:
   - Anthropic model setup
   - Gemini model setup
   - Azure OpenAI model setup
+  - Grok-3 model setup
   - API key configuration
   - model parameters
   - extra_kwargs configuration
@@ -33,6 +34,9 @@ export AZURE_OPENAI_API_KEY=your_azure_openai_key
 
 # For Gemini
 export GEMINI_API_KEY=your_gemini_key
+
+# For Grok-3
+export GROK_API_KEY=your_grok_key
 ```
 
 Alternatively, you can create a `.env` file in your project root:
@@ -42,6 +46,7 @@ ANTHROPIC_API_KEY=your_anthropic_key
 OPENAI_API_KEY=your_openai_key
 AZURE_OPENAI_API_KEY=your_azure_openai_key
 GEMINI_API_KEY=your_gemini_key
+GROK_API_KEY=your_grok_key
 ```
 
 Refer to the [Quickstart Guide](../quickstart.md) for more details on environment setup.
@@ -59,7 +64,7 @@ load_dotenv()
 
 # Basic configuration with default parameters
 config = ModelConfig(
-    provider="anthropic",  # Choose provider: 'anthropic', 'openai', 'azureopenai', 'gemini'
+    provider="anthropic",  # Choose provider: 'anthropic', 'openai', 'azureopenai', 'gemini', 'grok'
     model_name="claude-3-5-haiku-20241022",  # Specify model name
     temperature=0.7,  # Control randomness (0.0-1.0)
     max_tokens=8000   # Maximum number of tokens to generate
@@ -138,6 +143,21 @@ config = ModelConfig(
     model_name="gemini-1.5-flash",
     temperature=0.7,
     max_tokens=4000
+)
+```
+
+### Grok-3 Models
+
+SYDA supports xAI's Grok-3 model:
+
+```python
+# Using Grok-3
+config = ModelConfig(
+    provider="grok",
+    model_name="grok-3",
+    temperature=0.7,
+    max_tokens=4000,
+    top_p=0.9
 )
 ```
 

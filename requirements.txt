@@ -18,7 +18,7 @@ instructor>=1.0.0
 google-genai>=1.30.0
 
 # File processing
-python-magic>=0.4.27
+python-magic-bin>=0.4.14
 python-docx>=1.0.0
 openpyxl>=3.1.2
 weasyprint>=65.1

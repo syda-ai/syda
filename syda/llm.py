@@ -22,6 +22,7 @@ class LLMClient:
         openai_api_key: Optional[str] = None,
         anthropic_api_key: Optional[str] = None,
         gemini_api_key: Optional[str] = None,
+        grok_api_key: Optional[str] = None,
         **kwargs
     ):
         """
@@ -32,12 +33,14 @@ class LLMClient:
             openai_api_key: Optional API key for OpenAI
             anthropic_api_key: Optional API key for Anthropic
             gemini_api_key: Optional API key for Gemini
+            grok_api_key: Optional API key for Grok
             **kwargs: Additional keyword arguments to pass to the client
         """
         # Set up API keys from arguments or environment variables
         self.openai_api_key = openai_api_key or os.environ.get("OPENAI_API_KEY")
         self.anthropic_api_key = anthropic_api_key or os.environ.get("ANTHROPIC_API_KEY")
         self.gemini_api_key = gemini_api_key or os.environ.get("GEMINI_API_KEY")
+        self.grok_api_key = grok_api_key or os.environ.get("GROK_API_KEY")
         
         # Set up model configuration
         if model_config is None:
@@ -154,6 +157,33 @@ class LLMClient:
             # Patch with instructor
             return instructor.from_genai(raw_client)
 
+        elif provider == "grok":
+            # Set up environment variable for Grok instead of passing directly
+            if self.grok_api_key:
+                os.environ["GROK_API_KEY"] = self.grok_api_key
+
+            # Grok configuration with extra_kwargs support
+            grok_kwargs = {}
+            
+            # Add extra_kwargs from model configuration if provided
+            if self.model_config.extra_kwargs:
+                grok_kwargs.update(self.model_config.extra_kwargs)
+
+            # For Grok, we'll use the OpenAI-compatible interface
+            # since xAI provides an OpenAI-compatible API
+            try:
+                # Create OpenAI-compatible client for Grok
+                raw_client = openai.OpenAI(
+                    api_key=self.grok_api_key,
+                    base_url="https://api.x.ai/v1",  # xAI API endpoint
+                    **grok_kwargs
+                )
+                
+                # Patch with instructor
+                return instructor.from_openai(raw_client)
+            except Exception as e:
+                raise ValueError(f"Failed to initialize Grok client: {e}")
+
         else:
             # For other providers, use from_provider with empty kwargs
             try:
@@ -183,6 +213,7 @@ def create_llm_client(
     openai_api_key: Optional[str] = None,
     anthropic_api_key: Optional[str] = None,
     gemini_api_key: Optional[str] = None,
+    grok_api_key: Optional[str] = None,
     **kwargs
 ) -> LLMClient:
     """
@@ -193,6 +224,7 @@ def create_llm_client(
         openai_api_key: Optional API key for OpenAI
         anthropic_api_key: Optional API key for Anthropic
         gemini_api_key: Optional API key for Gemini
+        grok_api_key: Optional API key for Grok
         **kwargs: Additional keyword arguments to pass to the client
     
     Returns:
@@ -203,5 +235,6 @@ def create_llm_client(
         openai_api_key=openai_api_key,
         anthropic_api_key=anthropic_api_key,
         gemini_api_key=gemini_api_key,
+        grok_api_key=grok_api_key,
         **kwargs
     )

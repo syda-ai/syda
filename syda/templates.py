@@ -369,7 +369,7 @@ class TemplateProcessor:
                     )
                     documents_generated += 1
                     schema_results.append(output_path)
-                    print(f"✓ Successfully generated: {output_path}")
+                    print(f"[OK] Successfully generated: {output_path}")
                 except Exception as e:
                     print(f"Error generating document for {schema_name} row {idx}: {str(e)}")
             

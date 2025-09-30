@@ -8,7 +8,7 @@
 
 > **Generate high-quality synthetic data with AI while preserving referential integrity**
 
-Syda seamlessly generate realistic synthetic test data - structured, unstructured, PDF, and HTML data generation with AI and large language models while preserving referential integrity, maintaining privacy compliance, and accelerating development workflows using OpenAI, AzureOpenAI, Anthropic, and Gemini.
+Syda seamlessly generate realistic synthetic test data - structured, unstructured, PDF, and HTML data generation with AI and large language models while preserving referential integrity, maintaining privacy compliance, and accelerating development workflows using OpenAI, AzureOpenAI, Anthropic, Gemini, and Grok models.
 
 ## Documentation
 
@@ -28,6 +28,8 @@ ANTHROPIC_API_KEY=your_anthropic_api_key_here
 OPENAI_API_KEY=your_openai_api_key_here
 # OR
 GEMINI_API_KEY=your_gemini_api_key_here
+# OR
+GROK_API_KEY=your_grok_api_key_here
 ```
 
 ```python
@@ -116,7 +118,7 @@ print("📂 Check the 'data' folder for categories.csv and products.csv")
 
 | Feature | Benefit | Example |
 |---------|---------|---------|
-| **Multi-AI Provider** | No vendor lock-in | Claude, GPT, Gemini models |
+| **Multi-AI Provider** | No vendor lock-in | Claude, GPT, Gemini, Grok models |
 | **Zero Orphaned Records** | Perfect referential integrity | `product.category_id` → `category.id` ✅ |
 | **SQLAlchemy Native** | Use existing models directly | `Customer`, `Contact` classes → CSV data |
 | **Multiple Schema Formats** | Flexible input options | SQLAlchemy, YAML, JSON, Dict |

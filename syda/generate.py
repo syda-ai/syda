@@ -57,7 +57,8 @@ class SyntheticDataGenerator:
         model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
         openai_api_key: Optional[str] = None,
         anthropic_api_key: Optional[str] = None,
-        gemini_api_key: Optional[str] = None
+        gemini_api_key: Optional[str] = None,
+        grok_api_key: Optional[str] = None
     ):
         """
         Initialize the synthetic data generator with the specified model configuration.
@@ -70,13 +71,15 @@ class SyntheticDataGenerator:
             anthropic_api_key: Optional API key for Anthropic. If not provided, will use 
                               ANTHROPIC_API_KEY environment variable.
             gemini_api_key: Optional API key for Gemini. If not provided, will use GEMINI_API_KEY
+            grok_api_key: Optional API key for Grok. If not provided, will use GROK_API_KEY
         """
         # Initialize the LLM client using our new module
         self.llm_client = create_llm_client(
             model_config=model_config,
             openai_api_key=openai_api_key,
             anthropic_api_key=anthropic_api_key,
-            gemini_api_key=gemini_api_key
+            gemini_api_key=gemini_api_key,
+            grok_api_key=grok_api_key
         )
         
         # Store the model configuration for easy access
@@ -404,7 +407,7 @@ class SyntheticDataGenerator:
             )
             generation_order = DependencyHandler.determine_generation_order(dependency_graph)
             
-            print("\n📊 Generation order determined:")
+            print("\n[INFO] Generation order determined:")
             for i, schema in enumerate(generation_order):
                 deps = all_dependencies.get(schema, [])
                 if deps:
@@ -769,7 +772,7 @@ class SyntheticDataGenerator:
             if not records:
                 raise ValueError("No records extracted from LLM response")
             else:
-                print(f"✓ Successfully generated {len(records)} records")
+                print(f"[OK] Successfully generated {len(records)} records")
             
             # Create DataFrame from records
             df = pd.DataFrame(records)

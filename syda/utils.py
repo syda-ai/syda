@@ -121,18 +121,18 @@ def save_dataframe(
     
     if file_ext == '.csv':
         df.to_csv(output_file, index=False)
-        print(f"✓ Successfully wrote {len(df)} rows to {output_file}")
+        print(f"[OK] Successfully wrote {len(df)} rows to {output_file}")
     elif file_ext in ('.xls', '.xlsx'):
         df.to_excel(output_file, index=False)
-        print(f"✓ Successfully wrote {len(df)} rows to {output_file}")
+        print(f"[OK] Successfully wrote {len(df)} rows to {output_file}")
     elif file_ext == '.json':
         df.to_json(output_file, orient='records', lines=True)
-        print(f"✓ Successfully wrote {len(df)} rows to {output_file}")
+        print(f"[OK] Successfully wrote {len(df)} rows to {output_file}")
     elif file_ext == '.parquet':
         df.to_parquet(output_file, index=False)
-        print(f"✓ Successfully wrote {len(df)} rows to {output_file}")
+        print(f"[OK] Successfully wrote {len(df)} rows to {output_file}")
     else:
-        print(f"⚠️ Unsupported file format: {file_ext}. Defaulting to CSV.")
+        print(f"[WARNING] Unsupported file format: {file_ext}. Defaulting to CSV.")
         csv_file = os.path.splitext(output_file)[0] + '.csv'
         df.to_csv(csv_file, index=False)
-        print(f"✓ Successfully wrote {len(df)} rows to {csv_file}")
+        print(f"[OK] Successfully wrote {len(df)} rows to {csv_file}")

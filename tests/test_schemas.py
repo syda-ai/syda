@@ -25,7 +25,7 @@ class TestModelConfig:
         assert config.max_completion_tokens is None
         assert config.top_k is None
         assert config.max_tokens_to_sample is None
-        assert config.proxy is None
+        assert config.top_p is None
     
     def test_custom_values(self):
         """Test that custom values are set correctly."""

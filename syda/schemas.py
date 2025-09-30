@@ -17,7 +17,7 @@ class ModelConfig(BaseModel):
     """
     
     # Model provider and name
-    provider: Literal["openai", "anthropic", "gemini", "azureopenai"] = "anthropic"
+    provider: Literal["openai", "anthropic", "gemini", "azureopenai", "grok"] = "anthropic"
     model_name: str = "claude-3-5-haiku-20241022"
     
     
@@ -114,6 +114,16 @@ class ModelConfig(BaseModel):
             if generation_config:
                 kwargs["generation_config"] = generation_config
 
+        elif self.provider == "grok":
+            # Grok uses OpenAI-compatible API, so it supports similar parameters
+            if self.seed:
+                kwargs["seed"] = self.seed
+            if self.response_format:
+                kwargs["response_format"] = self.response_format
+            if self.max_completion_tokens:
+                kwargs["max_completion_tokens"] = self.max_completion_tokens
+            if self.top_p:
+                kwargs["top_p"] = self.top_p
 
         return kwargs
 

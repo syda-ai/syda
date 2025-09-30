@@ -25,6 +25,8 @@ keywords = [
     "Claude",
     "Google",
     "Gemini",
+    "xAI",
+    "Grok",
     "GPT"
 ]
 classifiers = [

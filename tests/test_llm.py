@@ -86,7 +86,9 @@ class TestLLMClient:
         assert client.client is not None
     
     @patch.dict('os.environ', {})
-    def test_initialize_client_without_env_keys(self):
+    @patch('syda.llm.openai.OpenAI')
+    @patch('syda.llm.instructor.from_openai')
+    def test_initialize_client_without_env_keys(self, mock_from_openai, mock_openai_client):
         """Test initializing a client without environment variables."""
         # Create a model config
         config = ModelConfig(
@@ -166,7 +168,8 @@ class TestCreateLLMClient:
             model_config=config, 
             openai_api_key=None, 
             anthropic_api_key=None,
-            gemini_api_key=None,  # Add this line
+            gemini_api_key=None,
+            grok_api_key=None,
             api_key="test_key"
         )
     
@@ -185,7 +188,8 @@ class TestCreateLLMClient:
             model_config=None, 
             openai_api_key=None,
             anthropic_api_key=None,
-            gemini_api_key=None,  # Add this line
+            gemini_api_key=None,
+            grok_api_key=None,
             provider="openai", 
             model_name="gpt-4o", 
             api_key="test_key"

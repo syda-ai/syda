@@ -21,14 +21,14 @@ keywords:
 
 # What is Syda?
 
-Syda seamlessly generate realistic synthetic test data - structured, unstructured, PDF, and HTML data generation with AI and large language models while preserving referential integrity, maintaining privacy compliance, and accelerating development workflows using OpenAI, Anthropic, and Gemini models
+Syda seamlessly generate realistic synthetic test data - structured, unstructured, PDF, and HTML data generation with AI and large language models while preserving referential integrity, maintaining privacy compliance, and accelerating development workflows using OpenAI, Anthropic, Gemini, and Grok models
 
 ## Key Features
 
 - **Multi-Provider AI Integration**:
 
     * Seamless integration with multiple AI providers
-    * Support for OpenAI (GPT), Anthropic (Claude) and Google(Gemini). 
+    * Support for OpenAI (GPT), Anthropic (Claude), Google (Gemini), and xAI (Grok). 
     * Default model is Anthropic Claude model claude-3-5-haiku-20241022
     * Consistent interface across different providers
     * Provider-specific parameter optimization
