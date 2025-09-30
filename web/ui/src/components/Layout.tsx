@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
-import { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import '../styles/theme.css'
 
 type LayoutProps = { children: ReactNode }
@@ -14,6 +14,7 @@ export default function Layout({ children }: LayoutProps) {
           <NavLink to="/schemas" className={({ isActive }) => isActive ? 'active' : ''}>🧩 Schemas</NavLink>
           <NavLink to="/run" className={({ isActive }) => isActive ? 'active' : ''}>⚙️ Run</NavLink>
           <NavLink to="/results" className={({ isActive }) => isActive ? 'active' : ''}>📊 Results</NavLink>
+          <NavLink to="/account/create" className={({ isActive }) => isActive ? 'active' : ''}>👤 Account</NavLink>
           <NavLink to="/settings" className={({ isActive }) => isActive ? 'active' : ''}>⚙️ Settings</NavLink>
         </nav>
       </aside>

@@ -5,6 +5,9 @@ import SchemasPage from './features/schemas/SchemasPage'
 import RunPage from './features/run/RunPage'
 import ResultsPage from './features/results/ResultsPage'
 import SettingsPage from './features/settings/SettingsPage'
+import AccountCreation from './components/AccountCreation'
+import Login from './components/Login'
+import ForgotPassword from './components/ForgotPassword'
 import './App.css'
 import { AppStateProvider } from './store/AppState'
 import { ThemeProvider } from './store/ThemeContext'
@@ -67,6 +70,9 @@ export default function App() {
               <Route path="/run" element={<RunPage />} />
               <Route path="/results" element={<ResultsPage />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/account/create" element={<AccountCreation />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
             </Routes>
           </Layout>
         </BrowserRouter>
