@@ -57,7 +57,8 @@ class SyntheticDataGenerator:
         self,
         model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
         openai_api_key: Optional[str] = None,
-        anthropic_api_key: Optional[str] = None
+        anthropic_api_key: Optional[str] = None,
+        deepseek_api_key: Optional[str] = None
     ):
         """
         Initialize the synthetic data generator with the specified model configuration.
@@ -79,7 +80,8 @@ class SyntheticDataGenerator:
         self.llm_client = create_llm_client(
             model_config=model_config,
             openai_api_key=openai_api_key,
-            anthropic_api_key=anthropic_api_key
+            anthropic_api_key=anthropic_api_key,
+            deepseek_api_key=deepseek_api_key
         )
 
         # Store the model configuration for easy access
@@ -882,7 +884,7 @@ class SyntheticDataGenerator:
         response.raise_for_status()
         return response.json()["choices"][0]["message"]["content"]
 
-    def _generate_data_with_llm(prompt, provider, model_name, api_key):
+    def _generate_data_with_llm_api(prompt, provider, model_name, api_key):
         """
         Generate data using LLM provider.
 
