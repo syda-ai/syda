@@ -22,7 +22,8 @@ export default function ResultsPage() {
   const headers = useMemo(() => (rows[0] ? Object.keys(rows[0]) : []), [rows])
 
   return (
-    <div className="fade-in" style={{ display: 'grid', gap: 16 }}>
+    <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
+    <div className="fade-in" style={{ display: 'grid', gap: 16, width: '100%', maxWidth: '100%' }}>
       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
         <h2 style={{ margin: 0, background: 'linear-gradient(135deg, var(--primary-light), var(--accent-light))', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent' }}>📊 Results</h2>
         <select className="select" value={active || ''} onChange={(e) => setActive(e.target.value || null)}>
@@ -50,6 +51,7 @@ export default function ResultsPage() {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   )
 }

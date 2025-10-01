@@ -14,7 +14,7 @@ import { ThemeProvider } from './store/ThemeContext'
 
 function Home() {
   return (
-    <div className="fade-in" style={{ display: 'grid', gap: 24, maxWidth: 800 }}>
+    <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
       <div style={{ textAlign: 'center', padding: '40px 0' }}>
         <h1 style={{ 
           margin: 0, 

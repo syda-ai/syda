@@ -4,7 +4,8 @@ export default function SettingsPage() {
   const { theme, setTheme } = useTheme()
 
   return (
-    <div className="fade-in" style={{ display: 'grid', gap: 24, maxWidth: 600 }}>
+    <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
+    <div className="fade-in" style={{ display: 'grid', gap: 24, width: 600, maxWidth: 600 }}>
       <div>
         <h2 style={{ 
           margin: 0, 
@@ -94,6 +95,7 @@ export default function SettingsPage() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   )
 }

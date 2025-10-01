@@ -59,7 +59,8 @@ export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
 
   if (isSubmitted) {
     return (
-      <div className="fade-in" style={{ maxWidth: 400, margin: '0 auto' }}>
+      <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
+    <div style={{ width: 480, maxWidth: 480, margin: '0 auto' }}>
         <div className="panel" style={{ padding: 32, textAlign: 'center' }}>
           <div style={{ fontSize: '3rem', marginBottom: 16 }}>📧</div>
           <h2 style={{ 
@@ -96,11 +97,13 @@ export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
           </div>
         </div>
       </div>
+      </div>
     )
   }
 
   return (
-    <div className="fade-in" style={{ maxWidth: 400, margin: '0 auto' }}>
+    <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
+    <div style={{ width: 480, maxWidth: 480, margin: '0 auto' }}>
       <div className="panel" style={{ padding: 32 }}>
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <h2 style={{ 
@@ -156,6 +159,7 @@ export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
           </p>
         </div>
       </div>
+    </div>
     </div>
   )
 }

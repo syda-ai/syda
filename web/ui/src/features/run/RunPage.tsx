@@ -19,7 +19,8 @@ export default function RunPage() {
   const selectable = useMemo(() => schemas.map(s => ({ name: s.name, kind: s.kind })), [schemas])
 
   return (
-    <div className="fade-in" style={{ display: 'grid', gap: 16 }}>
+    <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
+    <div className="fade-in" style={{ display: 'grid', gap: 16, width: '100%', maxWidth: '100%' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <h2 style={{ margin: 0, background: 'linear-gradient(135deg, var(--primary-light), var(--accent-light))', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent' }}>⚙️ Run Generation</h2>
         <span className="muted">(Mock Mode)</span>
@@ -58,6 +59,7 @@ export default function RunPage() {
         }}>Start Run</button>
         {running && <span>Running…</span>}
       </div>
+    </div>
     </div>
   )
 }

@@ -7,7 +7,8 @@ export default function SchemasPage() {
   const current = useMemo(() => schemas.find(s => s.name === selected) || null, [schemas, selected])
 
   return (
-    <div className="fade-in" style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: 20 }}>
+    <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
+    <div className="fade-in" style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: 20, width: '100%', maxWidth: '100%' }}>
       <div className="panel">
         <div style={{ padding: 16, fontWeight: 700, borderBottom: '1px solid #1f2937', position: 'relative', zIndex: 1 }}>📋 Schemas</div>
         <div>
@@ -64,6 +65,7 @@ export default function SchemasPage() {
           )}
         </div>
       </div>
+    </div>
     </div>
   )
 }

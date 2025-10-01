@@ -79,7 +79,8 @@ export default function AccountCreation({ onSubmit, onCancel }: AccountCreationP
   }
 
   return (
-    <div className="fade-in" style={{ maxWidth: 480, margin: '0 auto' }}>
+    <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
+    <div style={{ width: 480, maxWidth: 480, margin: '0 auto' }}>
       <div className="panel" style={{ padding: 32 }}>
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <h2 style={{ 
@@ -205,6 +206,7 @@ export default function AccountCreation({ onSubmit, onCancel }: AccountCreationP
           </p>
         </div>
       </div>
+    </div>
     </div>
   )
 }
