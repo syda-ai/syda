@@ -168,14 +168,12 @@ class LLMClient:
             # Add extra_kwargs from model configuration if provided
             if self.model_config.extra_kwargs:
                 grok_kwargs.update(self.model_config.extra_kwargs)
-
             # For Grok, we'll use the OpenAI-compatible interface
             # since xAI provides an OpenAI-compatible API
             try:
                 # Create OpenAI-compatible client for Grok
                 raw_client = openai.OpenAI(
                     api_key=self.grok_api_key,
-                    base_url="https://api.x.ai/v1",  # xAI API endpoint
                     **grok_kwargs
                 )
                 

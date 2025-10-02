@@ -31,9 +31,11 @@ def generate_data_for_model(model_name, sample_sizes):
         model_name=model_name,
         temperature=0.7,
         max_tokens=8000,  # Increased for larger datasets
-        top_p=0.9
+        extra_kwargs={
+            "base_url": "https://api.x.ai/v1" # xAI API endpoint
+        }
     )
-    
+
     # Initialize generator with Grok configuration
     generator = SyntheticDataGenerator(
         model_config=config,
@@ -273,9 +275,9 @@ def main():
     for model_name, success in results.items():
         status = "PASS" if success else "FAIL"
         print(f"  {model_name}: {status}")
-    
-    print(f"\nGrok models integration completed!")
-    print("   Generated realistic tech company data with perfect referential integrity.")
+        if status == "PASS":
+            print(f"\nGrok model {model_name} integration completed!")
+    print("     Generated realistic tech company data with perfect referential integrity.")
 
 
 if __name__ == "__main__":

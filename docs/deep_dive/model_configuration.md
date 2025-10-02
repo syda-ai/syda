@@ -157,7 +157,9 @@ config = ModelConfig(
     model_name="grok-3",
     temperature=0.7,
     max_tokens=4000,
-    top_p=0.9
+    extra_kwargs={
+        "base_url": "https://api.x.ai/v1" # xAI API endpoint
+    }
 )
 
 # Using Grok-4 (latest)
@@ -166,7 +168,9 @@ config = ModelConfig(
     model_name="grok-4",
     temperature=0.7,
     max_tokens=4000,
-    top_p=0.9
+    extra_kwargs={
+        "base_url": "https://api.x.ai/v1" # xAI API endpoint
+    }
 )
 ```
 
