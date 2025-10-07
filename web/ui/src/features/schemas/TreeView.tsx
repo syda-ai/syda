@@ -151,12 +151,42 @@ function TreeGroup({ group, selectedSchema, onSelectSchema, onToggleGroup, onSch
         <span style={{ flex: 1 }}>
           {group.name}
         </span>
-        <span style={{ fontSize: '0.8rem', color: 'var(--muted)', marginRight: 8 }}>
-          ({group.schemas.length})
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginRight: 8 }}>
+          {group.modelConfig && (
+            <span style={{ 
+              fontSize: '0.7rem', 
+              color: 'var(--primary)', 
+              background: 'rgba(59, 130, 246, 0.1)',
+              padding: '2px 6px',
+              borderRadius: '4px',
+              fontWeight: 600
+            }}>
+              {group.modelConfig.model_name.includes('sonnet') ? 'Sonnet' :
+               group.modelConfig.model_name.includes('haiku') ? 'Haiku' :
+               group.modelConfig.model_name.includes('opus') ? 'Opus' :
+               group.modelConfig.model_name.includes('gpt-4') ? 'GPT-4' :
+               group.modelConfig.model_name.includes('gemini') ? 'Gemini' :
+               'Custom'}
+            </span>
+          )}
+          <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>
+            ({group.schemas.length})
+          </span>
+        </div>
         
         {showActions && (
           <div style={{ display: 'flex', gap: 4 }}>
+            <button
+              className="btn secondary"
+              onClick={(e) => {
+                e.stopPropagation()
+                onGroupAction('model', group.id)
+              }}
+              style={{ padding: '2px 6px', fontSize: '0.7rem' }}
+              title="Configure AI model"
+            >
+              🤖
+            </button>
             <button
               className="btn secondary"
               onClick={(e) => {

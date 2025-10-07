@@ -3,7 +3,9 @@ import { useAppState } from '../../store/AppState'
 import SpreadsheetSchemaEditor from './SpreadsheetSchemaEditor'
 import DatabaseImportModal from './DatabaseImportModal'
 import TreeView from './TreeView'
+import ModelConfigModal from '../run/ModelConfigModal'
 import { parseYamlToVisual, fieldsToYaml, databaseTableToYaml, validateSchema } from './schemaUtils'
+import type { SydaModelConfig } from '../run/modelConfig'
 
 type EditorMode = 'spreadsheet' | 'yaml'
 
@@ -11,6 +13,8 @@ export default function SchemasPage() {
   const { schemaGroups, setSchemaGroups, selectedSchema, setSelectedSchema } = useAppState()
   const [editorMode, setEditorMode] = useState<EditorMode>('spreadsheet')
   const [showImportModal, setShowImportModal] = useState(false)
+  const [showModelConfigModal, setShowModelConfigModal] = useState(false)
+  const [modelConfigGroupId, setModelConfigGroupId] = useState<string | null>(null)
   const [validationErrors, setValidationErrors] = useState<string[]>([])
 
   // Find current schema across all groups
@@ -83,6 +87,10 @@ export default function SchemasPage() {
 
   const handleGroupAction = (action: string, groupId: string) => {
     switch (action) {
+      case 'model':
+        setModelConfigGroupId(groupId)
+        setShowModelConfigModal(true)
+        break
       case 'add':
         createNewSchemaInGroup(groupId)
         break
@@ -133,6 +141,19 @@ export default function SchemasPage() {
     }
     
     setSchemaGroups(prev => [...prev, newGroup])
+  }
+
+  const handleModelConfigSave = (modelConfig: SydaModelConfig) => {
+    if (!modelConfigGroupId) return
+    
+    setSchemaGroups(prev => prev.map(group => 
+      group.id === modelConfigGroupId 
+        ? { ...group, modelConfig }
+        : group
+    ))
+    
+    setShowModelConfigModal(false)
+    setModelConfigGroupId(null)
   }
 
   const handleDatabaseImport = (tables: any[]) => {
@@ -416,6 +437,18 @@ export default function SchemasPage() {
         <DatabaseImportModal
           onImport={handleDatabaseImport}
           onClose={() => setShowImportModal(false)}
+        />
+      )}
+
+      {/* Model Configuration Modal */}
+      {showModelConfigModal && modelConfigGroupId && (
+        <ModelConfigModal
+          group={schemaGroups.find(g => g.id === modelConfigGroupId)!}
+          onSave={handleModelConfigSave}
+          onClose={() => {
+            setShowModelConfigModal(false)
+            setModelConfigGroupId(null)
+          }}
         />
       )}
     </div>

@@ -20,6 +20,27 @@ export type SchemaGroup = {
   description?: string
   expanded: boolean
   schemas: SchemaEntry[]
+  
+  // AI Model configuration for the group
+  modelConfig?: {
+    provider: 'openai' | 'anthropic' | 'gemini'
+    model_name: string
+    temperature?: number
+    max_tokens?: number
+    top_k?: number
+    top_p?: number
+    seed?: number
+    stream?: boolean
+    
+    // Custom generation settings
+    customPrompt?: string
+    batchSize?: number
+    maxRetries?: number
+    
+    // Performance estimates
+    estimatedCostPer1000?: number
+    estimatedSpeedRecordsPerSec?: number
+  }
 }
 
 export type ResultsMap = Record<string, any[]>
@@ -46,6 +67,17 @@ function initialSchemaGroups(): SchemaGroup[] {
       icon: '🛍️',
       description: 'Online store schemas',
       expanded: true,
+      modelConfig: {
+        provider: 'anthropic',
+        model_name: 'claude-3-5-sonnet-20241022',
+        temperature: 0.7,
+        max_tokens: 4000,
+        customPrompt: 'Generate realistic e-commerce data with proper relationships between users, products, and orders. Focus on diversity and authenticity.',
+        batchSize: 100,
+        maxRetries: 3,
+        estimatedCostPer1000: 0.18,
+        estimatedSpeedRecordsPerSec: 22
+      },
       schemas: [
         {
           id: 'category',
@@ -131,6 +163,17 @@ product_price:
       icon: '📊',
       description: 'Data tracking schemas',
       expanded: false,
+      modelConfig: {
+        provider: 'anthropic',
+        model_name: 'claude-3-5-haiku-20241022',
+        temperature: 0.6,
+        max_tokens: 2000,
+        customPrompt: 'Generate analytical data with realistic patterns and distributions for tracking and metrics.',
+        batchSize: 150,
+        maxRetries: 2,
+        estimatedCostPer1000: 0.08,
+        estimatedSpeedRecordsPerSec: 45
+      },
       schemas: []
     }
   ]

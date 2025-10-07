@@ -1,65 +1,282 @@
-import { useMemo, useState } from 'react'
-import { useAppState } from '../../store/AppState'
+import { useState } from 'react'
+import ProjectsList from './ProjectsList'
+import DAGView from './DAGView'
+import TaskDetailPanel from './TaskDetailPanel'
+import type { SchemaProject, TaskAction } from './types'
 
-type Row = Record<string, any>
-
-function simulateRows(schemaName: string, count: number): Row[] {
-  const rows: Row[] = []
-  for (let i = 1; i <= count; i++) {
-    rows.push({ id: i, name: `${schemaName} ${i}`, description: `Mock ${schemaName} row ${i}` })
-  }
-  return rows
-}
+type RunPageView = 'projects' | 'dag' | 'task'
 
 export default function RunPage() {
-  const { schemas, setResults } = useAppState()
-  const [selected, setSelected] = useState<Record<string, boolean>>(() => Object.fromEntries(schemas.map(s => [s.name, s.kind !== 'template'])))
-  const [sampleSizes, setSampleSizes] = useState<Record<string, number>>(() => Object.fromEntries(schemas.map(s => [s.name, s.kind === 'template' ? 5 : 10])))
-  const [running, setRunning] = useState(false)
-  const selectable = useMemo(() => schemas.map(s => ({ name: s.name, kind: s.kind })), [schemas])
+  const [currentView, setCurrentView] = useState<RunPageView>('projects')
+  const [selectedProject, setSelectedProject] = useState<SchemaProject | null>(null)
+  const [selectedTask, setSelectedTask] = useState<string | null>(null)
+
+  const handleSelectProject = (projectId: string) => {
+    // In real app, fetch project details from API
+    // For now, we'll create a mock project
+    const mockProject: SchemaProject = {
+      id: projectId,
+      name: 'E-commerce Pipeline',
+      description: 'Data generation pipeline for e-commerce schemas',
+      owner: 'Admin',
+      schemaGroupId: 'ecommerce',
+      isActive: true,
+      schedule: 'manual',
+      tasks: [
+        {
+          id: 'task_users',
+          schemaId: 'users',
+          schemaName: 'Users',
+          sampleSize: 1000,
+          status: 'success',
+          dependencies: [],
+          position: { x: 0, y: 100 },
+          config: {
+            model: 'Claude Sonnet 3.5',
+            temperature: 0.7,
+            batchSize: 100,
+            maxRetries: 3,
+            customPrompt: 'Generate diverse user profiles with realistic names and demographics'
+          },
+          execution: {
+            runId: 'run_123',
+            taskId: 'task_users',
+            status: 'success',
+            startTime: new Date(Date.now() - 2 * 60 * 60 * 1000),
+            endTime: new Date(Date.now() - 2 * 60 * 60 * 1000 + 45 * 1000),
+            duration: 45,
+            recordsGenerated: 1000,
+            cost: 0.15,
+            tryNumber: 1,
+            maxTries: 3,
+            logs: []
+          }
+        },
+        {
+          id: 'task_categories',
+          schemaId: 'categories',
+          schemaName: 'Categories',
+          sampleSize: 50,
+          status: 'success',
+          dependencies: [],
+          position: { x: 0, y: 200 },
+          config: {
+            model: 'Claude Sonnet 3.5',
+            temperature: 0.7,
+            batchSize: 25,
+            maxRetries: 3
+          },
+          execution: {
+            runId: 'run_123',
+            taskId: 'task_categories',
+            status: 'success',
+            startTime: new Date(Date.now() - 2 * 60 * 60 * 1000 + 45 * 1000),
+            endTime: new Date(Date.now() - 2 * 60 * 60 * 1000 + 57 * 1000),
+            duration: 12,
+            recordsGenerated: 50,
+            cost: 0.05,
+            tryNumber: 1,
+            maxTries: 3,
+            logs: []
+          }
+        },
+        {
+          id: 'task_products',
+          schemaId: 'products',
+          schemaName: 'Products',
+          sampleSize: 500,
+          status: 'running',
+          dependencies: ['task_users', 'task_categories'],
+          position: { x: 250, y: 150 },
+          config: {
+            model: 'Claude Sonnet 3.5',
+            temperature: 0.7,
+            batchSize: 50,
+            maxRetries: 3,
+            customPrompt: 'Generate realistic product data with proper category associations'
+          }
+        },
+        {
+          id: 'task_orders',
+          schemaId: 'orders',
+          schemaName: 'Orders',
+          sampleSize: 2000,
+          status: 'queued',
+          dependencies: ['task_users', 'task_products'],
+          position: { x: 500, y: 100 },
+          config: {
+            model: 'Claude Sonnet 3.5',
+            temperature: 0.7,
+            batchSize: 100,
+            maxRetries: 3
+          }
+        },
+        {
+          id: 'task_reviews',
+          schemaId: 'reviews',
+          schemaName: 'Reviews',
+          sampleSize: 500,
+          status: 'queued',
+          dependencies: ['task_users', 'task_products'],
+          position: { x: 500, y: 200 },
+          config: {
+            model: 'Claude Sonnet 3.5',
+            temperature: 0.8,
+            batchSize: 50,
+            maxRetries: 3
+          }
+        }
+      ],
+      stats: {
+        totalRuns: 12,
+        successRate: 0.92,
+        avgDuration: 135,
+        totalRecords: 4050,
+        totalCost: 2.45
+      },
+      defaultSettings: {
+        model: 'Claude Sonnet 3.5',
+        temperature: 0.7,
+        batchSize: 100,
+        maxParallel: 4
+      },
+      notifications: {
+        onSuccess: [],
+        onFailure: [],
+        channels: []
+      },
+      created: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+      lastModified: new Date(Date.now() - 2 * 60 * 60 * 1000)
+    }
+
+    setSelectedProject(mockProject)
+    setCurrentView('dag')
+  }
+
+  const handleTaskAction = (taskId: string, action: TaskAction) => {
+    switch (action) {
+      case 'details':
+      case 'logs':
+      case 'edit':
+        setSelectedTask(taskId)
+        setCurrentView('task')
+        break
+      case 'run':
+        // TODO: Trigger individual task
+        console.log(`Running task: ${taskId}`)
+        break
+      case 'retry':
+        // TODO: Retry failed task
+        console.log(`Retrying task: ${taskId}`)
+        break
+      default:
+        console.log(`Task action: ${action} on ${taskId}`)
+    }
+  }
+
+  const handleProjectAction = (action: string) => {
+    switch (action) {
+      case 'trigger':
+        // TODO: Start entire pipeline
+        console.log('Triggering DAG')
+        break
+      case 'pause':
+        // TODO: Pause pipeline
+        console.log('Pausing DAG')
+        break
+      case 'refresh':
+        // TODO: Refresh status
+        console.log('Refreshing DAG')
+        break
+      default:
+        console.log(`Project action: ${action}`)
+    }
+  }
+
+  const handleCreateProject = () => {
+    // TODO: Open project creation wizard
+    console.log('Creating new project')
+  }
+
+  const handleBackToProjects = () => {
+    setCurrentView('projects')
+    setSelectedProject(null)
+    setSelectedTask(null)
+  }
+
+  const handleBackToDAG = () => {
+    setCurrentView('dag')
+    setSelectedTask(null)
+  }
+
+  const currentTask = selectedProject?.tasks.find(t => t.id === selectedTask)
 
   return (
-    <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
-    <div className="fade-in" style={{ display: 'grid', gap: 16, width: '100%', maxWidth: '100%' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <h2 style={{ margin: 0, background: 'linear-gradient(135deg, var(--primary-light), var(--accent-light))', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent' }}>⚙️ Run Generation</h2>
-        <span className="muted">(Mock Mode)</span>
-      </div>
-      <div className="panel">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', padding: 10, borderBottom: '1px solid #1f2937', fontWeight: 700 }}>
-          <div>Schema</div>
-          <div>Include</div>
-          <div>Sample Size</div>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      {/* Breadcrumb Navigation */}
+      {currentView !== 'projects' && (
+        <div style={{ 
+          padding: '12px 20px', 
+          borderBottom: '1px solid var(--border)',
+          background: 'var(--panel-2)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          fontSize: '0.9rem'
+        }}>
+          <button 
+            className="btn secondary" 
+            onClick={handleBackToProjects}
+            style={{ padding: '4px 8px', fontSize: '0.8rem' }}
+          >
+            ⚙️ Projects
+          </button>
+          {selectedProject && (
+            <>
+              <span style={{ color: 'var(--muted)' }}>&gt;</span>
+              <button 
+                className="btn secondary" 
+                onClick={handleBackToDAG}
+                style={{ padding: '4px 8px', fontSize: '0.8rem' }}
+              >
+                📊 {selectedProject.name}
+              </button>
+            </>
+          )}
+          {currentTask && (
+            <>
+              <span style={{ color: 'var(--muted)' }}>&gt;</span>
+              <span style={{ fontWeight: 600 }}>{currentTask.schemaName}</span>
+            </>
+          )}
         </div>
-        {selectable.map(row => (
-          <div key={row.name} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', padding: 10, borderTop: '1px solid #122033' }}>
-            <div>{row.name} <span className="muted">({row.kind})</span></div>
-            <div>
-              <input type="checkbox" checked={!!selected[row.name]} onChange={(e) => setSelected(prev => ({ ...prev, [row.name]: e.target.checked }))} />
-            </div>
-            <div>
-              <input className="input" type="number" min={1} style={{ width: 120 }} value={sampleSizes[row.name] || 0} onChange={(e) => setSampleSizes(prev => ({ ...prev, [row.name]: Number(e.target.value) }))} />
-            </div>
-          </div>
-        ))}
+      )}
+
+      {/* Main Content */}
+      <div style={{ flex: 1, overflow: 'hidden' }}>
+        {currentView === 'projects' && (
+          <ProjectsList
+            onSelectProject={handleSelectProject}
+            onCreateProject={handleCreateProject}
+          />
+        )}
+
+        {currentView === 'dag' && selectedProject && (
+          <DAGView
+            project={selectedProject}
+            onTaskAction={handleTaskAction}
+            onProjectAction={handleProjectAction}
+          />
+        )}
+
+        {currentView === 'task' && currentTask && (
+          <TaskDetailPanel
+            task={currentTask}
+            onAction={(action) => handleTaskAction(currentTask.id, action)}
+            onClose={handleBackToDAG}
+          />
+        )}
       </div>
-      <div style={{ display: 'flex', gap: 8 }}>
-        <button className="btn" disabled={running} onClick={async () => {
-          setRunning(true)
-          await new Promise(r => setTimeout(r, 500))
-          setResults(prev => {
-            const next = { ...prev }
-            Object.entries(selected).forEach(([name, inc]) => {
-              if (inc) next[name] = simulateRows(name, sampleSizes[name] || 1)
-            })
-            return next
-          })
-          setRunning(false)
-          alert('Mock generation complete')
-        }}>Start Run</button>
-        {running && <span>Running…</span>}
-      </div>
-    </div>
     </div>
   )
 }
