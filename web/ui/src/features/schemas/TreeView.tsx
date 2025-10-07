@@ -115,15 +115,11 @@ function TreeSchema({ schema, isSelected, onSelect, onAction }: TreeSchemaProps)
 }
 
 function TreeGroup({ group, selectedSchema, onSelectSchema, onToggleGroup, onSchemaAction, onGroupAction }: TreeGroupProps) {
-  const [showActions, setShowActions] = useState(false)
-
   return (
     <div className="tree-group" style={{ marginBottom: 4 }}>
       <div 
         className="tree-group-header"
         onClick={() => onToggleGroup(group.id)}
-        onMouseEnter={() => setShowActions(true)}
-        onMouseLeave={() => setShowActions(false)}
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -152,65 +148,48 @@ function TreeGroup({ group, selectedSchema, onSelectSchema, onToggleGroup, onSch
           {group.name}
         </span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginRight: 8 }}>
-          {group.modelConfig && (
-            <span style={{ 
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              onGroupAction('model', group.id)
+            }}
+            style={{ 
               fontSize: '0.7rem', 
-              color: 'var(--primary)', 
-              background: 'rgba(59, 130, 246, 0.1)',
+              color: group.modelConfig ? 'var(--primary)' : 'var(--muted)', 
+              background: group.modelConfig ? 'rgba(59, 130, 246, 0.1)' : 'rgba(107, 114, 128, 0.1)',
               padding: '2px 6px',
               borderRadius: '4px',
-              fontWeight: 600
-            }}>
-              {group.modelConfig.model_name.includes('sonnet') ? 'Sonnet' :
-               group.modelConfig.model_name.includes('haiku') ? 'Haiku' :
-               group.modelConfig.model_name.includes('opus') ? 'Opus' :
-               group.modelConfig.model_name.includes('gpt-4') ? 'GPT-4' :
-               group.modelConfig.model_name.includes('gemini') ? 'Gemini' :
-               'Custom'}
-            </span>
-          )}
+              fontWeight: 600,
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = group.modelConfig ? 'rgba(59, 130, 246, 0.2)' : 'rgba(107, 114, 128, 0.2)'
+              e.currentTarget.style.transform = 'scale(1.05)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = group.modelConfig ? 'rgba(59, 130, 246, 0.1)' : 'rgba(107, 114, 128, 0.1)'
+              e.currentTarget.style.transform = 'scale(1)'
+            }}
+            title="Configure AI model for this group"
+          >
+            {group.modelConfig ? (
+              group.modelConfig.model_name.includes('sonnet') ? 'Sonnet' :
+              group.modelConfig.model_name.includes('haiku') ? 'Haiku' :
+              group.modelConfig.model_name.includes('opus') ? 'Opus' :
+              group.modelConfig.model_name.includes('gpt-4') ? 'GPT-4' :
+              group.modelConfig.model_name.includes('gemini') ? 'Gemini' :
+              'Custom'
+            ) : (
+              'No Model'
+            )}
+          </button>
           <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>
             ({group.schemas.length})
           </span>
         </div>
         
-        {showActions && (
-          <div style={{ display: 'flex', gap: 4 }}>
-            <button
-              className="btn secondary"
-              onClick={(e) => {
-                e.stopPropagation()
-                onGroupAction('model', group.id)
-              }}
-              style={{ padding: '2px 6px', fontSize: '0.7rem' }}
-              title="Configure AI model"
-            >
-              🤖
-            </button>
-            <button
-              className="btn secondary"
-              onClick={(e) => {
-                e.stopPropagation()
-                onGroupAction('add', group.id)
-              }}
-              style={{ padding: '2px 6px', fontSize: '0.7rem' }}
-              title="Add schema to group"
-            >
-              +
-            </button>
-            <button
-              className="btn secondary"
-              onClick={(e) => {
-                e.stopPropagation()
-                onGroupAction('settings', group.id)
-              }}
-              style={{ padding: '2px 6px', fontSize: '0.7rem' }}
-              title="Group settings"
-            >
-              ⚙️
-            </button>
-          </div>
-        )}
       </div>
       
       {group.expanded && (
