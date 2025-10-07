@@ -1,6 +1,7 @@
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import ReactFlow, { Background, Controls, MiniMap, Position } from 'reactflow'
 import 'reactflow/dist/style.css'
+// @ts-ignore - dagre doesn't have types
 import dagre from 'dagre'
 import { useDependencyGraphData } from './useDependencyGraphData'
 
@@ -75,7 +76,7 @@ export default function DependencyGraph() {
       <ReactFlow nodes={nodes} edges={edges} fitView style={{ background: 'transparent' }}>
         <MiniMap nodeStrokeColor="#374151" nodeColor="#0b162a" maskColor="rgba(0,0,0,0.25)" />
         <Controls />
-        <Background variant="dots" gap={16} size={1} color="#122033" />
+        <Background variant={'dots' as any} gap={16} size={1} color="#122033" />
       </ReactFlow>
       {data?.issues && (
         <div style={{ padding: 10, borderTop: '1px solid #1f2937' }}>
