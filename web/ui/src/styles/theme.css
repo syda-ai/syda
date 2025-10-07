@@ -69,10 +69,127 @@ body{
   background: radial-gradient(ellipse at top, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
 }
 
+/* Original vertical layout */
 .app-shell{
   display: grid;
   grid-template-columns: 260px 1fr;
   height: 100vh;
+}
+
+/* New horizontal layout */
+.app-shell-horizontal {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+}
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 100;
+  min-height: 60px;
+}
+
+[data-theme="dark"] .top-nav {
+  background: linear-gradient(90deg, 
+    rgba(15, 23, 42, 0.95) 0%, 
+    rgba(30, 41, 59, 0.8) 50%, 
+    rgba(15, 23, 42, 0.95) 100%);
+}
+
+[data-theme="light"] .top-nav {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(248, 250, 252, 0.9) 50%, 
+    rgba(255, 255, 255, 0.95) 100%);
+}
+
+.top-nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.03), rgba(139, 92, 246, 0.02));
+  pointer-events: none;
+}
+
+.top-nav .brand {
+  margin-right: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.horizontal-nav {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.horizontal-nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+
+.horizontal-nav a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.05) 0%, 
+    rgba(139, 92, 246, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.horizontal-nav a:hover::before {
+  opacity: 1;
+}
+
+.horizontal-nav a.active {
+  color: var(--text);
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.2) 0%, 
+    rgba(139, 92, 246, 0.15) 100%);
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+}
+
+.horizontal-nav a:hover {
+  color: var(--text-secondary);
+  border-color: rgba(59, 130, 246, 0.2);
+  transform: translateY(-1px);
+}
+
+.nav-actions {
+  position: relative;
+  z-index: 1;
+}
+
+.main-content {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar{

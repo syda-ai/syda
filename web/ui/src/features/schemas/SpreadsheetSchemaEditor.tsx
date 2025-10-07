@@ -1,22 +1,28 @@
 import { useState, useMemo } from 'react'
 import { useAppState } from '../../store/AppState'
+import { 
+  SYDA_FIELD_TYPES,
+  getApplicableConstraints,
+  getConstraintInputType,
+  getConstraintLabel,
+  getConstraintDescription,
+  validateConstraintValue
+} from './schemaUtils'
+import type { SydaFieldType, SydaConstraints } from './schemaUtils'
 
 type FieldRow = {
   id: string
   name: string
-  type: string
-  primaryKey: boolean
-  required: boolean
+  type: SydaFieldType
+  description: string
+  constraints?: SydaConstraints
+  // Legacy support
+  primaryKey?: boolean
+  required?: boolean
   foreignKey?: {
     table: string
     column: string
     onDelete?: 'CASCADE' | 'SET NULL' | 'RESTRICT'
-  }
-  description: string
-  constraints?: {
-    maxLength?: number
-    minValue?: number
-    maxValue?: number
   }
 }
 
@@ -158,6 +164,218 @@ function ForeignKeyModal({ field, availableTables, onSave, onClose }: ForeignKey
   )
 }
 
+type ConstraintsModalProps = {
+  field: FieldRow
+  availableSchemas: string[]
+  onSave: (constraints: SydaConstraints) => void
+  onClose: () => void
+}
+
+function ConstraintsModal({ field, availableSchemas, onSave, onClose }: ConstraintsModalProps) {
+  const [constraints, setConstraints] = useState<SydaConstraints>(field.constraints || {})
+  const [errors, setErrors] = useState<Record<string, string>>({})
+
+  const applicableConstraints = getApplicableConstraints(field.type)
+
+  const updateConstraint = (key: keyof SydaConstraints, value: any) => {
+    const newConstraints = { ...constraints }
+    
+    if (value === '' || value === null || value === undefined) {
+      delete newConstraints[key]
+    } else {
+      newConstraints[key] = value
+    }
+    
+    setConstraints(newConstraints)
+    
+    // Validate the constraint
+    const error = validateConstraintValue(key, value, field.type)
+    const newErrors = { ...errors }
+    if (error) {
+      newErrors[key] = error
+    } else {
+      delete newErrors[key]
+    }
+    setErrors(newErrors)
+  }
+
+  const handleSave = () => {
+    if (Object.keys(errors).length === 0) {
+      onSave(constraints)
+      onClose()
+    }
+  }
+
+  const renderConstraintInput = (constraintKey: keyof SydaConstraints) => {
+    const inputType = getConstraintInputType(constraintKey)
+    const label = getConstraintLabel(constraintKey)
+    const description = getConstraintDescription(constraintKey)
+    const value = constraints[constraintKey]
+    const error = errors[constraintKey]
+
+    switch (inputType) {
+      case 'checkbox':
+        return (
+          <div key={constraintKey} style={{ marginBottom: 16 }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={!!value}
+                onChange={(e) => updateConstraint(constraintKey, e.target.checked)}
+              />
+              <div>
+                <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{label}</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>{description}</div>
+              </div>
+            </label>
+          </div>
+        )
+
+      case 'number':
+        return (
+          <div key={constraintKey} style={{ marginBottom: 16 }}>
+            <label style={{ display: 'block', marginBottom: 4, fontWeight: 600, fontSize: '0.9rem' }}>
+              {label}
+            </label>
+            <input
+              className="input"
+              type="number"
+              value={value || ''}
+              onChange={(e) => updateConstraint(constraintKey, e.target.value ? Number(e.target.value) : undefined)}
+              placeholder={description}
+              style={{ width: '100%' }}
+            />
+            {error && <div style={{ color: 'var(--danger)', fontSize: '0.8rem', marginTop: 4 }}>{error}</div>}
+          </div>
+        )
+
+      case 'textarea':
+        return (
+          <div key={constraintKey} style={{ marginBottom: 16 }}>
+            <label style={{ display: 'block', marginBottom: 4, fontWeight: 600, fontSize: '0.9rem' }}>
+              {label}
+            </label>
+            <textarea
+              className="textarea"
+              value={value || ''}
+              onChange={(e) => updateConstraint(constraintKey, e.target.value)}
+              placeholder={description}
+              style={{ width: '100%', height: 80, resize: 'vertical' }}
+            />
+            {error && <div style={{ color: 'var(--danger)', fontSize: '0.8rem', marginTop: 4 }}>{error}</div>}
+            {constraintKey === 'enum' && (
+              <div style={{ fontSize: '0.8rem', color: 'var(--muted)', marginTop: 4 }}>
+                Example: ["active", "inactive", "pending"] or [1, 2, 3]
+              </div>
+            )}
+          </div>
+        )
+
+      case 'select':
+        if (constraintKey === 'references') {
+          return (
+            <div key={constraintKey} style={{ marginBottom: 16 }}>
+              <label style={{ display: 'block', marginBottom: 4, fontWeight: 600, fontSize: '0.9rem' }}>
+                {label}
+              </label>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                <select
+                  className="select"
+                  value={(value as any)?.schema || ''}
+                  onChange={(e) => updateConstraint(constraintKey, e.target.value ? { schema: e.target.value, field: 'id' } : undefined)}
+                >
+                  <option value="">Select schema</option>
+                  {availableSchemas.map(schema => (
+                    <option key={schema} value={schema}>{schema}</option>
+                  ))}
+                </select>
+                <input
+                  className="input"
+                  value={(value as any)?.field || ''}
+                  onChange={(e) => updateConstraint(constraintKey, { schema: (value as any)?.schema || '', field: e.target.value })}
+                  placeholder="Field name"
+                />
+              </div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--muted)', marginTop: 4 }}>
+                {description}
+              </div>
+            </div>
+          )
+        }
+        break
+
+      default:
+        return (
+          <div key={constraintKey} style={{ marginBottom: 16 }}>
+            <label style={{ display: 'block', marginBottom: 4, fontWeight: 600, fontSize: '0.9rem' }}>
+              {label}
+            </label>
+            <input
+              className="input"
+              type="text"
+              value={value || ''}
+              onChange={(e) => updateConstraint(constraintKey, e.target.value)}
+              placeholder={description}
+              style={{ width: '100%' }}
+            />
+            {error && <div style={{ color: 'var(--danger)', fontSize: '0.8rem', marginTop: 4 }}>{error}</div>}
+          </div>
+        )
+    }
+  }
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'rgba(0,0,0,0.5)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 1000
+    }}>
+      <div className="panel" style={{ width: 600, maxHeight: '80vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: 24, borderBottom: '1px solid var(--border)' }}>
+          <h3 style={{ margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: 8 }}>
+            ⚙️ Field Constraints
+          </h3>
+          <div style={{ fontSize: '0.9rem', color: 'var(--muted)' }}>
+            Field: <strong>{field.name}</strong> ({field.type})
+          </div>
+        </div>
+
+        <div style={{ flex: 1, overflow: 'auto', padding: 24 }}>
+          {applicableConstraints.length === 0 ? (
+            <div style={{ textAlign: 'center', color: 'var(--muted)', padding: 40 }}>
+              No constraints available for this field type.
+            </div>
+          ) : (
+            <div style={{ display: 'grid', gap: 8 }}>
+              {applicableConstraints.map(constraintKey => renderConstraintInput(constraintKey))}
+            </div>
+          )}
+        </div>
+
+        <div style={{ padding: 24, borderTop: '1px solid var(--border)', display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+          <button className="btn secondary" onClick={onClose}>
+            Cancel
+          </button>
+          <button 
+            className="btn" 
+            onClick={handleSave}
+            disabled={Object.keys(errors).length > 0}
+          >
+            Apply Constraints
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 type SpreadsheetSchemaEditorProps = {
   schemaName: string
   onFieldsChange: (fields: FieldRow[]) => void
@@ -170,12 +388,15 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
       id: '1',
       name: 'id',
       type: 'integer',
-      primaryKey: true,
-      required: true,
-      description: 'Primary key'
+      description: 'Primary key',
+      constraints: {
+        primary_key: true,
+        not_null: true
+      }
     }
   ])
   const [editingFK, setEditingFK] = useState<string | null>(null)
+  const [editingConstraints, setEditingConstraints] = useState<string | null>(null)
 
   // Mock available tables and their columns (in real app, parse from schemas)
   const availableTables = useMemo(() => {
@@ -192,9 +413,8 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
       id: Date.now().toString(),
       name: `field_${fields.length + 1}`,
       type: 'string',
-      primaryKey: false,
-      required: false,
-      description: ''
+      description: '',
+      constraints: {}
     }
     const newFields = [...fields, newField]
     setFields(newFields)
@@ -205,10 +425,9 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
     const newFields = Array.from({ length: count }, (_, i) => ({
       id: (Date.now() + i).toString(),
       name: `field_${fields.length + i + 1}`,
-      type: 'string',
-      primaryKey: false,
-      required: false,
-      description: ''
+      type: 'string' as SydaFieldType,
+      description: '',
+      constraints: {}
     }))
     const updatedFields = [...fields, ...newFields]
     setFields(updatedFields)
@@ -235,6 +454,14 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
     updateField(fieldId, { foreignKey: fk })
     setEditingFK(null)
   }
+
+  const handleConstraintsSave = (fieldId: string, constraints: SydaConstraints) => {
+    updateField(fieldId, { constraints })
+    setEditingConstraints(null)
+  }
+
+  // Get available schema names for references
+  const availableSchemas = schemas.filter(s => s.kind === 'structured' && s.name !== schemaName).map(s => s.name)
 
   return (
     <div style={{ display: 'grid', gap: 16 }}>
@@ -265,14 +492,8 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
               <th style={{ padding: '12px 8px', textAlign: 'left', borderRight: '1px solid var(--border)', minWidth: '120px' }}>
                 Type
               </th>
-              <th style={{ padding: '12px 8px', textAlign: 'left', borderRight: '1px solid var(--border)', minWidth: '200px' }}>
-                🔗 Foreign Key
-              </th>
-              <th style={{ padding: '12px 8px', textAlign: 'center', borderRight: '1px solid var(--border)', width: '80px' }}>
-                PK
-              </th>
-              <th style={{ padding: '12px 8px', textAlign: 'center', borderRight: '1px solid var(--border)', width: '80px' }}>
-                Required
+              <th style={{ padding: '12px 8px', textAlign: 'left', borderRight: '1px solid var(--border)', minWidth: '250px' }}>
+                ⚙️ Constraints
               </th>
               <th style={{ padding: '12px 8px', textAlign: 'left', borderRight: '1px solid var(--border)', minWidth: '200px' }}>
                 Description
@@ -283,7 +504,7 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
             </tr>
           </thead>
           <tbody>
-            {fields.map((field, index) => (
+            {fields.map((field) => (
               <tr key={field.id} style={{ borderBottom: '1px solid var(--border)' }}>
                 {/* Field Name */}
                 <td style={{ padding: '8px', borderRight: '1px solid var(--border)' }}>
@@ -300,67 +521,109 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
                   <select
                     className="select"
                     value={field.type}
-                    onChange={(e) => updateField(field.id, { type: e.target.value })}
+                    onChange={(e) => updateField(field.id, { type: e.target.value as SydaFieldType })}
                     style={{ width: '100%', padding: '4px 8px', fontSize: '0.9rem' }}
                   >
-                    <option value="string">String</option>
-                    <option value="integer">Integer</option>
-                    <option value="float">Float</option>
-                    <option value="boolean">Boolean</option>
-                    <option value="date">Date</option>
-                    <option value="datetime">DateTime</option>
-                    <option value="text">Text</option>
+                    <optgroup label="Core Types">
+                      {SYDA_FIELD_TYPES.filter(t => t.category === 'core').map(type => (
+                        <option key={type.value} value={type.value}>{type.label}</option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Extended Types">
+                      {SYDA_FIELD_TYPES.filter(t => t.category === 'extended').map(type => (
+                        <option key={type.value} value={type.value}>{type.label}</option>
+                      ))}
+                    </optgroup>
                   </select>
                 </td>
 
-                {/* Foreign Key */}
+                {/* Constraints */}
                 <td style={{ padding: '8px', borderRight: '1px solid var(--border)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    {field.foreignKey ? (
-                      <div style={{ 
-                        flex: 1, 
-                        padding: '4px 8px', 
-                        background: 'rgba(59, 130, 246, 0.1)', 
-                        border: '1px solid rgba(59, 130, 246, 0.3)',
-                        borderRadius: '4px',
-                        fontSize: '0.85rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 4
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap' }}>
+                    {/* Show active constraints as badges */}
+                    {field.constraints?.primary_key && (
+                      <span style={{ 
+                        background: 'rgba(255, 193, 7, 0.2)', 
+                        color: '#f59e0b', 
+                        padding: '2px 6px', 
+                        borderRadius: '4px', 
+                        fontSize: '0.7rem',
+                        fontWeight: 600
                       }}>
-                        🔗 {field.foreignKey.table}.{field.foreignKey.column}
-                      </div>
-                    ) : (
-                      <div style={{ flex: 1, color: 'var(--muted)', fontSize: '0.85rem', padding: '4px 8px' }}>
-                        No relationship
-                      </div>
+                        PK
+                      </span>
                     )}
+                    {field.constraints?.unique && (
+                      <span style={{ 
+                        background: 'rgba(139, 92, 246, 0.2)', 
+                        color: '#8b5cf6', 
+                        padding: '2px 6px', 
+                        borderRadius: '4px', 
+                        fontSize: '0.7rem',
+                        fontWeight: 600
+                      }}>
+                        UNIQUE
+                      </span>
+                    )}
+                    {field.constraints?.not_null && (
+                      <span style={{ 
+                        background: 'rgba(239, 68, 68, 0.2)', 
+                        color: '#ef4444', 
+                        padding: '2px 6px', 
+                        borderRadius: '4px', 
+                        fontSize: '0.7rem',
+                        fontWeight: 600
+                      }}>
+                        NOT NULL
+                      </span>
+                    )}
+                    {field.constraints?.enum && (
+                      <span style={{ 
+                        background: 'rgba(34, 197, 94, 0.2)', 
+                        color: '#22c55e', 
+                        padding: '2px 6px', 
+                        borderRadius: '4px', 
+                        fontSize: '0.7rem',
+                        fontWeight: 600
+                      }}>
+                        ENUM
+                      </span>
+                    )}
+                    {field.constraints?.references && (
+                      <span style={{ 
+                        background: 'rgba(59, 130, 246, 0.2)', 
+                        color: '#3b82f6', 
+                        padding: '2px 6px', 
+                        borderRadius: '4px', 
+                        fontSize: '0.7rem',
+                        fontWeight: 600
+                      }}>
+                        FK → {field.constraints.references.schema}
+                      </span>
+                    )}
+                    {(field.constraints?.min !== undefined || field.constraints?.max !== undefined) && (
+                      <span style={{ 
+                        background: 'rgba(168, 85, 247, 0.2)', 
+                        color: '#a855f7', 
+                        padding: '2px 6px', 
+                        borderRadius: '4px', 
+                        fontSize: '0.7rem',
+                        fontWeight: 600
+                      }}>
+                        RANGE
+                      </span>
+                    )}
+                    
+                    {/* Constraints button */}
                     <button
                       className="btn secondary"
-                      onClick={() => handleFKEdit(field.id)}
-                      style={{ padding: '2px 6px', fontSize: '0.8rem' }}
+                      onClick={() => setEditingConstraints(field.id)}
+                      style={{ padding: '2px 6px', fontSize: '0.8rem', marginLeft: 'auto' }}
+                      title="Edit constraints"
                     >
-                      {field.foreignKey ? '✏️' : '🔗'}
+                      ⚙️
                     </button>
                   </div>
-                </td>
-
-                {/* Primary Key */}
-                <td style={{ padding: '8px', borderRight: '1px solid var(--border)', textAlign: 'center' }}>
-                  <input
-                    type="checkbox"
-                    checked={field.primaryKey}
-                    onChange={(e) => updateField(field.id, { primaryKey: e.target.checked })}
-                  />
-                </td>
-
-                {/* Required */}
-                <td style={{ padding: '8px', borderRight: '1px solid var(--border)', textAlign: 'center' }}>
-                  <input
-                    type="checkbox"
-                    checked={field.required}
-                    onChange={(e) => updateField(field.id, { required: e.target.checked })}
-                  />
                 </td>
 
                 {/* Description */}
@@ -404,6 +667,16 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
           availableTables={availableTables}
           onSave={(fk) => handleFKSave(editingFK, fk)}
           onClose={() => setEditingFK(null)}
+        />
+      )}
+
+      {/* Constraints Modal */}
+      {editingConstraints && (
+        <ConstraintsModal
+          field={fields.find(f => f.id === editingConstraints)!}
+          availableSchemas={availableSchemas}
+          onSave={(constraints) => handleConstraintsSave(editingConstraints, constraints)}
+          onClose={() => setEditingConstraints(null)}
         />
       )}
     </div>
