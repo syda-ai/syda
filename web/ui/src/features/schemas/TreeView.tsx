@@ -101,6 +101,17 @@ function TreeSchema({ schema, isSelected, onSelect, onAction }: TreeSchemaProps)
             className="btn secondary"
             onClick={(e) => {
               e.stopPropagation()
+              onAction('description', schema.id)
+            }}
+            style={{ padding: '2px 6px', fontSize: '0.7rem' }}
+            title="Edit Description"
+          >
+            ℹ️
+          </button>
+          <button
+            className="btn secondary"
+            onClick={(e) => {
+              e.stopPropagation()
               onAction('more', schema.id)
             }}
             style={{ padding: '2px 6px', fontSize: '0.7rem' }}

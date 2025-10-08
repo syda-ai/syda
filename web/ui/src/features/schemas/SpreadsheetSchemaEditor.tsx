@@ -177,6 +177,37 @@ function ConstraintsModal({ field, availableSchemas, onSave, onClose }: Constrai
 
   const applicableConstraints = getApplicableConstraints(field.type)
 
+  // Mutually exclusive helpers for nullability and key mode
+  const setNullability = (selection: 'nullable' | 'not_null') => {
+    setConstraints(prev => ({
+      ...prev,
+      nullable: selection === 'nullable' ? true : undefined,
+      not_null: selection === 'not_null' ? true : undefined
+    }))
+    // Clear any related errors
+    setErrors(prev => {
+      const { nullable, not_null, ...rest } = prev
+      return rest
+    })
+  }
+
+  const setKeyMode = (selection: '' | 'primary_key' | 'unique') => {
+    setConstraints(prev => ({
+      ...prev,
+      primary_key: selection === 'primary_key' ? true : undefined,
+      unique: selection === 'unique' ? true : undefined
+    }))
+    // Clear any related errors
+    setErrors(prev => {
+      const { primary_key, unique, ...rest } = prev
+      return rest
+    })
+  }
+
+  const filteredConstraints = applicableConstraints.filter((c) => (
+    c !== 'nullable' && c !== 'not_null' && c !== 'primary_key' && c !== 'unique'
+  ))
+
   const updateConstraint = (key: keyof SydaConstraints, value: any) => {
     const newConstraints = { ...constraints }
     
@@ -348,13 +379,110 @@ function ConstraintsModal({ field, availableSchemas, onSave, onClose }: Constrai
         </div>
 
         <div style={{ flex: 1, overflow: 'auto', padding: 24 }}>
-          {applicableConstraints.length === 0 ? (
+          {filteredConstraints.length === 0 ? (
             <div style={{ textAlign: 'center', color: 'var(--muted)', padding: 40 }}>
               No constraints available for this field type.
             </div>
           ) : (
-            <div style={{ display: 'grid', gap: 8 }}>
-              {applicableConstraints.map(constraintKey => renderConstraintInput(constraintKey))}
+            <div style={{ display: 'grid', gap: 12 }}>
+              {/* Nullability + Key groups (two-line blocks side-by-side) */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 24, padding: 12, border: '1px solid var(--border)', borderRadius: 8, background: 'var(--panel-2)' }}>
+                {/* Nullability group */}
+                <div style={{ display: 'grid', gap: 8 }}>
+                  <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>Nullability</div>
+                  <div style={{ display: 'flex', gap: 16 }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                      <input
+                        type="radio"
+                        name="nullability"
+                        checked={!!constraints.nullable && !constraints.not_null}
+                        onChange={() => setNullability('nullable')}
+                      />
+                      <span>Nullable</span>
+                    </label>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                      <input
+                        type="radio"
+                        name="nullability"
+                        checked={!!constraints.not_null && !constraints.nullable}
+                        onChange={() => setNullability('not_null')}
+                      />
+                      <span>Not Nullable</span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Vertical separator */}
+                <div style={{ width: 1, alignSelf: 'stretch', background: 'var(--border)' }} />
+
+                {/* Key mode group */}
+                <div style={{ display: 'grid', gap: 8 }}>
+                  <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>Key</div>
+                  <div style={{ display: 'flex', gap: 16 }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                      <input
+                        type="radio"
+                        name="keymode"
+                        checked={!!constraints.primary_key && !constraints.unique}
+                        onChange={() => setKeyMode('primary_key')}
+                      />
+                      <span>Primary Key</span>
+                    </label>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                      <input
+                        type="radio"
+                        name="keymode"
+                        checked={!!constraints.unique && !constraints.primary_key}
+                        onChange={() => setKeyMode('unique')}
+                      />
+                      <span>Unique</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Other constraints */}
+              <div style={{ display: 'grid', gap: 8 }}>
+                {/* Group Minimum and Maximum on one row */}
+                {(filteredConstraints.includes('min') || filteredConstraints.includes('max')) && (
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                    {filteredConstraints.includes('min') && (
+                      <div>
+                        <label style={{ display: 'block', marginBottom: 4, fontWeight: 600, fontSize: '0.9rem' }}>
+                          {getConstraintLabel('min')}
+                        </label>
+                        <input
+                          className="input"
+                          type="number"
+                          value={typeof constraints.min === 'number' ? constraints.min : ''}
+                          onChange={(e) => updateConstraint('min', e.target.value ? Number(e.target.value) : undefined)}
+                          placeholder={getConstraintDescription('min')}
+                          style={{ width: '100%' }}
+                        />
+                      </div>
+                    )}
+                    {filteredConstraints.includes('max') && (
+                      <div>
+                        <label style={{ display: 'block', marginBottom: 4, fontWeight: 600, fontSize: '0.9rem' }}>
+                          {getConstraintLabel('max')}
+                        </label>
+                        <input
+                          className="input"
+                          type="number"
+                          value={typeof constraints.max === 'number' ? constraints.max : ''}
+                          onChange={(e) => updateConstraint('max', e.target.value ? Number(e.target.value) : undefined)}
+                          placeholder={getConstraintDescription('max')}
+                          style={{ width: '100%' }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {filteredConstraints
+                  .filter((c) => c !== 'min' && c !== 'max')
+                  .map(constraintKey => renderConstraintInput(constraintKey))}
+              </div>
             </div>
           )}
         </div>
@@ -541,6 +669,18 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
                 <td style={{ padding: '8px', borderRight: '1px solid var(--border)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap' }}>
                     {/* Show active constraints as badges */}
+                    {field.constraints?.nullable && (
+                      <span style={{ 
+                        background: 'rgba(19, 196, 152, 0.17)', 
+                        color: '#13c498', 
+                        padding: '2px 6px', 
+                        borderRadius: '4px', 
+                        fontSize: '0.7rem',
+                        fontWeight: 600
+                      }}>
+                        NULL
+                      </span>
+                    )}
                     {field.constraints?.primary_key && (
                       <span style={{ 
                         background: 'rgba(255, 193, 7, 0.2)', 

@@ -103,7 +103,8 @@ export function parseYamlToVisual(content: string): ParsedSchema {
   
   for (const line of lines) {
     const trimmed = line.trim()
-    
+    const isTopLevel = !line.startsWith(' ')
+
     if (trimmed.startsWith('__table_name__:')) {
       result.tableName = trimmed.split(':')[1]?.trim() || ''
     } else if (trimmed.startsWith('__description__:')) {
@@ -111,14 +112,14 @@ export function parseYamlToVisual(content: string): ParsedSchema {
     } else if (trimmed.startsWith('__foreign_keys__:')) {
       inForeignKeys = true
       continue
-    } else if (inForeignKeys && trimmed.startsWith('  ') && trimmed.includes(':')) {
+    } else if (inForeignKeys && line.startsWith('  ') && trimmed.includes(':')) {
       // Parse foreign key definition: "  field_name: [Table, column]"
       const match = trimmed.match(/^\s*(\w+):\s*\[(\w+),\s*(\w+)\]/)
       if (match) {
         const [, fieldName, table, column] = match
         foreignKeyMap[fieldName] = { table, column }
       }
-    } else if (trimmed && !trimmed.startsWith(' ') && trimmed.includes(':') && !trimmed.startsWith('__')) {
+    } else if (trimmed && isTopLevel && trimmed.includes(':') && !trimmed.startsWith('__')) {
       // New field - save previous field first
       if (currentField && currentField.name) {
         const fk = foreignKeyMap[currentField.name]
@@ -150,7 +151,7 @@ export function parseYamlToVisual(content: string): ParsedSchema {
     } else if (currentField && inConstraints && trimmed.includes('max_length:')) {
       const maxLength = parseInt(trimmed.split(':')[1]?.trim() || '0')
       if (maxLength > 0) {
-        currentField.constraints = { ...currentField.constraints, maxLength }
+        currentField.constraints = { ...currentField.constraints, max_length: maxLength }
       }
     }
   }
@@ -223,8 +224,8 @@ function visualToYaml(schema: ParsedSchema): string {
             } else if (key === 'enum') {
               // Handle enum as YAML array
               try {
-                const enumArray = Array.isArray(value) ? value : JSON.parse(value as string)
-                yaml += `    ${key}: [${enumArray.map(v => typeof v === 'string' ? `"${v}"` : v).join(', ')}]\n`
+                const enumArray: Array<string | number | boolean> = Array.isArray(value) ? (value as Array<string | number | boolean>) : JSON.parse(value as string)
+                yaml += `    ${key}: [${enumArray.map((v: string | number | boolean) => typeof v === 'string' ? `"${v}"` : v).join(', ')}]\n`
               } catch (e) {
                 yaml += `    ${key}: ${JSON.stringify(value)}\n`
               }
@@ -536,8 +537,8 @@ export function constraintsToYaml(constraints: SydaConstraints): string {
       } else if (key === 'enum') {
         // Handle enum as YAML array
         try {
-          const enumArray = Array.isArray(value) ? value : JSON.parse(value as string)
-          yaml += `    ${key}: [${enumArray.map(v => typeof v === 'string' ? `"${v}"` : v).join(', ')}]\n`
+          const enumArray: Array<string | number | boolean> = Array.isArray(value) ? (value as Array<string | number | boolean>) : JSON.parse(value as string)
+          yaml += `    ${key}: [${enumArray.map((v: string | number | boolean) => typeof v === 'string' ? `"${v}"` : v).join(', ')}]\n`
         } catch (e) {
           yaml += `    ${key}: ${JSON.stringify(value)}\n`
         }

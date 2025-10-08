@@ -6,7 +6,7 @@ import TreeView from './TreeView'
 import { parseYamlToVisual, fieldsToYaml, databaseTableToYaml, validateSchema } from './schemaUtils'
 import type { SydaModelConfig } from '../run/modelConfig'
 
-type EditorMode = 'spreadsheet' | 'yaml'
+type EditorMode = 'spreadsheet' | 'yaml' | 'description'
 
 export default function SchemasPage() {
   const { schemaGroups, setSchemaGroups, selectedSchema, setSelectedSchema } = useAppState()
@@ -15,6 +15,8 @@ export default function SchemasPage() {
   const [showModelConfigModal, setShowModelConfigModal] = useState(false)
   const [modelConfigGroupId, setModelConfigGroupId] = useState<string | null>(null)
   const [validationErrors, setValidationErrors] = useState<string[]>([])
+  const [showDescriptionPanel, setShowDescriptionPanel] = useState(false)
+  const [descriptionDraft, setDescriptionDraft] = useState('')
 
   // Find current schema across all groups
   const currentSchema = useMemo(() => {
@@ -56,6 +58,56 @@ export default function SchemasPage() {
     }
   }
 
+  // Helpers to read and write __description__ in YAML
+  const extractDescriptionFromYaml = (yaml: string): string => {
+    const lines = yaml.split('\n')
+    for (const line of lines) {
+      const trimmed = line.trim()
+      if (trimmed.startsWith('__description__:')) {
+        return trimmed.slice('__description__:'.length).trim()
+      }
+    }
+    return ''
+  }
+
+  const setDescriptionInYaml = (yaml: string, newDescription: string): string => {
+    const lines = yaml.split('\n')
+    let found = false
+    const updated = lines.map((line) => {
+      const trimmed = line.trim()
+      if (!found && trimmed.startsWith('__description__:')) {
+        found = true
+        return line.replace(/__description__:.*/, `__description__: ${newDescription}`)
+      }
+      return line
+    })
+    if (!found) {
+      // Insert after __table_name__ if present, else at top
+      const idx = updated.findIndex(l => l.trim().startsWith('__table_name__:'))
+      if (idx >= 0) {
+        updated.splice(idx + 1, 0, `__description__: ${newDescription}`)
+      } else {
+        updated.unshift(`__description__: ${newDescription}`)
+      }
+    }
+    return updated.join('\n')
+  }
+
+  const openDescriptionPanel = () => {
+    if (!currentSchema) return
+    const existing = extractDescriptionFromYaml(currentSchema.content)
+    setDescriptionDraft(existing)
+    setShowDescriptionPanel(false)
+    setEditorMode('description')
+  }
+
+  const saveDescription = () => {
+    if (!currentSchema) return
+    const next = setDescriptionInYaml(currentSchema.content, descriptionDraft || '')
+    updateCurrentSchema(next)
+    setShowDescriptionPanel(false)
+  }
+
   const handleSpreadsheetChange = (fields: any[]) => {
     if (!currentSchema) return
     const yamlContent = fieldsToYaml(currentSchema.name, `${currentSchema.name} schema`, fields)
@@ -72,11 +124,17 @@ export default function SchemasPage() {
     switch (action) {
       case 'spreadsheet':
         setSelectedSchema(schemaId)
+        setShowDescriptionPanel(false)
         setEditorMode('spreadsheet')
         break
       case 'yaml':
         setSelectedSchema(schemaId)
+        setShowDescriptionPanel(false)
         setEditorMode('yaml')
+        break
+      case 'description':
+        setSelectedSchema(schemaId)
+        openDescriptionPanel()
         break
       case 'more':
         // TODO: Show context menu
@@ -211,6 +269,14 @@ export default function SchemasPage() {
     }
   }
 
+  // Compute dynamic columns for optional side panels
+  const computeColumns = () => {
+    let cols = '300px 1fr'
+    if (showModelConfigModal && modelConfigGroupId) cols += ' 350px'
+    if (showDescriptionPanel) cols += ' 320px'
+    return cols
+  }
+
   return (
     <div className="page-container" style={{ display: 'grid', gridTemplateRows: 'auto 1fr', height: '100%', width: '100%', minWidth: 0, gap: 0 }}>
       {/* Page Header */}
@@ -267,17 +333,25 @@ export default function SchemasPage() {
               <div style={{ display: 'flex', background: 'var(--panel)', border: '1px solid var(--border)', borderRadius: '8px', padding: '2px' }}>
                 <button
                   className={editorMode === 'spreadsheet' ? 'btn' : 'btn secondary'}
-                  onClick={() => setEditorMode('spreadsheet')}
+                  onClick={() => { setShowDescriptionPanel(false); setEditorMode('spreadsheet') }}
                   style={{ padding: '6px 12px', fontSize: '0.85rem', margin: 0, borderRadius: '6px' }}
                 >
                   📊 Spreadsheet
                 </button>
                 <button
                   className={editorMode === 'yaml' ? 'btn' : 'btn secondary'}
-                  onClick={() => setEditorMode('yaml')}
+                  onClick={() => { setShowDescriptionPanel(false); setEditorMode('yaml') }}
                   style={{ padding: '6px 12px', fontSize: '0.85rem', margin: 0, borderRadius: '6px' }}
                 >
                   📝 YAML
+                </button>
+                <button
+                  className={editorMode === 'description' ? 'btn' : 'btn secondary'}
+                  onClick={openDescriptionPanel}
+                  title="Edit description"
+                  style={{ padding: '6px 12px', fontSize: '0.85rem', margin: 0, borderRadius: '6px' }}
+                >
+                  ℹ️ Description
                 </button>
               </div>
               <button 
@@ -295,7 +369,7 @@ export default function SchemasPage() {
       {/* Main Content */}
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: showModelConfigModal && modelConfigGroupId ? '300px 1fr 350px' : '300px 1fr', 
+        gridTemplateColumns: computeColumns(), 
         height: '100%', 
         overflow: 'hidden',
         transition: 'grid-template-columns 0.3s ease'
@@ -372,6 +446,34 @@ export default function SchemasPage() {
                   </button>
         </div>
       </div>
+            ) : editorMode === 'description' ? (
+              <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <div className="panel" style={{ 
+                  padding: 12, 
+                  marginBottom: 16, 
+                  background: 'rgba(59, 130, 246, 0.1)', 
+                  border: '1px solid rgba(59, 130, 246, 0.2)' 
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '0.9rem' }}>
+                    <span>ℹ️</span>
+                    <strong>Description</strong>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, height: '100%' }}>
+                  <textarea
+                    className="textarea"
+                    value={descriptionDraft}
+                    onChange={(e) => setDescriptionDraft(e.target.value)}
+                    placeholder="Enter schema description..."
+                    style={{ flex: 1, resize: 'none' }}
+                  />
+                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <button className="btn" onClick={saveDescription} style={{ padding: '8px 25px', fontSize: '0.8rem' }}>
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
             ) : currentSchema.kind === 'template' ? (
               // Template schemas always use YAML editor
               <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -605,6 +707,55 @@ export default function SchemasPage() {
         </div>
       </div>
     </div>
+        )}
+
+        {/* Description Side Panel */}
+        {showDescriptionPanel && (
+          <div style={{ 
+            borderLeft: '1px solid var(--border)', 
+            background: 'var(--panel)',
+            overflow: 'auto',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <div style={{ 
+              padding: '16px 20px', 
+              borderBottom: '1px solid var(--border)',
+              background: 'var(--panel-2)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <div>
+                <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 600 }}>
+                  ℹ️ Description
+                </h4>
+                <div style={{ fontSize: '0.85rem', color: 'var(--muted)', marginTop: 2 }}>
+                  {currentSchema?.name}
+                </div>
+              </div>
+              <button 
+                className="btn secondary"
+                onClick={() => setShowDescriptionPanel(false)}
+                style={{ padding: '4px 8px', fontSize: '0.8rem' }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div style={{ flex: 1, padding: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <textarea
+                className="textarea"
+                value={descriptionDraft}
+                onChange={(e) => setDescriptionDraft(e.target.value)}
+                placeholder="Enter schema description..."
+                style={{ flex: 1, resize: 'none' }}
+              />
+              <button className="btn" onClick={saveDescription}>
+                Save Description
+              </button>
+            </div>
+          </div>
         )}
       </div>
 
