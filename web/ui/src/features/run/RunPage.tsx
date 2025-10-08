@@ -212,7 +212,7 @@ export default function RunPage() {
   const currentTask = selectedProject?.tasks.find(t => t.id === selectedTask)
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div className="page-container" style={{ height: '100%', width: '100%', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 0 }}>
       {/* Breadcrumb Navigation */}
       {currentView !== 'projects' && (
         <div style={{ 

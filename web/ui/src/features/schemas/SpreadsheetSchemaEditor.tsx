@@ -240,7 +240,7 @@ function ConstraintsModal({ field, availableSchemas, onSave, onClose }: Constrai
             <input
               className="input"
               type="number"
-              value={value || ''}
+              value={typeof value === 'number' ? value : ''}
               onChange={(e) => updateConstraint(constraintKey, e.target.value ? Number(e.target.value) : undefined)}
               placeholder={description}
               style={{ width: '100%' }}
@@ -257,7 +257,7 @@ function ConstraintsModal({ field, availableSchemas, onSave, onClose }: Constrai
             </label>
             <textarea
               className="textarea"
-              value={value || ''}
+              value={typeof value === 'string' ? value : ''}
               onChange={(e) => updateConstraint(constraintKey, e.target.value)}
               placeholder={description}
               style={{ width: '100%', height: 80, resize: 'vertical' }}
@@ -313,7 +313,7 @@ function ConstraintsModal({ field, availableSchemas, onSave, onClose }: Constrai
             <input
               className="input"
               type="text"
-              value={value || ''}
+              value={typeof value === 'string' ? value : ''}
               onChange={(e) => updateConstraint(constraintKey, e.target.value)}
               placeholder={description}
               style={{ width: '100%' }}
@@ -512,7 +512,7 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
                     className="input"
                     value={field.name}
                     onChange={(e) => updateField(field.id, { name: e.target.value })}
-                    style={{ width: '100%', padding: '4px 8px', fontSize: '0.9rem' }}
+                    style={{ width: '100%', padding: '4px 8px', fontSize: '0.9rem', boxSizing: 'border-box' }}
                   />
                 </td>
 
@@ -522,7 +522,7 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
                     className="select"
                     value={field.type}
                     onChange={(e) => updateField(field.id, { type: e.target.value as SydaFieldType })}
-                    style={{ width: '100%', padding: '4px 8px', fontSize: '0.9rem' }}
+                    style={{ width: '100%', padding: '4px 8px', fontSize: '0.9rem', boxSizing: 'border-box' }}
                   >
                     <optgroup label="Core Types">
                       {SYDA_FIELD_TYPES.filter(t => t.category === 'core').map(type => (
@@ -633,7 +633,7 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
                     value={field.description}
                     onChange={(e) => updateField(field.id, { description: e.target.value })}
                     placeholder="Field description..."
-                    style={{ width: '100%', padding: '4px 8px', fontSize: '0.9rem' }}
+                    style={{ width: '100%', padding: '4px 8px', fontSize: '0.9rem', boxSizing: 'border-box' }}
                   />
                 </td>
 

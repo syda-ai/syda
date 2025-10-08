@@ -212,7 +212,7 @@ export default function SchemasPage() {
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateRows: 'auto 1fr', height: '100vh' }}>
+    <div className="page-container" style={{ display: 'grid', gridTemplateRows: 'auto 1fr', height: '100%', width: '100%', minWidth: 0, gap: 0 }}>
       {/* Page Header */}
       <div style={{ 
         padding: '16px 20px', 

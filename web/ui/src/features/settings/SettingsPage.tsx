@@ -81,45 +81,24 @@ export default function SettingsPage() {
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', height: '100vh', overflow: 'hidden' }}>
+    <div className="settings-layout">
       {/* GitHub-style Sidebar */}
-      <div style={{ 
-        background: 'var(--panel-2)', 
-        borderRight: '1px solid var(--border)',
-        padding: '20px 0',
-        overflow: 'auto'
-      }}>
-        <div style={{ padding: '0 20px 20px 20px' }}>
+      <div className="settings-sidebar">
+        <div className="header">
           <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700 }}>
             ⚙️ Settings
           </h2>
-          <p style={{ margin: '8px 0 0 0', fontSize: '0.9rem', color: 'var(--muted)' }}>
+          <p className="subtitle">
             Manage your account and application preferences
           </p>
         </div>
 
-        <nav style={{ padding: '0 12px' }}>
+        <nav className="settings-tabs">
           {settingsTabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as SettingsTab)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                width: '100%',
-                padding: '12px 16px',
-                background: activeTab === tab.id ? 'var(--panel)' : 'transparent',
-                border: activeTab === tab.id ? '1px solid var(--border)' : '1px solid transparent',
-                borderRadius: 8,
-                color: activeTab === tab.id ? 'var(--text)' : 'var(--muted)',
-                fontSize: '0.9rem',
-                fontWeight: activeTab === tab.id ? 600 : 400,
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                marginBottom: 4,
-                textAlign: 'left'
-              }}
+              className={`settings-tab ${activeTab === tab.id ? 'active' : ''}`}
             >
               <span>{tab.icon}</span>
               {tab.label}
@@ -129,7 +108,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Main Content */}
-      <div style={{ overflow: 'auto', padding: 40 }}>
+      <div className="settings-content">
         {activeTab === 'appearance' && (
           <div style={{ maxWidth: 800 }}>
             <div style={{ marginBottom: 32 }}>

@@ -59,9 +59,9 @@ export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
 
   if (isSubmitted) {
     return (
-      <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
-    <div style={{ width: 480, maxWidth: 480, margin: '0 auto' }}>
-        <div className="panel" style={{ padding: 32, textAlign: 'center' }}>
+      <div className="fade-in page-container center-content" style={{ width: '100%', padding: 20, minWidth: 0 }}>
+    <div className="card-narrow">
+        <div className="panel panel-padding-32" style={{ textAlign: 'center' }}>
           <div style={{ fontSize: '3rem', marginBottom: 16 }}>📧</div>
           <h2 style={{ 
             margin: 0, 
@@ -102,9 +102,9 @@ export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
   }
 
   return (
-    <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
-    <div style={{ width: 480, maxWidth: 480, margin: '0 auto' }}>
-      <div className="panel" style={{ padding: 32 }}>
+    <div className="fade-in page-container center-content" style={{ width: '100%', padding: 20, minWidth: 0 }}>
+    <div className="card-narrow">
+      <div className="panel panel-padding-32">
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <h2 style={{ 
             margin: 0, 

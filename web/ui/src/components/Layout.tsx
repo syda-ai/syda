@@ -39,7 +39,7 @@ export default function Layout({ children }: LayoutProps) {
       </header>
       
       {/* Main Content Area */}
-      <main className="main-content">
+      <main className="main-content" style={{ minWidth: 0 }}>
         {children}
       </main>
     </div>

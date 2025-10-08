@@ -14,43 +14,34 @@ import { ThemeProvider } from './store/ThemeContext'
 
 function Home() {
   return (
-    <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
-      <div style={{ textAlign: 'center', padding: '40px 0' }}>
-        <h1 style={{ 
-          margin: 0, 
-          fontSize: '3rem', 
-          fontWeight: 800,
-          background: 'linear-gradient(135deg, var(--primary-light), var(--accent-light))', 
-          backgroundClip: 'text', 
-          WebkitBackgroundClip: 'text', 
-          color: 'transparent',
-          marginBottom: 16
-        }}>
+    <div className="fade-in page-container centered-800">
+      <div className="page-section-header">
+        <h1 className="m-0 mb-16 font-800" style={{ fontSize: '3rem' }}>
           Welcome to Syda UI
         </h1>
-        <p style={{ fontSize: '1.25rem', color: 'var(--muted)', maxWidth: 600, margin: '0 auto' }}>
+        <p className="text-lg" style={{ color: 'var(--muted)', maxWidth: 600, margin: '0 auto' }}>
           AI-powered synthetic data generation with referential integrity. 
           Configure models, manage schemas, and generate realistic test data.
         </p>
       </div>
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
-        <div className="panel" style={{ padding: 24, textAlign: 'center' }}>
+      <div className="grid grid-cards gap-20">
+        <div className="panel p-24 text-center">
           <div style={{ fontSize: '2rem', marginBottom: 12 }}>🧩</div>
-          <h3 style={{ margin: 0, marginBottom: 8 }}>Schemas</h3>
-          <p className="muted" style={{ margin: 0, fontSize: '0.9rem' }}>Define and edit data schemas with YAML, JSON, or SQLAlchemy models</p>
+          <h3 className="m-0 mb-8">Schemas</h3>
+          <p className="muted m-0 text-xs">Define and edit data schemas with YAML, JSON, or SQLAlchemy models</p>
         </div>
         
-        <div className="panel" style={{ padding: 24, textAlign: 'center' }}>
+        <div className="panel p-24 text-center">
           <div style={{ fontSize: '2rem', marginBottom: 12 }}>⚙️</div>
-          <h3 style={{ margin: 0, marginBottom: 8 }}>Generate</h3>
-          <p className="muted" style={{ margin: 0, fontSize: '0.9rem' }}>Run AI-powered generation with custom prompts and sample sizes</p>
+          <h3 className="m-0 mb-8">Generate</h3>
+          <p className="muted m-0 text-xs">Run AI-powered generation with custom prompts and sample sizes</p>
         </div>
         
-        <div className="panel" style={{ padding: 24, textAlign: 'center' }}>
+        <div className="panel p-24 text-center">
           <div style={{ fontSize: '2rem', marginBottom: 12 }}>📊</div>
-          <h3 style={{ margin: 0, marginBottom: 8 }}>Results</h3>
-          <p className="muted" style={{ margin: 0, fontSize: '0.9rem' }}>Browse generated data and download as CSV or JSON</p>
+          <h3 className="m-0 mb-8">Results</h3>
+          <p className="muted m-0 text-xs">Browse generated data and download as CSV or JSON</p>
         </div>
       </div>
     </div>

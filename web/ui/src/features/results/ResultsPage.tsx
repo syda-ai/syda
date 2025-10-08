@@ -22,17 +22,17 @@ export default function ResultsPage() {
   const headers = useMemo(() => (rows[0] ? Object.keys(rows[0]) : []), [rows])
 
   return (
-    <div className="fade-in" style={{ display: 'grid', gap: 24, width: 800, maxWidth: 800 }}>
-    <div className="fade-in" style={{ display: 'grid', gap: 16, width: '100%', maxWidth: '100%' }}>
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <h2 style={{ margin: 0, background: 'linear-gradient(135deg, var(--primary-light), var(--accent-light))', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent' }}>📊 Results</h2>
+    <div className="fade-in page-container centered-800">
+    <div className="fade-in page-container gap-16 w-full" style={{ maxWidth: '100%' }}>
+      <div className="row gap-12 items-center">
+        <h2 style={{ margin: 0 }} className="page-title-gradient">📊 Results</h2>
         <select className="select" value={active || ''} onChange={(e) => setActive(e.target.value || null)}>
           {names.map(n => <option key={n} value={n}>{n}</option>)}
         </select>
         <button className="btn" disabled={!rows.length} onClick={() => active && downloadCsv(active, rows)}>Download CSV</button>
       </div>
-      <div className="panel" style={{ overflow: 'auto' }}>
-        <table className="table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <div className="panel overflow-auto">
+        <table className="table table-full">
           <thead>
             <tr>
               {headers.map(h => (
