@@ -507,9 +507,10 @@ function ConstraintsModal({ field, availableSchemas, onSave, onClose }: Constrai
 type SpreadsheetSchemaEditorProps = {
   schemaName: string
   onFieldsChange: (fields: FieldRow[]) => void
+  onOpenDescription?: () => void
 }
 
-export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: SpreadsheetSchemaEditorProps) {
+export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange, onOpenDescription }: SpreadsheetSchemaEditorProps) {
   const { schemas } = useAppState()
   const [fields, setFields] = useState<FieldRow[]>([
     {
@@ -604,8 +605,13 @@ export default function SpreadsheetSchemaEditor({ schemaName, onFieldsChange }: 
         <button className="btn secondary" onClick={() => addMultipleFields(10)}>
           + Add 10 Fields
         </button>
-        <div style={{ marginLeft: 'auto', fontSize: '0.9rem', color: 'var(--muted)' }}>
-          {fields.length} fields
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 8, alignItems: 'center' }}>
+          <div style={{ fontSize: '0.9rem', color: 'var(--muted)' }}>
+            {fields.length} fields
+          </div>
+          <button className="btn secondary" onClick={() => onOpenDescription && onOpenDescription()}>
+            ℹ️ Description
+          </button>
         </div>
       </div>
 

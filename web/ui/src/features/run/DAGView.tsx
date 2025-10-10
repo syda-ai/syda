@@ -1,6 +1,9 @@
 import { useMemo, useState, useCallback } from 'react'
 import ReactFlow, { Background, Controls, MiniMap, Position } from 'reactflow'
 import 'reactflow/dist/style.css'
+// dagre has no types; fall back to any
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import dagre from 'dagre'
 import type { SchemaProject, GenerationTask, TaskStatus, DAGViewMode, TaskAction } from './types'
 
@@ -17,7 +20,10 @@ const nodeWidth = 200
 const nodeHeight = 80
 
 // Layout tasks using Dagre
-function layoutTasks(tasks: GenerationTask[]): { nodes: any[]; edges: any[] } {
+function layoutTasks(
+  tasks: GenerationTask[],
+  onTaskAction: (taskId: string, action: TaskAction) => void
+): { nodes: any[]; edges: any[] } {
   const g = new dagreGraph.graphlib.Graph()
   g.setDefaultEdgeLabel(() => ({}))
   g.setGraph({ rankdir: 'LR', nodesep: 50, ranksep: 100 })
@@ -255,9 +261,9 @@ export default function DAGView({ project, onTaskAction, onProjectAction }: DAGV
   const [viewMode, setViewMode] = useState<DAGViewMode>('graph')
   const [selectedTask, setSelectedTask] = useState<string | null>(null)
 
-  const { nodes, edges } = useMemo(() => layoutTasks(project.tasks), [project.tasks])
+  const { nodes, edges } = useMemo(() => layoutTasks(project.tasks, onTaskAction), [project.tasks, onTaskAction])
 
-  const handleNodeClick = useCallback((event: any, node: any) => {
+  const handleNodeClick = useCallback((_event: any, node: any) => {
     setSelectedTask(node.id)
   }, [])
 

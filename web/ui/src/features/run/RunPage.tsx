@@ -10,11 +10,9 @@ export default function RunPage() {
   const [currentView, setCurrentView] = useState<RunPageView>('projects')
   const [selectedProject, setSelectedProject] = useState<SchemaProject | null>(null)
   const [selectedTask, setSelectedTask] = useState<string | null>(null)
+  const [showLogsModal, setShowLogsModal] = useState(false)
 
-  const handleSelectProject = (projectId: string) => {
-    // In real app, fetch project details from API
-    // For now, we'll create a mock project
-    const mockProject: SchemaProject = {
+  const buildMockProject = (projectId: string): SchemaProject => ({
       id: projectId,
       name: 'E-commerce Pipeline',
       description: 'Data generation pipeline for e-commerce schemas',
@@ -49,7 +47,11 @@ export default function RunPage() {
             cost: 0.15,
             tryNumber: 1,
             maxTries: 3,
-            logs: []
+            logs: [
+              { timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), level: 'INFO', message: 'Task started', taskId: 'task_users' },
+              { timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000 + 10 * 1000), level: 'INFO', message: 'Generating records...', taskId: 'task_users' },
+              { timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000 + 45 * 1000), level: 'INFO', message: 'Task completed successfully', taskId: 'task_users' }
+            ]
           }
         },
         {
@@ -77,7 +79,10 @@ export default function RunPage() {
             cost: 0.05,
             tryNumber: 1,
             maxTries: 3,
-            logs: []
+            logs: [
+              { timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000 + 45 * 1000), level: 'INFO', message: 'Task started', taskId: 'task_categories' },
+              { timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000 + 57 * 1000), level: 'INFO', message: 'Task completed successfully', taskId: 'task_categories' }
+            ]
           }
         },
         {
@@ -94,6 +99,20 @@ export default function RunPage() {
             batchSize: 50,
             maxRetries: 3,
             customPrompt: 'Generate realistic product data with proper category associations'
+          },
+          execution: {
+            runId: 'run_124',
+            taskId: 'task_products',
+            status: 'running',
+            startTime: new Date(Date.now() - 60 * 1000),
+            recordsGenerated: 300,
+            cost: 0.09,
+            tryNumber: 1,
+            maxTries: 3,
+            logs: [
+              { timestamp: new Date(Date.now() - 60 * 1000), level: 'INFO', message: 'Task started', taskId: 'task_products' },
+              { timestamp: new Date(Date.now() - 30 * 1000), level: 'INFO', message: 'Generating records (60%)...', taskId: 'task_products' }
+            ]
           }
         },
         {
@@ -147,8 +166,10 @@ export default function RunPage() {
       },
       created: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
       lastModified: new Date(Date.now() - 2 * 60 * 60 * 1000)
-    }
+    })
 
+  const handleSelectProject = (projectId: string) => {
+    const mockProject = buildMockProject(projectId)
     setSelectedProject(mockProject)
     setCurrentView('dag')
   }
@@ -156,10 +177,13 @@ export default function RunPage() {
   const handleTaskAction = (taskId: string, action: TaskAction) => {
     switch (action) {
       case 'details':
-      case 'logs':
       case 'edit':
         setSelectedTask(taskId)
         setCurrentView('task')
+        break
+      case 'logs':
+        setSelectedTask(taskId)
+        setShowLogsModal(true)
         break
       case 'run':
         // TODO: Trigger individual task
@@ -210,6 +234,8 @@ export default function RunPage() {
   }
 
   const currentTask = selectedProject?.tasks.find(t => t.id === selectedTask)
+
+  // (reverted) project-level logs quick-open helper removed
 
   return (
     <div className="page-container" style={{ height: '100%', width: '100%', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 0 }}>
@@ -277,6 +303,41 @@ export default function RunPage() {
           />
         )}
       </div>
+
+      {/* Logs Modal */}
+      {showLogsModal && currentTask && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
+        }}>
+          <div className="panel" style={{ width: 800, maxWidth: '95vw', maxHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 16, borderBottom: '1px solid var(--border)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span>📋</span>
+                <strong>Logs — {currentTask.schemaName}</strong>
+              </div>
+              <button className="btn secondary" onClick={() => setShowLogsModal(false)} style={{ padding: '4px 8px', fontSize: '0.8rem' }}>✕</button>
+            </div>
+            <div style={{ padding: 16, overflow: 'auto', flex: 1 }}>
+              {currentTask.execution?.logs && currentTask.execution.logs.length > 0 ? (
+                <pre style={{ margin: 0, fontSize: 12, lineHeight: 1.5 }}>
+{currentTask.execution.logs
+  .map((l: any) => {
+    const ts = l.timestamp instanceof Date ? l.timestamp : new Date(l.timestamp)
+    return `[${ts.toLocaleString()}] ${l.level}: ${l.message}`
+  })
+  .join('\n')}
+                </pre>
+              ) : (
+                <div style={{ color: 'var(--muted)' }}>No logs available yet.</div>
+              )}
+            </div>
+            <div style={{ padding: 12, borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+              <button className="btn secondary" onClick={() => setShowLogsModal(false)}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -75,17 +75,19 @@ function TreeSchema({ schema, isSelected, onSelect, onAction }: TreeSchemaProps)
       
       {showActions && (
         <div style={{ display: 'flex', gap: 4 }}>
-          <button
-            className="btn secondary"
-            onClick={(e) => {
-              e.stopPropagation()
-              onAction('spreadsheet', schema.id)
-            }}
-            style={{ padding: '2px 6px', fontSize: '0.7rem' }}
-            title="Open in Spreadsheet"
-          >
-            📊
-          </button>
+          {schema.kind === 'structured' && (
+            <button
+              className="btn secondary"
+              onClick={(e) => {
+                e.stopPropagation()
+                onAction('spreadsheet', schema.id)
+              }}
+              style={{ padding: '2px 6px', fontSize: '0.7rem' }}
+              title="Open in Spreadsheet"
+            >
+              📊
+            </button>
+          )}
           <button
             className="btn secondary"
             onClick={(e) => {

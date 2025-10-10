@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useAppState } from '../../store/AppState'
 import SpreadsheetSchemaEditor from './SpreadsheetSchemaEditor'
 import DatabaseImportModal from './DatabaseImportModal'
@@ -33,6 +33,13 @@ export default function SchemasPage() {
       group.schemas.some(s => s.id === selectedSchema)
     )
   }, [schemaGroups, selectedSchema])
+
+  // Keep description panel draft in sync when switching schemas while open
+  useEffect(() => {
+    if (showDescriptionPanel && currentSchema) {
+      setDescriptionDraft(extractDescriptionFromYaml(currentSchema.content))
+    }
+  }, [showDescriptionPanel, currentSchema])
 
   const updateCurrentSchema = (content: string) => {
     if (!currentSchema) return
@@ -97,8 +104,7 @@ export default function SchemasPage() {
     if (!currentSchema) return
     const existing = extractDescriptionFromYaml(currentSchema.content)
     setDescriptionDraft(existing)
-    setShowDescriptionPanel(false)
-    setEditorMode('description')
+    setShowDescriptionPanel(true)
   }
 
   const saveDescription = () => {
@@ -334,7 +340,9 @@ export default function SchemasPage() {
                 <button
                   className={editorMode === 'spreadsheet' ? 'btn' : 'btn secondary'}
                   onClick={() => { setShowDescriptionPanel(false); setEditorMode('spreadsheet') }}
+                  disabled={currentSchema.kind === 'template'}
                   style={{ padding: '6px 12px', fontSize: '0.85rem', margin: 0, borderRadius: '6px' }}
+                  title={currentSchema.kind === 'template' ? 'Spreadsheet editor not available for templates' : undefined}
                 >
                   📊 Spreadsheet
                 </button>
@@ -344,14 +352,6 @@ export default function SchemasPage() {
                   style={{ padding: '6px 12px', fontSize: '0.85rem', margin: 0, borderRadius: '6px' }}
                 >
                   📝 YAML
-                </button>
-                <button
-                  className={editorMode === 'description' ? 'btn' : 'btn secondary'}
-                  onClick={openDescriptionPanel}
-                  title="Edit description"
-                  style={{ padding: '6px 12px', fontSize: '0.85rem', margin: 0, borderRadius: '6px' }}
-                >
-                  ℹ️ Description
                 </button>
               </div>
               <button 
@@ -446,34 +446,6 @@ export default function SchemasPage() {
                   </button>
         </div>
       </div>
-            ) : editorMode === 'description' ? (
-              <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <div className="panel" style={{ 
-                  padding: 12, 
-                  marginBottom: 16, 
-                  background: 'rgba(59, 130, 246, 0.1)', 
-                  border: '1px solid rgba(59, 130, 246, 0.2)' 
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '0.9rem' }}>
-                    <span>ℹ️</span>
-                    <strong>Description</strong>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, height: '100%' }}>
-                  <textarea
-                    className="textarea"
-                    value={descriptionDraft}
-                    onChange={(e) => setDescriptionDraft(e.target.value)}
-                    placeholder="Enter schema description..."
-                    style={{ flex: 1, resize: 'none' }}
-                  />
-                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <button className="btn" onClick={saveDescription} style={{ padding: '8px 25px', fontSize: '0.8rem' }}>
-                      Save
-                    </button>
-                  </div>
-                </div>
-              </div>
             ) : currentSchema.kind === 'template' ? (
               // Template schemas always use YAML editor
               <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -489,6 +461,7 @@ export default function SchemasPage() {
                   </div>
         </div>
         <textarea
+                  key={`template-textarea-${currentSchema.id}`}
                   value={currentSchema.content}
                   onChange={(e) => updateCurrentSchema(e.target.value)}
                   className="textarea"
@@ -504,12 +477,14 @@ export default function SchemasPage() {
             ) : editorMode === 'spreadsheet' ? (
               // Spreadsheet editor for structured schemas
               <SpreadsheetSchemaEditor
+                key={`sheet-${currentSchema.id}`}
                 schemaName={currentSchema.name}
                 onFieldsChange={handleSpreadsheetChange}
+                onOpenDescription={openDescriptionPanel}
               />
             ) : (
               // YAML editor for structured schemas
-              <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+              <div key={`yaml-${currentSchema.id}`} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <div className="panel" style={{ 
                   padding: 12, 
                   marginBottom: 16, 
@@ -522,6 +497,7 @@ export default function SchemasPage() {
                   </div>
                 </div>
                 <textarea
+                  key={`yaml-textarea-${currentSchema.id}`}
                   value={currentSchema.content}
                   onChange={(e) => updateCurrentSchema(e.target.value)}
           className="textarea"
