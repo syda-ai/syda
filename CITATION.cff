@@ -49,7 +49,7 @@ keywords:
   - YAML
   - Dict
   - JSON
- 
+commit: '52cd5357f776989940afd5511212453d7e9765b1'
 license: MIT
 version: 0.0.4
 date-released: '2025-10-10'
