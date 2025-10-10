@@ -5,11 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "syda"
 version = "0.0.4"
-description = "A Python library for AI-powered synthetic data generation with referential integrity"
+description = "Seamlessly generates realistic synthetic test data—including structured, unstructured, PDF, and HTML—using AI and large language models. It preserves referential integrity, maintains privacy compliance, and accelerates development workflows. SYDA enables both highly regulated industries such as healthcare and banking, as well as non-regulated environments like software testing, research, and analytics, to safely simulate diverse data scenarios without exposing sensitive information."
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "Rama Krishna Kumar Lingamgunta", email = "lrkkumar2606@gmail.com"}
+    {name = "Rama Krishna Kumar Lingamgunta", email = "ramkumar2606@gmail.com"}
 ]
 keywords = [
     "synthetic data", 

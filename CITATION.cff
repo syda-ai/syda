@@ -1,0 +1,55 @@
+cff-version: 1.2.0
+title: Syda - AI-Powered Synthetic Data Generation
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file
+type: software
+authors:
+  - family-names: Lingamgunta
+    given-names: Rama Krishna Kumar
+    email: ramkumar2606@gmail.com
+    orcid: 'https://orcid.org/0009-0001-6201-7620'
+  - {}
+repository-code: 'https://github.com/syda-ai/syda'
+url: 'https://python.syda.ai'
+repository-artifact: 'https://pypi.org/project/syda'
+abstract: >
+  SYDA seamlessly generates realistic synthetic test
+  data—including structured, unstructured, PDF, and
+  HTML—using AI and large language models. It preserves
+  referential integrity, maintains privacy compliance, and
+  accelerates development workflows. SYDA enables both
+  highly regulated industries such as healthcare and
+  banking, as well as non-regulated environments like
+  software testing, research, and analytics, to safely
+  simulate diverse data scenarios without exposing sensitive
+  information.
+keywords:
+  - synthetic data
+  - structured data generation
+  - unstructured data generation
+  - PDF generation
+  - HTML generation
+  - CSV generation
+  - data simulation
+  - AI
+  - artificial intelligence
+  - large language models
+  - LLM
+  - data governance
+  - data validation
+  - python
+  - testing
+  - privacy
+  - SQLAlchemy
+  - OpenAI GPT
+  - Anthropic Claude
+  - Google Gemini
+  - xAI Grok
+  - YAML
+  - Dict
+  - JSON
+ 
+license: MIT
+version: 0.0.4
+date-released: '2025-10-10'

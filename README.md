@@ -8,7 +8,16 @@
 
 > **Generate high-quality synthetic data with AI while preserving referential integrity**
 
-Syda seamlessly generate realistic synthetic test data - structured, unstructured, PDF, and HTML data generation with AI and large language models while preserving referential integrity, maintaining privacy compliance, and accelerating development workflows using OpenAI, AzureOpenAI, Anthropic, Gemini, and Grok models.
+SYDA seamlessly generates realistic synthetic test
+  data—including structured, unstructured, PDF, and
+  HTML—using AI and large language models. It preserves
+  referential integrity, maintains privacy compliance, and
+  accelerates development workflows. SYDA enables both
+  highly regulated industries such as healthcare and
+  banking, as well as non-regulated environments like
+  software testing, research, and analytics, to safely
+  simulate diverse data scenarios without exposing sensitive
+  information.
 
 ## Documentation
 
