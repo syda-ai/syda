@@ -9,7 +9,6 @@ authors:
     given-names: Rama Krishna Kumar
     email: ramkumar2606@gmail.com
     orcid: 'https://orcid.org/0009-0001-6201-7620'
-  - {}
 repository-code: 'https://github.com/syda-ai/syda'
 url: 'https://python.syda.ai'
 repository-artifact: 'https://pypi.org/project/syda'
