@@ -789,3 +789,27 @@ Looking for ways to contribute? Check out issues labeled:
 
 
 **⭐ Star this repo** if Syda helps your workflow • **📖 [Read the docs](https://python.syda.ai)** for detailed guides • **🐛 [Report issues](https://github.com/syda-ai/syda/issues)** to help us improve
+
+
+## Citation
+
+If you use **SYDA** in your research, publications, or products, please cite it as follows:
+
+**APA:**
+> Lingamgunta, R. K. K. (2025). Syda - AI-Powered Synthetic Data Generation (v0.0.4). Zenodo. https://doi.org/10.5281/zenodo.17345575
+
+**IEEE:**
+> [1]R. K. K. Lingamgunta, “Syda - AI-Powered Synthetic Data Generation”. Zenodo, Oct. 14, 2025. doi: 10.5281/zenodo.17345575.  
+
+**BibTeX:**
+```bibtex
+@software{Lingamgunta_Syda_-_AI-Powered_2025,
+author = {Lingamgunta, Rama Krishna Kumar},
+license = {MIT},
+month = oct,
+title = {{Syda - AI-Powered Synthetic Data Generation}},
+url = {https://github.com/syda-ai/syda},
+version = {0.0.4},
+year = {2025}
+}
+
