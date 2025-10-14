@@ -5,6 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Documentation](https://img.shields.io/badge/docs-python.syda.ai-brightgreen.svg)](https://python.syda.ai)
 [![GitHub stars](https://img.shields.io/github/stars/syda-ai/syda.svg)](https://github.com/syda-ai/syda/stargazers)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17345575.svg)](https://doi.org/10.5281/zenodo.17345575)
+
 
 > **Generate high-quality synthetic data with AI while preserving referential integrity**
 
