@@ -1,0 +1,64 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: syda_postgres
+    environment:
+      POSTGRES_DB: syda_db
+      POSTGRES_USER: syda_user
+      POSTGRES_PASSWORD: syda_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U syda_user -d syda_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./web/api
+      dockerfile: Dockerfile
+    container_name: syda_api
+    # Command is now in Dockerfile (ENTRYPOINT + CMD handle migrations + server)
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://syda_user:syda_password@postgres:5432/syda_db
+      SECRET_KEY: ${SECRET_KEY:-development-secret-key-change-in-production}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-development-encryption-key-32ch}
+      ENVIRONMENT: development
+      DEBUG: "true"
+      CORS_ORIGINS: http://localhost:5173,http://localhost:3000
+    volumes:
+      - ./web/api:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  ui:
+    build:
+      context: ./web/ui
+      dockerfile: Dockerfile
+    container_name: syda_ui
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:8000
+    volumes:
+      - ./web/ui:/app
+      - /app/node_modules
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+    driver: local

@@ -19,13 +19,13 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
 
 # Virtual Environment
 venv/
 env/
 ENV/
-.venv
+env.bak/
+venv.bak/
 
 # IDEs
 .vscode/
@@ -33,9 +33,8 @@ ENV/
 *.swp
 *.swo
 *~
-.DS_Store
 
-# Environment
+# Environment variables
 .env
 .env.local
 .env.*.local
@@ -45,29 +44,19 @@ ENV/
 *.sqlite
 *.sqlite3
 
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# Alembic
+alembic/versions/__pycache__/
 
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
 .tox/
-coverage/
 
-# Node
-node_modules/
-dist/
-dist-ssr/
-*.local
-
-# Docker
-.dockerignore
+# Logs
+*.log
 
 # OS
+.DS_Store
 Thumbs.db
+

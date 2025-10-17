@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://python.syda.ai/sitemap.xml
