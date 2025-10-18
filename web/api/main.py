@@ -16,29 +16,29 @@ app = FastAPI(
     title="Syda API",
     description="API for Syda synthetic data generation with AI providers",
     version="1.0.0",
-    docs_url="/api/docs",
-    redoc_url="/api/redoc",
+    docs_url="/docs",
+    redoc_url="/redoc",
 )
+
+# Import config
+from config import settings
 
 # CORS middleware - allow frontend to connect
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",  # Vite dev server
-        "http://localhost:3000",  # Alternative dev port
-    ],
+    allow_origins=settings.get_cors_origins_list(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # Include routers
-app.include_router(providers_router, prefix="/api/providers", tags=["providers"])
-app.include_router(workspaces_router, prefix="/api/workspaces", tags=["workspaces"])
-# app.include_router(schemas_router, prefix="/api/schemas", tags=["schemas"])
-# app.include_router(jobs_router, prefix="/api/jobs", tags=["jobs"])
-# app.include_router(results_router, prefix="/api/results", tags=["results"])
-# app.include_router(settings_router, prefix="/api/settings", tags=["settings"])
+app.include_router(providers_router, prefix="/providers", tags=["providers"])
+app.include_router(workspaces_router, prefix="/workspaces", tags=["workspaces"])
+# app.include_router(schemas_router, prefix="/schemas", tags=["schemas"])
+# app.include_router(jobs_router, prefix="/jobs", tags=["jobs"])
+# app.include_router(results_router, prefix="/results", tags=["results"])
+# app.include_router(settings_router, prefix="/settings", tags=["settings"])
 
 
 @app.get("/")
@@ -47,11 +47,11 @@ def read_root():
     return {
         "message": "Syda API",
         "version": "1.0.0",
-        "docs": "/api/docs"
+        "docs": "/docs"
     }
 
 
-@app.get("/api/health")
+@app.get("/health")
 def health_check():
     """Health check endpoint"""
     return {"status": "healthy"}

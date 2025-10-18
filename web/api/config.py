@@ -23,12 +23,16 @@ class Settings(BaseSettings):
     api_title: str = "Syda API"
     api_version: str = "1.0.0"
     
-    # CORS
-    cors_origins: list[str] = ["http://localhost:5173", "http://localhost:3000"]
+    # CORS - comma-separated string for easier Docker env var handling
+    cors_origins: str = "http://localhost:5173,http://localhost:3000"
     
     class Config:
         env_file = ".env"
         case_sensitive = False
+    
+    def get_cors_origins_list(self) -> list[str]:
+        """Convert comma-separated CORS origins string to list"""
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
 
 
 settings = Settings()

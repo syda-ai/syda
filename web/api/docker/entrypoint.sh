@@ -25,7 +25,7 @@ fi
 # Start the application (exec replaces the shell process with the command)
 echo "🚀 Starting Syda API server..."
 echo "   Listening on http://0.0.0.0:8000"
-echo "   API Docs: http://localhost:8000/api/docs"
+echo "   API Docs: http://localhost:8000/docs"
 echo ""
 
 exec "$@"

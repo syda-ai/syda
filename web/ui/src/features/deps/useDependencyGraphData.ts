@@ -7,7 +7,7 @@ export function useDependencyGraphData() {
     queryFn: async () => {
       // Placeholder: call API when available
       try {
-        const res = await apiClient('/api/dependencies/graph', { method: 'GET' })
+        const res = await apiClient('/dependencies/graph', { method: 'GET' })
         if (res?.nodes) return res
       } catch {}
       // Fallback demo data
