@@ -141,7 +141,8 @@ function TaskNode({ data }: { data: { task: GenerationTask; onAction: (action: T
         boxShadow: isRunning ? `0 0 20px ${statusColor}40` : 'var(--shadow)',
         position: 'relative',
         cursor: 'pointer',
-        transition: 'all 0.3s ease'
+        transition: 'all 0.3s ease',
+        marginTop: task.id === 'task_users' ? -20 : (task.id === 'task_reviews' ? -8 : 0)
       }}
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
