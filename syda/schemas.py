@@ -8,70 +8,25 @@ from typing import Dict, Optional, Any, Literal, List, Union, Set
 import re
 
 
-class ProxyConfig(BaseModel):
-    """
-    Configuration for API proxy settings, commonly used in enterprise environments.
-    """
-
-    # Base URL for the proxy service
-    base_url: Optional[str] = Field(None, description="Base URL for the proxy service (e.g. 'https://ai-proxy.company.com/v1')")
-
-    # Additional headers to include in requests
-    headers: Optional[Dict[str, str]] = Field(None, description="Additional HTTP headers to include in requests to the proxy")
-
-    # Additional query parameters to include in URL
-    params: Optional[Dict[str, Any]] = Field(None, description="Additional query parameters to include in the URL")
-
-    # Path modification (some proxies require a different path structure)
-    path_format: Optional[str] = Field(None, description="Optional format string for proxy path, e.g. '/proxy/{provider}/{endpoint}'")
-
-    def get_proxy_kwargs(self) -> Dict[str, Any]:
-        """Get proxy-specific kwargs for API client initialization."""
-        kwargs = {}
-
-        # Handle base_url and query parameters
-        if self.base_url:
-            base_url = self.base_url
-
-            # Add query parameters to the base URL if provided
-            if self.params:
-                # Convert all param values to strings
-                params = {k: str(v) for k, v in self.params.items()}
-
-                # Create the query string
-                from urllib.parse import urlencode
-                query_string = urlencode(params)
-
-                # Append to base_url with ? or & depending on whether URL already has params
-                if "?" in base_url:
-                    base_url += "&" + query_string
-                else:
-                    base_url += "?" + query_string
-
-            kwargs["base_url"] = base_url
-
-        # Handle custom headers
-        if self.headers:
-            kwargs["default_headers"] = self.headers
-
-        return kwargs
 
 class ModelConfig(BaseModel):
     """
     Configuration for AI model settings used by the SyntheticDataGenerator.
 
     This class provides a structured way to define the model and its parameters,
-    supporting both OpenAI and Anthropic models with provider-specific settings.
+    supporting OpenAI, Anthropic, and Gemini models with provider-specific settings.
     """
 
     # Model provider and name
-    provider: Literal["openai", "anthropic", "deepseek"] = "anthropic"
+    provider: Literal["openai", "anthropic", "gemini", "azureopenai", "grok", "deepseek"] = "anthropic"
     model_name: str = "claude-3-5-haiku-20241022"
 
 
     temperature: float = Field(None, ge=0.0, le=1.0, description="Controls randomness: 0.0 is deterministic, higher values are more random")
     max_tokens: int = Field(None, description="Maximum number of tokens to generate. Larger values allow for more complete responses.")
 
+    top_k: Optional[int] = Field(None, description="Top K sampling parameter (Gemini and Anthropic)")
+    top_p: Optional[float] = Field(None, ge=0.0, le=1.0, description="Top P sampling parameter (Gemini and Anthropic)")
 
     # Streaming parameters
     stream: Optional[bool] = Field(
@@ -89,14 +44,11 @@ class ModelConfig(BaseModel):
     max_completion_tokens: Optional[int] = Field(None, description="Maximum completion tokens (OpenAI only)")
 
     # Anthropic specific parameters
-    top_k: Optional[int] = Field(None, description="Top K sampling parameter (Anthropic only)")
     max_tokens_to_sample: Optional[int] = Field(None, description="Maximum tokens to generate (Anthropic only)")
 
-    # Proxy configuration
-    proxy: Optional[ProxyConfig] = Field(None, description="Optional proxy configuration for API requests")
+    # Extra kwargs for provider-specific configuration (e.g., azure_endpoint, http_client, base_url etc.)
+    extra_kwargs: Optional[Dict[str, Any]] = Field(None, description="Additional provider-specific kwargs for client initialization")
 
-    # DeepSeek specific parameters
-    deepseek_api_key: Optional[str] = Field(None, description="API key for DeepSeek provider")
 
     def get_model_kwargs(self) -> Dict[str, Any]:
         """Get model-specific kwargs for API calls."""
@@ -106,10 +58,12 @@ class ModelConfig(BaseModel):
         # Always include the model name, which is required for OpenAI and used for other providers
         kwargs["model"] = self.model_name
 
-        if self.temperature is not None:
-            kwargs["temperature"] = self.temperature
-        if self.max_tokens is not None:
-            kwargs["max_tokens"] = self.max_tokens
+        # Add common parameters (but not for Gemini, which uses generation_config)
+        if self.provider != "gemini":
+            if self.temperature is not None:
+                kwargs["temperature"] = self.temperature
+            if self.max_tokens is not None:
+                kwargs["max_tokens"] = self.max_tokens
 
         # Add provider-specific parameters
         if self.provider == "openai":
@@ -138,12 +92,46 @@ class ModelConfig(BaseModel):
             # Ensure model name is set correctly for Anthropic
             kwargs["model"] = self.model_name
 
+
+        elif self.provider == "gemini":
+            kwargs["model"] = self.model_name
+            # Gemini expects a generation_config dictionary
+            generation_config = {}
+
+            # Add parameters to generation_config if they are set
+            if self.temperature is not None:
+                generation_config["temperature"] = self.temperature
+
+            if self.max_tokens is not None:
+                generation_config["max_tokens"] = self.max_tokens
+
+            if self.top_k is not None:
+                generation_config["top_k"] = self.top_k
+
+            if self.top_p is not None:
+                generation_config["top_p"] = self.top_p
+
+            # Only add generation_config if we have parameters to include
+            if generation_config:
+                kwargs["generation_config"] = generation_config
+
+        elif self.provider == "grok":
+            # Grok uses OpenAI-compatible API, so it supports similar parameters
+            if self.seed:
+                kwargs["seed"] = self.seed
+            if self.response_format:
+                kwargs["response_format"] = self.response_format
+            if self.max_completion_tokens:
+                kwargs["max_completion_tokens"] = self.max_completion_tokens
+            if self.top_p:
+                kwargs["top_p"] = self.top_p
         elif self.provider == "deepseek":
             # might require to customize parameters
             # DeepSeek block: consistent with others
             if self.deepseek_api_key:
                 kwargs["api_key"] = self.deepseek_api_key
             # Add other DeepSeek-specific parameters here if needed
+
 
         return kwargs
 

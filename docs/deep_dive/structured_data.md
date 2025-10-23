@@ -1,3 +1,17 @@
+---
+title: Structured Data Generation with AI | Syda Deep Dive
+description: Learn how to generate structured synthetic data (CSV, databases) with AI using Syda - SQLAlchemy models, YAML schemas, JSON schemas, and Python dictionaries with perfect referential integrity.
+keywords:
+  - structured data generation
+  - synthetic database data
+  - CSV data generation
+  - SQLAlchemy synthetic data
+  - YAML schema data
+  - JSON schema data
+  - AI structured data
+  - referential integrity
+---
+
 # Structured Data Generation
 
 

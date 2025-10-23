@@ -9,15 +9,17 @@ sqlalchemy>=2.0.23
 pandas>=2.0.3
 numpy>=1.24.3
 networkx>=3.1
+jsonref>=1.1.0
 
 # AI/ML
 openai>=1.0.0
 anthropic>=0.7.0
 instructor>=1.0.0
+google-genai>=1.30.0
 deepseek
 
 # File processing
-python-magic>=0.4.27
+python-magic-bin>=0.4.14
 python-docx>=1.0.0
 openpyxl>=3.1.2
 weasyprint>=65.1

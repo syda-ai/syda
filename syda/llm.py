@@ -6,8 +6,9 @@ Provides a standard interface for creating LLM clients with instructor integrati
 import os
 import instructor
 import openai
+from google import genai
 from typing import Optional, Dict, Any, Union, List
-from .schemas import ModelConfig, ProxyConfig
+from .schemas import ModelConfig
 
 try:
     from deepseek import Client as DeepSeekClient  # Use the actual client class name
@@ -25,6 +26,8 @@ class LLMClient:
         model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
         openai_api_key: Optional[str] = None,
         anthropic_api_key: Optional[str] = None,
+        gemini_api_key: Optional[str] = None,
+        grok_api_key: Optional[str] = None,
         deepseek_api_key: Optional[str] = None,  # Add DeepSeek API key
         **kwargs
     ):
@@ -35,12 +38,16 @@ class LLMClient:
             model_config: Configuration for the LLM model to use
             openai_api_key: Optional API key for OpenAI
             anthropic_api_key: Optional API key for Anthropic
+            gemini_api_key: Optional API key for Gemini
+            grok_api_key: Optional API key for Grok
             deepseek_api_key: Optional API key for DeepSeek
             **kwargs: Additional keyword arguments to pass to the client
         """
         # Set up API keys from arguments or environment variables
         self.openai_api_key = openai_api_key or os.environ.get("OPENAI_API_KEY")
         self.anthropic_api_key = anthropic_api_key or os.environ.get("ANTHROPIC_API_KEY")
+        self.gemini_api_key = gemini_api_key or os.environ.get("GEMINI_API_KEY")
+        self.grok_api_key = grok_api_key or os.environ.get("GROK_API_KEY")
         self.deepseek_api_key = deepseek_api_key or os.environ.get("DEEPSEEK_API_KEY")  # Add DeepSeek API key
 
         # Set up model configuration
@@ -74,13 +81,34 @@ class LLMClient:
             if self.openai_api_key:
                 os.environ["OPENAI_API_KEY"] = self.openai_api_key
 
-            # Get proxy configuration
-            proxy_kwargs = {}
-            if self.model_config.proxy:
-                proxy_kwargs = self.model_config.proxy.get_proxy_kwargs()
+            # OpenAI configuration with extra_kwargs support
+            openai_kwargs = {}
 
-            # Initialize raw client
-            raw_client = openai.OpenAI(**proxy_kwargs)
+            # Add extra_kwargs from model configuration if provided
+            if self.model_config.extra_kwargs:
+                openai_kwargs.update(self.model_config.extra_kwargs)
+
+            # Initialize raw OpenAI client
+            raw_client = openai.OpenAI(**openai_kwargs)
+
+            # Patch with instructor and return
+            return instructor.from_openai(raw_client)
+
+        elif provider == "azureopenai":
+
+            # Azure OpenAI configuration - users must provide all required params via extra_kwargs
+            azure_kwargs = {}
+
+            # Add extra_kwargs from model configuration (required by user)
+            if self.model_config.extra_kwargs:
+                azure_kwargs.update(self.model_config.extra_kwargs)
+
+            # Add API key from environment if not provided in extra_kwargs
+            if "api_key" not in azure_kwargs:
+                azure_kwargs["api_key"] = os.environ.get("AZURE_OPENAI_API_KEY")
+
+            # Initialize Azure OpenAI client
+            raw_client = openai.AzureOpenAI(**azure_kwargs)
 
             # Patch with instructor and return
             return instructor.from_openai(raw_client)
@@ -90,18 +118,20 @@ class LLMClient:
             if self.anthropic_api_key:
                 os.environ["ANTHROPIC_API_KEY"] = self.anthropic_api_key
 
-            # Initialize with from_anthropic
+            # Initialize with from_anthropic with extra_kwargs support
             try:
                 # Try using from_anthropic if available
                 from anthropic import Anthropic
 
-                # Get proxy configuration
-                proxy_kwargs = {}
-                if self.model_config.proxy:
-                    proxy_kwargs = self.model_config.proxy.get_proxy_kwargs()
+                # Anthropic configuration with extra_kwargs support
+                anthropic_kwargs = {}
+
+                # Add extra_kwargs from model configuration if provided
+                if self.model_config.extra_kwargs:
+                    anthropic_kwargs.update(self.model_config.extra_kwargs)
 
                 # Create raw client
-                raw_client = Anthropic(**proxy_kwargs)
+                raw_client = Anthropic(**anthropic_kwargs)
 
                 # Patch with instructor
                 return instructor.patch(raw_client)
@@ -141,9 +171,50 @@ class LLMClient:
                 except Exception as inner_e:
                     error_msg = f"Failed to initialize DeepSeek client: {e}, {inner_e}"
                     raise ValueError(error_msg)
+
         elif provider == "gemini":
-            # Gemini code goes here
-            raise ValueError("Gemini Provider will be added in future releases")
+            # Set up environment variable for Gemini instead of passing directly
+            if self.gemini_api_key:
+                os.environ["GEMINI_API_KEY"] = self.gemini_api_key
+
+            # Gemini configuration with extra_kwargs support
+            gemini_kwargs = {}
+
+            # Add extra_kwargs from model configuration if provided
+            if self.model_config.extra_kwargs:
+                gemini_kwargs.update(self.model_config.extra_kwargs)
+
+            # Create raw client
+            raw_client = genai.Client(**gemini_kwargs)
+
+            # Patch with instructor
+            return instructor.from_genai(raw_client)
+
+        elif provider == "grok":
+            # Set up environment variable for Grok instead of passing directly
+            if self.grok_api_key:
+                os.environ["GROK_API_KEY"] = self.grok_api_key
+
+            # Grok configuration with extra_kwargs support
+            grok_kwargs = {}
+
+            # Add extra_kwargs from model configuration if provided
+            if self.model_config.extra_kwargs:
+                grok_kwargs.update(self.model_config.extra_kwargs)
+            # For Grok, we'll use the OpenAI-compatible interface
+            # since xAI provides an OpenAI-compatible API
+            try:
+                # Create OpenAI-compatible client for Grok
+                raw_client = openai.OpenAI(
+                    api_key=self.grok_api_key,
+                    **grok_kwargs
+                )
+
+                # Patch with instructor
+                return instructor.from_openai(raw_client)
+            except Exception as e:
+                raise ValueError(f"Failed to initialize Grok client: {e}")
+
         else:
             # For other providers, use from_provider with empty kwargs
             try:
@@ -172,6 +243,8 @@ def create_llm_client(
     model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
     openai_api_key: Optional[str] = None,
     anthropic_api_key: Optional[str] = None,
+    gemini_api_key: Optional[str] = None,
+    grok_api_key: Optional[str] = None,
     deepseek_api_key: Optional[str] = None,  # Add DeepSeek API key
     **kwargs
 ) -> LLMClient:
@@ -182,6 +255,8 @@ def create_llm_client(
         model_config: Configuration for the LLM model to use
         openai_api_key: Optional API key for OpenAI
         anthropic_api_key: Optional API key for Anthropic
+        gemini_api_key: Optional API key for Gemini
+        grok_api_key: Optional API key for Grok
         deepseek_api_key: Optional API key for DeepSeek
         **kwargs: Additional keyword arguments to pass to the client
 
@@ -192,6 +267,8 @@ def create_llm_client(
         model_config=model_config,
         openai_api_key=openai_api_key,
         anthropic_api_key=anthropic_api_key,
+        gemini_api_key=gemini_api_key,
+        grok_api_key=grok_api_key,
         deepseek_api_key=deepseek_api_key,  # Pass DeepSeek API key
         **kwargs
     )

@@ -1,3 +1,14 @@
+---
+title: Special Field Types Reference | Syda Documentation
+description: Learn about Syda's special field types - table descriptions, foreign keys, template configurations, and metadata fields for advanced schema definition.
+keywords:
+  - special field types
+  - schema metadata
+  - table descriptions
+  - template fields
+  - schema configuration
+---
+
 # Special Field Types
 
 Special field types are prefixed with double underscores. These special sections are validated during schema validation:

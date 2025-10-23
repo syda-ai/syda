@@ -1,3 +1,15 @@
+---
+title: OpenAI GPT Models for Synthetic Data | Syda Examples
+description: Learn how to use OpenAI GPT models (GPT-4, GPT-3.5) with Syda for AI-powered synthetic data generation - model configuration, pricing, and performance comparison.
+keywords:
+  - OpenAI synthetic data
+  - GPT-4 data generation
+  - GPT-3.5 synthetic data
+  - OpenAI AI models
+  - Syda OpenAI integration
+  - ChatGPT data generation
+---
+
 # Using OpenAI Models with SYDA
 
 > Source code: [examples/model_selection/test_openai_models.py](https://github.com/syda-ai/syda/blob/main/examples/model_selection/example_openai_models.py)

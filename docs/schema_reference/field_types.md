@@ -1,3 +1,15 @@
+---
+title: Schema Field Types Reference | Syda Documentation
+description: Complete reference for Syda schema field types - string, integer, float, boolean, date, array types with constraints and validation rules for synthetic data generation.
+keywords:
+  - Syda schema reference
+  - field types
+  - schema validation
+  - data types
+  - schema constraints
+  - field constraints
+---
+
 # SYDA Schema Reference
 
 This document defines the schema format for the SYDA (Synthetic Data) library. It describes the supported field types and constraints.

@@ -1,3 +1,14 @@
+---
+title: JSON Schema Examples | Syda Structured Data
+description: Learn how to define JSON-based schemas for synthetic data generation with Syda - JSON schema files with validation and constraints.
+keywords:
+  - JSON schemas
+  - JSON schema files
+  - JSON data generation
+  - schema validation
+  - structured data JSON
+---
+
 # JSON Schema Examples
 
 > Source code: [examples/structured_only/example_json_schemas.py](https://github.com/syda-ai/syda/blob/main/examples/structured_only/example_json_schemas.py)

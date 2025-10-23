@@ -1,3 +1,14 @@
+---
+title: YAML Schema Examples | Syda Structured Data
+description: Learn how to define YAML-based schemas for synthetic data generation with Syda - file-based schema definitions with constraints and relationships.
+keywords:
+  - YAML schemas
+  - YAML schema files
+  - file-based schemas
+  - schema constraints
+  - structured data YAML
+---
+
 # YAML Schema Examples
 
 > Source code: [examples/structured_only/example_yaml_schemas.py](https://github.com/syda-ai/syda/blob/main/examples/structured_only/example_yaml_schemas.py)

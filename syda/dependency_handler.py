@@ -75,7 +75,7 @@ class ForeignKeyHandler:
                     # Register consistent foreign key generators for these columns
                     parent_indices = list(range(len(parent_df)))
                     if not parent_indices:
-                        print(f"⚠️ Warning: No records in {parent_schema} for foreign keys in {schema_name}")
+                        print(f"[WARNING] No records in {parent_schema} for foreign keys in {schema_name}")
                         continue
                     
                     # Register all consistent foreign key generators at once
@@ -92,7 +92,7 @@ class ForeignKeyHandler:
                         valid_values = parent_df[parent_column].tolist()
                         
                         if not valid_values:
-                            print(f"⚠️ Warning: No valid values found in {parent_schema}.{parent_column} for foreign key {schema_name}.{fk_column}")
+                            print(f"[WARNING] No valid values found in {parent_schema}.{parent_column} for foreign key {schema_name}.{fk_column}")
                             continue
                         
                         # Register a simple foreign key generator
@@ -106,7 +106,7 @@ class ForeignKeyHandler:
                         )
             else:
                 for fk_column, parent_column in fk_list:
-                    print(f"⚠️ Warning: Parent schema {parent_schema} not available for foreign key {schema_name}.{fk_column}")
+                    print(f"[WARNING] Parent schema {parent_schema} not available for foreign key {schema_name}.{fk_column}")
     
     def verify_referential_integrity(
         self,
@@ -123,7 +123,7 @@ class ForeignKeyHandler:
         Returns:
             Boolean indicating if all foreign key relationships are valid
         """
-        print("\n🔍 Verifying referential integrity:")
+        print("\n[INFO] Verifying referential integrity:")
         
         all_valid = True
         
@@ -135,19 +135,19 @@ class ForeignKeyHandler:
             
             for fk_column, (parent_schema, parent_column) in fk_dict.items():
                 if parent_schema not in results:
-                    print(f"  ⚠️ Warning: Parent schema {parent_schema} not found for {schema_name}.{fk_column}")
+                    print(f"  [WARNING] Parent schema {parent_schema} not found for {schema_name}.{fk_column}")
                     all_valid = False
                     continue
                     
                 parent_df = results[parent_schema]
                 
                 if fk_column not in df.columns:
-                    print(f"  ⚠️ Warning: Foreign key column {fk_column} not found in {schema_name}")
+                    print(f"  [WARNING] Foreign key column {fk_column} not found in {schema_name}")
                     all_valid = False
                     continue
                     
                 if parent_column not in parent_df.columns:
-                    print(f"  ⚠️ Warning: Referenced column {parent_column} not found in {parent_schema}")
+                    print(f"  [WARNING] Referenced column {parent_column} not found in {parent_schema}")
                     all_valid = False
                     continue
                     
@@ -161,11 +161,11 @@ class ForeignKeyHandler:
                 invalid_values = [v for v in fk_values if v not in parent_values]
                 
                 if invalid_values:
-                    print(f"  ❌ Error: Found {len(invalid_values)} invalid references in {schema_name}.{fk_column} to {parent_schema}.{parent_column}")
+                    print(f"  [ERROR] Found {len(invalid_values)} invalid references in {schema_name}.{fk_column} to {parent_schema}.{parent_column}")
                     print(f"     Invalid values: {invalid_values[:5]}{'...' if len(invalid_values) > 5 else ''}")
                     all_valid = False
                 else:
-                    print(f"  ✅ All {schema_name}.{fk_column} values reference valid {parent_schema}.{parent_column}")
+                    print(f"  [OK] All {schema_name}.{fk_column} values reference valid {parent_schema}.{parent_column}")
                     
         return all_valid
 

@@ -1,3 +1,14 @@
+---
+title: YAML Schemas with Mixed Content | Syda Examples
+description: Generate both structured data and unstructured documents using YAML schemas with Syda - combine CSV data with PDF/HTML document generation.
+keywords:
+  - YAML mixed content
+  - structured unstructured data
+  - document data integration
+  - YAML templates
+  - combined data generation
+---
+
 # YAML Schemas with Mixed Content
 
 > Source code: [examples/structured_and_unstructured/retail_yml/example_retail_schemas.py](https://github.com/syda-ai/syda/blob/main/examples/structured_and_unstructured/retail_yml/example_retail_schemas.py)

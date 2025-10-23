@@ -58,6 +58,8 @@ class SyntheticDataGenerator:
         model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
         openai_api_key: Optional[str] = None,
         anthropic_api_key: Optional[str] = None,
+        gemini_api_key: Optional[str] = None,
+        grok_api_key: Optional[str] = None,
         deepseek_api_key: Optional[str] = None
     ):
         """
@@ -75,12 +77,16 @@ class SyntheticDataGenerator:
                            environment variable.
             anthropic_api_key: Optional API key for Anthropic. If not provided, will use
                               ANTHROPIC_API_KEY environment variable.
+            gemini_api_key: Optional API key for Gemini. If not provided, will use GEMINI_API_KEY
+            grok_api_key: Optional API key for Grok. If not provided, will use GROK_API_KEY
         """
         # Initialize the LLM client using our new module
         self.llm_client = create_llm_client(
             model_config=model_config,
             openai_api_key=openai_api_key,
             anthropic_api_key=anthropic_api_key,
+            gemini_api_key=gemini_api_key,
+            grok_api_key=grok_api_key,
             deepseek_api_key=deepseek_api_key
         )
 
@@ -409,7 +415,7 @@ class SyntheticDataGenerator:
             )
             generation_order = DependencyHandler.determine_generation_order(dependency_graph)
 
-            print("\n📊 Generation order determined:")
+            print("\n[INFO] Generation order determined:")
             for i, schema in enumerate(generation_order):
                 deps = all_dependencies.get(schema, [])
                 if deps:
@@ -746,7 +752,26 @@ class SyntheticDataGenerator:
                 )
 
             if not ai_objs:
-                raise ValueError("No objects returned from LLM call")
+                error_msg = f"""No objects returned from LLM call using {provider}/{model_name}.
+
+                            Possible causes:
+                            1. Token limit exceeded (common with reasoning models like O4-mini)
+                            - Current max_tokens: {model_kwargs.get('max_tokens', 'not set')}
+                            - Try increasing max_tokens/max_completion_tokens to 15000+ for reasoning models
+
+                            2. Empty response due to content filtering or model constraints
+                            - Check if the prompt violates content policies
+                            - Verify model deployment is working correctly
+
+                            3. Network or API issues
+                            - Check API connectivity and authentication
+                            - Verify endpoint URL and API version
+                            - Check model response directly via API to see actual error details
+
+                            Sample size requested: {sample_size}
+                            Streaming mode: {use_streaming}
+                    """
+                raise ValueError(error_msg)
 
             # Convert objects to DataFrame
             records = [obj.model_dump() for obj in ai_objs]
@@ -755,7 +780,7 @@ class SyntheticDataGenerator:
             if not records:
                 raise ValueError("No records extracted from LLM response")
             else:
-                print(f"✓ Successfully generated {len(records)} records")
+                print(f"[OK] Successfully generated {len(records)} records")
 
             # Create DataFrame from records
             df = pd.DataFrame(records)

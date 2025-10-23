@@ -1,0 +1,151 @@
+claim_id,patient_id,diagnosis_code,email,visit_date,notes
+1,84,J20.9,user1@example.com,2023-05-01,Patient presented with acute bronchitis.
+2,27,R51,user2@example.com,2023-05-02,Patient complained of a severe headache.
+3,94,M54.5,user3@example.com,2023-05-03,Patient diagnosed with low back pain.
+4,73,J02.9,user4@example.com,2023-05-04,Patient has an acute sore throat.
+5,73,I10,user5@example.com,2023-05-05,Patient has essential hypertension.
+6,68,E11.9,user6@example.com,2023-05-06,Patient with Type 2 diabetes mellitus without complications.
+7,70,K21.9,user7@example.com,2023-05-07,Patient experiencing gastro-esophageal reflux disease.
+8,78,F41.9,user8@example.com,2023-05-08,Patient with an unspecified anxiety disorder.
+9,21,Z00.00,user9@example.com,2023-05-09,General adult medical examination without abnormal findings.
+10,69,L03.115,user10@example.com,2023-05-10,Cellulitis of right lower limb.
+11,72,N39.0,user11@example.com,2023-05-11,"Urinary tract infection, site not specified."
+12,28,H66.90,user12@example.com,2023-05-12,"Otitis media, unspecified, unspecified ear."
+13,46,J45.909,user13@example.com,2023-05-13,Unspecified asthma without (acute) exacerbation.
+14,99,K59.00,user14@example.com,2023-05-14,"Constipation, unspecified."
+15,63,M25.561,user15@example.com,2023-05-15,Pain in right knee.
+16,41,G47.33,user16@example.com,2023-05-16,Obstructive sleep apnea (adult) (pediatric).
+17,80,D64.9,user17@example.com,2023-05-17,"Anemia, unspecified."
+18,77,E03.9,user18@example.com,2023-05-18,"Hypothyroidism, unspecified."
+19,63,E78.5,user19@example.com,2023-05-19,"Hyperlipidemia, unspecified."
+20,98,B34.9,user20@example.com,2023-05-20,"Viral infection, unspecified."
+21,99,J20.9,user21@example.com,2023-05-01,Patient presented with acute bronchitis.
+22,9,R51,user22@example.com,2023-05-02,Patient complained of a severe headache.
+23,88,M54.5,user23@example.com,2023-05-03,Patient diagnosed with low back pain.
+24,53,J02.9,user24@example.com,2023-05-04,Patient has an acute sore throat.
+25,49,I10,user25@example.com,2023-05-05,Patient has essential hypertension.
+26,26,E11.9,user26@example.com,2023-05-06,Patient with Type 2 diabetes mellitus without complications.
+27,29,K21.9,user27@example.com,2023-05-07,Patient experiencing gastro-esophageal reflux disease.
+28,39,F41.9,user28@example.com,2023-05-08,Patient with an unspecified anxiety disorder.
+29,7,Z00.00,user29@example.com,2023-05-09,General adult medical examination without abnormal findings.
+30,32,L03.115,user30@example.com,2023-05-10,Cellulitis of right lower limb.
+31,76,N39.0,user31@example.com,2023-05-11,"Urinary tract infection, site not specified."
+32,4,H66.90,user32@example.com,2023-05-12,"Otitis media, unspecified, unspecified ear."
+33,43,J45.909,user33@example.com,2023-05-13,Unspecified asthma without (acute) exacerbation.
+34,39,K59.00,user34@example.com,2023-05-14,"Constipation, unspecified."
+35,20,M25.561,user35@example.com,2023-05-15,Pain in right knee.
+36,88,G47.33,user36@example.com,2023-05-16,Obstructive sleep apnea (adult) (pediatric).
+37,17,D64.9,user37@example.com,2023-05-17,"Anemia, unspecified."
+38,39,E03.9,user38@example.com,2023-05-18,"Hypothyroidism, unspecified."
+39,53,E78.5,user39@example.com,2023-05-19,"Hyperlipidemia, unspecified."
+40,16,B34.9,user40@example.com,2023-05-20,"Viral infection, unspecified."
+41,21,J20.9,user41@example.com,2023-05-01,Patient presented with acute bronchitis.
+42,10,R51,user42@example.com,2023-05-02,Patient complained of a severe headache.
+43,19,M54.5,user43@example.com,2023-05-03,Patient diagnosed with low back pain.
+44,83,J02.9,user44@example.com,2023-05-04,Patient has an acute sore throat.
+45,78,I10,user45@example.com,2023-05-05,Patient has essential hypertension.
+46,69,E11.9,user46@example.com,2023-05-06,Patient with Type 2 diabetes mellitus without complications.
+47,55,K21.9,user47@example.com,2023-05-07,Patient experiencing gastro-esophageal reflux disease.
+48,6,F41.9,user48@example.com,2023-05-08,Patient with an unspecified anxiety disorder.
+49,64,Z00.00,user49@example.com,2023-05-09,General adult medical examination without abnormal findings.
+50,47,L03.115,user50@example.com,2023-05-10,Cellulitis of right lower limb.
+51,22,N39.0,user51@example.com,2023-05-11,"Urinary tract infection, site not specified."
+52,24,H66.90,user52@example.com,2023-05-12,"Otitis media, unspecified, unspecified ear."
+53,37,J45.909,user53@example.com,2023-05-13,Unspecified asthma without (acute) exacerbation.
+54,33,K59.00,user54@example.com,2023-05-14,"Constipation, unspecified."
+55,37,M25.561,user55@example.com,2023-05-15,Pain in right knee.
+56,77,G47.33,user56@example.com,2023-05-16,Obstructive sleep apnea (adult) (pediatric).
+57,68,D64.9,user57@example.com,2023-05-17,"Anemia, unspecified."
+58,91,E03.9,user58@example.com,2023-05-18,"Hypothyroidism, unspecified."
+59,9,E78.5,user59@example.com,2023-05-19,"Hyperlipidemia, unspecified."
+60,86,B34.9,user60@example.com,2023-05-20,"Viral infection, unspecified."
+61,56,J20.9,user61@example.com,2023-05-01,Patient presented with acute bronchitis.
+62,25,R51,user62@example.com,2023-05-02,Patient complained of a severe headache.
+63,14,M54.5,user63@example.com,2023-05-03,Patient diagnosed with low back pain.
+64,17,J02.9,user64@example.com,2023-05-04,Patient has an acute sore throat.
+65,4,I10,user65@example.com,2023-05-05,Patient has essential hypertension.
+66,6,E11.9,user66@example.com,2023-05-06,Patient with Type 2 diabetes mellitus without complications.
+67,100,K21.9,user67@example.com,2023-05-07,Patient experiencing gastro-esophageal reflux disease.
+68,64,F41.9,user68@example.com,2023-05-08,Patient with an unspecified anxiety disorder.
+69,53,Z00.00,user69@example.com,2023-05-09,General adult medical examination without abnormal findings.
+70,67,L03.115,user70@example.com,2023-05-10,Cellulitis of right lower limb.
+71,17,N39.0,user71@example.com,2023-05-11,"Urinary tract infection, site not specified."
+72,17,H66.90,user72@example.com,2023-05-12,"Otitis media, unspecified, unspecified ear."
+73,81,J45.909,user73@example.com,2023-05-13,Unspecified asthma without (acute) exacerbation.
+74,33,K59.00,user74@example.com,2023-05-14,"Constipation, unspecified."
+75,38,M25.561,user75@example.com,2023-05-15,Pain in right knee.
+76,18,G47.33,user76@example.com,2023-05-16,Obstructive sleep apnea (adult) (pediatric).
+77,96,D64.9,user77@example.com,2023-05-17,"Anemia, unspecified."
+78,7,E03.9,user78@example.com,2023-05-18,"Hypothyroidism, unspecified."
+79,99,E78.5,user79@example.com,2023-05-19,"Hyperlipidemia, unspecified."
+80,25,B34.9,user80@example.com,2023-05-20,"Viral infection, unspecified."
+81,1,J20.9,user81@example.com,2023-05-01,Patient presented with acute bronchitis.
+82,99,R51,user82@example.com,2023-05-02,Patient complained of a severe headache.
+83,79,M54.5,user83@example.com,2023-05-03,Patient diagnosed with low back pain.
+84,24,J02.9,user84@example.com,2023-05-04,Patient has an acute sore throat.
+85,43,I10,user85@example.com,2023-05-05,Patient has essential hypertension.
+86,58,E11.9,user86@example.com,2023-05-06,Patient with Type 2 diabetes mellitus without complications.
+87,21,K21.9,user87@example.com,2023-05-07,Patient experiencing gastro-esophageal reflux disease.
+88,11,F41.9,user88@example.com,2023-05-08,Patient with an unspecified anxiety disorder.
+89,20,Z00.00,user89@example.com,2023-05-09,General adult medical examination without abnormal findings.
+90,12,L03.115,user90@example.com,2023-05-10,Cellulitis of right lower limb.
+91,91,N39.0,user91@example.com,2023-05-11,"Urinary tract infection, site not specified."
+92,89,H66.90,user92@example.com,2023-05-12,"Otitis media, unspecified, unspecified ear."
+93,5,J45.909,user93@example.com,2023-05-13,Unspecified asthma without (acute) exacerbation.
+94,36,K59.00,user94@example.com,2023-05-14,"Constipation, unspecified."
+95,98,M25.561,user95@example.com,2023-05-15,Pain in right knee.
+96,20,G47.33,user96@example.com,2023-05-16,Obstructive sleep apnea (adult) (pediatric).
+97,81,D64.9,user97@example.com,2023-05-17,"Anemia, unspecified."
+98,87,E03.9,user98@example.com,2023-05-18,"Hypothyroidism, unspecified."
+99,57,E78.5,user99@example.com,2023-05-19,"Hyperlipidemia, unspecified."
+100,82,B34.9,user100@example.com,2023-05-20,"Viral infection, unspecified."
+101,81,J20.9,user101@example.com,2023-05-01,Patient presented with acute bronchitis.
+102,85,R51,user102@example.com,2023-05-02,Patient complained of a severe headache.
+103,100,M54.5,user103@example.com,2023-05-03,Patient diagnosed with low back pain.
+104,60,J02.9,user104@example.com,2023-05-04,Patient has an acute sore throat.
+105,79,I10,user105@example.com,2023-05-05,Patient has essential hypertension.
+106,30,E11.9,user106@example.com,2023-05-06,Patient with Type 2 diabetes mellitus without complications.
+107,37,K21.9,user107@example.com,2023-05-07,Patient experiencing gastro-esophageal reflux disease.
+108,91,F41.9,user108@example.com,2023-05-08,Patient with an unspecified anxiety disorder.
+109,30,Z00.00,user109@example.com,2023-05-09,General adult medical examination without abnormal findings.
+110,59,L03.115,user110@example.com,2023-05-10,Cellulitis of right lower limb.
+111,75,N39.0,user111@example.com,2023-05-11,"Urinary tract infection, site not specified."
+112,82,H66.90,user112@example.com,2023-05-12,"Otitis media, unspecified, unspecified ear."
+113,61,J45.909,user113@example.com,2023-05-13,Unspecified asthma without (acute) exacerbation.
+114,67,K59.00,user114@example.com,2023-05-14,"Constipation, unspecified."
+115,89,M25.561,user115@example.com,2023-05-15,Pain in right knee.
+116,92,G47.33,user116@example.com,2023-05-16,Obstructive sleep apnea (adult) (pediatric).
+117,57,D64.9,user117@example.com,2023-05-17,"Anemia, unspecified."
+118,48,E03.9,user118@example.com,2023-05-18,"Hypothyroidism, unspecified."
+119,91,E78.5,user119@example.com,2023-05-19,"Hyperlipidemia, unspecified."
+120,78,B34.9,user120@example.com,2023-05-20,"Viral infection, unspecified."
+121,18,J20.9,user121@example.com,2023-05-01,Patient presented with acute bronchitis.
+122,19,R51,user122@example.com,2023-05-02,Patient complained of a severe headache.
+123,46,M54.5,user123@example.com,2023-05-03,Patient diagnosed with low back pain.
+124,76,J02.9,user124@example.com,2023-05-04,Patient has an acute sore throat.
+125,28,I10,user125@example.com,2023-05-05,Patient has essential hypertension.
+126,8,E11.9,user126@example.com,2023-05-06,Patient with Type 2 diabetes mellitus without complications.
+127,67,K21.9,user127@example.com,2023-05-07,Patient experiencing gastro-esophageal reflux disease.
+128,27,F41.9,user128@example.com,2023-05-08,Patient with an unspecified anxiety disorder.
+129,27,Z00.00,user129@example.com,2023-05-09,General adult medical examination without abnormal findings.
+130,34,L03.115,user130@example.com,2023-05-10,Cellulitis of right lower limb.
+131,70,N39.0,user131@example.com,2023-05-11,"Urinary tract infection, site not specified."
+132,19,H66.90,user132@example.com,2023-05-12,"Otitis media, unspecified, unspecified ear."
+133,61,J45.909,user133@example.com,2023-05-13,Unspecified asthma without (acute) exacerbation.
+134,11,K59.00,user134@example.com,2023-05-14,"Constipation, unspecified."
+135,49,M25.561,user135@example.com,2023-05-15,Pain in right knee.
+136,12,G47.33,user136@example.com,2023-05-16,Obstructive sleep apnea (adult) (pediatric).
+137,23,D64.9,user137@example.com,2023-05-17,"Anemia, unspecified."
+138,32,E03.9,user138@example.com,2023-05-18,"Hypothyroidism, unspecified."
+139,52,E78.5,user139@example.com,2023-05-19,"Hyperlipidemia, unspecified."
+140,66,B34.9,user140@example.com,2023-05-20,"Viral infection, unspecified."
+141,27,J20.9,user141@example.com,2023-05-01,Patient presented with acute bronchitis.
+142,31,R51,user142@example.com,2023-05-02,Patient complained of a severe headache.
+143,39,M54.5,user143@example.com,2023-05-03,Patient diagnosed with low back pain.
+144,70,J02.9,user144@example.com,2023-05-04,Patient has an acute sore throat.
+145,86,I10,user145@example.com,2023-05-05,Patient has essential hypertension.
+146,73,E11.9,user146@example.com,2023-05-06,Patient with Type 2 diabetes mellitus without complications.
+147,10,K21.9,user147@example.com,2023-05-07,Patient experiencing gastro-esophageal reflux disease.
+148,6,F41.9,user148@example.com,2023-05-08,Patient with an unspecified anxiety disorder.
+149,56,Z00.00,user149@example.com,2023-05-09,General adult medical examination without abnormal findings.
+150,100,L03.115,user150@example.com,2023-05-10,Cellulitis of right lower limb.

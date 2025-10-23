@@ -1,3 +1,15 @@
+---
+title: Data Output Options & Formats | Syda Deep Dive
+description: Learn about Syda's flexible output options - save synthetic data as CSV, JSON, databases, or custom formats with various configuration options.
+keywords:
+  - synthetic data output
+  - CSV data export
+  - JSON data export
+  - database output
+  - data format options
+  - file output configuration
+---
+
 # Output Options
 
 SYDA offers flexible options for handling the output of generated data, allowing you to save results in various formats and locations.

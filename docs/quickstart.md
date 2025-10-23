@@ -1,3 +1,15 @@
+---
+title: Quick Start Guide | Syda Documentation
+description: Get started with Syda synthetic data generation in 5 minutes - install, configure AI models (OpenAI, Anthropic, Gemini, Grok), and generate your first realistic test dataset with referential integrity.
+keywords:
+  - syda quick start
+  - synthetic data tutorial
+  - AI data generation setup
+  - OpenAI data generation
+  - Anthropic Claude data
+  - test data creation
+---
+
 ## Installation
 
 Install the package using pip:
@@ -7,7 +19,7 @@ pip install syda
 ```
 ## Prepare environment variables
 
-Before running the example, you need to prepare your environment variables with valid OpenAI or Anthropic (Claude) API keys. You can do this in one of two ways:
+Before running the example, you need to prepare your environment variables with valid API keys for your chosen provider. You can do this in one of two ways:
 
 1. **Create a `.env` file**:
 
@@ -16,6 +28,8 @@ Before running the example, you need to prepare your environment variables with 
     ```
     OPENAI_API_KEY=your_openai_key
     ANTHROPIC_API_KEY=your_anthropic_key
+    GEMINI_API_KEY=your_gemini_key
+    GROK_API_KEY=your_grok_key
     ```
 
 2. **Set environment variables directly**:
@@ -25,6 +39,8 @@ Before running the example, you need to prepare your environment variables with 
     ```bash
     export OPENAI_API_KEY=your_openai_key
     export ANTHROPIC_API_KEY=your_anthropic_key
+    export GEMINI_API_KEY=your_gemini_key
+    export GROK_API_KEY=your_grok_key
     ```
 ## Example
 ```python

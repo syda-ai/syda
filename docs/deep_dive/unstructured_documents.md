@@ -1,3 +1,15 @@
+---
+title: Unstructured Document Generation | Syda Deep Dive
+description: Generate AI-powered unstructured documents (PDFs, HTML, Word) with Syda - create invoices, contracts, reports linked to structured data.
+keywords:
+  - unstructured document generation
+  - PDF document generation
+  - HTML document generation
+  - AI document creation
+  - template-based documents
+  - document templates
+---
+
 # Unstructured Document Generation
 
 SYDA provides powerful capabilities for generating unstructured documents alongside structured data. This approach allows you to create realistic documents like invoices, contracts, reports, and more based on the structured data you generate.

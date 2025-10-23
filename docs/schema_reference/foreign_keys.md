@@ -1,3 +1,14 @@
+---
+title: Foreign Key Schema Reference | Syda Documentation
+description: Complete guide to defining foreign key relationships in Syda schemas - syntax, examples, and best practices for maintaining referential integrity.
+keywords:
+  - foreign key schema
+  - schema relationships
+  - referential integrity
+  - foreign key syntax
+  - database relationships
+---
+
 # Multiple Ways to Define Foreign Keys
 
 Foreign keys can be defined in 2 ways:

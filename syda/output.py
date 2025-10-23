@@ -60,7 +60,7 @@ def save_dataframe(
         file_path = f"{file_path}.csv"
         df.to_csv(file_path, index=False)
     
-    print(f"✓ Successfully wrote {len(df)} rows to {file_path}")
+    print(f"[OK] Successfully wrote {len(df)} rows to {file_path}")
     return file_path
 
 

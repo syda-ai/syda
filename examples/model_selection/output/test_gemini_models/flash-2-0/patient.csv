@@ -1,0 +1,51 @@
+patient_id,diagnosis_code,email,visit_date,notes
+1,E11.9,patient1@example.com,2024-01-20,"Routine checkup, patient is stable."
+2,I50.9,patient2@example.com,2024-01-15,Follow up for heart failure. Adjusted medication.
+3,J45.909,patient3@example.com,2024-01-10,"Asthma exacerbation, prescribed inhaler."
+4,M54.5,patient4@example.com,2024-02-01,"Lower back pain, referred to physical therapy."
+5,R06.02,patient5@example.com,2024-02-05,"Shortness of breath, rule out cardiac issues."
+6,Z00.00,patient6@example.com,2024-02-10,"Annual physical exam, healthy."
+7,E78.0,patient7@example.com,2024-02-15,"High cholesterol, started statin."
+8,G43.909,patient8@example.com,2024-02-20,"Migraine, prescribed triptan."
+9,N40.0,patient9@example.com,2024-02-25,"BPH, started alpha-blocker."
+10,H52.2,patient10@example.com,2024-03-01,"Astigmatism, referred to ophthalmologist."
+11,E11.9,patient11@example.com,2024-03-05,"Diabetes follow up, A1c stable."
+12,I50.9,patient12@example.com,2024-03-10,"Heart failure, increased diuretic dose."
+13,J45.909,patient13@example.com,2024-03-15,"Asthma, added long-acting beta agonist."
+14,M54.5,patient14@example.com,2024-03-20,"Chronic back pain, referred for injections."
+15,R06.02,patient15@example.com,2024-03-25,"SOB, pulmonary function tests ordered."
+16,Z00.00,patient16@example.com,2024-03-30,"Preventative care, updated vaccinations."
+17,E78.0,patient17@example.com,2024-04-01,"Hyperlipidemia, diet counseling provided."
+18,G43.909,patient18@example.com,2024-04-05,"Chronic migraines, consider Botox."
+19,N40.0,patient19@example.com,2024-04-10,"BPH, scheduled for TURP."
+20,H52.2,patient20@example.com,2024-04-15,"Vision changes, new glasses prescribed."
+21,E11.9,patient21@example.com,2024-04-20,"Poorly controlled diabetes, insulin started."
+22,I50.9,patient22@example.com,2024-04-25,"Worsening heart failure, hospital admission."
+23,J45.909,patient23@example.com,2024-04-30,"Severe asthma, ER visit."
+24,M54.5,patient24@example.com,2024-05-01,"Back pain, MRI ordered."
+25,R06.02,patient25@example.com,2024-05-05,"SOB, CT scan ordered."
+26,Z00.00,patient26@example.com,2024-05-10,"Routine checkup, all normal."
+27,E78.0,patient27@example.com,2024-05-15,"High cholesterol, increased statin dose."
+28,G43.909,patient28@example.com,2024-05-20,"Migraines, started preventative medication."
+29,N40.0,patient29@example.com,2024-05-25,"BPH, watchful waiting."
+30,H52.2,patient30@example.com,2024-05-30,"Progressive vision loss, glaucoma suspect."
+31,E11.9,patient31@example.com,2024-06-01,Diabetes education provided.
+32,I50.9,patient32@example.com,2024-06-05,"Stable heart failure, continue current meds."
+33,J45.909,patient33@example.com,2024-06-10,Well-controlled asthma.
+34,M54.5,patient34@example.com,2024-06-15,Physical therapy helping back pain.
+35,R06.02,patient35@example.com,2024-06-20,"SOB resolved, likely anxiety."
+36,Z00.00,patient36@example.com,2024-06-25,Flu shot given.
+37,E78.0,patient37@example.com,2024-06-30,Cholesterol improving with diet.
+38,G43.909,patient38@example.com,2024-07-01,Migraine frequency decreased.
+39,N40.0,patient39@example.com,2024-07-05,BPH symptoms stable.
+40,H52.2,patient40@example.com,2024-07-10,Referred for cataract evaluation.
+41,E11.9,patient41@example.com,2024-07-15,Insulin dose adjusted.
+42,I50.9,patient42@example.com,2024-07-20,"Fluid retention, adjusted diuretics."
+43,J45.909,patient43@example.com,2024-07-25,Asthma action plan reviewed.
+44,M54.5,patient44@example.com,2024-07-30,Pain management strategies discussed.
+45,R06.02,patient45@example.com,2024-08-01,Anxiety management techniques taught.
+46,Z00.00,patient46@example.com,2024-08-05,Tdap booster given.
+47,E78.0,patient47@example.com,2024-08-10,Lipid panel ordered.
+48,G43.909,patient48@example.com,2024-08-15,New migraine medication prescribed.
+49,N40.0,patient49@example.com,2024-08-20,PSA level checked.
+50,H52.2,patient50@example.com,2024-08-25,Prescription for new glasses sent.

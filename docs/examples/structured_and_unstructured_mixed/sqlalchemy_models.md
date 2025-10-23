@@ -1,3 +1,14 @@
+---
+title: SQLAlchemy Models with Mixed Content | Syda Examples
+description: Generate both structured database data and unstructured documents using SQLAlchemy models with Syda - integrate ORM models with document templates.
+keywords:
+  - SQLAlchemy mixed content
+  - ORM document integration
+  - database document generation
+  - SQLAlchemy templates
+  - structured unstructured SQLAlchemy
+---
+
 # SQLAlchemy Models with Mixed Content
 
 > Source code: [examples/structured_and_unstructured/crm_sqlalchemy/example_crm_templates.py](https://github.com/syda-ai/syda/blob/main/examples/structured_and_unstructured/crm_sqlalchemy/example_crm_templates.py)

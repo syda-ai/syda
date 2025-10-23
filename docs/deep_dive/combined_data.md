@@ -1,3 +1,14 @@
+---
+title: Combined Structured & Unstructured Data | Syda Deep Dive
+description: Generate both structured database records and unstructured documents together with Syda - maintain consistency between CSV data and PDF/HTML documents.
+keywords:
+  - combined data generation
+  - structured unstructured data
+  - database document integration
+  - consistent data generation
+  - integrated workflows
+---
+
 # Combined Structured and Unstructured Data
 
 One of the most powerful features of SYDA is the ability to generate both structured database records and unstructured document content in a single integrated workflow. This capability is essential for many real-world applications that require consistency between database records and their associated documents.
