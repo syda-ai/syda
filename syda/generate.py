@@ -363,6 +363,34 @@ class SyntheticDataGenerator:
         if custom_generators is None:
             print("No custom generators provided")
             custom_generators = {}
+        
+        # ===== VALIDATION CHECKPOINT =====
+        # Validate schemas before loading and processing
+        print("\n[INFO] Validating schemas...")
+        try:
+            from syda.validators import SchemaValidator, ValidationResult
+            
+            # Initialize validator
+            validator = SchemaValidator()
+            
+            # Run validation on raw schemas
+            validation_result = validator.validate_schemas(schemas, strict=False)
+            
+            # Print validation report
+            print(validation_result.summary())
+            
+            # If validation failed, raise exception
+            if not validation_result.is_valid:
+                print(f"\n❌ Cannot proceed with data generation due to schema validation errors.")
+                raise ValueError(
+                    f"Schema validation failed with {validation_result.error_count} error(s). "
+                    f"Please fix the issues above and retry."
+                )
+        except ImportError:
+            print("[WARNING] Validators module not available, skipping pre-generation validation")
+        except Exception as e:
+            print(f"[ERROR] Schema validation failed: {str(e)}")
+            raise
             
         # Load schemas from various sources
         processed_schemas = {}
