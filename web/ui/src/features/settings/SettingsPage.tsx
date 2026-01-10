@@ -1,7 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTheme } from '../../store/ThemeContext'
+import CreateWorkspace from './createworkspace'
+import { apiClient } from '../../lib/apiClient'
+import { useModal } from '../../components/ModalProvider'
 
-type SettingsTab = 'profile' | 'appearance' | 'ai-models' | 'notifications' | 'security' | 'usage' | 'about'
+type SettingsTab = 'profile' | 'appearance' | 'ai-models' | 'notifications' | 'security' | 'usage' | 'about' | 'workspace'
+
+type Workspace = {
+  id: string
+  name: string
+  description: string
+  created_at?: string
+  updated_at?: string
+}
 
 interface ProviderConfig {
   name: string
@@ -14,8 +25,13 @@ interface ProviderConfig {
 
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme()
+  const { alert, confirm } = useModal()
   const [activeTab, setActiveTab] = useState<SettingsTab>('appearance')
   const [selectedProvider, setSelectedProvider] = useState<string>('')
+  const [isCreatingWorkspace, setIsCreatingWorkspace] = useState<boolean>(false)
+  const [workspaces, setWorkspaces] = useState<Workspace[]>([])
+  const [isLoadingWorkspaces, setIsLoadingWorkspaces] = useState<boolean>(false)
+  const [editingWorkspace, setEditingWorkspace] = useState<Workspace | null>(null)
   
   // Provider configurations
   const [providers, setProviders] = useState<Record<string, ProviderConfig>>({
@@ -64,6 +80,7 @@ export default function SettingsPage() {
     { id: 'notifications', label: 'Notifications', icon: '🔔' },
     { id: 'security', label: 'Security', icon: '🔒' },
     { id: 'usage', label: 'Usage & Billing', icon: '📊' },
+    { id: 'workspace', label: 'Workspace', icon: '🗂️' },
     { id: 'about', label: 'About', icon: 'ℹ️' }
   ] as const
 
@@ -160,6 +177,53 @@ export default function SettingsPage() {
     delete updated[key]
     updateProviderConfig(providerKey, { extraKwargs: updated })
   }
+
+  const loadWorkspaces = async () => {
+    setIsLoadingWorkspaces(true)
+    try {
+      const data = await apiClient<{ workspaces?: Workspace[] }>(
+        '/workspaces/?skip=0&limit=100',
+        { method: 'GET' }
+      )
+      const list = Array.isArray(data?.workspaces) ? data.workspaces : []
+      setWorkspaces(list)
+    } catch {
+      setWorkspaces([])
+    } finally {
+      setIsLoadingWorkspaces(false)
+    }
+  }
+
+  const handleEditWorkspace = (ws: Workspace) => {
+    setEditingWorkspace(ws)
+    setIsCreatingWorkspace(true)
+  }
+
+  const handleDeleteWorkspace = async (workspaceId: string) => {
+    const ok = await confirm({
+      title: 'Delete Workspace',
+      message: 'Are you sure you want to delete this workspace? This action cannot be undone.',
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    })
+    if (!ok) return
+    try {
+      await apiClient(`/workspaces/${workspaceId}`, { method: 'DELETE' })
+      await loadWorkspaces()
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err)
+      await alert({
+        title: 'Delete Failed',
+        message: `Failed to delete workspace: ${message}`
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (activeTab === 'workspace' && !isCreatingWorkspace) {
+      loadWorkspaces()
+    }
+  }, [activeTab, isCreatingWorkspace])
 
   return (
     <div className="settings-layout">
@@ -715,6 +779,98 @@ export default function SettingsPage() {
           </div>
         )}
 
+        {activeTab === 'workspace' && (
+          <div style={{ maxWidth: 800 }}>
+            <div style={{ 
+              marginBottom: 32, 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-between' 
+            }}>
+              <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 700 }}>
+                🗂️ Workspace
+              </h3>
+              <button 
+                className="btn"
+                onClick={() => setIsCreatingWorkspace(true)}
+              >
+                ➕ Create workspace
+              </button>
+            </div>
+
+            {isCreatingWorkspace ? (
+              <CreateWorkspace 
+                mode={editingWorkspace ? 'edit' : 'create'}
+                initial={{ name: editingWorkspace?.name, description: editingWorkspace?.description }}
+                workspaceId={editingWorkspace?.id}
+                onClose={() => { setIsCreatingWorkspace(false); setEditingWorkspace(null) }} 
+                onCreate={() => {
+                  setIsCreatingWorkspace(false)
+                  setEditingWorkspace(null)
+                  loadWorkspaces()
+                }}
+                onUpdate={() => {
+                  setIsCreatingWorkspace(false)
+                  setEditingWorkspace(null)
+                  loadWorkspaces()
+                }}
+              />
+            ) : (
+              <>
+                {isLoadingWorkspaces ? (
+                  <div className="panel" style={{ padding: 24, textAlign: 'center' }}>
+                    Loading workspaces...
+                  </div>
+                ) : workspaces.length === 0 ? (
+                  <div className="panel" style={{ padding: 24, textAlign: 'center', color: 'var(--muted)' }}>
+                    No workspaces found.
+                  </div>
+                ) : (
+                  <div className="panel" style={{ padding: 24 }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                      <thead>
+                        <tr style={{ borderBottom: '2px solid var(--border)' }}>
+                          <th style={{ padding: '12px', textAlign: 'left', fontWeight: 600 }}>Name</th>
+                          <th style={{ padding: '12px', textAlign: 'left', fontWeight: 600 }}>Description</th>
+                          <th style={{ padding: '12px', textAlign: 'left', fontWeight: 600 }}>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {workspaces.map(ws => (
+                          <tr key={ws.id} style={{ borderBottom: '1px solid var(--border)' }}>
+                            <td style={{ padding: '12px' }}>{ws.name}</td>
+                            <td style={{ padding: '12px' }}>{ws.description}</td>
+                            <td style={{ padding: '12px' }}>
+                              <div style={{ display: 'flex', gap: 8 }}>
+                                <button
+                                  className="btn secondary"
+                                  onClick={() => handleEditWorkspace(ws)}
+                                  title="Edit workspace"
+                                  style={{ padding: '6px 10px', minWidth: 'auto' }}
+                                >
+                                  ✏️
+                                </button>
+                                <button
+                                  className="btn secondary"
+                                  onClick={() => handleDeleteWorkspace(ws.id)}
+                                  title="Delete workspace"
+                                  style={{ padding: '6px 10px', minWidth: 'auto' }}
+                                >
+                                  🗑️
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        )}
+
         {activeTab === 'about' && (
           <div style={{ maxWidth: 800 }}>
             <div style={{ marginBottom: 32 }}>
@@ -750,7 +906,7 @@ export default function SettingsPage() {
         )}
 
         {/* Placeholder for other tabs */}
-        {!['appearance', 'ai-models', 'about', 'usage'].includes(activeTab) && (
+        {!['appearance', 'ai-models', 'about', 'usage', 'workspace'].includes(activeTab) && (
           <div style={{ maxWidth: 800 }}>
             <div style={{ marginBottom: 32 }}>
               <h3 style={{ margin: '0 0 8px 0', fontSize: '1.5rem', fontWeight: 700 }}>

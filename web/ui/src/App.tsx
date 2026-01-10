@@ -11,6 +11,7 @@ import ForgotPassword from './components/ForgotPassword'
 import './App.css'
 import { AppStateProvider } from './store/AppState'
 import { ThemeProvider } from './store/ThemeContext'
+import { ModalProvider } from './components/ModalProvider'
 
 function Home() {
   return (
@@ -52,21 +53,23 @@ export default function App() {
   return (
     <ThemeProvider>
       <AppStateProvider>
-        <BrowserRouter>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/dependencies" element={<DependencyGraph />} />
-              <Route path="/schemas" element={<SchemasPage />} />
-              <Route path="/run" element={<RunPage />} />
-              <Route path="/results" element={<ResultsPage />} />
-              <Route path="/settings" element={<SettingsPage />} />
-              <Route path="/account/create" element={<AccountCreation />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-            </Routes>
-          </Layout>
-        </BrowserRouter>
+        <ModalProvider>
+          <BrowserRouter>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/dependencies" element={<DependencyGraph />} />
+                <Route path="/schemas" element={<SchemasPage />} />
+                <Route path="/run" element={<RunPage />} />
+                <Route path="/results" element={<ResultsPage />} />
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/account/create" element={<AccountCreation />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+              </Routes>
+            </Layout>
+          </BrowserRouter>
+        </ModalProvider>
       </AppStateProvider>
     </ThemeProvider>
   )
