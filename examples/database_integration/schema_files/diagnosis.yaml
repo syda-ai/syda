@@ -1,0 +1,20 @@
+diagnosis_code:
+  type: string
+diagnosis_id:
+  not_null: true
+  primary_key: true
+  type: integer
+patient_id:
+  not_null: true
+  references:
+    field: patient_id
+    schema: patient
+  type: foreign_key
+provider_id:
+  not_null: true
+  references:
+    field: provider_id
+    schema: provider
+  type: foreign_key
+visit_date:
+  type: date

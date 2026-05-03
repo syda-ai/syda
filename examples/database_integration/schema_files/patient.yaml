@@ -1,0 +1,13 @@
+age:
+  type: integer
+date_of_birth:
+  type: date
+gender:
+  type: string
+patient_id:
+  not_null: true
+  primary_key: true
+  type: integer
+patient_name:
+  not_null: true
+  type: string

@@ -1,0 +1,21 @@
+adjudication_id,claim_id,decision,denial_reason,approved_amount
+1,1015,Approved,,5000.0
+2,1011,Approved,,3500.5
+3,1017,Denied,Procedure not covered under plan,0.0
+4,1006,Approved,,7200.0
+5,1010,Partial,Amount exceeds maximum allowed,2500.0
+6,1008,Approved,,4100.75
+7,1017,Denied,Pre-authorization required but not obtained,0.0
+8,1003,Approved,,6300.0
+9,1002,Partial,Deductible not met,1800.25
+10,1010,Approved,,5500.0
+11,1010,Approved,,4750.5
+12,1005,Denied,Out of network provider,0.0
+13,1017,Approved,,3200.0
+14,1016,Partial,Exceeds plan limits,3100.75
+15,1020,Approved,,8000.0
+16,1004,Approved,,2900.0
+17,1006,Partial,Partial coverage only,2200.5
+18,1020,Approved,,6100.25
+19,1017,Denied,Duplicate claim submission,0.0
+20,1010,Approved,,4400.0

@@ -1,0 +1,28 @@
+claim_amount:
+  type: float
+claim_id:
+  not_null: true
+  primary_key: true
+  type: integer
+diagnosis_id:
+  not_null: true
+  references:
+    field: diagnosis_id
+    schema: diagnosis
+  type: foreign_key
+patient_id:
+  not_null: true
+  references:
+    field: patient_id
+    schema: patient
+  type: foreign_key
+procedure_code:
+  type: string
+provider_id:
+  not_null: true
+  references:
+    field: provider_id
+    schema: provider
+  type: foreign_key
+submission_date:
+  type: date
