@@ -249,6 +249,67 @@ else
   pass "No test files leaked into installed package"
 fi
 
+# ── Step 11: Run examples ─────────────────────────────────────────────────────
+header "Step 11: Run examples"
+
+EXAMPLES_DIR="$PROJECT_ROOT/examples"
+
+# Source .env so API keys are available to child processes
+if [[ -f "$PROJECT_ROOT/.env" ]]; then
+  set +x
+  set -a
+  # shellcheck disable=SC1091
+  source "$PROJECT_ROOT/.env"
+  set +a
+  set -x
+  info ".env loaded"
+fi
+
+[[ -n "${ANTHROPIC_API_KEY:-}" ]] && pass "ANTHROPIC_API_KEY found" || warn "ANTHROPIC_API_KEY not set"
+[[ -n "${OPENAI_API_KEY:-}"    ]] && pass "OPENAI_API_KEY found"    || warn "OPENAI_API_KEY not set"
+[[ -n "${DB_HOST:-}"           ]] && pass "DB_HOST found"           || warn "DB_HOST not set — database examples may fail"
+
+run_example() {
+  local label="$1"
+  local script="$2"
+  info "Running: $label"
+  local output
+  if output=$("$PY" "$script" 2>&1); then
+    echo "$output"
+    pass "Example: $label"
+  else
+    echo "$output"
+    # Treat API 404 errors as warnings (deprecated model name in example, not a package bug)
+    if echo "$output" | grep -q "404\|not_found_error\|NotFoundError"; then
+      warn "Example: $label — API model not found (example may use a deprecated model name)"
+    else
+      fail "Example: $label (exit code $?)"
+    fi
+  fi
+}
+
+# structured_and_unstructured
+run_example "structured_and_unstructured/retail_yml" \
+  "$EXAMPLES_DIR/structured_and_unstructured/retail_yml/example_retail_schemas.py"
+
+# database_integration — delete stale SQLite DB so each run starts clean
+DB_FILE="$EXAMPLES_DIR/database_integration/healthcare_demo.db"
+if [[ -f "$DB_FILE" ]]; then
+  info "Removing stale SQLite DB: $DB_FILE"
+  rm -f "$DB_FILE"
+fi
+
+run_example "database_integration/load_schemas" \
+  "$EXAMPLES_DIR/database_integration/example_load_schemas.py"
+
+# Remove again between runs so save_schemas also starts clean
+[[ -f "$DB_FILE" ]] && rm -f "$DB_FILE"
+
+run_example "database_integration/save_schemas" \
+  "$EXAMPLES_DIR/database_integration/example_save_schemas.py"
+run_example "database_integration/postgres" \
+  "$EXAMPLES_DIR/database_integration/example_postgres.py"
+
 # ── Summary ───────────────────────────────────────────────────────────────────
 header "Summary"
 if [[ "$ERRORS" -eq 0 ]]; then

@@ -1,21 +1,21 @@
 adjudication_id,approved_amount,claim_id,decision,denial_reason
-1,5000.0,1003,Approved,
-2,3500.5,1016,Partial,Exceeded coverage limit
-3,7200.0,1020,Approved,
-4,0.0,1018,Denied,Service not covered under plan
-5,4500.0,1014,Approved,
-6,2200.75,1002,Partial,Deductible not met
-7,6800.0,1009,Approved,
-8,0.0,1004,Denied,Pre-authorization required
-9,5500.0,1019,Approved,
-10,3100.25,1015,Partial,Out-of-network provider
-11,8000.0,1002,Approved,
-12,0.0,1004,Denied,Duplicate claim submission
-13,6200.0,1003,Approved,
-14,2800.5,1016,Partial,Waiting period not satisfied
-15,4900.0,1005,Approved,
-16,0.0,1017,Denied,Experimental treatment not covered
-17,5750.0,1013,Approved,
-18,1950.75,1007,Partial,Co-insurance applies
-19,7100.0,1010,Approved,
-20,0.0,1017,Denied,Missing required documentation
+1,1500.0,1001,Approved,
+2,2500.5,1012,Approved,
+3,750.25,1018,Partial,Exceeds coverage limit
+4,3200.0,1020,Approved,
+5,0.0,1014,Denied,Not medically necessary
+6,1850.75,1016,Approved,
+7,500.0,1020,Partial,Partial coverage due to deductible
+8,2100.0,1019,Approved,
+9,0.0,1005,Denied,Pre-authorization not obtained
+10,1200.0,1008,Approved,
+11,950.5,1004,Partial,Out-of-network provider adjustment
+12,2750.0,1011,Approved,
+13,0.0,1018,Denied,Service not covered under plan
+14,1650.0,1007,Approved,
+15,625.75,1010,Partial,Coinsurance applied
+16,3100.25,1002,Approved,
+17,0.0,1006,Denied,Duplicate claim submission
+18,2300.0,1011,Approved,
+19,1100.5,1019,Partial,Frequency limit exceeded
+20,2900.0,1010,Approved,

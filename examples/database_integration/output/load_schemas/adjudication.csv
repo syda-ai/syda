@@ -1,21 +1,21 @@
 adjudication_id,claim_id,decision,denial_reason,approved_amount
-1,7,Approved,,5000.0
-2,5,Approved,,3500.75
-3,1,Partial,Exceeds coverage limit,2000.0
-4,11,Approved,,7500.5
-5,17,Denied,Service not covered under policy,0.0
-6,15,Approved,,4200.25
-7,10,Partial,Partial reimbursement due to deductible,1500.0
-8,3,Approved,,6250.99
-9,13,Denied,Pre-authorization not obtained,0.0
-10,10,Approved,,8100.0
-11,19,Partial,Out of network provider adjustment,3000.5
-12,3,Approved,,2750.0
-13,11,Approved,,9200.75
-14,14,Denied,Duplicate claim submission,0.0
-15,6,Approved,,5500.25
-16,15,Partial,Coinsurance applied,4000.0
-17,20,Approved,,6800.5
-18,4,Approved,,3300.99
-19,11,Denied,Claim exceeds annual maximum,0.0
-20,9,Approved,,7100.0
+1001,1006,Approved,,5000.0
+1002,1020,Approved,,3500.5
+1003,1013,Partial,Exceeded coverage limits,2000.0
+1004,1012,Approved,,7200.75
+1005,1001,Denied,Service not covered under plan,0.0
+1006,1017,Approved,,4100.0
+1007,1020,Partial,Deductible not met,1500.25
+1008,1008,Approved,,6300.0
+1009,1009,Denied,Pre-authorization required but not obtained,0.0
+1010,1013,Approved,,2800.5
+1011,1017,Approved,,5500.0
+1012,1020,Partial,Out of network provider,3200.75
+1013,1015,Approved,,4900.0
+1014,1002,Denied,Duplicate claim submission,0.0
+1015,1011,Approved,,3600.0
+1016,1007,Approved,,6800.25
+1017,1001,Partial,Claim amount exceeds allowed amount,2500.0
+1018,1011,Approved,,5200.5
+1019,1018,Denied,Insufficient documentation provided,0.0
+1020,1017,Approved,,4700.75

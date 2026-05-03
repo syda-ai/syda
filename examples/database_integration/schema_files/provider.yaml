@@ -1,5 +1,3 @@
-facility_id:
-  type: string
 license_number:
   type: string
 provider_id:
