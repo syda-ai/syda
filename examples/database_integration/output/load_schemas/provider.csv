@@ -1,6 +1,6 @@
 provider_id,provider_name,specialty,license_number,facility_id
-1001,Dr. Sarah Mitchell,Cardiology,MD-2019-045823,FAC-001
-1002,Dr. James Chen,Orthopedic Surgery,MD-2018-067234,FAC-002
-1003,Dr. Emily Rodriguez,Pediatrics,MD-2020-051789,FAC-001
-1004,Dr. Michael Thompson,Psychiatry,MD-2017-038456,FAC-003
-1005,Dr. Lisa Anderson,Dermatology,MD-2019-062145,FAC-002
+1001,Dr. Sarah Mitchell,Cardiology,MD-2019-45782,FAC-NYC-001
+1002,Dr. James Chen,Orthopedic Surgery,MD-2018-56291,FAC-LA-002
+1003,Dr. Maria Garcia,Pediatrics,MD-2020-33847,FAC-MIA-003
+1004,Dr. Robert Thompson,General Surgery,MD-2017-72615,FAC-CHI-004
+1005,Dr. Emily Watson,Psychiatry,MD-2021-49563,FAC-BOS-005

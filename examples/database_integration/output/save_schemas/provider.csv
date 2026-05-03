@@ -1,6 +1,6 @@
 facility_id,license_number,provider_id,provider_name,specialty
-FAC-001,LIC-2024-001234,1001,Dr. Sarah Mitchell,Cardiology
-FAC-002,LIC-2024-005678,1002,Dr. James Chen,Orthopedic Surgery
-FAC-003,LIC-2024-009012,1003,Dr. Maria Rodriguez,Pediatrics
-FAC-001,LIC-2024-003456,1004,Dr. Robert Thompson,Neurology
-FAC-004,LIC-2024-007890,1005,Dr. Emily Watson,Oncology
+FAC-001-NYC,NY-MD-2024-08765,1001,Dr. Sarah Mitchell,Cardiology
+FAC-002-LAX,CA-MD-2024-12543,1002,Dr. James Rodriguez,Orthopedic Surgery
+FAC-003-CHI,IL-MD-2024-09876,1003,Dr. Emily Chen,Pediatrics
+FAC-004-MIA,FL-MD-2024-11234,1004,Dr. Robert Thompson,Dermatology
+FAC-005-BOS,MA-MD-2024-10567,1005,Dr. Patricia Johnson,Neurology

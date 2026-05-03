@@ -1,0 +1,21 @@
+adjudication_id,claim_id,decision,denial_reason,approved_amount
+1,1014,Approved,,5000.0
+2,1008,Approved,,3500.5
+3,1019,Partial,Exceeds coverage limit,2000.0
+4,1017,Approved,,7500.75
+5,1011,Denied,Pre-existing condition exclusion,0.0
+6,1020,Approved,,4250.0
+7,1020,Partial,Out of network provider,1500.0
+8,1008,Approved,,6200.25
+9,1017,Approved,,2800.0
+10,1012,Denied,Not medically necessary,0.0
+11,1008,Partial,Deductible not met,3000.5
+12,1005,Approved,,5500.0
+13,1010,Approved,,4100.75
+14,1007,Denied,Lack of medical documentation,0.0
+15,1020,Approved,,3750.0
+16,1001,Partial,Exceeds annual limit,2500.0
+17,1002,Approved,,6800.5
+18,1018,Approved,,4950.0
+19,1012,Partial,Requires prior authorization,1800.0
+20,1010,Approved,,5250.25

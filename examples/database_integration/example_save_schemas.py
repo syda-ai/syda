@@ -105,9 +105,14 @@ def main():
         output_dir=output_dir,
     )
 
-    print(f"\nDone. Output saved to: {output_dir}/")
+    print(f"\nDone. CSV files saved to: {output_dir}/")
     for table, df in results.items():
         print(f"  {table}: {len(df)} rows")
+
+    # Step 4: Write generated data back to the database
+    print("\nWriting synthetic data back to database...")
+    loader.write_to_database(results)
+    print(f"  Database updated: {db_path}")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,9 @@
 import json
 import os
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional, Union, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import pandas as pd
 
 
 def _map_sql_type(sql_type) -> str:
@@ -35,6 +38,9 @@ class DatabaseSchemaLoader:
         # Option B — write schema files first, pass file paths
         schema_files = loader.save_schemas("schemas/")
         results = generator.generate_for_schemas(schemas=schema_files)
+
+        # Write generated data back to the database
+        loader.write_to_database(results)
     """
 
     def __init__(self, connection_string_or_engine: Union[str, object]):
@@ -79,6 +85,55 @@ class DatabaseSchemaLoader:
             self._write_schema_file(schema, file_path, format)
             result[table_name] = file_path
         return result
+
+    def write_to_database(
+        self,
+        data: Dict[str, "pd.DataFrame"],
+        if_exists: str = "append",
+    ) -> None:
+        """Write generated DataFrames back to the database in FK-safe insertion order.
+
+        Args:
+            data: Dict of {table_name: DataFrame} as returned by generate_for_schemas().
+            if_exists: Behaviour when the table already contains rows —
+                ``"append"`` (default) adds rows, ``"replace"`` truncates first,
+                ``"fail"`` raises if the table is non-empty.
+        """
+        if if_exists not in ("append", "replace", "fail"):
+            raise ValueError(f"if_exists must be 'append', 'replace', or 'fail', got '{if_exists}'")
+
+        ordered = self._fk_insertion_order(list(data.keys()))
+        for table_name in ordered:
+            if table_name not in data:
+                continue
+            df = data[table_name]
+            df.to_sql(table_name, self._engine, if_exists=if_exists, index=False)
+            print(f"  [OK] Wrote {len(df)} rows to {table_name}")
+
+    def _fk_insertion_order(self, table_names: List[str]) -> List[str]:
+        """Topologically sort tables so parent tables are inserted before children."""
+        table_set = set(table_names)
+        deps: Dict[str, set] = {t: set() for t in table_names}
+        for table in table_names:
+            for fk in self._inspector.get_foreign_keys(table):
+                ref = fk["referred_table"]
+                if ref in table_set:
+                    deps[table].add(ref)
+
+        order: List[str] = []
+        visited: set = set()
+
+        def visit(t: str) -> None:
+            if t in visited:
+                return
+            visited.add(t)
+            for dep in deps.get(t, set()):
+                visit(dep)
+            order.append(t)
+
+        for t in table_names:
+            visit(t)
+        return order
 
     def _resolve_tables(self, table_names: Optional[List[str]]) -> List[str]:
         all_tables = self._inspector.get_table_names()
