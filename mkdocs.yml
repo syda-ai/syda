@@ -101,6 +101,10 @@ nav:
     - Structured and Unstructured Mixed:
       - YAML Schemas: 'examples/structured_and_unstructured_mixed/yaml_schemas.md'
       - SQLAlchemy Models: 'examples/structured_and_unstructured_mixed/sqlalchemy_models.md'
+    - Database Integration:
+      - SQLite In-Memory Schemas: 'examples/database_integration/sqlite_load_schemas.md'
+      - SQLite File-Based Schemas: 'examples/database_integration/sqlite_save_schemas.md'
+      - PostgreSQL: 'examples/database_integration/postgresql.md'
     - Miscellaneous: 'examples/miscellaneous.md'
   
     
