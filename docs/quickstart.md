@@ -8,6 +8,8 @@ keywords:
   - OpenAI data generation
   - Anthropic Claude data
   - test data creation
+  - database integration
+  - DatabaseSchemaLoader
 ---
 
 ## Installation
@@ -175,4 +177,40 @@ results = generator.generate_for_schemas(
     sample_sizes=sample_sizes,
     output_dir=output_dir
 )
+```
+
+## Generate Data From an Existing Database
+
+Already have a database? Use `DatabaseSchemaLoader` to skip schema definition entirely — it connects to your database, infers all table schemas automatically, and generates synthetic data while preserving foreign key relationships.
+
+Works with any SQLAlchemy-compatible database: SQLite, PostgreSQL, MySQL, MariaDB, MS SQL Server, Oracle, and more.
+
+```bash
+pip install syda sqlalchemy
+# PostgreSQL: pip install psycopg2-binary
+# MySQL:      pip install pymysql
+```
+
+```python
+from syda import SyntheticDataGenerator, DatabaseSchemaLoader, ModelConfig
+from dotenv import load_dotenv
+
+load_dotenv()
+
+generator = SyntheticDataGenerator(
+    model_config=ModelConfig(provider="anthropic", model_name="claude-haiku-4-5-20251001")
+)
+
+# Connect to your database — schemas are inferred automatically
+loader  = DatabaseSchemaLoader("postgresql+psycopg2://user:pass@localhost/mydb")
+schemas = loader.load_schemas()
+
+# Generate synthetic data
+results = generator.generate_for_schemas(schemas=schemas, output_dir="output")
+
+# Write generated rows back to the database in FK-safe order
+loader.write_to_database(results)
+```
+
+For a full walkthrough including supported databases, connection strings, and the file-based workflow, see the [Database Integration deep dive](deep_dive/database_integration.md).
 ```

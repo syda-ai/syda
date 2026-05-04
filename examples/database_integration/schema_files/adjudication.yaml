@@ -1,0 +1,16 @@
+adjudication_id:
+  not_null: true
+  primary_key: true
+  type: integer
+approved_amount:
+  type: float
+claim_id:
+  not_null: true
+  references:
+    field: claim_id
+    schema: claim
+  type: foreign_key
+decision:
+  type: string
+denial_reason:
+  type: string
