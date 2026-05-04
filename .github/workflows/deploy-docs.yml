@@ -1,0 +1,27 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install mkdocs-material mkdocs-macros-plugin mkdocs-minify-plugin mkdocs-mermaid2-plugin
+
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force
