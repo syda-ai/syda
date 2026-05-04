@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.0.5] - 2026-05-03
+
+### Added
+- `DatabaseSchemaLoader` class in `syda/db_schema_loader.py` for connecting directly to relational databases
+  - `load_schemas()` — infers table schemas (columns, types, primary keys, foreign keys) as Python dicts
+  - `save_schemas()` — writes one YAML or JSON schema file per table to disk
+  - `write_to_database()` — inserts generated DataFrames back into the database in FK-safe topological order
+- Database integration examples in `examples/database_integration/`:
+  - `example_load_schemas.py` — in-memory schema workflow (SQLite)
+  - `example_save_schemas.py` — file-based schema workflow (SQLite)
+  - `example_postgres.py` — full PostgreSQL end-to-end example
+  - `healthcare_demo.db` — SQLite demo database with patient, provider, diagnosis, claim, payment, and adjudication tables
+  - Pre-generated schema YAML files and sample output CSVs
+- `tests/test_db_schema.py` — comprehensive test suite for `DatabaseSchemaLoader`
+- `docs/deep_dive/database_integration.md` — full documentation covering supported databases, Option A/B workflows, type mapping, FK-safe insertion order, and API reference
+- `scripts/pre_release_test.sh` — automated pre-release validation script
+- `CLAUDE.md` — developer guidance file for Claude Code
+- PostgreSQL (`psycopg2-binary`) and MySQL (`pymysql`) driver dependencies in `requirements.txt`
+- `DatabaseSchemaLoader` exported from `syda/__init__.py`
+
+### Changed
+- Version bumped to `0.0.5`
+- `README.md` updated with database integration overview and usage examples
+- Database Integration page added to MkDocs navigation (`deep_dive/database_integration`)
+
 ## [0.0.3] - 2025-09-21
 
 ### Added
