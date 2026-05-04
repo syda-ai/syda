@@ -91,6 +91,8 @@ dev = [
     "flake8>=6.0.0",
     "mypy>=1.0.0",
     "pre-commit>=3.0.0",
+    "build>=1.0.0",
+    "twine>=5.0.0",
 ]
 
 # Documentation dependencies
