@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "syda"
-version = "0.0.4"
+version = "0.0.5"
 description = "Seamlessly generates realistic synthetic test data—including structured, unstructured, PDF, and HTML—using AI and large language models. It preserves referential integrity, maintains privacy compliance, and accelerates development workflows. SYDA enables both highly regulated industries such as healthcare and banking, as well as non-regulated environments like software testing, research, and analytics, to safely simulate diverse data scenarios without exposing sensitive information."
 readme = "README.md"
 license = {text = "MIT"}
@@ -55,6 +55,8 @@ dependencies = [
     "pydantic>=2.4.2",
     "python-dotenv>=1.0.0",
     "sqlalchemy>=2.0.23",
+    "psycopg2-binary>=2.9.0",
+    "pymysql>=1.1.0",
     "pandas>=2.0.3",
     "numpy>=1.24.3",
     "openai>=1.0.0",
@@ -89,6 +91,8 @@ dev = [
     "flake8>=6.0.0",
     "mypy>=1.0.0",
     "pre-commit>=3.0.0",
+    "build>=1.0.0",
+    "twine>=5.0.0",
 ]
 
 # Documentation dependencies

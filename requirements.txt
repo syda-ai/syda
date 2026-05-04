@@ -4,6 +4,9 @@ python-dotenv>=1.0.0
 
 # Database
 sqlalchemy>=2.0.23
+sqlalchemy-utils>=0.41.1
+psycopg2-binary>=2.9.0   # PostgreSQL driver (DatabaseSchemaLoader)
+pymysql>=1.1.0            # MySQL driver (DatabaseSchemaLoader)
 
 # Data processing
 pandas>=2.0.3
@@ -35,7 +38,6 @@ azure-storage-blob>=12.19.0
 pdfplumber>=0.10.3
 pillow>=10.0.1
 pytesseract>=0.3.10
-sqlalchemy-utils>=0.41.1
 
 # Documentation
 mkdocs-material>=9.6.15

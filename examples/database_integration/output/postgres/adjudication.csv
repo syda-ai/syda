@@ -1,0 +1,21 @@
+adjudication_id,claim_id,decision,denial_reason,approved_amount
+1,1013,Approved,,5250.0
+2,1001,Approved,,3800.5
+3,1001,Partial,Exceeds plan maximum for procedure,2100.0
+4,1006,Approved,,7500.0
+5,1010,Denied,Not a covered service,0.0
+6,1011,Approved,,4200.75
+7,1013,Partial,Deductible not met,1500.0
+8,1010,Approved,,6100.0
+9,1010,Approved,,2950.25
+10,1014,Denied,Pre-authorization not obtained,0.0
+11,1006,Approved,,8250.5
+12,1012,Partial,Out-of-network provider adjustment,3200.0
+13,1006,Approved,,5600.0
+14,1013,Denied,Duplicate claim submission,0.0
+15,1001,Approved,,4875.75
+16,1018,Partial,Copay applied to approved amount,2450.0
+17,1015,Approved,,7200.25
+18,1007,Approved,,3500.0
+19,1020,Partial,Coinsurance adjustment applied,4100.5
+20,1014,Approved,,6450.0

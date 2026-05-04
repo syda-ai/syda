@@ -1,0 +1,16 @@
+claim_id:
+  not_null: true
+  references:
+    field: claim_id
+    schema: claim
+  type: foreign_key
+payment_amount:
+  type: float
+payment_date:
+  type: date
+payment_id:
+  not_null: true
+  primary_key: true
+  type: integer
+status:
+  type: string

@@ -7,13 +7,15 @@ Supports multiple AI providers (OpenAI, Anthropic) and various schema formats.
 
 from .generate import SyntheticDataGenerator
 from .schemas import ModelConfig
+from .db_schema_loader import DatabaseSchemaLoader
 
 __all__ = [
     'SyntheticDataGenerator',
-    'ModelConfig'
+    'ModelConfig',
+    'DatabaseSchemaLoader',
 ]
 
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 __author__ = 'Rama Krishna Kumar Lingamgunta'
 __email__ = 'ramkumar2606@gmail.com'
 __license__ = 'MIT'

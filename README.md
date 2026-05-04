@@ -136,6 +136,7 @@ print("📂 Check the 'data' folder for categories.csv and products.csv")
 | **Document Generation** | AI-powered PDFs linked to data | Product catalogs, receipts, contracts |
 | **Custom Generators** | Complex business logic | Tax calculations, pricing rules, arrays |
 | **Privacy-First** | Protect real user data | GDPR/CCPA compliant testing |
+| **Database Integration** | Any SQLAlchemy-compatible database | `DatabaseSchemaLoader("postgresql://...")` → generate → write back |
 | **Developer Experience** | Just works | Type hints, great docs |
 
 
@@ -755,6 +756,70 @@ crm_data/
 ```
 
 > 🎯 **Zero Configuration**: Your SQLAlchemy `comments` become AI generation hints, `ForeignKey` relationships are automatically maintained, and `nullable=False` constraints are respected!
+
+
+## Generate Data From an Existing Database
+
+Already have a database? `DatabaseSchemaLoader` connects to it, infers all table schemas (columns, types, primary keys, foreign keys), generates synthetic data, and writes it back — no manual schema definition needed.
+
+**Supports any SQLAlchemy-compatible database** — SQLite, PostgreSQL, MySQL, MariaDB, MS SQL Server, Oracle, and more. Pass any valid SQLAlchemy connection string and it works.
+
+```bash
+pip install syda sqlalchemy
+# PostgreSQL: pip install psycopg2-binary
+# MySQL:      pip install pymysql
+```
+
+### Option A — in-memory (no intermediate files)
+
+```python
+from syda import SyntheticDataGenerator, DatabaseSchemaLoader, ModelConfig
+from dotenv import load_dotenv
+
+load_dotenv()
+
+loader    = DatabaseSchemaLoader("sqlite:///mydb.db")
+schemas   = loader.load_schemas()          # infer schemas as dicts
+
+generator = SyntheticDataGenerator(model_config=ModelConfig(
+    provider="anthropic", model_name="claude-haiku-4-5-20251001"
+))
+
+results = generator.generate_for_schemas(
+    schemas=schemas,
+    sample_sizes={"patient": 10, "claim": 20},
+    output_dir="output"
+)
+
+loader.write_to_database(results)          # write generated rows back
+```
+
+### Option B — file-based (inspect or version-control schemas first)
+
+```python
+loader = DatabaseSchemaLoader("postgresql+psycopg2://user:pass@localhost/mydb")
+
+# Save one YAML file per table — edit them before generating if needed
+schema_files = loader.save_schemas("schemas/", format="yaml")
+
+results = generator.generate_for_schemas(schemas=schema_files, output_dir="output")
+
+loader.write_to_database(results)
+```
+
+**Output:**
+```bash
+output/
+├── patient.csv      # generated rows
+├── provider.csv
+└── claim.csv        # all foreign keys reference valid parent rows
+
+schemas/             # (Option B only) editable YAML schema files
+├── patient.yaml
+└── claim.yaml
+```
+
+> 🎯 **FK-safe writes**: `write_to_database()` inserts rows in topological order (parents before children) so referential integrity is preserved in the target database.
 
 
 ## Contributing
