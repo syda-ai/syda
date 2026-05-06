@@ -689,6 +689,143 @@ print("✅ Generated data with custom business logic!")
 > - **Implement complex business rules** (pricing logic, inventory rules)
 > - **Generate structured data** (arrays, nested objects, JSON)
 
+## Infer Schemas Directly from Your Database
+
+Already have a relational database? Syda can **automatically extract its schema** and generate synthetic data — no manual schema definition required.
+
+`create_schemas_from_database()` connects to any SQLAlchemy-supported database, reads all table structures including column types, primary keys, and foreign key relationships, and produces YAML schema files ready for `generate_for_schemas()`.
+
+### Supported Databases
+
+| Database | Connection URL Format |
+|----------|-----------------------|
+| SQLite | `sqlite:///mydb.db` |
+| PostgreSQL | `postgresql+psycopg2://user:password@localhost/dbname` |
+| MySQL | `mysql+pymysql://user:password@localhost/dbname` |
+
+### Install database drivers
+
+```bash
+# PostgreSQL
+pip install psycopg2-binary
+
+# MySQL
+pip install pymysql
+```
+
+### Usage
+
+```python
+from syda import SyntheticDataGenerator, ModelConfig
+from dotenv import load_dotenv
+
+load_dotenv()
+
+generator = SyntheticDataGenerator(
+    model_config=ModelConfig(
+        provider="anthropic",
+        model_name="claude-3-5-haiku-20241022"
+    )
+)
+
+# Step 1: Infer schema from your existing database
+# Returns a dict of {table_name: yaml_file_path}
+schema_files = generator.create_schemas_from_database(
+    connection_string_or_engine="sqlite:///mydb.db",
+    output_dir="generated_schemas",   # YAML files saved here
+    table_names=None,                  # None = all tables, or pass a list
+    format="yaml"
+)
+
+# Step 2: Generate synthetic data from the inferred schemas
+results = generator.generate_for_schemas(
+    schemas=schema_files,
+    sample_sizes={
+        "patient": 10,
+        "claim":   20,
+    },
+    prompts={
+        "patient": "Generate realistic patient records with diverse ages and names.",
+        "claim":   "Generate realistic medical claims with CPT codes and billing amounts.",
+    },
+    output_dir="synthetic_output"
+)
+
+print("✅ Synthetic data generated from your existing database schema!")
+```
+
+### Connect to PostgreSQL or MySQL
+
+```python
+# PostgreSQL
+schema_files = generator.create_schemas_from_database(
+    connection_string_or_engine="postgresql+psycopg2://user:password@localhost/mydb",
+    output_dir="generated_schemas",
+    format="yaml"
+)
+
+# MySQL
+schema_files = generator.create_schemas_from_database(
+    connection_string_or_engine="mysql+pymysql://user:password@localhost/mydb",
+    output_dir="generated_schemas",
+    format="yaml"
+)
+```
+
+### Infer specific tables only
+
+```python
+schema_files = generator.create_schemas_from_database(
+    connection_string_or_engine="sqlite:///mydb.db",
+    output_dir="generated_schemas",
+    table_names=["patient", "claim"],   # Only infer these two tables
+    format="yaml"
+)
+```
+
+### How it works
+
+Syda uses SQLAlchemy's `Inspector` API to extract:
+- **Column names and types** — mapped to Syda-compatible types (`integer`, `string`, `date`, `float`, `boolean`)
+- **Primary keys** — including composite primary keys
+- **Foreign key relationships** — automatically written as `type: foreign_key` with `references` in the YAML
+
+**Example inferred YAML (patient.yaml):**
+```yaml
+patient_id:
+  type: integer
+  primary_key: true
+  not_null: true
+patient_name:
+  type: string
+  not_null: true
+age:
+  type: integer
+date_of_birth:
+  type: date
+```
+
+**Example inferred YAML with FK (diagnosis.yaml):**
+```yaml
+diagnosis_id:
+  type: integer
+  primary_key: true
+patient_id:
+  type: foreign_key
+  not_null: true
+  references:
+    table: patient
+    field: patient_id
+diagnosis_code:
+  type: string
+visit_date:
+  type: date
+```
+
+> **Zero manual schema writing**: Point Syda at your database and start generating realistic synthetic data immediately.
+
+---
+
 ## Works with Your Existing SQLAlchemy Models
 
 Already using **SQLAlchemy**? Syda works directly with your existing models - no schema conversion needed!
@@ -877,4 +1014,3 @@ url = {https://github.com/syda-ai/syda},
 version = {0.0.4},
 year = {2025}
 }
-
