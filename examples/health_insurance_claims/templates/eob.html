@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: Arial, sans-serif; margin: 60px; color: #222; }
+  .header { display: flex; justify-content: space-between; border-bottom: 3px solid #003366; padding-bottom: 12px; margin-bottom: 25px; }
+  .logo { font-size: 20px; font-weight: bold; color: #003366; }
+  .title { font-size: 16px; font-weight: bold; color: #555; }
+  table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+  th { background: #003366; color: white; padding: 10px 12px; text-align: left; font-size: 13px; }
+  td { padding: 9px 12px; border-bottom: 1px solid #eee; }
+  tr:nth-child(even) td { background: #f9f9f9; }
+  .summary-box { background: #eef3f9; border: 1px solid #c0d0e0; padding: 15px 20px; margin-top: 20px; }
+  .summary-box table { margin: 0; }
+  .summary-box td { border: none; padding: 5px 10px; }
+  .total-row td { font-weight: bold; font-size: 15px; }
+  .footer { margin-top: 30px; font-size: 11px; color: #888; border-top: 1px solid #ccc; padding-top: 10px; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <div class="logo">HealthFirst Insurance</div>
+      <div style="font-size:13px; color:#555; margin-top:4px;">Explanation of Benefits</div>
+    </div>
+    <div style="text-align:right; font-size:13px; color:#555;">
+      Claim #: {{ claim_id }}<br>
+      Date Processed: {{ processed_date }}<br>
+      Member: {{ patient_name }}
+    </div>
+  </div>
+
+  <table>
+    <tr>
+      <th>Service Date</th><th>Provider</th><th>Service Description</th>
+      <th>Billed</th><th>Allowed</th><th>Plan Paid</th><th>Your Responsibility</th>
+    </tr>
+    <tr>
+      <td>{{ visit_date }}</td>
+      <td>{{ provider_name }}</td>
+      <td>{{ procedure_description }} ({{ procedure_code }})</td>
+      <td>${{ billed_amount }}</td>
+      <td>${{ allowed_amount }}</td>
+      <td>${{ plan_paid }}</td>
+      <td>${{ member_responsibility }}</td>
+    </tr>
+  </table>
+
+  <div class="summary-box">
+    <strong>Summary</strong>
+    <table>
+      <tr><td>Total Billed</td><td>${{ billed_amount }}</td></tr>
+      <tr><td>Plan Discount</td><td>${{ discount_amount }}</td></tr>
+      <tr><td>Plan Paid</td><td>${{ plan_paid }}</td></tr>
+      <tr class="total-row"><td>Amount You Owe</td><td>${{ member_responsibility }}</td></tr>
+    </table>
+  </div>
+
+  <p style="margin-top:20px; font-size:13px;">
+    Questions? Call Member Services at 1-800-555-HEALTH or visit myhealthfirst.com
+  </p>
+
+  <div class="footer">
+    Synthetic EOB generated for demonstration purposes only. Contains no real patient or claims data.
+  </div>
+</body>
+</html>

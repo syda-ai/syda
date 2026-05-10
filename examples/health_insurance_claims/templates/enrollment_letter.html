@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: Arial, sans-serif; margin: 60px; color: #222; }
+  .header { border-bottom: 3px solid #003366; padding-bottom: 10px; margin-bottom: 30px; }
+  .logo { font-size: 22px; font-weight: bold; color: #003366; }
+  .date { text-align: right; color: #555; }
+  .subject { font-weight: bold; margin: 20px 0 10px; }
+  .body p { line-height: 1.7; }
+  .member-box { background: #f0f4f8; border-left: 4px solid #003366; padding: 15px 20px; margin: 20px 0; }
+  .footer { margin-top: 40px; border-top: 1px solid #ccc; padding-top: 15px; font-size: 12px; color: #777; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">HealthFirst Insurance</div>
+    <div class="date">{{ enrollment_date }}</div>
+  </div>
+
+  <p>Dear {{ patient_name }},</p>
+
+  <div class="subject">RE: Health Plan Enrollment Confirmation</div>
+
+  <div class="body">
+    <p>We are pleased to confirm your enrollment in the HealthFirst healthcare plan.
+    Your coverage is active and all benefits are available to you.</p>
+
+    <div class="member-box">
+      <strong>Member ID:</strong> {{ member_id }}<br>
+      <strong>Member Name:</strong> {{ patient_name }}<br>
+      <strong>Date of Birth:</strong> {{ date_of_birth }}<br>
+      <strong>Plan Name:</strong> {{ plan_name }}<br>
+      <strong>Effective Date:</strong> {{ effective_date }}<br>
+      <strong>Primary Care Provider:</strong> {{ primary_provider }}
+    </div>
+
+    <p>Your plan includes medical, prescription drug, and preventive care coverage.
+    Please carry your member ID card at all times when seeking care.</p>
+
+    <p>For questions, contact Member Services at 1-800-555-HEALTH or visit our member portal.</p>
+  </div>
+
+  <p>Sincerely,<br><strong>Member Services Team</strong><br>HealthFirst Insurance</p>
+
+  <div class="footer">
+    This letter is for informational purposes only. Synthetic data generated for demonstration.
+  </div>
+</body>
+</html>

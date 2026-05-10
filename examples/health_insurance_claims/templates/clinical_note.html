@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: Arial, sans-serif; margin: 60px; color: #222; }
+  .header { background: #003366; color: white; padding: 15px 20px; margin-bottom: 25px; }
+  .header h2 { margin: 0; font-size: 18px; }
+  .header p { margin: 4px 0 0; font-size: 13px; opacity: 0.85; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  td { padding: 8px 12px; border: 1px solid #ddd; vertical-align: top; }
+  td:first-child { font-weight: bold; background: #f5f5f5; width: 200px; }
+  .section-title { font-weight: bold; color: #003366; border-bottom: 1px solid #003366;
+                   padding-bottom: 4px; margin: 20px 0 10px; }
+  .footer { margin-top: 40px; font-size: 12px; color: #777; border-top: 1px solid #ccc; padding-top: 10px; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <h2>Clinical Visit Note</h2>
+    <p>HealthFirst Medical Group — Confidential Patient Record</p>
+  </div>
+
+  <div class="section-title">Patient Information</div>
+  <table>
+    <tr><td>Patient Name</td><td>{{ patient_name }}</td></tr>
+    <tr><td>Date of Birth</td><td>{{ date_of_birth }}</td></tr>
+    <tr><td>Visit Date</td><td>{{ visit_date }}</td></tr>
+    <tr><td>Provider</td><td>{{ provider_name }}, {{ specialty }}</td></tr>
+  </table>
+
+  <div class="section-title">Chief Complaint</div>
+  <p>{{ chief_complaint }}</p>
+
+  <div class="section-title">Diagnosis</div>
+  <table>
+    <tr><td>ICD-10 Code</td><td>{{ diagnosis_code }}</td></tr>
+    <tr><td>Description</td><td>{{ diagnosis_description }}</td></tr>
+  </table>
+
+  <div class="section-title">Clinical Notes</div>
+  <p>{{ clinical_notes }}</p>
+
+  <div class="section-title">Treatment Plan</div>
+  <p>{{ treatment_plan }}</p>
+
+  <div class="section-title">Follow-Up</div>
+  <p>{{ follow_up_instructions }}</p>
+
+  <br>
+  <p><strong>Electronically signed by:</strong> {{ provider_name }}, {{ specialty }}<br>
+  <strong>Date:</strong> {{ visit_date }}</p>
+
+  <div class="footer">
+    Synthetic clinical note generated for demonstration purposes only. Contains no real patient data.
+  </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: Arial, sans-serif; margin: 60px; color: #222; }
+  .header { border-bottom: 3px solid #003366; padding-bottom: 10px; margin-bottom: 25px; }
+  .logo { font-size: 22px; font-weight: bold; color: #003366; }
+  .confirmation-box { background: #e8f5e9; border: 2px solid #2e7d32; border-radius: 6px;
+                      padding: 20px 25px; margin: 25px 0; }
+  .confirmation-box h3 { color: #2e7d32; margin: 0 0 12px; }
+  table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+  td { padding: 9px 12px; border-bottom: 1px solid #eee; }
+  td:first-child { font-weight: bold; color: #444; width: 220px; }
+  .footer { margin-top: 40px; font-size: 12px; color: #777; border-top: 1px solid #ccc; padding-top: 10px; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">HealthFirst Insurance</div>
+    <div style="font-size:13px; color:#555; margin-top:4px;">{{ payment_date }}</div>
+  </div>
+
+  <p>Dear {{ patient_name }},</p>
+
+  <div class="confirmation-box">
+    <h3>✓ Payment Confirmation</h3>
+    <p>A payment has been processed for the healthcare services listed below.</p>
+  </div>
+
+  <table>
+    <tr><td>Payment Reference</td><td>{{ payment_id }}</td></tr>
+    <tr><td>Member Name</td><td>{{ patient_name }}</td></tr>
+    <tr><td>Related Claim</td><td>{{ claim_id }}</td></tr>
+    <tr><td>Provider</td><td>{{ provider_name }}</td></tr>
+    <tr><td>Service Date</td><td>{{ visit_date }}</td></tr>
+    <tr><td>Payment Amount</td><td><strong>${{ payment_amount }}</strong></td></tr>
+    <tr><td>Payment Date</td><td>{{ payment_date }}</td></tr>
+    <tr><td>Payment Status</td><td>{{ payment_status }}</td></tr>
+  </table>
+
+  <p>Please retain this confirmation for your records.
+  If you have questions about this payment, contact Member Services at 1-800-555-HEALTH.</p>
+
+  <p>Thank you for choosing HealthFirst Insurance.</p>
+
+  <p>Sincerely,<br><strong>Claims Payment Team</strong><br>HealthFirst Insurance</p>
+
+  <div class="footer">
+    Synthetic payment confirmation generated for demonstration purposes only. Contains no real patient data.
+  </div>
+</body>
+</html>
