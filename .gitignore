@@ -48,3 +48,6 @@ logs/
 site/
 
 .pre-release-test-env/
+marketing/
+.DS_Store
+memory/
