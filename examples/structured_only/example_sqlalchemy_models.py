@@ -146,8 +146,8 @@ def main():
     
     model_config = ModelConfig(
         provider="anthropic",
-        #model_name="claude-3-opus-20240229",  
-        model_name="claude-3-5-haiku-20241022",
+        #model_name="claude-opus-4-5",  
+        model_name="claude-haiku-4-5-20251001",
         temperature=0.7,
         max_tokens=4000,  # Using higher max_tokens value for more complete responses
     )

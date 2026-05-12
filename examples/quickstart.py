@@ -16,7 +16,7 @@ print("🚀 Starting Syda 30-Second Quick Start...")
 generator = SyntheticDataGenerator(
     model_config=ModelConfig(
         provider="anthropic", 
-        model_name="claude-3-5-haiku-20241022"
+        model_name="claude-haiku-4-5-20251001"
     )
 )
 

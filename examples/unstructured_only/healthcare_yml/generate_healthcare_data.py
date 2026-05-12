@@ -34,7 +34,7 @@ def main():
     print("=== Generating Healthcare Data with Templates ===")
     
     # Initialize generator with model config
-    config = ModelConfig(provider="anthropic", model_name="claude-3-5-sonnet-20240620")
+    config = ModelConfig(provider="anthropic", model_name="claude-sonnet-4-5")
     generator = SyntheticDataGenerator(model_config=config)
     
     # Define schemas using YAML files
