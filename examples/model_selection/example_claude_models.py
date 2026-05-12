@@ -34,7 +34,7 @@ sample_sizes={'Patient': 15, 'Claim': 15}
 print("--------------Testing Claude Haiku----------------")
 model_config = ModelConfig(
     provider="anthropic",
-    model_name="claude-3-5-haiku-20241022",
+    model_name="claude-haiku-4-5-20251001",
     temperature=0.7,
     max_tokens=8192  # Larger value for more complete responses
 )

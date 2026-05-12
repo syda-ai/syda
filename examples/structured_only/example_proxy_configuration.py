@@ -83,7 +83,7 @@ def main():
     
     anthropic_proxy_config = ModelConfig(
         provider="anthropic",
-        model_name="claude-3-haiku-20240307",
+        model_name="claude-haiku-4-5-20251001",
         temperature=0.5,
         proxy=ProxyConfig(
             base_url="https://ai-proxy.company.com/anthropic",  # Replace with your company's Anthropic proxy
