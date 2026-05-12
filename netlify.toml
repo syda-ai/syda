@@ -1,0 +1,15 @@
+[build]
+  command = "pip install mkdocs-material mkdocs-macros-plugin mkdocs-minify-plugin && mkdocs build"
+  publish = "site"
+
+[build.environment]
+  PYTHON_VERSION = "3.11"
+
+[context.production]
+  command = "pip install mkdocs-material mkdocs-macros-plugin mkdocs-minify-plugin && mkdocs build"
+
+[context.branch-deploy]
+  command = "pip install mkdocs-material mkdocs-macros-plugin mkdocs-minify-plugin && mkdocs build"
+
+[context.deploy-preview]
+  command = "pip install mkdocs-material mkdocs-macros-plugin mkdocs-minify-plugin && mkdocs build"
