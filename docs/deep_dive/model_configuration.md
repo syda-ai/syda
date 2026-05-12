@@ -65,7 +65,7 @@ load_dotenv()
 # Basic configuration with default parameters
 config = ModelConfig(
     provider="anthropic",  # Choose provider: 'anthropic', 'openai', 'azureopenai', 'gemini', 'grok'
-    model_name="claude-3-5-haiku-20241022",  # Specify model name
+    model_name="claude-haiku-4-5-20251001",  # Specify model name
     temperature=0.7,  # Control randomness (0.0-1.0)
     max_tokens=8000   # Maximum number of tokens to generate
 )
@@ -86,7 +86,7 @@ Claude is the default model provider for SYDA, offering strong performance for d
 # Using Anthropic Claude
 config = ModelConfig(
     provider="anthropic",
-    model_name="claude-3-5-haiku-20241022",  # Default model
+    model_name="claude-haiku-4-5-20251001",  # Default model
     temperature=0.5,  # Control randomness (0.0-1.0)
     max_tokens=8000   # Maximum number of tokens to generate
 )
@@ -145,6 +145,56 @@ config = ModelConfig(
     max_tokens=4000
 )
 ```
+
+### OpenAI-Compatible Providers (Ollama, Groq, Together AI, and more)
+
+Use any server that speaks the OpenAI API — local models, cloud providers, or self-hosted inference engines:
+
+```python
+# Ollama (local)
+config = ModelConfig(
+    provider="openai_compatible",
+    model_name="llama3",
+    temperature=0.7,
+    max_tokens=2048,
+    extra_kwargs={
+        "base_url": "http://localhost:11434/v1",
+        "api_key": "ollama",  # any string; Ollama doesn't validate it
+    }
+)
+
+# Groq (cloud)
+config = ModelConfig(
+    provider="openai_compatible",
+    model_name="llama-3.1-8b-instant",
+    temperature=0.7,
+    max_tokens=4096,
+    extra_kwargs={
+        "base_url": "https://api.groq.com/openai/v1",
+        "api_key": "your-groq-api-key",
+    }
+)
+
+# Together AI (cloud)
+config = ModelConfig(
+    provider="openai_compatible",
+    model_name="meta-llama/Llama-3-8b-chat-hf",
+    extra_kwargs={
+        "base_url": "https://api.together.xyz/v1",
+        "api_key": "your-together-api-key",
+    }
+)
+```
+
+#### `response_mode` option
+
+| Value | Description |
+|---|---|
+| `"markdown"` | Default — strips ` ```json``` ` fences before parsing |
+| `"tools"` | Model supports tool calls natively |
+| `"json"` | Model returns clean JSON with no fences |
+
+See the [OpenAI-Compatible Example](../examples/model_selection/openai_compatible.md) for full details.
 
 ### Grok Models
 
@@ -321,7 +371,7 @@ For advanced use cases, you can access the underlying LLM client directly:
 ```python
 from syda import SyntheticDataGenerator, ModelConfig
 
-config = ModelConfig(provider="anthropic", model_name="claude-3-5-haiku-20241022")
+config = ModelConfig(provider="anthropic", model_name="claude-haiku-4-5-20251001")
 generator = SyntheticDataGenerator(model_config=config)
 
 # Access the underlying client
@@ -342,7 +392,7 @@ This gives you direct access to provider-specific features while still using SYD
 
 ## Best Practices
 
-1. **Start with Default Models**: Begin with `claude-3-5-haiku-20241022` (Anthropic) or `gpt-4-turbo` (OpenAI)
+1. **Start with Default Models**: Begin with `claude-haiku-4-5-20251001` (Anthropic) or `gpt-4-turbo` (OpenAI)
 2. **Adjust Temperature**: Lower for more consistent results, higher for more variety
 3. **Consider Cost vs. Quality**: Higher-end models provide better quality but at higher cost
 4. **Test Different Models**: Compare results from different models for your specific use case
@@ -357,6 +407,7 @@ This gives you direct access to provider-specific features while still using SYD
 
 Explore these model-specific examples to see configuration in action:
 - [Anthropic Claude Example](../examples/model_selection/anthropic.md)
-- [OpenAI GPT Example](../examples/model_selection/openai.md) 
+- [OpenAI GPT Example](../examples/model_selection/openai.md)
 - [Azure OpenAI Example](../examples/model_selection/azureopenai.md)
-- [Gemini Example](../examples/model_selection/gemini.md) 
+- [Gemini Example](../examples/model_selection/gemini.md)
+- [OpenAI-Compatible Providers Example](../examples/model_selection/openai_compatible.md) 
