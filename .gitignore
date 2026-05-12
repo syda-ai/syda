@@ -51,3 +51,5 @@ site/
 marketing/
 .DS_Store
 memory/
+# Local Netlify folder
+.netlify
