@@ -147,6 +147,167 @@ class TestLLMClient:
             LLMClient(model_config=config)
 
 
+class TestOpenAICompatibleProvider:
+    """Tests for the openai_compatible provider in LLMClient."""
+
+    @patch("syda.llm.openai.OpenAI")
+    @patch("syda.llm.instructor.from_openai")
+    def test_valid_config_with_base_url_and_api_key(self, mock_from_openai, mock_openai):
+        """Client initializes correctly with base_url and api_key in extra_kwargs."""
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+            extra_kwargs={"base_url": "http://localhost:11434/v1", "api_key": "ollama"},
+        )
+        client = LLMClient(model_config=config)
+
+        mock_openai.assert_called_once_with(
+            base_url="http://localhost:11434/v1", api_key="ollama"
+        )
+        mock_from_openai.assert_called_once()
+        assert client.model_config == config
+
+    @patch("syda.llm.openai.OpenAI")
+    @patch("syda.llm.instructor.from_openai")
+    def test_missing_base_url_raises_error(self, mock_from_openai, mock_openai):
+        """ValueError with helpful message when base_url is missing."""
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+            extra_kwargs={"api_key": "ollama"},
+        )
+        with pytest.raises(ValueError, match="base_url"):
+            LLMClient(model_config=config)
+
+    @patch("syda.llm.openai.OpenAI")
+    @patch("syda.llm.instructor.from_openai")
+    def test_missing_extra_kwargs_raises_error(self, mock_from_openai, mock_openai):
+        """ValueError raised when extra_kwargs is not provided at all."""
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+        )
+        with pytest.raises(ValueError, match="base_url"):
+            LLMClient(model_config=config)
+
+    @patch.dict("os.environ", {"OPENAI_API_KEY": "env_key"})
+    @patch("syda.llm.openai.OpenAI")
+    @patch("syda.llm.instructor.from_openai")
+    def test_api_key_falls_back_to_env_var(self, mock_from_openai, mock_openai):
+        """api_key falls back to OPENAI_API_KEY env var when not in extra_kwargs."""
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+            extra_kwargs={"base_url": "http://localhost:11434/v1"},
+        )
+        LLMClient(model_config=config)
+
+        mock_openai.assert_called_once_with(
+            base_url="http://localhost:11434/v1", api_key="env_key"
+        )
+
+    @patch.dict("os.environ", {}, clear=True)
+    @patch("syda.llm.openai.OpenAI")
+    @patch("syda.llm.instructor.from_openai")
+    def test_api_key_falls_back_to_none_string(self, mock_from_openai, mock_openai):
+        """api_key defaults to 'none' when not set anywhere (e.g. Ollama)."""
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+            extra_kwargs={"base_url": "http://localhost:11434/v1"},
+        )
+        LLMClient(model_config=config)
+
+        mock_openai.assert_called_once_with(
+            base_url="http://localhost:11434/v1", api_key="none"
+        )
+
+    @patch("syda.llm.openai.OpenAI")
+    @patch("syda.llm.instructor.from_openai")
+    def test_default_response_mode_is_markdown(self, mock_from_openai, mock_openai):
+        """Default response_mode is 'markdown' (MD_JSON) when not specified."""
+        import instructor
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+            extra_kwargs={"base_url": "http://localhost:11434/v1", "api_key": "ollama"},
+        )
+        LLMClient(model_config=config)
+
+        _, kwargs = mock_from_openai.call_args
+        assert kwargs.get("mode") == instructor.Mode.MD_JSON
+
+    @patch("syda.llm.openai.OpenAI")
+    @patch("syda.llm.instructor.from_openai")
+    def test_response_mode_tools(self, mock_from_openai, mock_openai):
+        """response_mode='tools' uses tool-call mode for models that support it."""
+        import instructor
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="gpt-oss:20b",
+            extra_kwargs={
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_mode": "tools",
+            },
+        )
+        LLMClient(model_config=config)
+
+        _, kwargs = mock_from_openai.call_args
+        assert kwargs.get("mode") == instructor.Mode.TOOLS
+
+    @patch("syda.llm.openai.OpenAI")
+    @patch("syda.llm.instructor.from_openai")
+    def test_response_mode_json(self, mock_from_openai, mock_openai):
+        """response_mode='json' uses clean JSON content mode."""
+        import instructor
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+            extra_kwargs={
+                "base_url": "http://localhost:11434/v1",
+                "response_mode": "json",
+            },
+        )
+        LLMClient(model_config=config)
+
+        _, kwargs = mock_from_openai.call_args
+        assert kwargs.get("mode") == instructor.Mode.JSON
+
+    @patch("syda.llm.openai.OpenAI")
+    @patch("syda.llm.instructor.from_openai")
+    def test_response_mode_is_case_insensitive(self, mock_from_openai, mock_openai):
+        """response_mode value is case-insensitive."""
+        import instructor
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+            extra_kwargs={
+                "base_url": "http://localhost:11434/v1",
+                "response_mode": "MARKDOWN",
+            },
+        )
+        LLMClient(model_config=config)
+
+        _, kwargs = mock_from_openai.call_args
+        assert kwargs.get("mode") == instructor.Mode.MD_JSON
+
+    @patch("syda.llm.openai.OpenAI")
+    @patch("syda.llm.instructor.from_openai")
+    def test_invalid_response_mode_raises_error(self, mock_from_openai, mock_openai):
+        """Invalid response_mode raises ValueError with valid options listed."""
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+            extra_kwargs={
+                "base_url": "http://localhost:11434/v1",
+                "response_mode": "xml",
+            },
+        )
+        with pytest.raises(ValueError, match="Invalid response_mode"):
+            LLMClient(model_config=config)
+
+
 class TestCreateLLMClient:
     """Tests for the create_llm_client function."""
     

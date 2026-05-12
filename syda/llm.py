@@ -182,6 +182,34 @@ class LLMClient:
             except Exception as e:
                 raise ValueError(f"Failed to initialize Grok client: {e}")
 
+        elif provider == "openai_compatible":
+            extra = self.model_config.extra_kwargs or {}
+
+            base_url = extra.get("base_url")
+            if not base_url:
+                raise ValueError(
+                    "openai_compatible provider requires 'base_url' in extra_kwargs. "
+                    "Example: extra_kwargs={'base_url': 'http://localhost:11434/v1', 'api_key': 'ollama'}"
+                )
+
+            api_key = extra.get("api_key") or os.environ.get("OPENAI_API_KEY") or "none"
+
+            response_mode_map = {
+                "markdown": instructor.Mode.MD_JSON,
+                "tools":    instructor.Mode.TOOLS,
+                "json":     instructor.Mode.JSON,
+            }
+            response_mode = extra.get("response_mode", "markdown").lower()
+            if response_mode not in response_mode_map:
+                raise ValueError(
+                    f"Invalid response_mode '{response_mode}'. "
+                    f"Valid options: 'markdown', 'tools', 'json'"
+                )
+            mode = response_mode_map[response_mode]
+
+            raw_client = openai.OpenAI(base_url=base_url, api_key=api_key)
+            return instructor.from_openai(raw_client, mode=mode)
+
         else:
             # For other providers, use from_provider with empty kwargs
             try:

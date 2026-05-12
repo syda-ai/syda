@@ -16,7 +16,7 @@ class TestModelConfig:
         
         # Test default values
         assert config.provider == "anthropic"
-        assert config.model_name == "claude-3-5-haiku-20241022"
+        assert config.model_name == "claude-haiku-4-5-20251001"
         assert config.temperature is None
         assert config.max_tokens is None
         assert config.stream is False
@@ -248,9 +248,68 @@ class TestModelConfig:
     def test_get_model_kwargs_is_called(self, mock_get_model_kwargs):
         """Test that get_model_kwargs method works as expected."""
         mock_get_model_kwargs.return_value = {"test_key": "test_value"}
-        
+
         config = ModelConfig(provider="openai", model_name="gpt-4")
         kwargs = config.get_model_kwargs()
-        
+
         mock_get_model_kwargs.assert_called_once()
         assert kwargs == {"test_key": "test_value"}
+
+    # ── openai_compatible provider ────────────────────────────────────────────
+
+    def test_openai_compatible_is_valid_provider(self):
+        """openai_compatible is accepted as a valid provider."""
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+            extra_kwargs={"base_url": "http://localhost:11434/v1", "api_key": "ollama"},
+        )
+        assert config.provider == "openai_compatible"
+        assert config.model_name == "llama3"
+
+    def test_openai_compatible_get_model_kwargs_basic(self):
+        """get_model_kwargs returns model name for openai_compatible."""
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="gpt-oss:20b",
+            extra_kwargs={"base_url": "http://localhost:11434/v1"},
+        )
+        kwargs = config.get_model_kwargs()
+        assert kwargs["model"] == "gpt-oss:20b"
+
+    def test_openai_compatible_get_model_kwargs_with_seed_and_top_p(self):
+        """seed and top_p are included in kwargs when set."""
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+            seed=42,
+            top_p=0.9,
+            extra_kwargs={"base_url": "http://localhost:11434/v1"},
+        )
+        kwargs = config.get_model_kwargs()
+        assert kwargs["seed"] == 42
+        assert kwargs["top_p"] == 0.9
+
+    def test_openai_compatible_get_model_kwargs_excludes_none(self):
+        """None seed and top_p are not included in kwargs."""
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+            extra_kwargs={"base_url": "http://localhost:11434/v1"},
+        )
+        kwargs = config.get_model_kwargs()
+        assert "seed" not in kwargs
+        assert "top_p" not in kwargs
+
+    def test_openai_compatible_temperature_and_max_tokens(self):
+        """temperature and max_tokens are included like any other provider."""
+        config = ModelConfig(
+            provider="openai_compatible",
+            model_name="llama3",
+            temperature=0.7,
+            max_tokens=2048,
+            extra_kwargs={"base_url": "http://localhost:11434/v1"},
+        )
+        kwargs = config.get_model_kwargs()
+        assert kwargs["temperature"] == 0.7
+        assert kwargs["max_tokens"] == 2048
