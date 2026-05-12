@@ -61,7 +61,7 @@ print("🚀 Starting Syda Quick Start...")
 generator = SyntheticDataGenerator(
     model_config=ModelConfig(
         provider="anthropic", 
-        model_name="claude-3-5-haiku-20241022"
+        model_name="claude-haiku-4-5-20251001"
     )
 )
 
@@ -129,7 +129,7 @@ print("📂 Check the 'data' folder for categories.csv and products.csv")
 
 | Feature | Benefit | Example |
 |---------|---------|---------|
-| **Multi-AI Provider** | No vendor lock-in | Claude, GPT, Gemini, Grok models |
+| **Multi-AI Provider** | No vendor lock-in | Claude, GPT, Gemini, Grok, Ollama, and any OpenAI-compatible API |
 | **Zero Orphaned Records** | Perfect referential integrity | `product.category_id` → `category.id` ✅ |
 | **SQLAlchemy Native** | Use existing models directly | `Customer`, `Contact` classes → CSV data |
 | **Multiple Schema Formats** | Flexible input options | SQLAlchemy, YAML, JSON, Dict |
@@ -274,7 +274,7 @@ load_dotenv()
 # Configure your AI model  
 config = ModelConfig(
     provider="anthropic",
-    model_name="claude-3-5-haiku-20241022"
+    model_name="claude-haiku-4-5-20251001"
 )
 
 # Create generator
@@ -502,7 +502,7 @@ from syda import SyntheticDataGenerator, ModelConfig
 from dotenv import load_dotenv
 
 load_dotenv()
-config = ModelConfig(provider="anthropic", model_name="claude-3-5-haiku-20241022")
+config = ModelConfig(provider="anthropic", model_name="claude-haiku-4-5-20251001")
 generator = SyntheticDataGenerator(model_config=config)
 
 # Define your schemas (structured data)
@@ -734,7 +734,7 @@ class Contact(Base):
     customer = relationship("Customer", back_populates="contacts")
 
 # Generate data directly from your models
-config = ModelConfig(provider="anthropic", model_name="claude-3-5-haiku-20241022")
+config = ModelConfig(provider="anthropic", model_name="claude-haiku-4-5-20251001")
 generator = SyntheticDataGenerator(model_config=config)
 
 results = generator.generate_for_sqlalchemy_models(
@@ -821,6 +821,43 @@ schemas/             # (Option B only) editable YAML schema files
 
 > 🎯 **FK-safe writes**: `write_to_database()` inserts rows in topological order (parents before children) so referential integrity is preserved in the target database.
 
+
+## Use Any OpenAI-Compatible Model
+
+Run Syda against **any OpenAI-compatible API** — local models via Ollama, Groq, Together AI, Fireworks, DeepSeek, Mistral, and more — using the `openai_compatible` provider:
+
+```bash
+# Install and start Ollama
+brew install ollama && brew services start ollama
+ollama pull llama3
+```
+
+```python
+from syda import SyntheticDataGenerator, ModelConfig
+
+generator = SyntheticDataGenerator(
+    model_config=ModelConfig(
+        provider="openai_compatible",
+        model_name="llama3",           # any model your server supports
+        temperature=0.7,
+        max_tokens=2048,
+        extra_kwargs={
+            "base_url": "http://localhost:11434/v1",  # Ollama
+            "api_key": "ollama",                       # any string for Ollama
+            # "response_mode": "tools",  # for models with native tool-call support
+            # "response_mode": "json",   # for models returning clean JSON
+        }
+    )
+)
+```
+
+| `response_mode` | When to use |
+|---|---|
+| `"markdown"` | Default — model wraps JSON in ` ```json ``` ` fences |
+| `"tools"` | Model supports tool calls natively |
+| `"json"` | Model returns clean JSON without fences |
+
+Works with: **Ollama · Groq · Together AI · Fireworks · DeepSeek · Mistral · LM Studio · vLLM · Perplexity** — any server that speaks the OpenAI API.
 
 ## Contributing
 

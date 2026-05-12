@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.0.6] - 2026-05-11
+
+### Added
+- `openai_compatible` provider in `ModelConfig` — connect to any OpenAI-compatible API (Ollama, Groq, Together AI, Fireworks, DeepSeek, Mistral, LM Studio, vLLM, and more) by passing a `base_url` in `extra_kwargs`
+- `response_mode` option in `extra_kwargs` for `openai_compatible` provider — controls how instructor parses the model response: `"markdown"` (default, strips markdown fences), `"tools"` (tool call mode for models that support it), `"json"` (clean JSON content)
+- `api_key` in `extra_kwargs` for `openai_compatible` provider — falls back to `OPENAI_API_KEY` env var, then `"none"` for providers that don't require a key (e.g. Ollama)
+
+### Changed
+- Default model updated from `claude-3-5-haiku-20241022` to `claude-haiku-4-5-20251001`
+- All examples updated to current Claude model names (`claude-haiku-4-5-20251001`, `claude-sonnet-4-5`, `claude-opus-4-5`)
+- Version bumped to `0.0.6`
+
 ## [0.0.5] - 2026-05-03
 
 ### Added
