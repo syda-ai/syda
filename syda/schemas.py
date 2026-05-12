@@ -17,8 +17,8 @@ class ModelConfig(BaseModel):
     """
     
     # Model provider and name
-    provider: Literal["openai", "anthropic", "gemini", "azureopenai", "grok"] = "anthropic"
-    model_name: str = "claude-3-5-haiku-20241022"
+    provider: Literal["openai", "anthropic", "gemini", "azureopenai", "grok", "openai_compatible"] = "anthropic"
+    model_name: str = "claude-haiku-4-5-20251001"
     
     
     temperature: float = Field(None, ge=0.0, le=1.0, description="Controls randomness: 0.0 is deterministic, higher values are more random")
@@ -122,6 +122,13 @@ class ModelConfig(BaseModel):
                 kwargs["response_format"] = self.response_format
             if self.max_completion_tokens:
                 kwargs["max_completion_tokens"] = self.max_completion_tokens
+            if self.top_p:
+                kwargs["top_p"] = self.top_p
+
+        elif self.provider == "openai_compatible":
+            # Any OpenAI-compatible provider (Ollama, Groq, Together AI, etc.)
+            if self.seed:
+                kwargs["seed"] = self.seed
             if self.top_p:
                 kwargs["top_p"] = self.top_p
 
