@@ -267,7 +267,7 @@ fi
 
 [[ -n "${ANTHROPIC_API_KEY:-}" ]] && pass "ANTHROPIC_API_KEY found" || warn "ANTHROPIC_API_KEY not set"
 [[ -n "${OPENAI_API_KEY:-}"    ]] && pass "OPENAI_API_KEY found"    || warn "OPENAI_API_KEY not set"
-[[ -n "${DB_HOST:-}"           ]] && pass "DB_HOST found"           || warn "DB_HOST not set — database examples may fail"
+[[ -n "${DB_HOST:-}" ]] && pass "DB_HOST found" || warn "DB_HOST not set — database examples may fail"
 
 run_example() {
   local label="$1"
@@ -309,6 +309,57 @@ run_example "database_integration/save_schemas" \
   "$EXAMPLES_DIR/database_integration/example_save_schemas.py"
 run_example "database_integration/postgres" \
   "$EXAMPLES_DIR/database_integration/example_postgres.py"
+
+# openai_compatible — auto-detect Ollama, start if needed, run example
+OLLAMA_BIN=$(command -v ollama || true)
+if [[ -z "$OLLAMA_BIN" ]]; then
+  warn "ollama not found — skipping openai_compatible example"
+else
+  pass "ollama found at $OLLAMA_BIN"
+
+  # Start Ollama server if not already running
+  if curl -sf http://localhost:11434/ &>/dev/null; then
+    pass "Ollama server already running"
+    OLLAMA_STARTED=false
+  else
+    info "Starting Ollama server..."
+    ollama serve &>/dev/null &
+    OLLAMA_PID=$!
+    OLLAMA_STARTED=true
+    # Wait up to 10 s for it to be ready
+    for i in {1..10}; do
+      sleep 1
+      curl -sf http://localhost:11434/ &>/dev/null && break
+    done
+    if curl -sf http://localhost:11434/ &>/dev/null; then
+      pass "Ollama server started (pid $OLLAMA_PID)"
+    else
+      fail "Ollama server did not start in time"
+      OLLAMA_BIN=""
+    fi
+  fi
+
+  if [[ -n "$OLLAMA_BIN" ]]; then
+    # Pick the first available model
+    OLLAMA_MODEL=$(ollama list 2>/dev/null | awk 'NR>1 && $1!="" {print $1; exit}')
+    if [[ -z "$OLLAMA_MODEL" ]]; then
+      warn "No Ollama models found — skipping openai_compatible example"
+    else
+      pass "Using Ollama model: $OLLAMA_MODEL"
+      OPENAI_COMPATIBLE_BASE_URL="http://localhost:11434/v1" \
+      OPENAI_COMPATIBLE_API_KEY="ollama" \
+      OPENAI_COMPATIBLE_MODEL="$OLLAMA_MODEL" \
+      run_example "model_selection/openai_compatible ($OLLAMA_MODEL)" \
+        "$EXAMPLES_DIR/model_selection/example_openai_compatible_models.py"
+    fi
+  fi
+
+  # Stop Ollama if we started it
+  if [[ "${OLLAMA_STARTED:-false}" == "true" && -n "${OLLAMA_PID:-}" ]]; then
+    info "Stopping Ollama server (pid $OLLAMA_PID)..."
+    kill "$OLLAMA_PID" 2>/dev/null || true
+  fi
+fi
 
 # ── Summary ───────────────────────────────────────────────────────────────────
 header "Summary"

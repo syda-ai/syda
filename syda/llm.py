@@ -192,7 +192,7 @@ class LLMClient:
                     "Example: extra_kwargs={'base_url': 'http://localhost:11434/v1', 'api_key': 'ollama'}"
                 )
 
-            api_key = extra.get("api_key") or os.environ.get("OPENAI_API_KEY") or "none"
+            api_key = extra.get("api_key") or "none"
 
             response_mode_map = {
                 "markdown": instructor.Mode.MD_JSON,

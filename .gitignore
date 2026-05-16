@@ -53,3 +53,7 @@ marketing/
 memory/
 # Local Netlify folder
 .netlify
+
+# Examples: generated outputs and binary artifacts (re-created by running examples)
+examples/**/output/
+examples/**/*.db
