@@ -193,8 +193,8 @@ class TestOpenAICompatibleProvider:
     @patch.dict("os.environ", {"OPENAI_API_KEY": "env_key"})
     @patch("syda.llm.openai.OpenAI")
     @patch("syda.llm.instructor.from_openai")
-    def test_api_key_falls_back_to_env_var(self, mock_from_openai, mock_openai):
-        """api_key falls back to OPENAI_API_KEY env var when not in extra_kwargs."""
+    def test_openai_api_key_env_var_not_used_as_fallback(self, mock_from_openai, mock_openai):
+        """OPENAI_API_KEY env var is NOT used as fallback; api_key defaults to 'none'."""
         config = ModelConfig(
             provider="openai_compatible",
             model_name="llama3",
@@ -203,7 +203,7 @@ class TestOpenAICompatibleProvider:
         LLMClient(model_config=config)
 
         mock_openai.assert_called_once_with(
-            base_url="http://localhost:11434/v1", api_key="env_key"
+            base_url="http://localhost:11434/v1", api_key="none"
         )
 
     @patch.dict("os.environ", {}, clear=True)

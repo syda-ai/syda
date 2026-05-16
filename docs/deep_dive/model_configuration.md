@@ -410,4 +410,5 @@ Explore these model-specific examples to see configuration in action:
 - [OpenAI GPT Example](../examples/model_selection/openai.md)
 - [Azure OpenAI Example](../examples/model_selection/azureopenai.md)
 - [Gemini Example](../examples/model_selection/gemini.md)
-- [OpenAI-Compatible Providers Example](../examples/model_selection/openai_compatible.md) 
+- [OpenAI-Compatible Providers Example](../examples/model_selection/openai_compatible.md)
+ 
