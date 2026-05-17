@@ -55,5 +55,11 @@ memory/
 .netlify
 
 # Examples: generated outputs and binary artifacts (re-created by running examples)
-examples/**/output/
+# All example output folders ignored except health_insurance_claims (kept as demo reference)
+examples/database_integration/output/
+examples/invalid_schemas/**/output/
+examples/model_selection/**/output/
+examples/structured_and_unstructured/**/output/
+examples/structured_only/**/output/
+examples/unstructured_only/**/output/
 examples/**/*.db
