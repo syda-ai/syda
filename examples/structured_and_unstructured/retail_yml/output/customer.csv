@@ -1,11 +1,11 @@
 id,first_name,last_name,email,phone,address,city,state,postal_code,country,date_registered,loyalty_points,last_purchase_date
-1245,Emily,Rodriguez,emily.rodriguez@gmail.com,+1-555-234-5678,3721 Maple Street,Phoenix,Arizona,85001,United States,2022-03-15,2350,2023-06-22
-2367,Michael,Chen,michael.chen@outlook.com,+1-555-789-0123,1592 Oak Avenue,Toronto,Ontario,M5V 2T6,Canada,2021-11-05,5670,2023-07-01
-3489,Sophia,Martinez,sophia.martinez@yahoo.com,+1-555-456-7890,8246 Pine Road,Houston,Texas,77001,United States,2023-01-20,1125,2023-06-30
-4612,Daniel,Wilson,daniel.wilson@hotmail.com,+1-555-901-2345,5713 Cedar Lane,Melbourne,Victoria,3000,Australia,2022-08-12,4890,2023-07-05
-5734,Isabella,Garcia,isabella.garcia@gmail.com,+1-555-345-6789,2189 Birch Street,London,Greater London,SW1A 1AA,United Kingdom,2022-05-30,3675,2023-06-25
-6856,David,Johnson,david.johnson@outlook.com,+1-555-678-9012,7465 Elm Drive,Mexico City,Mexico City,06000,Mexico,2021-09-18,6240,2023-07-03
-7978,Emma,Smith,emma.smith@yahoo.com,+1-555-012-3456,4932 Willow Court,Chicago,Illinois,60601,United States,2023-02-14,890,2023-06-28
-9100,Alexander,Lee,alexander.lee@hotmail.com,+1-555-234-5678,6217 Sycamore Road,Vancouver,British Columbia,V6B 1G1,Canada,2022-10-05,3210,2023-07-02
-10222,Olivia,Brown,olivia.brown@gmail.com,+1-555-567-8901,1876 Magnolia Avenue,Sydney,New South Wales,2000,Australia,2022-06-22,5520,2023-06-29
-11344,James,Taylor,james.taylor@outlook.com,+1-555-890-1234,9543 Redwood Street,Manchester,Greater Manchester,M1 1AE,United Kingdom,2021-12-10,4100,2023-07-04
+1,James,Miller,james.miller@example.com,+1-555-123-4567,1234 Oak Street,New York,NY,10001,United States,2023-01-15,5280,2024-01-10
+2,Sarah,Johnson,sarah.johnson@example.com,+1-555-234-5678,5678 Maple Avenue,Los Angeles,CA,90001,United States,2022-06-20,8450,2024-01-08
+3,Michael,Chen,michael.chen@example.com,+1-555-345-6789,9101 Pine Road,Chicago,IL,60601,United States,2023-03-10,3920,2024-01-05
+4,Emma,Williams,emma.williams@example.com,+1-555-456-7890,2345 Birch Lane,Toronto,ON,M5H-2N2,Canada,2022-11-05,6710,2024-01-09
+5,David,Martinez,david.martinez@example.com,+1-555-567-8901,3456 Cedar Court,Mexico City,CDMX,06500,Mexico,2023-05-12,4185,2024-01-07
+6,Oliver,Thompson,oliver.thompson@example.com,+44-207-123-4567,4567 Elm Street,London,England,E1-6AN,United Kingdom,2022-09-18,7340,2024-01-06
+7,Isabella,Garcia,isabella.garcia@example.com,+1-555-678-9012,5678 Spruce Drive,Houston,TX,77001,United States,2023-02-28,5620,2024-01-11
+8,Lucas,Brown,lucas.brown@example.com,+61-2-5555-4567,6789 Ash Boulevard,Sydney,NSW,2000,Australia,2022-07-14,9215,2024-01-04
+9,Sophia,Anderson,sophia.anderson@example.com,+1-555-789-0123,7890 Willow Path,Phoenix,AZ,85001,United States,2023-04-22,2840,2024-01-03
+10,Alexander,Taylor,alexander.taylor@example.com,+1-555-890-1234,8901 Hickory Hill,Philadelphia,PA,19101,United States,2022-12-30,7925,2024-01-02
