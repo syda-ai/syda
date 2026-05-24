@@ -82,6 +82,7 @@ nav:
       - Model Configuration: 'deep_dive/model_configuration.md'
       - Output Options: 'deep_dive/output_options.md'
       - Database Integration: 'deep_dive/database_integration.md'
+      - CLI Reference: 'deep_dive/cli.md'
   - Schema Reference: 
     - Field Types: 'schema_reference/field_types.md'
     - Special Field Types: 'schema_reference/special_field_types.md'
