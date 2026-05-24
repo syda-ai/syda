@@ -1,0 +1,26 @@
+[
+  {
+    "id":247,
+    "name":"Dr. Sarah Mitchell",
+    "specialty":"Cardiology",
+    "license_number":"MD-2024-8547",
+    "phone":"(555) 234-5678",
+    "accepting_patients":null
+  },
+  {
+    "id":512,
+    "name":"Dr. James Chen",
+    "specialty":"Pediatrics",
+    "license_number":"MD-2023-3892",
+    "phone":"(555) 678-9012",
+    "accepting_patients":null
+  },
+  {
+    "id":681,
+    "name":"Dr. Maria Rodriguez",
+    "specialty":"General Practice",
+    "license_number":"MD-2022-5634",
+    "phone":"(555) 345-6789",
+    "accepting_patients":null
+  }
+]

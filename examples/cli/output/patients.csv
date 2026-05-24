@@ -1,0 +1,6 @@
+id,first_name,last_name,date_of_birth,gender,email,phone,insurance_id
+1542,Sarah,Johnson,1985-03-15,Female,sarah.johnson@email.com,555-0142,INS087654
+2876,Michael,Chen,1978-07-22,Male,m.chen@email.com,555-0287,HLT123456
+4193,Jessica,Williams,1992-11-08,Female,j.williams@email.com,555-0319,MED456789
+5624,David,Martinez,1988-05-30,Male,d.martinez@email.com,555-0462,POL234567
+7845,Taylor,Anderson,1995-09-12,Non-binary,t.anderson@email.com,555-0578,UHP789012

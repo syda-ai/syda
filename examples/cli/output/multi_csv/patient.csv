@@ -1,0 +1,6 @@
+id,first_name,last_name,date_of_birth,gender,email,phone,insurance_id
+1234,John,Smith,1985-03-15,Male,john.smith@email.com,+1-555-0101,INS001245
+2567,Sarah,Johnson,1992-07-22,Female,sarah.johnson@email.com,+1-555-0102,INS002891
+3891,Michael,Williams,1978-11-08,Male,michael.williams@email.com,+1-555-0103,INS003456
+4556,Emma,Davis,1995-05-30,Female,emma.davis@email.com,+1-555-0104,INS004678
+5823,Alex,Martinez,1988-09-12,Non-binary,alex.martinez@email.com,+1-555-0105,INS005234

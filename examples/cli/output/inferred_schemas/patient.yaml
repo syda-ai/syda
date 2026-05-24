@@ -1,0 +1,17 @@
+dob:
+  type: date
+first_name:
+  not_null: true
+  type: string
+id:
+  not_null: true
+  primary_key: true
+  type: integer
+last_name:
+  not_null: true
+  type: string
+provider_id:
+  references:
+    field: id
+    schema: provider
+  type: foreign_key
