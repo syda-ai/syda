@@ -15,7 +15,7 @@ __all__ = [
     'DatabaseSchemaLoader',
 ]
 
-__version__ = '0.0.7'
+__version__ = '0.1.0'
 __author__ = 'Rama Krishna Kumar Lingamgunta'
 __email__ = 'ramkumar2606@gmail.com'
 __license__ = 'MIT'
