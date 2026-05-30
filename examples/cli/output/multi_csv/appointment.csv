@@ -1,6 +1,0 @@
-id,patient_id,provider_id,appointment_date,appointment_type,status,notes
-1,1234,654,2024-01-15,Annual Checkup,Scheduled,Regular annual physical examination and health screening
-2,1234,389,2024-01-18,Follow-up,Completed,Follow-up visit for hypertension management and medication review
-3,4556,247,2024-01-20,Urgent Care,Scheduled,"Acute respiratory infection symptoms, fever and cough lasting 3 days"
-4,5823,821,2024-01-22,Specialist,Cancelled,Cardiology consultation for chest pain evaluation - patient requested cancellation
-5,1234,247,2024-01-25,Follow-up,No-show,Diabetes management follow-up and blood glucose monitoring assessment
