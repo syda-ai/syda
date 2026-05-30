@@ -1,0 +1,34 @@
+__table_description__: Scheduled appointments between patients and providers
+__foreign_keys__:
+  patient_id: [patient, id]
+  provider_id: [provider, id]
+
+id:
+  type: integer
+  description: Unique appointment identifier
+  constraints:
+    primary_key: true
+
+patient_id:
+  type: foreign_key
+  description: Reference to the patient
+
+provider_id:
+  type: foreign_key
+  description: Reference to the provider
+
+appointment_date:
+  type: date
+  description: Scheduled date of the appointment
+
+appointment_type:
+  type: text
+  description: Type of visit (Annual Checkup, Follow-up, Urgent Care, Specialist)
+
+status:
+  type: text
+  description: Appointment status (Scheduled, Completed, Cancelled, No-show)
+
+notes:
+  type: text
+  description: Clinical notes or reason for visit

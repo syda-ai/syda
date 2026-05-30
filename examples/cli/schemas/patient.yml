@@ -1,0 +1,40 @@
+__table_description__: Patient records for a healthcare provider
+
+id:
+  type: integer
+  description: Unique patient identifier
+  constraints:
+    primary_key: true
+    min: 1000
+    max: 9999
+
+first_name:
+  type: text
+  description: Patient first name
+
+last_name:
+  type: text
+  description: Patient last name
+
+date_of_birth:
+  type: date
+  description: Date of birth in YYYY-MM-DD format
+
+gender:
+  type: text
+  description: Gender (Male, Female, Non-binary)
+
+email:
+  type: email
+  description: Contact email address
+
+phone:
+  type: phone
+  description: Contact phone number
+
+insurance_id:
+  type: text
+  description: Health insurance policy ID
+  constraints:
+    min_length: 8
+    max_length: 12

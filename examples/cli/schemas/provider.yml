@@ -1,0 +1,29 @@
+__table_description__: Healthcare providers (doctors, specialists)
+
+id:
+  type: integer
+  description: Unique provider identifier
+  constraints:
+    primary_key: true
+    min: 100
+    max: 999
+
+name:
+  type: text
+  description: Full name of the provider
+
+specialty:
+  type: text
+  description: Medical specialty (e.g. Cardiology, Pediatrics, General Practice)
+
+license_number:
+  type: text
+  description: State medical license number
+
+phone:
+  type: phone
+  description: Office phone number
+
+accepting_patients:
+  type: boolean
+  description: Whether the provider is currently accepting new patients

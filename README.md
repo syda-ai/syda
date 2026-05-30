@@ -137,6 +137,7 @@ print("📂 Check the 'data' folder for categories.csv and products.csv")
 | **Custom Generators** | Complex business logic | Tax calculations, pricing rules, arrays |
 | **Privacy-First** | Protect real user data | GDPR/CCPA compliant testing |
 | **Database Integration** | Any SQLAlchemy-compatible database | `DatabaseSchemaLoader("postgresql://...")` → generate → write back |
+| **CLI** | No Python required | `syda generate --schema patients.yaml --rows 100` |
 | **Developer Experience** | Just works | Type hints, great docs |
 
 
@@ -820,6 +821,66 @@ schemas/             # (Option B only) editable YAML schema files
 ```
 
 > 🎯 **FK-safe writes**: `write_to_database()` inserts rows in topological order (parents before children) so referential integrity is preserved in the target database.
+
+
+## Use the CLI — No Python Required
+
+Generate synthetic data directly from the terminal without writing a single line of Python.
+
+```bash
+pip install syda
+export ANTHROPIC_API_KEY=your_key   # or OPENAI_API_KEY / GEMINI_API_KEY
+```
+
+### Validate schemas
+
+```bash
+syda validate --schema schemas/
+#   [OK] patient
+#   [OK] provider
+#   [OK] appointment
+```
+
+### Generate from a schema file
+
+```bash
+# Single table → CSV
+syda generate --schema patients.yaml --rows 50 --output patients.csv
+
+# Single table → JSON
+syda generate --schema patients.yaml --rows 50 --output patients.json
+
+# Multi-table directory → FK-safe CSV output
+syda generate --schema schemas/ --rows 100 --output-dir ./data
+```
+
+### Database workflows
+
+```bash
+# Infer schemas from a live database
+syda db infer --db-url sqlite:///mydb.db --output-dir schemas/
+
+# Generate data from a database schema
+syda db generate --db-url sqlite:///mydb.db --rows 50 --output-dir ./data
+
+# Generate and write directly back into the database
+syda db generate --db-url postgresql://user:pass@localhost/mydb \
+  --rows 100 --write-back --if-exists replace
+```
+
+### CI / pipeline usage
+
+```yaml
+- name: Validate schemas
+  run: syda validate --schema schemas/
+
+- name: Generate test fixtures
+  run: syda generate --schema schemas/ --rows 20 --output-dir tests/fixtures
+  env:
+    ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+```
+
+> 📖 Full CLI reference: [python.syda.ai/deep_dive/cli](https://python.syda.ai/deep_dive/cli)
 
 
 ## Use Any OpenAI-Compatible Model

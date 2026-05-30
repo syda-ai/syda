@@ -6,6 +6,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.1.0] - 2026-05-26
+
+### Added
+- `syda` CLI (`syda/cli.py`) — full command-line interface for synthetic data generation
+  - `syda version` — print installed version
+  - `syda validate --schema PATH` — validate schema file(s) without making any LLM calls
+  - `syda generate --schema PATH` — generate synthetic data from a YAML/JSON schema file or directory
+    - `--rows N` — rows per table (default 10)
+    - `--output FILE` — single output file; format inferred from `.csv`/`.json` extension
+    - `--output-dir DIR` — directory for multi-table output
+    - `--format csv|json` — explicit format override
+    - `--provider` — LLM provider; auto-detected from env vars when omitted
+    - `--model`, `--api-key`, `--base-url`, `--prompt`, `--temperature`
+  - `syda db infer --db-url URL --output-dir DIR` — infer schemas from a live database and save as YAML/JSON
+    - `--tables TABLE,...` — limit to specific tables
+    - `--format yaml|json`
+  - `syda db generate --db-url URL` — infer schemas, generate data, optionally write back to the database
+    - `--write-back` / `--if-exists append|replace|fail` — insert generated rows into the database
+    - All `syda generate` LLM options supported
+- CLI example in `examples/cli/` — bash demo script covering all 10 CLI workflows with healthcare schemas
+- `click>=8.0.0` added as a runtime dependency
+- `syda = syda.cli:main` entry point registered in `pyproject.toml`
+- 26 CLI unit tests in `tests/test_cli.py`
+
+### Changed
+- Version bumped to `0.1.0` (first proper semantic version — CLI is a minor feature release)
+
 ## [0.0.6] - 2026-05-11
 
 ### Added

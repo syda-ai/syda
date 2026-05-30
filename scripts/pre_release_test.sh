@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # =============================================================================
 # syda Pre-Release Test Script
-# Tests local package installation in an isolated virtual environment before
-# publishing to PyPI.
-# Usage: bash scripts/pre_release_test.sh [--from-wheel]
+# Builds a wheel, installs it in a clean virtual environment, and runs all
+# pre-publish checks before releasing to PyPI.
+# Usage: bash scripts/pre_release_test.sh
 # =============================================================================
 
 set -euxo pipefail
@@ -28,11 +28,6 @@ header() { echo -e "\n${BOLD}$*${NC}"; echo "$(printf '─%.0s' {1..60})"; }
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 ENV_DIR="$PROJECT_ROOT/.pre-release-test-env"
-FROM_WHEEL=false
-
-if [[ "${1:-}" == "--from-wheel" ]]; then
-  FROM_WHEEL=true
-fi
 
 # ── Cleanup on exit ───────────────────────────────────────────────────────────
 cleanup() {
@@ -110,24 +105,22 @@ else
   brew_install "pango"     "pango (weasyprint PDF)"
 fi
 
-# ── Step 2: Build (optional wheel path) ──────────────────────────────────────
-INSTALL_TARGET="$PROJECT_ROOT"
-if $FROM_WHEEL; then
-  header "Step 2: Build wheel"
-  info "Building wheel and sdist..."
-  "$PYTHON" -m pip install --quiet build 2>/dev/null || true
-  cd "$PROJECT_ROOT"
-  "$PYTHON" -m build --outdir "$PROJECT_ROOT/dist" 2>&1 | tail -5
-  WHEEL=$(ls "$PROJECT_ROOT/dist/syda-${EXPECTED_VERSION}"*.whl 2>/dev/null | head -1)
-  if [[ -z "$WHEEL" ]]; then
-    fail "Wheel not found after build. Check build output."
-    exit 1
-  fi
-  pass "Wheel built: $(basename "$WHEEL")"
-  INSTALL_TARGET="$WHEEL"
-else
-  header "Step 2: Install from source (use --from-wheel to test built artifact)"
+# ── Step 2: Build wheel ───────────────────────────────────────────────────────
+header "Step 2: Build wheel"
+info "Installing build tool and building wheel + sdist..."
+"$PYTHON" -m pip install --quiet build 2>/dev/null || true
+cd "$PROJECT_ROOT"
+# Clean previous dist artifacts for this version to avoid stale wheels
+rm -f "$PROJECT_ROOT/dist/syda-${EXPECTED_VERSION}"*.whl \
+      "$PROJECT_ROOT/dist/syda-${EXPECTED_VERSION}"*.tar.gz 2>/dev/null || true
+"$PYTHON" -m build --outdir "$PROJECT_ROOT/dist" 2>&1 | tail -5
+WHEEL=$(ls "$PROJECT_ROOT/dist/syda-${EXPECTED_VERSION}"*.whl 2>/dev/null | head -1)
+if [[ -z "$WHEEL" ]]; then
+  fail "Wheel not found after build. Check build output."
+  exit 1
 fi
+pass "Wheel built: $(basename "$WHEEL")"
+INSTALL_TARGET="$WHEEL"
 
 # ── Step 3: Create isolated virtual environment ───────────────────────────────
 header "Step 3: Create isolated virtual environment"
@@ -187,6 +180,7 @@ run_import_check "DatabaseSchemaLoader importable"   "from syda import DatabaseS
 run_import_check "syda.generate module"              "from syda.generate import SyntheticDataGenerator"
 run_import_check "syda.schemas module"               "from syda.schemas import ModelConfig"
 run_import_check "syda.db_schema_loader module"      "from syda.db_schema_loader import DatabaseSchemaLoader"
+run_import_check "syda.cli module"                   "from syda.cli import main"
 run_import_check "syda.llm module"                   "import syda.llm"
 run_import_check "syda.output module"                "import syda.output"
 run_import_check "syda.utils module"                 "import syda.utils"
@@ -195,6 +189,18 @@ run_import_check "syda.schema_loader module"         "import syda.schema_loader"
 run_import_check "syda.custom_generators module"     "import syda.custom_generators"
 run_import_check "syda.dependency_handler module"    "import syda.dependency_handler"
 run_import_check "syda.unstructured module"          "import syda.unstructured"
+
+# CLI entry point smoke test
+SYDA_BIN="$ENV_DIR/bin/syda"
+if [[ -f "$SYDA_BIN" ]]; then
+  if "$SYDA_BIN" --help &>/dev/null && "$SYDA_BIN" version &>/dev/null; then
+    pass "syda CLI entry point works (syda --help, syda version)"
+  else
+    fail "syda CLI entry point installed but failed to run"
+  fi
+else
+  fail "syda CLI entry point not found at $SYDA_BIN — check pyproject.toml [project.scripts]"
+fi
 
 # ── Step 7: __all__ surface check ────────────────────────────────────────────
 header "Step 7: Public API surface (__all__)"

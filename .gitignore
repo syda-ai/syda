@@ -56,6 +56,7 @@ memory/
 
 # Examples: generated outputs and binary artifacts (re-created by running examples)
 # All example output folders ignored except health_insurance_claims (kept as demo reference)
+examples/cli/output/
 examples/database_integration/output/
 examples/invalid_schemas/**/output/
 examples/model_selection/**/output/

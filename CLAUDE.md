@@ -25,8 +25,21 @@ flake8 .
 mypy .
 pre-commit run --all-files
 
-# Docs
+# Docs — local preview
 mkdocs serve
+
+# Docs — publish to production (python.syda.ai)
+# gh-pages branch is the source for python.syda.ai (GitHub Pages custom domain)
+mkdocs gh-deploy --force
+# This builds the site and force-pushes it to the gh-pages branch.
+# GitHub Pages then serves it at python.syda.ai automatically.
+
+# Docs — feature branch preview (Railway)
+# Railway (project 8773d9b5-c04f-4c80-8f78-dbe92cfe5ecc, service syda) hosts
+# a Docker-based preview of the docs for feature branches only.
+# Deploy with: railway up --detach --service syda
+# URL: https://syda-production.up.railway.app
+# DO NOT deploy feature branch docs to gh-pages — that would overwrite production.
 
 # schema_inference tests (separate pytest.ini)
 cd schema_inference && python -m pytest test_modules.py -v
