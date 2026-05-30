@@ -315,6 +315,7 @@ All error messages are written to stdout with a descriptive `Error:` prefix, mak
 
 ## CI / Pipeline Usage
 
+{% raw %}
 ```yaml
 # GitHub Actions example
 - name: Validate schemas
@@ -329,6 +330,7 @@ All error messages are written to stdout with a descriptive `Error:` prefix, mak
   env:
     ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 ```
+{% endraw %}
 
 ---
 
