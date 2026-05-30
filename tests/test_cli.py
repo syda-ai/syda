@@ -149,7 +149,7 @@ class TestGenerateOptionValidation:
         runner = CliRunner()
         env = {k: "" for k in [
             "ANTHROPIC_API_KEY", "OPENAI_API_KEY",
-            "GEMINI_API_KEY", "GROK_API_KEY",
+            "GEMINI_API_KEY", "GROK_API_KEY", "AZURE_OPENAI_API_KEY",
         ]}
         result = runner.invoke(
             main,
@@ -498,3 +498,29 @@ class TestDbGenerateCommand:
         )
         assert result.exit_code != 0
         assert "Generation failed" in result.output
+
+    @patch("syda.generate.SyntheticDataGenerator")
+    @patch("syda.db_schema_loader.DatabaseSchemaLoader")
+    def test_write_back_failure_exits_nonzero(self, MockLoader, MockGen, tmp_path):
+        loader_instance = MockLoader.return_value
+        loader_instance.load_schemas.return_value = {"t": {"id": {"type": "integer"}}}
+        loader_instance.write_to_database.side_effect = RuntimeError("FK violation")
+        gen_instance = MockGen.return_value
+        gen_instance.generate_for_schemas.return_value = {
+            "t": pd.DataFrame([{"id": 1}]),
+        }
+
+        runner = CliRunner()
+        result = runner.invoke(
+            main,
+            [
+                "db", "generate",
+                "--db-url", "sqlite:///x.db",
+                "--write-back",
+                "--provider", "anthropic",
+            ],
+            env={"ANTHROPIC_API_KEY": "fake"},
+        )
+        assert result.exit_code != 0
+        assert "Write-back failed" in result.output
+        assert "partially written" in result.output

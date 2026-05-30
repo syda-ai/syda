@@ -29,8 +29,9 @@ PROVIDER_ENV_VARS = {
     "openai": "OPENAI_API_KEY",
     "gemini": "GEMINI_API_KEY",
     "grok": "GROK_API_KEY",
-    "openai_compatible": "OPENAI_API_KEY",
     "azureopenai": "AZURE_OPENAI_API_KEY",
+    # openai_compatible intentionally excluded — it requires --base-url so
+    # auto-detection is meaningless; always pass --provider explicitly.
 }
 
 DEFAULT_MODELS = {
@@ -224,6 +225,8 @@ def cmd_generate(
     multi = len(schema_files) > 1
 
     # --- validate output options ---
+    if output is not None and not output.strip():
+        raise click.UsageError("--output cannot be an empty string.")
     if output and multi:
         raise click.UsageError(
             "--output can only be used with a single schema. "
@@ -306,6 +309,12 @@ def cmd_generate(
     resolved_output_dir = output_dir
     if not resolved_output_dir and not output:
         resolved_output_dir = "."
+        click.echo(
+            click.style(
+                "Warning: no --output-dir specified, writing to current directory.",
+                fg="yellow",
+            )
+        )
 
     try:
         results = generator.generate_for_schemas(
@@ -320,8 +329,10 @@ def cmd_generate(
 
     # --- handle single-file output ---
     if output and not multi:
-        table_name = next(iter(results))
-        df = results[table_name]
+        table_name = next(iter(schema_files))
+        df = results.get(table_name)
+        if df is None:
+            df = next(iter(results.values()))
         out_path = Path(output)
         out_path.parent.mkdir(parents=True, exist_ok=True)
         if resolved_fmt == "json":
@@ -645,6 +656,8 @@ def cmd_db_generate(
         try:
             loader.write_to_database(results, if_exists=if_exists)
         except Exception as exc:
-            raise click.ClickException(f"Write-back failed: {exc}") from exc
+            raise click.ClickException(
+                f"Write-back failed (some tables may have been partially written): {exc}"
+            ) from exc
 
     click.echo(click.style("\nDone.", fg="green", bold=True))
