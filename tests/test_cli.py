@@ -524,3 +524,97 @@ class TestDbGenerateCommand:
         assert result.exit_code != 0
         assert "Write-back failed" in result.output
         assert "partially written" in result.output
+
+
+# ---------------------------------------------------------------------------
+# Large-dataset CLI options
+# ---------------------------------------------------------------------------
+
+class TestLargeDatasetCLIOptions:
+    """--batch-size and --large-dataset options are wired to ModelConfig."""
+
+    @patch("syda.generate.SyntheticDataGenerator")
+    @patch("syda.cli._load_schema_files")
+    def test_batch_size_passed_to_model_config(self, mock_load, MockGen, tmp_path):
+        mock_load.return_value = {"t": str(tmp_path / "t.yaml")}
+        gen_instance = MockGen.return_value
+        gen_instance.generate_for_schemas.return_value = {
+            "t": pd.DataFrame([{"id": 1}])
+        }
+
+        runner = CliRunner()
+        result = runner.invoke(
+            main,
+            ["generate", "--schema", str(tmp_path), "--batch-size", "25",
+             "--provider", "anthropic", "--output-dir", str(tmp_path)],
+            env={"ANTHROPIC_API_KEY": "fake"},
+        )
+        assert result.exit_code == 0, result.output
+        _, mc_kwargs = MockGen.call_args
+        mc = mc_kwargs.get("model_config") or MockGen.call_args[0][0]
+        assert mc.batch_size == 25
+
+    @patch("syda.generate.SyntheticDataGenerator")
+    @patch("syda.cli._load_schema_files")
+    def test_large_dataset_sets_codegen_mode(self, mock_load, MockGen, tmp_path):
+        mock_load.return_value = {"t": str(tmp_path / "t.yaml")}
+        gen_instance = MockGen.return_value
+        gen_instance.generate_for_schemas.return_value = {
+            "t": pd.DataFrame([{"id": 1}])
+        }
+
+        runner = CliRunner()
+        result = runner.invoke(
+            main,
+            ["generate", "--schema", str(tmp_path), "--large-dataset",
+             "--provider", "anthropic", "--output-dir", str(tmp_path)],
+            env={"ANTHROPIC_API_KEY": "fake"},
+        )
+        assert result.exit_code == 0, result.output
+        _, mc_kwargs = MockGen.call_args
+        mc = mc_kwargs.get("model_config") or MockGen.call_args[0][0]
+        assert mc.generation_mode == "codegen"
+
+    @patch("syda.generate.SyntheticDataGenerator")
+    @patch("syda.db_schema_loader.DatabaseSchemaLoader")
+    def test_db_generate_batch_size(self, MockLoader, MockGen, tmp_path):
+        loader_instance = MockLoader.return_value
+        loader_instance.load_schemas.return_value = {"t": {"id": {"type": "integer"}}}
+        gen_instance = MockGen.return_value
+        gen_instance.generate_for_schemas.return_value = {
+            "t": pd.DataFrame([{"id": 1}])
+        }
+
+        runner = CliRunner()
+        result = runner.invoke(
+            main,
+            ["db", "generate", "--db-url", "sqlite:///x.db",
+             "--batch-size", "50", "--provider", "anthropic"],
+            env={"ANTHROPIC_API_KEY": "fake"},
+        )
+        assert result.exit_code == 0, result.output
+        _, mc_kwargs = MockGen.call_args
+        mc = mc_kwargs.get("model_config") or MockGen.call_args[0][0]
+        assert mc.batch_size == 50
+
+    @patch("syda.generate.SyntheticDataGenerator")
+    @patch("syda.db_schema_loader.DatabaseSchemaLoader")
+    def test_db_generate_large_dataset(self, MockLoader, MockGen, tmp_path):
+        loader_instance = MockLoader.return_value
+        loader_instance.load_schemas.return_value = {"t": {"id": {"type": "integer"}}}
+        gen_instance = MockGen.return_value
+        gen_instance.generate_for_schemas.return_value = {
+            "t": pd.DataFrame([{"id": 1}])
+        }
+
+        runner = CliRunner()
+        result = runner.invoke(
+            main,
+            ["db", "generate", "--db-url", "sqlite:///x.db",
+             "--large-dataset", "--provider", "anthropic"],
+            env={"ANTHROPIC_API_KEY": "fake"},
+        )
+        assert result.exit_code == 0, result.output
+        _, mc_kwargs = MockGen.call_args
+        mc = mc_kwargs.get("model_config") or MockGen.call_args[0][0]
+        assert mc.generation_mode == "codegen"

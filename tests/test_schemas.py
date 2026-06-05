@@ -313,3 +313,46 @@ class TestModelConfig:
         kwargs = config.get_model_kwargs()
         assert kwargs["temperature"] == 0.7
         assert kwargs["max_tokens"] == 2048
+
+
+class TestModelConfigLargeDataset:
+    """Tests for new large-dataset ModelConfig fields: batch_size, max_retries, generation_mode."""
+
+    def test_defaults(self):
+        config = ModelConfig()
+        assert config.batch_size is None
+        assert config.max_retries == 3
+        assert config.generation_mode == "auto"
+
+    def test_batch_size_zero_raises(self):
+        from pydantic import ValidationError
+        with pytest.raises(ValidationError):
+            ModelConfig(batch_size=0)
+
+    def test_batch_size_negative_raises(self):
+        from pydantic import ValidationError
+        with pytest.raises(ValidationError):
+            ModelConfig(batch_size=-1)
+
+    def test_batch_size_explicit(self):
+        config = ModelConfig(batch_size=100)
+        assert config.batch_size == 100
+
+    def test_max_retries_zero_allowed(self):
+        config = ModelConfig(max_retries=0)
+        assert config.max_retries == 0
+
+    def test_max_retries_negative_raises(self):
+        from pydantic import ValidationError
+        with pytest.raises(ValidationError):
+            ModelConfig(max_retries=-1)
+
+    def test_generation_mode_values(self):
+        for mode in ("auto", "direct", "codegen"):
+            config = ModelConfig(generation_mode=mode)
+            assert config.generation_mode == mode
+
+    def test_generation_mode_invalid_raises(self):
+        from pydantic import ValidationError
+        with pytest.raises(ValidationError):
+            ModelConfig(generation_mode="streaming")
