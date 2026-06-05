@@ -21,6 +21,8 @@ and custom generators for specific data types.
 import pandas as pd
 import json
 import os
+import math
+import time
 import random
 import pkgutil
 import importlib
@@ -85,9 +87,6 @@ class SyntheticDataGenerator:
         # Store the model configuration for easy access
         self.model_config = self.llm_client.model_config
         
-        # Access the instructor client directly
-        self.client = self.llm_client.client
-        
         # Initialize the generator manager
         self.generator_manager = GeneratorManager()
         
@@ -141,7 +140,8 @@ class SyntheticDataGenerator:
         default_sample_size: int = 10,
         default_prompt: str = "Generate synthetic data",
         custom_generators: Optional[Dict[str, Dict[str, Callable]]] = None,
-        output_format: str = 'csv'
+        output_format: str = 'csv',
+        batch_size: Optional[int] = None,
     ) -> Dict[str, pd.DataFrame]:
         """
         Generate synthetic data for multiple relational SQLAlchemy models with automatic 
@@ -193,7 +193,8 @@ class SyntheticDataGenerator:
             output_dir=output_dir,
             default_sample_size=default_sample_size,
             default_prompt=default_prompt,
-            output_format=output_format
+            output_format=output_format,
+            batch_size=batch_size,
         )
         
     def _process_foreign_keys(
@@ -239,7 +240,8 @@ class SyntheticDataGenerator:
         default_sample_size: int = 10,
         default_prompt: str = "Generate synthetic data",
         custom_generators: Optional[Dict[str, Dict[str, Callable]]] = None,
-        output_format: str = 'csv'
+        output_format: str = 'csv',
+        batch_size: Optional[int] = None,
     ) -> Dict[str, pd.DataFrame]:
         """
         Generate synthetic data for multiple related schemas with automatic 
@@ -434,7 +436,8 @@ class SyntheticDataGenerator:
                 sample_sizes=sample_sizes,
                 custom_generators=custom_generators,
                 default_prompt=default_prompt,
-                default_sample_size=default_sample_size
+                default_sample_size=default_sample_size,
+                batch_size=batch_size,
             )
           
             # Separate template schemas from structured schemas
@@ -473,16 +476,17 @@ class SyntheticDataGenerator:
 
 
     def _generate_structured_data(
-        self, 
+        self,
         processed_schemas,
         schema_metadata,
         schema_descriptions,
-        generation_order, 
+        generation_order,
         extracted_foreign_keys,
         prompts, sample_sizes,
         custom_generators,
-        default_prompt, 
-        default_sample_size
+        default_prompt,
+        default_sample_size,
+        batch_size: Optional[int] = None,
     ):
         """
         Generate structured data for each schema in the specified generation order.
@@ -536,11 +540,13 @@ class SyntheticDataGenerator:
                 # Use the _generate_data method to generate data for this schema
                 # Pass the already extracted schema information to avoid redundant extraction
                 df = self._generate_data(
-                    table_schema=llm_schema, 
-                    metadata=metadata, 
+                    table_schema=llm_schema,
+                    metadata=metadata,
                     table_description=model_description,
-                    prompt=prompt, 
+                    prompt=prompt,
                     sample_size=sample_size,
+                    batch_size=batch_size,
+                    schema_name=schema_name,
                 )
                 
                 # Check if we have the requested sample size
@@ -657,38 +663,29 @@ class SyntheticDataGenerator:
     def _generate_data_with_llm(self, llm_schema, full_prompt, sample_size):
         """
         Generate data using the LLM based on the schema and prompt.
-        
+
         Args:
             llm_schema: Dictionary mapping field names to types
             full_prompt: Complete prompt to send to the LLM
             sample_size: Number of records to generate
-            
+
         Returns:
             DataFrame of generated data
-            
+
         Raises:
             ValueError: If LLM data generation fails
         """
-        # Helper function to map schema types to Python types
         def get_python_type(field_type):
-            """Map schema types to Python types."""
             if isinstance(field_type, str):
                 type_map = {
-                    'integer': int,
-                    'int': int,
-                    'float': float,
-                    'number': float,
-                    'boolean': bool,
-                    'bool': bool,
-                    'array': list,
-                    'object': dict
+                    'integer': int, 'int': int, 'float': float, 'number': float,
+                    'boolean': bool, 'bool': bool, 'array': list, 'object': dict,
                 }
                 return type_map.get(field_type.lower(), str)
             elif isinstance(field_type, dict) and 'type' in field_type:
                 return get_python_type(field_type['type'])
-            return str  # Default to string for unknown types
+            return str
 
-        # Create the dynamic model for this schema with proper types and descriptions
         model_fields = {}
         for name, field_info in llm_schema.items():
             if isinstance(field_info, dict) and 'type' in field_info:
@@ -696,99 +693,301 @@ class SyntheticDataGenerator:
             elif isinstance(field_info, str):
                 model_fields[name] = (get_python_type(field_info), Field(description=name))
             else:
-                model_fields[name] = (str, Field(description=name))  # Default to string
-                
-        DynamicInstructorModel = create_model("DynamicModel", **model_fields)
-        
-        # Get default model parameters or use structured output mode if available
-        model_kwargs = self.llm_client.get_model_kwargs()
-        
-        # Ensure the model name is always included
-        if 'model' not in model_kwargs:
-            model_kwargs['model'] = self.model_config.model_name
-        
+                model_fields[name] = (str, Field(description=name))
+
+        DynamicModel = create_model("DynamicModel", **model_fields)
+
         try:
             print(f"Generating data using {self.model_config.provider}/{self.model_config.model_name}...")
-            print(f"Full Prompt: {full_prompt}")
-            
-            # Check if streaming is explicitly set in model config
-            is_stream_set = hasattr(self.model_config, 'stream') and self.model_config.stream is True
-            
-            # Determine if we should use streaming:
-            # 1. If explicitly set in model_config, use that value
-            # 2. Otherwise use streaming for Anthropic models or when sample_size is large
-            provider = self.model_config.provider.lower()
-            model_name = self.model_config.model_name
-            use_streaming = (
-                self.model_config.stream if is_stream_set
-                else (sample_size >= 50)
+
+            agent = self.llm_client.create_agent(
+                output_type=List[DynamicModel],
+                system_prompt=(
+                    "You are a synthetic data generator. Generate realistic, diverse synthetic data "
+                    "that matches the schema exactly. Return exactly the requested number of records."
+                ),
             )
-            
-            if use_streaming:
-                print(f"Using streaming for {provider} {model_name} model with sample_size={sample_size}")
-                # Use create_iterable for streaming multiple objects
-                ai_obj_stream = self.client.chat.completions.create_iterable(
-                    response_model=DynamicInstructorModel,
-                    messages=[{"role": "user", "content": full_prompt}],
-                    **model_kwargs,
-                )
-                
-                # Collect objects from the stream
-                ai_objs = list(ai_obj_stream)
-            else:
-                # Regular non-streaming call for other providers or smaller sample sizes
-                ai_objs = self.client.chat.completions.create(
-                    response_model=List[DynamicInstructorModel],
-                    messages=[{"role": "user", "content": full_prompt}],
-                    **model_kwargs,
-                )
-            
+            model_settings = self.llm_client.get_model_settings()
+            result = agent.run_sync(full_prompt, model_settings=model_settings)
+            ai_objs = result.output
+
             if not ai_objs:
-                error_msg = f"""No objects returned from LLM call using {provider}/{model_name}.
+                raise ValueError(
+                    f"No objects returned from LLM. "
+                    f"Provider: {self.model_config.provider}/{self.model_config.model_name}. "
+                    f"Check token limits and API connectivity. Sample size: {sample_size}."
+                )
 
-                            Possible causes:
-                            1. Token limit exceeded (common with reasoning models like O4-mini)
-                            - Current max_tokens: {model_kwargs.get('max_tokens', 'not set')}
-                            - Try increasing max_tokens/max_completion_tokens to 15000+ for reasoning models
-                            
-                            2. Empty response due to content filtering or model constraints
-                            - Check if the prompt violates content policies
-                            - Verify model deployment is working correctly
-                            
-                            3. Network or API issues
-                            - Check API connectivity and authentication
-                            - Verify endpoint URL and API version
-                            - Check model response directly via API to see actual error details
-
-                            Sample size requested: {sample_size}
-                            Streaming mode: {use_streaming}
-                    """
-                raise ValueError(error_msg)
-            
-            # Convert objects to DataFrame
             records = [obj.model_dump() for obj in ai_objs]
-            
-            # Debug log
             if not records:
                 raise ValueError("No records extracted from LLM response")
-            else:
-                print(f"[OK] Successfully generated {len(records)} records")
-            
-            # Create DataFrame from records
+
+            print(f"[OK] Successfully generated {len(records)} records")
             df = pd.DataFrame(records)
-            
-            # Ensure all expected columns are present
+
             for col in llm_schema.keys():
                 if col not in df.columns:
-                    raise ValueError(f"Missing column '{col}' in generated data. Data generation failed to produce the expected schema.")
-            
-            # If no data was returned, fail
+                    raise ValueError(f"Missing column '{col}' in generated data.")
+
             if df.empty:
                 raise ValueError("Empty DataFrame returned from data generation")
             return df
-                
+
         except Exception as e:
             raise ValueError(f"Error generating data: {str(e)}")
+
+    def _call_with_retry(self, fn, max_retries: int, base_delay: float = 1.0):
+        """Call fn with exponential-backoff retry on transient errors."""
+        last_exc = None
+        for attempt in range(max_retries + 1):
+            try:
+                return fn()
+            except Exception as exc:
+                name = type(exc).__name__
+                status = getattr(exc, 'status_code', None)
+                if status in (401, 422) or 'Auth' in name or isinstance(exc, (ValueError, TypeError)):
+                    raise
+                last_exc = exc
+                if attempt < max_retries:
+                    delay = base_delay * (2 ** attempt) + random.uniform(0, 0.5)
+                    print(
+                        f"[syda] Chunk failed ({name}), retrying in {delay:.1f}s "
+                        f"(attempt {attempt + 1}/{max_retries})..."
+                    )
+                    time.sleep(delay)
+        raise RuntimeError(f"Chunk failed after {max_retries} retries: {last_exc}") from last_exc
+
+    def _resolve_batch_size(self, sample_size: int, batch_size: Optional[int] = None) -> int:
+        """Auto-select batch size when not explicitly specified."""
+        explicit = batch_size if batch_size is not None else self.model_config.batch_size
+        if explicit is not None:
+            return explicit
+        if sample_size <= 50:
+            return sample_size
+        if sample_size <= 200:
+            return 50
+        if sample_size <= 1000:
+            return 100
+        return 200
+
+    def _analyze_and_generate_code(
+        self, table_schema: Dict, metadata: Dict, table_description: Optional[str], schema_name: str
+    ) -> List[str]:
+        """
+        LLM analysis call for code-gen mode: classifies columns as simple or semantic,
+        generates Python functions for simple columns, returns list of semantic column names.
+        """
+        from pydantic import BaseModel as _PydanticBase
+        try:
+            from pydantic_ai import ModelRetry
+        except ImportError:
+            ModelRetry = None
+
+        class SchemaAnalysis(_PydanticBase):
+            simple: Dict[str, str]
+            semantic: List[str]
+
+        col_descriptions = []
+        for col_name, col_type in table_schema.items():
+            col_type_str = col_type if isinstance(col_type, str) else col_type.get('type', 'text')
+            parts = [f"- {col_name} ({col_type_str})"]
+            if col_name in metadata:
+                col_meta = metadata[col_name]
+                if col_meta.get('description'):
+                    parts.append(f"  description: {col_meta['description']}")
+                for k in ('max_length', 'length', 'min_length', 'min', 'max',
+                          'primary_key', 'unique', 'format', 'enum'):
+                    v = col_meta.get('constraints', {}).get(k)
+                    if v is not None:
+                        parts.append(f"  {k}: {v}")
+            col_descriptions.append("\n".join(parts))
+
+        analysis_prompt = f"""Analyze this database schema and classify each column for synthetic data generation.
+
+Table: {table_description or schema_name}
+Columns:
+{chr(10).join(col_descriptions)}
+
+Classify each column as:
+- "simple": can be generated with a Python function (IDs, dates, enums, emails, phones, codes, numbers, booleans)
+- "semantic": requires LLM to be meaningful (clinical notes, diagnoses, narratives, free-text descriptions, summaries, doctor observations — any column where random text is gibberish)
+
+For each "simple" column write a Python generator function:
+  def generate_<col_name>(row, col_name):
+      # may use: random, string, datetime, timedelta, uuid, math
+      return <value>
+
+Enforce all constraints in the function:
+  - primary_key: use row.name + 1 (sequential integer)
+  - unique: use uuid4() hex prefix
+  - max_length / length: truncate or pad strings accordingly
+  - min / max: clamp numeric values
+  - enum: pick randomly from the list
+  - format hints: emails must contain '@', dates as ISO 8601 strings
+
+Return valid JSON exactly:
+{{
+  "simple": {{"col_name": "def generate_col_name(row, col_name):\\n    import random\\n    return ..."}},
+  "semantic": ["col_name1", "col_name2"]
+}}
+
+Every column must appear in exactly one list."""
+
+        agent = self.llm_client.create_agent(
+            output_type=SchemaAnalysis,
+            system_prompt=(
+                "You are a code generation assistant that writes Python generator functions "
+                "for synthetic database column values."
+            ),
+        )
+
+        if ModelRetry is not None:
+            @agent.output_validator
+            def _validate_code(output: SchemaAnalysis) -> SchemaAnalysis:
+                for col_name, code in output.simple.items():
+                    try:
+                        compile(code, '<string>', 'exec')
+                    except SyntaxError as e:
+                        raise ModelRetry(
+                            f"Syntax error in generator for '{col_name}': {e}. Fix the Python code."
+                        )
+                return output
+
+        model_settings = self.llm_client.get_model_settings()
+        result = agent.run_sync(analysis_prompt, model_settings=model_settings)
+        analysis = result.output
+
+        # Register simple column generators
+        for col_name, code in analysis.simple.items():
+            ns: Dict[str, Any] = {}
+            try:
+                exec(code, ns)
+                fn_name = f"generate_{col_name}"
+                if fn_name in ns:
+                    self.generator_manager.register_generator(
+                        '_codegen', ns[fn_name], column_name=col_name
+                    )
+                else:
+                    # Function may have been defined with a different name — grab the first callable
+                    fns = [v for v in ns.values() if callable(v)]
+                    if fns:
+                        self.generator_manager.register_generator(
+                            '_codegen', fns[0], column_name=col_name
+                        )
+            except Exception as e:
+                print(f"[syda] Warning: could not register generator for '{col_name}': {e}")
+
+        print(
+            f"[syda] Code-gen analysis: {len(analysis.simple)} simple columns, "
+            f"{len(analysis.semantic)} semantic columns"
+        )
+        return analysis.semantic
+
+    def _generate_semantic_column(
+        self,
+        col_name: str,
+        col_schema: Any,
+        table_description: Optional[str],
+        sample_size: int,
+    ) -> List[str]:
+        """Generate values for a semantic column using a targeted LLM call."""
+        col_type = col_schema if isinstance(col_schema, str) else col_schema.get('type', 'text')
+        col_desc = ""
+        if isinstance(col_schema, dict):
+            col_desc = col_schema.get('description', '')
+
+        constraints = []
+        if isinstance(col_schema, dict):
+            c = col_schema.get('constraints', {})
+            if c.get('max_length'):
+                constraints.append(f"Maximum {c['max_length']} characters per value.")
+            if c.get('length'):
+                constraints.append(f"Exactly {c['length']} characters per value.")
+
+        prompt = (
+            f"Generate {sample_size} realistic and diverse values for column '{col_name}'.\n"
+            f"Table context: {table_description or 'data table'}\n"
+            f"Column type: {col_type}\n"
+            + (f"Column description: {col_desc}\n" if col_desc else "")
+            + (f"Constraints: {' '.join(constraints)}\n" if constraints else "")
+            + f"Return a JSON array of exactly {sample_size} strings."
+        )
+
+        agent = self.llm_client.create_agent(
+            output_type=List[str],
+            system_prompt="You are a synthetic data generator. Generate realistic, diverse values.",
+        )
+        model_settings = self.llm_client.get_model_settings()
+        result = agent.run_sync(prompt, model_settings=model_settings)
+        return result.output
+
+    def _run_local_generation(self, table_schema: Dict, sample_size: int) -> pd.DataFrame:
+        """Fill a DataFrame using registered column generators (code-gen mode simple columns)."""
+        df = pd.DataFrame(index=range(sample_size))
+        for col_name in table_schema:
+            df[col_name] = None
+
+        for col_name in list(table_schema.keys()):
+            if col_name in self.generator_manager.column_generators:
+                try:
+                    gen = self.generator_manager.column_generators[col_name]
+                    df[col_name] = df.apply(lambda row, g=gen, c=col_name: g(row, c), axis=1)
+                except Exception as e:
+                    print(f"[syda] Warning: generator for '{col_name}' failed: {e}")
+        return df
+
+    def _enforce_uniqueness(
+        self, df: pd.DataFrame, table_schema: Dict, metadata: Dict, chunk_offset: int = 0
+    ) -> pd.DataFrame:
+        """Ensure PKs are sequential and unique columns have no duplicates."""
+        for col_name, col_meta in metadata.items():
+            if col_name not in df.columns:
+                continue
+            constraints = col_meta.get('constraints', {})
+            is_pk = bool(constraints.get('primary_key'))
+            is_unique = bool(constraints.get('unique'))
+            if not (is_pk or is_unique):
+                continue
+
+            col_type = table_schema.get(col_name, 'text')
+            if isinstance(col_type, dict):
+                col_type = col_type.get('type', 'text')
+
+            if col_type in ('integer', 'int', 'number', 'float') and is_pk:
+                df[col_name] = range(chunk_offset + 1, chunk_offset + len(df) + 1)
+            elif df[col_name].duplicated().any():
+                for i in range(len(df)):
+                    original = str(df.iloc[i][col_name]) if df.iloc[i][col_name] is not None else ""
+                    prefix = original[:20]
+                    df.iloc[i, df.columns.get_loc(col_name)] = f"{prefix}_{chunk_offset + i}"
+        return df
+
+    def _apply_constraints(self, df: pd.DataFrame, table_schema: Dict, metadata: Dict) -> pd.DataFrame:
+        """Post-generation safety net: truncate strings and clamp numerics to schema constraints."""
+        for col_name in df.columns:
+            if col_name not in metadata:
+                continue
+            constraints = metadata[col_name].get('constraints', {})
+
+            max_len = constraints.get('max_length') or constraints.get('length')
+            if max_len:
+                df[col_name] = df[col_name].apply(
+                    lambda v, ml=max_len: str(v)[:ml] if isinstance(v, str) and len(str(v)) > ml else v
+                )
+
+            col_type = table_schema.get(col_name, 'text')
+            if isinstance(col_type, dict):
+                col_type = col_type.get('type', 'text')
+            if col_type in ('integer', 'int', 'float', 'number'):
+                min_val = constraints.get('min')
+                max_val = constraints.get('max')
+                if min_val is not None or max_val is not None:
+                    df[col_name] = pd.to_numeric(df[col_name], errors='coerce')
+                    if min_val is not None:
+                        df[col_name] = df[col_name].clip(lower=min_val)
+                    if max_val is not None:
+                        df[col_name] = df[col_name].clip(upper=max_val)
+        return df
 
     def _apply_type_generators(self, df, llm_schema):
         """
@@ -842,47 +1041,95 @@ class SyntheticDataGenerator:
                      metadata: Dict[str, Dict],
                      table_description: Optional[str] = None,
                      prompt: str = "Generate synthetic data",
-                     sample_size: int = 10) -> pd.DataFrame:
+                     sample_size: int = 10,
+                     batch_size: Optional[int] = None,
+                     max_retries: Optional[int] = None,
+                     schema_name: Optional[str] = None) -> pd.DataFrame:
         """
         Generate synthetic data based on schema using AI.
-        
+
         Args:
             table_schema: Dictionary mapping field names to types (e.g., {'name': 'text', 'age': 'number'})
             metadata: Dictionary with additional info about fields
             table_description: Optional description of the table to guide generation
             prompt: Prompt for the AI model
             sample_size: Number of samples to generate
-            
+            batch_size: Max rows per LLM call in direct mode (None = auto)
+            max_retries: Max retry attempts on transient errors (None = use model_config value)
+            schema_name: Schema name used for logging and code-gen context
+
         Returns:
             DataFrame with generated data
-            
+
         Raises:
             ValueError: If the data generation fails or produces invalid results
         """
-        
-        # Identify primary key fields
         primary_key_fields = []
         for col, col_meta in metadata.items():
             if 'constraints' in col_meta and 'primary_key' in col_meta['constraints']:
                 primary_key_fields.append(col)
-        
-        # Build prompt for LLM
-        full_prompt = self._build_prompt(table_schema, metadata, table_description, 
-                                      primary_key_fields, prompt, sample_size)
-        
-        # Generate data using LLM
-        df = self._generate_data_with_llm(table_schema, full_prompt, sample_size)
-        
-        # Apply type-based generators
+
+        # Resolve generation mode
+        mode = self.model_config.generation_mode
+        if mode == 'auto':
+            mode = 'direct' if sample_size <= 500 else 'codegen'
+
+        effective_retries = max_retries if max_retries is not None else self.model_config.max_retries
+
+        # ── Code-gen mode ────────────────────────────────────────────────────
+        if mode == 'codegen':
+            print(f"[syda] Code-gen mode: analyzing schema and generating Python functions...")
+            name = schema_name or "table"
+            semantic_cols = self._analyze_and_generate_code(
+                table_schema, metadata, table_description, name
+            )
+
+            df = self._run_local_generation(table_schema, sample_size)
+
+            for col in semantic_cols:
+                if col in table_schema:
+                    print(f"[syda] Generating semantic column '{col}' via LLM ({sample_size} values)...")
+                    values = self._generate_semantic_column(
+                        col, table_schema[col], table_description, sample_size
+                    )
+                    if len(values) > sample_size:
+                        values = values[:sample_size]
+                    while len(values) < sample_size:
+                        values.extend(values[:sample_size - len(values)])
+                    df[col] = values[:sample_size]
+
+            df = self._enforce_uniqueness(df, table_schema, metadata, chunk_offset=0)
+            df = self._apply_constraints(df, table_schema, metadata)
+            df = self._apply_type_generators(df, table_schema)
+            df = self._convert_column_types(df, table_schema)
+            return df
+
+        # ── Direct mode: chunked LLM calls ───────────────────────────────────
+        effective_batch = self._resolve_batch_size(sample_size, batch_size)
+
+        def _one_chunk(sz: int, offset: int) -> pd.DataFrame:
+            p = self._build_prompt(table_schema, metadata, table_description,
+                                   primary_key_fields, prompt, sz)
+            chunk = self._call_with_retry(
+                lambda _p=p, _sz=sz: self._generate_data_with_llm(table_schema, _p, _sz),
+                max_retries=effective_retries,
+            )
+            chunk = self._enforce_uniqueness(chunk, table_schema, metadata, chunk_offset=offset)
+            chunk = self._apply_constraints(chunk, table_schema, metadata)
+            return chunk
+
+        if sample_size <= effective_batch:
+            df = _one_chunk(sample_size, 0)
+        else:
+            n_chunks = math.ceil(sample_size / effective_batch)
+            parts = []
+            for i in range(n_chunks):
+                start = i * effective_batch
+                end = min(start + effective_batch, sample_size)
+                print(f"[syda] Generating chunk {i+1}/{n_chunks} (rows {start+1}–{end} of {sample_size})...")
+                parts.append(_one_chunk(end - start, start))
+            df = pd.concat(parts, ignore_index=True)
+
         df = self._apply_type_generators(df, table_schema)
-        
-        # Convert column types based on schema
         df = self._convert_column_types(df, table_schema)
-            
-        # Apply column-specific generators
-        for col_name in df.columns:
-            if col_name in self.column_generators:
-                print(f"Applying custom generator for {col_name}")
-                df[col_name] = df.apply(lambda row: self.column_generators[col_name](row, col_name), axis=1)
-        
         return df

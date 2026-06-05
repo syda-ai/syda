@@ -196,6 +196,22 @@ def cmd_validate(schema: str):
     type=float,
     help="Sampling temperature (0.0–1.0).",
 )
+@click.option(
+    "--batch-size",
+    default=None,
+    type=int,
+    metavar="N",
+    help="Max rows per LLM call in direct mode (default: auto-selected).",
+)
+@click.option(
+    "--large-dataset",
+    is_flag=True,
+    default=False,
+    help=(
+        "Force code-gen mode: LLM writes Python functions, local execution generates data. "
+        "Auto-enabled when --rows > 500."
+    ),
+)
 def cmd_generate(
     schema: str,
     rows: int,
@@ -208,6 +224,8 @@ def cmd_generate(
     base_url: Optional[str],
     prompt: Optional[str],
     temperature: Optional[float],
+    batch_size: Optional[int],
+    large_dataset: bool,
 ):
     """Generate synthetic data from schema(s)."""
     try:
@@ -262,6 +280,10 @@ def cmd_generate(
     mc_kwargs = dict(provider=provider, model_name=resolved_model)
     if temperature is not None:
         mc_kwargs["temperature"] = temperature
+    if batch_size is not None:
+        mc_kwargs["batch_size"] = batch_size
+    if large_dataset:
+        mc_kwargs["generation_mode"] = "codegen"
 
     extra: dict = {}
     if api_key:
@@ -366,7 +388,10 @@ def cmd_db():
     """Database integration: infer schemas and generate data from a live DB."""
 
 
-def _build_generator(provider, model, api_key, base_url, temperature):
+def _build_generator(
+    provider, model, api_key, base_url, temperature,
+    batch_size: Optional[int] = None, large_dataset: bool = False,
+):
     """Shared helper: build a SyntheticDataGenerator from CLI options."""
     if not provider:
         provider = _detect_provider()
@@ -381,6 +406,10 @@ def _build_generator(provider, model, api_key, base_url, temperature):
     mc_kwargs: dict = dict(provider=provider, model_name=resolved_model)
     if temperature is not None:
         mc_kwargs["temperature"] = temperature
+    if batch_size is not None:
+        mc_kwargs["batch_size"] = batch_size
+    if large_dataset:
+        mc_kwargs["generation_mode"] = "codegen"
 
     extra: dict = {}
     if api_key:
@@ -568,6 +597,22 @@ def cmd_db_infer(db_url: str, output_dir: str, tables: Optional[str], fmt: str):
     type=float,
     help="Sampling temperature (0.0–1.0).",
 )
+@click.option(
+    "--batch-size",
+    default=None,
+    type=int,
+    metavar="N",
+    help="Max rows per LLM call in direct mode (default: auto-selected).",
+)
+@click.option(
+    "--large-dataset",
+    is_flag=True,
+    default=False,
+    help=(
+        "Force code-gen mode: LLM writes Python functions, local execution generates data. "
+        "Auto-enabled when --rows > 500."
+    ),
+)
 def cmd_db_generate(
     db_url: str,
     rows: int,
@@ -582,6 +627,8 @@ def cmd_db_generate(
     base_url: Optional[str],
     prompt: Optional[str],
     temperature: Optional[float],
+    batch_size: Optional[int],
+    large_dataset: bool,
 ):
     """Infer schemas from a database, generate synthetic data, and optionally write it back."""
     try:
@@ -614,7 +661,8 @@ def cmd_db_generate(
     # --- build generator ---
     try:
         generator, resolved_provider, resolved_model = _build_generator(
-            provider, model, api_key, base_url, temperature
+            provider, model, api_key, base_url, temperature,
+            batch_size=batch_size, large_dataset=large_dataset,
         )
     except click.UsageError:
         raise

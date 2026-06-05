@@ -1,238 +1,146 @@
 """
-Unified LLM client initialization for different providers.
-Provides a standard interface for creating LLM clients with instructor integration.
+Unified LLM client for different providers using pydantic-ai.
+Provides a standard interface for creating pydantic-ai Agents with any supported provider.
 """
 
 import os
-import instructor
-import openai
-from google import genai
-from typing import Optional, Dict, Any, Union, List
+from typing import Optional, Dict, Any, Union, Type
+from pydantic_ai import Agent
+from pydantic_ai.settings import ModelSettings
 from .schemas import ModelConfig
 
+
+def _build_pydantic_ai_model(model_config: ModelConfig):
+    """Build a pydantic-ai model object from ModelConfig."""
+    provider = model_config.provider
+    model_name = model_config.model_name
+    extra = model_config.extra_kwargs or {}
+
+    if provider == "anthropic":
+        from pydantic_ai.models.anthropic import AnthropicModel
+        from pydantic_ai.providers.anthropic import AnthropicProvider
+        api_key = extra.get("api_key") or os.environ.get("ANTHROPIC_API_KEY")
+        return AnthropicModel(
+            model_name,
+            provider=AnthropicProvider(api_key=api_key) if api_key else AnthropicProvider(),
+        )
+
+    elif provider == "openai":
+        from pydantic_ai.models.openai import OpenAIChatModel
+        from pydantic_ai.providers.openai import OpenAIProvider
+        api_key = extra.get("api_key") or os.environ.get("OPENAI_API_KEY")
+        return OpenAIChatModel(
+            model_name,
+            provider=OpenAIProvider(api_key=api_key) if api_key else OpenAIProvider(),
+        )
+
+    elif provider == "gemini":
+        from pydantic_ai.models.gemini import GeminiModel
+        from pydantic_ai.providers.google import GoogleProvider
+        api_key = extra.get("api_key") or os.environ.get("GEMINI_API_KEY")
+        return GeminiModel(
+            model_name,
+            provider=GoogleProvider(api_key=api_key) if api_key else GoogleProvider(),
+        )
+
+    elif provider == "azureopenai":
+        from pydantic_ai.models.openai import OpenAIChatModel
+        from pydantic_ai.providers.azure import AzureProvider
+        api_key = extra.get("api_key") or os.environ.get("AZURE_OPENAI_API_KEY")
+        endpoint = extra.get("azure_endpoint") or extra.get("api_base")
+        api_version = extra.get("api_version", "2024-02-01")
+        return OpenAIChatModel(
+            model_name,
+            provider=AzureProvider(
+                azure_endpoint=endpoint,
+                api_key=api_key,
+                api_version=api_version,
+            ),
+        )
+
+    elif provider == "grok":
+        from pydantic_ai.models.openai import OpenAIChatModel
+        from pydantic_ai.providers.openai import OpenAIProvider
+        base_url = extra.get("base_url", "https://api.x.ai/v1")
+        api_key = extra.get("api_key") or os.environ.get("GROK_API_KEY") or "none"
+        return OpenAIChatModel(
+            model_name,
+            provider=OpenAIProvider(base_url=base_url, api_key=api_key),
+        )
+
+    elif provider == "openai_compatible":
+        from pydantic_ai.models.openai import OpenAIChatModel
+        from pydantic_ai.providers.openai import OpenAIProvider
+        base_url = extra.get("base_url")
+        if not base_url:
+            raise ValueError(
+                "openai_compatible provider requires 'base_url' in extra_kwargs. "
+                "Example: extra_kwargs={'base_url': 'http://localhost:11434/v1', 'api_key': 'ollama'}"
+            )
+        api_key = extra.get("api_key") or "none"
+        return OpenAIChatModel(
+            model_name,
+            provider=OpenAIProvider(base_url=base_url, api_key=api_key),
+        )
+
+    else:
+        raise ValueError(f"Unsupported provider: {provider}")
+
+
 class LLMClient:
-    """
-    A unified client for LLM providers with instructor integration.
-    Supports OpenAI, Anthropic, and other providers via the instructor library.
-    """
-    
+    """Unified LLM client wrapping pydantic-ai Agents for structured output generation."""
+
     def __init__(
-        self, 
+        self,
         model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
         openai_api_key: Optional[str] = None,
         anthropic_api_key: Optional[str] = None,
         gemini_api_key: Optional[str] = None,
         grok_api_key: Optional[str] = None,
-        **kwargs
+        **kwargs,
     ):
-        """
-        Initialize an LLM client for the specified model provider.
-        
-        Args:
-            model_config: Configuration for the LLM model to use
-            openai_api_key: Optional API key for OpenAI
-            anthropic_api_key: Optional API key for Anthropic
-            gemini_api_key: Optional API key for Gemini
-            grok_api_key: Optional API key for Grok
-            **kwargs: Additional keyword arguments to pass to the client
-        """
-        # Set up API keys from arguments or environment variables
-        self.openai_api_key = openai_api_key or os.environ.get("OPENAI_API_KEY")
-        self.anthropic_api_key = anthropic_api_key or os.environ.get("ANTHROPIC_API_KEY")
-        self.gemini_api_key = gemini_api_key or os.environ.get("GEMINI_API_KEY")
-        self.grok_api_key = grok_api_key or os.environ.get("GROK_API_KEY")
-        
-        # Set up model configuration
+        if openai_api_key:
+            os.environ["OPENAI_API_KEY"] = openai_api_key
+        if anthropic_api_key:
+            os.environ["ANTHROPIC_API_KEY"] = anthropic_api_key
+        if gemini_api_key:
+            os.environ["GEMINI_API_KEY"] = gemini_api_key
+        if grok_api_key:
+            os.environ["GROK_API_KEY"] = grok_api_key
+
         if model_config is None:
             self.model_config = ModelConfig()
         elif isinstance(model_config, dict):
             self.model_config = ModelConfig(**model_config)
         else:
             self.model_config = model_config
-            
-        # Store additional kwargs
-        self.kwargs = kwargs
-        
-        # Initialize the client
-        self.client = self._initialize_client()
-    
-    def _initialize_client(self) -> Any:
-        """
-        Initialize and return the appropriate LLM client based on the model configuration.
-        
-        Returns:
-            An instructor-patched client for the specified provider
-        """
-        # Build provider string
-        provider = self.model_config.provider
-        model_name = self.model_config.model_name
-        
-        # Initialize based on provider
-        if provider == "openai":
-            # Set up environment variable for OpenAI instead of passing directly
-            if self.openai_api_key:
-                os.environ["OPENAI_API_KEY"] = self.openai_api_key
-                
-            # OpenAI configuration with extra_kwargs support
-            openai_kwargs = {}
-            
-            # Add extra_kwargs from model configuration if provided
-            if self.model_config.extra_kwargs:
-                openai_kwargs.update(self.model_config.extra_kwargs)
-                
-            # Initialize raw OpenAI client
-            raw_client = openai.OpenAI(**openai_kwargs)
-            
-            # Patch with instructor and return
-            return instructor.from_openai(raw_client)
-            
-        elif provider == "azureopenai":
-                
-            # Azure OpenAI configuration - users must provide all required params via extra_kwargs
-            azure_kwargs = {}
-            
-            # Add extra_kwargs from model configuration (required by user)
-            if self.model_config.extra_kwargs:
-                azure_kwargs.update(self.model_config.extra_kwargs)
-            
-            # Add API key from environment if not provided in extra_kwargs
-            if "api_key" not in azure_kwargs:
-                azure_kwargs["api_key"] = os.environ.get("AZURE_OPENAI_API_KEY")
-                
-            # Initialize Azure OpenAI client
-            raw_client = openai.AzureOpenAI(**azure_kwargs)
-            
-            # Patch with instructor and return
-            return instructor.from_openai(raw_client)
-            
-        elif provider == "anthropic":
-            # Set up environment variable for Anthropic instead of passing directly
-            if self.anthropic_api_key:
-                os.environ["ANTHROPIC_API_KEY"] = self.anthropic_api_key
-                
-            # Initialize with from_anthropic with extra_kwargs support
-            try:
-                # Try using from_anthropic if available
-                from anthropic import Anthropic
-                
-                # Anthropic configuration with extra_kwargs support
-                anthropic_kwargs = {}
-                
-                # Add extra_kwargs from model configuration if provided
-                if self.model_config.extra_kwargs:
-                    anthropic_kwargs.update(self.model_config.extra_kwargs)
-                    
-                # Create raw client
-                raw_client = Anthropic(**anthropic_kwargs)
-                
-                # Patch with instructor
-                return instructor.patch(raw_client)
-            except Exception as e:
-                print(f"Warning: Could not use from_anthropic: {e}. Trying from_provider instead.")
-                
-                # Fall back to from_provider
-                try:
-                    # Create client using from_provider
-                    return instructor.from_provider(f"{provider}/{model_name}")
-                except Exception as inner_e:
-                    # All methods failed
-                    error_msg = f"Failed to initialize Anthropic client: {e}, {inner_e}"
-                    raise ValueError(error_msg)
-                
-        elif provider == "gemini":
-            # Set up environment variable for Gemini instead of passing directly
-            if self.gemini_api_key:
-                os.environ["GEMINI_API_KEY"] = self.gemini_api_key
 
-            # Gemini configuration with extra_kwargs support
-            gemini_kwargs = {}
-            
-            # Add extra_kwargs from model configuration if provided
-            if self.model_config.extra_kwargs:
-                gemini_kwargs.update(self.model_config.extra_kwargs)
+        self._model = _build_pydantic_ai_model(self.model_config)
 
-            # Create raw client
-            raw_client = genai.Client(**gemini_kwargs)
+    def create_agent(self, output_type, system_prompt: str = "") -> Agent:
+        """Create a pydantic-ai Agent for the given output type."""
+        return Agent(self._model, output_type=output_type, system_prompt=system_prompt)
 
-            # Patch with instructor
-            return instructor.from_genai(raw_client)
+    def get_model_settings(self) -> Optional[ModelSettings]:
+        """Build a ModelSettings dict from ModelConfig parameters."""
+        settings: Dict[str, Any] = {}
+        if self.model_config.temperature is not None:
+            settings["temperature"] = self.model_config.temperature
+        max_tokens = (
+            self.model_config.max_tokens
+            or self.model_config.max_completion_tokens
+            or self.model_config.max_tokens_to_sample
+        )
+        if max_tokens is not None:
+            settings["max_tokens"] = max_tokens
+        if self.model_config.top_p is not None:
+            settings["top_p"] = self.model_config.top_p
+        return ModelSettings(**settings) if settings else None
 
-        elif provider == "grok":
-            # Set up environment variable for Grok instead of passing directly
-            if self.grok_api_key:
-                os.environ["GROK_API_KEY"] = self.grok_api_key
-
-            # Grok configuration with extra_kwargs support
-            grok_kwargs = {}
-            
-            # Add extra_kwargs from model configuration if provided
-            if self.model_config.extra_kwargs:
-                grok_kwargs.update(self.model_config.extra_kwargs)
-            # For Grok, we'll use the OpenAI-compatible interface
-            # since xAI provides an OpenAI-compatible API
-            try:
-                # Create OpenAI-compatible client for Grok
-                raw_client = openai.OpenAI(
-                    api_key=self.grok_api_key,
-                    **grok_kwargs
-                )
-                
-                # Patch with instructor
-                return instructor.from_openai(raw_client)
-            except Exception as e:
-                raise ValueError(f"Failed to initialize Grok client: {e}")
-
-        elif provider == "openai_compatible":
-            extra = self.model_config.extra_kwargs or {}
-
-            base_url = extra.get("base_url")
-            if not base_url:
-                raise ValueError(
-                    "openai_compatible provider requires 'base_url' in extra_kwargs. "
-                    "Example: extra_kwargs={'base_url': 'http://localhost:11434/v1', 'api_key': 'ollama'}"
-                )
-
-            api_key = extra.get("api_key") or "none"
-
-            response_mode_map = {
-                "markdown": instructor.Mode.MD_JSON,
-                "tools":    instructor.Mode.TOOLS,
-                "json":     instructor.Mode.JSON,
-            }
-            response_mode = extra.get("response_mode", "markdown").lower()
-            if response_mode not in response_mode_map:
-                raise ValueError(
-                    f"Invalid response_mode '{response_mode}'. "
-                    f"Valid options: 'markdown', 'tools', 'json'"
-                )
-            mode = response_mode_map[response_mode]
-
-            raw_client = openai.OpenAI(base_url=base_url, api_key=api_key)
-            return instructor.from_openai(raw_client, mode=mode)
-
-        else:
-            # For other providers, use from_provider with empty kwargs
-            try:
-                # Create client using from_provider
-                return instructor.from_provider(f"{provider}/{model_name}")
-            except Exception as e:
-                raise ValueError(f"Unsupported provider {provider}: {e}")
-    
     def get_model_kwargs(self) -> Dict[str, Any]:
-        """
-        Get model-specific kwargs from the model configuration, 
-        but exclude api_key which should be set in the client.
-        
-        Returns:
-            Dictionary of kwargs for the specific model provider
-        """
-        model_kwargs = self.model_config.get_model_kwargs()
-        
-        # Remove api_key if present to avoid passing it in create() calls
-        if "api_key" in model_kwargs:
-            del model_kwargs["api_key"]
-            
-        return model_kwargs
+        """Legacy helper — returns model name dict for backward compatibility."""
+        return {"model": self.model_config.model_name}
+
 
 def create_llm_client(
     model_config: Optional[Union[ModelConfig, Dict[str, Any]]] = None,
@@ -240,27 +148,14 @@ def create_llm_client(
     anthropic_api_key: Optional[str] = None,
     gemini_api_key: Optional[str] = None,
     grok_api_key: Optional[str] = None,
-    **kwargs
+    **kwargs,
 ) -> LLMClient:
-    """
-    Factory function to create an LLM client with the specified configuration.
-    
-    Args:
-        model_config: Configuration for the LLM model to use
-        openai_api_key: Optional API key for OpenAI
-        anthropic_api_key: Optional API key for Anthropic
-        gemini_api_key: Optional API key for Gemini
-        grok_api_key: Optional API key for Grok
-        **kwargs: Additional keyword arguments to pass to the client
-    
-    Returns:
-        Initialized LLMClient instance
-    """
+    """Factory function to create an LLMClient with the specified configuration."""
     return LLMClient(
         model_config=model_config,
         openai_api_key=openai_api_key,
         anthropic_api_key=anthropic_api_key,
         gemini_api_key=gemini_api_key,
         grok_api_key=grok_api_key,
-        **kwargs
+        **kwargs,
     )

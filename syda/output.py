@@ -64,6 +64,31 @@ def save_dataframe(
     return file_path
 
 
+def append_dataframe(df: pd.DataFrame, file_path: str, format: str = 'csv') -> str:
+    """
+    Append a DataFrame chunk to a file (creates the file if it does not exist).
+
+    Args:
+        df: DataFrame chunk to append
+        file_path: Destination file path
+        format: 'csv' or 'json' (newline-delimited JSON records)
+
+    Returns:
+        Path to the file
+    """
+    from pathlib import Path
+    path = Path(file_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    if format == 'json':
+        with open(path, 'a') as f:
+            f.write(df.to_json(orient='records', lines=True) + '\n')
+    else:
+        df.to_csv(path, mode='a', header=not path.exists(), index=False)
+
+    return str(path)
+
+
 def save_dataframes(
     data_dict: Dict[str, pd.DataFrame],
     output_dir: str,

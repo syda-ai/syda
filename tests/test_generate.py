@@ -431,3 +431,317 @@ class TestSyntheticDataGenerator:
             # Test that the exception is properly propagated
             with pytest.raises(Exception, match="Simulated client error"):
                 generator.generate_for_schemas({"customers": test_schema}, default_sample_size=10)
+
+
+# ---------------------------------------------------------------------------
+# Large-dataset helpers
+# ---------------------------------------------------------------------------
+
+class TestResolveBatchSize:
+    """_resolve_batch_size auto-selects appropriate chunk size."""
+
+    def _gen(self):
+        from unittest.mock import patch, MagicMock
+        from syda.generate import SyntheticDataGenerator
+        from syda.schemas import ModelConfig
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            return SyntheticDataGenerator(model_config=ModelConfig())
+
+    def test_small_sample_single_chunk(self):
+        g = self._gen()
+        assert g._resolve_batch_size(10) == 10
+
+    def test_medium_sample_50(self):
+        g = self._gen()
+        assert g._resolve_batch_size(100) == 50
+
+    def test_large_sample_100(self):
+        g = self._gen()
+        assert g._resolve_batch_size(500) == 100
+
+    def test_very_large_sample_200(self):
+        g = self._gen()
+        assert g._resolve_batch_size(2000) == 200
+
+    def test_explicit_override(self):
+        g = self._gen()
+        assert g._resolve_batch_size(1000, batch_size=25) == 25
+
+    def test_model_config_batch_size(self):
+        from unittest.mock import patch, MagicMock
+        from syda.generate import SyntheticDataGenerator
+        from syda.schemas import ModelConfig
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            g = SyntheticDataGenerator(model_config=ModelConfig(batch_size=75))
+        assert g._resolve_batch_size(500) == 75
+
+
+class TestCallWithRetry:
+    """_call_with_retry retries on transient errors, not on auth/value errors."""
+
+    def _gen(self):
+        from unittest.mock import patch, MagicMock
+        from syda.generate import SyntheticDataGenerator
+        from syda.schemas import ModelConfig
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            return SyntheticDataGenerator(model_config=ModelConfig())
+
+    def test_success_on_first_try(self):
+        g = self._gen()
+        result = g._call_with_retry(lambda: 42, max_retries=3)
+        assert result == 42
+
+    def test_retries_on_transient_and_succeeds(self):
+        from unittest.mock import MagicMock, patch
+        g = self._gen()
+        call_count = {"n": 0}
+
+        def flaky():
+            call_count["n"] += 1
+            if call_count["n"] < 3:
+                raise ConnectionError("transient")
+            return "ok"
+
+        with patch("time.sleep"):
+            result = g._call_with_retry(flaky, max_retries=3)
+        assert result == "ok"
+        assert call_count["n"] == 3
+
+    def test_no_retry_on_value_error(self):
+        from unittest.mock import patch
+        g = self._gen()
+        call_count = {"n": 0}
+
+        def bad():
+            call_count["n"] += 1
+            raise ValueError("schema error")
+
+        with patch("time.sleep"):
+            with pytest.raises(ValueError, match="schema error"):
+                g._call_with_retry(bad, max_retries=3)
+        assert call_count["n"] == 1
+
+    def test_exhausts_retries_and_raises(self):
+        from unittest.mock import patch
+        g = self._gen()
+        call_count = {"n": 0}
+
+        def always_fail():
+            call_count["n"] += 1
+            raise ConnectionError("persistent")
+
+        with patch("time.sleep"):
+            with pytest.raises(RuntimeError, match="retries"):
+                g._call_with_retry(always_fail, max_retries=2)
+        assert call_count["n"] == 3  # 1 initial + 2 retries
+
+
+class TestEnforceUniqueness:
+    """_enforce_uniqueness stamps sequential IDs and deduplicates unique strings."""
+
+    def _gen(self):
+        from unittest.mock import patch, MagicMock
+        from syda.generate import SyntheticDataGenerator
+        from syda.schemas import ModelConfig
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            return SyntheticDataGenerator(model_config=ModelConfig())
+
+    def test_integer_pk_sequential(self):
+        import pandas as pd
+        g = self._gen()
+        df = pd.DataFrame({"id": [5, 5, 5], "name": ["a", "b", "c"]})
+        schema = {"id": "integer", "name": "text"}
+        metadata = {"id": {"constraints": {"primary_key": True}}, "name": {}}
+        result = g._enforce_uniqueness(df, schema, metadata, chunk_offset=0)
+        assert list(result["id"]) == [1, 2, 3]
+
+    def test_integer_pk_with_offset(self):
+        import pandas as pd
+        g = self._gen()
+        df = pd.DataFrame({"id": [1, 2, 3], "v": ["x", "y", "z"]})
+        schema = {"id": "integer", "v": "text"}
+        metadata = {"id": {"constraints": {"primary_key": True}}, "v": {}}
+        result = g._enforce_uniqueness(df, schema, metadata, chunk_offset=100)
+        assert list(result["id"]) == [101, 102, 103]
+
+    def test_no_change_when_already_unique(self):
+        import pandas as pd
+        g = self._gen()
+        df = pd.DataFrame({"email": ["a@x.com", "b@x.com", "c@x.com"]})
+        schema = {"email": "email"}
+        metadata = {"email": {"constraints": {"unique": True}}}
+        result = g._enforce_uniqueness(df, schema, metadata)
+        assert list(result["email"]) == ["a@x.com", "b@x.com", "c@x.com"]
+
+    def test_stamps_duplicate_unique_strings(self):
+        import pandas as pd
+        g = self._gen()
+        df = pd.DataFrame({"code": ["ABC", "ABC", "ABC"]})
+        schema = {"code": "text"}
+        metadata = {"code": {"constraints": {"unique": True}}}
+        result = g._enforce_uniqueness(df, schema, metadata)
+        assert len(set(result["code"])) == 3
+
+
+class TestApplyConstraints:
+    """_apply_constraints truncates strings and clamps numerics."""
+
+    def _gen(self):
+        from unittest.mock import patch, MagicMock
+        from syda.generate import SyntheticDataGenerator
+        from syda.schemas import ModelConfig
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            return SyntheticDataGenerator(model_config=ModelConfig())
+
+    def test_truncates_over_max_length(self):
+        import pandas as pd
+        g = self._gen()
+        df = pd.DataFrame({"note": ["hello world long text"]})
+        schema = {"note": "text"}
+        metadata = {"note": {"constraints": {"max_length": 5}}}
+        result = g._apply_constraints(df, schema, metadata)
+        assert result["note"].iloc[0] == "hello"
+
+    def test_no_truncation_within_limit(self):
+        import pandas as pd
+        g = self._gen()
+        df = pd.DataFrame({"code": ["ABC"]})
+        schema = {"code": "text"}
+        metadata = {"code": {"constraints": {"max_length": 10}}}
+        result = g._apply_constraints(df, schema, metadata)
+        assert result["code"].iloc[0] == "ABC"
+
+    def test_clamps_numeric_min(self):
+        import pandas as pd
+        g = self._gen()
+        df = pd.DataFrame({"age": [-5]})
+        schema = {"age": "integer"}
+        metadata = {"age": {"constraints": {"min": 0, "max": 120}}}
+        result = g._apply_constraints(df, schema, metadata)
+        assert result["age"].iloc[0] == 0
+
+    def test_clamps_numeric_max(self):
+        import pandas as pd
+        g = self._gen()
+        df = pd.DataFrame({"score": [200.0]})
+        schema = {"score": "float"}
+        metadata = {"score": {"constraints": {"max": 100}}}
+        result = g._apply_constraints(df, schema, metadata)
+        assert result["score"].iloc[0] == 100
+
+
+class TestChunkedGeneration:
+    """_generate_data correctly chunks into multiple LLM calls in direct mode."""
+
+    def _gen(self, batch_size=None, mode="direct"):
+        from unittest.mock import patch, MagicMock
+        from syda.generate import SyntheticDataGenerator
+        from syda.schemas import ModelConfig
+        kwargs = dict(generation_mode=mode)
+        if batch_size:
+            kwargs["batch_size"] = batch_size
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            return SyntheticDataGenerator(model_config=ModelConfig(**kwargs))
+
+    def test_single_chunk_when_small(self):
+        """sample_size ≤ batch_size → exactly 1 LLM call."""
+        from unittest.mock import patch, MagicMock, call
+        import pandas as pd
+
+        g = self._gen(batch_size=50, mode="direct")
+        chunk_df = pd.DataFrame({"id": range(10), "name": ["x"] * 10})
+        call_count = {"n": 0}
+
+        def fake_llm(schema, prompt, sz):
+            call_count["n"] += 1
+            return chunk_df.iloc[:sz].copy()
+
+        with patch.object(g, "_generate_data_with_llm", side_effect=fake_llm):
+            result = g._generate_data(
+                table_schema={"id": "integer", "name": "text"},
+                metadata={},
+                sample_size=10,
+            )
+        assert call_count["n"] == 1
+        assert len(result) == 10
+
+    def test_multiple_chunks_concat(self):
+        """sample_size=130, batch_size=50 → 3 LLM calls, 130 rows total."""
+        from unittest.mock import patch
+        import pandas as pd
+        import math
+
+        g = self._gen(batch_size=50, mode="direct")
+        call_sizes = []
+
+        def fake_llm(schema, prompt, sz):
+            call_sizes.append(sz)
+            return pd.DataFrame({"id": range(sz), "val": ["v"] * sz})
+
+        with patch.object(g, "_generate_data_with_llm", side_effect=fake_llm):
+            result = g._generate_data(
+                table_schema={"id": "integer", "val": "text"},
+                metadata={},
+                sample_size=130,
+            )
+        assert len(call_sizes) == 3
+        assert call_sizes == [50, 50, 30]
+        assert len(result) == 130
+
+    def test_progress_messages_printed(self, capsys):
+        """Chunk progress messages appear on stdout."""
+        from unittest.mock import patch
+        import pandas as pd
+
+        g = self._gen(batch_size=5, mode="direct")
+
+        def fake_llm(schema, prompt, sz):
+            return pd.DataFrame({"x": range(sz)})
+
+        with patch.object(g, "_generate_data_with_llm", side_effect=fake_llm):
+            g._generate_data(
+                table_schema={"x": "integer"},
+                metadata={},
+                sample_size=12,
+            )
+        captured = capsys.readouterr()
+        assert "[syda] Generating chunk 1/3" in captured.out
+
+    def test_auto_mode_uses_direct_for_small(self):
+        """auto mode selects direct when sample_size ≤ 500."""
+        from unittest.mock import patch
+        import pandas as pd
+
+        g = self._gen(mode="auto")
+        call_count = {"n": 0}
+
+        def fake_llm(schema, prompt, sz):
+            call_count["n"] += 1
+            return pd.DataFrame({"id": range(sz)})
+
+        with patch.object(g, "_generate_data_with_llm", side_effect=fake_llm):
+            g._generate_data(
+                table_schema={"id": "integer"},
+                metadata={},
+                sample_size=10,
+            )
+        # Should have called LLM (direct mode, single chunk)
+        assert call_count["n"] == 1
+
+    def test_auto_mode_selects_codegen_above_threshold(self):
+        """auto mode selects codegen when sample_size > 500."""
+        from unittest.mock import patch, MagicMock
+        import pandas as pd
+
+        g = self._gen(mode="auto")
+        semantic_cols = []
+        local_df = pd.DataFrame({"id": range(501)})
+
+        with patch.object(g, "_analyze_and_generate_code", return_value=semantic_cols) as mock_analyze, \
+             patch.object(g, "_run_local_generation", return_value=local_df):
+            g._generate_data(
+                table_schema={"id": "integer"},
+                metadata={},
+                sample_size=501,
+            )
+        mock_analyze.assert_called_once()

@@ -4,7 +4,7 @@ Contains Pydantic models used for data validation and configuration.
 """
 
 from pydantic import BaseModel, Field, model_validator, field_validator
-from typing import Dict, Optional, Any, Literal, List, Union, Set
+from typing import Dict, Optional, Any, Literal, List, Union, Set, Annotated
 import re
 
 
@@ -29,12 +29,32 @@ class ModelConfig(BaseModel):
     
     # Streaming parameters
     stream: Optional[bool] = Field(
-        False, 
+        False,
         description="""
         Enable streaming responses for certain models.
-        If not provided or set to False, 
+        If not provided or set to False,
         streaming for models will be enabled if sample size is >50 or for certain anthropic models.
         """
+    )
+
+    # Large dataset / chunking parameters
+    batch_size: Optional[int] = Field(
+        None,
+        gt=0,
+        description="Max rows per LLM call in direct mode. None = auto-select based on sample_size.",
+    )
+    max_retries: int = Field(
+        3,
+        ge=0,
+        description="Max retry attempts per chunk on transient errors (rate limits, timeouts).",
+    )
+    generation_mode: Literal["auto", "direct", "codegen"] = Field(
+        "auto",
+        description=(
+            "'auto': direct when sample_size<=500, codegen otherwise. "
+            "'direct': always use chunked LLM calls. "
+            "'codegen': LLM writes Python generators, local code fills rows."
+        ),
     )
 
     # OpenAI specific parameters
