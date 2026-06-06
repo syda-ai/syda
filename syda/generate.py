@@ -456,6 +456,7 @@ class SyntheticDataGenerator:
                 batch_size=batch_size,
                 output_dir=output_dir,
                 output_format=output_format,
+                template_schema_names=set(template_schemas.keys()),
             )
           
             # Separate template schemas from structured schemas
@@ -510,6 +511,7 @@ class SyntheticDataGenerator:
         batch_size: Optional[int] = None,
         output_dir: Optional[str] = None,
         output_format: str = 'csv',
+        template_schema_names: Optional[set] = None,
     ):
         """
         Generate structured data for each schema in the specified generation order.
@@ -529,13 +531,27 @@ class SyntheticDataGenerator:
         Returns:
             Tuple of (results_dict, streamed_schemas_set).
             streamed_schemas_set contains names of tables already written to output_dir.
+            When output_dir is set, results entries are slimmed to FK-columns only after
+            being written — callers should read full data from disk.
         """
+        _template_names = template_schema_names or set()
+        ext = output_format if output_format in ('csv', 'json') else 'csv'
+
         # Pre-compute which columns each table must expose to FK children.
-        # Format: {parent_schema: set_of_parent_columns}
         fk_exposed: Dict[str, set] = {}
         for fk_defs in extracted_foreign_keys.values():
             for _child_col, (parent_schema, parent_col) in fk_defs.items():
                 fk_exposed.setdefault(parent_schema, set()).add(parent_col)
+
+        # Pre-compute the LAST generation-order index at which each parent is needed.
+        # After that index is processed we can drop the parent's non-FK data from RAM.
+        order_idx: Dict[str, int] = {t: i for i, t in enumerate(generation_order)}
+        last_consumer: Dict[str, int] = {}  # parent -> last child index
+        for child_tbl in generation_order:
+            for _, (parent, _) in extracted_foreign_keys.get(child_tbl, {}).items():
+                ci = order_idx[child_tbl]
+                if ci > last_consumer.get(parent, -1):
+                    last_consumer[parent] = ci
 
         results: Dict[str, Any] = {}
         streamed_schemas: set = set()
@@ -555,18 +571,13 @@ class SyntheticDataGenerator:
 
             print(f"Creating data for {schema_name} with schema: {llm_schema}")
 
-            # Decide whether to stream this table's chunks directly to disk.
+            # Decide whether to stream chunks directly to disk during generation
+            # (activates for large tables in direct mode to cap per-chunk RAM).
             _eff_mode = self.model_config.generation_mode
             if _eff_mode == 'auto':
                 _eff_mode = 'direct' if sample_size <= 500 else 'codegen'
-            use_streaming = (
-                output_dir is not None
-                and sample_size > _STREAM_THRESHOLD
-                and _eff_mode == 'direct'
-            )
             stream_path: Optional[str] = None
-            if use_streaming:
-                ext = output_format if output_format in ('csv', 'json') else 'csv'
+            if output_dir and sample_size > _STREAM_THRESHOLD and _eff_mode == 'direct':
                 stream_path = os.path.join(output_dir, f"{schema_name.lower()}.{ext}")
                 os.makedirs(output_dir, exist_ok=True)
                 print(f"[syda] Streaming {sample_size:,} rows → {stream_path}")
@@ -603,7 +614,45 @@ class SyntheticDataGenerator:
             print(f"Applying custom generators for schema {schema_name}")
             df = self.generator_manager.apply_custom_generators(
                 df, schema_name, schema_custom_generators, parent_dfs=results)
+
+            # ── Progressive disk write + memory slim ──────────────────────────
+            # When output_dir is set, write every table to disk as soon as it's
+            # ready (not just > 10K-row tables).  After writing, replace the
+            # in-memory entry with FK-columns only so subsequent tables' FK
+            # generators still work but full row data is freed.
+            # Template tables keep their full DataFrames because the template
+            # processor needs them later in this call.
+            if output_dir and schema_name not in streamed_schemas and schema_name not in _template_names:
+                file_path = os.path.join(output_dir, f"{schema_name.lower()}.{ext}")
+                os.makedirs(output_dir, exist_ok=True)
+                save_dataframe(df, file_path)
+                streamed_schemas.add(schema_name)
+                print(f"[syda] {schema_name}: {len(df):,} rows written to {file_path}")
+
+                # Slim to FK columns; fully drop if nobody references this table.
+                fk_cols = list(fk_exposed.get(schema_name, set()) & set(df.columns))
+                df = df[fk_cols] if fk_cols else pd.DataFrame(columns=list(df.columns)[:0])
+
             results[schema_name] = df
+
+            # ── Free parent tables fully consumed by this step ────────────────
+            # A parent table is no longer needed once all its FK children have
+            # been generated.  When output_dir is set (data is on disk), drop
+            # its results entry entirely; otherwise keep FK columns for the
+            # integrity check that runs at the end of generate_for_schemas().
+            current_idx = order_idx[schema_name]
+            for parent, last_idx in last_consumer.items():
+                if last_idx == current_idx and parent in results:
+                    if output_dir:
+                        del results[parent]
+                        print(f"[syda] Freed '{parent}' from memory (all FK children generated)")
+                    else:
+                        # No disk — keep only the FK columns for integrity check
+                        fk_cols = list(fk_exposed.get(parent, set()) & set(results[parent].columns))
+                        results[parent] = (
+                            results[parent][fk_cols] if fk_cols
+                            else pd.DataFrame(columns=list(results[parent].columns)[:0])
+                        )
 
         return results, streamed_schemas
         
