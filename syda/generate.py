@@ -818,6 +818,10 @@ class SyntheticDataGenerator:
             return df
 
         except Exception as e:
+            # Let rate-limit and server errors propagate as-is so _call_with_retry can back off.
+            status = getattr(e, 'status_code', None)
+            if status in (429, 500, 502, 503, 529):
+                raise
             raise ValueError(f"Error generating data: {str(e)}")
 
     def _call_with_retry(self, fn, max_retries: int, base_delay: float = 1.0):
@@ -829,15 +833,24 @@ class SyntheticDataGenerator:
             except Exception as exc:
                 name = type(exc).__name__
                 status = getattr(exc, 'status_code', None)
+                # Non-retryable: auth errors, validation errors, explicit ValueError/TypeError
                 if status in (401, 422) or 'Auth' in name or isinstance(exc, (ValueError, TypeError)):
                     raise
                 last_exc = exc
                 if attempt < max_retries:
-                    delay = base_delay * (2 ** attempt) + random.uniform(0, 0.5)
-                    print(
-                        f"[syda] Chunk failed ({name}), retrying in {delay:.1f}s "
-                        f"(attempt {attempt + 1}/{max_retries})..."
-                    )
+                    # 429 rate limit: wait 60 s (token bucket refills per minute)
+                    if status == 429:
+                        delay = 60.0 + random.uniform(0, 5)
+                        print(
+                            f"[syda] Rate limit hit, waiting {delay:.0f}s before retry "
+                            f"(attempt {attempt + 1}/{max_retries})..."
+                        )
+                    else:
+                        delay = base_delay * (2 ** attempt) + random.uniform(0, 0.5)
+                        print(
+                            f"[syda] Chunk failed ({name}), retrying in {delay:.1f}s "
+                            f"(attempt {attempt + 1}/{max_retries})..."
+                        )
                     time.sleep(delay)
         raise RuntimeError(f"Chunk failed after {max_retries} retries: {last_exc}") from last_exc
 
@@ -871,8 +884,15 @@ class SyntheticDataGenerator:
             simple: Dict[str, str]
             semantic: List[str]
 
+        # Columns that already have generators registered (FK samplers set up by
+        # apply_foreign_keys before this call) must be excluded from code-gen — we
+        # must not overwrite them with LLM-generated code.
+        pre_registered = set(self.generator_manager.column_generators.keys())
+
         col_descriptions = []
         for col_name, col_type in table_schema.items():
+            if col_name in pre_registered:
+                continue  # FK column — keep existing generator, skip code-gen
             col_type_str = col_type if isinstance(col_type, str) else col_type.get('type', 'text')
             parts = [f"- {col_name} ({col_type_str})"]
             if col_name in metadata:
@@ -923,6 +943,7 @@ Every column must appear in exactly one list."""
                 "You are a code generation assistant that writes Python generator functions "
                 "for synthetic database column values."
             ),
+            retries=3,
         )
 
         if ModelRetry is not None:
@@ -938,8 +959,17 @@ Every column must appear in exactly one list."""
                 return output
 
         model_settings = self.llm_client.get_model_settings()
-        result = agent.run_sync(analysis_prompt, model_settings=model_settings)
-        analysis = result.output
+        try:
+            result = agent.run_sync(analysis_prompt, model_settings=model_settings)
+            analysis = result.output
+        except Exception as e:
+            # If code-gen analysis fails (e.g. LLM keeps generating bad code), fall back to
+            # treating all columns as semantic — direct LLM generation per column.
+            print(
+                f"[syda] Warning: code-gen analysis failed for '{schema_name}' ({e}). "
+                "Falling back: all columns treated as semantic."
+            )
+            return list(table_schema.keys())
 
         # Register simple column generators
         for col_name, code in analysis.simple.items():

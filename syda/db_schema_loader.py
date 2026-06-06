@@ -150,6 +150,45 @@ class DatabaseSchemaLoader:
             self._inspector.get_pk_constraint(table_name).get("constrained_columns", [])
         )
 
+        # Collect single-column UNIQUE constraints (multi-col unique indices are skipped)
+        unique_cols: set = set()
+        try:
+            for uc in self._inspector.get_unique_constraints(table_name):
+                if len(uc.get("column_names", [])) == 1:
+                    unique_cols.add(uc["column_names"][0])
+            for idx in self._inspector.get_indexes(table_name):
+                if idx.get("unique") and len(idx.get("column_names", [])) == 1:
+                    unique_cols.add(idx["column_names"][0])
+        except Exception:
+            pass
+
+        # Parse CHECK constraints to extract per-column enum values.
+        # Handles: col IN ('a','b') and col = ANY (ARRAY['a','b',...])
+        col_enums: Dict[str, list] = {}
+        try:
+            import re
+            for cc in self._inspector.get_check_constraints(table_name):
+                sqltext = cc.get("sqltext", "")
+                # Pattern: col IN ('v1', 'v2', ...)
+                m = re.match(
+                    r"^\s*(\w+)\s+IN\s*\((.+)\)\s*$", sqltext,
+                    re.IGNORECASE | re.DOTALL,
+                )
+                if not m:
+                    # Pattern: col = ANY (ARRAY['v1'::text, 'v2'::text, ...])
+                    m = re.match(
+                        r"^\s*(\w+)\s*=\s*ANY\s*\(ARRAY\[(.+)\]\)\s*$", sqltext,
+                        re.IGNORECASE | re.DOTALL,
+                    )
+                if m:
+                    col_name_cc = m.group(1)
+                    values_str = m.group(2)
+                    vals = re.findall(r"'([^']+)'", values_str)
+                    if vals:
+                        col_enums[col_name_cc] = vals
+        except Exception:
+            pass
+
         fk_map = {}
         for fk in self._inspector.get_foreign_keys(table_name):
             referred_cols = fk["referred_columns"]
@@ -179,8 +218,13 @@ class DatabaseSchemaLoader:
             if is_pk:
                 col_def["primary_key"] = True
                 col_def["not_null"] = True
-            elif not col.get("nullable", True):
-                col_def["not_null"] = True
+            else:
+                if col_name in unique_cols:
+                    col_def["unique"] = True
+                if not col.get("nullable", True):
+                    col_def["not_null"] = True
+                if col_name in col_enums:
+                    col_def["enum"] = col_enums[col_name]
 
             schema[col_name] = col_def
 

@@ -177,7 +177,8 @@ class SchemaLoader:
                 constraints = {}
                 
                 # Extract direct constraint attributes
-                for constraint_key in ["nullable", "primary_key", "unique", "length", "max_length", "min_length"]:
+                for constraint_key in ["nullable", "not_null", "primary_key", "unique", "enum",
+                                       "length", "max_length", "min_length"]:
                     if constraint_key in field_info:
                         if "constraints" not in field_metadata:
                             field_metadata["constraints"] = {}

@@ -117,9 +117,10 @@ class LLMClient:
 
         self._model = _build_pydantic_ai_model(self.model_config)
 
-    def create_agent(self, output_type, system_prompt: str = "") -> Agent:
+    def create_agent(self, output_type, system_prompt: str = "", retries: int = 3) -> Agent:
         """Create a pydantic-ai Agent for the given output type."""
-        return Agent(self._model, output_type=output_type, system_prompt=system_prompt)
+        return Agent(self._model, output_type=output_type, system_prompt=system_prompt,
+                     retries=retries)
 
     def get_model_settings(self) -> Optional[ModelSettings]:
         """Build a ModelSettings dict from ModelConfig parameters."""
