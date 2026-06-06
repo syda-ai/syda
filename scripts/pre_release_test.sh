@@ -316,6 +316,14 @@ run_example "database_integration/save_schemas" \
 run_example "database_integration/postgres" \
   "$EXAMPLES_DIR/database_integration/example_postgres.py"
 
+# large_dataset/postgres — only run when DB_HOST is set (requires live Postgres)
+if [[ -n "${DB_HOST:-}" ]]; then
+  run_example "large_dataset/postgres" \
+    "$EXAMPLES_DIR/large_dataset/example_large_dataset_postgres.py"
+else
+  warn "DB_HOST not set — skipping large_dataset/postgres example (requires live PostgreSQL)"
+fi
+
 # openai_compatible — auto-detect Ollama, start if needed, run example
 OLLAMA_BIN=$(command -v ollama || true)
 if [[ -z "$OLLAMA_BIN" ]]; then
