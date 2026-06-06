@@ -13,13 +13,17 @@ datasets:
   is complete; only FK columns are kept in RAM for child-table generation
 
 Schema — e-commerce (5 tables, FK chain):
-    customers (500 rows)  →  orders (5 000 rows)  →  order_items (15 000 rows)
-    products  (300 rows)  ↗                        ↗
-    reviews   (2 000 rows)  ← products + customers
+    customers (200 rows)  →  orders (1 000 rows)  →  order_items (2 000 rows)
+    products  (100 rows)  ↗                        ↗
+    reviews   (600 rows)   ← products + customers
+
+Default sample sizes fit comfortably within the 10 000 output tokens/minute
+limit on free/tier-1 Anthropic accounts.  Scale up SCALE_FACTOR at the top of
+main() for larger runs on higher-tier accounts.
 
 With auto mode:
-  customers / products → direct (≤500 rows, chunked LLM calls)
-  orders / reviews     → code-gen (>500 rows)
+  customers / products → direct  (≤500 rows, chunked LLM calls, batch_size=50)
+  orders / reviews     → code-gen (>500 rows, 1 analysis call + semantic cols)
   order_items          → code-gen (>500 rows, streaming to disk)
 
 Requirements:
@@ -100,7 +104,7 @@ def create_demo_schema(engine) -> None:
                 order_id        SERIAL PRIMARY KEY,
                 customer_id     INTEGER NOT NULL REFERENCES customers(customer_id),
                 order_date      DATE NOT NULL,
-                status          TEXT CHECK (status IN ('Pending','Processing','Shipped','Delivered','Cancelled')),
+                status          TEXT CHECK (status IN ('pending','processing','shipped','delivered','cancelled')),
                 shipping_method TEXT,
                 total_amount    NUMERIC(12,2) NOT NULL
             )"""))
@@ -182,18 +186,20 @@ def main():
         )
     )
 
-    # Sample sizes chosen to exercise both modes in the same run:
-    #   customers (500)  → direct mode  (10 chunks of 50)
-    #   products  (300)  → direct mode  (6 chunks of 50)
-    #   orders    (5000) → code-gen mode (single analysis call + semantic cols)
-    #   order_items(15000)→ code-gen mode + streaming to disk
-    #   reviews   (2000) → code-gen mode
+    # Sample sizes chosen to exercise both modes in the same run.
+    # Scale these up for your own Anthropic tier — these defaults target
+    # the free/tier-1 limit of 10 000 output tokens/minute comfortably.
+    #   customers (200)  → direct mode  (4 chunks of 50)
+    #   products  (100)  → direct mode  (2 chunks of 50)
+    #   orders    (1000) → code-gen mode (1 analysis call + semantic cols only)
+    #   order_items(2000)→ code-gen mode + streaming to disk
+    #   reviews   (600)  → code-gen mode
     sample_sizes = {
-        "customers":   500,
-        "products":    300,
-        "orders":     5_000,
-        "order_items": 15_000,
-        "reviews":    2_000,
+        "customers":    200,
+        "products":     100,
+        "orders":     1_000,
+        "order_items": 2_000,
+        "reviews":      600,
     }
 
     prompts = {
@@ -248,13 +254,14 @@ def main():
     print("=" * 60)
     print(f"Generation complete in {elapsed:.1f}s")
     print("=" * 60)
+    import pandas as pd
     for table in ["customers", "products", "orders", "order_items", "reviews"]:
-        df  = results.get(table)
         csv = os.path.join(output_dir, f"{table}.csv")
-        row_count = len(df) if df is not None else "flushed to disk"
-        csv_exists = os.path.exists(csv)
-        print(f"  {table:<12}: {row_count} rows in results"
-              f"  |  CSV on disk: {csv_exists}")
+        if os.path.exists(csv):
+            row_count = sum(1 for _ in open(csv)) - 1  # fast line count minus header
+            print(f"  {table:<12}: {row_count:,} rows  (CSV: {csv})")
+        else:
+            print(f"  {table:<12}: CSV not found")
 
     # ------------------------------------------------------------------
     # Step 5: load the CSVs back and write to PostgreSQL
@@ -286,14 +293,40 @@ def main():
             db_cols = [c["name"] for c in inspector.get_columns(table)]
             df = df[[c for c in db_cols if c in df.columns]]
 
-            # Drop serial PK so Postgres auto-assigns values
+            # Fix duplicates in unique-constrained columns by renaming rather than
+            # dropping so FK relationships remain intact (all PKs preserved).
+            unique_cols = [
+                uc["column_names"][0]
+                for uc in inspector.get_unique_constraints(table)
+                if len(uc.get("column_names", [])) == 1
+                   and uc["column_names"][0] in df.columns
+            ]
+            for col in unique_cols:
+                seen: set = set()
+                for i, val in enumerate(df[col]):
+                    candidate = str(val)
+                    if candidate in seen:
+                        # Append row-index suffix to make it unique
+                        df.at[df.index[i], col] = f"{candidate}_{i}"
+                    seen.add(str(df.at[df.index[i], col]))
+
+            # Insert WITH explicit PK values so FK references in child tables
+            # stay consistent (we keep the LLM-generated IDs as-is; tables were
+            # just DROPped + recreated so sequences are reset to 1).
+            # After insert, advance the sequence past the max inserted ID.
             pk_col = f"{table[:-1]}_id" if table != "order_items" else "item_id"
-            if pk_col in df.columns:
-                df = df.drop(columns=[pk_col])
 
             df.to_sql(table, con=conn, if_exists="append", index=False,
                       method="multi", chunksize=1000)
             conn.commit()
+
+            # Advance serial sequence so future inserts don't collide
+            if pk_col in df.columns:
+                max_id = int(df[pk_col].max())
+                seq_name = f"{table}_{pk_col}_seq"
+                conn.execute(text(f"SELECT setval('{seq_name}', {max_id}, true)"))
+                conn.commit()
+
             print(f"  {table:<12}: {len(df):,} rows inserted")
 
     print("\nAll done. PostgreSQL contains a full synthetic e-commerce dataset.")
