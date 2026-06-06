@@ -745,3 +745,84 @@ class TestChunkedGeneration:
                 sample_size=501,
             )
         mock_analyze.assert_called_once()
+
+
+class TestStreamingOutput:
+    """Chunks are written to disk progressively when output_dir is set and sample_size > 10_000."""
+
+    def _gen(self, mode="direct"):
+        from unittest.mock import patch, MagicMock
+        from syda.generate import SyntheticDataGenerator
+        from syda.schemas import ModelConfig
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            return SyntheticDataGenerator(model_config=ModelConfig(generation_mode=mode))
+
+    def test_chunks_written_incrementally(self, tmp_path):
+        """Each chunk is appended to the output file before the next chunk starts."""
+        from unittest.mock import patch
+        import pandas as pd
+        from syda.generate import _STREAM_THRESHOLD
+
+        g = self._gen(mode="direct")
+        sample_size = _STREAM_THRESHOLD + 100
+        batch_size = 50
+        write_calls = []
+
+        real_append = __import__("syda.output", fromlist=["append_dataframe"]).append_dataframe
+
+        def tracking_append(df, path, **kwargs):
+            write_calls.append(len(df))
+            return real_append(df, path, **kwargs)
+
+        def fake_llm(schema, prompt, sz):
+            return pd.DataFrame({"id": range(sz)})
+
+        with patch.object(g, "_generate_data_with_llm", side_effect=fake_llm), \
+             patch("syda.generate.append_dataframe", side_effect=tracking_append):
+            stream_path = str(tmp_path / "out.csv")
+            result = g._generate_data(
+                table_schema={"id": "integer"},
+                metadata={},
+                sample_size=sample_size,
+                batch_size=batch_size,
+                stream_path=stream_path,
+            )
+
+        # Should have written many chunks to disk
+        assert len(write_calls) > 1
+        # Total written rows equals sample_size
+        assert sum(write_calls) == sample_size
+
+    def test_streamed_table_not_saved_again(self, tmp_path):
+        """Tables streamed to disk during generation are not passed to save_dataframes."""
+        from unittest.mock import patch, MagicMock
+        import pandas as pd
+        from syda.generate import SyntheticDataGenerator, _STREAM_THRESHOLD
+        from syda.schemas import ModelConfig
+
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            g = SyntheticDataGenerator(model_config=ModelConfig(generation_mode="direct"))
+
+        sample_size = _STREAM_THRESHOLD + 1
+
+        def fake_generate(*args, **kwargs):
+            sp = kwargs.get("stream_path")
+            if sp:
+                import os; os.makedirs(os.path.dirname(sp), exist_ok=True)
+                pd.DataFrame({"id": range(3)}).to_csv(sp, index=False)
+                return pd.DataFrame({"id": range(3)})
+            return pd.DataFrame({"id": range(sample_size)})
+
+        save_calls = []
+
+        with patch.object(g, "_generate_data", side_effect=fake_generate), \
+             patch("syda.generate.save_dataframes", side_effect=lambda d, *a, **k: save_calls.append(set(d.keys()))):
+            g.generate_for_schemas(
+                schemas={"patients": {"id": "integer"}},
+                default_sample_size=sample_size,
+                output_dir=str(tmp_path),
+            )
+
+        # patients was streamed — it must NOT appear in save_dataframes call
+        for call_keys in save_calls:
+            assert "patients" not in call_keys

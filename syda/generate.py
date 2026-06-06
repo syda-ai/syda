@@ -33,7 +33,23 @@ from typing import Dict, List, Optional, Callable, Union, Type, Any, Tuple
 from pydantic import create_model, TypeAdapter, Field
 from .schemas import ModelConfig
 from .llm import create_llm_client, LLMClient
-from .output import save_dataframe, save_dataframes
+from .output import save_dataframe, save_dataframes, append_dataframe
+
+_STREAM_THRESHOLD = 10_000  # rows; above this, chunks are written directly to disk when output_dir is set
+
+
+def _stream_fmt(path: str) -> str:
+    """Infer 'json' or 'csv' from a file path for append_dataframe."""
+    return "json" if path.endswith(".json") else "csv"
+
+
+def _slim(df: "pd.DataFrame", fk_cols: Optional[set], schema: dict) -> "pd.DataFrame":
+    """Return df reduced to fk_cols, or an empty-schema frame if none needed."""
+    if fk_cols:
+        keep = list(fk_cols & set(df.columns))
+        if keep:
+            return df[keep]
+    return pd.DataFrame(columns=list(schema.keys()))
 from .utils import (
     create_empty_dataframe,
     generate_random_value,
@@ -426,7 +442,7 @@ class SyntheticDataGenerator:
         
         try:
             # Generate structured data using the extracted method
-            results = self._generate_structured_data(
+            results, streamed_schemas = self._generate_structured_data(
                 processed_schemas=processed_schemas,
                 schema_metadata=schema_metadata,
                 schema_descriptions=schema_descriptions,
@@ -438,6 +454,8 @@ class SyntheticDataGenerator:
                 default_prompt=default_prompt,
                 default_sample_size=default_sample_size,
                 batch_size=batch_size,
+                output_dir=output_dir,
+                output_format=output_format,
             )
           
             # Separate template schemas from structured schemas
@@ -462,9 +480,12 @@ class SyntheticDataGenerator:
                 # Use the new method to process all template dataframes at once
                 template_results = processor.process_template_dataframes(template_schemas_dfs, output_dir)
             
-            # Save files if output_dir is specified
+            # Save files if output_dir is specified (skip tables already streamed to disk)
             if output_dir:
-                save_dataframes(structured_results, output_dir, format=output_format)
+                to_save = {k: v for k, v in structured_results.items()
+                           if k not in streamed_schemas}
+                if to_save:
+                    save_dataframes(to_save, output_dir, format=output_format)
             
             # Verify referential integrity using ForeignKeyHandler
             self.fk_handler.verify_referential_integrity(results, extracted_foreign_keys)
@@ -487,6 +508,8 @@ class SyntheticDataGenerator:
         default_prompt,
         default_sample_size,
         batch_size: Optional[int] = None,
+        output_dir: Optional[str] = None,
+        output_format: str = 'csv',
     ):
         """
         Generate structured data for each schema in the specified generation order.
@@ -504,41 +527,51 @@ class SyntheticDataGenerator:
             default_sample_size: Default sample size to use if no schema-specific sample size is provided
             
         Returns:
-            Dictionary mapping schema names to generated DataFrames
+            Tuple of (results_dict, streamed_schemas_set).
+            streamed_schemas_set contains names of tables already written to output_dir.
         """
-        results = {}
-        
-        # Generate data for each schema in the correct order
+        # Pre-compute which columns each table must expose to FK children.
+        # Format: {parent_schema: set_of_parent_columns}
+        fk_exposed: Dict[str, set] = {}
+        for fk_defs in extracted_foreign_keys.values():
+            for _child_col, (parent_schema, parent_col) in fk_defs.items():
+                fk_exposed.setdefault(parent_schema, set()).add(parent_col)
+
+        results: Dict[str, Any] = {}
+        streamed_schemas: set = set()
+
         for schema_name in generation_order:
-            schema = processed_schemas[schema_name]
-            metadata = schema_metadata[schema_name]
-            description = schema_descriptions[schema_name]
-            
-            print(f"\nGenerating data for {schema_name} with {len(schema)} columns")
-            print(f"Description: {description}")
-            
-            # Get the prompt and sample size for this schema
-            prompt = prompts.get(schema_name, default_prompt)
-            sample_size = sample_sizes.get(schema_name, default_sample_size)
-            
-            # Apply foreign key constraints using the ForeignKeyHandler
-            self.fk_handler.apply_foreign_keys(schema_name, extracted_foreign_keys, results)
-            
-            # We'll let generate_data handle the prompt building with metadata
-            # by passing the schema directly, along with the base prompt
-            # This eliminates duplicated prompt-building logic
-            # Use AI-based generation for meaningful data
-            print(f"Creating data for {schema_name} with schema: {schema}")
-            
-            # Use the schema information we already extracted earlier
             llm_schema = processed_schemas[schema_name]
             metadata = schema_metadata[schema_name]
             model_description = schema_descriptions[schema_name]
-            
-            # Try to use the AI generation first
+
+            print(f"\nGenerating data for {schema_name} with {len(llm_schema)} columns")
+            print(f"Description: {model_description}")
+
+            prompt = prompts.get(schema_name, default_prompt)
+            sample_size = sample_sizes.get(schema_name, default_sample_size)
+
+            self.fk_handler.apply_foreign_keys(schema_name, extracted_foreign_keys, results)
+
+            print(f"Creating data for {schema_name} with schema: {llm_schema}")
+
+            # Decide whether to stream this table's chunks directly to disk.
+            _eff_mode = self.model_config.generation_mode
+            if _eff_mode == 'auto':
+                _eff_mode = 'direct' if sample_size <= 500 else 'codegen'
+            use_streaming = (
+                output_dir is not None
+                and sample_size > _STREAM_THRESHOLD
+                and _eff_mode == 'direct'
+            )
+            stream_path: Optional[str] = None
+            if use_streaming:
+                ext = output_format if output_format in ('csv', 'json') else 'csv'
+                stream_path = os.path.join(output_dir, f"{schema_name.lower()}.{ext}")
+                os.makedirs(output_dir, exist_ok=True)
+                print(f"[syda] Streaming {sample_size:,} rows → {stream_path}")
+
             try:
-                # Use the _generate_data method to generate data for this schema
-                # Pass the already extracted schema information to avoid redundant extraction
                 df = self._generate_data(
                     table_schema=llm_schema,
                     metadata=metadata,
@@ -547,30 +580,32 @@ class SyntheticDataGenerator:
                     sample_size=sample_size,
                     batch_size=batch_size,
                     schema_name=schema_name,
+                    stream_path=stream_path,
+                    fk_cols_to_keep=fk_exposed.get(schema_name),
                 )
-                
-                # Check if we have the requested sample size
-                if len(df) < sample_size:
-                    print(f"Warning: LLM generated only {len(df)} records instead of {sample_size} for {schema_name}")
-                    # We don't fill with placeholder data - we'll use what the LLM gave us
-                
-                # Truncate if we got more data than needed
-                if len(df) > sample_size:
+
+                if stream_path and os.path.exists(stream_path):
+                    streamed_schemas.add(schema_name)
+                    print(f"[syda] {schema_name}: streamed {sample_size:,} rows to {stream_path}")
+                elif len(df) < sample_size:
+                    print(
+                        f"Warning: LLM generated only {len(df)} records "
+                        f"instead of {sample_size} for {schema_name}"
+                    )
+                elif len(df) > sample_size:
                     df = df.iloc[:sample_size]
-                    
+
             except Exception as e:
                 print(f"Error using AI generation for {schema_name}: {str(e)}")
-                # We don't use placeholder data - require a real LLM
                 raise Exception(f"Failed to generate data for {schema_name} using LLM: {str(e)}")
-            # Apply custom generators if any
+
             schema_custom_generators = custom_generators.get(schema_name, {})
             print(f"Applying custom generators for schema {schema_name}")
             df = self.generator_manager.apply_custom_generators(
                 df, schema_name, schema_custom_generators, parent_dfs=results)
-            # Store the result
             results[schema_name] = df
-            
-        return results
+
+        return results, streamed_schemas
         
     def _build_prompt(self, table_schema, metadata, table_description, primary_key_fields, prompt, sample_size):
         """
@@ -1044,7 +1079,9 @@ Every column must appear in exactly one list."""
                      sample_size: int = 10,
                      batch_size: Optional[int] = None,
                      max_retries: Optional[int] = None,
-                     schema_name: Optional[str] = None) -> pd.DataFrame:
+                     schema_name: Optional[str] = None,
+                     stream_path: Optional[str] = None,
+                     fk_cols_to_keep: Optional[set] = None) -> pd.DataFrame:
         """
         Generate synthetic data based on schema using AI.
 
@@ -1116,20 +1153,47 @@ Every column must appear in exactly one list."""
             )
             chunk = self._enforce_uniqueness(chunk, table_schema, metadata, chunk_offset=offset)
             chunk = self._apply_constraints(chunk, table_schema, metadata)
+            chunk = self._apply_type_generators(chunk, table_schema)
+            chunk = self._convert_column_types(chunk, table_schema)
             return chunk
 
         if sample_size <= effective_batch:
             df = _one_chunk(sample_size, 0)
-        else:
-            n_chunks = math.ceil(sample_size / effective_batch)
-            parts = []
+            if stream_path:
+                append_dataframe(df, stream_path, format=_stream_fmt(stream_path))
+                df = _slim(df, fk_cols_to_keep, table_schema)
+            return df
+
+        # Multiple chunks
+        n_chunks = math.ceil(sample_size / effective_batch)
+
+        if stream_path:
+            # ── Streaming path: write each chunk to disk, keep only FK cols ──
+            if os.path.exists(stream_path):
+                os.remove(stream_path)
+            fmt = _stream_fmt(stream_path)
+            fk_parts: List[pd.DataFrame] = []
             for i in range(n_chunks):
                 start = i * effective_batch
                 end = min(start + effective_batch, sample_size)
-                print(f"[syda] Generating chunk {i+1}/{n_chunks} (rows {start+1}–{end} of {sample_size})...")
-                parts.append(_one_chunk(end - start, start))
-            df = pd.concat(parts, ignore_index=True)
+                print(
+                    f"[syda] Generating chunk {i+1}/{n_chunks} "
+                    f"(rows {start+1}–{end} of {sample_size}) → {os.path.basename(stream_path)}"
+                )
+                chunk = _one_chunk(end - start, start)
+                append_dataframe(chunk, stream_path, format=fmt)
+                if fk_cols_to_keep:
+                    keep = list(fk_cols_to_keep & set(chunk.columns))
+                    if keep:
+                        fk_parts.append(chunk[keep])
+            # Return slim DataFrame: FK columns only (enough for child-table generators)
+            return pd.concat(fk_parts, ignore_index=True) if fk_parts else pd.DataFrame(columns=list(table_schema.keys()))
 
-        df = self._apply_type_generators(df, table_schema)
-        df = self._convert_column_types(df, table_schema)
-        return df
+        # ── In-memory path: accumulate and concat ────────────────────────────
+        parts: List[pd.DataFrame] = []
+        for i in range(n_chunks):
+            start = i * effective_batch
+            end = min(start + effective_batch, sample_size)
+            print(f"[syda] Generating chunk {i+1}/{n_chunks} (rows {start+1}–{end} of {sample_size})...")
+            parts.append(_one_chunk(end - start, start))
+        return pd.concat(parts, ignore_index=True)
