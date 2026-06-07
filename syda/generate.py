@@ -850,6 +850,10 @@ class SyntheticDataGenerator:
                     f"Check token limits and API connectivity. Sample size: {sample_size}."
                 )
 
+            usage = result.usage
+            in_tok = (usage.request_tokens or 0) if usage else 0
+            out_tok = (usage.response_tokens or 0) if usage else 0
+
             records = [obj.model_dump() for obj in ai_objs]
             if not records:
                 raise ValueError("No records extracted from LLM response")
@@ -863,7 +867,7 @@ class SyntheticDataGenerator:
 
             if df.empty:
                 raise ValueError("Empty DataFrame returned from data generation")
-            return df
+            return df, in_tok, out_tok
 
         except Exception as e:
             # Let rate-limit and server errors propagate as-is so _call_with_retry can back off.
@@ -1049,9 +1053,9 @@ Every column must appear in exactly one list."""
             from_cache = False
 
             try:
-                usage = result.usage()
-                in_tok = usage.request_tokens or 0
-                out_tok = usage.response_tokens or 0
+                usage = result.usage
+                in_tok = (usage.request_tokens or 0) if usage else 0
+                out_tok = (usage.response_tokens or 0) if usage else 0
             except Exception:
                 pass
 
@@ -1078,17 +1082,22 @@ Every column must appear in exactly one list."""
                 print(f"[syda] Code-gen artifact saved → {schema_name}_{schema_hash}.py")
 
         # ── Register simple column generators ────────────────────────────────
+        from .run_report import _estimate_cost
+        n_simple = max(len(simple_fns), 1)
         for col_name, fn in simple_fns.items():
             try:
                 self.generator_manager.register_generator('_codegen', fn, column_name=col_name)
                 if table_report is not None:
+                    col_in = 0 if from_cache else (in_tok // n_simple)
+                    col_out = 0 if from_cache else (out_tok // n_simple)
                     table_report.columns[col_name] = ColumnReport(
                         strategy="codegen_simple",
                         from_cache=from_cache,
                         generated_function=simple_source.get(col_name, ""),
                         llm_calls=0 if from_cache else 1,
-                        input_tokens=0 if from_cache else (in_tok // max(len(simple_fns), 1)),
-                        output_tokens=0 if from_cache else (out_tok // max(len(simple_fns), 1)),
+                        input_tokens=col_in,
+                        output_tokens=col_out,
+                        cost_usd=_estimate_cost(self.model_config.model_name, col_in, col_out),
                     )
             except Exception as e:
                 print(f"[syda] Warning: could not register generator for '{col_name}': {e}")
@@ -1146,18 +1155,20 @@ Every column must appear in exactly one list."""
 
         in_tok = out_tok = 0
         try:
-            usage = result.usage()
-            in_tok = usage.request_tokens or 0
-            out_tok = usage.response_tokens or 0
+            usage = result.usage
+            in_tok = (usage.request_tokens or 0) if usage else 0
+            out_tok = (usage.response_tokens or 0) if usage else 0
         except Exception:
             pass
 
         if table_report is not None:
+            from .run_report import _estimate_cost
             table_report.columns[col_name] = ColumnReport(
                 strategy="codegen_semantic",
                 llm_calls=1,
                 input_tokens=in_tok,
                 output_tokens=out_tok,
+                cost_usd=_estimate_cost(self.model_config.model_name, in_tok, out_tok),
             )
 
         return result.output
@@ -1354,13 +1365,27 @@ Every column must appear in exactly one list."""
         # ── Direct mode: chunked LLM calls ───────────────────────────────────
         effective_batch = self._resolve_batch_size(sample_size, batch_size)
 
+        # Accumulate direct-mode tokens across all chunks into a single ColumnReport.
+        if table_report is not None and "_direct_" not in table_report.columns:
+            from .run_report import _estimate_cost
+            table_report.columns["_direct_"] = ColumnReport(strategy="direct_llm")
+
         def _one_chunk(sz: int, offset: int) -> pd.DataFrame:
             p = self._build_prompt(table_schema, metadata, table_description,
                                    primary_key_fields, prompt, sz)
-            chunk = self._call_with_retry(
+            result = self._call_with_retry(
                 lambda _p=p, _sz=sz: self._generate_data_with_llm(table_schema, _p, _sz),
                 max_retries=effective_retries,
             )
+            chunk, in_tok, out_tok = result
+            if table_report is not None:
+                cr = table_report.columns["_direct_"]
+                cr.llm_calls += 1
+                cr.input_tokens += in_tok
+                cr.output_tokens += out_tok
+                cr.cost_usd += _estimate_cost(
+                    self.model_config.model_name, in_tok, out_tok
+                )
             chunk = self._enforce_uniqueness(chunk, table_schema, metadata, chunk_offset=offset)
             chunk = self._apply_constraints(chunk, table_schema, metadata)
             chunk = self._apply_type_generators(chunk, table_schema)

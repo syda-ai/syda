@@ -9,23 +9,14 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Dict, Optional
 
-# Per-MTok pricing (input_price, output_price).
-_PRICING: Dict[str, tuple] = {
-    "claude-haiku-4-5":    (0.80,   4.00),
-    "claude-sonnet-4-6":   (3.00,  15.00),
-    "claude-opus-4-7":    (15.00,  75.00),
-    "gpt-4o-mini":         (0.15,   0.60),
-    "gpt-4o":              (2.50,  10.00),
-    "gemini-1.5-flash":    (0.075,  0.30),
-    "gemini-1.5-pro":      (1.25,   5.00),
-}
-
 
 def _estimate_cost(model: str, in_tok: int, out_tok: int) -> float:
-    for key, (ip, op) in _PRICING.items():
-        if key in model:
-            return in_tok / 1_000_000 * ip + out_tok / 1_000_000 * op
-    return 0.0
+    try:
+        from genai_prices import Usage as _GUsage, calc_price as _calc
+        result = _calc(_GUsage(input_tokens=in_tok, output_tokens=out_tok), model_ref=model)
+        return float(result.total_price)
+    except Exception:
+        return 0.0
 
 
 @dataclass
@@ -38,6 +29,7 @@ class ColumnReport:
     llm_calls: int = 0
     input_tokens: int = 0
     output_tokens: int = 0
+    cost_usd: float = 0.0
 
 
 @dataclass
@@ -68,6 +60,10 @@ class TableReport:
     def output_tokens(self) -> int:
         return sum(c.output_tokens for c in self.columns.values())
 
+    @property
+    def cost_usd(self) -> float:
+        return sum(c.cost_usd for c in self.columns.values())
+
 
 @dataclass
 class RunReport:
@@ -86,7 +82,7 @@ class RunReport:
 
     @property
     def estimated_cost_usd(self) -> float:
-        return _estimate_cost(self.model, self.total_input_tokens, self.total_output_tokens)
+        return sum(t.cost_usd for t in self.tables.values())
 
     def save_html_report(self, path: str) -> None:
         """Write a self-contained HTML report to *path*."""
@@ -118,6 +114,7 @@ class RunReport:
         summary_rows = ""
         for name, t in self.tables.items():
             cache_cell = cache_pill(t.from_cache) if t.mode == "codegen" else ""
+            cost_cell = f"${t.cost_usd:.4f}" if t.cost_usd else "—"
             summary_rows += f"""
             <tr>
               <td><a href="#{name}" style="color:#2c3e50;font-weight:600">{_html.escape(name)}</a></td>
@@ -126,6 +123,7 @@ class RunReport:
               <td style="text-align:right">{t.llm_calls:,}</td>
               <td style="text-align:right">{t.input_tokens:,}</td>
               <td style="text-align:right">{t.output_tokens:,}</td>
+              <td style="text-align:right">{cost_cell}</td>
               <td style="text-align:right">{t.duration_s:.1f}s</td>
               <td>{cache_cell}</td>
             </tr>"""
@@ -148,6 +146,7 @@ class RunReport:
                 cache_col = ""
                 if c.strategy == "codegen_simple":
                     cache_col = cache_pill(c.from_cache)
+                col_cost = f"${c.cost_usd:.5f}" if c.cost_usd else "—"
                 col_rows += f"""
                 <tr>
                   <td style="font-family:monospace">{_html.escape(col_name)}</td>
@@ -155,6 +154,7 @@ class RunReport:
                   <td style="text-align:right">{c.llm_calls}</td>
                   <td style="text-align:right">{c.input_tokens:,}</td>
                   <td style="text-align:right">{c.output_tokens:,}</td>
+                  <td style="text-align:right">{col_cost}</td>
                   <td>{cache_col}</td>
                   <td>{fn_block}</td>
                 </tr>"""
@@ -183,6 +183,7 @@ class RunReport:
                     <th style="text-align:right;padding:8px">Calls</th>
                     <th style="text-align:right;padding:8px">In tok</th>
                     <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
                     <th style="padding:8px">Cache</th>
                     <th style="padding:8px">Function</th>
                   </tr>
@@ -250,6 +251,7 @@ class RunReport:
         <th style="text-align:right">LLM calls</th>
         <th style="text-align:right">In tokens</th>
         <th style="text-align:right">Out tokens</th>
+        <th style="text-align:right">Cost</th>
         <th style="text-align:right">Time</th>
         <th>Cache</th>
       </tr>
@@ -263,6 +265,7 @@ class RunReport:
         <td style="text-align:right">{calls_total}</td>
         <td style="text-align:right">{self.total_input_tokens:,}</td>
         <td style="text-align:right">{self.total_output_tokens:,}</td>
+        <td style="text-align:right">{cost_str}</td>
         <td></td>
         <td></td>
       </tr>
@@ -280,26 +283,27 @@ class RunReport:
         print(f"[syda] Run report saved → {path}")
 
     def print_summary(self) -> None:
-        w = 70
+        w = 82
         print(f"\n{'─' * w}")
         print(f"{'Table':<16} {'Rows':>6}  {'Mode':<8}  {'Calls':>5}  "
               f"{'In tok':>8}  {'Out tok':>8}  {'Cache'}")
         print(f"{'─' * w}")
         for name, t in self.tables.items():
             cache_tag = "HIT" if t.from_cache else ""
+            cost_str = f"${t.cost_usd:.4f}" if t.cost_usd else ""
             print(
                 f"{name:<16} {t.row_count:>6}  {t.mode:<8}  {t.llm_calls:>5}  "
-                f"{t.input_tokens:>8,}  {t.output_tokens:>8,}  {cache_tag}"
+                f"{t.input_tokens:>8,}  {t.output_tokens:>8,}  {cost_str}"
             )
         print(f"{'─' * w}")
         total_rows = sum(t.row_count for t in self.tables.values())
         total_calls = sum(t.llm_calls for t in self.tables.values())
+        cost = self.estimated_cost_usd
+        cost_str = f"${cost:.4f}" if cost else ""
         print(
             f"{'TOTAL':<16} {total_rows:>6}  {'':8}  {total_calls:>5}  "
-            f"{self.total_input_tokens:>8,}  {self.total_output_tokens:>8,}"
+            f"{self.total_input_tokens:>8,}  {self.total_output_tokens:>8,}  {cost_str}"
         )
-        cost = self.estimated_cost_usd
-        if cost:
-            print(f"\nEstimated cost : ${cost:.4f}  (model: {self.model})")
+        print(f"\nEstimated cost : ${cost:.4f}  (model: {self.model})")
         print(f"Total time     : {self.total_duration_s:.1f}s")
         print(f"{'─' * w}\n")
