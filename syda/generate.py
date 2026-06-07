@@ -34,6 +34,9 @@ from pydantic import create_model, TypeAdapter, Field
 from .schemas import ModelConfig
 from .llm import create_llm_client, LLMClient
 from .output import save_dataframe, save_dataframes, append_dataframe
+from datetime import datetime, timezone
+from .codegen_cache import CodegenCache, compute_schema_hash
+from .run_report import RunReport, TableReport, ColumnReport
 
 _STREAM_THRESHOLD = 10_000  # rows; above this, chunks are written directly to disk when output_dir is set
 
@@ -258,7 +261,9 @@ class SyntheticDataGenerator:
         custom_generators: Optional[Dict[str, Dict[str, Callable]]] = None,
         output_format: str = 'csv',
         batch_size: Optional[int] = None,
-    ) -> Dict[str, pd.DataFrame]:
+        cache_dir: Optional[str] = None,
+        return_report: bool = False,
+    ) -> Union[Dict[str, pd.DataFrame], Tuple[Dict[str, pd.DataFrame], RunReport]]:
         """
         Generate synthetic data for multiple related schemas with automatic 
         dependency resolution based on foreign key relationships.
@@ -381,17 +386,32 @@ class SyntheticDataGenerator:
         if custom_generators is None:
             print("No custom generators provided")
             custom_generators = {}
-            
+
+        # Cache lives under output_dir when given (like dbt's target/); explicit
+        # cache_dir overrides that; if neither is set, caching is disabled.
+        _resolved_cache_dir = (
+            cache_dir
+            or (os.path.join(output_dir, ".syda_cache") if output_dir else None)
+        )
+        cache = CodegenCache(_resolved_cache_dir) if _resolved_cache_dir else None
+        run_report = RunReport(model=self.model_config.model_name)
+        import time as _time
+        _run_start = _time.time()
+
         # Load schemas from various sources
         processed_schemas = {}
         schema_metadata = {}
         schema_descriptions = {}
         template_schemas = {}
         schema_depends_on_schemas = {}
+        schema_hashes: Dict[str, str] = {}
         # Dictionary to store extracted foreign keys
         schema_foreign_keys = {}
-        
+
         for schema_name, schema_source in schemas.items():
+            schema_hashes[schema_name] = compute_schema_hash(
+                schema_source, prompts.get(schema_name, "")
+            )
             llm_schema, metadata, desc, extracted_fks, template_fields, depends_on_schemas = self.schema_loader.load_schema(schema_source)
             # Store processed schema and metadata
             processed_schemas[schema_name] = llm_schema
@@ -457,6 +477,9 @@ class SyntheticDataGenerator:
                 output_dir=output_dir,
                 output_format=output_format,
                 template_schema_names=set(template_schemas.keys()),
+                schema_hashes=schema_hashes,
+                cache=cache,
+                run_report=run_report,
             )
           
             # Separate template schemas from structured schemas
@@ -493,7 +516,17 @@ class SyntheticDataGenerator:
                     
         except Exception as e:
             raise e
-            
+
+        run_report.total_duration_s = _time.time() - _run_start
+
+        if output_dir:
+            import os as _os
+            _ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+            _report_path = _os.path.join(output_dir, f"run_report_{_ts}.html")
+            run_report.save_html_report(_report_path)
+
+        if return_report:
+            return results, run_report
         return results
 
 
@@ -512,6 +545,9 @@ class SyntheticDataGenerator:
         output_dir: Optional[str] = None,
         output_format: str = 'csv',
         template_schema_names: Optional[set] = None,
+        schema_hashes: Optional[Dict[str, str]] = None,
+        cache: Optional["CodegenCache"] = None,
+        run_report: Optional["RunReport"] = None,
     ):
         """
         Generate structured data for each schema in the specified generation order.
@@ -556,6 +592,7 @@ class SyntheticDataGenerator:
         results: Dict[str, Any] = {}
         streamed_schemas: set = set()
 
+        import time as _time
         for schema_name in generation_order:
             llm_schema = processed_schemas[schema_name]
             metadata = schema_metadata[schema_name]
@@ -582,6 +619,13 @@ class SyntheticDataGenerator:
                 os.makedirs(output_dir, exist_ok=True)
                 print(f"[syda] Streaming {sample_size:,} rows → {stream_path}")
 
+            schema_hash = (schema_hashes or {}).get(schema_name, "")
+            table_report = TableReport(
+                mode=_eff_mode,
+                schema_hash=schema_hash,
+            )
+
+            _tbl_start = _time.time()
             try:
                 df = self._generate_data(
                     table_schema=llm_schema,
@@ -593,6 +637,8 @@ class SyntheticDataGenerator:
                     schema_name=schema_name,
                     stream_path=stream_path,
                     fk_cols_to_keep=fk_exposed.get(schema_name),
+                    cache=cache,
+                    table_report=table_report,
                 )
 
                 if stream_path and os.path.exists(stream_path):
@@ -609,6 +655,11 @@ class SyntheticDataGenerator:
             except Exception as e:
                 print(f"Error using AI generation for {schema_name}: {str(e)}")
                 raise Exception(f"Failed to generate data for {schema_name} using LLM: {str(e)}")
+
+            table_report.duration_s = _time.time() - _tbl_start
+            table_report.row_count = len(df)
+            if run_report is not None:
+                run_report.tables[schema_name] = table_report
 
             schema_custom_generators = custom_generators.get(schema_name, {})
             print(f"Applying custom generators for schema {schema_name}")
@@ -868,7 +919,10 @@ class SyntheticDataGenerator:
         return 200
 
     def _analyze_and_generate_code(
-        self, table_schema: Dict, metadata: Dict, table_description: Optional[str], schema_name: str
+        self, table_schema: Dict, metadata: Dict, table_description: Optional[str], schema_name: str,
+        user_prompt: str = "",
+        cache: Optional["CodegenCache"] = None,
+        table_report: Optional["TableReport"] = None,
     ) -> List[str]:
         """
         LLM analysis call for code-gen mode: classifies columns as simple or semantic,
@@ -906,12 +960,16 @@ class SyntheticDataGenerator:
                         parts.append(f"  {k}: {v}")
             col_descriptions.append("\n".join(parts))
 
+        user_prompt_section = (
+            f"\nUser description / constraints for this table:\n{user_prompt}\n"
+            if user_prompt else ""
+        )
         analysis_prompt = f"""Analyze this database schema and classify each column for synthetic data generation.
 
 Table: {table_description or schema_name}
 Columns:
 {chr(10).join(col_descriptions)}
-
+{user_prompt_section}
 Classify each column as:
 - "simple": can be generated with a Python function (IDs, dates, enums, emails, phones, codes, numbers, booleans)
 - "semantic": requires LLM to be meaningful (clinical notes, diagnoses, narratives, free-text descriptions, summaries, doctor observations — any column where random text is gibberish)
@@ -928,6 +986,8 @@ Enforce all constraints in the function:
   - min / max: clamp numeric values
   - enum: pick randomly from the list
   - format hints: emails must contain '@', dates as ISO 8601 strings
+  - user description: if the user description above mentions a range (e.g. "quantity 1–5",
+    "discount 0–20%", "price $5–$500"), treat those as min/max and enforce them in the function
 
 Return valid JSON exactly:
 {{
@@ -958,21 +1018,49 @@ Every column must appear in exactly one list."""
                         )
                 return output
 
-        model_settings = self.llm_client.get_model_settings()
-        try:
-            result = agent.run_sync(analysis_prompt, model_settings=model_settings)
-            analysis = result.output
-        except Exception as e:
-            # If code-gen analysis fails (e.g. LLM keeps generating bad code), fall back to
-            # treating all columns as semantic — direct LLM generation per column.
-            print(
-                f"[syda] Warning: code-gen analysis failed for '{schema_name}' ({e}). "
-                "Falling back: all columns treated as semantic."
-            )
-            return list(table_schema.keys())
+        # ── Cache lookup ─────────────────────────────────────────────────────
+        schema_hash = table_report.schema_hash if table_report else ""
+        cached = cache.load(schema_hash) if (cache and schema_hash) else None
+        if cached:
+            print(f"[syda] Code-gen cache HIT for '{schema_name}' (hash {schema_hash})")
+            simple_map: Dict[str, str] = cached.get("simple", {})
+            semantic_cols: List[str] = cached.get("semantic", [])
+            from_cache = True
+        else:
+            model_settings = self.llm_client.get_model_settings()
+            try:
+                result = agent.run_sync(analysis_prompt, model_settings=model_settings)
+                analysis = result.output
+            except Exception as e:
+                print(
+                    f"[syda] Warning: code-gen analysis failed for '{schema_name}' ({e}). "
+                    "Falling back: all columns treated as semantic."
+                )
+                return list(table_schema.keys())
 
-        # Register simple column generators
-        for col_name, code in analysis.simple.items():
+            simple_map = analysis.simple
+            semantic_cols = analysis.semantic
+            from_cache = False
+
+            # Capture token usage
+            in_tok = out_tok = 0
+            try:
+                usage = result.usage()
+                in_tok = usage.request_tokens or 0
+                out_tok = usage.response_tokens or 0
+            except Exception:
+                pass
+
+            if cache and schema_hash:
+                cache.save(
+                    schema_hash, simple_map, semantic_cols,
+                    model=self.model_config.model_name,
+                    hint_table_name=schema_name,
+                )
+                print(f"[syda] Code-gen artifact saved (hash {schema_hash})")
+
+        # ── Register simple column generators ────────────────────────────────
+        for col_name, code in simple_map.items():
             ns: Dict[str, Any] = {}
             try:
                 exec(code, ns)
@@ -982,20 +1070,35 @@ Every column must appear in exactly one list."""
                         '_codegen', ns[fn_name], column_name=col_name
                     )
                 else:
-                    # Function may have been defined with a different name — grab the first callable
                     fns = [v for v in ns.values() if callable(v)]
                     if fns:
                         self.generator_manager.register_generator(
                             '_codegen', fns[0], column_name=col_name
                         )
+                if table_report is not None:
+                    table_report.columns[col_name] = ColumnReport(
+                        strategy="codegen_simple",
+                        from_cache=from_cache,
+                        generated_function=code,
+                        llm_calls=0 if from_cache else 1,
+                        input_tokens=0 if from_cache else (in_tok // max(len(simple_map), 1)),
+                        output_tokens=0 if from_cache else (out_tok // max(len(simple_map), 1)),
+                    )
             except Exception as e:
                 print(f"[syda] Warning: could not register generator for '{col_name}': {e}")
 
+        # Mark FK columns in report
+        if table_report is not None:
+            for col_name in pre_registered:
+                if col_name in table_schema:
+                    table_report.columns[col_name] = ColumnReport(strategy="fk_sampler")
+
         print(
-            f"[syda] Code-gen analysis: {len(analysis.simple)} simple columns, "
-            f"{len(analysis.semantic)} semantic columns"
+            f"[syda] Code-gen analysis: {len(simple_map)} simple columns, "
+            f"{len(semantic_cols)} semantic columns"
+            + (" [from cache]" if from_cache else "")
         )
-        return analysis.semantic
+        return semantic_cols
 
     def _generate_semantic_column(
         self,
@@ -1003,6 +1106,7 @@ Every column must appear in exactly one list."""
         col_schema: Any,
         table_description: Optional[str],
         sample_size: int,
+        table_report: Optional["TableReport"] = None,
     ) -> List[str]:
         """Generate values for a semantic column using a targeted LLM call."""
         col_type = col_schema if isinstance(col_schema, str) else col_schema.get('type', 'text')
@@ -1033,6 +1137,23 @@ Every column must appear in exactly one list."""
         )
         model_settings = self.llm_client.get_model_settings()
         result = agent.run_sync(prompt, model_settings=model_settings)
+
+        in_tok = out_tok = 0
+        try:
+            usage = result.usage()
+            in_tok = usage.request_tokens or 0
+            out_tok = usage.response_tokens or 0
+        except Exception:
+            pass
+
+        if table_report is not None:
+            table_report.columns[col_name] = ColumnReport(
+                strategy="codegen_semantic",
+                llm_calls=1,
+                input_tokens=in_tok,
+                output_tokens=out_tok,
+            )
+
         return result.output
 
     def _run_local_generation(self, table_schema: Dict, sample_size: int) -> pd.DataFrame:
@@ -1160,7 +1281,9 @@ Every column must appear in exactly one list."""
                      max_retries: Optional[int] = None,
                      schema_name: Optional[str] = None,
                      stream_path: Optional[str] = None,
-                     fk_cols_to_keep: Optional[set] = None) -> pd.DataFrame:
+                     fk_cols_to_keep: Optional[set] = None,
+                     cache: Optional["CodegenCache"] = None,
+                     table_report: Optional["TableReport"] = None) -> pd.DataFrame:
         """
         Generate synthetic data based on schema using AI.
 
@@ -1197,7 +1320,8 @@ Every column must appear in exactly one list."""
             print(f"[syda] Code-gen mode: analyzing schema and generating Python functions...")
             name = schema_name or "table"
             semantic_cols = self._analyze_and_generate_code(
-                table_schema, metadata, table_description, name
+                table_schema, metadata, table_description, name,
+                user_prompt=prompt, cache=cache, table_report=table_report,
             )
 
             df = self._run_local_generation(table_schema, sample_size)
@@ -1206,7 +1330,8 @@ Every column must appear in exactly one list."""
                 if col in table_schema:
                     print(f"[syda] Generating semantic column '{col}' via LLM ({sample_size} values)...")
                     values = self._generate_semantic_column(
-                        col, table_schema[col], table_description, sample_size
+                        col, table_schema[col], table_description, sample_size,
+                        table_report=table_report,
                     )
                     if len(values) > sample_size:
                         values = values[:sample_size]

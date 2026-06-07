@@ -8,11 +8,18 @@ Supports multiple AI providers (OpenAI, Anthropic) and various schema formats.
 from .generate import SyntheticDataGenerator
 from .schemas import ModelConfig
 from .db_schema_loader import DatabaseSchemaLoader
+from .codegen_cache import CodegenCache, compute_schema_hash
+from .run_report import RunReport, TableReport, ColumnReport
 
 __all__ = [
     'SyntheticDataGenerator',
     'ModelConfig',
     'DatabaseSchemaLoader',
+    'CodegenCache',
+    'compute_schema_hash',
+    'RunReport',
+    'TableReport',
+    'ColumnReport',
 ]
 
 __version__ = '0.1.0'
