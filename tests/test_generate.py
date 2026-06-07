@@ -654,7 +654,7 @@ class TestChunkedGeneration:
 
         def fake_llm(schema, prompt, sz):
             call_count["n"] += 1
-            return chunk_df.iloc[:sz].copy()
+            return chunk_df.iloc[:sz].copy(), 0, 0
 
         with patch.object(g, "_generate_data_with_llm", side_effect=fake_llm):
             result = g._generate_data(
@@ -676,7 +676,7 @@ class TestChunkedGeneration:
 
         def fake_llm(schema, prompt, sz):
             call_sizes.append(sz)
-            return pd.DataFrame({"id": range(sz), "val": ["v"] * sz})
+            return pd.DataFrame({"id": range(sz), "val": ["v"] * sz}), 0, 0
 
         with patch.object(g, "_generate_data_with_llm", side_effect=fake_llm):
             result = g._generate_data(
@@ -696,7 +696,7 @@ class TestChunkedGeneration:
         g = self._gen(batch_size=5, mode="direct")
 
         def fake_llm(schema, prompt, sz):
-            return pd.DataFrame({"x": range(sz)})
+            return pd.DataFrame({"x": range(sz)}), 0, 0
 
         with patch.object(g, "_generate_data_with_llm", side_effect=fake_llm):
             g._generate_data(
@@ -717,7 +717,7 @@ class TestChunkedGeneration:
 
         def fake_llm(schema, prompt, sz):
             call_count["n"] += 1
-            return pd.DataFrame({"id": range(sz)})
+            return pd.DataFrame({"id": range(sz)}), 0, 0
 
         with patch.object(g, "_generate_data_with_llm", side_effect=fake_llm):
             g._generate_data(
@@ -775,7 +775,7 @@ class TestStreamingOutput:
             return real_append(df, path, **kwargs)
 
         def fake_llm(schema, prompt, sz):
-            return pd.DataFrame({"id": range(sz)})
+            return pd.DataFrame({"id": range(sz)}), 0, 0
 
         with patch.object(g, "_generate_data_with_llm", side_effect=fake_llm), \
              patch("syda.generate.append_dataframe", side_effect=tracking_append):
