@@ -1018,10 +1018,18 @@ Every column must appear in exactly one list."""
         # ── Cache lookup ─────────────────────────────────────────────────────
         schema_hash = table_report.schema_hash if table_report else ""
         cached = cache.load(schema_hash) if (cache and schema_hash) else None
+
+        in_tok = out_tok = 0
+
         if cached:
             print(f"[syda] Code-gen cache HIT for '{schema_name}' (hash {schema_hash})")
-            simple_map: Dict[str, str] = cached.get("simple", {})
-            semantic_cols: List[str] = cached.get("semantic", [])
+            # simple holds callables; derive semantic = columns with no generator
+            simple_fns: Dict[str, Any] = cached.get("simple", {})
+            simple_source: Dict[str, str] = cached.get("simple_source", {})
+            semantic_cols: List[str] = [
+                col for col in table_schema
+                if col not in pre_registered and col not in simple_fns
+            ]
             from_cache = True
         else:
             model_settings = self.llm_client.get_model_settings()
@@ -1035,12 +1043,11 @@ Every column must appear in exactly one list."""
                 )
                 return list(table_schema.keys())
 
-            simple_map = analysis.simple
+            # analysis.simple contains source strings from the LLM
+            simple_source = analysis.simple
             semantic_cols = analysis.semantic
             from_cache = False
 
-            # Capture token usage
-            in_tok = out_tok = 0
             try:
                 usage = result.usage()
                 in_tok = usage.request_tokens or 0
@@ -1048,38 +1055,40 @@ Every column must appear in exactly one list."""
             except Exception:
                 pass
 
+            # Exec source strings to get callables
+            simple_fns = {}
+            for col_name, code in simple_source.items():
+                ns: Dict[str, Any] = {}
+                try:
+                    exec(code, ns)  # noqa: S102
+                    fn = ns.get(f"generate_{col_name}") or next(
+                        (v for v in ns.values() if callable(v)), None
+                    )
+                    if fn:
+                        simple_fns[col_name] = fn
+                except Exception as e:
+                    print(f"[syda] Warning: could not compile generator for '{col_name}': {e}")
+
             if cache and schema_hash:
                 cache.save(
-                    schema_hash, simple_map, semantic_cols,
+                    schema_hash, simple_source, semantic_cols,
                     model=self.model_config.model_name,
                     hint_table_name=schema_name,
                 )
-                print(f"[syda] Code-gen artifact saved (hash {schema_hash})")
+                print(f"[syda] Code-gen artifact saved → {schema_name}_{schema_hash}.py")
 
         # ── Register simple column generators ────────────────────────────────
-        for col_name, code in simple_map.items():
-            ns: Dict[str, Any] = {}
+        for col_name, fn in simple_fns.items():
             try:
-                exec(code, ns)
-                fn_name = f"generate_{col_name}"
-                if fn_name in ns:
-                    self.generator_manager.register_generator(
-                        '_codegen', ns[fn_name], column_name=col_name
-                    )
-                else:
-                    fns = [v for v in ns.values() if callable(v)]
-                    if fns:
-                        self.generator_manager.register_generator(
-                            '_codegen', fns[0], column_name=col_name
-                        )
+                self.generator_manager.register_generator('_codegen', fn, column_name=col_name)
                 if table_report is not None:
                     table_report.columns[col_name] = ColumnReport(
                         strategy="codegen_simple",
                         from_cache=from_cache,
-                        generated_function=code,
+                        generated_function=simple_source.get(col_name, ""),
                         llm_calls=0 if from_cache else 1,
-                        input_tokens=0 if from_cache else (in_tok // max(len(simple_map), 1)),
-                        output_tokens=0 if from_cache else (out_tok // max(len(simple_map), 1)),
+                        input_tokens=0 if from_cache else (in_tok // max(len(simple_fns), 1)),
+                        output_tokens=0 if from_cache else (out_tok // max(len(simple_fns), 1)),
                     )
             except Exception as e:
                 print(f"[syda] Warning: could not register generator for '{col_name}': {e}")
@@ -1091,7 +1100,7 @@ Every column must appear in exactly one list."""
                     table_report.columns[col_name] = ColumnReport(strategy="fk_sampler")
 
         print(
-            f"[syda] Code-gen analysis: {len(simple_map)} simple columns, "
+            f"[syda] Code-gen analysis: {len(simple_fns)} simple columns, "
             f"{len(semantic_cols)} semantic columns"
             + (" [from cache]" if from_cache else "")
         )
