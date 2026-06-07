@@ -63,4 +63,5 @@ examples/model_selection/**/output/
 examples/structured_and_unstructured/**/output/
 examples/structured_only/**/output/
 examples/unstructured_only/**/output/
+examples/large_dataset/output/
 examples/**/*.db
