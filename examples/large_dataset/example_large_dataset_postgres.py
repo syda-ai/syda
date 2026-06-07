@@ -48,7 +48,7 @@ from sqlalchemy import create_engine, text
 load_dotenv()
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from syda import SyntheticDataGenerator, DatabaseSchemaLoader, ModelConfig, RunReport
+from syda import SyntheticDataGenerator, DatabaseSchemaLoader, ModelConfig
 
 
 # ---------------------------------------------------------------------------
@@ -240,14 +240,13 @@ def main():
     print()
 
     t0 = time.time()
-    results, report = generator.generate_for_schemas(
+    results = generator.generate_for_schemas(
         schemas=schemas,
         sample_sizes=sample_sizes,
         prompts=prompts,
         output_dir=output_dir,
         output_format="csv",
         batch_size=50,
-        return_report=True,
     )
     elapsed = time.time() - t0
 
@@ -255,7 +254,7 @@ def main():
     print("=" * 60)
     print(f"Generation complete in {elapsed:.1f}s")
     print("=" * 60)
-    report.print_summary()
+    generator.last_report.print_summary()
     import pandas as pd
     for table in ["customers", "products", "orders", "order_items", "reviews"]:
         csv = os.path.join(output_dir, f"{table}.csv")

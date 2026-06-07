@@ -262,8 +262,7 @@ class SyntheticDataGenerator:
         output_format: str = 'csv',
         batch_size: Optional[int] = None,
         cache_dir: Optional[str] = None,
-        return_report: bool = False,
-    ) -> Union[Dict[str, pd.DataFrame], Tuple[Dict[str, pd.DataFrame], RunReport]]:
+    ) -> Dict[str, pd.DataFrame]:
         """
         Generate synthetic data for multiple related schemas with automatic 
         dependency resolution based on foreign key relationships.
@@ -518,15 +517,13 @@ class SyntheticDataGenerator:
             raise e
 
         run_report.total_duration_s = _time.time() - _run_start
+        self.last_report: RunReport = run_report
 
         if output_dir:
-            import os as _os
             _ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-            _report_path = _os.path.join(output_dir, f"run_report_{_ts}.html")
+            _report_path = os.path.join(output_dir, f"run_report_{_ts}.html")
             run_report.save_html_report(_report_path)
 
-        if return_report:
-            return results, run_report
         return results
 
 
