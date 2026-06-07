@@ -1,15 +1,24 @@
-"""Content-addressed cache for code-gen artifacts.
+"""Content-addressed cache for code-gen artifacts stored as plain Python files.
 
 Cache key = SHA-256 of (schema source bytes + user prompt).
 - File-backed schemas:  hashes the raw file bytes  → stable across environments
 - Dict / DB-inferred:   hashes JSON-serialised dict → invalidates on any column change
+
+Each artifact is a readable, editable .py file:
+  {table_name}_{hash}.py
+
+Users can edit the generated functions freely — syda will pick up the
+changes on the next run. Columns with no generate_* function in the file
+are treated as semantic and generated via LLM at runtime.
 """
 
+import ast
+import glob
 import hashlib
 import json
 import os
 from datetime import datetime, timezone
-from typing import Dict, List, Optional, Union
+from typing import Callable, Dict, List, Optional, Union
 
 
 def compute_schema_hash(schema_source: Union[str, dict, type], user_prompt: str = "") -> str:
@@ -24,19 +33,17 @@ def compute_schema_hash(schema_source: Union[str, dict, type], user_prompt: str 
     elif isinstance(schema_source, dict):
         content = json.dumps(schema_source, sort_keys=True, default=str).encode()
     else:
-        # SQLAlchemy model or other type — use repr as best-effort stable key
         content = repr(schema_source).encode()
 
-    digest = hashlib.sha256(content + user_prompt.encode()).hexdigest()
-    return digest[:16]
+    return hashlib.sha256(content + user_prompt.encode()).hexdigest()[:16]
 
 
 class CodegenCache:
-    """Read/write code-gen artifacts keyed by schema content hash.
+    """Read/write code-gen artifacts as plain Python files.
 
-    Files are named ``{table_name}_{hash[:8]}.json`` so the cache directory is
-    immediately human-readable.  At lookup time only the hash is known, so
-    ``load()`` globs for ``*_{hash}.json``.
+    Files are named ``{table_name}_{hash}.py`` and contain only function
+    definitions and a header comment — no machine-only metadata blocks.
+    On schema change the stale file is replaced (one file per table).
     """
 
     def __init__(self, cache_dir: str = ".syda_cache"):
@@ -45,54 +52,80 @@ class CodegenCache:
 
     def _filename(self, schema_hash: str, hint_table_name: str = "") -> str:
         prefix = f"{hint_table_name}_" if hint_table_name else ""
-        return f"{prefix}{schema_hash}.json"
+        return f"{prefix}{schema_hash}.py"
 
-    def load(self, schema_hash: str) -> Optional[dict]:
-        """Return the cached artifact dict or None if not found / unreadable.
+    def load(self, schema_hash: str) -> Optional[Dict]:
+        """Return ``{"simple": {col: callable}, "simple_source": {col: str}}`` or None.
 
-        Globs for ``*{hash}.json`` so it works regardless of what table-name
-        prefix was used when the artifact was saved.
+        Globs for ``*{hash}.py`` so it works regardless of the table-name prefix.
+        Columns not present in ``simple`` are treated as semantic by the caller.
         """
-        import glob
-        pattern = os.path.join(self.cache_dir, f"*{schema_hash}.json")
-        matches = glob.glob(pattern)
+        matches = glob.glob(os.path.join(self.cache_dir, f"*{schema_hash}.py"))
         if not matches:
             return None
         try:
-            with open(matches[0]) as f:
-                return json.load(f)
+            source = open(matches[0]).read()
+            ns: Dict = {}
+            exec(source, ns)  # noqa: S102
+
+            # Collect generate_* callables
+            simple_fns: Dict[str, Callable] = {
+                name[len("generate_"):]: fn
+                for name, fn in ns.items()
+                if name.startswith("generate_") and callable(fn)
+            }
+
+            # Extract per-function source via AST for ColumnReport / HTML report
+            simple_source: Dict[str, str] = {}
+            try:
+                tree = ast.parse(source)
+                src_lines = source.splitlines(keepends=True)
+                for node in ast.walk(tree):
+                    if (
+                        isinstance(node, ast.FunctionDef)
+                        and node.name.startswith("generate_")
+                        and hasattr(node, "end_lineno")
+                    ):
+                        col = node.name[len("generate_"):]
+                        simple_source[col] = "".join(
+                            src_lines[node.lineno - 1: node.end_lineno]
+                        ).rstrip()
+            except Exception:
+                pass
+
+            return {"simple": simple_fns, "simple_source": simple_source}
         except Exception:
             return None
 
     def save(
         self,
         schema_hash: str,
-        simple: Dict[str, str],
-        semantic: List[str],
+        simple: Dict[str, str],  # col_name → Python source string from LLM
+        semantic: List[str],     # retained only so callers don't need to change sig
         model: str,
         hint_table_name: str = "",
     ) -> None:
-        """Persist a code-gen artifact, replacing any previous version for this table."""
-        import glob
-
-        # Remove stale artifacts for the same table before writing the new one
-        # so only one file per table exists at any time (dbt-style overwrite).
+        """Write a .py artifact, replacing any previous version for this table."""
+        # Remove stale files for the same table
         if hint_table_name:
-            stale = glob.glob(os.path.join(self.cache_dir, f"{hint_table_name}_*.json"))
-            for f in stale:
+            for stale in glob.glob(
+                os.path.join(self.cache_dir, f"{hint_table_name}_*.py")
+            ):
                 try:
-                    os.remove(f)
+                    os.remove(stale)
                 except OSError:
                     pass
 
-        artifact = {
-            "schema_hash": schema_hash,
-            "created_at": datetime.now(timezone.utc).isoformat(),
-            "model": model,
-            "hint_table_name": hint_table_name,
-            "simple": simple,
-            "semantic": semantic,
-        }
+        ts = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S UTC")
+        header = (
+            f"# Generated by syda  |  model: {model}  |  {ts}\n"
+            "# Edit freely — syda will use your changes on the next run.\n"
+            "# Columns with no generate_* function here are generated via LLM.\n"
+        )
+
+        fn_blocks = "\n\n".join(code.strip() for code in simple.values())
+        content = header + "\n" + fn_blocks + "\n"
+
         path = os.path.join(self.cache_dir, self._filename(schema_hash, hint_table_name))
         with open(path, "w") as f:
-            json.dump(artifact, f, indent=2)
+            f.write(content)
