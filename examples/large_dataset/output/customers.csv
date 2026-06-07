@@ -1,0 +1,201 @@
+customer_id,first_name,last_name,email,phone,city,country,signup_date,loyalty_tier
+1,James,Mitchell,james.mitchell@example.com,+1-555-0101,New York,USA,2022-03-15,Bronze
+2,Sophie,Laurent,sophie.laurent@example.com,+33-1-4567-8901,Paris,France,2021-07-22,Silver
+3,Maria,Garcia,maria.garcia@example.com,+34-91-234-5678,Madrid,Spain,2020-11-10,Gold
+4,Hans,Mueller,hans.mueller@example.com,+49-30-12345678,Berlin,Germany,2019-05-03,Platinum
+5,Yuki,Tanaka,yuki.tanaka@example.com,+81-3-1234-5678,Tokyo,Japan,2023-01-12,Bronze
+6,Lucia,Rossi,lucia.rossi@example.com,+39-02-12345678,Milan,Italy,2021-09-28,Silver
+7,David,Chen,david.chen@example.com,+86-10-1234-5678,Beijing,China,2022-06-14,Bronze
+8,Emma,Thompson,emma.thompson@example.com,+44-20-7946-0958,London,United Kingdom,2020-02-19,Gold
+9,Carlos,Rodriguez,carlos.rodriguez@example.com,+55-11-98765-4321,São Paulo,Brazil,2021-04-07,Silver
+10,Amelia,Anderson,amelia.anderson@example.com,+1-555-0110,Los Angeles,USA,2023-02-25,Bronze
+11,Raj,Patel,raj.patel@example.com,+91-22-1234-5678,Mumbai,India,2022-08-11,Bronze
+12,Olivia,Johnson,olivia.johnson@example.com,+1-555-0112,Chicago,USA,2020-12-03,Gold
+13,Liam,O'Brien,liam.obrien@example.com,+353-1-234-5678,Dublin,Ireland,2021-10-17,Silver
+14,Ava,Smith,ava.smith@example.com,+61-2-1234-5678,Sydney,Australia,2019-01-22,Platinum
+15,Marco,Bianchi,marco.bianchi@example.com,+39-06-1234-5678,Rome,Italy,2022-05-19,Bronze
+16,Isabella,Martinez,isabella.martinez@example.com,+34-93-123-4567,Barcelona,Spain,2021-03-09,Silver
+17,Lucas,Silva,lucas.silva@example.com,+55-21-98765-4321,Rio de Janeiro,Brazil,2023-04-02,Bronze
+18,Sophie,Dubois,sophie.dubois@example.com,+33-2-4567-8901,Lyon,France,2020-09-14,Gold
+19,Mia,Williams,mia.williams@example.com,+1-555-0119,Houston,USA,2022-07-21,Bronze
+20,Kai,Yamamoto,kai.yamamoto@example.com,+81-6-1234-5678,Osaka,Japan,2021-11-08,Silver
+21,Elena,Popov,elena.popov@example.com,+7-495-123-4567,Moscow,Russia,2022-02-16,Bronze
+22,Ethan,Brown,ethan.brown@example.com,+1-555-0122,Phoenix,USA,2020-08-27,Gold
+23,Beatrice,Blanc,beatrice.blanc@example.com,+33-3-1234-5678,Marseille,France,2019-06-11,Platinum
+24,Wei,Wang,wei.wang@example.com,+86-20-1234-5678,Guangzhou,China,2021-12-05,Silver
+25,Priya,Sharma,priya.sharma@example.com,+91-80-1234-5678,Bangalore,India,2023-03-18,Bronze
+26,Charlotte,Larsson,charlotte.larsson@example.com,+46-8-1234-5678,Stockholm,Sweden,2022-09-07,Bronze
+27,Oliver,Fischer,oliver.fischer@example.com,+49-69-12345678,Frankfurt,Germany,2020-04-30,Gold
+28,Leah,Cohen,leah.cohen@example.com,+972-3-123-4567,Tel Aviv,Israel,2021-05-24,Silver
+29,Noah,Taylor,noah.taylor@example.com,+1-555-0129,Philadelphia,USA,2022-10-13,Bronze
+30,Sophia,Hoffmann,sophia.hoffmann@example.com,+49-89-12345678,Munich,Germany,2019-08-02,Platinum
+31,Alejandro,Fernandez,alejandro.fernandez@example.com,+34-28-123-4567,Las Palmas,Spain,2022-01-25,Bronze
+32,Victoria,Clark,victoria.clark@example.com,+44-121-123-4567,Birmingham,United Kingdom,2021-02-14,Silver
+33,Bruno,Santos,bruno.santos@example.com,+55-31-98765-4321,Belo Horizonte,Brazil,2020-10-08,Gold
+34,Grace,Wilson,grace.wilson@example.com,+1-555-0134,San Antonio,USA,2023-05-11,Bronze
+35,Akira,Sato,akira.sato@example.com,+81-45-1234-5678,Yokohama,Japan,2022-04-06,Bronze
+36,Valentina,Volkov,valentina.volkov@example.com,+7-812-123-4567,Saint Petersburg,Russia,2021-08-19,Silver
+37,Jackson,Davis,jackson.davis@example.com,+1-555-0137,San Diego,USA,2020-03-22,Gold
+38,Amelie,Moreau,amelie.moreau@example.com,+33-4-1234-5678,Toulouse,France,2019-09-17,Platinum
+39,Ming,Liu,ming.liu@example.com,+86-21-1234-5678,Shanghai,China,2022-11-30,Bronze
+40,Arjun,Kumar,arjun.kumar@example.com,+91-33-1234-5678,Kolkata,India,2021-06-13,Silver
+41,Fiona,Bergstrom,fiona.bergstrom@example.com,+46-31-1234-5678,Gothenburg,Sweden,2023-06-09,Bronze
+42,Felix,Schaefer,felix.schaefer@example.com,+49-221-12345678,Cologne,Germany,2020-07-15,Gold
+43,Noa,Levi,noa.levi@example.com,+972-2-123-4567,Jerusalem,Israel,2022-03-28,Bronze
+44,Aiden,Moore,aiden.moore@example.com,+1-555-0144,Dallas,USA,2021-01-10,Silver
+45,Greta,Schneider,greta.schneider@example.com,+49-40-12345678,Hamburg,Germany,2019-12-20,Platinum
+46,Diego,Morales,diego.morales@example.com,+34-64-123-4567,Valencia,Spain,2022-12-07,Bronze
+47,Scarlett,Green,scarlett.green@example.com,+44-161-123-4567,Manchester,United Kingdom,2020-05-19,Gold
+48,Felipe,Oliveira,felipe.oliveira@example.com,+55-85-98765-4321,Fortaleza,Brazil,2021-09-03,Silver
+49,Jasmine,Taylor,jasmine.taylor@example.com,+1-555-0149,Austin,USA,2023-07-14,Bronze
+50,Hiroshi,Nakamura,hiroshi.nakamura@example.com,+81-52-1234-5678,Nagoya,Japan,2020-01-31,Gold
+51,James,Anderson,james.anderson@email.com,+1-555-0101,New York,United States,2023-01-15,Bronze
+52,Emma,Wilson,emma.wilson@email.com,+44-20-7946,London,United Kingdom,2023-02-20,Silver
+53,Chen,Liu,chen.liu@email.com,+86-10-1234,Beijing,China,2023-03-10,Bronze
+54,Maria,Garcia,maria.garcia@email.com,+34-91-1234,Madrid,Spain,2023-04-05,Gold
+55,Ahmed,Hassan,ahmed.hassan@email.com,+20-2-2634,Cairo,Egypt,2023-05-12,Bronze
+56,Sophie,Dupont,sophie.dupont@email.com,+33-1-4242,Paris,France,2023-06-18,Silver
+57,Marco,Rossi,marco.rossi@email.com,+39-6-4699,Rome,Italy,2023-07-22,Bronze
+58,Lisa,Mueller,lisa.mueller@email.com,+49-30-1234,Berlin,Germany,2023-08-14,Gold
+59,Raj,Patel,raj.patel@email.com,+91-22-6123,Mumbai,India,2023-09-03,Silver
+60,Carlos,Silva,carlos.silva@email.com,+55-11-3121,São Paulo,Brazil,2023-10-09,Bronze
+61,Yuki,Tanaka,yuki.tanaka@email.com,+81-3-1234,Tokyo,Japan,2023-11-16,Platinum
+62,Elena,Ivanova,elena.ivanova@email.com,+7-495-9999,Moscow,Russia,2023-12-01,Silver
+63,David,Kim,david.kim@email.com,+82-2-3121,Seoul,South Korea,2024-01-08,Bronze
+64,Anna,Kowalski,anna.kowalski@email.com,+48-22-1234,Warsaw,Poland,2024-02-14,Gold
+65,Miguel,Rodriguez,miguel.rodriguez@email.com,+34-93-1234,Barcelona,Spain,2024-03-20,Bronze
+66,Lisa,Thompson,lisa.thompson@email.com,+1-555-0202,Los Angeles,United States,2024-04-11,Silver
+67,Priya,Sharma,priya.sharma@email.com,+91-80-4123,Bangalore,India,2024-05-07,Gold
+68,Thomas,Schmidt,thomas.schmidt@email.com,+49-89-1234,Munich,Germany,2024-06-13,Bronze
+69,Olivia,Johnson,olivia.johnson@email.com,+1-555-0303,Chicago,United States,2024-07-19,Silver
+70,Liang,Wang,liang.wang@email.com,+86-21-5888,Shanghai,China,2024-08-25,Platinum
+71,Pierre,Martin,pierre.martin@email.com,+33-4-9226,Lyon,France,2024-09-02,Bronze
+72,Isabella,Romano,isabella.romano@email.com,+39-2-7201,Milan,Italy,2024-09-18,Gold
+73,Jordan,Davies,jordan.davies@email.com,+44-161-8960,Manchester,United Kingdom,2024-10-05,Silver
+74,Fatima,Ahmed,fatima.ahmed@email.com,+971-4-3081,Dubai,United Arab Emirates,2024-10-22,Bronze
+75,Henrik,Eriksson,henrik.eriksson@email.com,+46-8-5090,Stockholm,Sweden,2024-11-09,Silver
+76,Sofia,Andersen,sofia.andersen@email.com,+45-33-1234,Copenhagen,Denmark,2024-11-28,Gold
+77,Lucas,Costa,lucas.costa@email.com,+55-21-3131,Rio de Janeiro,Brazil,2024-12-10,Bronze
+78,Natalia,Nowak,natalia.nowak@email.com,+48-12-6300,Krakow,Poland,2025-01-02,Platinum
+79,Benjamin,Clark,benjamin.clark@email.com,+1-555-0404,Houston,United States,2025-01-15,Silver
+80,Amelia,Martinez,amelia.martinez@email.com,+34-96-1234,Valencia,Spain,2025-02-01,Bronze
+81,Hiroshi,Nakamura,hiroshi.nakamura@email.com,+81-90-1234,Osaka,Japan,2025-02-18,Gold
+82,Victoria,Brown,victoria.brown@email.com,+44-20-7946,London,United Kingdom,2025-03-07,Silver
+83,Amir,Khan,amir.khan@email.com,+92-21-3536,Karachi,Pakistan,2025-03-25,Bronze
+84,Camille,Leblanc,camille.leblanc@email.com,+33-2-5135,Nantes,France,2025-04-12,Gold
+85,Matteo,Bianchi,matteo.bianchi@email.com,+39-10-5693,Genoa,Italy,2025-05-03,Bronze
+86,Rebecca,Wilson,rebecca.wilson@email.com,+1-555-0505,Phoenix,United States,2025-05-20,Silver
+87,Vikram,Desai,vikram.desai@email.com,+91-98-2123,Delhi,India,2025-06-08,Platinum
+88,Klaus,Weber,klaus.weber@email.com,+49-69-7561,Frankfurt,Germany,2025-06-27,Bronze
+89,Grace,Lee,grace.lee@email.com,+65-6922,Singapore,Singapore,2025-07-14,Gold
+90,Dmitri,Sokolov,dmitri.sokolov@email.com,+7-812-3124,Saint Petersburg,Russia,2025-08-02,Silver
+91,Lucia,Ferrero,lucia.ferrero@email.com,+39-11-5612,Turin,Italy,2025-08-19,Bronze
+92,Nathan,Taylor,nathan.taylor@email.com,+1-555-0606,Philadelphia,United States,2025-09-06,Silver
+93,Wei,Chen,wei.chen@email.com,+86-28-8620,Chengdu,China,2025-09-23,Gold
+94,Margot,Dubois,margot.dubois@email.com,+33-1-7539,Toulouse,France,2025-10-11,Bronze
+95,Andreas,Hoffman,andreas.hoffman@email.com,+49-221-2701,Cologne,Germany,2025-10-29,Platinum
+96,Chloe,Harper,chloe.harper@email.com,+44-121-5623,Birmingham,United Kingdom,2025-11-16,Silver
+97,Fernando,Gonzalez,fernando.gonzalez@email.com,+34-28-1234,Seville,Spain,2025-12-04,Bronze
+98,Akiko,Yamamoto,akiko.yamamoto@email.com,+81-75-2211,Kyoto,Japan,2025-12-21,Gold
+99,Katrin,Hoffmann,katrin.hoffmann@email.com,+49-40-3010,Hamburg,Germany,2026-01-08,Silver
+100,Paulo,Santos,paulo.santos@email.com,+55-31-3123,Belo Horizonte,Brazil,2026-01-25,Bronze
+101,James,Mitchell,james.mitchell@email.com,+1-555-0101,New York,United States,2022-03-15,Bronze
+102,Sophie,Laurent,sophie.laurent@email.com,+33-1-5555-0102,Paris,France,2023-01-20,Silver
+103,Maria,Garcia,maria.garcia@email.com,+34-91-555-0103,Madrid,Spain,2021-06-10,Gold
+104,Chen,Wang,chen.wang@email.com,+86-10-5555-0104,Beijing,China,2022-11-05,Bronze
+105,Anna,Rossi,anna.rossi@email.com,+39-2-5555-0105,Milan,Italy,2023-04-12,Bronze
+106,David,Schmidt,david.schmidt@email.com,+49-30-5555-0106,Berlin,Germany,2021-09-22,Platinum
+107,Emma,Thompson,emma.thompson@email.com,+44-20-5555-0107,London,United Kingdom,2022-05-08,Silver
+108,Yuki,Tanaka,yuki.tanaka@email.com,+81-3-5555-0108,Tokyo,Japan,2023-02-14,Bronze
+109,Carlos,Rodriguez,carlos.rodriguez@email.com,+55-11-5555-0109,São Paulo,Brazil,2021-12-03,Gold
+110,Lisa,Anderson,lisa.anderson@email.com,+1-555-0110,Los Angeles,United States,2022-07-19,Silver
+111,Muhammad,Hassan,muhammad.hassan@email.com,+966-11-5555-0111,Riyadh,Saudi Arabia,2023-03-11,Bronze
+112,Isabelle,Dubois,isabelle.dubois@email.com,+33-2-5555-0112,Lyon,France,2021-08-27,Gold
+113,Raj,Patel,raj.patel@email.com,+91-22-5555-0113,Mumbai,India,2022-10-16,Bronze
+114,Olivia,Johnson,olivia.johnson@email.com,+1-555-0114,Chicago,United States,2023-05-22,Silver
+115,Klaus,Mueller,klaus.mueller@email.com,+49-89-5555-0115,Munich,Germany,2021-04-09,Platinum
+116,Priya,Singh,priya.singh@email.com,+91-80-5555-0116,Bangalore,India,2022-02-18,Bronze
+117,Marco,Bianchi,marco.bianchi@email.com,+39-6-5555-0117,Rome,Italy,2023-06-30,Bronze
+118,Sarah,Williams,sarah.williams@email.com,+1-555-0118,Houston,United States,2021-11-14,Gold
+119,Hiroshi,Yamamoto,hiroshi.yamamoto@email.com,+81-6-5555-0119,Osaka,Japan,2022-09-25,Silver
+120,Patricia,Martin,patricia.martin@email.com,+34-93-5555-0120,Barcelona,Spain,2023-01-07,Bronze
+121,Alessandro,Ferrari,alessandro.ferrari@email.com,+39-10-5555-0121,Genoa,Italy,2021-07-12,Gold
+122,Natasha,Ivanova,natasha.ivanova@email.com,+7-495-5555-0122,Moscow,Russia,2022-04-21,Silver
+123,Lucas,Silva,lucas.silva@email.com,+55-21-5555-0123,Rio de Janeiro,Brazil,2023-02-28,Bronze
+124,Megan,Taylor,megan.taylor@email.com,+44-121-5555-0124,Birmingham,United Kingdom,2021-10-06,Platinum
+125,Wei,Liu,wei.liu@email.com,+86-21-5555-0125,Shanghai,China,2022-08-13,Bronze
+126,Francesca,Conti,francesca.conti@email.com,+39-55-5555-0126,Florence,Italy,2023-04-19,Silver
+127,Mohammed,Ahmed,mohammed.ahmed@email.com,+971-4-5555-0127,Dubai,United Arab Emirates,2021-05-24,Gold
+128,Jessica,Brown,jessica.brown@email.com,+1-555-0128,Phoenix,United States,2022-12-02,Bronze
+129,Stefan,Weber,stefan.weber@email.com,+49-221-5555-0129,Cologne,Germany,2023-03-17,Silver
+130,Aisha,Mohammed,aisha.mohammed@email.com,+234-1-5555-0130,Lagos,Nigeria,2021-09-08,Bronze
+131,Philippe,Moreau,philippe.moreau@email.com,+33-4-5555-0131,Marseille,France,2022-06-11,Gold
+132,Amelia,Davis,amelia.davis@email.com,+61-2-5555-0132,Sydney,Australia,2023-05-08,Silver
+133,Diego,Hernandez,diego.hernandez@email.com,+52-55-5555-0133,Mexico City,Mexico,2021-12-19,Platinum
+134,Keiko,Suzuki,keiko.suzuki@email.com,+81-45-5555-0134,Yokohama,Japan,2022-03-26,Bronze
+135,Victoria,Martinez,victoria.martinez@email.com,+34-28-5555-0135,Valencia,Spain,2023-01-31,Silver
+136,Thomas,Meyer,thomas.meyer@email.com,+49-69-5555-0136,Frankfurt,Germany,2021-08-14,Gold
+137,Nia,Okafor,nia.okafor@email.com,+234-8-5555-0137,Abuja,Nigeria,2022-11-07,Bronze
+138,Robert,Campbell,robert.campbell@email.com,+44-131-5555-0138,Edinburgh,United Kingdom,2023-02-21,Bronze
+139,Lucia,Moretti,lucia.moretti@email.com,+39-81-5555-0139,Naples,Italy,2021-06-29,Silver
+140,Christopher,Harris,christopher.harris@email.com,+1-555-0140,Philadelphia,United States,2022-09-10,Gold
+141,Fang,Zhou,fang.zhou@email.com,+86-20-5555-0141,Guangzhou,China,2023-04-05,Bronze
+142,Beatrice,Benoit,beatrice.benoit@email.com,+33-5-5555-0142,Toulouse,France,2021-10-17,Platinum
+143,Ravi,Kumar,ravi.kumar@email.com,+91-33-5555-0143,Kolkata,India,2022-07-24,Silver
+144,Sophia,Anderson,sophia.anderson@email.com,+61-3-5555-0144,Melbourne,Australia,2023-06-12,Bronze
+145,Antonio,Gallo,antonio.gallo@email.com,+39-91-5555-0145,Palermo,Italy,2021-11-30,Gold
+146,Anastasia,Petrova,anastasia.petrova@email.com,+7-812-5555-0146,Saint Petersburg,Russia,2022-05-03,Bronze
+147,Fernando,Costa,fernando.costa@email.com,+55-31-5555-0147,Belo Horizonte,Brazil,2023-03-29,Silver
+148,Eleanor,Clarke,eleanor.clarke@email.com,+44-161-5555-0148,Manchester,United Kingdom,2021-07-06,Gold
+149,Michael,O'Brien,michael.obrien@email.com,+353-1-5555-0149,Dublin,Ireland,2022-10-25,Bronze
+150,Hannah,Fischer,hannah.fischer@email.com,+49-40-5555-0150,Hamburg,Germany,2023-02-08,Silver
+151,James,Wilson,james.wilson@gmail.com,+1-555-0101,New York,United States,2023-01-15,Silver
+152,Maria,Garcia,maria.garcia@hotmail.com,+34-91-555-0102,Madrid,Spain,2023-02-20,Bronze
+153,Wei,Chen,wei.chen@qq.com,+86-10-555-0103,Beijing,China,2023-03-10,Gold
+154,Sophie,Dubois,sophie.dubois@gmail.com,+33-1-555-0104,Paris,France,2023-01-25,Bronze
+155,Rajesh,Kumar,rajesh.kumar@gmail.com,+91-11-555-0105,Delhi,India,2023-04-05,Silver
+156,Anna,Mueller,anna.mueller@gmail.com,+49-30-555-0106,Berlin,Germany,2023-02-14,Bronze
+157,Hiroshi,Tanaka,hiroshi.tanaka@yahoo.co.jp,+81-3-555-0107,Tokyo,Japan,2023-05-12,Gold
+158,Elena,Rossi,elena.rossi@gmail.com,+39-2-555-0108,Milan,Italy,2023-03-22,Silver
+159,Carlos,Rodriguez,carlos.rodriguez@hotmail.com,+55-11-555-0109,São Paulo,Brazil,2023-01-30,Bronze
+160,Emma,Thompson,emma.thompson@gmail.com,+44-20-555-0110,London,United Kingdom,2023-04-18,Platinum
+161,Lars,Andersson,lars.andersson@gmail.com,+46-8-555-0111,Stockholm,Sweden,2023-02-28,Silver
+162,Yuki,Yamamoto,yuki.yamamoto@gmail.com,+81-90-555-0112,Osaka,Japan,2023-05-01,Bronze
+163,Isabella,Fontana,isabella.fontana@gmail.com,+39-6-555-0113,Rome,Italy,2023-03-15,Gold
+164,Miguel,Santos,miguel.santos@hotmail.com,+34-93-555-0114,Barcelona,Spain,2023-06-10,Bronze
+165,Olivia,Anderson,olivia.anderson@gmail.com,+1-555-0115,Los Angeles,United States,2023-02-05,Silver
+166,Hans,Schneider,hans.schneider@gmail.com,+49-69-555-0116,Frankfurt,Germany,2023-04-22,Bronze
+167,Priya,Patel,priya.patel@gmail.com,+91-22-555-0117,Mumbai,India,2023-05-30,Gold
+168,Lucas,Silva,lucas.silva@gmail.com,+55-21-555-0118,Rio de Janeiro,Brazil,2023-03-08,Silver
+169,Francesca,Marchi,francesca.marchi@gmail.com,+39-10-555-0119,Genoa,Italy,2023-01-20,Bronze
+170,David,Cohen,david.cohen@gmail.com,+972-2-555-0120,Jerusalem,Israel,2023-06-15,Platinum
+171,Charlotte,Leclerc,charlotte.leclerc@gmail.com,+33-4-555-0121,Lyon,France,2023-02-18,Bronze
+172,Kenji,Nakamura,kenji.nakamura@gmail.com,+81-6-555-0122,Kyoto,Japan,2023-04-12,Silver
+173,Sophia,Bauer,sophia.bauer@gmail.com,+49-89-555-0123,Munich,Germany,2023-03-25,Gold
+174,Alejandro,Flores,alejandro.flores@hotmail.com,+52-55-555-0124,Mexico City,Mexico,2023-05-08,Bronze
+175,Grace,Murphy,grace.murphy@gmail.com,+353-1-555-0125,Dublin,Ireland,2023-01-12,Silver
+176,Andrei,Petrov,andrei.petrov@gmail.com,+7-495-555-0126,Moscow,Russia,2023-06-20,Bronze
+177,Leah,Goldman,leah.goldman@gmail.com,+972-3-555-0127,Tel Aviv,Israel,2023-02-09,Gold
+178,Matteo,Verdi,matteo.verdi@gmail.com,+39-5-555-0128,Florence,Italy,2023-04-28,Silver
+179,Sofia,Larsson,sofia.larsson@gmail.com,+46-31-555-0129,Gothenburg,Sweden,2023-03-02,Bronze
+180,Thomas,Johnson,thomas.johnson@gmail.com,+1-555-0130,Chicago,United States,2023-05-15,Platinum
+181,Yuki,Sato,yuki.sato@gmail.com,+81-45-555-0131,Yokohama,Japan,2023-01-28,Silver
+182,Monica,Hoffmann,monica.hoffmann@gmail.com,+49-40-555-0132,Hamburg,Germany,2023-06-05,Bronze
+183,Vikram,Singh,vikram.singh@gmail.com,+91-33-555-0133,Kolkata,India,2023-02-22,Gold
+184,Beatrice,Rossi,beatrice.rossi@gmail.com,+39-8-555-0134,Naples,Italy,2023-04-10,Silver
+185,Fernando,Lopez,fernando.lopez@hotmail.com,+34-91-555-0135,Madrid,Spain,2023-03-18,Bronze
+186,Rebecca,Smith,rebecca.smith@gmail.com,+44-121-555-0136,Birmingham,United Kingdom,2023-05-25,Gold
+187,Paulo,Oliveira,paulo.oliveira@gmail.com,+55-31-555-0137,Belo Horizonte,Brazil,2023-01-05,Bronze
+188,Margot,Bernard,margot.bernard@gmail.com,+33-2-555-0138,Marseille,France,2023-06-12,Silver
+189,Takeshi,Kobayashi,takeshi.kobayashi@gmail.com,+81-52-555-0139,Nagoya,Japan,2023-02-14,Platinum
+190,Victoria,Schmidt,victoria.schmidt@gmail.com,+49-221-555-0140,Cologne,Germany,2023-04-02,Bronze
+191,Arjun,Desai,arjun.desai@gmail.com,+91-80-555-0141,Bangalore,India,2023-03-20,Gold
+192,Marco,Ferrari,marco.ferrari@gmail.com,+39-2-555-0142,Milan,Italy,2023-05-07,Silver
+193,Rosa,Moreno,rosa.moreno@hotmail.com,+34-96-555-0143,Valencia,Spain,2023-01-22,Bronze
+194,Nicholas,Davies,nicholas.davies@gmail.com,+44-113-555-0144,Leeds,United Kingdom,2023-06-08,Gold
+195,Gabriela,Ferreira,gabriela.ferreira@gmail.com,+55-85-555-0145,Fortaleza,Brazil,2023-02-11,Bronze
+196,Amelie,Moreau,amelie.moreau@gmail.com,+33-5-555-0146,Toulouse,France,2023-04-15,Silver
+197,Sakura,Ito,sakura.ito@gmail.com,+81-78-555-0147,Kobe,Japan,2023-03-30,Platinum
+198,Klaus,Wagner,klaus.wagner@gmail.com,+49-711-555-0148,Stuttgart,Germany,2023-05-20,Bronze
+199,Anjali,Gupta,anjali.gupta@gmail.com,+91-40-555-0149,Hyderabad,India,2023-01-08,Silver
+200,Andrea,Conti,andrea.conti@gmail.com,+39-7-555-0150,Turin,Italy,2023-06-18,Gold
