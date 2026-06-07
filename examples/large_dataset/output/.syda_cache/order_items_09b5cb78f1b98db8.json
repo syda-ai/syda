@@ -1,0 +1,13 @@
+{
+  "schema_hash": "09b5cb78f1b98db8",
+  "created_at": "2026-06-07T20:59:41.270352+00:00",
+  "model": "claude-haiku-4-5-20251001",
+  "hint_table_name": "order_items",
+  "simple": {
+    "item_id": "def generate_item_id(row, col_name):\n    return row.name + 1",
+    "quantity": "def generate_quantity(row, col_name):\n    import random\n    return random.randint(1, 5)",
+    "unit_price": "def generate_unit_price(row, col_name):\n    import random\n    return round(random.uniform(0.01, 9999.99), 2)",
+    "discount": "def generate_discount(row, col_name):\n    import random\n    return round(random.uniform(0, 20), 2)"
+  },
+  "semantic": []
+}
