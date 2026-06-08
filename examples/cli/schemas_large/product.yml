@@ -1,0 +1,43 @@
+__table_description__: E-commerce product catalog
+
+product_id:
+  type: integer
+  description: Unique product identifier
+  constraints:
+    primary_key: true
+
+product_name:
+  type: text
+  description: Product name
+  constraints:
+    not_null: true
+
+category:
+  type: text
+  description: Product category (Electronics, Clothing, Home & Kitchen, Sports, Books)
+  constraints:
+    not_null: true
+
+brand:
+  type: text
+  description: Brand or manufacturer name
+
+unit_price:
+  type: float
+  description: Retail price in USD between 5 and 500
+  constraints:
+    min: 5.0
+    max: 500.0
+    not_null: true
+
+stock_qty:
+  type: integer
+  description: Units available in warehouse inventory
+  constraints:
+    min: 0
+    max: 5000
+    not_null: true
+
+description:
+  type: text
+  description: Short product description (1-2 sentences)

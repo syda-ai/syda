@@ -1,0 +1,51 @@
+product_id,product_name,category,brand,unit_price,stock_qty,description
+1,Wireless Noise-Cancelling Over-Ear Headphones,Electronics,Apple,159.3,3703,Premium wireless noise-cancelling headphones with 30-hour battery life and touch controls.
+2,Organic Cotton Crew Neck T-Shirt,Electronics,Samsung,374.62,3025,"Organic cotton crewneck sweatshirt in navy blue, sizes S to XXL."
+3,Insulated Stainless Steel Water Bottle,Home & Kitchen,Nike,99.01,673,Stainless steel insulated water bottle keeps drinks cold for 24 hours or hot for 12.
+4,Smart Fitness Tracker Wristband,Clothing,Adidas,225.36,1653,Leather-bound journal with 200 lined pages and a secure magnetic closure.
+5,Genuine Leather Laptop Messenger Bag,Books,Sony,489.15,4559,Portable Bluetooth speaker with waterproof design and built-in microphone.
+6,Set of 4 Ceramic Coffee Mugs,Sports,LG,499.54,3131,"Non-stick ceramic frying pan set including 8-inch, 10-inch, and 12-inch sizes."
+7,Portable Bluetooth Waterproof Speaker,Sports,Dell,71.96,4030,Yoga mat made from eco-friendly natural rubber with alignment markings.
+8,Slim Fit Dark Wash Denim Jeans,Home & Kitchen,HP,157.88,1646,Wireless charging pad compatible with iPhone and Android devices.
+9,Adjustable LED Desk Lamp with USB Port,Clothing,Canon,351.98,345,Aromatherapy essential oil diffuser with LED mood lighting and timer function.
+10,Non-Slip Eco-Friendly Yoga Mat,Clothing,Levi's,437.81,4645,Denim jeans with stretch fabric and classic five-pocket styling.
+11,Professional 5-Piece Kitchen Knife Set,Sports,Zara,280.25,355,Electric kettle with rapid boil technology and auto shut-off safety feature.
+12,Ergonomic Wireless Optical Mouse,Sports,IKEA,268.88,4601,"Scented soy candle in lavender and vanilla fragrance, burns for 50 hours."
+13,Hydrating Face Moisturizer with SPF,Home & Kitchen,Dyson,273.0,1563,Kids' building block set with 500 colorful pieces for creative play.
+14,Lightweight Breathable Running Shoes,Clothing,Philips,103.66,2575,Stainless steel chef's knife with ergonomic handle and blade guard.
+15,5-Shelf Wooden Bookshelf,Home & Kitchen,L'Oréal,398.75,3055,Fitness tracker watch with heart rate monitor and sleep tracking.
+16,1.7L Electric Glass Kettle,Books,Nestlé,294.78,3584,Silk pillowcase set of two for hair and skin benefits.
+17,Water-Resistant Hiking Backpack,Sports,Coca-Cola,298.41,889,"Ceramic coffee mug with funny quote, microwave and dishwasher safe."
+18,Polarized UV Protection Sunglasses,Electronics,Pepsi,146.4,2761,Running shoes with cushioned sole and breathable mesh upper.
+19,Set of 2 Memory Foam Pillows,Home & Kitchen,Toyota,238.85,648,Digital kitchen scale with tare function and precision up to 0.1g.
+20,Ionic Hair Dryer with Diffuser,Home & Kitchen,Ford,256.6,4548,Board game for 2-6 players featuring strategy and adventure themes.
+21,15-Inch Ultrabook Laptop,Electronics,BMW,181.22,3811,"Vitamin C serum for face with hyaluronic acid, 1 fl oz bottle."
+22,Strategy Board Game for Adults,Home & Kitchen,Mercedes-Benz,256.64,2682,"Throw blanket in soft fleece, 50x60 inches, machine washable."
+23,Ceramic Indoor Plant Pot,Home & Kitchen,Rolex,121.65,4402,Laptop sleeve with padded interior fits up to 15-inch devices.
+24,Scented Soy Wax Candle,Books,Omega,306.44,3899,Garden hose reel with automatic rewind and wall-mount bracket.
+25,Rechargeable Electric Toothbrush,Electronics,Gucci,432.68,4010,"Men's dress shirt in wrinkle-resistant cotton, available in white or blue."
+26,Compact Digital Mirrorless Camera,Clothing,Louis Vuitton,263.34,2942,"Reusable silicone food storage bags, set of 5 different sizes."
+27,Stainless Steel Analog Wristwatch,Electronics,Chanel,78.33,3042,Action camera with 4K video recording and waterproof case included.
+28,Waterproof Winter Parka Jacket,Home & Kitchen,Ray-Ban,475.0,107,"Memory foam mattress topper, queen size, 2-inch thickness."
+29,Pack of 6 Cotton Ankle Socks,Home & Kitchen,Bose,406.59,3204,"Lip balm multipack with SPF 15, assorted natural flavors."
+30,High-Speed Countertop Blender,Home & Kitchen,JBL,245.0,4503,"Desk organizer with multiple compartments for pens, papers, and accessories."
+31,Cordless Upright Vacuum Cleaner,Home & Kitchen,Under Armour,112.25,4960,"Bamboo cutting board with juice groove, large rectangular shape."
+32,Eau de Parfum for Men,Home & Kitchen,Puma,6.43,4599,Toddler plush toy elephant with soft fur and embroidered details.
+33,Volumizing Shampoo and Conditioner Set,Electronics,Reebok,397.06,3813,Sunglasses with polarized lenses and UV400 protection.
+34,Quick-Dry Microfiber Towel Set,Clothing,The North Face,147.67,2470,Electric toothbrush with 3 brushing modes and 2 replacement heads.
+35,Compact Travel Umbrella,Electronics,Patagonia,477.88,4568,Herbal tea sampler box containing 6 assorted organic blends.
+36,Rechargeable LED Flashlight,Home & Kitchen,Columbia,152.84,482,Wall clock with silent quartz movement and modern minimalist design.
+37,20000mAh Portable Power Bank,Electronics,KitchenAid,304.68,2899,Backpack with laptop compartment and USB charging port.
+38,Shockproof Phone Case for iPhone,Home & Kitchen,Breville,80.72,1636,"Facial cleanser for sensitive skin, fragrance-free, 6.7 oz tube."
+39,Adjustable Tablet Stand Holder,Books,Nespresso,47.26,2676,"Cast iron skillet pre-seasoned, 10.25-inch diameter."
+40,Ergonomic Office Desk Chair,Electronics,Keurig,343.56,1204,Puzzle set 1000 pieces featuring a scenic mountain landscape.
+41,27-Inch 4K Computer Monitor,Home & Kitchen,Fitbit,257.5,3346,Hair dryer with ionic technology and multiple heat settings.
+42,Mechanical RGB Gaming Keyboard,Books,Garmin,259.04,3176,Candle holder set of three in brushed gold finish.
+43,Large Gaming Mouse Pad,Sports,GoPro,312.16,1500,"Sports water bottle with flip straw, 32 oz capacity."
+44,2TB External Portable Hard Drive,Home & Kitchen,Nikon,274.57,4543,"Baby onesie multipack, 100% cotton, 3-pack neutral colors."
+45,3-Pack Braided USB-C Cables,Clothing,Fujifilm,449.41,995,Resistance band set with 5 different tension levels for workouts.
+46,Wireless In-Ear Earbuds,Home & Kitchen,Microsoft,377.14,254,Notebook computer stand adjustable height and angle for ergonomics.
+47,Smart Wi-Fi LED Light Bulb,Clothing,Google,265.64,448,"Hand cream with shea butter and vitamin E, 3.4 oz jar."
+48,Indoor Home Security Camera,Home & Kitchen,Intel,37.94,1228,Tennis racket with graphite frame and vibration dampening system.
+49,Foldable Quadcopter Drone,Sports,AMD,236.09,1947,"Photo frame collage holds 10 pictures, black wood finish."
+50,Wireless Noise-Cancelling Over-Ear Headphones,Electronics,NVIDIA,382.05,4975,Premium wireless noise-cancelling headphones with 30-hour battery life and touch controls.
