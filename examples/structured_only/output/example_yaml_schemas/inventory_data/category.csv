@@ -1,13 +1,13 @@
 id,name,description,parent_id
-1,Electronics,"Comprehensive category for all electronic devices, including computers, mobile devices, audio equipment, and home entertainment systems.",0
-2,Computers,"Desktop computers, laptops, workstations, and computer components including processors, graphics cards, and memory modules.",1
-3,Mobile Devices,"Smartphones, tablets, smartwatches, and related mobile accessories and communication devices.",1
-4,Home Appliances,"Kitchen appliances, cleaning equipment, climate control devices, and other household electrical machines.",0
-5,Kitchen Appliances,"Cooking equipment, refrigeration units, small countertop appliances, and food preparation tools.",4
-6,Cleaning Equipment,"Vacuum cleaners, steam mops, robotic cleaners, and other home cleaning and maintenance devices.",4
-7,Clothing,"Apparel and fashion items for men, women, and children, including seasonal and everyday wear.",0
-8,Men's Clothing,"Shirts, pants, suits, casual wear, and accessories specifically designed for men.",7
-9,Women's Clothing,"Dresses, blouses, skirts, professional attire, and fashion accessories for women.",7
-10,Sports & Outdoors,"Athletic equipment, outdoor gear, fitness accessories, and recreational products for various sports and activities.",0
-11,Fitness Equipment,"Gym machines, weights, exercise mats, cardio equipment, and personal training accessories.",10
-12,Outdoor Gear,"Camping equipment, hiking gear, tents, sleeping bags, navigation tools, and adventure accessories.",10
+1,Electronics,"A comprehensive category for all electronic devices and gadgets including consumer electronics, computers, mobile devices, and accessories. This category encompasses products ranging from smartphones and laptops to smart home devices and wearable technology.",0
+2,Smartphones & Tablets,"Mobile computing devices including smartphones, tablets, and related accessories. Features the latest models from major manufacturers with various operating systems and screen sizes suitable for personal and professional use.",1
+3,Computers & Laptops,"Desktop computers, laptops, and ultrabooks for personal, professional, and gaming purposes. Includes various processor types, RAM configurations, and storage options to meet diverse computing needs.",1
+4,Clothing & Apparel,"Men's, women's, and children's clothing including casual wear, formal attire, activewear, and seasonal clothing. Covers all sizes and styles from budget-friendly to premium brands.",0
+5,Men's Clothing,"Complete range of men's apparel including shirts, pants, jackets, and formal wear. Features contemporary styles and classic designs suitable for various occasions and preferences.",4
+6,Women's Clothing,"Diverse selection of women's fashion including dresses, tops, bottoms, outerwear, and accessories. Offers trendy and timeless pieces from casual to formal collections.",4
+7,Home & Garden,"Furniture, home décor, gardening tools, and outdoor equipment for improving living spaces. Includes items for bedroom, kitchen, living room, and garden maintenance.",0
+8,Furniture,"Indoor and outdoor furniture including sofas, tables, chairs, beds, and storage solutions. Offers various styles from minimalist to traditional designs to suit different interior preferences.",7
+9,Sports & Outdoors,"Athletic equipment, sports gear, camping supplies, and outdoor recreation products. Includes items for fitness, team sports, hiking, and various outdoor activities.",0
+10,Fitness Equipment,"Exercise machines, weights, yoga mats, resistance bands, and other fitness tools for home and gym use. Suitable for beginners to advanced fitness enthusiasts.",9
+11,Books & Media,"Physical and digital books, audiobooks, magazines, DVDs, and multimedia content. Covers fiction, non-fiction, educational materials, and entertainment across all genres.",0
+12,Food & Beverages,"Groceries, snacks, beverages, and specialty food items for everyday consumption. Includes organic products, international foods, and dietary-specific options for various nutritional needs.",0

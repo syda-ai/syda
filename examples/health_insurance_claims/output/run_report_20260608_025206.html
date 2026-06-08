@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>syda run report</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+           margin: 0; padding: 24px 40px; color: #2c3e50; background: #fff; }
+    table { border-collapse: collapse; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+    thead tr { background: #f7f9fc; }
+    tr:hover { background: #fafafa; }
+    a { text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1 style="margin-bottom:4px">syda run report</h1>
+  <p style="color:#888;margin-top:0">2026-06-08 02:52 UTC &nbsp;·&nbsp; model: <code>claude-haiku-4-5-20251001</code></p>
+
+  <div style="display:flex;gap:24px;margin:20px 0">
+    <div style="background:#f7f9fc;border-radius:8px;padding:16px 24px;min-width:120px;text-align:center">
+      <div style="font-size:2em;font-weight:700">50</div>
+      <div style="color:#888;font-size:0.85em">total rows</div>
+    </div>
+    <div style="background:#f7f9fc;border-radius:8px;padding:16px 24px;min-width:120px;text-align:center">
+      <div style="font-size:2em;font-weight:700">9</div>
+      <div style="color:#888;font-size:0.85em">LLM calls</div>
+    </div>
+    <div style="background:#f7f9fc;border-radius:8px;padding:16px 24px;min-width:120px;text-align:center">
+      <div style="font-size:2em;font-weight:700">9,304</div>
+      <div style="color:#888;font-size:0.85em">input tokens</div>
+    </div>
+    <div style="background:#f7f9fc;border-radius:8px;padding:16px 24px;min-width:120px;text-align:center">
+      <div style="font-size:2em;font-weight:700">5,426</div>
+      <div style="color:#888;font-size:0.85em">output tokens</div>
+    </div>
+    <div style="background:#f7f9fc;border-radius:8px;padding:16px 24px;min-width:120px;text-align:center">
+      <div style="font-size:2em;font-weight:700">$0.0364</div>
+      <div style="color:#888;font-size:0.85em">est. cost</div>
+    </div>
+    <div style="background:#f7f9fc;border-radius:8px;padding:16px 24px;min-width:120px;text-align:center">
+      <div style="font-size:2em;font-weight:700">49.5s</div>
+      <div style="color:#888;font-size:0.85em">total time</div>
+    </div>
+  </div>
+
+  <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px">Summary</h2>
+  <table style="width:100%">
+    <thead>
+      <tr style="text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+        <th style="text-align:left">Table</th>
+        <th style="text-align:right">Rows</th>
+        <th style="text-align:left">Mode</th>
+        <th style="text-align:right">LLM calls</th>
+        <th style="text-align:right">In tokens</th>
+        <th style="text-align:right">Out tokens</th>
+        <th style="text-align:right">Cost</th>
+        <th style="text-align:right">Time</th>
+        <th>Cache</th>
+      </tr>
+    </thead>
+    <tbody>
+            <tr>
+              <td><a href="#patient" style="color:#2c3e50;font-weight:600">patient</a></td>
+              <td style="text-align:right">5</td>
+              <td><span style="font-variant:small-caps">direct</span></td>
+              <td style="text-align:right">1</td>
+              <td style="text-align:right">928</td>
+              <td style="text-align:right">345</td>
+              <td style="text-align:right">$0.0027</td>
+              <td style="text-align:right">2.0s</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href="#provider" style="color:#2c3e50;font-weight:600">provider</a></td>
+              <td style="text-align:right">3</td>
+              <td><span style="font-variant:small-caps">direct</span></td>
+              <td style="text-align:right">1</td>
+              <td style="text-align:right">898</td>
+              <td style="text-align:right">200</td>
+              <td style="text-align:right">$0.0019</td>
+              <td style="text-align:right">2.0s</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href="#EnrollmentLetter" style="color:#2c3e50;font-weight:600">EnrollmentLetter</a></td>
+              <td style="text-align:right">3</td>
+              <td><span style="font-variant:small-caps">direct</span></td>
+              <td style="text-align:right">1</td>
+              <td style="text-align:right">1,035</td>
+              <td style="text-align:right">368</td>
+              <td style="text-align:right">$0.0029</td>
+              <td style="text-align:right">2.4s</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href="#diagnosis" style="color:#2c3e50;font-weight:600">diagnosis</a></td>
+              <td style="text-align:right">10</td>
+              <td><span style="font-variant:small-caps">direct</span></td>
+              <td style="text-align:right">1</td>
+              <td style="text-align:right">975</td>
+              <td style="text-align:right">718</td>
+              <td style="text-align:right">$0.0046</td>
+              <td style="text-align:right">17.7s</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href="#claim" style="color:#2c3e50;font-weight:600">claim</a></td>
+              <td style="text-align:right">10</td>
+              <td><span style="font-variant:small-caps">direct</span></td>
+              <td style="text-align:right">1</td>
+              <td style="text-align:right">1,039</td>
+              <td style="text-align:right">1,051</td>
+              <td style="text-align:right">$0.0063</td>
+              <td style="text-align:right">5.1s</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href="#ClinicalNote" style="color:#2c3e50;font-weight:600">ClinicalNote</a></td>
+              <td style="text-align:right">3</td>
+              <td><span style="font-variant:small-caps">direct</span></td>
+              <td style="text-align:right">1</td>
+              <td style="text-align:right">1,193</td>
+              <td style="text-align:right">1,081</td>
+              <td style="text-align:right">$0.0066</td>
+              <td style="text-align:right">9.2s</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href="#payment" style="color:#2c3e50;font-weight:600">payment</a></td>
+              <td style="text-align:right">10</td>
+              <td><span style="font-variant:small-caps">direct</span></td>
+              <td style="text-align:right">1</td>
+              <td style="text-align:right">935</td>
+              <td style="text-align:right">740</td>
+              <td style="text-align:right">$0.0046</td>
+              <td style="text-align:right">3.6s</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href="#ExplanationOfBenefits" style="color:#2c3e50;font-weight:600">ExplanationOfBenefits</a></td>
+              <td style="text-align:right">3</td>
+              <td><span style="font-variant:small-caps">direct</span></td>
+              <td style="text-align:right">1</td>
+              <td style="text-align:right">1,230</td>
+              <td style="text-align:right">535</td>
+              <td style="text-align:right">$0.0039</td>
+              <td style="text-align:right">3.7s</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href="#PaymentConfirmation" style="color:#2c3e50;font-weight:600">PaymentConfirmation</a></td>
+              <td style="text-align:right">3</td>
+              <td><span style="font-variant:small-caps">direct</span></td>
+              <td style="text-align:right">1</td>
+              <td style="text-align:right">1,071</td>
+              <td style="text-align:right">388</td>
+              <td style="text-align:right">$0.0030</td>
+              <td style="text-align:right">2.6s</td>
+              <td></td>
+            </tr></tbody>
+    <tfoot>
+      <tr style="font-weight:700;border-top:2px solid #ccc">
+        <td>TOTAL</td>
+        <td style="text-align:right">50</td>
+        <td></td>
+        <td style="text-align:right">9</td>
+        <td style="text-align:right">9,304</td>
+        <td style="text-align:right">5,426</td>
+        <td style="text-align:right">$0.0364</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;margin-top:40px">Per-table details</h2>
+  
+            <section id="patient" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                patient
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">5 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">direct</span> &nbsp;·&nbsp;
+                  2.0s</span>
+                <span style="margin-left:12px"></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">830b265e65ae615b</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">_direct_</td>
+                  <td><span style="background:#f5eef8;color:#8e44ad;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Direct LLM</span></td>
+                  <td style="text-align:right">1</td>
+                  <td style="text-align:right">928</td>
+                  <td style="text-align:right">345</td>
+                  <td style="text-align:right">$0.00265</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+            <section id="provider" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                provider
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">3 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">direct</span> &nbsp;·&nbsp;
+                  2.0s</span>
+                <span style="margin-left:12px"></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">23294ab62b5ab0b9</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">_direct_</td>
+                  <td><span style="background:#f5eef8;color:#8e44ad;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Direct LLM</span></td>
+                  <td style="text-align:right">1</td>
+                  <td style="text-align:right">898</td>
+                  <td style="text-align:right">200</td>
+                  <td style="text-align:right">$0.00190</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+            <section id="EnrollmentLetter" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                EnrollmentLetter
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">3 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">direct</span> &nbsp;·&nbsp;
+                  2.4s</span>
+                <span style="margin-left:12px"></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">3015f205fdb192b2</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">_direct_</td>
+                  <td><span style="background:#f5eef8;color:#8e44ad;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Direct LLM</span></td>
+                  <td style="text-align:right">1</td>
+                  <td style="text-align:right">1,035</td>
+                  <td style="text-align:right">368</td>
+                  <td style="text-align:right">$0.00287</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+            <section id="diagnosis" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                diagnosis
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">10 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">direct</span> &nbsp;·&nbsp;
+                  17.7s</span>
+                <span style="margin-left:12px"></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">cd9e807049609abc</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">_direct_</td>
+                  <td><span style="background:#f5eef8;color:#8e44ad;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Direct LLM</span></td>
+                  <td style="text-align:right">1</td>
+                  <td style="text-align:right">975</td>
+                  <td style="text-align:right">718</td>
+                  <td style="text-align:right">$0.00456</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+            <section id="claim" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                claim
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">10 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">direct</span> &nbsp;·&nbsp;
+                  5.1s</span>
+                <span style="margin-left:12px"></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">fed964bb9bad7e5a</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">_direct_</td>
+                  <td><span style="background:#f5eef8;color:#8e44ad;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Direct LLM</span></td>
+                  <td style="text-align:right">1</td>
+                  <td style="text-align:right">1,039</td>
+                  <td style="text-align:right">1,051</td>
+                  <td style="text-align:right">$0.00629</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+            <section id="ClinicalNote" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                ClinicalNote
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">3 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">direct</span> &nbsp;·&nbsp;
+                  9.2s</span>
+                <span style="margin-left:12px"></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">246c6f5fb3d2b61a</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">_direct_</td>
+                  <td><span style="background:#f5eef8;color:#8e44ad;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Direct LLM</span></td>
+                  <td style="text-align:right">1</td>
+                  <td style="text-align:right">1,193</td>
+                  <td style="text-align:right">1,081</td>
+                  <td style="text-align:right">$0.00660</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+            <section id="payment" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                payment
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">10 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">direct</span> &nbsp;·&nbsp;
+                  3.6s</span>
+                <span style="margin-left:12px"></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">f5f312823a5338a9</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">_direct_</td>
+                  <td><span style="background:#f5eef8;color:#8e44ad;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Direct LLM</span></td>
+                  <td style="text-align:right">1</td>
+                  <td style="text-align:right">935</td>
+                  <td style="text-align:right">740</td>
+                  <td style="text-align:right">$0.00464</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+            <section id="ExplanationOfBenefits" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                ExplanationOfBenefits
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">3 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">direct</span> &nbsp;·&nbsp;
+                  3.7s</span>
+                <span style="margin-left:12px"></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">f8562767e4d56031</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">_direct_</td>
+                  <td><span style="background:#f5eef8;color:#8e44ad;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Direct LLM</span></td>
+                  <td style="text-align:right">1</td>
+                  <td style="text-align:right">1,230</td>
+                  <td style="text-align:right">535</td>
+                  <td style="text-align:right">$0.00391</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+            <section id="PaymentConfirmation" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                PaymentConfirmation
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">3 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">direct</span> &nbsp;·&nbsp;
+                  2.6s</span>
+                <span style="margin-left:12px"></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">dc868a4dd5d25dba</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">_direct_</td>
+                  <td><span style="background:#f5eef8;color:#8e44ad;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Direct LLM</span></td>
+                  <td style="text-align:right">1</td>
+                  <td style="text-align:right">1,071</td>
+                  <td style="text-align:right">388</td>
+                  <td style="text-align:right">$0.00301</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+</body>
+</html>

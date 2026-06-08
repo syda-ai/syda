@@ -1,11 +1,11 @@
 id,name,email,signup_date,loyalty_tier
-1,Sarah Johnson,sarah.johnson@email.com,2022-03-15,Silver
-2,Michael Chen,michael.chen@email.com,2023-07-22,Gold
-3,Emily Rodriguez,emily.rodriguez@email.com,2021-11-08,Bronze
-4,James Wilson,james.wilson@email.com,2023-01-30,Bronze
-5,Lisa Anderson,lisa.anderson@email.com,2022-09-12,Silver
-6,David Thompson,david.thompson@email.com,2023-05-18,Gold
-7,Jessica Martinez,jessica.martinez@email.com,2022-02-25,Bronze
-8,Robert Taylor,robert.taylor@email.com,2023-10-05,Platinum
-9,Amanda White,amanda.white@email.com,2021-06-14,Platinum
-10,Christopher Lee,christopher.lee@email.com,2022-12-03,Silver
+1,Sarah Mitchell,sarah.mitchell@example.com,2022-03-15,Silver
+2,James Chen,james.chen@example.com,2021-07-22,Gold
+3,Emily Rodriguez,emily.rodriguez@example.com,2023-11-08,Platinum
+4,Michael Thompson,michael.thompson@example.com,2022-09-12,Gold
+5,Jessica Patel,jessica.patel@example.com,2021-02-18,Silver
+6,David Kumar,david.kumar@example.com,2023-05-30,Gold
+7,Amanda Foster,amanda.foster@example.com,2022-06-14,Silver
+8,Christopher Walsh,christopher.walsh@example.com,2023-01-25,Gold
+9,Olivia Martinez,olivia.martinez@example.com,2021-10-03,Gold
+10,Robert Anderson,robert.anderson@example.com,2023-08-19,Gold
