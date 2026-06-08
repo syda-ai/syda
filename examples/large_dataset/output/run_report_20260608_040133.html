@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>syda run report</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+           margin: 0; padding: 24px 40px; color: #2c3e50; background: #fff; }
+    table { border-collapse: collapse; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+    thead tr { background: #f7f9fc; }
+    tr:hover { background: #fafafa; }
+    a { text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1 style="margin-bottom:4px">syda run report</h1>
+  <p style="color:#888;margin-top:0">2026-06-08 04:01 UTC &nbsp;·&nbsp; model: <code>grok-3</code></p>
+
+  <div style="display:flex;gap:24px;margin:20px 0">
+    <div style="background:#f7f9fc;border-radius:8px;padding:16px 24px;min-width:120px;text-align:center">
+      <div style="font-size:2em;font-weight:700">18,615</div>
+      <div style="color:#888;font-size:0.85em">total rows</div>
+    </div>
+    <div style="background:#f7f9fc;border-radius:8px;padding:16px 24px;min-width:120px;text-align:center">
+      <div style="font-size:2em;font-weight:700">174</div>
+      <div style="color:#888;font-size:0.85em">LLM calls</div>
+    </div>
+    <div style="background:#f7f9fc;border-radius:8px;padding:16px 24px;min-width:120px;text-align:center">
+      <div style="font-size:2em;font-weight:700">53,668</div>
+      <div style="color:#888;font-size:0.85em">input tokens</div>
+    </div>
+    <div style="background:#f7f9fc;border-radius:8px;padding:16px 24px;min-width:120px;text-align:center">
+      <div style="font-size:2em;font-weight:700">108,288</div>
+      <div style="color:#888;font-size:0.85em">output tokens</div>
+    </div>
+    <div style="background:#f7f9fc;border-radius:8px;padding:16px 24px;min-width:120px;text-align:center">
+      <div style="font-size:2em;font-weight:700">$1.7853</div>
+      <div style="color:#888;font-size:0.85em">est. cost</div>
+    </div>
+    <div style="background:#f7f9fc;border-radius:8px;padding:16px 24px;min-width:120px;text-align:center">
+      <div style="font-size:2em;font-weight:700">3127.2s</div>
+      <div style="color:#888;font-size:0.85em">total time</div>
+    </div>
+  </div>
+
+  <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px">Summary</h2>
+  <table style="width:100%">
+    <thead>
+      <tr style="text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+        <th style="text-align:left">Table</th>
+        <th style="text-align:right">Rows</th>
+        <th style="text-align:left">Mode</th>
+        <th style="text-align:right">LLM calls</th>
+        <th style="text-align:right">In tokens</th>
+        <th style="text-align:right">Out tokens</th>
+        <th style="text-align:right">Cost</th>
+        <th style="text-align:right">Time</th>
+        <th>Cache</th>
+      </tr>
+    </thead>
+    <tbody>
+            <tr>
+              <td><a href="#customers" style="color:#2c3e50;font-weight:600">customers</a></td>
+              <td style="text-align:right">415</td>
+              <td><span style="font-variant:small-caps">direct</span></td>
+              <td style="text-align:right">10</td>
+              <td style="text-align:right">6,220</td>
+              <td style="text-align:right">32,940</td>
+              <td style="text-align:right">$0.5128</td>
+              <td style="text-align:right">400.6s</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href="#products" style="color:#2c3e50;font-weight:600">products</a></td>
+              <td style="text-align:right">200</td>
+              <td><span style="font-variant:small-caps">direct</span></td>
+              <td style="text-align:right">4</td>
+              <td style="text-align:right">2,168</td>
+              <td style="text-align:right">15,291</td>
+              <td style="text-align:right">$0.2359</td>
+              <td style="text-align:right">90.1s</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href="#orders" style="color:#2c3e50;font-weight:600">orders</a></td>
+              <td style="text-align:right">5,000</td>
+              <td><span style="font-variant:small-caps">codegen</span></td>
+              <td style="text-align:right">100</td>
+              <td style="text-align:right">28,300</td>
+              <td style="text-align:right">25,201</td>
+              <td style="text-align:right">$0.4629</td>
+              <td style="text-align:right">1485.4s</td>
+              <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+            </tr>
+            <tr>
+              <td><a href="#reviews" style="color:#2c3e50;font-weight:600">reviews</a></td>
+              <td style="text-align:right">3,000</td>
+              <td><span style="font-variant:small-caps">codegen</span></td>
+              <td style="text-align:right">60</td>
+              <td style="text-align:right">16,980</td>
+              <td style="text-align:right">34,856</td>
+              <td style="text-align:right">$0.5738</td>
+              <td style="text-align:right">1151.0s</td>
+              <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+            </tr>
+            <tr>
+              <td><a href="#order_items" style="color:#2c3e50;font-weight:600">order_items</a></td>
+              <td style="text-align:right">10,000</td>
+              <td><span style="font-variant:small-caps">codegen</span></td>
+              <td style="text-align:right">0</td>
+              <td style="text-align:right">0</td>
+              <td style="text-align:right">0</td>
+              <td style="text-align:right">—</td>
+              <td style="text-align:right">0.1s</td>
+              <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+            </tr></tbody>
+    <tfoot>
+      <tr style="font-weight:700;border-top:2px solid #ccc">
+        <td>TOTAL</td>
+        <td style="text-align:right">18,615</td>
+        <td></td>
+        <td style="text-align:right">174</td>
+        <td style="text-align:right">53,668</td>
+        <td style="text-align:right">108,288</td>
+        <td style="text-align:right">$1.7853</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;margin-top:40px">Per-table details</h2>
+  
+            <section id="customers" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                customers
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">415 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">direct</span> &nbsp;·&nbsp;
+                  400.6s</span>
+                <span style="margin-left:12px"></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">fa248a53e2f991b4</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">_direct_</td>
+                  <td><span style="background:#f5eef8;color:#8e44ad;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Direct LLM</span></td>
+                  <td style="text-align:right">10</td>
+                  <td style="text-align:right">6,220</td>
+                  <td style="text-align:right">32,940</td>
+                  <td style="text-align:right">$0.51276</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+            <section id="products" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                products
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">200 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">direct</span> &nbsp;·&nbsp;
+                  90.1s</span>
+                <span style="margin-left:12px"></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">5c8b95de36fa0cef</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">_direct_</td>
+                  <td><span style="background:#f5eef8;color:#8e44ad;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Direct LLM</span></td>
+                  <td style="text-align:right">4</td>
+                  <td style="text-align:right">2,168</td>
+                  <td style="text-align:right">15,291</td>
+                  <td style="text-align:right">$0.23587</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+            <section id="orders" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                orders
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">5,000 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">codegen</span> &nbsp;·&nbsp;
+                  1485.4s</span>
+                <span style="margin-left:12px"><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">21a14bdfa18fe8f5</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">order_id</td>
+                  <td><span style="background:#eafaf1;color:#27ae60;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Code-gen</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+                  <td><details style="margin-top:6px"><summary style="cursor:pointer;color:#555;font-size:0.85em">View generated function</summary><pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.82em;margin-top:6px">def generate_order_id(row, col_name):
+    return row.name + 1</pre></details></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">order_date</td>
+                  <td><span style="background:#eafaf1;color:#27ae60;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Code-gen</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+                  <td><details style="margin-top:6px"><summary style="cursor:pointer;color:#555;font-size:0.85em">View generated function</summary><pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.82em;margin-top:6px">def generate_order_date(row, col_name):
+    import random
+    from datetime import datetime, timedelta
+    end_date = datetime.now().date()
+    start_date = end_date - timedelta(days=730)
+    random_days = random.randint(0, (end_date - start_date).days)
+    return (start_date + timedelta(days=random_days)).isoformat()</pre></details></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">status</td>
+                  <td><span style="background:#eafaf1;color:#27ae60;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Code-gen</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+                  <td><details style="margin-top:6px"><summary style="cursor:pointer;color:#555;font-size:0.85em">View generated function</summary><pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.82em;margin-top:6px">def generate_status(row, col_name):
+    import random
+    statuses = [&#x27;pending&#x27;, &#x27;processing&#x27;, &#x27;shipped&#x27;, &#x27;delivered&#x27;, &#x27;cancelled&#x27;]
+    weights = [0.10, 0.20, 0.25, 0.40, 0.05]
+    return random.choices(statuses, weights=weights, k=1)[0]</pre></details></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">total_amount</td>
+                  <td><span style="background:#eafaf1;color:#27ae60;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Code-gen</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+                  <td><details style="margin-top:6px"><summary style="cursor:pointer;color:#555;font-size:0.85em">View generated function</summary><pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.82em;margin-top:6px">def generate_total_amount(row, col_name):
+    import random
+    return round(random.uniform(10.0, 10000.0), 2)</pre></details></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">customer_id</td>
+                  <td><span style="background:#e8f4fd;color:#2980b9;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">FK sampler</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">shipping_method</td>
+                  <td><span style="background:#fef9e7;color:#f39c12;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Semantic LLM</span></td>
+                  <td style="text-align:right">100</td>
+                  <td style="text-align:right">28,300</td>
+                  <td style="text-align:right">25,201</td>
+                  <td style="text-align:right">$0.46292</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+            <section id="reviews" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                reviews
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">3,000 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">codegen</span> &nbsp;·&nbsp;
+                  1151.0s</span>
+                <span style="margin-left:12px"><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">8e10a7047151ce40</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">review_id</td>
+                  <td><span style="background:#eafaf1;color:#27ae60;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Code-gen</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+                  <td><details style="margin-top:6px"><summary style="cursor:pointer;color:#555;font-size:0.85em">View generated function</summary><pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.82em;margin-top:6px">def generate_review_id(row, col_name):
+    return row.name + 1</pre></details></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">rating</td>
+                  <td><span style="background:#eafaf1;color:#27ae60;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Code-gen</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+                  <td><details style="margin-top:6px"><summary style="cursor:pointer;color:#555;font-size:0.85em">View generated function</summary><pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.82em;margin-top:6px">def generate_rating(row, col_name):
+    import random
+    rand = random.random()
+    if rand &lt; 0.30:
+        return 5
+    elif rand &lt; 0.65:
+        return 4
+    elif rand &lt; 0.85:
+        return 3
+    elif rand &lt; 0.95:
+        return 2
+    else:
+        return 1</pre></details></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">review_date</td>
+                  <td><span style="background:#eafaf1;color:#27ae60;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Code-gen</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+                  <td><details style="margin-top:6px"><summary style="cursor:pointer;color:#555;font-size:0.85em">View generated function</summary><pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.82em;margin-top:6px">def generate_review_date(row, col_name):
+    from datetime import datetime, timedelta
+    import random
+    start_date = datetime(2020, 1, 1)
+    end_date = datetime(2024, 12, 31)
+    days_between = (end_date - start_date).days
+    random_days = random.randint(0, days_between)
+    review_date = start_date + timedelta(days=random_days)
+    return review_date.strftime(&#x27;%Y-%m-%d&#x27;)</pre></details></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">product_id</td>
+                  <td><span style="background:#e8f4fd;color:#2980b9;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">FK sampler</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">customer_id</td>
+                  <td><span style="background:#e8f4fd;color:#2980b9;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">FK sampler</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">review_text</td>
+                  <td><span style="background:#fef9e7;color:#f39c12;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Semantic LLM</span></td>
+                  <td style="text-align:right">60</td>
+                  <td style="text-align:right">16,980</td>
+                  <td style="text-align:right">34,856</td>
+                  <td style="text-align:right">$0.57378</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+            <section id="order_items" style="margin-bottom:40px">
+              <h2 style="border-bottom:2px solid #e0e0e0;padding-bottom:8px;color:#2c3e50">
+                order_items
+                <span style="font-size:0.6em;font-weight:400;margin-left:12px">10,000 rows &nbsp;·&nbsp;
+                  <span style="font-variant:small-caps">codegen</span> &nbsp;·&nbsp;
+                  0.1s</span>
+                <span style="margin-left:12px"><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></span>
+                <span style="margin-left:8px;font-size:0.55em;font-weight:400"><code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.8em">09b5cb78f1b98db8</code></span>
+              </h2>
+              <table style="width:100%;border-collapse:collapse;font-size:0.9em">
+                <thead>
+                  <tr style="background:#f7f9fc;text-transform:uppercase;font-size:0.75em;letter-spacing:0.05em">
+                    <th style="text-align:left;padding:8px">Column</th>
+                    <th style="text-align:left;padding:8px">Strategy</th>
+                    <th style="text-align:right;padding:8px">Calls</th>
+                    <th style="text-align:right;padding:8px">In tok</th>
+                    <th style="text-align:right;padding:8px">Out tok</th>
+                    <th style="text-align:right;padding:8px">Cost</th>
+                    <th style="padding:8px">Cache</th>
+                    <th style="padding:8px">Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="font-family:monospace">item_id</td>
+                  <td><span style="background:#eafaf1;color:#27ae60;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Code-gen</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+                  <td><details style="margin-top:6px"><summary style="cursor:pointer;color:#555;font-size:0.85em">View generated function</summary><pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.82em;margin-top:6px">def generate_item_id(row, col_name):
+    return row.name + 1</pre></details></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">quantity</td>
+                  <td><span style="background:#eafaf1;color:#27ae60;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Code-gen</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+                  <td><details style="margin-top:6px"><summary style="cursor:pointer;color:#555;font-size:0.85em">View generated function</summary><pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.82em;margin-top:6px">def generate_quantity(row, col_name):
+    import random
+    return random.randint(1, 5)</pre></details></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">unit_price</td>
+                  <td><span style="background:#eafaf1;color:#27ae60;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Code-gen</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+                  <td><details style="margin-top:6px"><summary style="cursor:pointer;color:#555;font-size:0.85em">View generated function</summary><pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.82em;margin-top:6px">def generate_unit_price(row, col_name):
+    import random
+    return round(random.uniform(0.01, 10000.00), 2)</pre></details></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">discount</td>
+                  <td><span style="background:#eafaf1;color:#27ae60;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">Code-gen</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td><span style="background:#d5f5e3;color:#1e8449;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">HIT</span></td>
+                  <td><details style="margin-top:6px"><summary style="cursor:pointer;color:#555;font-size:0.85em">View generated function</summary><pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.82em;margin-top:6px">def generate_discount(row, col_name):
+    import random
+    return round(random.uniform(0, 20), 2)</pre></details></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">order_id</td>
+                  <td><span style="background:#e8f4fd;color:#2980b9;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">FK sampler</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td style="font-family:monospace">product_id</td>
+                  <td><span style="background:#e8f4fd;color:#2980b9;padding:2px 8px;border-radius:10px;font-size:0.8em;font-weight:600">FK sampler</span></td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">0</td>
+                  <td style="text-align:right">—</td>
+                  <td></td>
+                  <td></td>
+                </tr></tbody>
+              </table>
+            </section>
+</body>
+</html>
