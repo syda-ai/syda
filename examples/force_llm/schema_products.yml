@@ -1,0 +1,57 @@
+__table_description__: >
+  E-commerce product catalog. Each product belongs to a category with a price,
+  a short punchy tagline, and a rich multi-sentence description that conveys
+  features, materials, and target audience.
+
+product_id:
+  type: integer
+  description: Sequential product identifier
+  constraints:
+    primary_key: true
+
+category:
+  type: string
+  description: Product category
+  enum:
+    - Electronics
+    - Clothing
+    - Home & Garden
+    - Sports & Outdoors
+    - Books
+    - Toys & Games
+
+brand:
+  type: string
+  description: Manufacturer or brand name
+
+price:
+  type: float
+  description: Retail price in USD
+  constraints:
+    min: 4.99
+    max: 999.99
+
+stock_qty:
+  type: integer
+  description: Units in stock
+  constraints:
+    min: 0
+    max: 500
+
+product_name:
+  type: string
+  description: Short product name (3–6 words)
+  constraints:
+    max_length: 80
+
+tagline:
+  type: string
+  description: One-sentence marketing tagline that captures the product's appeal
+  force_llm: true
+
+description:
+  type: string
+  description: >
+    2–3 sentence product description covering key features, materials or
+    technology, and who it is designed for. Write in an engaging retail style.
+  force_llm: true
