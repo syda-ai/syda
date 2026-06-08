@@ -1,601 +1,601 @@
 review_id,product_id,customer_id,rating,review_text,review_date
-1,97,12,5,Great product! Exceeded my expectations and arrived quickly.,2023-04-08
-2,61,64,5,The quality is outstanding. Highly recommend to anyone looking for value.,2023-03-12
-3,51,18,4,"Decent purchase, but shipping took longer than expected.",2024-05-03
-4,27,75,4,Absolutely love it! Best decision I made this month.,2020-05-12
-5,64,146,3,Not what I expected. The description was misleading.,2022-08-25
-6,79,187,2,Excellent customer service. They resolved my issue immediately.,2020-10-09
-7,8,171,3,"Good for the price, though could use some improvements.",2020-06-24
-8,55,21,5,Fantastic! Exactly as pictured and very well made.,2021-11-18
-9,64,38,3,Disappointed with the durability. Broke after a few weeks.,2021-12-18
-10,20,96,4,Amazing quality and fast delivery. Very satisfied!,2024-12-06
-11,24,3,4,Waste of money. Stopped working after one month.,2022-12-19
-12,62,45,4,Solid product. Nothing fancy but gets the job done.,2023-02-11
-13,47,198,5,Love the design! Looks great in my home.,2021-03-14
-14,37,44,5,Poor packaging resulted in damage upon arrival.,2021-08-07
-15,99,19,4,Worth every penny. Exceeded all my expectations.,2023-04-20
-16,91,10,4,Average product. Nothing special about it.,2022-09-24
-17,58,22,5,Impressive performance. Much better than competitors.,2021-03-10
-18,57,27,4,Terrible experience. Would not recommend.,2024-10-18
-19,20,20,5,Perfect! Exactly what I was looking for.,2023-03-14
-20,35,29,3,The color is different from the online image.,2021-11-18
-21,51,112,4,Superb quality and excellent customer support.,2020-10-04
-22,66,20,5,Broke on the second day of use. Very disappointed.,2020-04-25
-23,98,14,4,Good value for money. Satisfied with my purchase.,2022-02-13
-24,49,186,5,The material feels cheap and low quality.,2023-10-14
-25,100,76,5,Brilliant! Works perfectly as described.,2022-09-04
-26,90,188,5,Took forever to arrive but product is great.,2024-12-02
-27,58,86,5,Not satisfied. Doesn't work as advertised.,2021-10-21
-28,54,132,1,Highly satisfied. Great product at a fair price.,2021-05-13
-29,17,35,1,The instructions were unclear and confusing.,2023-07-20
-30,49,183,3,Fantastic purchase! Already recommended to friends.,2024-02-20
-31,3,165,4,Overpriced for what you get.,2023-03-15
-32,29,24,1,Excellent! Exactly as described in the listing.,2024-06-08
-33,17,59,4,Very disappointed with the build quality.,2022-11-05
-34,93,82,5,Amazing! This is my second purchase.,2023-03-04
-35,66,156,4,The product arrived damaged and customer service was unhelpful.,2023-04-17
-36,16,135,5,Love it! Great quality and fast shipping.,2024-08-27
-37,96,124,1,Not worth the hype. Lots of better alternatives.,2023-01-07
-38,81,187,4,Perfect for my needs. Highly recommended.,2024-03-24
-39,7,132,4,The product is okay but customer service was rude.,2020-01-21
-40,33,28,3,Outstanding quality. Will definitely buy again.,2023-05-20
-41,42,133,5,Cheap materials and poor construction.,2022-09-05
-42,77,77,2,Fantastic experience from start to finish.,2022-09-17
-43,31,167,5,The item is smaller than expected.,2023-06-16
-44,26,56,3,Highly impressed with the quality and design.,2020-05-16
-45,76,71,3,Disappointed. Not as good as the reviews suggested.,2022-10-07
-46,66,136,4,Excellent product and speedy delivery.,2022-03-15
-47,96,90,4,The product works but feels flimsy.,2021-12-04
-48,26,4,4,Best purchase I've made in a long time!,2021-05-11
-49,25,86,4,Terrible quality for the price charged.,2024-03-15
-50,9,40,3,Great! Arrived on time and in perfect condition.,2024-11-16
-51,100,178,5,The functionality is limited compared to competitors.,2024-08-22
-52,3,26,3,Love the design and quality. Very happy!,2024-12-18
-53,9,14,2,Product is defective. Requesting a refund.,2021-07-06
-54,55,122,4,Excellent all around. Very satisfied customer.,2023-06-02
-55,21,20,4,The stitching came undone after minimal use.,2022-03-21
-56,98,11,3,Perfect quality and excellent value.,2023-02-11
-57,7,69,3,Not as described. Very disappointed.,2023-03-21
-58,76,71,4,Amazing product! Exceeded expectations.,2022-01-14
-59,88,102,4,The customer service team was extremely helpful.,2023-12-31
-60,65,26,4,Poor quality control. Multiple issues found.,2021-03-28
-61,47,156,3,Fantastic! Best money spent on this category.,2021-07-09
-62,37,142,3,The product stopped working after a few months.,2022-03-21
-63,41,104,5,Great quality and reasonable pricing.,2021-12-21
-64,13,43,4,Misleading product images. Not as advertised.,2022-04-29
-65,99,55,4,Highly recommend! Fantastic product.,2023-07-16
-66,77,63,5,The battery life is much shorter than claimed.,2021-10-09
-67,59,135,1,Excellent craftsmanship and attention to detail.,2024-04-18
-68,40,194,5,Disappointing purchase. Expected much better.,2024-02-29
-69,18,118,4,Love it! Great value for money.,2021-03-20
-70,47,63,5,The color faded quickly with normal use.,2021-12-21
-71,96,41,4,Outstanding product. Very impressed!,2024-10-23
-72,80,157,5,Not satisfied with the overall quality.,2021-04-23
-73,3,48,4,Perfect! Everything arrived as expected.,2020-07-10
-74,87,34,5,The product is fragile and broke easily.,2023-04-18
-75,43,11,4,Fantastic! Worth the investment.,2023-07-11
-76,63,187,3,Cheap and flimsy. Poor quality overall.,2022-12-29
-77,26,193,5,Excellent service and high-quality product.,2024-06-16
-78,31,172,5,The product doesn't match the description at all.,2021-02-09
-79,45,173,2,Love everything about this purchase!,2022-08-17
-80,2,92,4,The sizing is completely wrong.,2021-03-09
-81,52,50,3,Great product at an unbeatable price.,2021-06-23
-82,64,93,1,Very disappointed with my purchase.,2021-08-19
-83,79,34,5,Fantastic quality and excellent support.,2023-03-05
-84,97,17,5,The material is not as durable as promised.,2020-04-06
-85,46,53,2,Perfect! Exactly what I needed.,2020-12-12
-86,42,76,4,Poor customer service experience.,2024-12-12
-87,75,187,3,Highly satisfied with this product.,2021-04-01
-88,65,28,4,The product is defective right out of the box.,2022-08-11
-89,53,172,5,Excellent! Will purchase again.,2024-02-17
-90,78,82,1,Not worth the money. Many better options.,2022-08-24
-91,2,139,4,Amazing! Best product in its category.,2024-05-30
-92,70,78,4,The packaging was damaged and product too.,2021-12-23
-93,73,195,5,Great quality! Very happy with purchase.,2024-06-27
-94,84,7,4,The product is poorly designed.,2020-06-26
-95,61,147,5,Outstanding! Highly recommend to everyone.,2020-10-02
-96,5,70,5,Disappointed with the overall experience.,2020-01-29
-97,67,60,3,Love this product! Great quality.,2023-03-25
-98,44,11,3,The stitching is loose and coming apart.,2022-08-28
-99,98,104,3,Fantastic purchase! Very satisfied.,2020-05-14
-100,6,20,3,The product is not durable.,2024-05-04
-101,94,138,3,Perfect! Couldn't ask for better.,2022-04-03
-102,10,38,4,Terrible quality. Waste of money.,2024-10-14
-103,14,39,2,Excellent! Best decision ever.,2023-03-14
-104,42,50,5,The product doesn't work as advertised.,2021-08-02
-105,53,67,2,Great! Very pleased with purchase.,2021-03-13
-106,71,173,4,The material feels cheap.,2020-05-12
-107,59,122,3,Fantastic! Highly recommended.,2023-12-31
-108,94,32,2,Not satisfied at all.,2024-08-30
-109,55,140,1,Amazing quality and fast service!,2022-12-21
-110,25,177,3,The product is poorly made.,2022-04-05
-111,20,78,4,Excellent value for money.,2022-07-20
-112,90,191,4,Disappointed with the quality.,2023-12-31
-113,12,137,5,Love it! Best purchase ever.,2024-05-10
-114,21,93,3,The product stopped working.,2022-12-31
-115,41,140,4,Great! Just as described.,2022-03-16
-116,21,174,4,Not as good as expected.,2024-03-28
-117,31,70,5,Fantastic! Very happy.,2022-01-09
-118,69,148,4,The quality is subpar.,2020-02-17
-119,91,94,3,Perfect! Exactly right.,2021-07-13
-120,84,84,4,Terrible experience.,2020-09-26
-121,19,61,4,Excellent! Highly satisfied.,2024-11-19
-122,69,9,5,The product is defective.,2022-07-08
-123,59,16,4,Great! Will buy again.,2024-01-14
-124,16,89,5,Not good quality.,2021-02-12
-125,76,48,5,Amazing! Love it!,2023-07-24
-126,47,174,5,The product broke.,2023-07-20
-127,8,17,3,Fantastic! Great value.,2023-08-13
-128,23,174,5,Poor quality overall.,2021-10-10
-129,83,21,4,Excellent! Very impressed.,2023-03-14
-130,91,90,2,Disappointed overall.,2023-09-26
-131,58,130,4,Love this! Perfect.,2023-02-14
-132,71,5,4,The product is cheap.,2023-09-18
-133,30,31,5,Great! Highly recommend.,2022-03-06
-134,46,156,2,Not satisfied.,2020-04-09
-135,42,128,4,Fantastic quality!,2020-10-05
-136,83,111,3,The product failed.,2024-07-26
-137,87,77,4,Perfect! Amazing!,2024-07-03
-138,81,104,1,Terrible! Awful!,2021-03-06
-139,46,175,1,Excellent! Great!,2020-11-13
-140,5,63,4,Not as described.,2024-01-24
-141,17,128,4,Love it! Amazing!,2024-03-06
-142,13,1,4,The quality is poor.,2023-10-24
-143,75,118,3,Good! Satisfied.,2024-03-09
-144,4,37,5,Not good.,2020-04-09
-145,26,128,4,Fantastic! Best!,2023-12-25
-146,55,28,5,The product sucks.,2020-09-05
-147,82,186,4,Great! Perfect!,2021-05-05
-148,32,164,4,Disappointed.,2023-08-12
-149,38,175,4,Excellent! Wow!,2021-07-15
-150,11,133,4,The product is bad.,2020-09-17
-151,98,117,5,Amazing! Love!,2021-03-25
-152,47,176,4,Not worth it.,2024-01-24
-153,6,17,5,Fantastic! Yes!,2024-07-10
-154,79,129,5,The quality failed.,2021-12-29
-155,45,96,2,Good product overall.,2021-08-11
-156,71,79,5,Not recommended.,2024-05-02
-157,83,137,1,Excellent! Happy!,2022-06-11
-158,23,24,4,The product broke.,2022-07-20
-159,20,98,5,Great! Awesome!,2022-04-01
-160,63,129,4,Not satisfied.,2023-01-31
-161,93,2,5,Love it so much!,2024-03-23
-162,16,53,4,The product is terrible.,2020-05-28
-163,97,100,5,Perfect! Wonderful!,2020-01-04
-164,38,31,2,Disappointing purchase.,2023-01-15
-165,47,157,4,Excellent! Fantastic!,2024-08-26
-166,48,108,4,The product is useless.,2024-05-10
-167,19,54,3,Great! Very good!,2020-09-06
-168,98,194,4,Not good at all.,2023-08-13
-169,2,23,5,Fantastic! Superb!,2024-08-05
-170,58,65,5,The quality is awful.,2023-09-15
-171,39,79,4,Amazing! Incredible!,2023-07-07
-172,91,166,4,Not as advertised.,2024-06-06
-173,13,55,4,Excellent! Outstanding!,2020-12-01
-174,26,2,5,The product failed.,2021-09-28
-175,89,37,2,Great! Wonderful!,2022-05-21
-176,82,142,2,Disappointed with it.,2024-10-22
-177,72,169,4,Love it! Perfect!,2020-03-06
-178,11,77,5,The product is weak.,2023-05-30
-179,39,31,5,Fantastic! Excellent!,2022-05-23
-180,72,95,4,Not what I wanted.,2021-08-17
-181,49,46,5,Perfect! Amazing!,2020-12-14
-182,24,78,2,The quality stinks.,2021-01-14
-183,39,63,3,Great! Brilliant!,2024-02-28
-184,90,21,2,Not satisfied here.,2024-11-09
-185,17,125,4,Excellent! Marvelous!,2020-08-27
-186,34,91,4,The product is broken.,2021-10-12
-187,62,150,1,Amazing! Wonderful!,2024-10-23
-188,62,71,4,Not recommended here.,2022-02-23
-189,50,89,4,Fantastic! Splendid!,2023-09-01
-190,17,73,3,The product failed me.,2023-08-13
-191,13,154,5,Great! Superb!,2020-06-15
-192,39,40,2,Disappointed greatly.,2022-04-08
-193,40,64,5,Love it! Excellent!,2023-09-19
-194,88,93,4,The quality is bad.,2024-02-14
-195,46,168,3,Perfect! Fantastic!,2022-12-07
-196,68,197,5,Not good here.,2022-10-28
-197,23,10,4,Excellent! Wonderful!,2023-04-13
-198,65,118,3,The product broke down.,2020-05-22
-199,65,55,4,Great! Incredible!,2021-07-16
-200,88,142,5,Not satisfied at all.,2022-01-02
-201,75,60,3,Fantastic! Marvelous!,2022-12-08
-202,75,14,1,The product is awful.,2024-11-11
-203,45,92,5,Amazing! Perfect!,2022-09-04
-204,42,149,2,Not as expected here.,2024-07-09
-205,45,169,3,Excellent! Splendid!,2023-10-20
-206,36,145,3,The product failed.,2024-01-08
-207,37,49,3,Great! Fantastic!,2023-01-29
-208,52,74,5,Disappointed with quality.,2022-09-04
-209,52,181,5,Love it! Amazing!,2024-09-17
-210,18,141,5,The product is poor.,2024-06-22
-211,5,139,4,Perfect! Excellent!,2024-05-01
-212,57,83,4,Not what I got.,2020-04-11
-213,27,45,5,Fantastic! Wonderful!,2021-11-19
-214,5,130,5,The product is bad.,2023-02-23
-215,60,197,3,Great! Marvelous!,2023-06-11
-216,93,193,5,Not recommended.,2020-04-22
-217,13,66,5,Excellent! Fantastic!,2022-01-05
-218,96,106,5,The quality is awful.,2022-11-03
-219,17,55,4,Amazing! Superb!,2024-12-08
-220,63,65,4,Not satisfied here.,2021-11-07
-221,52,182,3,Fantastic! Perfect!,2021-09-02
-222,7,38,5,The product broke.,2020-06-24
-223,60,177,4,Great! Excellent!,2024-10-07
-224,3,57,5,Disappointed overall.,2023-03-17
-225,76,62,4,Love it! Wonderful!,2021-02-02
-226,10,191,5,The product is weak.,2022-04-03
-227,76,22,3,Perfect! Splendid!,2023-12-27
-228,17,19,4,Not good quality.,2022-04-16
-229,22,15,5,Excellent! Marvelous!,2020-08-15
-230,98,199,2,The product failed.,2023-11-23
-231,15,78,3,Great! Perfect!,2020-03-03
-232,55,11,3,Not satisfied.,2021-05-10
-233,83,142,5,Fantastic! Excellent!,2024-01-13
-234,44,104,5,The quality stinks.,2021-01-22
-235,3,82,5,Amazing! Fantastic!,2021-07-17
-236,80,13,4,Not as advertised.,2021-07-10
-237,5,124,4,Excellent! Wonderful!,2023-05-14
-238,84,141,4,The product is broken.,2022-06-23
-239,12,158,2,Great! Wonderful!,2023-09-17
-240,83,130,5,Disappointed.,2021-02-01
-241,8,174,4,Love it! Perfect!,2023-08-02
-242,30,127,4,The product is bad.,2021-03-05
-243,93,48,5,Perfect! Fantastic!,2024-10-21
-244,10,40,4,Not recommended.,2020-11-10
-245,38,135,3,Fantastic! Marvelous!,2021-10-24
-246,47,2,1,The product failed.,2021-02-12
-247,53,168,4,Great! Incredible!,2022-11-23
-248,24,102,2,Not satisfied.,2023-07-24
-249,23,173,4,Excellent! Splendid!,2020-09-18
-250,49,6,3,The quality is awful.,2020-04-05
-251,74,199,4,Amazing! Excellent!,2023-04-06
-252,10,63,4,Not as expected.,2023-03-23
-253,93,146,4,Fantastic! Wonderful!,2023-10-11
-254,56,83,1,The product broke.,2022-02-04
-255,13,72,4,Great! Fantastic!,2020-03-24
-256,21,43,4,Disappointed.,2024-04-10
-257,54,103,5,Love it! Excellent!,2023-07-01
-258,77,169,2,The product is poor.,2022-01-15
-259,36,92,4,Perfect! Wonderful!,2021-04-22
-260,65,144,1,Not good.,2021-10-10
-261,87,114,3,Excellent! Marvelous!,2022-04-06
-262,67,65,5,The product failed.,2023-12-13
-263,29,104,4,Great! Splendid!,2020-06-19
-264,19,80,3,Not satisfied.,2021-06-27
-265,47,110,5,Fantastic! Perfect!,2021-09-27
-266,56,67,4,The quality is bad.,2024-10-18
-267,24,25,2,Amazing! Wonderful!,2024-03-19
-268,93,63,2,Not recommended.,2024-09-23
-269,2,39,4,Excellent! Fantastic!,2022-04-21
-270,35,197,5,The product is broken.,2021-11-25
-271,87,163,5,Great! Marvelous!,2021-08-10
-272,14,19,4,Disappointed.,2022-09-12
-273,20,118,5,Love it! Fantastic!,2022-12-26
-274,51,177,4,The product is weak.,2022-11-20
-275,81,192,4,Perfect! Excellent!,2022-10-07
-276,51,109,5,Not what I expected.,2020-12-02
-277,68,192,4,Fantastic! Excellent!,2020-09-07
-278,71,85,5,The product failed.,2022-06-27
-279,36,2,5,Great! Wonderful!,2023-09-25
-280,81,145,4,Not satisfied.,2022-07-07
-281,98,173,4,Excellent! Wonderful!,2022-06-18
-282,20,111,4,The quality stinks.,2020-08-06
-283,96,65,5,Amazing! Perfect!,2020-04-18
-284,33,33,2,Not as advertised.,2024-01-10
-285,24,101,3,Fantastic! Splendid!,2022-12-24
-286,33,62,5,The product broke.,2021-11-22
-287,1,119,5,Great! Fantastic!,2024-02-18
-288,95,165,3,Disappointed.,2023-06-06
-289,50,38,3,Love it! Wonderful!,2023-11-27
-290,64,117,5,The product is bad.,2021-11-13
-291,54,76,4,Perfect! Marvelous!,2023-07-05
-292,16,197,4,Not good.,2024-07-28
-293,82,25,5,Excellent! Excellent!,2020-07-27
-294,65,164,5,The product is useless.,2024-07-07
-295,76,7,5,Great! Perfect!,2021-06-30
-296,68,38,3,Not satisfied.,2024-05-22
-297,8,123,5,Fantastic! Wonderful!,2024-08-12
-298,99,163,4,The quality is awful.,2024-08-12
-299,85,35,4,Amazing! Fantastic!,2023-02-25
-300,26,110,5,Not recommended.,2022-02-21
-301,7,20,4,Excellent! Marvelous!,2020-12-12
-302,40,133,1,The product failed.,2024-05-21
-303,6,192,4,Great! Excellent!,2020-09-01
-304,98,19,5,Disappointed.,2020-06-08
-305,73,192,5,Love it! Perfect!,2020-10-14
-306,63,39,2,The product is poor.,2023-06-03
-307,89,62,4,Perfect! Wonderful!,2021-05-09
-308,17,66,3,Not what I got.,2023-06-15
-309,15,87,3,Fantastic! Fantastic!,2023-12-15
-310,68,144,4,The product broke.,2021-11-25
-311,71,155,4,Great! Splendid!,2020-01-09
-312,85,181,5,Not satisfied.,2024-06-07
-313,32,41,5,Excellent! Excellent!,2021-03-23
-314,35,152,5,The quality is bad.,2020-09-28
-315,25,81,2,Amazing! Wonderful!,2022-02-25
-316,66,153,3,Not as expected.,2020-01-24
-317,1,143,5,Fantastic! Perfect!,2022-01-02
-318,16,121,3,The product failed.,2023-12-21
-319,51,154,5,Great! Wonderful!,2020-05-23
-320,61,163,4,Disappointed.,2024-05-31
-321,50,67,4,Love it! Excellent!,2021-07-08
-322,12,107,3,The product is weak.,2023-07-01
-323,18,21,3,Perfect! Fantastic!,2021-03-12
-324,94,184,4,Not good.,2022-03-16
-325,96,80,5,Excellent! Wonderful!,2021-04-08
-326,77,47,4,The product is broken.,2022-06-12
-327,4,150,4,Great! Marvelous!,2023-06-22
-328,66,103,5,Not satisfied.,2023-04-24
-329,2,54,4,Fantastic! Excellent!,2023-03-26
-330,53,19,4,The quality stinks.,2022-09-05
-331,3,105,4,Amazing! Splendid!,2022-09-22
-332,35,68,4,Not recommended.,2020-07-01
-333,81,80,4,Excellent! Perfect!,2022-09-29
-334,68,89,3,The product failed.,2020-08-20
-335,86,164,4,Great! Fantastic!,2022-07-26
-336,6,114,2,Disappointed.,2023-12-17
-337,2,102,3,Love it! Wonderful!,2024-09-09
-338,55,190,3,The product is bad.,2023-03-07
-339,53,65,5,Perfect! Excellent!,2023-07-30
-340,10,31,5,Not what I wanted.,2023-06-01
-341,95,54,3,Fantastic! Marvelous!,2024-09-27
-342,86,83,4,The product broke.,2020-12-26
-343,53,191,5,Great! Wonderful!,2021-11-10
-344,18,153,4,Not satisfied.,2023-11-08
-345,1,90,5,Excellent! Wonderful!,2021-12-13
-346,49,164,2,The quality is awful.,2022-12-30
-347,79,22,4,Amazing! Fantastic!,2024-11-25
-348,76,171,3,Not as advertised.,2020-07-17
-349,22,18,2,Fantastic! Excellent!,2023-05-22
-350,4,173,5,The product is useless.,2024-10-29
-351,88,144,1,Great! Perfect!,2022-07-12
-352,40,44,2,Disappointed.,2020-10-18
-353,35,80,3,Love it! Perfect!,2022-10-27
-354,77,67,5,The product is poor.,2024-04-06
-355,81,127,5,Perfect! Wonderful!,2020-04-20
-356,57,10,3,Not good.,2021-02-21
-357,9,191,3,Excellent! Splendid!,2020-08-22
-358,56,200,5,The product failed.,2023-06-18
-359,38,83,5,Great! Fantastic!,2023-12-04
-360,25,102,4,Not satisfied.,2022-01-27
-361,27,139,4,Fantastic! Wonderful!,2023-10-04
-362,42,127,1,The quality is bad.,2020-02-08
-363,63,8,2,Amazing! Excellent!,2020-04-21
-364,37,99,4,Not recommended.,2024-02-28
-365,44,154,4,Excellent! Marvelous!,2021-09-24
-366,50,172,4,The product broke.,2020-06-17
-367,38,27,2,Great! Wonderful!,2021-10-25
-368,87,149,2,Disappointed.,2022-11-13
-369,12,129,3,Love it! Fantastic!,2023-05-31
-370,11,151,5,The product is weak.,2023-04-17
-371,81,174,5,Perfect! Perfect!,2021-06-04
-372,29,162,3,Not as expected.,2021-09-23
-373,89,175,5,Fantastic! Excellent!,2024-09-14
-374,81,116,5,The product failed.,2022-01-30
-375,7,196,4,Great! Splendid!,2022-07-03
-376,69,167,5,Not satisfied.,2021-07-23
-377,80,96,5,Excellent! Wonderful!,2023-01-08
-378,95,129,5,The quality stinks.,2021-12-21
-379,34,76,3,Amazing! Wonderful!,2023-06-24
-380,41,194,5,Not what I got.,2023-03-26
-381,45,200,4,Fantastic! Perfect!,2023-03-29
-382,30,178,4,The product is broken.,2023-05-02
-383,70,114,5,Great! Marvelous!,2024-11-20
-384,9,44,5,Disappointed.,2021-11-18
-385,71,101,5,Love it! Wonderful!,2021-10-05
-386,52,14,3,The product is bad.,2021-05-28
-387,35,87,3,Perfect! Fantastic!,2021-05-13
-388,35,134,3,Not good.,2020-07-02
-389,10,3,5,Excellent! Excellent!,2020-12-19
-390,84,73,4,The product is useless.,2024-12-03
-391,35,151,4,Great! Fantastic!,2020-04-15
-392,67,145,5,Not satisfied.,2024-03-13
-393,52,156,3,Fantastic! Wonderful!,2020-01-14
-394,12,176,5,The quality is awful.,2024-01-09
-395,17,154,4,Amazing! Perfect!,2023-09-05
-396,81,144,4,Not recommended.,2024-06-15
-397,24,127,4,Excellent! Wonderful!,2022-06-01
-398,71,179,5,The product failed.,2021-05-28
-399,16,93,2,Great! Excellent!,2020-01-01
-400,62,74,4,Disappointed.,2023-05-28
-401,24,2,3,Love it! Excellent!,2021-08-20
-402,21,197,2,The product is poor.,2022-01-24
-403,88,75,3,Perfect! Wonderful!,2021-01-03
-404,97,3,3,Not as advertised.,2022-04-09
-405,43,100,5,Fantastic! Splendid!,2023-10-14
-406,86,85,5,The product broke.,2021-07-08
-407,88,133,4,Great! Wonderful!,2020-06-17
-408,45,100,1,Not satisfied.,2020-11-29
-409,98,25,2,Excellent! Marvelous!,2021-10-20
-410,41,70,5,The quality is bad.,2023-04-16
-411,75,103,4,Amazing! Fantastic!,2020-09-12
-412,37,82,3,Not what I expected.,2023-05-21
-413,80,36,5,Fantastic! Perfect!,2021-01-30
-414,8,62,3,The product failed.,2024-04-29
-415,62,115,5,Great! Perfect!,2024-05-19
-416,71,122,3,Disappointed.,2022-03-31
-417,52,120,4,Love it! Wonderful!,2022-09-29
-418,29,54,4,The product is weak.,2020-04-02
-419,62,125,2,Perfect! Excellent!,2022-12-29
-420,7,60,4,Not good.,2022-12-08
-421,93,82,5,Excellent! Wonderful!,2022-05-27
-422,92,40,3,The product is broken.,2023-08-21
-423,7,91,5,Great! Splendid!,2020-03-05
-424,28,160,3,Not satisfied.,2023-05-01
-425,48,148,3,Fantastic! Excellent!,2023-12-30
-426,97,118,1,The quality stinks.,2024-07-14
-427,45,137,3,Amazing! Wonderful!,2021-05-18
-428,13,200,3,Not recommended.,2024-04-13
-429,57,132,4,Fantastic! Marvelous!,2024-09-19
-430,31,167,4,The product is useless.,2024-02-20
-431,23,53,5,Great! Fantastic!,2021-04-27
-432,47,102,3,Disappointed.,2022-08-30
-433,9,198,4,Love it! Perfect!,2024-09-03
-434,19,190,4,The product is bad.,2023-08-19
-435,43,17,5,Perfect! Wonderful!,2021-07-16
-436,24,148,4,Not as expected.,2023-08-22
-437,79,121,3,Excellent! Excellent!,2023-12-21
-438,88,157,4,The product failed.,2023-02-21
-439,71,95,5,Great! Wonderful!,2020-04-28
-440,54,110,5,Not satisfied.,2020-04-03
-441,60,161,4,Fantastic! Wonderful!,2022-08-05
-442,78,81,1,The quality is awful.,2022-03-16
-443,64,128,2,Amazing! Excellent!,2021-09-11
-444,41,161,5,Not what I got.,2023-01-29
-445,92,189,1,Excellent! Perfect!,2022-05-27
-446,19,116,4,The product broke.,2021-07-24
-447,79,29,4,Great! Marvelous!,2023-02-12
-448,84,184,4,Disappointed.,2020-11-04
-449,37,29,3,Love it! Fantastic!,2024-07-11
-450,40,23,4,The product is poor.,2021-09-18
-451,62,95,4,Perfect! Splendid!,2021-12-28
-452,59,161,5,Not good.,2020-05-02
-453,88,95,2,Fantastic! Wonderful!,2023-05-09
-454,27,46,4,The product failed.,2023-12-10
-455,17,156,1,Great! Excellent!,2021-11-19
-456,51,116,5,Not satisfied.,2023-10-31
-457,1,8,4,Excellent! Wonderful!,2024-05-02
-458,26,76,3,The quality is bad.,2020-11-14
-459,54,34,4,Amazing! Perfect!,2024-10-19
-460,87,180,5,Not recommended.,2022-07-06
-461,56,183,1,Fantastic! Excellent!,2023-12-26
-462,52,128,1,The product is broken.,2020-05-24
-463,43,47,4,Great! Wonderful!,2021-07-10
-464,79,73,2,Disappointed.,2022-05-28
-465,60,144,3,Love it! Wonderful!,2020-06-16
-466,6,93,4,The product is weak.,2020-02-02
-467,70,189,4,Perfect! Fantastic!,2023-04-12
-468,19,105,4,Not as advertised.,2023-05-21
-469,94,113,3,Excellent! Marvelous!,2022-12-18
-470,38,50,2,The product failed.,2020-08-14
-471,36,100,5,Great! Perfect!,2022-03-08
-472,31,59,4,Not satisfied.,2021-09-16
-473,13,1,4,Fantastic! Wonderful!,2020-05-11
-474,96,104,4,The quality stinks.,2020-05-02
-475,92,24,5,Amazing! Fantastic!,2024-01-20
-476,65,81,2,Not what I expected.,2023-06-01
-477,67,99,1,Excellent! Excellent!,2023-06-19
-478,49,102,4,The product broke.,2023-11-15
-479,44,196,5,Great! Splendid!,2020-04-21
-480,14,159,5,Disappointed.,2020-02-02
-481,79,153,5,Love it! Perfect!,2021-01-08
-482,43,199,1,The product is bad.,2020-04-26
-483,76,112,5,Perfect! Wonderful!,2020-05-17
-484,51,156,5,Not good.,2022-03-08
-485,32,4,4,Fantastic! Perfect!,2020-08-26
-486,90,39,5,The product is useless.,2020-06-11
-487,25,35,5,Great! Fantastic!,2023-09-05
-488,36,134,4,Not satisfied.,2024-12-06
-489,58,194,4,Excellent! Wonderful!,2020-01-29
-490,39,83,5,The quality is awful.,2020-04-01
-491,30,104,5,Amazing! Wonderful!,2021-08-07
-492,27,95,4,Not recommended.,2020-01-17
-493,72,171,4,Fantastic! Marvelous!,2023-05-25
-494,86,104,4,The product failed.,2021-07-14
-495,74,8,5,Great! Wonderful!,2021-04-27
-496,75,200,4,Disappointed.,2024-01-30
-497,58,69,1,Love it! Excellent!,2024-12-05
-498,84,177,4,The product is poor.,2022-12-06
-499,2,158,5,Perfect! Excellent!,2024-09-02
-500,86,185,4,Not as expected.,2021-05-30
-501,31,194,4,Excellent! Excellent!,2021-10-22
-502,73,72,4,The product broke.,2024-07-29
-503,67,115,5,Great! Marvelous!,2023-06-28
-504,60,8,2,Not satisfied.,2020-02-13
-505,6,176,5,Fantastic! Wonderful!,2023-01-04
-506,97,171,4,The quality is bad.,2023-11-05
-507,58,116,3,Amazing! Excellent!,2022-07-24
-508,22,88,4,Not what I got.,2021-04-10
-509,2,5,4,Excellent! Perfect!,2023-01-02
-510,46,12,3,The product failed.,2020-08-01
-511,97,77,5,Great! Perfect!,2021-03-30
-512,50,43,5,Disappointed.,2024-04-18
-513,21,36,2,Love it! Wonderful!,2023-02-09
-514,18,53,4,The product is weak.,2022-08-30
-515,58,200,4,Perfect! Wonderful!,2023-12-14
-516,10,145,5,Not good.,2023-07-12
-517,73,37,5,Fantastic! Excellent!,2022-03-02
-518,4,36,4,The product is broken.,2021-05-27
-519,74,1,4,Great! Splendid!,2022-03-20
-520,94,119,4,Not satisfied.,2020-08-13
-521,84,133,2,Excellent! Marvelous!,2021-08-15
-522,12,120,3,The quality stinks.,2023-10-29
-523,76,54,4,Amazing! Perfect!,2022-03-15
-524,37,6,2,Not recommended.,2020-11-05
-525,19,13,4,Fantastic! Wonderful!,2022-01-13
-526,92,187,5,The product is useless.,2023-11-23
-527,4,35,5,Great! Fantastic!,2020-10-01
-528,6,163,2,Disappointed.,2023-01-10
-529,81,100,1,Great product! Exceeded my expectations and arrived quickly.,2022-10-07
-530,2,146,4,The quality is outstanding. Highly recommend to anyone looking for value.,2021-12-08
-531,56,191,5,"Decent purchase, but shipping took longer than expected.",2024-11-09
-532,13,146,3,Absolutely love it! Best decision I made this month.,2022-04-23
-533,73,44,5,Not what I expected. The description was misleading.,2021-03-19
-534,80,120,4,Excellent customer service. They resolved my issue immediately.,2022-04-05
-535,8,173,3,"Good for the price, though could use some improvements.",2022-09-15
-536,58,185,4,Fantastic! Exactly as pictured and very well made.,2021-09-27
-537,65,19,4,Disappointed with the durability. Broke after a few weeks.,2020-05-20
-538,24,164,2,Amazing quality and fast delivery. Very satisfied!,2020-02-09
-539,17,198,3,Waste of money. Stopped working after one month.,2021-09-03
-540,79,11,5,Solid product. Nothing fancy but gets the job done.,2022-03-17
-541,25,112,5,Love the design! Looks great in my home.,2024-07-12
-542,59,135,4,Poor packaging resulted in damage upon arrival.,2023-03-03
-543,83,144,2,Worth every penny. Exceeded all my expectations.,2024-12-02
-544,38,59,2,Average product. Nothing special about it.,2020-08-28
-545,25,169,2,Impressive performance. Much better than competitors.,2022-08-16
-546,28,21,1,Terrible experience. Would not recommend.,2021-03-10
-547,12,53,4,Perfect! Exactly what I was looking for.,2020-06-27
-548,83,56,4,The color is different from the online image.,2023-04-08
-549,97,55,1,Superb quality and excellent customer support.,2021-12-03
-550,10,176,2,Broke on the second day of use. Very disappointed.,2024-06-19
-551,26,157,2,Good value for money. Satisfied with my purchase.,2020-02-17
-552,92,158,3,The material feels cheap and low quality.,2024-02-29
-553,24,84,5,Brilliant! Works perfectly as described.,2023-07-06
-554,24,54,4,Took forever to arrive but product is great.,2023-12-05
-555,96,51,4,Not satisfied. Doesn't work as advertised.,2020-07-31
-556,77,145,3,Highly satisfied. Great product at a fair price.,2021-10-15
-557,99,88,5,The instructions were unclear and confusing.,2021-11-28
-558,63,53,5,Fantastic purchase! Already recommended to friends.,2020-11-25
-559,48,62,3,Overpriced for what you get.,2021-01-06
-560,94,84,4,Excellent! Exactly as described in the listing.,2020-03-06
-561,56,37,5,Very disappointed with the build quality.,2024-08-01
-562,84,136,3,Amazing! This is my second purchase.,2020-07-07
-563,42,126,4,The product arrived damaged and customer service was unhelpful.,2023-08-09
-564,44,160,3,Love it! Great quality and fast shipping.,2022-12-12
-565,54,63,2,Not worth the hype. Lots of better alternatives.,2020-07-15
-566,15,122,4,Perfect for my needs. Highly recommended.,2023-11-16
-567,38,87,3,The product is okay but customer service was rude.,2020-09-10
-568,8,1,4,Outstanding quality. Will definitely buy again.,2020-09-02
-569,56,32,4,Cheap materials and poor construction.,2020-04-20
-570,84,66,3,Fantastic experience from start to finish.,2022-11-03
-571,60,44,1,The item is smaller than expected.,2020-11-28
-572,44,14,5,Highly impressed with the quality and design.,2021-08-18
-573,30,43,1,Disappointed. Not as good as the reviews suggested.,2024-11-20
-574,22,93,2,Excellent product and speedy delivery.,2020-01-27
-575,47,79,4,The product works but feels flimsy.,2020-03-12
-576,1,124,4,Best purchase I've made in a long time!,2022-04-17
-577,85,32,5,Terrible quality for the price charged.,2020-02-16
-578,66,140,5,Great! Arrived on time and in perfect condition.,2020-08-02
-579,85,144,4,The functionality is limited compared to competitors.,2024-02-21
-580,1,7,5,Love the design and quality. Very happy!,2020-04-05
-581,79,35,5,Product is defective. Requesting a refund.,2020-10-21
-582,6,88,4,Excellent all around. Very satisfied customer.,2023-12-16
-583,84,34,4,The stitching came undone after minimal use.,2022-11-14
-584,64,72,3,Perfect quality and excellent value.,2020-04-24
-585,59,36,5,Not as described. Very disappointed.,2024-12-05
-586,44,116,4,Amazing product! Exceeded expectations.,2022-01-17
-587,26,41,2,The customer service team was extremely helpful.,2021-08-08
-588,68,87,3,Poor quality control. Multiple issues found.,2020-11-02
-589,30,179,1,Fantastic! Best money spent on this category.,2024-08-07
-590,54,32,5,The product stopped working after a few months.,2023-06-20
-591,80,23,2,Great quality and reasonable pricing.,2022-11-29
-592,38,64,2,Misleading product images. Not as advertised.,2024-01-10
-593,32,144,2,Highly recommend! Fantastic product.,2024-06-23
-594,54,197,4,The battery life is much shorter than claimed.,2024-06-11
-595,64,33,4,Excellent craftsmanship and attention to detail.,2021-08-18
-596,80,152,5,Disappointing purchase. Expected much better.,2020-12-22
-597,14,111,4,Love it! Great value for money.,2024-05-29
-598,30,120,2,The color faded quickly with normal use.,2021-02-03
-599,35,52,5,Outstanding product. Very impressed!,2024-06-14
-600,46,96,5,Not satisfied with the overall quality.,2021-11-04
+1,3,16,4,Great product! Exceeded my expectations and arrived on time.,2023-01-02
+2,95,192,4,Disappointed with the quality. The item broke after one week of use.,2020-04-14
+3,42,149,4,Amazing customer service. They resolved my issue within 24 hours.,2020-11-15
+4,15,177,5,Waste of money. Does not work as advertised.,2022-01-22
+5,79,130,5,Good value for the price. Would recommend to friends.,2021-06-12
+6,53,154,4,The packaging was damaged but the product inside was fine.,2023-10-28
+7,7,36,3,Absolutely love it! Using it every day and couldn't be happier.,2022-08-04
+8,44,195,1,Poor quality materials. Not worth the price tag.,2021-07-10
+9,94,132,3,Decent product but took forever to arrive.,2021-04-07
+10,97,127,5,Five stars! Best purchase I've made all year.,2021-11-10
+11,5,6,4,Terrible experience. Had to return it immediately.,2024-03-02
+12,38,10,3,It's okay. Nothing special but does what it's supposed to do.,2024-01-15
+13,55,12,4,Fantastic! Better than the competitor's version.,2020-06-24
+14,29,86,5,The product itself is fine but the instructions were confusing.,2023-10-31
+15,29,49,3,Outstanding quality and fast shipping. Very satisfied.,2021-08-22
+16,52,133,4,Defective upon arrival. Customer service was unhelpful.,2021-09-26
+17,80,10,4,Love the design and functionality. Highly recommend.,2022-01-01
+18,64,184,5,Not as pictured in the listing. Very disappointed.,2023-09-06
+19,23,191,5,Excellent purchase. Great quality and great price.,2021-04-24
+20,40,49,5,The color faded after a few washes. Not satisfied.,2023-04-19
+21,52,192,4,Perfect for my needs. Exactly what I was looking for.,2020-04-28
+22,60,58,5,Cheap materials and poor construction. Avoid this product.,2023-04-11
+23,9,104,2,Pleasantly surprised by the quality at this price point.,2024-05-26
+24,64,149,4,Broke on the second day. Terrible durability.,2023-01-21
+25,79,116,4,Good customer service made up for the mediocre product.,2020-08-28
+26,56,178,4,Absolutely perfect! Couldn't ask for anything better.,2022-11-25
+27,79,118,5,The product works but feels cheaply made.,2021-10-14
+28,99,108,2,Best investment I've made. Worth every penny.,2022-06-07
+29,100,50,5,Arrived damaged and replacement took weeks to get.,2022-02-09
+30,8,37,4,Impressive quality and attention to detail. Very happy.,2022-04-18
+31,14,96,3,Doesn't match the description at all. Misleading listing.,2022-04-04
+32,79,127,5,Solid product. Does exactly what it claims.,2023-07-18
+33,49,141,3,The build quality is exceptional. Very impressed.,2020-11-11
+34,68,25,2,Had high expectations but was let down.,2022-12-02
+35,38,66,3,Would buy again. Great experience overall.,2021-03-22
+36,12,117,5,Subpar quality for the price. Disappointed.,2022-02-13
+37,6,15,4,Fantastic value for money. Highly satisfied.,2023-04-16
+38,87,14,5,The packaging was beautiful but the product was fragile.,2020-02-10
+39,93,95,4,Love it! Exactly what I needed.,2022-04-20
+40,87,124,4,Poor construction. Falling apart after minimal use.,2023-12-03
+41,72,159,4,Quality exceeded my expectations. Recommend to everyone.,2024-04-11
+42,14,10,5,Not worth the hype. Overpriced and underperforms.,2022-11-20
+43,48,109,4,Impressive product. Will definitely purchase again.,2020-11-14
+44,29,15,5,The worst purchase I've made in years.,2022-07-31
+45,73,56,5,Excellent craftsmanship and attention to detail.,2023-09-20
+46,61,176,4,Mediocre at best. There are better alternatives.,2021-08-20
+47,27,108,4,This product is a game-changer. Love it!,2021-08-14
+48,67,61,3,Arrived defective with no resolution from support.,2020-06-09
+49,11,17,4,Outstanding in every way. Highly recommend to all.,2023-01-25
+50,33,32,2,Great product! Exceeded my expectations. Highly recommend to anyone looking for quality.,2023-01-03
+51,14,45,2,Disappointed with the quality. Arrived damaged and customer service was unhelpful.,2024-06-29
+52,89,122,4,Amazing! Works exactly as described. Will definitely purchase again.,2021-09-25
+53,36,130,2,Not worth the price. There are better alternatives available.,2024-10-26
+54,4,90,2,Fantastic experience from start to finish. Very satisfied with my purchase.,2021-12-18
+55,22,119,3,"The product is okay, nothing special. Average quality for the price.",2024-04-02
+56,76,45,3,Absolutely love it! Fast shipping and excellent packaging.,2022-08-10
+57,81,192,2,Waste of money. Broke after just one week of use.,2023-12-19
+58,57,168,1,Exceeded expectations! Great value for money.,2023-09-09
+59,29,85,5,Poor quality materials. Doesn't match the product description.,2023-09-22
+60,73,7,3,Perfect! Everything arrived on time and in perfect condition.,2021-04-22
+61,21,141,5,Mediocre at best. I expected much better quality.,2020-06-30
+62,39,65,3,Outstanding customer service and great product quality!,2021-10-23
+63,37,175,5,Defective item received. Replacement process was complicated.,2020-05-21
+64,30,89,4,Best purchase I've made in a long time. Highly satisfied.,2024-09-22
+65,65,91,2,The product works but it's overpriced for what you get.,2023-05-12
+66,26,162,3,Impressive quality and attention to detail. Very happy with this purchase.,2022-10-23
+67,18,149,4,Terrible experience. Item doesn't work as advertised.,2022-02-03
+68,52,86,2,Excellent! Exactly what I was looking for. Great price too.,2021-10-31
+69,36,180,5,Not as good as expected. The pictures were misleading.,2024-06-21
+70,22,168,4,Five stars! Everything about this product is perfect.,2020-09-03
+71,75,40,3,Subpar quality. Wouldn't recommend to friends or family.,2021-02-20
+72,50,127,5,Wonderful! Fast delivery and great communication from seller.,2020-07-23
+73,72,100,3,Disappointing. The product deteriorated quickly after purchase.,2020-06-23
+74,45,83,4,Fantastic quality and durability. Worth every penny.,2024-05-17
+75,13,32,4,Average product with average customer service.,2022-10-20
+76,35,40,2,Love it! Exactly as described and great value.,2023-10-18
+77,64,29,4,Not satisfied. Had issues from day one.,2023-05-29
+78,17,106,1,Outstanding! Couldn't ask for better quality or service.,2022-02-05
+79,29,144,4,Overpriced for the quality you receive. Disappointed.,2023-09-28
+80,73,194,5,Absolutely fantastic! Recommending to everyone I know.,2024-03-21
+81,25,43,5,Poor craftsmanship. Expected much better for this price point.,2021-07-27
+82,7,45,4,Excellent product! Great design and very functional.,2021-10-29
+83,91,199,5,Buyer beware - this product has serious defects.,2021-12-24
+84,45,33,2,Perfect purchase! Fast shipping and excellent quality.,2020-02-09
+85,66,133,3,Below average. Many better options available online.,2021-10-24
+86,63,136,3,Superb quality! Very impressed with the attention to detail.,2023-11-11
+87,100,194,4,Defective upon arrival. Customer service was unresponsive.,2021-01-05
+88,56,129,4,Highly recommend! Best purchase I've made all year.,2023-09-26
+89,77,140,5,Mediocre quality and poor customer support.,2022-10-09
+90,86,164,5,Excellent value for money. Very happy with this purchase.,2020-10-13
+91,25,20,5,The product is flimsy and broke within days.,2022-09-06
+92,42,151,3,Fantastic! Arrived quickly and works perfectly.,2021-03-21
+93,59,147,3,Not worth the investment. Looking for alternatives.,2023-07-10
+94,41,177,5,Amazing quality and craftsmanship. Very satisfied customer.,2020-02-20
+95,54,154,3,Disappointing purchase. Doesn't match the product photos.,2020-12-29
+96,42,186,5,Brilliant! Exactly what I needed. Highly satisfied.,2022-02-10
+97,66,126,5,Poor quality control. Arrived with multiple defects.,2022-04-17
+98,94,110,1,Wonderful experience overall. Will buy again for sure.,2024-05-25
+99,39,141,4,Terrible product. Stopped working after a week.,2023-09-14
+100,81,103,2,The product arrived quickly and exceeded my expectations. Great quality for the price!,2020-06-28
+101,2,107,4,Disappointed with the quality. The item fell apart after just two weeks of use.,2020-01-21
+102,67,6,2,Amazing service from the customer support team. They resolved my issue within hours.,2024-12-12
+103,46,139,5,Not what I expected based on the photos. The color is much darker in person.,2024-09-08
+104,66,139,5,Absolutely love it! Already ordered a second one for my sister.,2024-03-07
+105,68,39,4,"The packaging was damaged when it arrived, but the product itself is intact and works well.",2020-05-16
+106,71,128,5,Terrible experience. Item arrived late and was completely different from the description.,2020-06-22
+107,12,199,1,Five stars! This is the best purchase I've made all year.,2024-05-24
+108,39,196,3,The instructions were confusing and unclear. Took me hours to figure out how to use it.,2022-05-02
+109,89,163,3,"Decent product, but the price is a bit steep for what you're getting.",2021-05-21
+110,49,64,3,Exceeded expectations! The quality is premium and delivery was super fast.,2022-02-05
+111,53,95,5,The item broke within a week. Very disappointed with the durability.,2022-11-14
+112,47,75,5,Good value for money. Does exactly what it's supposed to do.,2022-01-18
+113,10,130,5,Customer service was unhelpful and rude. Would not recommend.,2021-05-25
+114,35,10,1,"It's okay. Nothing special, but it does the job.",2022-09-24
+115,6,164,4,The best investment I've made. Highly recommend to everyone!,2023-05-25
+116,11,77,3,Poor quality materials. Feels cheap and won't last long.,2021-08-10
+117,27,195,4,"Great product, but the shipping took longer than expected.",2023-12-05
+118,89,68,5,Fantastic! Exactly what I was looking for. Very satisfied.,2023-06-12
+119,41,91,4,"The product works fine, but the warranty information was misleading.",2020-08-07
+120,34,130,2,Outstanding quality and fantastic customer support. Will buy again!,2020-08-24
+121,15,157,3,Not satisfied. The item doesn't match the product description at all.,2021-01-03
+122,17,149,3,Perfect! Arrived on time and in perfect condition.,2024-04-22
+123,80,8,3,The sizing is all wrong. Ordered medium and it fits like a small.,2022-06-01
+124,39,66,4,Love this! Best money I've spent in ages. Highly recommend.,2022-03-28
+125,4,190,4,"The product is okay, but there are better alternatives available.",2022-11-13
+126,62,107,4,Extremely disappointed. Waste of money and time.,2021-02-05
+127,37,74,4,This exceeded my expectations in every way. Fantastic purchase!,2020-09-18
+128,50,98,4,The item is smaller than I thought it would be based on the photos.,2022-02-08
+129,9,40,4,Great quality and fast delivery. Very happy with my purchase.,2021-11-26
+130,55,9,4,The product arrived damaged and the company wouldn't refund me.,2023-04-22
+131,89,101,5,Absolutely perfect! Can't imagine my life without it now.,2023-10-05
+132,5,181,4,Mediocre product. Expected much better quality for this price.,2020-03-15
+133,82,165,2,Fast shipping and great product. Very impressed!,2024-07-16
+134,31,125,4,The customer service team was helpful and professional throughout the process.,2020-01-23
+135,60,179,2,Not worth the money. There are cheaper alternatives that are just as good.,2020-01-10
+136,44,139,5,Excellent quality! This is my third purchase from this brand.,2020-08-07
+137,46,3,4,The product is defective. It doesn't work as advertised.,2021-07-25
+138,87,3,3,Surprisingly good! Much better than I expected for the price.,2023-02-07
+139,17,38,4,Very satisfied with my purchase. Would definitely buy again.,2023-03-21
+140,7,113,4,The quality is subpar and the customer service was unhelpful.,2021-10-11
+141,5,141,4,Love it! Perfect for what I needed. Highly satisfied.,2024-10-01
+142,85,62,3,The item is exactly as described. Very happy with it.,2024-12-15
+143,74,83,3,Disappointing experience overall. The product didn't meet my expectations.,2020-06-20
+144,49,110,4,This is the best product I've ever purchased. Can't recommend it enough!,2020-05-01
+145,47,192,1,The shipping was fast but the product quality is questionable.,2021-05-05
+146,18,29,5,Wonderful experience from start to finish. Highly recommend!,2020-07-07
+147,3,151,3,The product works as intended but the build quality could be better.,2020-09-13
+148,66,125,5,Absolutely fantastic! Worth every penny. Thank you!,2022-07-01
+149,52,3,3,Great product! Exceeded my expectations. Will definitely order again.,2021-02-18
+150,70,150,2,The quality is poor and the item arrived damaged. Very disappointed.,2022-06-22
+151,92,185,4,Not what I expected based on the description. Returned it.,2021-09-04
+152,67,7,3,Amazing customer service! They resolved my issue quickly.,2021-04-18
+153,67,39,3,Product works as advertised. Good value for money.,2024-07-24
+154,93,119,5,Terrible experience. Item broke after one week of use.,2023-06-02
+155,89,37,2,Absolutely love it! Perfect for my needs.,2024-03-06
+156,20,156,4,Waste of money. Doesn't work like it should.,2022-03-03
+157,92,195,3,Decent product but shipping took forever.,2021-08-09
+158,70,58,2,Excellent quality and fast delivery. Highly recommend!,2022-06-15
+159,98,196,3,The color was different from the picture. Not satisfied.,2020-05-01
+160,85,25,5,This is the best purchase I've made in years!,2024-04-17
+161,75,125,5,Very disappointed with the build quality.,2021-03-27
+162,72,98,4,Exactly what I needed. Thank you!,2020-08-03
+163,38,43,5,Overpriced for what you get. Not worth it.,2022-01-22
+164,33,74,4,Fantastic! Better than expected. 5 stars!,2021-02-02
+165,3,171,4,Arrived on time and works perfectly.,2022-08-14
+166,68,170,1,The product is okay but customer service was unhelpful.,2023-04-07
+167,32,82,5,Outstanding quality. Will be a repeat customer.,2022-10-19
+168,89,138,4,Not as described. The size is completely wrong.,2020-06-09
+169,51,23,4,Love everything about this! Great job.,2023-12-26
+170,91,97,4,Poor packaging. Item arrived in terrible condition.,2024-02-06
+171,96,4,1,Perfect fit and excellent craftsmanship.,2022-04-02
+172,27,80,1,Disappointed. Expected much better for the price.,2020-10-13
+173,51,142,4,Amazing product! Highly satisfied with my purchase.,2024-10-04
+174,39,123,4,Defective out of the box. Very frustrating.,2024-04-24
+175,68,38,3,Good quality but a bit pricey.,2020-05-14
+176,79,73,4,Absolutely perfect! Couldn't ask for better.,2022-06-07
+177,7,154,4,The instructions were confusing and unhelpful.,2023-06-25
+178,95,144,5,Best purchase ever! Recommend to everyone.,2024-11-03
+179,45,149,3,Subpar quality compared to competitors.,2020-05-29
+180,84,64,4,Impressive product with great features.,2021-10-15
+181,36,24,3,Not worth the money spent. Very regretful.,2020-04-10
+182,84,129,5,Wonderful experience from start to finish.,2024-09-01
+183,59,92,3,The item fell apart after minimal use.,2022-03-29
+184,58,96,4,Fantastic value and excellent customer support.,2021-10-13
+185,96,49,5,Misleading product description. Very upset.,2024-11-15
+186,38,81,5,Brilliant! Works better than I thought it would.,2024-02-23
+187,76,197,4,Average product. Nothing special about it.,2024-01-01
+188,58,196,5,Exceptional quality and attention to detail.,2020-07-16
+189,71,54,4,Broke within days of purchase. Unacceptable.,2020-10-24
+190,47,97,3,Top-notch service and great product quality.,2024-11-29
+191,40,118,2,Disappointed with the durability of this item.,2021-01-06
+192,26,94,2,Absolutely thrilled with my order!,2021-04-01
+193,69,1,3,Cheap materials and poor construction.,2024-10-27
+194,22,83,5,Premium quality at a reasonable price.,2020-01-28
+195,66,136,4,Useless product. Doesn't do what it claims.,2023-06-06
+196,84,73,4,Incredible! Exceeded all my expectations.,2021-09-02
+197,6,195,5,Mediocre at best. Expected much more.,2021-09-17
+198,55,25,4,Amazing product! Exceeded my expectations. Arrived quickly and the quality is outstanding.,2020-11-21
+199,99,58,3,Not what I expected. The material feels cheap and started falling apart after a week.,2022-10-10
+200,45,110,4,Great value for the price. Would definitely recommend to friends and family.,2020-08-17
+201,59,72,5,Disappointing. The color in the photo looked much better than what I received.,2023-07-04
+202,62,130,4,Best purchase I've made all year! Customer service was incredibly helpful too.,2020-01-27
+203,95,52,5,Waste of money. Stopped working after two days. Very frustrated with this purchase.,2021-09-01
+204,90,109,5,Decent product overall. Nothing special but gets the job done.,2024-01-07
+205,64,12,2,Absolutely love it! Perfect for my needs and the build quality is excellent.,2020-05-24
+206,62,173,3,Terrible experience. Item arrived damaged and replacement took forever.,2023-12-11
+207,98,121,3,Five stars! This product has completely changed my daily routine for the better.,2024-02-21
+208,89,92,3,Average at best. Expected better quality for this price point.,2023-03-18
+209,53,40,1,Highly recommend! Fast shipping and exactly as described.,2023-04-25
+210,29,176,4,Broke within a month of normal use. Poor craftsmanship.,2023-05-13
+211,90,152,4,Fantastic! Exactly what I was looking for. Very satisfied.,2024-03-13
+212,54,177,3,Mediocre. Works fine but there are better alternatives out there.,2024-02-28
+213,90,105,3,Exceptional quality and great customer support. Will buy again!,2023-03-28
+214,49,189,4,Horrible product. Completely different from the listing description.,2023-02-27
+215,79,174,5,Pretty good! Minor issues but overall happy with my purchase.,2022-02-25
+216,13,69,4,Outstanding service and product. Couldn't ask for better.,2022-09-27
+217,14,58,5,Regret buying this. Doesn't work as advertised.,2023-01-20
+218,40,139,2,Excellent choice! Highly functional and durable.,2021-12-28
+219,57,64,3,Subpar quality. Definitely not worth the money.,2021-06-10
+220,1,126,4,Very impressed with the attention to detail. Great product!,2021-11-30
+221,94,88,1,Defective right out of the box. Very disappointed.,2021-06-07
+222,94,131,4,Solid product. Reliable and does exactly what it's supposed to do.,2021-02-03
+223,8,166,3,Awful experience from start to finish. Avoid at all costs.,2020-02-04
+224,40,181,5,Wonderful! Exceeded all my expectations in every way.,2024-03-15
+225,51,159,4,Okay product but customer service was unhelpful.,2022-07-26
+226,52,117,3,Exceptional value! Best deal I've found for this type of item.,2023-05-02
+227,18,46,3,Complete disaster. Doesn't match the product photos at all.,2021-03-13
+228,18,26,4,Really pleased with this purchase. Quality is top-notch.,2020-12-21
+229,46,11,4,Poor quality materials. Feels like it will break soon.,2020-04-21
+230,19,6,5,Perfect! Exactly as described and arrived in perfect condition.,2023-08-22
+231,39,90,4,Disappointing performance. Doesn't live up to the hype.,2023-02-11
+232,90,144,3,Love it! This is my second purchase and still very happy.,2023-10-10
+233,73,106,5,Terrible quality control. Lots of defects visible.,2020-05-09
+234,6,21,4,Impressed with the durability and design. Great product!,2021-09-02
+235,89,93,3,Not recommend. Multiple issues since day one.,2022-12-07
+236,73,57,4,Superb! Everything about this product is outstanding.,2024-02-17
+237,97,148,4,Below average. Had high hopes but was let down.,2022-01-01
+238,41,95,4,Absolutely fantastic! Worth every penny.,2022-09-18
+239,49,66,5,Faulty product. Stopped working without explanation.,2023-04-13
+240,16,185,2,Great quality and fast delivery. Very happy customer!,2021-12-13
+241,68,38,4,Disappointing quality for the premium price asked.,2021-02-19
+242,45,169,4,Brilliant purchase! Exactly what I needed.,2020-03-02
+243,55,27,5,Useless. Doesn't work properly and customer service ignored me.,2024-12-03
+244,25,149,3,Wonderful product with excellent durability.,2024-05-23
+245,69,93,4,Unsatisfactory. Too many defects to overlook.,2020-04-13
+246,24,152,5,Fantastic experience! Would purchase again in a heartbeat.,2023-02-13
+247,47,9,3,Major flaw in design. Not functional as intended.,2022-02-06
+248,58,74,5,The product quality exceeded my expectations. Highly recommended for anyone looking for reliability and durability.,2020-04-08
+249,48,66,4,Terrible experience. Item arrived damaged and customer service was unresponsive to my complaints.,2020-11-21
+250,19,47,4,Average product. Nothing special but gets the job done. Not worth the premium price tag.,2021-11-21
+251,19,74,5,Absolutely love it! Best purchase I've made this year. Will definitely buy again.,2020-02-27
+252,47,127,5,Product broke after just two weeks of normal use. Very disappointed with the durability.,2024-02-24
+253,51,173,4,Great value for money. Excellent customer service and fast shipping. Very satisfied.,2023-06-14
+254,66,41,2,The item is okay but the instructions were confusing and hard to follow.,2021-07-15
+255,27,192,4,Outstanding quality and attention to detail. This company really cares about their customers.,2023-07-11
+256,20,74,4,Waste of money. Does not work as advertised. Trying to get a refund now.,2022-02-16
+257,36,175,5,Solid product with good performance. A bit pricey but worth it in the long run.,2023-03-26
+258,58,132,5,Disappointed with the color - it looked different in person than in the photos.,2021-03-25
+259,96,189,4,Fantastic! Exceeded all my expectations. Great design and functionality.,2023-11-16
+260,21,59,5,"Not bad, but I've seen better options at similar price points elsewhere.",2024-05-29
+261,100,170,4,Perfect! This is exactly what I was looking for. Amazing quality and fast delivery.,2024-07-06
+262,56,108,3,The packaging was excellent and the product arrived in perfect condition.,2021-02-28
+263,76,182,5,Horrible customer service. They refused to help with my issue. Will shop elsewhere.,2023-09-14
+264,10,10,4,Good product overall. Minor issue with one component but easily replaceable.,2021-04-07
+265,66,10,3,Love everything about this! The design is sleek and it works flawlessly.,2024-12-16
+266,85,108,4,Mediocre quality. Expected much better given the high price.,2024-12-14
+267,84,20,5,Best investment I could have made. Highly functional and beautifully designed.,2022-01-08
+268,57,196,5,The item works but feels cheap and flimsy. Not satisfied with my purchase.,2020-09-17
+269,64,154,4,Incredible! Exactly as described. Fast shipping and excellent packaging.,2020-02-04
+270,66,54,3,Not what I expected. The size is much smaller than the photos suggested.,2024-11-09
+271,80,146,4,This product has changed my life! Cannot recommend enough. Worth every penny.,2024-10-20
+272,89,85,5,Below average quality. Broke down after minimal use. Poor craftsmanship.,2021-09-11
+273,62,4,4,Excellent durability and performance. Very happy with this purchase.,2020-02-11
+274,99,137,4,The color faded quickly after a few weeks. Disappointed with the quality.,2022-02-21
+275,78,90,4,Amazing value! Great features at a reasonable price point. Very satisfied.,2023-06-01
+276,13,33,4,Defective product received. Replacement took forever to arrive and was also damaged.,2021-02-19
+277,51,95,3,Perfectly made! Attention to detail is evident in every aspect of this product.,2023-03-13
+278,61,93,3,Not impressed. There are better alternatives available for less money.,2021-12-10
+279,86,28,5,Outstanding customer service! They went above and beyond to help me.,2020-06-07
+280,90,199,3,The quality is subpar for the price. Definitely not worth the investment.,2021-03-14
+281,67,149,5,Lovely product with great functionality. Highly recommend to friends and family.,2020-03-22
+282,47,172,4,Arrived with missing parts. Customer service was unhelpful in resolving the issue.,2024-05-28
+283,52,23,3,Superb quality and excellent value. This company deserves five stars.,2021-07-30
+284,60,50,3,Disappointed with the build quality. Started showing wear after a short time.,2024-09-25
+285,6,4,5,Perfect for my needs. Great quality and arrived ahead of schedule.,2023-11-16
+286,28,105,3,The worst purchase I've ever made. Complete waste of money and time.,2023-11-24
+287,90,140,5,Impressive craftsmanship and attention to detail. Definitely buying from them again.,2020-07-12
+288,19,113,4,Not satisfied with the performance. It doesn't do what the description claims.,2020-11-13
+289,74,46,5,"Top-notch product! Reliable, durable, and beautifully designed.",2021-08-03
+290,99,28,1,The item is fine but nothing extraordinary. Average in every way.,2022-10-22
+291,52,106,4,Exceptional quality and customer service. Will be a loyal customer for life.,2021-03-02
+292,25,156,1,Defects started appearing immediately. Very unhappy with this purchase.,2022-12-24
+293,54,69,4,Wonderful product that exceeded my expectations in every way possible.,2020-12-17
+294,25,80,2,This product exceeded my expectations! Great quality and fast shipping.,2020-08-14
+295,6,111,5,Disappointed with the purchase. The item arrived damaged and customer service was unhelpful.,2020-07-28
+296,100,137,4,Amazing! Exactly what I was looking for. Will definitely buy again.,2023-06-25
+297,96,65,3,Decent product but the price is a bit high for what you get.,2021-11-16
+298,83,49,3,Terrible experience. Item broke after two days of use.,2023-06-16
+299,27,100,5,Love it! Perfect fit and the color is even better than in the pictures.,2022-11-02
+300,98,26,3,Average product. Nothing special but does the job.,2022-12-14
+301,13,138,3,Absolutely horrible. Wasted my money on this junk.,2020-10-16
+302,67,15,4,Great value for money. Highly recommend to anyone considering this item.,2024-02-19
+303,56,159,4,The quality is okay but shipping took way too long.,2021-08-31
+304,21,197,3,Fantastic! Exceeded all my expectations. Five stars!,2023-03-21
+305,33,108,4,Not worth the hype. Seen better quality products at lower prices.,2023-04-05
+306,63,121,5,Excellent customer service and fast delivery. Very satisfied!,2020-07-21
+307,51,112,5,The product itself is fine but the packaging was poor.,2022-07-31
+308,79,200,4,Outstanding! This is exactly what I needed. Very happy with my purchase.,2023-02-27
+309,22,94,5,Waste of money. Doesn't work as advertised.,2023-11-08
+310,81,34,5,Good quality but had to return it due to a manufacturing defect.,2022-01-25
+311,100,40,3,Perfect! Arrived on time and in excellent condition.,2024-03-09
+312,17,59,4,Mediocre at best. Expected much better quality.,2022-11-03
+313,76,129,5,Superb! Best purchase I've made in a long time.,2022-08-27
+314,29,169,5,Arrived broken. Trying to get a refund now.,2023-11-09
+315,94,171,4,Solid product. No complaints whatsoever.,2021-03-11
+316,86,62,2,Disappointed. The product is nothing like the description.,2020-02-09
+317,3,187,3,Impressive quality and great attention to detail.,2023-01-23
+318,34,58,5,"Not bad, but I've definitely seen better options available.",2020-08-28
+319,32,87,4,Phenomenal! Worth every penny spent.,2021-12-30
+320,94,85,4,The item is smaller than I expected. Still functional though.,2023-12-23
+321,35,73,5,Absolutely love it! Great design and very durable.,2022-07-12
+322,9,141,3,Poor quality materials. Fell apart quickly.,2023-02-06
+323,35,95,3,Perfectly satisfied with this purchase. Highly recommended!,2024-09-23
+324,58,103,4,Meh. It's okay but nothing to write home about.,2020-04-16
+325,82,143,4,Exceptional product! Customer service was also very helpful.,2021-08-25
+326,77,174,5,Defective out of the box. Very frustrated.,2024-08-04
+327,7,45,4,Wonderful! Exactly as described and great quality.,2022-10-04
+328,54,20,3,The price is too steep for the quality offered.,2023-04-05
+329,14,135,5,Top-notch! This is a premium product.,2023-03-09
+330,20,171,3,Subpar quality. Won't be ordering from this seller again.,2020-06-13
+331,99,90,5,Brilliant purchase! Very impressed with everything.,2021-11-05
+332,33,134,1,Took forever to arrive and the product is just average.,2022-05-20
+333,57,109,4,Superb quality and fantastic value for money.,2022-12-20
+334,25,193,5,Barely works. Very disappointed with this item.,2020-11-25
+335,4,47,3,Excellent! Exactly what I was looking for.,2024-06-24
+336,34,29,2,The product is good but the delivery was disappointing.,2022-08-24
+337,16,200,1,Love the design but quality could be better.,2021-11-21
+338,58,36,4,This is the best I could have hoped for. Highly satisfied!,2022-03-25
+339,33,165,2,Doesn't live up to the hype. Overpriced.,2022-10-31
+340,4,120,3,Wonderful experience from start to finish.,2023-09-22
+341,32,76,1,The item is decent but customer service needs improvement.,2023-03-27
+342,31,99,1,Absolutely thrilled with my purchase. Highly recommend!,2021-08-01
+343,72,132,4,Absolutely fantastic product! Exceeded all my expectations. Fast shipping and excellent customer service.,2022-01-08
+344,46,199,5,Not what I expected. The quality is poor and it arrived damaged. Would not recommend.,2020-12-31
+345,53,133,4,"Pretty good for the price. Does what it's supposed to do, though it could use better instructions.",2023-06-10
+346,60,18,3,Outstanding! This is my second purchase and I'm just as happy with this one as the first.,2024-04-15
+347,44,56,3,Disappointed with this purchase. The color was different from the picture and it fell apart after a week.,2024-10-26
+348,100,46,2,Great value for money. Works perfectly and arrived on time. Very satisfied.,2023-12-04
+349,30,83,5,The product itself is nice but the packaging was terrible. It was broken when it arrived.,2024-08-01
+350,47,32,3,Five stars! Best purchase I've made all year. Highly recommended to everyone.,2020-12-28
+351,15,183,3,Average product. It works but nothing special. Expected better quality for this price point.,2022-11-28
+352,36,103,4,Terrible experience. Customer service was rude and the product doesn't work as advertised.,2021-05-08
+353,87,78,4,Decent quality but shipping took way too long. Would have preferred faster delivery.,2024-08-12
+354,9,148,5,Love it! Exactly what I was looking for. Perfect size and color.,2020-04-30
+355,42,123,4,Waste of money. Stopped working after just two weeks. Very disappointed.,2023-08-04
+356,62,177,1,Solid product. Does exactly what the description says. No complaints.,2024-03-05
+357,40,43,4,The material feels cheap and flimsy. Not worth the price at all.,2024-02-23
+358,57,128,5,Exceeded expectations! Great quality and arrived earlier than expected.,2022-09-03
+359,75,98,5,It's okay. Nothing to complain about but nothing to rave about either.,2020-08-18
+360,69,148,5,Fantastic! My whole family loves it. We've already recommended it to friends.,2020-10-26
+361,94,116,5,Poor quality control. The stitching came undone and there are loose threads everywhere.,2022-10-16
+362,32,163,3,Wonderful product! Great design and very functional. Will definitely buy again.,2020-11-06
+363,52,73,5,Not impressed. The description was misleading and the product is smaller than shown.,2023-05-29
+364,70,106,4,Excellent purchase! Great value and superb quality. Very happy customer here.,2022-03-26
+365,87,17,4,Disappointing. It looked better in the picture than in person.,2023-01-22
+366,45,96,5,Perfect! Exactly as described. Fast delivery and great communication from the seller.,2024-01-24
+367,71,50,2,Broke on the first day of use. Total waste of money.,2022-02-13
+368,5,125,4,"Really happy with this. Good quality, fair price, and quick delivery.",2020-05-27
+369,65,86,4,The color faded after one wash. Very disappointed with the durability.,2022-01-11
+370,39,196,5,Amazing quality! Worth every penny. Highly recommend to anyone interested.,2024-04-15
+371,12,119,5,Not bad but there are better options out there for similar prices.,2021-11-26
+372,26,183,5,Fantastic! This product has made my life so much easier.,2023-11-14
+373,30,26,4,Defective product. Arrived with missing parts and no replacement offered.,2022-02-23
+374,86,190,5,Great quality and looks exactly like the picture. Very satisfied.,2020-11-02
+375,8,20,4,Meh. It works but I've seen better versions of this product elsewhere.,2021-02-04
+376,96,29,2,Absolutely love it! Perfect gift and excellent quality.,2022-03-12
+377,97,84,2,Horrible experience. Product quality is terrible and customer service is non-existent.,2024-08-07
+378,34,86,3,Good product. Arrived on time and in good condition. Would buy again.,2021-09-24
+379,72,115,4,The instructions were confusing and assembly took hours. Otherwise okay.,2021-07-15
+380,56,72,5,Brilliant! Exactly what I needed. Fast delivery and great packaging.,2022-12-15
+381,67,182,5,Subpar quality. The material is thin and doesn't feel durable.,2022-03-31
+382,53,7,3,Wonderful experience from start to finish. Highly satisfied with my purchase.,2021-01-05
+383,55,185,4,It's fine. Does the job but there are more innovative options available.,2024-05-21
+384,77,151,3,Exceptional quality! This is my third purchase and I'm always impressed.,2022-01-13
+385,3,68,2,Very disappointed. The product arrived defective and returns are difficult.,2024-08-16
+386,99,99,5,Excellent! Best in its class. Worth the investment.,2024-03-22
+387,82,22,5,Average at best. Expected much more for the price point.,2024-05-10
+388,66,61,3,Outstanding service and product quality. Will be a repeat customer.,2024-09-03
+389,22,136,2,Not satisfied. The product doesn't match the online description at all.,2023-11-05
+390,13,93,3,Superb! Highly impressed with the craftsmanship and attention to detail.,2024-01-30
+391,86,125,4,Disappointing quality. Looks cheap and feels flimsy.,2023-12-25
+392,56,63,1,"Perfect in every way! Fast shipping, great quality, and excellent value.",2022-06-03
+393,58,17,4,Great product! Exceeded my expectations and arrived quickly.,2020-04-11
+394,42,113,4,Disappointed with the quality. Not worth the price.,2023-04-25
+395,70,13,4,Average experience. Nothing special but gets the job done.,2021-06-10
+396,37,156,4,Absolutely love it! Highly recommend to everyone.,2024-01-27
+397,84,50,5,Terrible customer service. Will not be ordering again.,2024-12-15
+398,87,178,2,Good value for money. Very satisfied with my purchase.,2021-01-27
+399,36,13,3,The item arrived damaged. Refund process was smooth though.,2021-11-05
+400,43,19,2,Fantastic quality and excellent packaging. Very impressed.,2021-12-06
+401,86,151,2,Waste of money. Broke after one week of use.,2020-12-18
+402,52,63,5,Perfect! Exactly what I was looking for.,2020-06-28
+403,68,23,5,Decent product but shipping took forever.,2024-09-20
+404,20,49,4,Outstanding! Better than expected. Five stars!,2022-10-18
+405,100,145,5,Poor quality materials. Disappointed overall.,2021-06-30
+406,63,95,4,Excellent craftsmanship. Worth every penny.,2022-04-02
+407,80,136,3,Not as described in the listing. Very misleading.,2022-03-25
+408,20,166,4,Amazing customer service and fast delivery!,2021-07-02
+409,10,44,4,The product works well but instructions were unclear.,2023-11-01
+410,7,99,5,Superb quality. Will definitely buy again.,2024-12-21
+411,2,160,4,Mediocre at best. Expected much better.,2021-02-08
+412,69,104,2,Fantastic! Exceeded all my expectations.,2022-03-28
+413,14,185,4,Defective unit. Customer support was unhelpful.,2021-11-30
+414,94,68,5,Love this! Great design and functionality.,2020-11-27
+415,16,78,5,Overpriced for what you get. Not impressed.,2024-12-03
+416,3,192,5,Perfect purchase! No complaints whatsoever.,2023-06-29
+417,91,99,3,The quality is subpar compared to competitors.,2022-01-30
+418,36,5,5,Wonderful experience from start to finish.,2022-08-23
+419,71,138,5,Item broke immediately. Very disappointed.,2023-10-29
+420,31,59,3,Highly satisfied with this purchase. Great value.,2023-04-15
+421,94,66,5,Below average quality. Would not recommend.,2022-07-29
+422,46,125,4,Absolutely fantastic! Best purchase ever made.,2023-12-02
+423,39,87,2,Good product overall but minor quality issues.,2020-11-10
+424,9,193,2,Impressive quality and attention to detail.,2022-06-22
+425,42,32,3,Not worth the hype. Overrated product.,2021-03-25
+426,4,24,4,Excellent item! Fast shipping and great packaging.,2023-12-21
+427,73,27,4,Disappointed. Expected better for this price point.,2023-12-05
+428,61,135,3,Outstanding product and service. Highly recommended!,2024-02-21
+429,64,183,5,Cheap materials. Fell apart after short use.,2024-03-24
+430,4,97,5,Very happy with my purchase. Great quality.,2021-08-23
+431,45,112,1,Frustrating experience. Poor quality control.,2020-12-26
+432,67,81,5,Exceptional! Exactly as advertised. Very pleased.,2024-01-05
+433,51,151,5,The product is okay but nothing remarkable.,2023-01-23
+434,15,57,4,Brilliant purchase! Highly satisfied customer.,2020-04-07
+435,92,144,3,Defective on arrival. Replacement process was tedious.,2022-07-24
+436,58,136,4,Magnificent quality. Will purchase again.,2021-09-11
+437,50,120,5,Underwhelming product. Expected much more.,2023-10-28
+438,3,5,4,Stellar quality and excellent customer support!,2020-04-26
+439,40,35,1,Substandard materials and poor construction.,2021-01-26
+440,8,51,2,Wonderful product. Couldn't ask for better.,2023-08-07
+441,26,23,3,Disappointing quality for the price charged.,2022-02-20
+442,85,45,4,Absolutely love this product! It exceeded my expectations and arrived quickly. Highly recommended.,2021-08-01
+443,59,131,5,Decent quality but the price is a bit steep for what you get. Overall satisfied though.,2021-11-21
+444,57,164,5,Terrible experience. Item arrived broken and customer service was unhelpful.,2020-02-07
+445,58,107,4,Great value for money. Works exactly as described. Will buy again!,2023-12-14
+446,53,167,2,The product is okay but doesn't match the photos. Disappointed with the color.,2023-02-10
+447,4,58,4,Five stars! Best purchase I've made in a long time. Already recommended to friends.,2021-01-16
+448,5,88,4,Shipping took forever and the item wasn't what I ordered. Very frustrating.,2023-10-07
+449,88,102,4,Good quality and fast delivery. Exactly what I needed. Thanks!,2024-10-28
+450,70,75,5,Not worth the hype. Lots of better alternatives out there for less money.,2021-02-08
+451,22,195,5,Excellent customer service! They helped me quickly when I had an issue.,2022-10-12
+452,75,186,2,Average product. Nothing special but does the job. Fair price.,2020-05-10
+453,84,189,4,Absolutely terrible. Broke after one week of normal use. Do not recommend.,2021-02-22
+454,83,185,2,Love it! Perfect fit and great quality. Worth every penny.,2020-10-01
+455,1,49,4,The description was misleading. Product is much smaller than expected.,2020-08-06
+456,1,187,5,Outstanding! Exceeded all my expectations. Very happy with this purchase.,2020-12-12
+457,74,108,4,Meh. It's fine I guess but nothing to write home about.,2020-12-17
+458,90,69,4,Fantastic product and amazing customer support. Will definitely order again.,2022-03-27
+459,62,116,5,Waste of money. Quality is poor and it stopped working quickly.,2023-12-20
+460,21,71,4,Really impressed with the build quality and attention to detail.,2020-05-01
+461,85,132,4,Decent but there are better options. Could be improved.,2020-06-21
+462,45,90,4,Perfect! Exactly as described. Fast shipping and great packaging.,2023-02-01
+463,37,184,5,Disappointing. Expected much better quality for the price.,2021-10-06
+464,2,136,3,Absolutely fantastic! Best product in its category. Highly recommend!,2021-11-18
+465,68,188,4,Okay product but customer service was rude and unhelpful.,2024-04-04
+466,64,191,3,Superb quality and excellent value. Very satisfied with my purchase.,2021-01-17
+467,40,34,3,Not as good as the previous version. Quality has declined.,2022-07-15
+468,49,176,3,Amazing! Fast delivery and exactly what I wanted. Five stars!,2022-02-15
+469,98,146,3,Subpar quality for the price point. Wouldn't recommend to others.,2023-12-30
+470,39,120,3,Brilliant product! Works perfectly and looks great. Very happy.,2022-04-10
+471,89,190,5,Mediocre at best. There are much better alternatives available.,2022-09-15
+472,39,124,3,"Love this! Great quality, fair price, and quick delivery. Recommended!",2020-09-24
+473,15,45,4,Defective item received. Replacement process was complicated and slow.,2022-11-13
+474,19,164,3,"Excellent all around. Quality, price, and service were all top-notch.",2023-02-21
+475,29,87,2,Disappointing quality. Doesn't work as well as advertised.,2023-10-06
+476,39,74,4,Perfect purchase! Highly satisfied and would buy again without hesitation.,2021-07-02
+477,83,46,4,Horrible experience from start to finish. Avoid this seller.,2022-01-03
+478,73,39,3,Great product! Good quality and arrived on time. Very happy.,2020-12-03
+479,20,36,3,Not what I expected. The product feels cheap and broke quickly.,2021-10-01
+480,72,21,1,Outstanding quality and customer service. Very impressed overall.,2021-10-29
+481,33,105,4,Not satisfied. Product doesn't work properly and support was unhelpful.,2023-10-03
+482,25,114,4,Fantastic! Everything was perfect. Will definitely order again.,2021-12-22
+483,57,187,4,Average quality. Works but nothing exceptional. Fair price though.,2024-12-08
+484,68,125,4,Terrible quality. Definitely not worth the money. Regret my purchase.,2022-01-28
+485,100,120,5,Excellent! Great value and works exactly as advertised. Highly recommend.,2023-07-31
+486,87,9,5,Disappointing. Quality issues and poor customer service experience.,2022-03-17
+487,39,145,4,Wonderful product! Exceeded expectations in every way. Very happy!,2023-03-16
+488,73,180,4,Not great. Quality is mediocre and it arrived damaged.,2020-10-31
+489,35,38,1,Superb! Best purchase ever. Would buy again in a heartbeat.,2020-09-25
+490,48,173,4,Okay but there are better options for less money elsewhere.,2022-08-15
+491,94,183,1,Amazing product! Exceeded my expectations in every way. Highly recommend to everyone.,2024-05-01
+492,75,175,2,"The quality is exceptional, but the shipping took longer than expected.",2022-03-29
+493,36,15,5,Not what I was looking for. The description was misleading.,2021-06-01
+494,86,167,5,Great value for the price. Will definitely purchase again.,2024-07-16
+495,39,24,4,Disappointed with the durability. It broke after just two weeks.,2021-10-19
+496,10,48,5,Outstanding customer service! They resolved my issue immediately.,2024-07-04
+497,70,35,4,The product works as advertised. Very satisfied with my purchase.,2021-04-10
+498,94,153,4,Waste of money. Poor quality and terrible fit.,2021-10-20
+499,55,86,3,Five stars! This is the best purchase I've made all year.,2024-02-11
+500,47,187,3,"It's okay, nothing special. Does the job but nothing more.",2020-07-02
+501,31,131,3,Absolutely love it! Perfect for my needs and arrived quickly.,2023-11-30
+502,72,41,4,The color is different from the picture. Very frustrating.,2020-04-29
+503,69,127,3,Excellent quality and craftsmanship. Worth every penny.,2024-12-07
+504,27,2,5,Arrived damaged and the replacement process was a nightmare.,2021-11-24
+505,82,168,4,Decent product but overpriced compared to competitors.,2020-02-04
+506,31,161,5,Fantastic! Exceeded all my expectations. Highly recommended.,2021-05-21
+507,85,168,5,The instructions were unclear and assembly was difficult.,2021-07-11
+508,98,117,5,Best purchase ever! My whole family loves it.,2020-07-26
+509,54,181,3,Subpar quality. Expected much better for this price point.,2023-02-23
+510,46,35,4,"Works perfectly! Great product, fast delivery.",2024-01-05
+511,57,133,4,Disappointed. The product didn't live up to the hype.,2024-08-28
+512,55,33,4,Impressive quality and attention to detail. Very happy.,2020-05-19
+513,89,44,4,The packaging was terrible and the product arrived damaged.,2022-02-07
+514,58,44,3,Absolutely perfect! Couldn't ask for anything better.,2020-03-27
+515,1,11,3,Average product. It works but I've seen better.,2021-01-15
+516,42,118,4,Love it! Great design and very functional.,2022-09-09
+517,18,149,1,Terrible experience. Product broke within a month.,2022-12-11
+518,27,140,5,Exceptional value. This is a steal at this price.,2020-10-22
+519,63,1,5,The product is fine but customer service was unhelpful.,2023-02-01
+520,12,149,3,Brilliant! Exactly what I was looking for.,2023-01-14
+521,70,87,2,Not satisfied. The quality doesn't match the price tag.,2023-06-09
+522,17,125,4,Wonderful product! Delivered as promised.,2020-07-08
+523,76,140,2,Disappointing quality for the premium price charged.,2022-11-16
+524,40,15,3,Perfect fit and excellent quality. Very impressed.,2024-06-10
+525,65,144,5,Waste of money. Would not recommend to anyone.,2021-01-15
+526,51,80,4,Great product with fast shipping. Very satisfied.,2020-02-19
+527,90,189,4,The materials feel cheap and flimsy.,2021-01-18
+528,31,158,5,Absolutely thrilled with this purchase!,2024-01-22
+529,9,53,3,Good product but the sizing is inconsistent.,2020-03-17
+530,84,172,5,Fantastic quality and beautiful design. Highly satisfied.,2021-07-14
+531,43,127,5,Defective unit received. Replacement took forever.,2024-10-15
+532,1,168,5,Excellent product! Exactly as described.,2021-07-04
+533,9,81,4,Not worth the investment. Poor build quality.,2021-01-05
+534,38,76,2,Love this! Best decision I've made.,2024-07-29
+535,61,10,4,The product is decent but overrated in my opinion.,2024-07-25
+536,48,183,4,Outstanding! Exceeded expectations in every way.,2020-10-02
+537,40,194,5,Cheap materials and poor craftsmanship. Disappointed.,2023-02-19
+538,3,13,4,Perfect! Arrived quickly and works beautifully.,2022-01-08
+539,37,42,3,Regret this purchase. Quality is substandard.,2022-04-01
+540,25,8,5,Phenomenal product! Highly recommend to all.,2021-01-28
+541,19,48,3,The product exceeded my expectations! Great quality and arrived quickly.,2022-03-03
+542,74,197,5,Not what I expected. The color was different from the picture online.,2021-09-14
+543,12,134,4,Absolutely love this! Will definitely purchase again.,2020-04-15
+544,99,69,3,Average product. Does the job but nothing special.,2021-02-13
+545,29,169,4,Terrible experience. Item broke after one week of use.,2023-06-21
+546,59,104,4,Fantastic customer service! They resolved my issue immediately.,2023-12-16
+547,30,122,2,The packaging was damaged but the product inside was fine.,2020-06-07
+548,71,16,4,Outstanding quality for the price. Highly recommend!,2021-11-30
+549,31,129,4,Disappointed with the durability. Started falling apart after a month.,2021-01-09
+550,80,199,4,Perfect gift for my sister. She loved it!,2021-08-14
+551,92,189,5,The instructions were unclear and difficult to follow.,2021-05-06
+552,8,172,5,Excellent! Exactly as described. Very satisfied.,2021-08-29
+553,61,128,5,Waste of money. Poor quality and poor customer support.,2020-05-13
+554,4,169,4,Decent product but shipping took longer than expected.,2021-08-16
+555,49,185,2,Amazing value! Can't believe how affordable this is.,2020-06-23
+556,91,97,2,The fit was not what I expected. Too small for my needs.,2023-04-25
+557,39,34,4,Very impressed with the attention to detail in the design.,2024-09-05
+558,4,181,4,"Okay product, but I found cheaper alternatives elsewhere.",2023-03-19
+559,63,102,3,Exceeded expectations in every way! Five stars!,2023-08-10
+560,67,174,3,Not durable at all. Would not recommend to anyone.,2021-07-08
+561,89,90,3,"Great product, but the customer service was unhelpful.",2022-09-02
+562,41,157,4,Love the design and functionality. Worth every penny.,2022-11-24
+563,22,145,3,The product quality is inconsistent. Seems like poor manufacturing.,2022-08-30
+564,27,123,5,Surprisingly good for the price point. Very happy!,2021-01-15
+565,90,67,5,Defective upon arrival. Had to contact support for a refund.,2024-02-12
+566,61,101,5,Exactly what I was looking for. Perfect match!,2023-03-27
+567,77,14,2,The color faded after just a few washes. Very disappointed.,2021-05-21
+568,44,83,5,Solid product with good performance. No complaints.,2023-09-27
+569,71,27,5,Horrible experience from start to finish. Avoid at all costs.,2023-01-26
+570,71,66,4,Pleasant surprise! Better than I expected.,2020-05-08
+571,79,154,2,The sizing chart was inaccurate. Had to return and exchange.,2023-08-20
+572,18,173,4,Fantastic quality and fast delivery. Highly satisfied.,2020-05-09
+573,4,43,5,Mediocre at best. There are better options available.,2024-01-16
+574,29,190,3,Love it! This is my second purchase and I'm still impressed.,2021-09-22
+575,18,59,5,The material feels cheap and doesn't justify the price.,2020-01-07
+576,19,199,4,Outstanding customer service and excellent product quality.,2024-10-25
+577,35,117,5,Broken on arrival. Very frustrating and inconvenient.,2021-08-09
+578,34,172,4,Impressed with the build quality and attention to detail.,2024-08-14
+579,18,3,3,Not as advertised. Marketing is misleading.,2020-01-09
+580,93,102,4,Perfect! Exactly what I needed for my project.,2022-02-03
+581,25,173,4,The product works fine but feels overpriced.,2024-04-06
+582,49,10,5,Absolutely delighted with my purchase. Highly recommend!,2022-02-12
+583,66,11,5,Poor quality construction. Started deteriorating quickly.,2022-09-22
+584,89,35,5,Great value and reliable performance. Very satisfied.,2020-02-23
+585,49,22,5,The packaging was beautiful and the product is even better.,2024-04-02
+586,84,173,5,Disappointed overall. Expected much better quality.,2022-11-26
+587,28,133,3,Excellent product with outstanding customer support.,2023-11-30
+588,80,183,4,Not worth the investment. Quality is below average.,2021-01-11
+589,80,68,5,Love everything about this! Will be a repeat customer.,2022-01-08
+590,80,144,4,The worst purchase I've made in a long time. Major regret.,2020-04-16
+591,27,188,3,Great product! Exceeded my expectations and arrived on time.,2024-09-05
+592,13,169,5,Disappointed with the quality. The item broke after one week of use.,2022-01-31
+593,51,37,5,Amazing customer service. They resolved my issue within 24 hours.,2023-01-05
+594,21,96,4,Waste of money. Does not work as advertised.,2023-07-08
+595,24,198,5,Good value for the price. Would recommend to friends.,2023-12-28
+596,72,183,3,The packaging was damaged but the product inside was fine.,2022-10-29
+597,55,90,2,Absolutely love it! Using it every day and couldn't be happier.,2022-10-06
+598,16,15,3,Poor quality materials. Not worth the price tag.,2020-10-11
+599,97,175,5,Decent product but took forever to arrive.,2023-03-30
+600,71,89,5,Five stars! Best purchase I've made all year.,2020-05-01

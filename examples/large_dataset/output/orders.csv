@@ -1,1001 +1,1001 @@
 order_id,customer_id,order_date,status,shipping_method,total_amount
-1,125,2025-01-02,shipped,Standard Ground,7479.84
-2,25,2024-10-11,shipped,Express 2-Day,8693.97
-3,47,2024-07-08,delivered,Next Day Air,9235.03
-4,9,2025-04-03,shipped,Priority Overnight,5842.85
-5,133,2025-11-14,shipped,Ground Shipping,1743.34
-6,103,2024-11-07,shipped,UPS Ground,8749.94
-7,148,2025-05-22,pending,FedEx Standard,4254.77
-8,180,2025-11-07,delivered,USPS Priority Mail,4244.22
-9,128,2024-12-19,delivered,DHL Express,3089.1
-10,43,2025-07-30,pending,Ground,7619.72
-11,189,2024-10-29,cancelled,First Class Mail,914.06
-12,26,2025-03-04,delivered,Parcel Post,8266.31
-13,5,2025-07-27,shipped,Economy Shipping,5725.56
-14,68,2024-12-21,delivered,Standard Shipping,3351.23
-15,71,2026-03-10,delivered,Expedited Shipping,7870.73
-16,64,2026-04-11,processing,Overnight Shipping,3869.59
-17,140,2026-01-13,delivered,2-Day Shipping,2122.08
-18,31,2025-08-04,delivered,3-Day Shipping,2512.18
-19,80,2025-09-15,delivered,5-Day Shipping,1977.52
-20,71,2024-11-02,shipped,Free Ground Shipping,9104.27
-21,16,2024-07-13,delivered,UPS 2nd Day Air,9357.3
-22,115,2025-12-11,pending,UPS Next Day Air,9601.01
-23,3,2024-07-02,delivered,FedEx 2Day,7021.55
-24,95,2025-08-03,delivered,FedEx Overnight,4856.04
-25,41,2025-06-29,processing,USPS Express Mail,2112.64
-26,76,2024-09-28,shipped,USPS First Class,9549.91
-27,157,2025-03-27,shipped,DHL Ground,9859.38
-28,200,2026-06-02,cancelled,International Standard,3832.66
-29,48,2025-10-13,processing,International Express,3315.11
-30,97,2025-04-07,delivered,In-Store Pickup,5679.72
-31,49,2025-06-14,delivered,Curbside Pickup,8739.19
-32,171,2026-05-07,processing,Local Delivery,4514.25
-33,144,2025-02-27,delivered,Same-Day Delivery,8460.17
-34,103,2025-08-01,processing,Next-Day Delivery,5485.49
-35,133,2025-11-29,delivered,Standard Delivery,7170.48
-36,141,2024-06-21,pending,Economy Ground,9962.8
-37,1,2025-05-27,shipped,Premium Ground,2627.31
-38,164,2025-02-05,delivered,Express Ground,4014.9
-39,195,2025-04-18,pending,Signature Required,102.29
-40,58,2024-08-24,delivered,Signature Not Required,3659.07
-41,18,2025-12-10,delivered,Insured Shipping,6445.96
-42,19,2025-09-10,pending,Uninsured Shipping,2890.76
-43,119,2026-02-26,pending,Flat Rate Box,7188.27
-44,190,2025-02-27,processing,Regional Ground,5941.3
-45,88,2025-05-17,processing,Zone 1 Shipping,9891.34
-46,195,2024-09-18,processing,Zone 2 Shipping,5735.45
-47,154,2026-04-21,processing,Zone 3 Shipping,5206.86
-48,148,2025-07-14,processing,Zone 4 Shipping,1098.69
-49,166,2026-06-04,delivered,Zone 5 Shipping,5162.7
-50,92,2024-06-09,delivered,Zone 6 Shipping,3564.49
-51,30,2025-11-05,shipped,Zone 7 Shipping,5503.02
-52,113,2024-08-01,delivered,Zone 8 Shipping,8303.19
-53,191,2025-03-25,cancelled,Special Handling,6434.47
-54,18,2025-10-27,processing,Fragile Shipping,5461.44
-55,90,2024-10-07,pending,Hazmat Shipping,4491.04
-56,10,2024-07-11,delivered,Oversized Shipping,4457.02
-57,81,2025-04-23,delivered,Lightweight Shipping,2806.12
-58,191,2024-08-19,shipped,Heavy Item Shipping,7067.88
-59,26,2025-04-27,delivered,Perishable Shipping,7391.21
-60,96,2024-11-20,shipped,Temperature Controlled,8193.32
-61,159,2025-03-23,pending,White Glove Delivery,1269.78
-62,169,2025-03-20,delivered,Freight Shipping,4280.8
-63,168,2025-06-12,shipped,LTL Shipping,6599.91
-64,2,2024-09-23,processing,Truckload Shipping,1695.84
-65,66,2025-02-25,delivered,Courier Service,6230.45
-66,12,2025-06-08,shipped,Postal Service,7625.17
-67,93,2025-03-18,processing,Parcel Carrier,8786.21
-68,145,2026-04-28,delivered,Drop Shipping,3249.73
-69,45,2024-06-20,delivered,Warehouse Delivery,2562.7
-70,133,2024-08-01,delivered,Retail Store Delivery,7659.42
-71,92,2025-09-02,shipped,Hub Delivery,3792.33
-72,103,2024-12-12,pending,Point of Sale Pickup,7818.34
-73,58,2026-01-16,delivered,Click and Collect,314.96
-74,154,2024-11-08,shipped,Buy Online Pickup In Store,9873.85
-75,170,2025-05-17,cancelled,BOPIS,3699.73
-76,34,2024-09-10,shipped,Ship to Store,3356.39
-77,195,2024-07-28,shipped,Locker Delivery,7588.48
-78,182,2024-08-24,shipped,Amazon Locker,200.6
-79,199,2026-03-14,shipped,Parcel Locker,1823.0
-80,65,2025-05-15,delivered,Smart Locker,4337.39
-81,118,2025-11-23,shipped,Mailbox Delivery,9601.16
-82,123,2024-06-18,shipped,Door Delivery,765.42
-83,114,2026-02-13,shipped,Back Door Delivery,8917.35
-84,18,2025-10-01,delivered,Garage Delivery,2807.14
-85,99,2026-03-09,processing,Porch Delivery,3374.21
-86,122,2024-06-19,delivered,Signature on Delivery,756.84
-87,155,2025-03-19,shipped,Adult Signature Required,3589.36
-88,82,2024-09-09,shipped,Direct Signature Required,3785.13
-89,199,2024-12-07,delivered,Indirect Signature Required,3392.04
-90,85,2026-05-29,delivered,No Signature Required,798.63
-91,115,2024-10-03,delivered,Holiday Delivery,9954.4
-92,2,2025-02-16,processing,Weekend Delivery,3183.28
-93,28,2024-08-31,shipped,Weekday Delivery,8182.78
-94,67,2024-12-07,delivered,Early Morning Delivery,9559.36
-95,98,2026-05-09,shipped,Evening Delivery,4705.35
-96,32,2025-11-14,shipped,Business Hours Delivery,4917.83
-97,70,2025-05-13,delivered,After Hours Delivery,6489.19
-98,25,2025-12-09,delivered,Scheduled Delivery,1999.1
-99,113,2026-01-30,delivered,Flexible Delivery,1691.18
-100,44,2026-04-23,delivered,Recurring Delivery,486.74
-101,163,2025-02-06,shipped,Subscription Delivery,7028.67
-102,66,2025-09-22,delivered,Gift Delivery,9172.91
-103,129,2025-01-19,shipped,Gift Wrap Delivery,2945.72
-104,68,2025-05-19,delivered,Corporate Shipping,4425.73
-105,1,2026-02-06,shipped,Business Shipping,4709.54
-106,43,2026-05-16,pending,Residential Shipping,2083.24
-107,101,2025-06-08,shipped,Commercial Shipping,658.35
-108,24,2025-06-27,shipped,Military Shipping,9919.74
-109,20,2024-06-30,processing,APO Shipping,7934.73
-110,7,2025-09-15,processing,FPO Shipping,5344.72
-111,158,2024-09-20,processing,International Shipping,2446.34
-112,189,2024-06-11,shipped,Domestic Shipping,3045.94
-113,113,2025-12-07,shipped,Cross-Border Shipping,5786.47
-114,45,2024-06-19,delivered,Canada Shipping,538.61
-115,122,2025-09-13,shipped,Mexico Shipping,7674.81
-116,147,2024-12-03,delivered,European Shipping,387.32
-117,98,2026-04-03,shipped,Asian Shipping,998.16
-118,6,2025-06-14,shipped,Australian Shipping,2630.29
-119,131,2024-12-17,shipped,Air Shipping,8594.45
-120,156,2025-10-18,delivered,Sea Shipping,1156.16
-121,26,2025-10-23,delivered,Rail Shipping,9878.3
-122,15,2025-12-31,shipped,Truck Shipping,9409.63
-123,182,2025-02-03,shipped,Multi-Modal Shipping,4581.5
-124,188,2025-02-09,cancelled,Economy International,5929.55
-125,56,2024-11-02,shipped,Standard International,6390.26
-126,196,2025-03-10,delivered,Express International,6757.67
-127,177,2025-11-28,shipped,Priority International,310.91
-128,62,2025-04-19,delivered,Tracked Shipping,5849.17
-129,164,2025-12-06,delivered,Untracked Shipping,9119.59
-130,176,2024-12-20,delivered,Real-Time Tracking,7471.3
-131,78,2024-10-29,processing,Basic Tracking,4373.92
-132,51,2026-01-06,processing,Advanced Tracking,9947.11
-133,177,2025-05-12,shipped,Proof of Delivery,7865.42
-134,6,2024-07-27,processing,No Proof of Delivery,7251.88
-135,185,2026-02-05,pending,Insurance Included,4613.56
-136,111,2025-09-17,processing,No Insurance,8255.92
-137,38,2024-12-26,shipped,Carbon Neutral Shipping,8383.98
-138,85,2024-09-18,delivered,Eco-Friendly Shipping,3988.5
-139,87,2025-11-05,delivered,Green Delivery,2865.59
-140,44,2026-03-29,delivered,Sustainable Shipping,2930.67
-141,144,2024-10-16,shipped,Fast Shipping,6886.73
-142,109,2026-06-06,delivered,Slow Shipping,9272.43
-143,153,2025-01-13,processing,Medium Speed Shipping,3807.09
-144,16,2025-11-16,delivered,Variable Speed Shipping,3443.82
-145,7,2026-02-26,shipped,Consolidated Shipping,514.51
-146,115,2026-03-16,shipped,Separate Shipment,3923.91
-147,133,2025-10-18,processing,Combined Shipment,2110.52
-148,169,2025-10-09,processing,Partial Shipment,9393.29
-149,132,2025-03-22,processing,Full Shipment,2641.92
-150,86,2025-01-02,delivered,Split Shipment,1018.6
-151,84,2026-01-27,delivered,Drop Ship,8484.44
-152,67,2025-05-12,delivered,Direct Ship,6411.43
-153,30,2025-02-12,shipped,Vendor Managed Inventory,6743.63
-154,67,2024-08-10,pending,Warehouse Managed Inventory,7975.21
-155,174,2026-05-21,delivered,Third Party Logistics,4798.32
-156,61,2024-10-01,processing,4PL Shipping,1743.92
-157,172,2025-06-25,shipped,Dedicated Shipping,4393.18
-158,46,2026-05-04,shipped,Shared Shipping,7803.02
-159,140,2025-02-13,shipped,Full Truckload,6283.16
-160,185,2026-04-13,cancelled,Less Than Truckload,5522.03
-161,90,2024-10-17,delivered,Partial Truckload,7242.17
-162,115,2025-02-26,processing,Consolidated LTL,1173.69
-163,108,2025-01-01,processing,Parcel Plus,2724.37
-164,146,2025-06-28,delivered,Parcel Select,8646.76
-165,162,2024-09-06,delivered,Media Mail,5197.6
-166,125,2025-02-26,processing,Library Mail,8041.36
-167,48,2024-09-15,delivered,Bound Printed Matter,5200.72
-168,84,2025-10-18,delivered,Commercial Base,3245.55
-169,123,2024-11-17,shipped,Retail Base,4616.86
-170,96,2025-09-25,delivered,Online Base,1814.39
-171,194,2024-07-27,processing,Special Service,5218.26
-172,84,2024-08-02,processing,Delivery Confirmation,4344.71
-173,181,2025-03-09,shipped,Return Receipt,1873.25
-174,40,2026-05-02,delivered,Registered Mail,2631.06
-175,180,2026-06-04,shipped,Certified Mail,4566.73
-176,33,2025-12-24,processing,Money Order,6868.29
-177,200,2025-04-06,delivered,Insured Mail,3083.2
-178,90,2025-11-27,delivered,Collect on Delivery,5081.23
-179,169,2025-02-19,processing,Cash on Delivery,9367.24
-180,183,2025-08-07,processing,Credit Card Payment,6277.7
-181,142,2026-02-18,delivered,Invoice Payment,1093.15
-182,197,2026-02-10,processing,Prepaid Shipping,6122.83
-183,82,2024-09-17,delivered,Postage Due,8674.78
-184,135,2025-03-03,pending,Flat Rate Envelope,6599.97
-185,160,2025-11-09,processing,Flat Rate Padded Envelope,300.26
-186,44,2024-09-30,shipped,Small Flat Rate Box,9446.52
-187,1,2025-09-06,delivered,Medium Flat Rate Box,816.51
-188,37,2025-03-25,delivered,Large Flat Rate Box,6165.21
-189,78,2026-02-23,shipped,Regional Rate Box,4732.21
-190,191,2024-06-23,processing,Priority Mail Express,4350.26
-191,40,2026-02-26,shipped,Priority Mail,9818.25
-192,160,2025-08-26,shipped,First-Class Mail,5180.78
-193,156,2025-04-01,delivered,Standard Mail,6200.14
-194,179,2026-01-30,cancelled,Parcel Post,5443.62
-195,63,2026-05-04,pending,Parcel Select Ground,8502.39
-196,8,2025-07-04,shipped,Parcel Select Lightweight,5474.61
-197,103,2024-08-29,delivered,Parcel Select Destination Entry,5139.6
-198,167,2025-02-10,cancelled,Parcel Select Return,3153.67
-199,29,2024-11-09,delivered,Parcel Select Commercial,6877.25
-200,61,2025-10-28,processing,Parcel Select Retail,471.21
-201,181,2025-05-17,processing,Parcel Select Online,8912.28
-202,171,2025-12-11,processing,Parcel Select Plus,4018.23
-203,101,2024-11-10,delivered,Parcel Select Premium,5958.18
-204,60,2025-06-28,processing,Ground Advantage,3576.28
-205,120,2024-08-12,processing,USPS Ground Advantage,5303.71
-206,65,2026-05-08,delivered,USPS Retail Ground Advantage,8111.14
-207,113,2024-07-30,processing,USPS Commercial Ground Advantage,9180.98
-208,98,2024-11-21,shipped,USPS Online Ground Advantage,4502.13
-209,18,2025-02-16,cancelled,FedEx Ground Home Delivery,5062.9
-210,190,2025-09-02,shipped,FedEx Ground Commercial,9646.71
-211,199,2026-01-04,processing,FedEx Ground Economy,5162.03
-212,89,2025-04-26,delivered,FedEx Ground Plus,5057.33
-213,108,2025-01-24,shipped,FedEx Ground Premium,732.08
-214,198,2025-09-11,delivered,FedEx Express Saver,5530.06
-215,68,2024-07-01,delivered,FedEx 2Day,8275.1
-216,76,2024-10-13,pending,FedEx 2Day AM,8103.38
-217,157,2025-05-14,delivered,FedEx Overnight Standard,3092.72
-218,94,2025-05-24,pending,FedEx Overnight Premier,9970.31
-219,21,2024-11-14,delivered,FedEx SameDay,2052.26
-220,8,2024-09-29,shipped,FedEx SameDay City,4326.19
-221,162,2024-09-08,delivered,FedEx International Economy,2169.41
-222,42,2024-08-26,delivered,FedEx International Priority,2938.45
-223,5,2025-07-16,delivered,FedEx International First,9930.21
-224,40,2024-06-13,delivered,UPS Ground Standard,57.52
-225,39,2025-12-23,delivered,UPS Ground Commercial,166.67
-226,118,2025-07-14,processing,UPS Ground Retail,4564.66
-227,145,2024-09-13,delivered,UPS Ground Online,5185.03
-228,178,2026-04-02,cancelled,UPS Ground Plus,7020.12
-229,165,2024-08-23,shipped,UPS Ground Premium,9348.1
-230,7,2026-03-22,delivered,UPS 3-Day Select,4374.99
-231,48,2026-04-21,delivered,UPS 2nd Day Air Standard,8327.79
-232,157,2024-12-15,shipped,UPS 2nd Day Air,51.6
-233,88,2025-04-21,shipped,UPS 2nd Day Air AM,3136.81
-234,147,2024-09-28,pending,UPS Next Day Air Saver,3590.49
-235,31,2026-01-21,processing,UPS Next Day Air,4036.07
-236,184,2025-10-21,delivered,UPS Next Day Air Early AM,1969.44
-237,178,2025-04-30,delivered,UPS Next Day Air Late,8742.52
-238,88,2025-10-02,delivered,UPS Worldwide Express Plus,2000.23
-239,200,2025-12-15,delivered,UPS Worldwide Express,654.46
-240,161,2025-04-19,processing,UPS Worldwide Express Saver,7906.09
-241,35,2024-11-26,delivered,UPS Standard,8346.53
-242,4,2026-03-23,delivered,UPS Expedited,5490.01
-243,99,2025-04-11,delivered,UPS Express,7503.87
-244,115,2025-04-20,delivered,UPS Express Plus,1744.89
-245,87,2026-05-15,shipped,UPS Express Saver,5212.63
-246,153,2025-08-04,shipped,DHL Ground Select,2477.49
-247,174,2025-07-12,cancelled,DHL Ground Residential,941.33
-248,153,2025-11-20,delivered,DHL Ground Commercial,5993.23
-249,63,2024-07-17,delivered,DHL Express Worldwide,3360.6
-250,38,2024-10-16,shipped,DHL Express 9:00,679.29
-251,172,2025-11-14,delivered,DHL Express 10:30,3146.97
-252,83,2025-11-21,shipped,DHL Express 12:00,7703.67
-253,36,2024-09-08,cancelled,DHL Express Envelope,2367.53
-254,60,2024-06-21,shipped,DHL Express Document,7602.88
-255,196,2025-06-03,shipped,DHL Express Parcel,1861.22
-256,68,2026-05-14,shipped,DHL Express Worldwide Parcel,683.84
-257,177,2025-06-20,pending,DHL eCommerce,3195.48
-258,89,2024-09-27,shipped,DHL eCommerce Parcel,6622.67
-259,88,2024-08-16,processing,DHL eCommerce Plus,1516.58
-260,112,2025-12-12,delivered,DHL eCommerce Select,7046.98
-261,102,2024-10-30,processing,DHL eCommerce Economy,8978.18
-262,137,2024-11-08,processing,Purolator Ground,2509.46
-263,126,2026-01-29,delivered,Purolator Express,2937.96
-264,32,2025-11-25,delivered,Purolator Express 9AM,3894.56
-265,69,2024-10-24,delivered,Purolator Express 10:30AM,9908.33
-266,10,2026-05-07,delivered,Purolator Express 12PM,9230.61
-267,106,2025-02-20,shipped,Purolator Express 3PM,4022.06
-268,40,2025-02-09,shipped,Purolator Express Envelope,1047.33
-269,113,2025-03-23,shipped,Purolator Express Document,4238.04
-270,196,2025-05-21,processing,Purolator Express Parcel,4721.12
-271,115,2024-08-11,pending,Purolator Domestic,1727.35
-272,61,2025-07-07,pending,Purolator International,8502.51
-273,81,2025-04-07,shipped,Purolator eCommerce,5492.51
-274,121,2024-07-30,delivered,Purolator eCommerce Ground,8114.63
-275,186,2025-07-23,delivered,Purolator eCommerce Express,5145.61
-276,51,2025-12-17,processing,Purolator eCommerce International,902.81
-277,5,2025-07-25,pending,XPO Logistics,6456.59
-278,135,2025-02-27,processing,Old Dominion,436.03
-279,200,2025-02-09,shipped,YRC Worldwide,7033.85
-280,28,2024-09-16,processing,ArcBest,1933.52
-281,157,2024-07-15,shipped,Saia LTL Freight,8267.87
-282,59,2026-05-18,delivered,Estes Express Lines,5993.49
-283,71,2025-11-20,shipped,ABF Freight,335.57
-284,151,2025-12-31,delivered,XPO Ground,3447.78
-285,139,2024-10-08,shipped,XPO Express,3129.36
-286,45,2025-08-01,shipped,OD Ground,3008.46
-287,62,2024-10-01,processing,OD Express,7763.91
-288,34,2024-07-23,shipped,YRC Ground,233.6
-289,33,2024-07-10,delivered,YRC Express,542.82
-290,200,2024-09-14,shipped,ArcBest Ground,6063.45
-291,75,2025-10-29,delivered,ArcBest Express,3143.78
-292,50,2024-12-16,cancelled,Saia Ground,390.22
-293,66,2024-08-07,delivered,Saia Express,2029.97
-294,200,2025-12-14,delivered,Estes Ground,5774.17
-295,107,2025-01-13,delivered,Estes Express,2240.21
-296,78,2025-01-10,shipped,ABF Ground,5005.71
-297,99,2025-12-28,pending,ABF Express,8456.34
-298,145,2025-11-09,delivered,Courier Express,8276.2
-299,171,2025-10-09,pending,Courier Ground,771.72
-300,120,2024-07-03,pending,Courier Parcel,8509.42
-301,94,2025-06-29,shipped,Courier Envelope,9858.94
-302,77,2024-11-30,shipped,Courier Document,2733.49
-303,189,2025-11-29,delivered,Messenger Service,2178.65
-304,84,2025-04-24,shipped,Same-Day Courier,9331.67
-305,134,2025-01-13,shipped,Next-Day Courier,8786.11
-306,147,2026-02-03,delivered,2-Day Courier,6587.12
-307,67,2024-11-24,delivered,3-Day Courier,9829.72
-308,14,2024-12-14,processing,5-Day Courier,6176.36
-309,163,2025-02-27,processing,Local Courier,3633.7
-310,45,2025-01-08,processing,Regional Courier,2754.69
-311,154,2025-01-02,processing,National Courier,3497.18
-312,21,2026-04-26,cancelled,International Courier,7183.16
-313,182,2026-01-27,delivered,Express Courier,5941.47
-314,2,2026-05-17,delivered,Standard Courier,60.45
-315,134,2026-01-08,delivered,Economy Courier,6039.86
-316,121,2024-06-22,shipped,Premium Courier,970.94
-317,25,2026-01-15,delivered,Bike Courier,90.97
-318,21,2025-08-25,pending,Car Courier,2804.31
-319,45,2026-03-29,shipped,Truck Courier,7642.49
-320,115,2024-11-25,delivered,Van Courier,2401.98
-321,86,2025-11-07,processing,Motorcycle Courier,134.98
-322,35,2025-01-07,delivered,Scooter Courier,3945.49
-323,198,2024-12-25,delivered,Walking Courier,9296.19
-324,25,2025-12-03,delivered,Pickup and Delivery,9335.12
-325,150,2024-06-10,shipped,Delivery Only,3413.61
-326,115,2026-03-06,shipped,Pickup Only,3367.09
-327,75,2025-11-02,delivered,Store Pickup,4694.29
-328,108,2024-10-03,delivered,Locker Pickup,213.26
-329,112,2026-06-04,cancelled,Hub Pickup,5808.93
-330,147,2025-10-11,delivered,Terminal Pickup,7426.91
-331,137,2024-09-12,delivered,Dock Pickup,9452.02
-332,121,2024-09-16,processing,Will Call,9182.51
-333,59,2024-07-23,delivered,Hold for Pickup,218.24
-334,182,2025-05-01,pending,Customer Pickup,2835.84
-335,15,2026-05-12,shipped,Authorized Pickup,4759.7
-336,193,2026-02-04,shipped,Third Party Pickup,4939.72
-337,64,2025-09-26,delivered,Scheduled Pickup,1250.44
-338,75,2025-05-23,cancelled,On-Demand Pickup,2936.37
-339,168,2025-10-04,pending,Daily Pickup,3683.22
-340,198,2025-11-02,pending,Weekly Pickup,3847.05
-341,144,2025-12-07,processing,Monthly Pickup,4021.93
-342,55,2024-06-22,delivered,As-Needed Pickup,5233.33
-343,32,2026-03-21,delivered,Recurring Pickup,9979.08
-344,83,2024-12-02,processing,One-Time Pickup,3066.13
-345,159,2025-08-14,delivered,Standing Order Pickup,6636.74
-346,183,2026-01-28,delivered,Subscription Pickup,8855.35
-347,80,2026-01-30,processing,Seasonal Pickup,4972.57
-348,23,2026-04-06,delivered,Holiday Pickup,7814.9
-349,98,2026-04-02,shipped,Weekend Pickup,6382.16
-350,25,2026-01-31,delivered,Weekday Pickup,6431.43
-351,191,2024-09-25,delivered,Morning Pickup,3885.02
-352,62,2024-11-07,processing,Afternoon Pickup,6569.13
-353,13,2025-11-12,pending,Evening Pickup,1140.26
-354,168,2024-12-20,shipped,Night Pickup,7348.57
-355,197,2024-07-22,delivered,Early Morning Pickup,6280.62
-356,162,2026-04-01,delivered,Late Night Pickup,376.46
-357,110,2025-12-08,delivered,After Hours Pickup,642.13
-358,12,2026-02-27,processing,Business Hours Pickup,7698.1
-359,79,2025-01-10,pending,Extended Hours Pickup,7582.11
-360,46,2024-07-12,delivered,24/7 Pickup,4268.36
-361,96,2024-08-19,delivered,Automated Pickup,9988.68
-362,106,2026-01-31,delivered,Manual Pickup,5736.1
-363,42,2025-10-11,processing,Assisted Pickup,4278.46
-364,192,2024-06-15,processing,Unassisted Pickup,9878.34
-365,143,2025-01-30,delivered,Contactless Pickup,8066.16
-366,69,2026-01-15,cancelled,In-Person Pickup,6141.08
-367,115,2024-10-10,shipped,Phone Pickup,5237.29
-368,170,2025-01-07,delivered,Online Pickup,3099.99
-369,44,2025-02-26,delivered,App Pickup,327.83
-370,89,2024-11-16,pending,Web Pickup,3149.23
-371,60,2025-10-29,cancelled,Email Pickup,624.87
-372,112,2025-10-17,shipped,Fax Pickup,9000.72
-373,160,2024-06-15,delivered,Mail Pickup,3538.58
-374,149,2025-03-12,delivered,Text Pickup,563.54
-375,86,2025-07-05,pending,Voice Pickup,6820.94
-376,184,2024-10-20,delivered,Video Pickup,8045.15
-377,144,2025-08-23,delivered,Chat Pickup,5114.55
-378,147,2025-02-18,delivered,Live Chat Pickup,7312.11
-379,142,2025-08-31,processing,Bot Pickup,7487.48
-380,99,2025-07-03,shipped,AI Pickup,340.59
-381,129,2025-02-11,cancelled,Human Pickup,3074.94
-382,181,2025-09-12,pending,Hybrid Pickup,6303.1
-383,48,2024-11-09,shipped,Mixed Pickup,9629.04
-384,45,2025-06-10,delivered,Combined Pickup,4171.12
-385,165,2025-03-07,delivered,Consolidated Pickup,9616.51
-386,87,2025-01-19,processing,Separated Pickup,9059.69
-387,161,2025-09-16,delivered,Batch Pickup,2935.44
-388,156,2025-03-25,delivered,Individual Pickup,2203.4
-389,193,2025-02-14,delivered,Bulk Pickup,3057.04
-390,156,2026-03-25,shipped,Small Pickup,5538.25
-391,71,2025-04-02,shipped,Large Pickup,1647.91
-392,146,2025-02-04,pending,Standard Pickup,6220.02
-393,88,2026-02-06,delivered,Express Pickup,7182.17
-394,83,2026-04-11,delivered,Economy Pickup,7104.27
-395,185,2026-02-07,delivered,Premium Pickup,3848.49
-396,42,2026-01-06,shipped,Luxury Pickup,4406.57
-397,106,2025-10-16,shipped,Basic Pickup,6559.98
-398,12,2024-11-23,delivered,Advanced Pickup,553.07
-399,95,2026-03-26,processing,Enhanced Pickup,9099.22
-400,158,2026-04-28,delivered,Upgraded Pickup,3638.55
-401,30,2025-01-29,delivered,Custom Pickup,6072.2
-402,71,2024-08-18,delivered,Specialized Pickup,1980.17
-403,4,2024-11-21,delivered,General Pickup,4310.16
-404,88,2025-09-05,pending,Specific Pickup,1893.36
-405,157,2025-09-30,delivered,Targeted Pickup,1939.48
-406,59,2024-09-09,delivered,Broad Pickup,7475.38
-407,100,2026-03-08,delivered,Narrow Pickup,2611.03
-408,22,2025-06-14,delivered,Wide Pickup,4887.29
-409,182,2024-09-06,pending,Limited Pickup,3807.3
-410,167,2024-06-12,cancelled,Unlimited Pickup,2705.58
-411,89,2026-05-22,pending,Restricted Pickup,8903.24
-412,124,2025-01-05,shipped,Unrestricted Pickup,9059.57
-413,144,2025-09-05,cancelled,Conditional Pickup,8586.67
-414,104,2025-06-08,shipped,Unconditional Pickup,7286.25
-415,100,2024-09-02,delivered,Contingent Pickup,574.77
-416,1,2024-07-10,delivered,Guaranteed Pickup,3309.43
-417,144,2025-05-07,pending,Provisional Pickup,3208.24
-418,71,2025-02-28,delivered,Temporary Pickup,5782.87
-419,14,2025-08-19,delivered,Permanent Pickup,8561.91
-420,43,2025-04-04,delivered,Fixed Pickup,3548.75
-421,7,2025-10-10,shipped,Flexible Pickup,5585.91
-422,58,2024-12-21,pending,Variable Pickup,4132.08
-423,111,2026-01-05,delivered,Static Pickup,3114.73
-424,197,2025-08-03,delivered,Dynamic Pickup,1055.53
-425,167,2024-12-21,pending,Active Pickup,6566.97
-426,116,2025-05-21,delivered,Inactive Pickup,834.16
-427,196,2025-12-20,shipped,Pending Pickup,5785.96
-428,100,2025-01-29,shipped,Confirmed Pickup,2797.0
-429,32,2024-12-12,processing,Cancelled Pickup,6203.44
-430,5,2025-09-22,processing,Rescheduled Pickup,5040.34
-431,163,2025-12-16,delivered,Delayed Pickup,8302.61
-432,200,2025-06-07,delivered,Expedited Pickup,8737.89
-433,89,2025-01-16,delivered,Rushed Pickup,9339.35
-434,49,2024-10-06,delivered,Urgent Pickup,1864.94
-435,196,2024-06-27,delivered,Priority Pickup,9415.48
-436,41,2024-09-29,delivered,Non-Priority Pickup,6534.5
-437,65,2024-09-03,pending,High Priority Pickup,7581.39
-438,182,2024-09-22,delivered,Low Priority Pickup,9765.6
-439,98,2024-06-19,delivered,Medium Priority Pickup,9909.34
-440,167,2025-11-27,shipped,Critical Pickup,4626.24
-441,125,2026-02-13,shipped,Important Pickup,8426.44
-442,150,2025-07-03,delivered,Regular Pickup,6478.35
-443,163,2025-09-20,processing,Routine Pickup,7569.51
-444,169,2026-02-01,cancelled,Special Pickup,331.77
-445,33,2026-03-23,delivered,Unique Pickup,8679.42
-446,5,2025-05-11,pending,Exclusive Pickup,4780.63
-447,102,2025-06-29,delivered,Inclusive Pickup,8878.29
-448,171,2024-06-18,delivered,Selective Pickup,7385.95
-449,91,2025-03-05,pending,Comprehensive Pickup,4983.16
-450,15,2025-05-19,delivered,Partial Pickup,7198.5
-451,132,2024-09-09,delivered,Complete Pickup,2458.84
-452,7,2025-08-18,cancelled,Incomplete Pickup,9721.31
-453,36,2025-12-29,delivered,Partial Delivery,2992.13
-454,124,2024-10-28,shipped,Complete Delivery,4712.85
-455,145,2025-02-09,delivered,Incomplete Delivery,5822.92
-456,144,2025-08-01,shipped,Full Delivery,5172.01
-457,77,2025-08-21,cancelled,Partial Shipment Delivery,7585.8
-458,60,2025-05-18,delivered,Split Delivery,804.12
-459,67,2026-03-15,shipped,Consolidated Delivery,2341.09
-460,127,2024-10-27,cancelled,Separated Delivery,2345.4
-461,11,2025-12-01,delivered,Batch Delivery,6047.59
-462,55,2025-10-01,shipped,Individual Delivery,3444.54
-463,82,2025-05-15,delivered,Bulk Delivery,4563.04
-464,161,2025-04-13,delivered,Small Delivery,5688.42
-465,61,2025-01-12,delivered,Large Delivery,7977.97
-466,128,2025-11-09,processing,Standard Delivery Fee,2575.66
-467,117,2026-01-02,delivered,Express Delivery Fee,7710.23
-468,12,2025-10-26,delivered,Economy Delivery Fee,9683.73
-469,80,2025-07-18,pending,Premium Delivery Fee,8242.8
-470,72,2024-10-27,delivered,Luxury Delivery Fee,6152.09
-471,141,2025-02-17,delivered,Basic Delivery Fee,9511.46
-472,106,2025-04-06,processing,Advanced Delivery Fee,1288.7
-473,133,2024-07-23,delivered,Enhanced Delivery Fee,6377.51
-474,3,2024-08-10,processing,Upgraded Delivery Fee,7754.65
-475,28,2025-06-13,delivered,Custom Delivery Fee,5373.22
-476,105,2024-12-14,processing,Specialized Delivery Fee,9000.34
-477,119,2025-11-06,shipped,General Delivery Fee,3172.9
-478,103,2026-04-12,shipped,Specific Delivery Fee,8308.16
-479,85,2026-03-09,processing,Targeted Delivery Fee,974.13
-480,137,2025-04-16,delivered,Broad Delivery Fee,9645.7
-481,135,2025-04-14,shipped,Narrow Delivery Fee,4630.04
-482,177,2025-07-27,delivered,Wide Delivery Fee,7653.16
-483,178,2024-10-18,shipped,Limited Delivery Fee,9670.73
-484,124,2025-06-30,processing,Unlimited Delivery Fee,1682.85
-485,118,2025-06-16,delivered,Restricted Delivery Fee,2104.81
-486,110,2024-06-25,shipped,Unrestricted Delivery Fee,8682.67
-487,27,2025-12-28,processing,Conditional Delivery Fee,8686.27
-488,55,2024-08-01,delivered,Unconditional Delivery Fee,3063.21
-489,150,2024-12-08,shipped,Contingent Delivery Fee,1539.25
-490,137,2025-11-07,shipped,Guaranteed Delivery Fee,6087.01
-491,58,2025-07-27,delivered,Provisional Delivery Fee,8998.2
-492,121,2026-05-16,shipped,Temporary Delivery Fee,522.27
-493,69,2025-10-21,processing,Permanent Delivery Fee,3036.78
-494,126,2026-06-03,delivered,Fixed Delivery Fee,1227.9
-495,106,2024-11-15,shipped,Flexible Delivery Fee,7102.84
-496,3,2024-09-21,pending,Variable Delivery Fee,3944.0
-497,159,2024-09-19,processing,Static Delivery Fee,5873.57
-498,199,2026-05-17,shipped,Dynamic Delivery Fee,1484.81
-499,166,2025-10-17,delivered,Active Delivery Fee,6958.81
-500,125,2024-12-19,shipped,Inactive Delivery Fee,3507.33
-501,104,2024-10-13,processing,Pending Delivery Fee,7045.63
-502,53,2024-09-24,shipped,Confirmed Delivery Fee,8548.62
-503,8,2026-02-16,shipped,Cancelled Delivery Fee,1660.35
-504,57,2026-04-19,processing,Rescheduled Delivery Fee,8426.85
-505,96,2024-07-06,processing,Delayed Delivery Fee,1626.94
-506,161,2026-01-05,shipped,Expedited Delivery Fee,3066.82
-507,135,2024-06-17,delivered,Rushed Delivery Fee,2953.51
-508,31,2025-10-29,shipped,Urgent Delivery Fee,5250.31
-509,71,2024-09-11,delivered,Priority Delivery Fee,3861.28
-510,87,2026-05-24,shipped,Non-Priority Delivery Fee,166.82
-511,123,2026-04-04,processing,High Priority Delivery Fee,9094.62
-512,130,2025-09-15,shipped,Low Priority Delivery Fee,8448.59
-513,185,2026-02-07,delivered,Medium Priority Delivery Fee,1280.16
-514,200,2025-02-23,delivered,Critical Delivery Fee,4658.17
-515,129,2025-11-24,processing,Important Delivery Fee,3963.76
-516,88,2024-11-21,delivered,Regular Delivery Fee,3486.27
-517,133,2025-03-27,delivered,Routine Delivery Fee,1546.2
-518,170,2026-05-22,shipped,Special Delivery Fee,8530.22
-519,128,2024-08-06,delivered,Unique Delivery Fee,4437.91
-520,6,2026-04-18,delivered,Exclusive Delivery Fee,6609.45
-521,187,2024-06-08,delivered,Inclusive Delivery Fee,8033.0
-522,35,2024-10-09,shipped,Selective Delivery Fee,3772.22
-523,164,2026-02-16,pending,Comprehensive Delivery Fee,8026.0
-524,69,2025-08-05,processing,Partial Delivery Fee,9311.26
-525,29,2024-07-26,shipped,Standard Shipping Cost,214.68
-526,171,2026-05-24,shipped,Express Shipping Cost,2911.15
-527,122,2026-01-29,shipped,Economy Shipping Cost,8008.42
-528,84,2026-05-13,delivered,Premium Shipping Cost,853.82
-529,97,2025-06-12,shipped,Luxury Shipping Cost,8305.22
-530,30,2025-02-20,cancelled,Basic Shipping Cost,5657.86
-531,103,2025-02-16,pending,Advanced Shipping Cost,7293.97
-532,9,2024-12-07,shipped,Enhanced Shipping Cost,7659.42
-533,62,2024-12-19,delivered,Upgraded Shipping Cost,9300.13
-534,151,2025-09-22,delivered,Custom Shipping Cost,7199.02
-535,107,2025-09-18,pending,Specialized Shipping Cost,6958.01
-536,113,2024-08-15,delivered,General Shipping Cost,7522.52
-537,134,2025-01-08,processing,Specific Shipping Cost,3397.99
-538,72,2026-03-25,delivered,Targeted Shipping Cost,7018.25
-539,19,2024-08-20,delivered,Broad Shipping Cost,3396.76
-540,148,2024-07-23,delivered,Narrow Shipping Cost,6314.45
-541,186,2025-01-15,delivered,Wide Shipping Cost,2833.85
-542,60,2024-06-30,shipped,Limited Shipping Cost,1886.44
-543,135,2025-02-23,delivered,Unlimited Shipping Cost,8906.38
-544,194,2025-03-26,delivered,Restricted Shipping Cost,1852.87
-545,34,2026-02-04,delivered,Unrestricted Shipping Cost,1465.77
-546,4,2025-12-20,delivered,Conditional Shipping Cost,4227.05
-547,194,2025-06-20,shipped,Unconditional Shipping Cost,1562.25
-548,119,2025-10-18,processing,Contingent Shipping Cost,2299.66
-549,188,2025-12-30,shipped,Guaranteed Shipping Cost,6576.84
-550,65,2025-03-07,delivered,Provisional Shipping Cost,945.9
-551,28,2025-05-19,delivered,Temporary Shipping Cost,6601.64
-552,118,2025-10-15,delivered,Permanent Shipping Cost,6563.05
-553,91,2025-05-06,shipped,Fixed Shipping Cost,9307.65
-554,6,2024-06-29,shipped,Flexible Shipping Cost,3809.95
-555,126,2026-05-12,cancelled,Variable Shipping Cost,9080.19
-556,68,2026-01-17,shipped,Static Shipping Cost,2916.82
-557,130,2026-04-30,shipped,Dynamic Shipping Cost,5188.77
-558,125,2025-05-28,shipped,Active Shipping Cost,9726.51
-559,135,2024-09-21,shipped,Inactive Shipping Cost,50.83
-560,119,2026-05-09,pending,Pending Shipping Cost,6806.94
-561,79,2026-01-02,delivered,Confirmed Shipping Cost,3573.63
-562,94,2026-01-31,cancelled,Cancelled Shipping Cost,7507.84
-563,112,2025-02-07,processing,Rescheduled Shipping Cost,5469.76
-564,86,2026-04-19,delivered,Delayed Shipping Cost,6834.72
-565,68,2024-07-02,delivered,Expedited Shipping Cost,7057.69
-566,85,2025-01-17,delivered,Rushed Shipping Cost,2372.46
-567,38,2024-12-26,delivered,Urgent Shipping Cost,5083.58
-568,42,2024-06-14,processing,Priority Shipping Cost,1010.7
-569,53,2026-01-02,pending,Non-Priority Shipping Cost,2951.45
-570,25,2025-02-16,shipped,High Priority Shipping Cost,9045.15
-571,145,2025-03-15,delivered,Low Priority Shipping Cost,9385.67
-572,116,2025-01-28,shipped,Medium Priority Shipping Cost,1816.83
-573,139,2025-04-03,cancelled,Critical Shipping Cost,3951.17
-574,156,2024-07-16,cancelled,Important Shipping Cost,8065.82
-575,10,2025-06-12,shipped,Regular Shipping Cost,2683.64
-576,99,2025-07-18,shipped,Routine Shipping Cost,3364.79
-577,169,2024-08-29,shipped,Special Shipping Cost,8426.36
-578,194,2026-03-29,cancelled,Unique Shipping Cost,7663.61
-579,109,2025-02-05,pending,Exclusive Shipping Cost,3989.5
-580,164,2025-08-26,delivered,Inclusive Shipping Cost,1177.37
-581,149,2025-01-24,processing,Selective Shipping Cost,844.85
-582,182,2025-10-12,processing,Comprehensive Shipping Cost,2571.05
-583,118,2024-06-11,delivered,Standard Ground,1782.61
-584,98,2025-02-02,shipped,Express 2-Day,1151.93
-585,45,2026-05-17,delivered,Next Day Air,7315.42
-586,25,2025-10-12,cancelled,Priority Overnight,1141.96
-587,160,2026-05-22,shipped,Ground Shipping,2273.01
-588,97,2025-07-24,shipped,UPS Ground,9487.19
-589,121,2024-07-06,processing,FedEx Standard,9843.07
-590,148,2026-05-19,shipped,USPS Priority Mail,144.15
-591,68,2025-02-02,delivered,DHL Express,8762.88
-592,58,2025-03-06,shipped,Ground,2521.38
-593,183,2025-06-22,delivered,First Class Mail,370.73
-594,73,2025-09-22,shipped,Parcel Post,8791.17
-595,116,2025-08-20,delivered,Economy Shipping,2561.02
-596,47,2026-03-20,delivered,Standard Shipping,8843.07
-597,69,2025-11-02,shipped,Expedited Shipping,339.22
-598,4,2025-03-16,shipped,Overnight Shipping,5581.27
-599,200,2024-07-11,pending,2-Day Shipping,9497.74
-600,148,2024-06-20,delivered,3-Day Shipping,3333.68
-601,150,2024-09-11,shipped,5-Day Shipping,3291.71
-602,94,2025-10-30,delivered,Free Ground Shipping,3542.64
-603,150,2024-12-19,delivered,UPS 2nd Day Air,7791.04
-604,83,2025-12-09,delivered,UPS Next Day Air,5220.7
-605,183,2025-10-15,processing,FedEx 2Day,195.99
-606,175,2025-01-19,shipped,FedEx Overnight,5216.49
-607,145,2024-06-30,shipped,USPS Express Mail,4995.4
-608,121,2025-01-10,delivered,USPS First Class,4483.95
-609,198,2025-04-14,pending,DHL Ground,9312.99
-610,23,2026-02-10,pending,International Standard,4837.27
-611,166,2024-12-02,pending,International Express,7785.01
-612,138,2026-04-14,shipped,In-Store Pickup,4885.76
-613,9,2025-02-11,pending,Curbside Pickup,9684.82
-614,50,2024-07-21,cancelled,Local Delivery,8849.85
-615,81,2025-12-26,delivered,Same-Day Delivery,6840.93
-616,111,2024-12-14,processing,Next-Day Delivery,3642.4
-617,104,2025-08-24,processing,Standard Delivery,8308.31
-618,177,2026-04-13,processing,Economy Ground,5516.67
-619,42,2025-03-04,pending,Premium Ground,1421.45
-620,74,2026-01-20,processing,Express Ground,3968.06
-621,162,2025-01-17,delivered,Signature Required,6779.31
-622,113,2024-11-16,pending,Signature Not Required,7635.46
-623,131,2025-06-26,shipped,Insured Shipping,9599.39
-624,146,2025-04-25,processing,Uninsured Shipping,9036.45
-625,121,2025-11-19,processing,Flat Rate Box,962.31
-626,89,2026-04-02,cancelled,Regional Ground,5196.33
-627,77,2025-05-30,delivered,Zone 1 Shipping,4207.72
-628,172,2025-07-29,shipped,Zone 2 Shipping,285.88
-629,29,2024-06-27,delivered,Zone 3 Shipping,9036.61
-630,181,2025-03-15,delivered,Zone 4 Shipping,3261.59
-631,116,2025-06-28,pending,Zone 5 Shipping,315.83
-632,48,2024-11-04,shipped,Zone 6 Shipping,3185.46
-633,138,2024-11-02,shipped,Zone 7 Shipping,7627.53
-634,168,2025-07-30,pending,Zone 8 Shipping,3762.4
-635,188,2025-04-19,shipped,Special Handling,7675.0
-636,149,2025-02-17,delivered,Fragile Shipping,5163.18
-637,90,2025-10-05,delivered,Hazmat Shipping,6787.03
-638,19,2026-05-30,shipped,Oversized Shipping,8608.37
-639,141,2026-05-05,shipped,Lightweight Shipping,7430.92
-640,3,2025-08-01,processing,Heavy Item Shipping,2881.24
-641,135,2025-03-15,processing,Perishable Shipping,7683.13
-642,43,2024-06-24,processing,Temperature Controlled,5367.22
-643,79,2026-06-04,delivered,White Glove Delivery,2338.97
-644,87,2025-11-11,shipped,Freight Shipping,7456.95
-645,34,2026-02-20,shipped,LTL Shipping,9865.45
-646,89,2024-09-09,delivered,Truckload Shipping,7605.76
-647,176,2026-03-19,delivered,Courier Service,2049.35
-648,44,2025-01-14,shipped,Postal Service,2964.01
-649,97,2025-07-27,processing,Parcel Carrier,5453.52
-650,70,2025-12-10,shipped,Drop Shipping,3278.77
-651,96,2024-11-01,delivered,Warehouse Delivery,1445.99
-652,171,2026-04-10,delivered,Retail Store Delivery,7583.98
-653,66,2024-11-03,pending,Hub Delivery,1886.39
-654,119,2025-08-14,shipped,Point of Sale Pickup,4502.94
-655,2,2024-12-05,delivered,Click and Collect,3925.47
-656,59,2026-01-31,delivered,Buy Online Pickup In Store,8274.7
-657,53,2025-09-09,delivered,BOPIS,8568.52
-658,46,2026-05-07,delivered,Ship to Store,5775.63
-659,141,2025-02-05,delivered,Locker Delivery,8278.24
-660,99,2025-11-09,delivered,Amazon Locker,4441.09
-661,2,2026-05-01,delivered,Parcel Locker,4000.51
-662,54,2024-11-13,pending,Smart Locker,5688.2
-663,163,2025-05-08,delivered,Mailbox Delivery,6055.31
-664,1,2024-10-15,delivered,Door Delivery,4356.71
-665,50,2024-07-18,processing,Back Door Delivery,2393.96
-666,176,2025-12-15,delivered,Garage Delivery,3236.69
-667,134,2026-02-05,shipped,Porch Delivery,3746.15
-668,127,2025-06-02,shipped,Signature on Delivery,1451.51
-669,158,2025-09-23,delivered,Adult Signature Required,6463.78
-670,162,2024-06-20,delivered,Direct Signature Required,9510.53
-671,134,2024-07-30,processing,Indirect Signature Required,4025.9
-672,8,2024-09-29,processing,No Signature Required,3822.3
-673,190,2026-05-31,delivered,Holiday Delivery,9109.11
-674,107,2025-07-12,pending,Weekend Delivery,5466.71
-675,161,2025-07-21,processing,Weekday Delivery,9836.18
-676,56,2026-02-23,delivered,Early Morning Delivery,1576.51
-677,97,2024-12-28,delivered,Evening Delivery,628.17
-678,29,2026-01-14,delivered,Business Hours Delivery,4650.02
-679,85,2026-04-21,cancelled,After Hours Delivery,248.05
-680,155,2026-03-01,processing,Scheduled Delivery,170.09
-681,137,2026-06-04,cancelled,Flexible Delivery,2059.88
-682,3,2025-09-19,pending,Recurring Delivery,5734.02
-683,171,2025-08-15,processing,Subscription Delivery,167.02
-684,200,2026-04-12,delivered,Gift Delivery,656.45
-685,143,2025-05-23,delivered,Gift Wrap Delivery,6426.83
-686,130,2025-02-11,delivered,Corporate Shipping,2829.62
-687,79,2024-08-12,delivered,Business Shipping,328.95
-688,68,2024-08-16,processing,Residential Shipping,2562.02
-689,115,2025-04-28,shipped,Commercial Shipping,6743.83
-690,13,2024-07-28,delivered,Military Shipping,2250.06
-691,195,2025-10-02,processing,APO Shipping,9709.84
-692,142,2025-08-01,processing,FPO Shipping,5348.51
-693,142,2025-03-23,processing,International Shipping,6408.02
-694,187,2024-08-27,processing,Domestic Shipping,950.98
-695,89,2024-06-27,cancelled,Cross-Border Shipping,9110.13
-696,107,2026-03-22,pending,Canada Shipping,8723.37
-697,6,2025-03-03,shipped,Mexico Shipping,980.66
-698,161,2025-12-16,delivered,European Shipping,7889.69
-699,134,2024-08-27,delivered,Asian Shipping,7339.58
-700,177,2024-09-24,processing,Australian Shipping,3214.97
-701,160,2025-06-25,pending,Air Shipping,4746.55
-702,182,2025-12-17,processing,Sea Shipping,9882.16
-703,58,2024-11-23,delivered,Rail Shipping,9899.41
-704,18,2024-12-02,delivered,Truck Shipping,2485.22
-705,197,2025-05-13,shipped,Multi-Modal Shipping,7282.45
-706,62,2025-06-29,pending,Economy International,4850.57
-707,58,2025-06-16,shipped,Standard International,5955.43
-708,75,2025-09-09,processing,Express International,8147.11
-709,60,2025-11-19,delivered,Priority International,2942.73
-710,55,2026-02-07,delivered,Tracked Shipping,9749.24
-711,83,2026-03-11,delivered,Untracked Shipping,77.66
-712,14,2025-01-28,delivered,Real-Time Tracking,7229.01
-713,146,2025-02-15,shipped,Basic Tracking,6198.41
-714,169,2024-08-30,delivered,Advanced Tracking,576.47
-715,29,2025-09-19,processing,Proof of Delivery,8492.41
-716,8,2024-10-19,delivered,No Proof of Delivery,4132.21
-717,108,2024-09-16,processing,Insurance Included,4264.97
-718,63,2025-07-07,delivered,No Insurance,3761.77
-719,110,2026-01-22,delivered,Carbon Neutral Shipping,8304.72
-720,61,2026-05-06,delivered,Eco-Friendly Shipping,9181.88
-721,16,2026-01-09,shipped,Green Delivery,4119.42
-722,84,2026-01-28,processing,Sustainable Shipping,6452.12
-723,46,2025-02-26,delivered,Fast Shipping,9649.67
-724,11,2024-11-06,shipped,Slow Shipping,2052.81
-725,47,2024-09-20,delivered,Medium Speed Shipping,948.09
-726,99,2024-11-24,delivered,Variable Speed Shipping,5785.34
-727,34,2025-06-27,delivered,Consolidated Shipping,323.06
-728,34,2024-08-19,delivered,Separate Shipment,8155.84
-729,53,2026-02-01,shipped,Combined Shipment,5253.78
-730,40,2026-03-09,delivered,Partial Shipment,4603.8
-731,139,2025-05-18,shipped,Full Shipment,7159.44
-732,15,2024-06-26,delivered,Split Shipment,2904.52
-733,94,2025-09-22,delivered,Drop Ship,9646.22
-734,33,2025-12-28,delivered,Direct Ship,8791.83
-735,182,2024-06-18,pending,Vendor Managed Inventory,8971.68
-736,148,2026-03-11,delivered,Warehouse Managed Inventory,8780.34
-737,54,2025-06-04,delivered,Third Party Logistics,4395.78
-738,181,2026-02-22,shipped,4PL Shipping,8698.62
-739,87,2024-08-27,delivered,Dedicated Shipping,9659.39
-740,53,2026-04-10,delivered,Shared Shipping,3008.29
-741,97,2024-11-06,pending,Full Truckload,6554.43
-742,64,2026-02-22,shipped,Less Than Truckload,7981.59
-743,157,2025-09-10,delivered,Partial Truckload,2713.57
-744,96,2024-10-09,delivered,Consolidated LTL,9973.84
-745,84,2024-12-27,delivered,Parcel Plus,5356.75
-746,162,2025-10-22,shipped,Parcel Select,694.12
-747,56,2025-07-26,delivered,Media Mail,8490.39
-748,112,2026-01-09,shipped,Library Mail,1403.21
-749,22,2024-10-16,processing,Bound Printed Matter,6825.12
-750,100,2025-11-13,delivered,Commercial Base,4565.96
-751,114,2025-08-29,shipped,Retail Base,5197.36
-752,119,2025-05-04,pending,Online Base,1986.3
-753,130,2025-01-12,pending,Special Service,686.47
-754,39,2025-06-15,delivered,Delivery Confirmation,8586.57
-755,160,2025-07-22,delivered,Return Receipt,2674.66
-756,5,2025-09-05,delivered,Registered Mail,3703.88
-757,165,2026-03-23,delivered,Certified Mail,9359.77
-758,76,2026-05-06,shipped,Money Order,2051.35
-759,114,2025-07-21,delivered,Insured Mail,519.85
-760,23,2025-12-05,delivered,Collect on Delivery,173.22
-761,129,2025-06-22,delivered,Cash on Delivery,4250.67
-762,184,2026-03-02,delivered,Credit Card Payment,7463.26
-763,6,2025-08-11,pending,Invoice Payment,4214.62
-764,91,2025-04-13,delivered,Prepaid Shipping,801.41
-765,109,2026-05-06,shipped,Postage Due,8904.77
-766,21,2026-05-05,delivered,Flat Rate Envelope,38.06
-767,160,2025-04-14,delivered,Flat Rate Padded Envelope,5113.11
-768,7,2025-10-11,pending,Small Flat Rate Box,8815.27
-769,68,2024-09-03,shipped,Medium Flat Rate Box,7727.99
-770,64,2025-01-17,delivered,Large Flat Rate Box,6831.87
-771,102,2026-04-09,shipped,Regional Rate Box,5256.63
-772,172,2024-07-09,delivered,Priority Mail Express,3590.27
-773,153,2024-11-29,delivered,Priority Mail,423.42
-774,7,2025-05-01,delivered,First-Class Mail,6046.5
-775,120,2024-10-02,pending,Standard Mail,1712.38
-776,179,2024-12-10,processing,Parcel Post,999.51
-777,14,2024-11-09,pending,Parcel Select Ground,8173.8
-778,1,2026-05-20,delivered,Parcel Select Lightweight,103.98
-779,99,2025-10-09,processing,Parcel Select Destination Entry,5896.9
-780,178,2025-12-09,delivered,Parcel Select Return,5988.59
-781,143,2025-05-09,processing,Parcel Select Commercial,8505.17
-782,1,2024-12-12,shipped,Parcel Select Retail,9537.26
-783,50,2025-05-21,pending,Parcel Select Online,6175.01
-784,72,2025-12-24,delivered,Parcel Select Plus,2551.59
-785,117,2025-10-01,cancelled,Parcel Select Premium,2128.09
-786,10,2025-10-26,delivered,Ground Advantage,1880.85
-787,16,2026-03-14,delivered,USPS Ground Advantage,3727.01
-788,153,2026-04-03,shipped,USPS Retail Ground Advantage,5539.49
-789,100,2025-02-27,delivered,USPS Commercial Ground Advantage,3041.65
-790,11,2026-03-19,processing,USPS Online Ground Advantage,2788.88
-791,182,2024-08-29,pending,FedEx Ground Home Delivery,9114.04
-792,173,2026-02-27,delivered,FedEx Ground Commercial,2080.52
-793,178,2026-03-11,shipped,FedEx Ground Economy,8337.33
-794,60,2024-12-20,shipped,FedEx Ground Plus,5492.41
-795,5,2025-10-20,pending,FedEx Ground Premium,6169.6
-796,86,2025-05-16,cancelled,FedEx Express Saver,5050.2
-797,100,2025-02-17,pending,FedEx 2Day,8559.94
-798,12,2024-08-06,delivered,FedEx 2Day AM,291.84
-799,23,2025-06-16,processing,FedEx Overnight Standard,6551.67
-800,28,2024-07-30,delivered,FedEx Overnight Premier,2928.3
-801,62,2025-07-01,shipped,FedEx SameDay,4884.39
-802,3,2024-07-17,delivered,FedEx SameDay City,1539.87
-803,28,2024-08-21,processing,FedEx International Economy,7020.7
-804,160,2025-10-15,pending,FedEx International Priority,8744.13
-805,99,2025-12-10,pending,FedEx International First,5578.41
-806,101,2025-06-05,delivered,UPS Ground Standard,2230.77
-807,11,2024-10-07,delivered,UPS Ground Commercial,8264.07
-808,193,2026-02-17,delivered,UPS Ground Retail,5674.36
-809,128,2025-07-12,shipped,UPS Ground Online,4742.84
-810,181,2025-10-17,delivered,UPS Ground Plus,42.57
-811,148,2025-06-07,delivered,UPS Ground Premium,1945.48
-812,8,2025-01-14,delivered,UPS 3-Day Select,672.17
-813,139,2025-06-08,shipped,UPS 2nd Day Air Standard,1780.49
-814,186,2025-06-02,shipped,UPS 2nd Day Air,726.99
-815,178,2024-07-11,pending,UPS 2nd Day Air AM,5819.03
-816,98,2024-11-25,pending,UPS Next Day Air Saver,1338.3
-817,77,2025-04-17,pending,UPS Next Day Air,9741.69
-818,187,2024-06-07,delivered,UPS Next Day Air Early AM,4828.24
-819,169,2024-08-19,pending,UPS Next Day Air Late,3906.57
-820,185,2024-08-07,delivered,UPS Worldwide Express Plus,4272.58
-821,56,2024-09-12,processing,UPS Worldwide Express,7427.97
-822,107,2025-04-07,delivered,UPS Worldwide Express Saver,8836.41
-823,170,2025-12-27,delivered,UPS Standard,561.57
-824,166,2025-01-13,shipped,UPS Expedited,2634.85
-825,83,2024-08-16,pending,UPS Express,5674.13
-826,170,2024-12-22,processing,UPS Express Plus,2975.22
-827,7,2024-08-19,shipped,UPS Express Saver,6174.21
-828,193,2024-12-07,shipped,DHL Ground Select,4855.64
-829,159,2025-11-20,delivered,DHL Ground Residential,4255.34
-830,71,2025-03-10,shipped,DHL Ground Commercial,7449.06
-831,54,2026-04-30,processing,DHL Express Worldwide,7390.77
-832,96,2025-02-04,cancelled,DHL Express 9:00,4224.36
-833,1,2026-02-16,processing,DHL Express 10:30,2909.32
-834,193,2026-03-10,delivered,DHL Express 12:00,5209.48
-835,132,2024-09-30,delivered,DHL Express Envelope,9377.33
-836,85,2025-07-31,shipped,DHL Express Document,8459.1
-837,131,2025-01-02,delivered,DHL Express Parcel,452.0
-838,101,2025-01-26,cancelled,DHL Express Worldwide Parcel,295.84
-839,40,2025-11-09,shipped,DHL eCommerce,5201.97
-840,7,2024-10-06,processing,DHL eCommerce Parcel,7341.09
-841,161,2025-01-04,delivered,DHL eCommerce Plus,4863.77
-842,84,2024-07-25,cancelled,DHL eCommerce Select,9537.59
-843,192,2024-12-26,delivered,DHL eCommerce Economy,5209.43
-844,100,2026-05-10,processing,Purolator Ground,5435.28
-845,66,2026-01-13,delivered,Purolator Express,2763.15
-846,113,2025-10-19,shipped,Purolator Express 9AM,7962.76
-847,16,2025-03-21,processing,Purolator Express 10:30AM,9881.53
-848,93,2025-06-19,delivered,Purolator Express 12PM,7383.4
-849,104,2024-06-23,processing,Purolator Express 3PM,435.38
-850,132,2025-02-23,shipped,Purolator Express Envelope,6290.43
-851,104,2025-06-30,pending,Purolator Express Document,8093.42
-852,91,2026-01-27,delivered,Purolator Express Parcel,994.24
-853,96,2026-03-31,shipped,Purolator Domestic,4501.03
-854,101,2024-11-17,delivered,Purolator International,2800.54
-855,195,2025-07-27,delivered,Purolator eCommerce,8193.49
-856,25,2025-10-04,delivered,Purolator eCommerce Ground,3059.01
-857,134,2025-12-02,shipped,Purolator eCommerce Express,9673.06
-858,110,2026-06-05,delivered,Purolator eCommerce International,1068.27
-859,92,2025-07-23,shipped,XPO Logistics,7147.68
-860,48,2026-03-27,pending,Old Dominion,5135.43
-861,144,2024-10-17,delivered,YRC Worldwide,2473.71
-862,200,2025-10-24,delivered,ArcBest,8516.3
-863,172,2026-04-30,delivered,Saia LTL Freight,3831.01
-864,127,2025-02-19,processing,Estes Express Lines,195.32
-865,182,2024-09-20,processing,ABF Freight,8686.73
-866,37,2025-09-05,delivered,XPO Ground,7155.14
-867,52,2025-08-21,shipped,XPO Express,5018.89
-868,102,2025-01-26,shipped,OD Ground,7143.65
-869,130,2024-08-04,delivered,OD Express,3303.16
-870,55,2025-09-10,delivered,YRC Ground,1186.81
-871,134,2025-11-21,processing,YRC Express,3957.14
-872,74,2025-02-06,delivered,ArcBest Ground,8252.41
-873,50,2025-03-26,delivered,ArcBest Express,1052.8
-874,118,2024-12-04,delivered,Saia Ground,4646.46
-875,32,2025-12-20,processing,Saia Express,9648.96
-876,183,2024-07-17,shipped,Estes Ground,4569.83
-877,96,2026-05-06,shipped,Estes Express,865.11
-878,1,2025-10-22,delivered,ABF Ground,502.99
-879,132,2025-03-31,delivered,ABF Express,8262.02
-880,86,2025-03-10,delivered,Courier Express,7012.66
-881,19,2024-06-10,delivered,Courier Ground,9028.04
-882,106,2025-02-08,shipped,Courier Parcel,4251.4
-883,54,2024-06-26,delivered,Courier Envelope,1060.5
-884,194,2025-08-02,processing,Courier Document,2697.11
-885,63,2024-10-27,cancelled,Messenger Service,6006.02
-886,104,2024-09-14,shipped,Same-Day Courier,7031.75
-887,49,2024-08-11,delivered,Next-Day Courier,4220.29
-888,153,2026-04-18,cancelled,2-Day Courier,4927.55
-889,196,2025-04-15,delivered,3-Day Courier,3770.41
-890,22,2026-01-08,pending,5-Day Courier,5414.14
-891,107,2025-04-28,pending,Local Courier,7066.37
-892,82,2026-04-17,delivered,Regional Courier,2351.6
-893,79,2024-10-27,delivered,National Courier,1127.85
-894,151,2025-06-12,delivered,International Courier,4397.88
-895,103,2024-12-20,delivered,Express Courier,9447.52
-896,103,2025-10-20,cancelled,Standard Courier,5185.79
-897,169,2025-09-24,pending,Economy Courier,139.43
-898,47,2025-01-25,processing,Premium Courier,5968.51
-899,91,2026-05-24,shipped,Bike Courier,8931.49
-900,35,2025-12-04,delivered,Car Courier,6153.97
-901,142,2026-01-05,delivered,Truck Courier,5156.24
-902,190,2024-08-28,delivered,Van Courier,7522.5
-903,25,2025-04-30,delivered,Motorcycle Courier,2587.32
-904,128,2025-08-13,shipped,Scooter Courier,9262.52
-905,70,2024-11-11,pending,Walking Courier,1494.59
-906,137,2026-01-01,shipped,Pickup and Delivery,9563.53
-907,137,2024-09-18,shipped,Delivery Only,3193.84
-908,49,2024-11-25,processing,Pickup Only,8874.65
-909,135,2025-09-17,shipped,Store Pickup,6104.98
-910,159,2024-07-23,shipped,Locker Pickup,3007.52
-911,88,2026-02-08,delivered,Hub Pickup,9433.71
-912,107,2024-10-24,cancelled,Terminal Pickup,7151.77
-913,157,2025-07-22,pending,Dock Pickup,2628.92
-914,12,2025-10-13,delivered,Will Call,8941.32
-915,66,2025-07-19,processing,Hold for Pickup,3763.22
-916,11,2026-01-11,processing,Customer Pickup,5790.69
-917,102,2025-12-28,delivered,Authorized Pickup,1187.62
-918,110,2026-03-02,delivered,Third Party Pickup,8624.61
-919,58,2025-12-20,shipped,Scheduled Pickup,5852.21
-920,65,2025-09-22,shipped,On-Demand Pickup,4860.13
-921,42,2025-04-22,delivered,Daily Pickup,9499.95
-922,180,2025-05-30,shipped,Weekly Pickup,1004.56
-923,35,2024-11-22,delivered,Monthly Pickup,421.39
-924,89,2025-07-16,processing,As-Needed Pickup,6742.61
-925,143,2025-02-25,delivered,Recurring Pickup,3760.99
-926,55,2024-10-28,delivered,One-Time Pickup,1690.25
-927,36,2025-11-18,delivered,Standing Order Pickup,4152.04
-928,192,2025-07-30,processing,Subscription Pickup,9522.17
-929,141,2025-06-03,shipped,Seasonal Pickup,6202.4
-930,76,2024-08-27,shipped,Holiday Pickup,2379.43
-931,80,2024-11-14,delivered,Weekend Pickup,5711.5
-932,191,2025-08-19,delivered,Weekday Pickup,1981.69
-933,70,2024-09-27,delivered,Morning Pickup,6339.87
-934,49,2026-01-17,delivered,Afternoon Pickup,8381.81
-935,194,2024-11-28,shipped,Evening Pickup,5625.83
-936,18,2025-04-04,delivered,Night Pickup,5241.59
-937,167,2024-06-25,shipped,Early Morning Pickup,7319.93
-938,7,2025-12-29,cancelled,Late Night Pickup,6133.13
-939,149,2025-10-16,pending,After Hours Pickup,7819.14
-940,161,2025-09-26,shipped,Business Hours Pickup,949.42
-941,124,2024-10-17,delivered,Extended Hours Pickup,5292.73
-942,192,2025-07-28,shipped,24/7 Pickup,7984.45
-943,41,2025-03-24,shipped,Automated Pickup,6041.95
-944,36,2025-12-30,shipped,Manual Pickup,1551.35
-945,44,2025-09-01,processing,Assisted Pickup,809.29
-946,194,2025-07-24,delivered,Unassisted Pickup,9200.76
-947,139,2026-02-06,pending,Contactless Pickup,9465.13
-948,137,2025-11-30,shipped,In-Person Pickup,8580.69
-949,28,2024-07-19,cancelled,Phone Pickup,6447.77
-950,68,2025-06-05,delivered,Online Pickup,3552.11
-951,84,2024-08-16,shipped,App Pickup,6301.55
-952,66,2026-04-04,processing,Web Pickup,3070.5
-953,52,2025-12-10,processing,Email Pickup,7729.28
-954,112,2025-07-01,delivered,Fax Pickup,370.34
-955,93,2026-02-02,delivered,Mail Pickup,1903.37
-956,15,2025-02-06,shipped,Text Pickup,6474.33
-957,112,2024-06-23,delivered,Voice Pickup,2865.07
-958,42,2025-02-05,cancelled,Video Pickup,2700.13
-959,152,2024-06-19,delivered,Chat Pickup,6769.75
-960,20,2025-08-27,delivered,Live Chat Pickup,6832.77
-961,73,2025-11-03,shipped,Bot Pickup,5210.33
-962,113,2025-12-30,shipped,AI Pickup,8511.49
-963,155,2025-11-22,shipped,Human Pickup,7684.11
-964,133,2025-08-11,delivered,Hybrid Pickup,1941.24
-965,58,2025-09-22,processing,Mixed Pickup,7948.28
-966,90,2024-12-06,shipped,Combined Pickup,9133.66
-967,136,2025-09-06,delivered,Consolidated Pickup,8681.32
-968,77,2026-06-06,shipped,Separated Pickup,69.35
-969,96,2026-05-04,cancelled,Batch Pickup,7587.03
-970,138,2025-09-08,pending,Individual Pickup,7494.15
-971,144,2026-03-30,processing,Bulk Pickup,3298.54
-972,126,2025-11-15,pending,Small Pickup,5683.73
-973,112,2026-05-17,delivered,Large Pickup,4314.74
-974,150,2025-07-11,processing,Standard Pickup,4343.5
-975,145,2025-05-26,shipped,Express Pickup,2482.35
-976,22,2026-01-12,shipped,Economy Pickup,7918.1
-977,90,2024-07-23,shipped,Premium Pickup,187.8
-978,23,2026-04-26,delivered,Luxury Pickup,4210.06
-979,171,2025-04-09,processing,Basic Pickup,6701.21
-980,142,2025-06-07,delivered,Advanced Pickup,1786.87
-981,24,2026-01-12,pending,Enhanced Pickup,3585.81
-982,79,2025-10-03,delivered,Upgraded Pickup,2790.76
-983,184,2025-06-20,delivered,Custom Pickup,1096.11
-984,108,2025-10-13,processing,Specialized Pickup,333.64
-985,85,2025-04-27,shipped,General Pickup,6333.69
-986,74,2024-11-21,processing,Specific Pickup,9844.97
-987,17,2026-02-20,delivered,Targeted Pickup,4013.7
-988,146,2024-09-07,delivered,Broad Pickup,9278.9
-989,153,2025-10-19,pending,Narrow Pickup,5928.57
-990,108,2024-08-20,delivered,Wide Pickup,6894.11
-991,125,2024-06-12,delivered,Limited Pickup,1224.26
-992,31,2024-11-21,processing,Unlimited Pickup,7002.13
-993,199,2024-06-24,shipped,Restricted Pickup,7082.01
-994,111,2025-03-24,processing,Unrestricted Pickup,1883.45
-995,62,2025-09-12,processing,Conditional Pickup,2235.54
-996,166,2024-08-20,delivered,Unconditional Pickup,7419.26
-997,86,2025-06-19,processing,Contingent Pickup,8967.41
-998,140,2026-06-05,delivered,Guaranteed Pickup,6013.19
-999,111,2024-12-16,shipped,Provisional Pickup,3008.6
-1000,83,2024-10-30,processing,Temporary Pickup,2301.43
+1,186,2025-04-08,processing,Standard Ground,7844.31
+2,83,2026-02-15,processing,Express Overnight,8584.03
+3,151,2024-08-10,shipped,2-Day Shipping,2264.06
+4,131,2026-05-16,delivered,Priority Mail,2693.16
+5,194,2025-12-16,delivered,First Class Mail,6586.07
+6,47,2026-06-07,delivered,USPS Ground Advantage,7779.11
+7,53,2024-11-13,delivered,UPS Ground,2145.99
+8,70,2026-03-13,shipped,UPS Next Day Air,2456.65
+9,67,2026-03-10,processing,UPS 2nd Day Air,9107.22
+10,109,2025-01-10,processing,FedEx Standard Overnight,559.31
+11,23,2026-01-22,delivered,FedEx 2Day,4129.23
+12,114,2025-10-09,processing,FedEx Ground,3260.74
+13,2,2024-10-03,processing,FedEx Home Delivery,908.48
+14,106,2026-04-19,delivered,DHL Express,8770.79
+15,121,2024-09-07,cancelled,DHL Ground,5059.02
+16,148,2024-09-29,shipped,In-Store Pickup,8322.11
+17,7,2025-01-18,delivered,Curbside Pickup,406.78
+18,133,2025-05-08,shipped,Same-Day Delivery,8939.75
+19,90,2026-04-22,cancelled,Next-Day Delivery,8896.43
+20,41,2026-01-24,delivered,Economy Shipping,3233.44
+21,169,2025-03-01,delivered,Regular Delivery,5095.54
+22,197,2025-08-13,shipped,Expedited Shipping,269.9
+23,140,2024-09-20,shipped,Overnight Shipping,9845.69
+24,44,2025-12-08,delivered,Parcel Post,8113.82
+25,119,2024-08-20,pending,Registered Mail,7046.05
+26,131,2025-01-31,shipped,Certified Mail,8250.47
+27,49,2025-09-30,shipped,Special Delivery,7339.28
+28,158,2026-02-08,shipped,Local Delivery,829.43
+29,75,2026-02-26,delivered,Regional Delivery,1373.58
+30,125,2024-12-22,delivered,International Standard,3843.8
+31,94,2025-11-18,shipped,International Express,8004.59
+32,128,2025-03-15,processing,International Priority,9508.39
+33,83,2025-10-27,delivered,Flat Rate Box,9149.64
+34,24,2024-10-09,delivered,Padded Flat Rate Envelope,3487.09
+35,31,2025-08-04,shipped,Large Flat Rate Box,2919.86
+36,86,2026-06-07,shipped,Regional Rate Box,1636.51
+37,33,2025-10-22,delivered,Smartpost,9712.92
+38,195,2025-10-17,delivered,Laser Ship,5639.02
+39,15,2026-05-27,shipped,OnTrac,484.1
+40,15,2026-03-29,cancelled,Amazon Prime,9683.36
+41,76,2025-08-19,processing,Amazon Prime 2-Hour,8156.8
+42,104,2024-06-18,processing,Whole Foods Delivery,8487.39
+43,42,2025-12-26,delivered,Walmart+ Delivery,1268.58
+44,77,2026-05-22,delivered,Target Same Day,4370.33
+45,42,2025-05-04,delivered,Best Buy Home Delivery,9938.92
+46,183,2026-01-13,shipped,White Glove Service,756.63
+47,173,2024-11-22,delivered,Freight Shipping,4095.4
+48,153,2024-08-25,delivered,Truck Delivery,1121.19
+49,123,2025-12-29,delivered,Parcel Locker Pickup,7668.39
+50,57,2025-07-05,delivered,Digital Delivery,7841.96
+51,193,2024-07-17,shipped,Standard Ground,8155.3
+52,44,2025-01-22,delivered,Express Overnight,7512.48
+53,165,2025-11-14,pending,Priority Mail,730.82
+54,56,2024-08-02,shipped,FedEx 2-Day,9680.2
+55,90,2024-07-15,delivered,UPS Ground,7375.57
+56,190,2024-07-29,delivered,USPS First Class,7777.43
+57,41,2024-12-05,processing,DHL International,1389.9
+58,105,2024-12-10,delivered,Same-Day Delivery,3226.33
+59,38,2025-02-09,pending,Expedited Shipping,4006.63
+60,25,2024-07-25,delivered,Economy Ground,9205.03
+61,42,2024-10-06,shipped,Regional Ground,1996.86
+62,117,2024-09-27,delivered,Next-Day Air,7064.81
+63,159,2025-11-05,shipped,Ground Advantage,1586.27
+64,56,2026-04-23,delivered,Parcel Select,4946.5
+65,60,2026-02-05,shipped,USPS Priority Express,5405.5
+66,178,2025-09-14,pending,FedEx Home Delivery,7655.21
+67,13,2025-02-18,shipped,UPS 2nd Day Air,2422.27
+68,32,2026-05-06,shipped,UPS Next Day Air,7941.18
+69,16,2025-07-26,processing,USPS Retail Ground,524.34
+70,169,2024-06-15,delivered,Local Pickup,8157.87
+71,16,2025-12-28,processing,Courier Service,9493.42
+72,98,2024-12-27,delivered,International Standard,3541.33
+73,121,2025-12-04,shipped,International Express,3232.84
+74,182,2025-06-05,shipped,Overnight Shipping,8317.3
+75,116,2025-10-12,pending,3-Day Shipping,4100.92
+76,149,2024-12-26,shipped,5-Day Shipping,9706.55
+77,165,2026-04-13,pending,Standard Shipping,7245.3
+78,22,2026-02-10,processing,Premium Delivery,7491.97
+79,90,2025-02-20,processing,White Glove Delivery,3098.07
+80,103,2026-04-23,delivered,Freight Shipping,4211.92
+81,137,2025-04-08,pending,Signature Required,3440.22
+82,119,2024-12-16,processing,Fragile Handling,922.99
+83,196,2024-08-16,shipped,Expedited Ground,4249.75
+84,178,2026-01-01,delivered,Regional Overnight,4431.3
+85,22,2024-12-06,cancelled,DHL Express,2140.53
+86,136,2025-07-19,shipped,DHL Standard,6172.89
+87,168,2024-07-12,processing,Amazon Prime Delivery,5127.23
+88,171,2025-11-30,pending,Store Pickup,9467.19
+89,146,2024-08-12,shipped,Curbside Pickup,6901.58
+90,87,2025-06-24,processing,In-Store Pickup,8467.96
+91,107,2025-07-21,processing,Drive-Up Delivery,4868.76
+92,78,2025-06-15,delivered,Scheduled Delivery,5517.26
+93,38,2026-03-18,delivered,Flat Rate Shipping,2124.7
+94,81,2026-04-27,processing,Variable Rate Shipping,9110.98
+95,59,2025-09-21,shipped,Bulk Shipping,1674.87
+96,47,2025-07-05,delivered,Drop Ship,6515.59
+97,5,2024-12-19,delivered,Vendor Direct Shipping,3216.14
+98,182,2025-07-24,delivered,Third-Party Logistics,187.26
+99,13,2026-01-19,delivered,Consolidated Shipping,6974.38
+100,170,2025-02-18,delivered,Eco-Friendly Shipping,9079.56
+101,20,2025-07-01,delivered,Standard Ground Shipping,9399.12
+102,19,2026-04-03,delivered,Express Overnight,606.6
+103,66,2026-01-28,shipped,2-Day Priority,467.35
+104,76,2026-03-25,delivered,Ground Delivery,6785.57
+105,64,2025-01-14,processing,First Class Mail,4426.0
+106,110,2026-01-28,processing,Priority Mail Express,4843.65
+107,34,2024-12-26,processing,UPS Ground,2842.11
+108,149,2025-04-11,processing,FedEx Ground,7743.92
+109,86,2024-09-22,delivered,DHL Express,3158.05
+110,118,2026-03-05,processing,USPS Priority,9446.54
+111,147,2026-05-27,delivered,Expedited Shipping,5101.59
+112,18,2025-07-07,delivered,Standard Delivery,5810.0
+113,172,2026-05-25,pending,Overnight Shipping,4324.8
+114,72,2026-04-01,pending,Economy Shipping,4384.25
+115,75,2025-12-10,shipped,International Standard,1637.14
+116,156,2026-02-11,delivered,International Express,816.91
+117,83,2025-11-21,delivered,Same-Day Delivery,4654.36
+118,88,2024-07-24,processing,Next-Day Delivery,6624.09
+119,157,2025-03-09,cancelled,3-Day Shipping,9887.7
+120,36,2025-08-25,shipped,5-Day Shipping,2406.16
+121,174,2026-02-02,processing,Local Pickup,7378.82
+122,85,2026-03-06,delivered,In-Store Pickup,359.33
+123,121,2025-08-23,shipped,Curbside Pickup,701.24
+124,174,2024-07-05,delivered,Regional Delivery,127.34
+125,70,2026-05-02,shipped,Cross-Border Shipping,3794.82
+126,132,2024-10-28,shipped,Parcel Post,1779.54
+127,34,2025-09-25,shipped,Registered Mail,4298.29
+128,166,2024-12-19,delivered,Certified Mail,3193.05
+129,60,2025-04-26,processing,Special Handling,5525.61
+130,185,2025-04-22,delivered,Fragile Goods Shipping,9081.55
+131,170,2026-05-31,shipped,Oversized Item Delivery,344.7
+132,134,2025-09-08,delivered,White Glove Delivery,6466.81
+133,165,2025-11-16,delivered,Scheduled Delivery,5592.49
+134,114,2025-05-22,shipped,Courier Service,9976.79
+135,83,2025-02-05,delivered,Freight Shipping,775.47
+136,78,2025-12-02,cancelled,Bulk Shipping,3377.7
+137,26,2025-11-13,delivered,Drop Shipping,6650.51
+138,68,2024-07-06,cancelled,Fulfillment Center Delivery,5325.42
+139,103,2025-12-30,delivered,Third-Party Logistics,5704.14
+140,37,2026-04-09,pending,Military Mail,7953.55
+141,191,2024-09-09,delivered,Rural Delivery,6814.63
+142,117,2024-08-09,pending,Island Delivery,7421.03
+143,194,2025-07-23,delivered,Mountain Delivery,3131.36
+144,37,2025-03-19,shipped,Temperature Controlled Shipping,9280.3
+145,149,2024-12-17,delivered,Hazmat Shipping,5689.85
+146,124,2025-07-31,shipped,Signature Required,4969.44
+147,11,2025-11-14,cancelled,Insured Delivery,4632.59
+148,43,2025-02-18,delivered,Premium Express,7295.05
+149,1,2025-02-12,delivered,Economy Ground,1732.41
+150,45,2025-10-06,processing,Weekend Delivery,4795.42
+151,184,2025-04-24,processing,Standard Ground,8999.23
+152,1,2024-11-10,processing,Express Overnight,3135.1
+153,103,2024-09-12,delivered,Priority Mail,7141.12
+154,181,2024-07-04,delivered,2-Day Shipping,4019.93
+155,92,2026-06-03,pending,FedEx Ground,877.14
+156,59,2024-10-02,shipped,UPS Express,9518.47
+157,84,2025-07-18,shipped,USPS Priority,9968.88
+158,145,2025-07-02,pending,DHL International,2104.04
+159,184,2025-12-06,processing,Local Pickup,4115.45
+160,183,2024-11-05,delivered,Store Pickup,4661.74
+161,74,2024-08-31,pending,Same-Day Delivery,5224.89
+162,75,2024-09-27,shipped,Next-Day Delivery,1841.22
+163,1,2025-02-20,cancelled,Economy Shipping,6373.9
+164,174,2024-08-03,shipped,Standard Shipping,482.59
+165,84,2025-09-16,delivered,Expedited Shipping,2716.84
+166,25,2025-04-25,delivered,International Mail,505.93
+167,165,2024-08-11,shipped,Courier Service,4675.14
+168,73,2025-05-19,delivered,Parcel Post,5461.89
+169,72,2025-08-23,delivered,First Class Mail,4449.82
+170,79,2026-05-15,shipped,Media Mail,1558.54
+171,148,2024-11-26,delivered,Regional Ground,7105.63
+172,43,2024-07-29,shipped,White Glove Delivery,2682.98
+173,142,2024-11-02,delivered,Freight Shipping,8988.6
+174,27,2025-02-08,pending,Curbside Delivery,5718.81
+175,11,2024-10-04,delivered,In-Store Delivery,8066.91
+176,51,2024-09-10,delivered,Drive-Up Pickup,4103.02
+177,144,2024-09-15,delivered,Scheduled Delivery,5715.17
+178,169,2026-02-11,delivered,Weekend Delivery,7970.22
+179,66,2026-02-10,pending,Evening Delivery,2584.82
+180,122,2025-09-29,delivered,Morning Delivery,9700.49
+181,69,2026-03-27,delivered,FedEx 2Day,331.08
+182,172,2024-12-23,pending,UPS Ground,3805.12
+183,153,2024-09-30,pending,UPS 3-Day Select,8464.53
+184,38,2024-08-18,shipped,Amazon Prime,4990.38
+185,173,2024-10-30,processing,Amazon Fresh,8883.22
+186,28,2024-09-01,delivered,Shopify Fulfillment,5594.71
+187,148,2025-02-05,cancelled,Drop Ship,3460.6
+188,166,2025-06-16,delivered,Warehouse Pickup,6392.7
+189,86,2026-04-28,delivered,Hub Pickup,6127.88
+190,15,2025-04-15,delivered,Partner Shipping,5545.33
+191,31,2025-03-18,delivered,Third-Party Logistics,6793.96
+192,115,2026-04-28,processing,Consolidated Shipping,8836.79
+193,118,2025-08-07,shipped,Standard International,2077.31
+194,192,2025-04-12,delivered,Express International,4350.98
+195,112,2024-06-17,processing,Economy International,7993.84
+196,175,2024-09-14,processing,Air Mail,39.24
+197,30,2026-02-16,processing,Sea Mail,2907.92
+198,199,2025-08-15,processing,Ground Parcel,5499.22
+199,158,2024-07-22,delivered,Flat Rate Box,3077.25
+200,14,2024-07-07,cancelled,Variable Rate,9137.03
+201,60,2026-01-14,shipped,Standard Ground Shipping,3296.69
+202,190,2026-03-16,shipped,Express Overnight,7817.3
+203,98,2025-02-11,pending,2-Day Shipping,272.54
+204,155,2025-06-02,processing,Priority Mail,9256.54
+205,135,2024-11-19,delivered,Ground Delivery,2314.95
+206,101,2024-09-05,delivered,Expedited Shipping,5236.95
+207,87,2024-10-04,delivered,Overnight Shipping,1119.49
+208,129,2024-10-07,cancelled,Standard Delivery,9213.52
+209,53,2024-08-18,delivered,FedEx Ground,7633.58
+210,156,2024-12-26,processing,UPS Ground,7567.29
+211,32,2026-04-23,processing,USPS Priority Mail Express,1011.67
+212,69,2024-09-26,processing,DHL Express,4763.42
+213,118,2025-08-06,shipped,Free Shipping,5671.34
+214,7,2024-11-25,shipped,Store Pickup,5901.16
+215,161,2024-12-08,delivered,Same-Day Delivery,9049.8
+216,176,2024-12-12,shipped,Local Delivery,2254.16
+217,90,2026-05-31,shipped,International Airmail,9117.89
+218,133,2024-06-25,shipped,Economy Shipping,670.61
+219,198,2025-04-24,delivered,Regular Parcel,6989.17
+220,48,2026-05-29,shipped,Courier Service,2166.57
+221,113,2026-05-29,pending,UPS Express Saver,1425.11
+222,133,2026-05-22,shipped,FedEx 2Day,8914.27
+223,22,2024-10-01,processing,USPS First Class,7912.78
+224,104,2026-06-06,delivered,Parcel Post,4199.65
+225,197,2025-05-28,delivered,Registered Mail,4188.51
+226,4,2025-07-04,processing,Certified Mail,851.63
+227,124,2025-12-15,delivered,Special Delivery,105.49
+228,95,2026-02-04,shipped,Rush Shipping,3021.54
+229,18,2025-05-19,delivered,Next Business Day,560.91
+230,52,2025-11-19,processing,3-5 Business Days,7642.31
+231,73,2024-12-27,shipped,5-7 Business Days,8576.69
+232,111,2025-02-28,pending,Scheduled Delivery,3578.8
+233,2,2025-08-21,delivered,Curbside Pickup,9537.03
+234,156,2025-07-22,delivered,In-Store Pickup,8170.45
+235,7,2025-01-07,delivered,Locker Pickup,6040.99
+236,121,2025-07-24,pending,Partner Pickup,5125.17
+237,141,2026-05-04,shipped,White Glove Delivery,7186.77
+238,129,2025-03-24,processing,Freight Shipping,5847.54
+239,113,2026-03-10,shipped,LTL Shipping,9265.48
+240,114,2025-04-25,delivered,Full Truckload,2199.71
+241,94,2025-04-30,cancelled,Signature Required,1951.51
+242,72,2025-02-20,delivered,Insured Shipping,2978.55
+243,163,2025-06-11,shipped,Tracked Delivery,1114.86
+244,79,2025-07-21,processing,Standard International,3912.44
+245,156,2024-10-07,processing,Economy International,8476.02
+246,121,2025-11-15,cancelled,Premium International,1649.17
+247,180,2024-08-10,delivered,Island Delivery,6455.67
+248,120,2024-10-28,cancelled,Rural Delivery,2502.49
+249,196,2025-07-02,delivered,Weekend Delivery,1020.16
+250,141,2024-07-04,processing,Holiday Express,3041.5
+251,20,2024-08-21,shipped,Standard Ground,3240.82
+252,135,2024-10-07,cancelled,Express Overnight,9017.72
+253,107,2026-03-11,cancelled,2-Day Shipping,8752.53
+254,179,2025-03-13,shipped,Standard Ground,1413.42
+255,98,2024-06-07,delivered,Priority Mail,2207.87
+256,183,2025-01-03,delivered,Ground Shipping,4369.78
+257,75,2025-02-20,delivered,Next Day Air,3829.04
+258,86,2025-09-10,processing,Economy Ground,6933.83
+259,70,2026-01-29,delivered,Standard Ground,8240.93
+260,39,2026-04-02,delivered,FedEx Ground,8615.12
+261,127,2024-10-01,delivered,UPS Ground,3649.04
+262,124,2025-02-03,shipped,DHL Express,4985.57
+263,199,2026-01-03,delivered,USPS Priority Mail,773.82
+264,142,2026-01-13,processing,Standard Shipping,9072.78
+265,65,2025-08-01,delivered,Express Shipping,1170.18
+266,31,2025-03-01,shipped,Overnight Shipping,8132.24
+267,183,2025-08-17,shipped,Economy Shipping,3779.59
+268,100,2025-01-25,delivered,Standard Ground,1044.18
+269,133,2025-01-16,pending,2-Day Delivery,4436.35
+270,97,2025-05-09,shipped,Ground Shipping,4603.15
+271,169,2024-12-04,processing,Express Overnight,5437.61
+272,10,2024-12-18,delivered,Standard Shipping,9724.22
+273,21,2024-12-25,pending,Priority Overnight,1011.98
+274,185,2025-09-19,delivered,FedEx 2Day,7219.33
+275,25,2025-06-17,shipped,UPS Next Day Air,4493.84
+276,79,2026-05-15,shipped,USPS Ground,9166.82
+277,105,2025-09-02,processing,Economy Ground,7778.0
+278,181,2024-06-28,delivered,Standard Ground,1626.21
+279,110,2025-09-21,shipped,Express Shipping,3805.43
+280,54,2026-02-19,pending,Overnight Delivery,7323.79
+281,83,2025-06-20,shipped,Standard Ground,2891.57
+282,49,2025-09-13,pending,Ground Shipping,495.39
+283,93,2024-11-20,processing,2-Day Shipping,602.29
+284,7,2026-04-06,processing,Priority Mail Express,1950.93
+285,167,2025-10-03,shipped,Standard Shipping,8174.53
+286,33,2025-10-27,processing,Express Overnight,1365.03
+287,120,2025-04-18,cancelled,FedEx Standard,347.88
+288,88,2025-01-03,delivered,UPS Ground,2216.73
+289,41,2026-03-28,delivered,DHL International,9694.22
+290,24,2026-01-13,shipped,USPS Priority,8867.14
+291,96,2024-08-21,shipped,Standard Ground,6408.92
+292,129,2025-03-12,delivered,Economy Shipping,2128.01
+293,187,2025-12-03,delivered,Next Day Delivery,8963.46
+294,111,2025-05-10,cancelled,Standard Ground,972.2
+295,175,2024-06-18,delivered,Express Shipping,8132.37
+296,179,2024-07-15,shipped,Ground Shipping,9817.78
+297,10,2025-10-21,shipped,2-Day Delivery,5599.92
+298,88,2025-09-07,pending,Priority Overnight,6514.52
+299,180,2024-09-16,delivered,Standard Shipping,4442.87
+300,88,2025-06-19,delivered,Express Ground,3350.85
+301,156,2025-04-04,shipped,Standard Ground,7976.03
+302,54,2026-02-03,shipped,Express Overnight,7460.03
+303,112,2025-09-09,delivered,2-Day Shipping,4461.28
+304,108,2026-02-09,processing,Priority Mail,5792.53
+305,162,2024-11-30,shipped,First Class,6065.6
+306,170,2025-11-14,shipped,Ground,4041.31
+307,49,2025-04-17,shipped,Expedited,8678.9
+308,72,2025-04-15,pending,Economy,6529.36
+309,93,2024-06-22,shipped,Standard,3119.54
+310,20,2026-01-23,delivered,Next Day Air,5667.75
+311,179,2025-07-04,shipped,2nd Day Air,8863.28
+312,186,2024-09-20,delivered,Ground Advantage,8453.96
+313,33,2024-10-14,delivered,USPS Priority,8683.54
+314,107,2024-11-13,pending,USPS Ground,3574.3
+315,90,2026-05-13,pending,UPS Ground,4245.64
+316,74,2026-04-03,cancelled,UPS Express,1391.7
+317,18,2026-02-28,pending,FedEx Ground,7230.24
+318,72,2024-09-14,delivered,FedEx Overnight,5849.61
+319,6,2024-11-17,delivered,FedEx 2-Day,8133.77
+320,102,2026-01-22,pending,DHL Express,492.65
+321,79,2026-01-31,delivered,DHL Ground,3148.8
+322,99,2026-02-24,delivered,Local Pickup,3262.82
+323,197,2024-08-02,shipped,In-Store Pickup,949.28
+324,49,2025-09-08,processing,Curbside Pickup,4101.2
+325,110,2026-01-22,delivered,Same-Day Delivery,4272.66
+326,187,2025-09-09,delivered,Next-Day Delivery,8957.96
+327,121,2025-02-04,shipped,Standard Delivery,4681.07
+328,7,2024-08-13,delivered,Scheduled Delivery,1366.47
+329,112,2025-06-07,cancelled,Freight Shipping,2353.45
+330,133,2026-03-24,shipped,LTL Shipping,6684.93
+331,79,2025-08-13,delivered,Parcel Select,4674.62
+332,166,2026-03-07,shipped,Media Mail,9456.57
+333,184,2024-06-09,processing,Library Mail,436.64
+334,116,2025-07-26,delivered,International Mail,9254.28
+335,129,2025-04-18,pending,International Express,2695.49
+336,196,2024-10-10,processing,Global Express,3088.8
+337,132,2024-09-29,shipped,Worldwide Shipping,8295.45
+338,131,2024-11-05,shipped,Flat Rate Box,2105.74
+339,162,2025-10-01,shipped,Regional Delivery,4680.08
+340,55,2025-12-02,shipped,Local Courier,6597.67
+341,131,2025-01-26,shipped,Third-Party Logistics,4376.84
+342,172,2025-03-24,delivered,White Glove Delivery,3267.27
+343,40,2024-12-03,pending,Signature Required,9658.83
+344,165,2025-08-24,processing,Contactless Delivery,8756.09
+345,185,2024-11-04,delivered,Door-to-Door,6180.44
+346,22,2024-11-26,delivered,Mailbox Delivery,1150.09
+347,105,2025-11-11,pending,Parcel Locker,8190.59
+348,48,2025-08-07,shipped,Amazon Prime,4397.65
+349,153,2026-03-30,shipped,Standard International,3655.35
+350,110,2026-03-29,processing,Premium Expedited,1391.99
+351,160,2026-01-12,delivered,Standard Shipping,9285.36
+352,91,2026-03-21,processing,Express Shipping,1525.84
+353,124,2025-11-23,delivered,Overnight Delivery,4736.23
+354,183,2024-06-13,shipped,Ground Shipping,4864.05
+355,71,2024-10-10,shipped,2-Day Shipping,2354.11
+356,195,2025-04-24,delivered,Priority Mail,4316.72
+357,34,2024-09-03,delivered,First Class Mail,5456.53
+358,70,2026-05-25,delivered,FedEx Ground,3423.07
+359,142,2025-06-07,delivered,FedEx Express,5711.17
+360,194,2025-02-04,delivered,FedEx Overnight,7098.29
+361,200,2026-05-14,cancelled,UPS Ground,4684.95
+362,41,2024-07-03,delivered,UPS 2nd Day Air,1896.3
+363,137,2025-09-17,processing,UPS Next Day Air,3253.34
+364,68,2026-06-03,delivered,USPS Priority Mail Express,4571.96
+365,20,2024-11-19,shipped,USPS Priority Mail,4482.55
+366,70,2024-06-22,pending,DHL Express,6817.91
+367,153,2024-07-26,delivered,DHL Standard,786.57
+368,71,2026-04-07,delivered,Same-Day Delivery,8160.76
+369,153,2024-11-14,delivered,In-Store Pickup,50.8
+370,152,2025-01-24,shipped,Curbside Pickup,7358.99
+371,183,2025-04-01,delivered,Local Delivery,620.75
+372,78,2025-06-19,shipped,Regional Delivery,3775.65
+373,59,2024-08-16,shipped,International Shipping,4494.46
+374,154,2024-08-08,delivered,International Express,7698.47
+375,165,2026-01-30,pending,Economy Shipping,3472.6
+376,87,2024-09-20,shipped,Premium Shipping,1008.18
+377,166,2025-10-26,shipped,Expedited Shipping,7345.14
+378,119,2025-08-08,pending,Standard Ground,276.18
+379,143,2024-10-14,cancelled,Parcel Post,8836.69
+380,48,2026-03-24,delivered,Special Handling,3868.85
+381,135,2026-01-11,shipped,White Glove Delivery,3162.77
+382,106,2025-05-16,delivered,Drop Shipping,6797.11
+383,18,2025-01-29,shipped,Freight Shipping,4541.22
+384,115,2024-06-17,shipped,Next Business Day,580.35
+385,179,2025-02-25,processing,3-5 Business Days,6246.8
+386,183,2025-09-20,cancelled,5-7 Business Days,8409.87
+387,151,2025-03-05,shipped,7-10 Business Days,6339.96
+388,145,2025-01-18,delivered,Free Shipping,4629.18
+389,95,2024-09-12,delivered,Paid Shipping,418.72
+390,48,2025-10-11,processing,Flat Rate Shipping,6727.38
+391,77,2024-09-04,delivered,Zone-Based Shipping,9917.04
+392,180,2024-12-03,delivered,Weight-Based Shipping,4660.21
+393,166,2025-03-26,delivered,Courier Service,336.21
+394,169,2025-06-08,delivered,Bike Messenger,7917.05
+395,90,2025-11-01,shipped,Postal Service,8758.1
+396,94,2025-06-30,delivered,Third-Party Logistics,7887.22
+397,58,2024-12-23,shipped,Direct to Warehouse,1114.74
+398,157,2025-02-08,shipped,Cross-Dock Delivery,2937.09
+399,82,2024-07-11,delivered,Scheduled Delivery,2892.8
+400,122,2024-12-28,processing,Unscheduled Delivery,8777.01
+401,181,2024-10-06,delivered,Standard Ground,9885.88
+402,189,2025-01-15,delivered,Express Overnight,4902.99
+403,194,2024-11-25,delivered,2-Day Shipping,6058.34
+404,31,2024-12-05,delivered,Priority Mail,1574.89
+405,159,2025-11-10,pending,FedEx Ground,8669.38
+406,189,2026-04-01,pending,UPS Standard,7119.96
+407,101,2026-03-28,shipped,UPS Express,7764.57
+408,42,2025-05-03,shipped,DHL International,8672.12
+409,106,2025-11-03,processing,USPS First Class,993.92
+410,26,2025-02-26,cancelled,USPS Priority Express,4872.38
+411,128,2025-09-29,shipped,Local Pickup,5254.8
+412,103,2025-11-23,pending,In-Store Pickup,9240.04
+413,164,2026-03-25,delivered,Same-Day Delivery,1087.05
+414,183,2026-02-28,shipped,Next-Day Delivery,7923.46
+415,106,2025-01-19,shipped,Economy Shipping,2367.01
+416,146,2024-12-26,pending,Standard Shipping,8255.97
+417,144,2024-08-10,processing,Expedited Shipping,4121.91
+418,52,2024-12-16,cancelled,Overnight Shipping,2592.27
+419,192,2024-12-02,processing,International Standard,9699.6
+420,162,2026-05-31,shipped,International Express,2104.26
+421,11,2026-04-24,delivered,Courier Service,9708.53
+422,160,2026-01-03,pending,Registered Mail,4301.94
+423,71,2026-04-08,shipped,Parcel Post,2923.3
+424,187,2025-12-10,shipped,Smart Parcel,516.87
+425,130,2026-04-07,delivered,Click and Collect,6781.51
+426,136,2024-07-29,processing,Drive-Through Pickup,2710.8
+427,181,2025-07-08,shipped,Curbside Delivery,6534.22
+428,50,2024-07-12,delivered,White Glove Delivery,578.09
+429,151,2025-04-24,delivered,Freight Shipping,8020.85
+430,90,2024-07-25,cancelled,LTL Freight,1734.71
+431,98,2025-03-20,shipped,Ground Delivery,7234.03
+432,66,2025-11-11,pending,Air Shipping,9405.45
+433,5,2026-04-03,delivered,Sea Freight,101.81
+434,39,2026-04-21,processing,Rail Freight,7283.09
+435,187,2025-01-07,delivered,Special Handling,197.03
+436,162,2025-06-20,shipped,Temperature Controlled,3612.56
+437,72,2025-05-19,shipped,Signature Required,4198.62
+438,101,2025-06-25,pending,Insured Delivery,2073.76
+439,171,2026-02-21,processing,Gift Wrapping with Shipping,915.79
+440,67,2024-11-01,shipped,Drop Shipping,475.8
+441,138,2025-09-03,delivered,Third-Party Logistics,228.24
+442,20,2024-12-29,delivered,Dropbox Delivery,5196.88
+443,146,2024-11-19,delivered,Locker Delivery,9194.2
+444,88,2025-09-12,delivered,Partner Store Delivery,7812.43
+445,148,2026-02-23,shipped,Regional Carrier,6591.78
+446,6,2026-02-09,shipped,Small Parcel Service,9619.14
+447,200,2024-06-23,shipped,Bulk Shipping,2281.41
+448,177,2025-10-15,delivered,Scheduled Delivery,6612.34
+449,10,2024-12-27,shipped,Eco-Friendly Shipping,685.53
+450,152,2024-06-28,delivered,Carbon-Neutral Delivery,3298.73
+451,4,2025-01-25,processing,Standard Ground,5210.08
+452,100,2026-01-04,delivered,Express Overnight,891.11
+453,165,2024-10-19,processing,2-Day Air,1081.56
+454,154,2025-08-17,shipped,Ground Shipping,2542.26
+455,41,2024-06-11,shipped,Priority Mail,5076.25
+456,70,2024-07-19,delivered,First Class Mail,2238.98
+457,39,2026-01-15,delivered,Expedited Shipping,2932.09
+458,48,2026-01-20,processing,Standard Shipping,2424.87
+459,106,2025-03-26,delivered,Next Day Air,54.43
+460,158,2025-03-07,shipped,UPS Ground,9607.03
+461,144,2025-03-13,shipped,FedEx Express,5420.82
+462,158,2025-05-16,shipped,USPS Priority,8204.4
+463,153,2026-04-08,pending,DHL International,5794.77
+464,90,2025-05-17,delivered,Same-Day Delivery,549.92
+465,21,2025-06-10,processing,Courier Service,8392.77
+466,21,2025-08-28,processing,Ground Delivery,6157.76
+467,44,2026-04-09,delivered,Air Freight,309.17
+468,144,2025-09-10,delivered,Economy Shipping,8366.58
+469,165,2024-10-21,shipped,Premium Express,8494.83
+470,135,2025-01-31,cancelled,International Standard,102.0
+471,66,2026-01-03,pending,Overnight Delivery,9044.77
+472,140,2025-10-03,processing,Regional Ground,1722.04
+473,150,2024-11-15,delivered,Parcel Post,4876.55
+474,94,2025-06-26,pending,Signature Required,2403.23
+475,121,2026-02-04,delivered,Local Pickup,7146.66
+476,200,2025-08-04,processing,White Glove Delivery,2295.86
+477,42,2026-04-01,delivered,Scheduled Delivery,1958.45
+478,114,2025-08-04,processing,Standard International,820.41
+479,58,2025-08-04,cancelled,Express International,4282.52
+480,105,2026-02-16,delivered,Economy Ground,3725.66
+481,44,2024-09-22,pending,Tracked Ground,6551.01
+482,183,2024-07-30,shipped,Insured Shipping,4041.91
+483,148,2025-07-25,delivered,Fragile Handling,4046.12
+484,107,2024-07-10,cancelled,Bulk Ground,7340.37
+485,181,2024-12-18,processing,Commercial Shipping,3123.98
+486,165,2024-08-09,delivered,Residential Delivery,9735.23
+487,122,2025-07-19,shipped,Business Delivery,2388.87
+488,194,2024-12-27,delivered,Rural Delivery,7018.45
+489,68,2024-09-10,pending,Urban Express,3264.73
+490,88,2026-04-29,pending,Flatbed Shipping,3644.6
+491,2,2025-05-16,processing,Pallet Shipping,7344.41
+492,54,2025-07-17,shipped,Less-Than-Truckload,8793.26
+493,165,2025-05-05,delivered,Full Truckload,6947.89
+494,46,2024-11-26,shipped,Drop Shipping,3003.97
+495,17,2025-02-08,shipped,Dropoff Point,649.14
+496,17,2024-11-26,shipped,In-Store Pickup,5536.13
+497,9,2025-03-28,delivered,Warehouse Delivery,3879.89
+498,57,2025-05-13,shipped,Curbside Delivery,6250.78
+499,188,2024-06-07,shipped,Temperature Controlled,9737.03
+500,106,2024-10-03,delivered,Hazmat Shipping,3977.78
+501,43,2026-04-27,delivered,Standard Ground,7226.26
+502,37,2026-04-28,shipped,Express Overnight,8410.35
+503,170,2026-03-14,delivered,2-Day Shipping,4340.48
+504,3,2026-04-23,shipped,Ground Delivery,8322.17
+505,196,2024-08-28,delivered,Priority Mail,3664.97
+506,22,2024-06-15,delivered,FedEx Ground,6978.06
+507,94,2024-06-10,pending,UPS Standard,9291.82
+508,63,2025-02-28,shipped,DHL Express,6615.05
+509,54,2025-07-23,delivered,USPS First Class,3536.71
+510,40,2024-10-13,processing,Expedited Shipping,9330.96
+511,172,2024-12-02,delivered,Standard Shipping,2559.97
+512,148,2026-01-11,shipped,Next Day Air,4303.87
+513,64,2025-06-30,shipped,Economy Ground,6468.54
+514,154,2024-08-25,delivered,International Standard,2102.99
+515,129,2024-07-28,processing,Overnight Express,3672.1
+516,95,2025-03-31,processing,Regional Delivery,6141.26
+517,138,2025-09-17,pending,Local Pickup,7952.14
+518,127,2026-05-06,delivered,Store Pickup,5151.38
+519,70,2025-02-21,shipped,Curbside Delivery,2180.62
+520,103,2024-09-30,delivered,White Glove Delivery,7520.62
+521,162,2024-06-19,shipped,Same Day Delivery,1115.31
+522,2,2025-03-21,pending,Next Business Day,7841.38
+523,151,2024-08-31,processing,3-5 Business Days,9937.37
+524,164,2026-03-07,shipped,5-7 Business Days,2431.34
+525,83,2025-08-29,shipped,Standard International,6014.5
+526,15,2024-10-27,shipped,Express International,3254.32
+527,32,2024-07-07,delivered,UPS 2nd Day Air,5396.58
+528,30,2025-12-23,delivered,FedEx Priority Overnight,4049.07
+529,6,2025-04-16,processing,USPS Priority Mail Express,6374.47
+530,50,2024-07-28,pending,Parcel Post,9257.97
+531,177,2025-02-22,processing,Media Mail,4211.21
+532,153,2026-04-09,processing,Regional Ground,3839.28
+533,193,2024-06-09,shipped,Flat Rate Box,3905.08
+534,119,2026-02-16,delivered,Signature Required,7975.34
+535,196,2025-11-09,shipped,Contactless Delivery,5086.33
+536,127,2025-03-31,shipped,Scheduled Delivery,84.26
+537,119,2025-11-02,delivered,Free Shipping,350.68
+538,27,2025-01-05,delivered,Premium Express,5489.72
+539,41,2025-05-07,delivered,Courier Service,5023.27
+540,50,2024-08-15,delivered,Bike Messenger,9929.32
+541,70,2024-10-12,delivered,Ship to Store,6306.65
+542,111,2025-03-10,delivered,Digital Delivery,8010.72
+543,168,2024-10-30,delivered,In-Store Fulfillment,8126.97
+544,116,2024-08-07,delivered,Partner Fulfillment,6861.78
+545,180,2026-02-25,shipped,Third Party Logistics,2490.04
+546,154,2024-10-15,pending,Warehouse Pickup,3288.16
+547,50,2025-02-09,shipped,Standard Parcel,3089.83
+548,10,2025-06-21,processing,Economy Parcel,5211.67
+549,70,2026-05-22,delivered,Bulk Shipping,1992.16
+550,200,2024-12-11,delivered,Special Handling Required,4135.77
+551,159,2025-07-20,delivered,Standard Shipping,110.16
+552,10,2025-10-15,shipped,Express Shipping,8008.37
+553,196,2025-04-18,shipped,Overnight Delivery,6089.48
+554,145,2026-05-04,delivered,Ground Shipping,1842.86
+555,35,2026-02-04,shipped,Priority Mail,52.89
+556,24,2024-12-27,shipped,First Class Mail,8518.07
+557,52,2024-08-16,shipped,USPS,1364.25
+558,63,2024-10-07,delivered,FedEx Ground,8943.88
+559,6,2025-03-05,delivered,FedEx Express,1682.53
+560,90,2025-11-16,shipped,FedEx Overnight,1694.88
+561,57,2026-01-09,shipped,UPS Ground,6437.24
+562,186,2025-07-13,delivered,UPS Express,9819.52
+563,29,2026-02-28,processing,UPS Next Day Air,764.59
+564,140,2024-08-18,processing,DHL Express,4819.18
+565,158,2024-06-07,delivered,DHL Standard,3711.82
+566,75,2026-05-22,delivered,Local Pickup,8824.08
+567,162,2024-09-27,delivered,In-Store Pickup,3961.12
+568,193,2025-06-12,shipped,Curbside Delivery,9743.24
+569,96,2025-09-24,processing,Same-Day Delivery,5439.0
+570,76,2026-01-16,delivered,Next-Day Delivery,4860.69
+571,62,2025-12-20,processing,2-Day Shipping,4532.12
+572,161,2025-11-13,processing,3-Day Shipping,760.35
+573,132,2026-01-11,delivered,Economy Shipping,1495.34
+574,83,2025-11-26,delivered,Standard Delivery,8297.95
+575,174,2026-04-18,shipped,Expedited Shipping,1911.07
+576,46,2024-09-14,pending,Courier Service,5714.17
+577,60,2026-04-08,shipped,Parcel Post,7505.87
+578,113,2026-04-07,processing,Registered Mail,9738.07
+579,147,2024-07-17,processing,Insured Shipping,6390.57
+580,189,2024-12-29,delivered,International Shipping,1530.28
+581,104,2024-10-18,cancelled,International Express,4930.98
+582,54,2024-12-18,processing,Domestic Shipping,9772.63
+583,198,2025-04-22,cancelled,Regional Delivery,9615.2
+584,118,2024-06-26,shipped,Free Shipping,9518.23
+585,48,2024-07-13,processing,Premium Shipping,8550.63
+586,58,2025-06-07,processing,Standard International,8891.55
+587,34,2024-12-09,pending,Express International,5064.16
+588,152,2025-01-08,shipped,White Glove Delivery,7929.54
+589,183,2026-01-28,shipped,Freight Shipping,7566.81
+590,101,2025-11-01,processing,LTL Freight,5239.96
+591,71,2025-10-01,delivered,Drop Ship,8630.13
+592,184,2025-11-24,processing,Third-Party Logistics,4478.61
+593,130,2024-11-15,processing,Dropoff Point,7241.88
+594,195,2026-04-05,processing,Locker Delivery,5428.3
+595,16,2025-05-07,pending,Hub Delivery,148.33
+596,86,2024-10-29,delivered,Partner Delivery,7428.38
+597,49,2025-12-17,pending,Scheduled Delivery,1001.76
+598,16,2024-12-30,cancelled,Weekend Delivery,2057.19
+599,178,2025-12-26,delivered,Holiday Delivery,9321.31
+600,142,2024-12-01,delivered,Rush Delivery,5828.46
+601,73,2025-03-06,delivered,Standard Ground,433.81
+602,185,2024-08-27,delivered,Express Overnight,1135.81
+603,34,2025-05-27,shipped,2-Day Shipping,4743.51
+604,198,2025-07-03,processing,Priority Mail,8331.67
+605,140,2025-05-26,processing,First Class Mail,1739.33
+606,160,2025-11-09,delivered,Parcel Post,5473.96
+607,184,2025-05-30,pending,UPS Ground,5214.59
+608,21,2025-09-28,shipped,UPS 2nd Day Air,615.25
+609,62,2025-12-23,processing,UPS Next Day Air,3323.04
+610,33,2025-12-01,delivered,FedEx Ground,1587.74
+611,144,2025-02-23,shipped,FedEx 2Day,8463.37
+612,40,2025-11-14,delivered,FedEx Overnight,5207.61
+613,116,2025-09-09,shipped,DHL Express,2687.75
+614,200,2024-08-10,delivered,DHL Ground,6219.35
+615,61,2025-05-17,shipped,Local Pickup,9401.9
+616,83,2025-08-06,processing,In-Store Pickup,959.08
+617,136,2024-10-08,delivered,Same-Day Delivery,6447.65
+618,73,2025-08-06,delivered,Next-Day Delivery,5660.65
+619,48,2026-05-23,processing,Scheduled Delivery,6570.11
+620,200,2024-09-05,processing,Economy Shipping,8321.48
+621,24,2026-03-05,shipped,Regular Shipping,5896.09
+622,104,2025-07-09,cancelled,Expedited Shipping,8507.74
+623,58,2026-05-05,delivered,International Standard,5157.1
+624,114,2026-01-19,delivered,International Express,4772.47
+625,122,2025-08-05,processing,International Priority,9260.08
+626,47,2024-08-25,cancelled,Courier Service,731.07
+627,5,2024-10-13,delivered,White Glove Delivery,9363.68
+628,14,2025-07-18,processing,Freight Shipping,8748.74
+629,191,2025-12-20,delivered,Drop Shipping,3237.34
+630,64,2025-09-28,delivered,Bulk Mail,7424.81
+631,172,2024-12-23,processing,Registered Mail,9052.21
+632,180,2025-03-05,processing,Certified Mail,3182.5
+633,159,2025-02-27,shipped,Special Handling,1240.33
+634,33,2024-07-11,delivered,Signature Required,786.18
+635,188,2026-01-05,delivered,Fragile Handling,9773.55
+636,66,2024-08-18,shipped,Temperature Controlled,2246.98
+637,177,2025-08-13,delivered,Insured Shipping,5862.75
+638,145,2025-10-07,cancelled,Uninsured Shipping,5849.68
+639,139,2024-07-01,cancelled,Self-Pickup,5867.58
+640,154,2026-02-12,shipped,Partner Pickup Point,9547.01
+641,60,2026-05-26,delivered,Locker Delivery,8441.57
+642,195,2026-03-19,delivered,Third-Party Logistics,564.86
+643,34,2025-12-25,processing,Carrier Pigeon Service,5521.07
+644,35,2026-05-23,delivered,Bike Messenger,3846.48
+645,168,2025-10-17,delivered,Postal Service,5011.07
+646,42,2025-11-17,delivered,Digital Delivery,9059.84
+647,159,2025-03-24,processing,Hybrid Shipping,5030.57
+648,7,2025-09-19,delivered,Eco-Friendly Shipping,5340.59
+649,129,2024-09-30,delivered,Carbon Neutral Delivery,7558.18
+650,36,2024-10-03,shipped,Subscription Box Shipping,4990.29
+651,15,2024-08-04,processing,Gift Wrapping + Delivery,1539.16
+652,12,2024-09-02,pending,Standard Ground,2625.33
+653,57,2024-09-08,delivered,Express Overnight,299.24
+654,70,2024-11-27,delivered,2-Day Shipping,1677.59
+655,93,2026-03-24,pending,Priority Mail,3549.41
+656,171,2025-03-09,delivered,First Class,6338.67
+657,158,2025-10-14,delivered,Ground Delivery,2787.28
+658,125,2025-04-14,pending,Next Day Air,5529.38
+659,141,2025-12-19,shipped,UPS Ground,7651.65
+660,167,2025-02-02,processing,FedEx Express,3907.91
+661,170,2025-07-11,delivered,DHL International,2470.59
+662,117,2025-08-27,shipped,USPS Priority,3467.64
+663,155,2026-01-18,shipped,Expedited Shipping,721.66
+664,21,2026-04-14,pending,Economy Shipping,3997.53
+665,45,2025-06-28,delivered,Standard Delivery,8004.79
+666,6,2026-06-01,cancelled,Rush Delivery,5771.92
+667,42,2025-01-04,shipped,Parcel Post,1642.56
+668,29,2026-03-13,processing,Registered Mail,2939.31
+669,141,2025-10-04,delivered,Certified Mail,3024.36
+670,27,2026-05-13,delivered,International Express,9501.91
+671,105,2025-05-13,delivered,Regional Ground,6084.32
+672,60,2024-06-09,delivered,Local Pickup,3006.75
+673,83,2025-03-21,processing,Same-Day Delivery,8183.02
+674,68,2024-07-06,processing,Next Business Day,5020.73
+675,194,2024-11-15,processing,3-Day Shipping,3024.31
+676,98,2025-11-08,shipped,5-Day Shipping,4046.17
+677,178,2026-02-25,delivered,Standard International,58.41
+678,31,2025-06-02,delivered,Air Mail,971.86
+679,60,2025-09-09,processing,Sea Freight,5449.67
+680,152,2024-11-22,processing,Courier Service,7183.45
+681,176,2025-05-21,delivered,White Glove Delivery,2727.27
+682,189,2025-07-01,cancelled,Free Shipping,7605.55
+683,47,2025-08-12,delivered,Premium Shipping,9574.44
+684,197,2025-11-17,delivered,Standard Parcel,2010.44
+685,162,2025-03-09,shipped,Express Parcel,8442.64
+686,173,2025-02-20,cancelled,Overnight Parcel,4163.53
+687,105,2024-08-23,processing,Ground Parcel,2511.83
+688,66,2025-07-04,delivered,Signature Required,4568.9
+689,99,2026-02-24,pending,Insured Shipping,4019.05
+690,31,2024-10-20,shipped,Fragile Handling,5074.79
+691,173,2026-03-26,delivered,Expedited Parcel,2300.24
+692,175,2025-08-16,processing,Economy Ground,4829.49
+693,72,2024-08-30,delivered,Business Delivery,6215.92
+694,146,2024-12-29,cancelled,Residential Delivery,5638.31
+695,144,2025-02-09,shipped,Commercial Delivery,4339.86
+696,174,2024-10-06,shipped,Special Handling,6491.9
+697,186,2025-07-14,delivered,Bulk Shipping,2072.5
+698,195,2026-01-15,shipped,Drop Ship,3163.72
+699,198,2025-09-09,delivered,Store Pickup,1655.66
+700,31,2026-05-09,delivered,Curbside Delivery,2788.71
+701,163,2024-09-23,shipped,Door-to-Door Service,9504.99
+702,63,2025-12-08,shipped,Standard Ground,2915.05
+703,32,2026-02-23,shipped,Express Overnight,5242.88
+704,95,2024-11-26,pending,2-Day Shipping,304.15
+705,107,2025-08-31,delivered,Ground Delivery,6444.37
+706,185,2025-06-18,shipped,Priority Mail,1654.76
+707,106,2025-12-24,delivered,First Class Mail,7914.49
+708,80,2026-05-12,shipped,Parcel Post,7334.76
+709,173,2025-03-30,shipped,FedEx Ground,5218.63
+710,148,2025-12-17,delivered,FedEx Express,9591.67
+711,186,2025-02-08,cancelled,UPS Ground,8422.65
+712,95,2025-07-27,delivered,UPS Next Day Air,6919.12
+713,87,2024-11-20,shipped,UPS 2nd Day Air,2529.34
+714,45,2025-04-05,processing,USPS Priority Express,6665.86
+715,31,2025-08-31,delivered,DHL Express,6607.27
+716,35,2024-10-08,processing,Amazon Prime,1463.03
+717,38,2026-01-03,shipped,Free Shipping,6275.6
+718,42,2025-03-21,pending,Standard Shipping,1021.98
+719,50,2025-11-13,cancelled,Expedited Shipping,8371.41
+720,69,2025-11-14,delivered,Overnight Shipping,1923.9
+721,78,2025-01-02,shipped,Local Pickup,349.25
+722,34,2025-04-15,delivered,In-Store Pickup,3099.46
+723,199,2024-09-29,delivered,Curbside Pickup,9064.64
+724,126,2024-08-28,delivered,Same-Day Delivery,2575.23
+725,6,2025-12-11,pending,Next-Day Delivery,929.96
+726,149,2025-10-12,processing,3-Day Shipping,1201.48
+727,47,2025-03-17,processing,Economy Shipping,8973.81
+728,12,2026-01-07,cancelled,Premium Shipping,6536.96
+729,126,2025-11-22,pending,International Standard,6802.01
+730,125,2026-06-01,delivered,International Express,6894.44
+731,39,2026-01-23,delivered,Flat Rate Box,383.35
+732,184,2026-04-07,processing,Regional Ground,5901.85
+733,83,2025-09-01,delivered,Cross-Border Shipping,9117.48
+734,110,2026-05-14,processing,Drop Ship,7713.74
+735,18,2025-11-29,shipped,White Glove Delivery,1694.44
+736,91,2024-12-06,delivered,Signature Required,676.7
+737,67,2024-09-04,delivered,Standard Parcel,8369.73
+738,50,2025-05-13,delivered,Tracked Delivery,5778.05
+739,171,2026-03-05,processing,Untracked Shipping,8788.64
+740,37,2026-03-10,shipped,Courier Service,8218.02
+741,21,2024-07-14,delivered,Bike Messenger,2200.94
+742,19,2025-01-27,delivered,Hand Delivery,6506.32
+743,26,2025-06-11,delivered,Special Handling,4412.58
+744,119,2025-04-02,processing,Freight Shipping,5064.2
+745,164,2026-05-27,delivered,LTL Shipping,6228.48
+746,54,2024-07-18,delivered,Consolidated Shipping,2879.04
+747,60,2025-03-12,processing,Bulk Shipping,1705.07
+748,151,2025-01-31,pending,Scheduled Delivery,7719.75
+749,164,2026-06-02,processing,Weekend Delivery,7806.13
+750,106,2025-02-21,delivered,Holiday Delivery,2203.58
+751,109,2024-08-24,delivered,Gift Wrap Shipping,7160.93
+752,89,2025-01-16,delivered,Standard Ground Shipping,5578.41
+753,17,2025-11-13,delivered,Express Overnight,8074.9
+754,27,2025-09-21,shipped,2-Day Air,3900.59
+755,138,2025-11-27,processing,Priority Mail,814.44
+756,176,2025-05-16,delivered,First Class Mail,1398.51
+757,69,2024-07-11,cancelled,Ground Delivery,9166.49
+758,98,2025-04-27,processing,Expedited Shipping,2759.21
+759,83,2024-10-09,shipped,Economy Shipping,9605.18
+760,157,2024-11-03,shipped,Standard Delivery,9375.89
+761,152,2026-05-22,delivered,Overnight Express,5536.65
+762,191,2024-10-04,shipped,Next Day Air,277.33
+763,5,2025-10-27,processing,3-Day Select,2853.54
+764,91,2026-05-13,processing,Parcel Post,4058.41
+765,22,2025-04-03,delivered,USPS Priority,9110.11
+766,28,2025-12-01,shipped,FedEx Ground,5086.15
+767,89,2025-10-29,pending,UPS Ground,5788.36
+768,80,2025-09-20,delivered,DHL Express,1787.56
+769,28,2026-03-30,processing,International Standard,1666.44
+770,52,2024-12-09,processing,International Express,746.01
+771,127,2026-05-09,pending,Local Pickup,5285.52
+772,63,2025-12-02,processing,Store Pickup,2758.59
+773,15,2024-09-29,pending,Same-Day Delivery,7057.69
+774,168,2025-07-02,processing,Next-Day Delivery,4217.65
+775,112,2025-11-16,shipped,Regional Ground,12.28
+776,51,2024-08-31,processing,Flat Rate Box,7788.45
+777,99,2025-11-19,processing,Signature Required,6865.23
+778,169,2024-11-10,shipped,Insured Shipping,3562.61
+779,164,2024-07-12,shipped,Economy International,2299.19
+780,84,2024-12-03,delivered,Premium Express,6256.17
+781,50,2025-03-17,processing,White Glove Delivery,4874.53
+782,174,2024-08-02,shipped,Courier Service,1469.0
+783,58,2025-01-29,pending,Standard International,3201.6
+784,76,2024-10-21,delivered,Expedited International,1565.17
+785,47,2024-08-31,shipped,Drop Ship,9037.81
+786,110,2026-04-15,pending,Fulfillment Center Delivery,9362.81
+787,69,2024-12-31,shipped,Partner Carrier,5291.07
+788,105,2025-11-20,delivered,Consolidated Shipping,2967.52
+789,95,2024-09-25,delivered,Overnight Delivery,829.49
+790,120,2024-07-14,delivered,Two-Day Delivery,3943.62
+791,186,2026-02-12,delivered,Standard Parcel,2252.61
+792,33,2026-01-03,delivered,Priority Express,1649.24
+793,31,2025-12-04,delivered,Special Handling,4890.49
+794,85,2025-10-03,processing,Freight Shipping,3600.0
+795,75,2024-09-18,pending,LTL Shipping,6515.5
+796,78,2025-06-19,delivered,Truckload Delivery,332.4
+797,82,2025-03-09,processing,Scheduled Delivery,9868.87
+798,131,2024-10-10,delivered,Curbside Delivery,830.21
+799,27,2026-01-19,pending,In-Store Fulfillment,7537.36
+800,128,2025-07-22,shipped,Digital Download,2549.0
+801,87,2026-04-05,delivered,Subscription Box Shipping,9974.75
+802,110,2025-09-17,shipped,Standard Ground,5377.0
+803,173,2024-12-29,cancelled,Express Overnight,6620.87
+804,65,2025-04-29,cancelled,2-Day Shipping,8939.77
+805,36,2025-01-05,delivered,Priority Mail,875.75
+806,28,2026-03-02,delivered,First Class,2838.04
+807,160,2025-05-10,shipped,Ground Shipping,2443.98
+808,131,2026-04-28,shipped,Expedited,8187.91
+809,197,2025-05-03,delivered,International Standard,4878.74
+810,73,2025-10-30,delivered,DHL Express,5937.75
+811,153,2026-05-07,shipped,FedEx Ground,3423.1
+812,51,2026-02-22,delivered,UPS Ground,9488.15
+813,19,2025-04-21,shipped,UPS 2-Day Air,361.73
+814,19,2024-07-12,delivered,USPS Priority Express,5705.96
+815,186,2025-04-07,shipped,Standard Delivery,9800.87
+816,159,2026-04-25,delivered,Overnight Delivery,8373.38
+817,88,2024-12-30,shipped,Same-Day Delivery,7110.26
+818,1,2025-09-14,shipped,Local Pickup,2484.12
+819,123,2026-03-31,shipped,In-Store Pickup,6894.6
+820,20,2025-03-30,delivered,Courier Service,5201.21
+821,51,2025-10-24,processing,Parcel Post,8505.45
+822,77,2024-11-01,shipped,Economy Shipping,4566.64
+823,131,2025-10-15,delivered,Premium Shipping,7178.66
+824,117,2025-08-15,processing,Bulk Freight,9564.45
+825,155,2025-07-12,shipped,White Glove Delivery,7813.01
+826,66,2025-05-24,processing,Next Day Air,180.77
+827,64,2025-01-26,delivered,3-Day Select,9324.66
+828,61,2025-06-07,delivered,Smart Post,9689.27
+829,142,2024-10-06,processing,Regional Ground,2319.97
+830,142,2024-06-18,cancelled,International Express,9738.34
+831,5,2026-03-26,processing,International Economy,3767.95
+832,32,2026-01-15,pending,Overnight Air,8264.77
+833,69,2025-10-14,processing,Priority Overnight,9353.36
+834,119,2025-04-01,delivered,Saver Ground,8428.24
+835,17,2025-08-08,delivered,Standard International,3392.33
+836,6,2025-03-24,delivered,Expedited International,9668.68
+837,185,2024-08-18,delivered,Tracked Delivery,8218.36
+838,144,2025-06-11,delivered,Untracked Delivery,4830.03
+839,184,2024-11-16,shipped,Signature Required,2063.81
+840,85,2024-06-17,delivered,Signature Not Required,1407.29
+841,62,2026-01-28,pending,Insured Shipping,3730.0
+842,52,2024-09-09,processing,Standard Parcel,9574.04
+843,108,2025-06-25,processing,Express Parcel,5238.5
+844,124,2024-07-14,delivered,Tracked Express,177.14
+845,193,2025-10-29,pending,Untracked Standard,189.99
+846,85,2025-02-14,delivered,Regional Expedited,6338.67
+847,177,2026-05-11,shipped,Cross-Border Ground,6537.86
+848,42,2025-06-03,shipped,Cross-Border Express,1071.82
+849,191,2025-02-25,shipped,Drop-off Delivery,5002.17
+850,106,2024-08-03,delivered,Scheduled Delivery,5568.61
+851,2,2025-05-05,shipped,Weekend Delivery,2715.85
+852,79,2025-12-04,pending,Standard Ground Shipping,1448.03
+853,197,2024-11-23,processing,Express Overnight,4039.15
+854,96,2024-10-04,delivered,2-Day Shipping,9459.54
+855,25,2025-11-28,shipped,Priority Mail,8104.08
+856,184,2024-08-25,delivered,UPS Ground,4025.49
+857,175,2025-05-13,shipped,FedEx Ground,5116.12
+858,173,2026-01-20,delivered,DHL Express,1979.84
+859,43,2026-04-22,shipped,USPS First Class,6173.79
+860,31,2025-04-15,delivered,USPS Priority Mail Express,1710.2
+861,82,2025-03-06,delivered,Local Pickup,7605.26
+862,123,2024-12-12,shipped,In-Store Pickup,6353.98
+863,68,2024-12-02,delivered,Curbside Pickup,2894.61
+864,133,2026-04-08,shipped,Same-Day Delivery,8927.56
+865,171,2025-05-17,shipped,Next-Day Delivery,94.39
+866,181,2024-11-28,processing,Economy Shipping,9446.5
+867,148,2025-10-07,shipped,Standard Shipping,5444.72
+868,32,2024-12-23,shipped,Expedited Shipping,3845.89
+869,195,2025-06-29,processing,Overnight Shipping,5877.46
+870,139,2026-03-09,shipped,International Shipping,5615.24
+871,41,2025-12-02,processing,Air Mail,5189.3
+872,25,2025-07-16,shipped,Parcel Post,5795.4
+873,90,2024-07-30,delivered,Registered Mail,9039.38
+874,200,2026-03-06,shipped,Courier Service,5988.16
+875,60,2025-12-12,delivered,White Glove Delivery,6930.99
+876,93,2024-06-12,processing,White Glove Service,305.48
+877,79,2025-02-13,delivered,Freight Shipping,1384.87
+878,196,2024-11-26,delivered,Truck Delivery,3629.66
+879,55,2025-04-22,pending,Ship from Store,2415.19
+880,72,2025-09-25,processing,Buy Online Pickup In Store,5169.96
+881,132,2025-11-20,processing,Digital Download,1511.02
+882,159,2026-02-18,shipped,Email Delivery,5147.4
+883,138,2026-06-07,shipped,Instant Download,2122.99
+884,43,2025-09-10,delivered,Third-Party Logistics,1512.56
+885,106,2025-06-09,delivered,3PL Shipping,1321.84
+886,125,2026-06-04,shipped,Cross-Dock Shipping,8901.15
+887,31,2025-05-15,processing,Drop Shipping,4240.12
+888,85,2025-10-25,delivered,Dropship,6380.29
+889,32,2025-09-10,delivered,Flat Rate Shipping,7417.64
+890,33,2024-11-03,shipped,Dimensional Weight Shipping,2708.5
+891,84,2025-05-12,cancelled,Zone-Based Shipping,7636.59
+892,26,2026-04-06,delivered,Weight-Based Shipping,6491.2
+893,161,2025-10-02,processing,Fixed Rate Shipping,1026.17
+894,29,2024-07-08,delivered,Free Shipping,6435.14
+895,24,2024-06-14,delivered,Paid Shipping,2774.84
+896,185,2025-06-17,processing,Calculated Shipping,379.43
+897,30,2024-08-28,shipped,Real-Time Carrier Rates,1788.09
+898,113,2025-04-06,delivered,UPS Next Day Air,7797.11
+899,130,2025-07-14,delivered,FedEx 2Day,4553.6
+900,84,2025-12-03,cancelled,FedEx Overnight,7580.37
+901,105,2024-10-20,delivered,USPS Parcel Select,2953.18
+902,73,2025-02-26,delivered,Standard Ground,5626.41
+903,178,2026-01-23,delivered,Express Overnight,5534.09
+904,152,2025-01-30,delivered,2-Day Shipping,837.3
+905,199,2025-03-29,processing,Priority Mail,7373.06
+906,188,2026-01-01,processing,Ground Shipping,9209.82
+907,115,2024-07-11,shipped,First Class Mail,1066.57
+908,72,2025-09-26,shipped,UPS Ground,2103.03
+909,76,2025-05-18,processing,FedEx Express,8763.72
+910,125,2024-10-15,processing,DHL International,2483.71
+911,150,2024-12-07,shipped,USPS Priority,2647.96
+912,64,2025-07-10,pending,Expedited Shipping,6364.97
+913,11,2026-03-06,delivered,Standard Delivery,6284.99
+914,110,2024-08-14,cancelled,Next Day Air,2891.92
+915,195,2026-01-16,shipped,Economy Shipping,5137.88
+916,163,2025-02-11,delivered,Premium Express,3391.37
+917,13,2025-12-07,shipped,Parcel Post,7339.37
+918,176,2025-09-11,delivered,International Standard,7456.46
+919,192,2024-07-10,pending,Registered Mail,5719.46
+920,198,2025-11-19,processing,Certified Mail,5870.89
+921,31,2024-12-01,delivered,Same-Day Delivery,1636.92
+922,99,2024-09-07,shipped,Next Business Day,3123.0
+923,31,2025-12-13,delivered,3-Day Delivery,5227.06
+924,104,2024-07-21,cancelled,Standard International,6021.89
+925,151,2025-05-09,delivered,Express International,4275.94
+926,142,2026-05-10,delivered,Economy Ground,7917.01
+927,74,2024-09-13,pending,Air Shipping,52.88
+928,2,2025-10-22,processing,Sea Shipping,3054.36
+929,131,2024-07-27,delivered,Truck Delivery,692.53
+930,171,2025-06-16,processing,Courier Service,7052.56
+931,169,2026-02-20,shipped,Local Pickup,6741.89
+932,173,2026-05-18,processing,In-Store Pickup,5279.93
+933,13,2025-07-03,shipped,Curbside Delivery,9056.37
+934,151,2025-01-04,delivered,White Glove Service,3401.94
+935,84,2025-06-11,pending,Standard Parcel,5020.56
+936,37,2024-07-05,shipped,Tracked Delivery,8948.82
+937,84,2025-09-03,pending,Untracked Delivery,7766.19
+938,39,2025-07-29,delivered,Signature Required,1003.42
+939,56,2024-12-02,delivered,No Signature Required,7436.52
+940,99,2025-08-03,delivered,Insured Shipping,7386.24
+941,46,2025-03-22,cancelled,Uninsured Shipping,3438.19
+942,80,2025-10-29,cancelled,Fragile Handling,3188.35
+943,191,2024-12-04,cancelled,Temperature Controlled,2150.98
+944,102,2026-03-03,processing,Overnight Express,3153.56
+945,8,2025-08-31,pending,2-Business Day,6840.45
+946,31,2025-02-13,processing,Regional Ground,9969.9
+947,44,2025-07-11,shipped,Cross-Border Shipping,4627.62
+948,41,2026-05-16,shipped,Customs Clearance,9742.46
+949,92,2025-10-14,cancelled,Door-to-Door Delivery,1923.27
+950,196,2025-09-11,processing,Drop-off Point,9044.13
+951,38,2026-03-06,delivered,Digital Delivery,1087.09
+952,100,2026-01-17,shipped,Standard Ground,9335.88
+953,108,2025-02-28,shipped,Express Overnight,5855.15
+954,178,2025-12-22,delivered,2-Day Shipping,3318.19
+955,81,2025-12-12,delivered,Priority Mail,4912.79
+956,141,2024-07-29,shipped,FedEx Ground,522.29
+957,95,2026-03-30,shipped,UPS Ground,3252.53
+958,177,2026-05-13,processing,USPS First Class,3762.3
+959,152,2025-11-28,shipped,DHL Express,8378.5
+960,84,2025-01-26,processing,FedEx 2Day,3026.14
+961,192,2025-04-29,processing,Standard Shipping,2294.23
+962,117,2025-03-28,delivered,Expedited Shipping,3569.47
+963,73,2026-04-02,pending,Overnight Shipping,4325.66
+964,72,2025-12-17,processing,Next Day Air,3246.32
+965,174,2024-11-03,delivered,Ground Delivery,35.04
+966,41,2025-05-25,delivered,Economy Shipping,8190.94
+967,45,2026-05-23,shipped,Premium Express,6366.29
+968,55,2026-04-14,shipped,Same-Day Delivery,7018.53
+969,176,2024-11-27,shipped,Parcel Post,6452.85
+970,142,2025-08-08,pending,Priority Express,8422.51
+971,164,2025-10-13,shipped,UPS Express Saver,1447.09
+972,142,2026-04-21,cancelled,USPS Priority Mail Express,734.15
+973,109,2026-05-12,delivered,FedEx Home Delivery,2427.36
+974,57,2025-05-20,delivered,Local Pickup,9440.4
+975,4,2025-02-03,delivered,White Glove Delivery,4301.07
+976,128,2025-05-19,processing,Freight Shipping,9108.78
+977,119,2025-07-03,cancelled,International Standard,1664.62
+978,174,2026-01-14,delivered,International Express,3317.62
+979,64,2025-05-14,pending,Regional Ground,6176.73
+980,8,2025-10-25,cancelled,Courier Service,944.15
+981,61,2026-01-13,delivered,Scheduled Delivery,7878.9
+982,106,2025-08-07,delivered,Free Shipping,7351.51
+983,183,2025-01-29,pending,Standard Delivery,2907.38
+984,61,2025-10-31,shipped,Rush Delivery,6671.1
+985,109,2024-06-27,delivered,Slow Boat,5225.55
+986,166,2025-01-18,shipped,Air Freight,2393.86
+987,136,2024-08-21,delivered,Door-to-Door,1407.97
+988,182,2026-01-10,delivered,Curbside Pickup,9912.29
+989,173,2024-06-15,processing,In-Store Pickup,9848.63
+990,103,2024-06-29,delivered,Will Call,5777.75
+991,120,2024-06-20,delivered,Drop Ship,2726.46
+992,70,2025-07-02,shipped,Dropoff Point,8317.62
+993,63,2024-10-17,delivered,Signature Required,634.21
+994,98,2024-09-23,pending,Adult Signature Required,2790.34
+995,80,2026-04-22,processing,No Signature,3642.21
+996,80,2025-11-07,delivered,Insured Shipping,2584.76
+997,13,2024-07-14,delivered,Tracked Delivery,2884.89
+998,169,2025-08-23,shipped,Untracked Shipping,7489.56
+999,80,2024-10-20,delivered,Bulk Shipping,9213.37
+1000,74,2026-02-04,processing,LTL Freight,3176.26
