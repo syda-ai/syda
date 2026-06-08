@@ -171,35 +171,35 @@ def main():
     #   max_retries=3           → exponential-backoff retries per chunk
     # ------------------------------------------------------------------
     print("\n" + "=" * 60)
-    print("Step 3: Configure generator (auto mode, batch_size=50)")
+    print("Step 3: Configure generator (Grok-3, auto mode, batch_size=50)")
     print("=" * 60)
 
     generator = SyntheticDataGenerator(
         model_config=ModelConfig(
-            provider="anthropic",
-            model_name="claude-haiku-4-5-20251001",
+            provider="grok",
+            model_name="grok-3",
             temperature=0.8,
-            max_tokens=8192,
+            max_tokens=16384,
             generation_mode="auto",   # direct ≤500, code-gen >500
             batch_size=50,            # max rows per LLM call (direct mode)
             max_retries=3,            # retries on transient API errors
-        )
+            extra_kwargs={"base_url": "https://api.x.ai/v1"},
+        ),
+        grok_api_key=os.getenv("GROK_API_KEY"),
     )
 
-    # Sample sizes chosen to exercise both modes in the same run.
-    # Scale these up for your own Anthropic tier — these defaults target
-    # the free/tier-1 limit of 10 000 output tokens/minute comfortably.
-    #   customers (200)  → direct mode  (4 chunks of 50)
-    #   products  (100)  → direct mode  (2 chunks of 50)
-    #   orders    (1000) → code-gen mode (1 analysis call + semantic cols only)
-    #   order_items(2000)→ code-gen mode + streaming to disk
-    #   reviews   (600)  → code-gen mode
+    # Scaled up for Grok credits — larger dataset to stress-test the pipeline.
+    #   customers (500)   → direct mode  (10 chunks of 50)
+    #   products  (200)   → direct mode  (4 chunks of 50)
+    #   orders    (5000)  → code-gen mode (cache hit after first run)
+    #   order_items(10000)→ code-gen mode + streaming to disk
+    #   reviews   (3000)  → code-gen mode
     sample_sizes = {
-        "customers":    200,
-        "products":     100,
-        "orders":     1_000,
-        "order_items": 2_000,
-        "reviews":      600,
+        "customers":     500,
+        "products":      200,
+        "orders":      5_000,
+        "order_items": 10_000,
+        "reviews":      3_000,
     }
 
     prompts = {

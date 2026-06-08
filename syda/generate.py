@@ -1404,21 +1404,34 @@ Every column must appear in exactly one list."""
             table_report.columns["_direct_"] = ColumnReport(strategy="direct_llm")
 
         def _one_chunk(sz: int, offset: int) -> pd.DataFrame:
-            p = self._build_prompt(table_schema, metadata, table_description,
-                                   primary_key_fields, prompt, sz)
-            result = self._call_with_retry(
-                lambda _p=p, _sz=sz: self._generate_data_with_llm(table_schema, _p, _sz),
-                max_retries=effective_retries,
-            )
-            chunk, in_tok, out_tok = result
-            if table_report is not None:
-                cr = table_report.columns["_direct_"]
-                cr.llm_calls += 1
-                cr.input_tokens += in_tok
-                cr.output_tokens += out_tok
-                cr.cost_usd += _estimate_cost(
-                    self.model_config.model_name, in_tok, out_tok
+            parts: List[pd.DataFrame] = []
+            remaining = sz
+            topup_attempts = 0
+
+            while remaining > 0 and topup_attempts <= effective_retries:
+                p = self._build_prompt(table_schema, metadata, table_description,
+                                       primary_key_fields, prompt, remaining)
+                result = self._call_with_retry(
+                    lambda _p=p, _sz=remaining: self._generate_data_with_llm(table_schema, _p, _sz),
+                    max_retries=effective_retries,
                 )
+                part, in_tok, out_tok = result
+                if table_report is not None:
+                    cr = table_report.columns["_direct_"]
+                    cr.llm_calls += 1
+                    cr.input_tokens += in_tok
+                    cr.output_tokens += out_tok
+                    cr.cost_usd += _estimate_cost(
+                        self.model_config.model_name, in_tok, out_tok
+                    )
+                parts.append(part)
+                remaining -= len(part)
+                if remaining > 0:
+                    topup_attempts += 1
+                    print(f"[syda] Short count ({len(part)}/{sz - remaining + len(part)} rows), "
+                          f"topping up {remaining} more rows (attempt {topup_attempts})...")
+
+            chunk = pd.concat(parts, ignore_index=True).iloc[:sz]
             chunk = self._enforce_uniqueness(chunk, table_schema, metadata, chunk_offset=offset)
             chunk = self._apply_constraints(chunk, table_schema, metadata)
             chunk = self._apply_type_generators(chunk, table_schema)
