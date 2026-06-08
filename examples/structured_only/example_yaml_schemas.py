@@ -158,14 +158,20 @@ def main():
     
     # Generate data using schemas with embedded foreign keys
     # Note: We don't need to explicitly provide the foreign_keys parameter
-    results = generator.generate_for_schemas(
+    generator.generate_for_schemas(
         schemas=schemas,
         prompts=prompts,
         sample_sizes=sample_sizes,
         output_dir=output_dir,
         custom_generators=custom_generators
     )
-    
+
+    # When output_dir is set, data is flushed to disk immediately; reload for analysis.
+    results = {
+        name: pd.read_csv(os.path.join(output_dir, f"{name.lower()}.csv"))
+        for name in schemas
+    }
+
     # Print summary
     print("\n✅ Data generation complete!")
     for schema_name, df in results.items():
