@@ -1,0 +1,47 @@
+__table_description__: E-commerce customer orders
+
+order_id:
+  type: integer
+  description: Unique order identifier
+  constraints:
+    primary_key: true
+
+product_id:
+  type: foreign_key
+  description: Product ordered
+  references:
+    schema: product
+    field: product_id
+
+customer_email:
+  type: email
+  description: Customer email address
+  constraints:
+    not_null: true
+
+order_date:
+  type: date
+  description: Date the order was placed (within the past 2 years)
+  constraints:
+    not_null: true
+
+status:
+  type: text
+  description: Order status — one of pending, processing, shipped, delivered, cancelled
+  constraints:
+    not_null: true
+
+quantity:
+  type: integer
+  description: Number of units ordered
+  constraints:
+    min: 1
+    max: 10
+    not_null: true
+
+total_amount:
+  type: float
+  description: Total order value in USD (quantity × unit_price, minus any discount)
+  constraints:
+    min: 0.0
+    not_null: true
