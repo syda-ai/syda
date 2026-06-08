@@ -1,101 +1,101 @@
 product_id,product_name,category,brand,unit_price,stock_qty,description
 1,Wireless Bluetooth Headphones,Electronics,SoundMax,79.99,145,High-quality wireless headphones with noise cancellation and 30-hour battery life
-2,Cotton T-Shirt,Clothing,BasicWear,19.99,320,Comfortable 100% cotton t-shirt available in multiple colors
-3,Stainless Steel Kitchen Knife Set,Home Goods,ChefPro,89.99,87,Professional 6-piece kitchen knife set with ergonomic handles
-4,Running Shoes,Sports Equipment,SpeedRun,129.99,203,Lightweight running shoes with cushioned sole and breathable mesh
-5,USB-C Charging Cable,Electronics,TechLink,12.99,512,2-meter durable USB-C cable with fast charging support
-6,Denim Jeans,Clothing,DenimCo,59.99,156,Classic blue denim jeans with comfortable fit
-7,Coffee Maker,Home Goods,BrewMaster,149.99,64,Programmable coffee maker with thermal carafe and brew strength control
-8,Yoga Mat,Sports Equipment,FlexFit,34.99,289,"Non-slip yoga mat with carrying strap, 6mm thickness"
-9,4K Webcam,Electronics,ClearVision,199.99,78,Ultra HD 4K webcam with auto-focus and built-in microphone
-10,Winter Jacket,Clothing,WarmTech,199.99,112,Insulated winter jacket with water-resistant outer shell
-11,Bed Sheets Set,Home Goods,SoftLinen,44.99,201,Luxury 1000-thread count Egyptian cotton bed sheets
-12,Dumbbell Set,Sports Equipment,IronFlex,179.99,93,Adjustable dumbbell set from 5 to 50 pounds
-13,Portable SSD,Electronics,DataVault,129.99,134,1TB portable solid-state drive with USB-C connectivity
-14,Sports Bra,Clothing,ActiveWear,49.99,267,High-impact sports bra with moisture-wicking fabric
-15,Microwave Oven,Home Goods,QuickHeat,119.99,71,1200W microwave with sensor cooking and LED display
-16,Bicycle Helmet,Sports Equipment,SafeRide,74.99,198,DOT-certified safety helmet with ventilation
-17,Smartwatch,Electronics,TechWatch,249.99,156,Fitness tracking smartwatch with heart rate monitor
-18,Wool Sweater,Clothing,CozyKnit,69.99,89,Premium merino wool sweater in neutral tones
-19,Dining Table,Home Goods,FurniturePro,349.99,34,Solid oak dining table seats 6 people
-20,Resistance Bands Set,Sports Equipment,FlexiBand,24.99,412,Set of 5 resistance bands with carrying case
-21,Laptop Stand,Electronics,ErgoDesk,39.99,223,Adjustable aluminum laptop stand for ergonomic viewing
-22,Leggings,Clothing,FlexWear,54.99,345,High-waisted leggings with pockets and moisture-wicking
-23,Throw Blanket,Home Goods,CozyHome,29.99,178,"Soft fleece throw blanket, machine washable"
-24,Jump Rope,Sports Equipment,FitJump,19.99,567,Speed jump rope with adjustable length and ball bearings
-25,Mechanical Keyboard,Electronics,KeyMaster,159.99,102,RGB mechanical keyboard with cherry switches
-26,Hoodie,Clothing,StreetStyle,74.99,234,Comfortable cotton-blend hoodie with kangaroo pocket
-27,Pillow Set,Home Goods,DreamComfort,59.99,145,Set of 2 memory foam pillows with hypoallergenic cover
-28,Kettlebell,Sports Equipment,IronForce,49.99,187,20-pound cast iron kettlebell for strength training
-29,External Hard Drive,Electronics,StorageMax,89.99,167,2TB external hard drive with USB 3.0 connectivity
-30,Dress Pants,Clothing,FormalWear,84.99,98,Professional dress pants with wrinkle-resistant fabric
-31,Toaster,Home Goods,CrispMaster,34.99,156,4-slice toaster with bagel and defrost settings
-32,Skateboard,Sports Equipment,ProSkate,89.99,76,Professional skateboard with ABEC-7 bearings
-33,USB Hub,Electronics,ConnectTech,29.99,298,7-port USB 3.0 hub with power adapter
-34,Polo Shirt,Clothing,ClassicStyle,44.99,289,Breathable pique cotton polo shirt
-35,Desk Lamp,Home Goods,BrightLight,54.99,134,LED desk lamp with adjustable brightness and color temperature
-36,Punching Bag,Sports Equipment,PowerStrike,129.99,54,Heavy-duty punching bag with stand and speed bag
-37,Mouse Pad,Electronics,SurfaceGrip,14.99,445,Large extended mouse pad with non-slip base
-38,Socks Pack,Clothing,ComfortFoot,14.99,678,Pack of 12 pairs of moisture-wicking athletic socks
-39,Wall Clock,Home Goods,TimeKeeper,39.99,189,Modern wall clock with silent quartz movement
-40,Tennis Racket,Sports Equipment,CourtPro,169.99,67,Lightweight graphite tennis racket with oversized head
-41,Phone Case,Electronics,ProtectGuard,19.99,512,Durable protective phone case with shock absorption
-42,Shorts,Clothing,SummerWear,34.99,267,Lightweight shorts with quick-dry fabric
-43,Shelf Unit,Home Goods,StorageMax,99.99,56,5-tier storage shelf with metal frame
-44,Soccer Ball,Sports Equipment,GoalKick,29.99,234,Official size 5 soccer ball with synthetic leather
-45,Screen Protector,Electronics,ClearShield,9.99,789,Tempered glass screen protector with easy installation
-46,Scarf,Clothing,FashionWrap,24.99,198,Soft cashmere blend scarf in multiple colors
-47,Curtain Rod,Home Goods,WindowDecor,44.99,145,Adjustable curtain rod with mounting brackets
-48,Yoga Block,Sports Equipment,FlexSupport,14.99,356,High-density foam yoga block for support and balance
-49,Power Bank,Electronics,ChargePro,44.99,289,20000mAh portable power bank with fast charging
-50,Beanie Hat,Clothing,WarmHead,22.99,423,Knit beanie hat with fleece lining
-51,Wireless Bluetooth Headphones,Electronics,SoundMax,49.99,150,"High-quality wireless headphones with 30-hour battery life, noise cancellation, and premium sound quality"
-52,Cotton T-Shirt,Clothing,ComfortWear,14.99,500,"Classic 100% cotton t-shirt available in multiple colors, comfortable fit for everyday wear"
-53,Stainless Steel Water Bottle,Home Goods,HydroFresh,24.99,300,"Double-walled insulated water bottle keeps drinks cold for 24 hours, 750ml capacity"
-54,Running Shoes,Sports Equipment,SpeedRunner,89.99,200,Professional-grade running shoes with gel cushioning and breathable mesh upper for maximum comfort
-55,USB-C Fast Charging Cable,Electronics,QuickCharge,12.99,800,"6ft USB-C cable with 3A fast charging capability, compatible with most devices"
-56,Denim Jeans,Clothing,DenimCo,59.99,250,"Classic blue denim jeans with comfortable stretch fit, available in all sizes"
-57,Coffee Maker,Home Goods,BrewMaster,79.99,85,12-cup programmable coffee maker with automatic brew timer and thermal carafe
-58,Yoga Mat,Sports Equipment,FlexFit,34.99,180,"Non-slip yoga mat with carrying strap, 6mm thick for extra cushioning and support"
-59,Smartphone Stand,Electronics,StandPro,15.99,420,Adjustable aluminum smartphone stand compatible with all phone sizes and brands
-60,Winter Jacket,Clothing,WarmCoat,129.99,120,Insulated winter jacket with waterproof outer shell and fleece lining for warmth
-61,LED Desk Lamp,Home Goods,BrightLight,39.99,200,Energy-efficient LED desk lamp with adjustable brightness and color temperature control
-62,Dumbbells Set,Sports Equipment,PowerGym,149.99,95,5-piece adjustable dumbbell set ranging from 5-25 lbs with storage rack
-63,Wireless Mouse,Electronics,CursorPro,22.99,350,Ergonomic wireless mouse with precision tracking and 18-month battery life
-64,Athletic Shorts,Clothing,ActiveWear,29.99,280,Lightweight athletic shorts with moisture-wicking fabric and internal pockets
-65,Microwave Oven,Home Goods,QuickHeat,119.99,60,1000W microwave oven with 10 power levels and sensor cooking technology
-66,Basketball,Sports Equipment,CourtKing,44.99,140,Official size basketball made with composite leather for indoor and outdoor play
-67,Portable Charger,Electronics,PowerPack,35.99,310,20000mAh portable charger with dual USB ports and fast charging capability
-68,Casual Sneakers,Clothing,StreetStyle,64.99,190,Stylish casual sneakers with memory foam insole and breathable canvas upper
-69,Bed Sheet Set,Home Goods,ComfyBed,49.99,220,4-piece bed sheet set made from 100% cotton with deep pocket design
-70,Resistance Bands,Sports Equipment,FlexBand,19.99,350,5-piece resistance band set with varying resistance levels and carrying bag
-71,4K Webcam,Electronics,VisionPro,89.99,110,4K resolution webcam with auto-focus and built-in microphone for video conferencing
-72,Sweater,Clothing,CozyKnits,54.99,160,"Soft wool blend sweater in various colors, perfect for layering"
-73,Blender,Home Goods,SmoothMaker,69.99,75,High-power blender with 6 speed settings and 2L pitcher for smoothies and soups
-74,Tennis Racket,Sports Equipment,AceNet,119.99,55,Professional tennis racket with composite frame and synthetic grip for optimal control
-75,USB Hub,Electronics,ConnectHub,29.99,280,7-port USB 3.0 hub with individual switches and power adapter
-76,Yoga Pants,Clothing,FlexFashion,74.99,210,High-waisted yoga pants with moisture-wicking fabric and hidden pockets
-77,Cookware Set,Home Goods,ChefPro,149.99,45,10-piece non-stick cookware set with heat-resistant handles and glass lids
-78,Gym Bag,Sports Equipment,CarryFit,44.99,170,Spacious gym bag with multiple compartments and ventilated shoe pocket
-79,Mechanical Keyboard,Electronics,KeyMaster,99.99,130,RGB mechanical keyboard with cherry switches and programmable keys for gaming
-80,Dress Shirt,Clothing,FormalWear,59.99,140,"Classic dress shirt in white and light blue, wrinkle-resistant cotton blend"
-81,Pillow Set,Home Goods,DreamCloud,79.99,100,Set of 2 memory foam pillows with hypoallergenic covers for better sleep
-82,Soccer Ball,Sports Equipment,GoalStrike,34.99,220,Professional soccer ball with synthetic leather and machine-stitched panels
-83,External Hard Drive,Electronics,StorageMax,79.99,160,2TB external hard drive with USB 3.0 connectivity and backup software
-84,Hoodie,Clothing,CozyStyle,49.99,240,Comfortable hoodie with drawstring and kangaroo pocket in multiple colors
-85,Vacuum Cleaner,Home Goods,CleanPro,199.99,40,Upright vacuum with HEPA filter and adjustable brush height for all floor types
-86,Swimming Goggles,Sports Equipment,AquaVision,24.99,180,Anti-fog swimming goggles with UV protection and adjustable straps
-87,Laptop Stand,Electronics,ErgoDesk,39.99,190,Adjustable aluminum laptop stand for ergonomic viewing and improved airflow
-88,Cargo Pants,Clothing,UtilityWear,69.99,150,Durable cargo pants with multiple pockets and reinforced stitching
-89,Toaster Oven,Home Goods,OvenMaster,89.99,50,Convection toaster oven with digital controls and stainless steel finish
-90,Bicycle Helmet,Sports Equipment,SafeRide,54.99,130,Lightweight bicycle helmet with ventilation and adjustable straps for safety
-91,Bluetooth Speaker,Electronics,SoundWave,64.99,200,Portable Bluetooth speaker with 360-degree sound and 12-hour battery life
-92,Socks Pack,Clothing,ComfortSocks,15.99,600,"12-pack of cushioned socks in assorted colors, ideal for everyday wear"
-93,Air Purifier,Home Goods,FreshAir,129.99,65,HEPA air purifier with activated carbon filter for allergen removal
-94,Jump Rope,Sports Equipment,FitJump,14.99,400,Speed jump rope with adjustable length and ball bearings for smooth rotation
-95,Monitor Arm,Electronics,FlexMount,49.99,140,Adjustable monitor arm with VESA mount for ergonomic workspace setup
-96,Scarf,Clothing,StyleWrap,24.99,320,Lightweight scarf in various patterns and colors for versatile styling
-97,Cutting Board Set,Home Goods,KitchenPro,34.99,180,3-piece bamboo cutting board set with non-slip base and juice groove
-98,Inline Skates,Sports Equipment,RollerGlide,99.99,75,Adjustable inline skates with LED wheels and protective gear included
-99,Desk Organizer,Electronics,OrderMax,22.99,250,Multi-compartment desk organizer with drawer for storing office supplies
-100,Baseball Cap,Clothing,HeadStyle,19.99,380,Classic baseball cap with adjustable strap and UV protection
+2,Cotton T-Shirt,Clothing,ComfortWear,19.99,320,"100% organic cotton t-shirt available in multiple colors, breathable and durable"
+3,Stainless Steel Kitchen Knife Set,Home Goods,ChefsPro,89.99,78,Professional 8-piece knife set with ergonomic handles and premium stainless steel blades
+4,Yoga Mat,Sports Equipment,FlexZone,34.99,210,"Non-slip yoga mat with carrying strap, perfect for home workouts and studio classes"
+5,USB-C Charging Cable,Electronics,TechLink,12.99,500,"Fast charging USB-C cable compatible with most modern devices, 6ft length"
+6,Winter Puffer Jacket,Clothing,FrostGuard,129.99,95,"Insulated water-resistant jacket with thermal lining, ideal for cold weather"
+7,Ceramic Non-Stick Frying Pan,Home Goods,CookEasy,44.99,156,"12-inch ceramic non-stick frying pan, oven-safe up to 400°F, PFOA-free"
+8,Dumbbell Set,Sports Equipment,IronForce,249.99,42,Adjustable dumbbell set with 15-50 lbs weights and comfortable grip handles
+9,Smartphone Screen Protector,Electronics,ShieldTech,8.99,680,"Tempered glass screen protector with anti-fingerprint coating, fits multiple models"
+10,Denim Jeans,Clothing,DenimCo,59.99,240,Classic blue denim jeans with stretch fabric for comfort and durability
+11,Microfiber Bedding Set,Home Goods,SoftDreams,74.99,118,"Queen-size bedding set includes sheet, pillowcases, and duvet cover"
+12,Running Shoes,Sports Equipment,SpeedFit,119.99,185,Lightweight running shoes with cushioned sole and breathable mesh upper
+13,Wireless Mouse,Electronics,TechGear,25.99,420,Ergonomic wireless mouse with 2.4GHz connection and 18-month battery life
+14,Wool Sweater,Clothing,KnitWorks,69.99,165,"Premium wool sweater with ribbed knit pattern, machine washable"
+15,Coffee Maker,Home Goods,BrewMaster,99.99,87,Programmable 12-cup coffee maker with thermal carafe and auto-shutdown feature
+16,Bicycle Helmet,Sports Equipment,SafeCycle,54.99,220,DOT-certified bike helmet with ventilation holes and adjustable chin strap
+17,Portable Phone Charger,Electronics,PowerBank,35.99,310,20000mAh power bank with dual USB ports and fast charging technology
+18,Leather Belt,Clothing,StyleBelt,39.99,290,"Genuine leather belt with adjustable buckle, fits waist sizes 28-42 inches"
+19,Pillow Set,Home Goods,ComfortPlus,49.99,175,Set of 2 memory foam pillows with hypoallergenic covers
+20,Resistance Bands,Sports Equipment,FitBand,24.99,380,Set of 5 resistance bands with varying resistance levels for strength training
+21,Tablet Stand,Electronics,TabMount,16.99,405,"Adjustable tablet stand compatible with 7-12 inch devices, aluminum construction"
+22,Cotton Socks,Clothing,ComfySocks,9.99,620,Pack of 6 cotton socks with arch support and moisture-wicking technology
+23,Desk Lamp,Home Goods,BrightLight,39.99,130,LED desk lamp with adjustable brightness and USB charging port
+24,Soccer Ball,Sports Equipment,GoalKick,29.99,145,Official size 5 soccer ball with synthetic leather cover and machine-stitched panels
+25,Mechanical Keyboard,Electronics,KeyMaster,119.99,95,RGB mechanical keyboard with custom switches and programmable keys
+26,Casual Sneakers,Clothing,StepStyle,74.99,210,Comfortable canvas sneakers with padded collar and flexible rubber sole
+27,Shower Curtain,Home Goods,BathStyle,19.99,340,"Waterproof polyester shower curtain with 12 hooks, available in multiple patterns"
+28,Foam Roller,Sports Equipment,RollFit,39.99,165,High-density foam roller for muscle recovery and myofascial release
+29,Webcam,Electronics,WebVision,59.99,125,1080p HD webcam with built-in microphone and auto-focus for video calls
+30,Cardigan Sweater,Clothing,CozyKnits,79.99,140,Lightweight cardigan with button closure and side pockets for casual wear
+31,Wall Clock,Home Goods,TimeWorks,24.99,270,Modern wall clock with silent quartz movement and minimalist design
+32,Skateboard,Sports Equipment,RideOn,89.99,78,Professional skateboard with maple deck and ABEC-7 bearings
+33,External Hard Drive,Electronics,DataSafe,79.99,165,1TB external hard drive with USB 3.0 connection and portable design
+34,Polo Shirt,Clothing,ClassicPolo,34.99,295,Cotton blend polo shirt with embroidered logo and comfortable fit
+35,Toaster,Home Goods,CrispToast,34.99,195,4-slice toaster with adjustable browning control and bagel setting
+36,Backpack,Sports Equipment,AdventureGear,69.99,155,30-liter hiking backpack with padded straps and multiple compartments
+37,Monitor Stand,Electronics,DeskPro,44.99,210,Adjustable monitor stand with storage drawer for desk organization
+38,Hoodie,Clothing,CozyWear,54.99,185,Comfortable cotton blend hoodie with kangaroo pocket and drawstring
+39,Rug,Home Goods,FloorStyle,89.99,92,"5x8 area rug with non-slip backing, adds warmth to any room"
+40,Punching Bag,Sports Equipment,BoxPro,79.99,68,Heavy-duty punching bag with stand for home gym training
+41,Laptop Stand,Electronics,ErgoPro,29.99,350,Adjustable aluminum laptop stand for ergonomic workspace setup
+42,Scarf,Clothing,StyleWrap,24.99,275,"Lightweight silk scarf in various colors, perfect for all seasons"
+43,Cutting Board Set,Home Goods,ChefChoice,29.99,220,Set of 3 bamboo cutting boards with non-slip feet
+44,Jump Rope,Sports Equipment,FitRope,14.99,440,Adjustable jump rope with ball bearings for smooth rotation
+45,USB Hub,Electronics,HubTech,21.99,380,7-port USB 3.0 hub with individual switches and power adapter
+46,Shorts,Clothing,ActiveWear,39.99,265,Breathable athletic shorts with moisture-wicking fabric and pockets
+47,Storage Bins,Home Goods,OrganizeMax,19.99,380,Set of 4 plastic storage bins with lids for home organization
+48,Tennis Racket,Sports Equipment,CourtPro,149.99,55,Professional tennis racket with graphite frame and synthetic strings
+49,Camera Tripod,Electronics,FrameStand,49.99,140,Lightweight aluminum tripod with ball head and carrying case
+50,Dress Shoes,Clothing,FormalStep,99.99,110,Leather dress shoes with cushioned insole and polished finish
+51,Wireless Bluetooth Headphones,Electronics,SoundMax,49.99,150,High-quality wireless headphones with noise cancellation and 30-hour battery life
+52,USB-C Fast Charging Cable,Electronics,TechCord,12.99,500,Durable 6ft USB-C cable supporting fast charging for smartphones and tablets
+53,Cotton T-Shirt,Clothing,ComfortWear,19.99,300,"Classic 100% cotton t-shirt available in multiple colors, comfortable for everyday wear"
+54,Running Shoes,Sports Equipment,AthleticPro,89.99,120,Lightweight running shoes with cushioned sole and breathable mesh upper for optimal performance
+55,Stainless Steel Water Bottle,Home Goods,HydroKeep,24.99,200,"Double-walled insulated water bottle keeps drinks cold for 24 hours, eco-friendly design"
+56,4K Smart TV 55 inch,Electronics,VisionTech,399.99,45,"55-inch 4K UHD smart TV with HDR support, built-in streaming apps, and voice control"
+57,Yoga Mat,Sports Equipment,FlexiFit,29.99,180,"Non-slip yoga mat with carrying strap, 6mm thickness for optimal cushioning and stability"
+58,Bedding Set Queen Size,Home Goods,SleepLux,79.99,90,"Premium 400-thread count cotton bedding set includes 2 pillowcases, 1 fitted sheet, and 1 flat sheet"
+59,Denim Jeans,Clothing,UrbanStyle,59.99,200,"Classic blue denim jeans with straight fit, perfect for casual or smart-casual outfits"
+60,Portable Phone Charger,Electronics,PowerBank,34.99,250,20000mAh portable power bank with dual USB ports and LED display for fast charging
+61,Winter Jacket,Clothing,WarmCoat,129.99,85,"Waterproof insulated winter jacket with fleece lining, perfect for cold weather conditions"
+62,Dumbbells Set,Sports Equipment,FitForce,99.99,60,Adjustable dumbbell set 10-50 lbs with storage rack for home gym workouts
+63,Coffee Maker,Home Goods,BrewMaster,69.99,110,"Programmable coffee maker with thermal carafe, makes up to 12 cups of coffee"
+64,Wireless Mouse,Electronics,TechGear,22.99,320,Ergonomic wireless mouse with silent clicking technology and 18-month battery life
+65,Sports Socks Pack,Clothing,ActiveFeet,14.99,400,Pack of 6 moisture-wicking sports socks designed for athletic activities and comfort
+66,Tennis Racket,Sports Equipment,CourtPro,149.99,40,"Professional-grade tennis racket with graphite frame, ideal for intermediate to advanced players"
+67,Pillow Set,Home Goods,DreamComfort,44.99,130,Set of 2 memory foam pillows with hypoallergenic cover for better sleep quality
+68,Tablet 10 inch,Electronics,TechTab,249.99,75,"10-inch tablet with high-resolution display, 128GB storage, and long battery life"
+69,Casual Sneakers,Clothing,StepStyle,64.99,170,Comfortable casual sneakers with cushioned insole and breathable canvas upper
+70,Bicycle,Sports Equipment,CycleMax,299.99,35,"Mountain bike with 21-speed gear system, suspension fork, and all-terrain tires"
+71,Cookware Set,Home Goods,KitchenPro,89.99,70,"Non-stick cookware set with 10 pieces including pots, pans, and utensils"
+72,Mechanical Keyboard,Electronics,KeyMaster,99.99,95,RGB mechanical keyboard with customizable switches and programmable macros for gaming
+73,Sweater,Clothing,CozyKnit,44.99,160,"Warm wool blend sweater available in multiple colors, perfect for layering"
+74,Basketball,Sports Equipment,CourtBall,29.99,140,Official size and weight basketball with durable rubber exterior for indoor and outdoor use
+75,Desk Lamp,Home Goods,BrightLight,39.99,145,LED desk lamp with adjustable brightness and color temperature for work and study
+76,Laptop Stand,Electronics,TechSupport,35.99,210,"Adjustable aluminum laptop stand compatible with 10-17 inch laptops, ergonomic design"
+77,Polo Shirt,Clothing,ClassicFit,39.99,220,"Classic polo shirt made from premium cotton, available in various colors"
+78,Resistance Bands Set,Sports Equipment,FlexPower,19.99,280,Set of 5 resistance bands with different resistance levels for strength training
+79,Bathroom Towel Set,Home Goods,SoftTouch,34.99,190,"Set of 4 plush bathroom towels made from 100% cotton, highly absorbent"
+80,Webcam HD,Electronics,VisionClear,59.99,125,"1080p HD webcam with built-in microphone, perfect for video conferencing and streaming"
+81,Shorts,Clothing,SummerStyle,29.99,250,"Lightweight shorts with quick-dry fabric, ideal for summer and athletic activities"
+82,Jump Rope,Sports Equipment,FitRope,14.99,350,Speed jump rope with ball bearings and adjustable length for cardio training
+83,Dining Table Set,Home Goods,FurniturePro,349.99,25,"Dining table set with 4 chairs, solid wood construction, seats up to 6 people"
+84,USB Hub,Electronics,ConnectTech,27.99,180,7-port USB 3.0 hub with individual switches and power adapter
+85,Dress Shirt,Clothing,FormalWear,54.99,140,"Professional dress shirt made from wrinkle-resistant fabric, perfect for office wear"
+86,Swimming Goggles,Sports Equipment,AquaVision,19.99,200,Anti-fog swimming goggles with UV protection and adjustable straps for comfort
+87,Bookshelf,Home Goods,StorageMax,99.99,50,"5-tier wooden bookshelf with adjustable shelves, holds up to 150 lbs per shelf"
+88,Portable SSD,Electronics,DataSafe,129.99,85,"1TB portable SSD with USB 3.1 connection, fast data transfer speeds up to 550MB/s"
+89,Leggings,Clothing,ActiveWear,44.99,220,"High-waist leggings with moisture-wicking fabric, perfect for yoga and gym"
+90,Fitness Tracker,Sports Equipment,FitWatch,79.99,110,"Smart fitness tracker with heart rate monitor, sleep tracking, and 7-day battery life"
+91,Curtain Set,Home Goods,WindowStyle,49.99,115,"Blackout curtain set with 2 panels, 84 inches long, thermal insulation properties"
+92,Microphone USB,Electronics,SoundPro,69.99,95,"Condenser USB microphone with stand and pop filter, ideal for podcasting and streaming"
+93,Cargo Pants,Clothing,UtilityGear,69.99,130,"Durable cargo pants with multiple pockets, made from heavy-duty cotton blend"
+94,Skateboard,Sports Equipment,SkateKing,79.99,75,Professional skateboard with maple deck and ABEC-7 bearings for smooth rides
+95,Floor Rug,Home Goods,DecorHome,89.99,60,"Modern area rug 8x10 feet, machine washable with non-slip backing"
+96,Bluetooth Speaker,Electronics,SoundBox,44.99,165,"Portable Bluetooth speaker with 360-degree sound, waterproof design, 12-hour battery"
+97,Hoodie,Clothing,CozyStyle,54.99,180,Comfortable fleece-lined hoodie with kangaroo pocket and drawstring hood
+98,Camping Tent,Sports Equipment,OutdoorPro,179.99,45,"4-person camping tent with waterproof coating, easy setup, and ventilation windows"
+99,Kitchen Scale,Home Goods,PrecisionMeasure,24.99,175,"Digital kitchen scale with precision measurement up to 5kg, easy-to-read display"
+100,Monitor Stand,Electronics,DeskOrganize,39.99,140,"Adjustable monitor stand with storage drawer, supports monitors up to 32 inches"
