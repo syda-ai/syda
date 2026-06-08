@@ -1138,7 +1138,7 @@ Every column must appear in exactly one list."""
         sample_size: int,
         table_report: Optional["TableReport"] = None,
     ) -> List[str]:
-        """Generate values for a semantic column using a targeted LLM call."""
+        """Generate values for a semantic column using chunked LLM calls."""
         col_type = col_schema if isinstance(col_schema, str) else col_schema.get('type', 'text')
         col_desc = ""
         if isinstance(col_schema, dict):
@@ -1152,41 +1152,59 @@ Every column must appear in exactly one list."""
             if c.get('length'):
                 constraints.append(f"Exactly {c['length']} characters per value.")
 
-        prompt = (
-            f"Generate {sample_size} realistic and diverse values for column '{col_name}'.\n"
-            f"Table context: {table_description or 'data table'}\n"
-            f"Column type: {col_type}\n"
-            + (f"Column description: {col_desc}\n" if col_desc else "")
-            + (f"Constraints: {' '.join(constraints)}\n" if constraints else "")
-            + f"Return a JSON array of exactly {sample_size} strings."
-        )
+        # Rich text columns (descriptions, narratives) use a small chunk size to stay
+        # within output token limits; short columns (codes, names) can use larger chunks.
+        desc_lower = col_desc.lower()
+        is_rich = any(w in desc_lower for w in ('sentence', 'paragraph', 'narrative', 'detail', 'notes', 'description', 'summary'))
+        chunk_size = 25 if is_rich else 50
 
         agent = self.llm_client.create_agent(
             output_type=List[str],
             system_prompt="You are a synthetic data generator. Generate realistic, diverse values.",
         )
         model_settings = self.llm_client.get_model_settings()
-        result = agent.run_sync(prompt, model_settings=model_settings)
 
-        in_tok = out_tok = 0
-        try:
-            usage = result.usage
-            in_tok = (usage.request_tokens or 0) if usage else 0
-            out_tok = (usage.response_tokens or 0) if usage else 0
-        except Exception:
-            pass
+        total_in_tok = total_out_tok = 0
+        llm_calls = 0
+        all_values: List[str] = []
+
+        n_chunks = math.ceil(sample_size / chunk_size)
+        for i in range(n_chunks):
+            start = i * chunk_size
+            end = min(start + chunk_size, sample_size)
+            sz = end - start
+
+            prompt = (
+                f"Generate {sz} realistic and diverse values for column '{col_name}'.\n"
+                f"Table context: {table_description or 'data table'}\n"
+                f"Column type: {col_type}\n"
+                + (f"Column description: {col_desc}\n" if col_desc else "")
+                + (f"Constraints: {' '.join(constraints)}\n" if constraints else "")
+                + f"Return a JSON array of exactly {sz} strings."
+            )
+
+            result = agent.run_sync(prompt, model_settings=model_settings)
+            all_values.extend(result.output)
+            llm_calls += 1
+
+            try:
+                usage = result.usage
+                total_in_tok += (usage.request_tokens or 0) if usage else 0
+                total_out_tok += (usage.response_tokens or 0) if usage else 0
+            except Exception:
+                pass
 
         if table_report is not None:
             from .run_report import _estimate_cost
             table_report.columns[col_name] = ColumnReport(
                 strategy="codegen_semantic",
-                llm_calls=1,
-                input_tokens=in_tok,
-                output_tokens=out_tok,
-                cost_usd=_estimate_cost(self.model_config.model_name, in_tok, out_tok),
+                llm_calls=llm_calls,
+                input_tokens=total_in_tok,
+                output_tokens=total_out_tok,
+                cost_usd=_estimate_cost(self.model_config.model_name, total_in_tok, total_out_tok),
             )
 
-        return result.output
+        return all_values
 
     def _run_local_generation(self, table_schema: Dict, sample_size: int) -> pd.DataFrame:
         """Fill a DataFrame using registered column generators (code-gen mode simple columns)."""
