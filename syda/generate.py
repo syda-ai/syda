@@ -944,10 +944,17 @@ class SyntheticDataGenerator:
         # must not overwrite them with LLM-generated code.
         pre_registered = set(self.generator_manager.column_generators.keys())
 
+        # Columns explicitly marked force_llm: true in schema are always semantic —
+        # skip them in the code-gen analysis prompt and add directly to semantic_cols.
+        forced_semantic = {
+            col for col, meta in metadata.items()
+            if meta.get("force_llm") and col not in pre_registered
+        }
+
         col_descriptions = []
         for col_name, col_type in table_schema.items():
-            if col_name in pre_registered:
-                continue  # FK column — keep existing generator, skip code-gen
+            if col_name in pre_registered or col_name in forced_semantic:
+                continue  # FK or force_llm — skip code-gen analysis
             col_type_str = col_type if isinstance(col_type, str) else col_type.get('type', 'text')
             parts = [f"- {col_name} ({col_type_str})"]
             if col_name in metadata:
@@ -1028,8 +1035,12 @@ Every column must appear in exactly one list."""
         if cached:
             print(f"[syda] Code-gen cache HIT for '{schema_name}' (hash {schema_hash})")
             # simple holds callables; derive semantic = columns with no generator
-            simple_fns: Dict[str, Any] = cached.get("simple", {})
-            simple_source: Dict[str, str] = cached.get("simple_source", {})
+            simple_fns: Dict[str, Any] = {
+                k: v for k, v in cached.get("simple", {}).items() if k not in forced_semantic
+            }
+            simple_source: Dict[str, str] = {
+                k: v for k, v in cached.get("simple_source", {}).items() if k not in forced_semantic
+            }
             semantic_cols: List[str] = [
                 col for col in table_schema
                 if col not in pre_registered and col not in simple_fns
@@ -1047,9 +1058,11 @@ Every column must appear in exactly one list."""
                 )
                 return list(table_schema.keys())
 
-            # analysis.simple contains source strings from the LLM
-            simple_source = analysis.simple
-            semantic_cols = analysis.semantic
+            # analysis.simple contains source strings from the LLM; strip force_llm cols
+            simple_source = {k: v for k, v in analysis.simple.items() if k not in forced_semantic}
+            semantic_cols = [c for c in analysis.semantic if c not in forced_semantic]
+            # Add forced columns at the front so they're clearly visible in logs
+            semantic_cols = sorted(forced_semantic) + semantic_cols
             from_cache = False
 
             try:
@@ -1108,6 +1121,8 @@ Every column must appear in exactly one list."""
                 if col_name in table_schema:
                     table_report.columns[col_name] = ColumnReport(strategy="fk_sampler")
 
+        if forced_semantic:
+            print(f"[syda] force_llm columns (always semantic): {sorted(forced_semantic)}")
         print(
             f"[syda] Code-gen analysis: {len(simple_fns)} simple columns, "
             f"{len(semantic_cols)} semantic columns"

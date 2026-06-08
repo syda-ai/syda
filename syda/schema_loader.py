@@ -173,9 +173,13 @@ class SchemaLoader:
                         if len(parts) == 2:
                             foreign_keys[field_name] = (parts[0], parts[1])
                 
+                # force_llm: true → always treat column as semantic (LLM-generated) in code-gen mode
+                if field_info.get("force_llm"):
+                    field_metadata["force_llm"] = True
+
                 # Process constraints
                 constraints = {}
-                
+
                 # Extract direct constraint attributes
                 for constraint_key in ["nullable", "not_null", "primary_key", "unique", "enum",
                                        "length", "max_length", "min_length"]:
