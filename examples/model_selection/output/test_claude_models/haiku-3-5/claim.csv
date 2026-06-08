@@ -1,16 +1,16 @@
 claim_id,patient_id,diagnosis_code,email,visit_date,notes
-1,1015,E11.9,john.smith@example.com,2023-05-15,Type 2 diabetes mellitus without complications. Patient advised on diet and exercise management.
-2,1014,I10,emily.jones@gmail.com,2023-04-22,Essential (primary) hypertension. Prescribed blood pressure medication and recommended lifestyle modifications.
-3,1005,J45.90,michael.wong@outlook.com,2023-03-10,Mild intermittent asthma. Provided inhaler and asthma management plan.
-4,1001,M17.9,sarah.miller@example.com,2023-02-18,Unspecified osteoarthritis of knee. Recommended physical therapy and pain management strategies.
-5,1012,F32.9,david.garcia@gmail.com,2023-01-05,"Major depressive disorder, unspecified. Referred to mental health counseling and discussed potential medication options."
-6,1004,K35.2,lisa.chen@outlook.com,2023-06-03,Acute appendicitis with generalized peritonitis. Immediate surgical consultation recommended.
-7,1010,N39.0,robert.taylor@example.com,2023-05-01,"Urinary tract infection, site not specified. Prescribed antibiotics and hydration advice."
-8,1007,L02.91,amanda.rodriguez@gmail.com,2023-04-12,"Cutaneous abscess of trunk. Performed incision and drainage, prescribed topical antibiotics."
-9,1015,H10.9,james.lee@outlook.com,2023-03-25,Unspecified conjunctivitis. Prescribed antibiotic eye drops and hygiene instructions.
-10,1010,A09,emma.wilson@example.com,2023-02-07,"Infectious gastroenteritis. Advised on hydration, rest, and symptomatic treatment."
-11,1008,S52.521A,alex.martinez@gmail.com,2023-01-20,"Torus fracture of lower end of right radius, initial encounter. Applied cast and scheduled follow-up."
-12,1011,R05,olivia.kim@outlook.com,2023-06-15,Chronic cough. Conducted thorough respiratory examination and ordered chest X-ray.
-13,1005,Z23,william.park@example.com,2023-05-10,Encounter for immunization. Administered seasonal flu vaccine.
-14,1001,R53.83,sophia.nguyen@gmail.com,2023-04-05,Other fatigue. Performed comprehensive metabolic panel and discussed lifestyle factors.
-15,1001,G43.909,ethan.brown@outlook.com,2023-03-15,"Migraine, unspecified, without mention of intractability. Prescribed preventive medication and trigger management strategies."
+1001,1012,E11.9,james.mitchell@email.com,2024-01-15,Type 2 diabetes mellitus without complications. Patient reports good glucose control with current metformin regimen. Fasting glucose 118 mg/dL. Continue current medication and schedule follow-up in 3 months.
+1002,1004,I10,sarah.johnson@email.com,2024-01-18,Essential hypertension. Blood pressure readings 142/88 mmHg. Patient on lisinopril 10mg daily. Advised to reduce sodium intake and increase physical activity. Refill prescription and recheck in 2 weeks.
+1003,1011,M79.3,michael.chen@email.com,2024-01-22,"Myalgia and myositis, unspecified. Patient complains of muscle pain in legs and lower back. No fever or systemic symptoms. Recommend rest, ice therapy, and ibuprofen 400mg twice daily. Physical therapy referral issued."
+1004,1003,J06.9,emma.rodriguez@email.com,2024-01-25,"Acute upper respiratory infection. Patient presents with sore throat, nasal congestion, and mild cough for 3 days. Vital signs stable. Supportive care recommended. Follow-up if symptoms persist beyond 10 days."
+1005,1001,F41.1,david.williams@email.com,2024-02-01,Generalized anxiety disorder. Patient reports persistent worry and tension. Started on sertraline 50mg daily. Referred to behavioral health counseling. Patient educated on relaxation techniques and sleep hygiene.
+1006,1015,K21.9,lisa.anderson@email.com,2024-02-05,Unspecified gastro-esophageal reflux disease. Patient experiences heartburn and regurgitation after meals. Prescribed omeprazole 20mg daily. Dietary modifications recommended including avoiding spicy foods and eating smaller meals.
+1007,1011,M25.5,robert.taylor@email.com,2024-02-08,Pain in knee. Patient reports chronic knee pain exacerbated by prolonged standing. Physical examination shows mild swelling. Recommend weight management and low-impact exercises. Knee brace prescribed.
+1008,1005,E78.5,patricia.brown@email.com,2024-02-12,"Hyperlipidemia, unspecified. Lipid panel shows elevated total cholesterol 285 mg/dL and LDL 180 mg/dL. Started on atorvastatin 20mg daily. Patient counseled on heart-healthy diet and exercise program."
+1009,1002,H52.2,christopher.davis@email.com,2024-02-15,Astigmatism. Patient reports blurred vision at all distances. Visual acuity 20/60 bilaterally. Referred to ophthalmology for complete eye examination and glasses prescription.
+1010,1009,G47.3,jennifer.martinez@email.com,2024-02-18,"Sleep apnea, unspecified. Patient reports loud snoring and daytime somnolence. Sleep study ordered. Advised to avoid alcohol and sedatives. Weight loss recommended. CPAP therapy may be indicated pending study results."
+1011,1007,L20.9,kevin.garcia@email.com,2024-02-22,"Unspecified dermatitis. Patient presents with itchy, red rash on arms and legs. Prescribed hydrocortisone cream 1% twice daily. Advised to avoid irritants and use fragrance-free moisturizers. Follow-up in 2 weeks."
+1012,1014,F32.9,amanda.thompson@email.com,2024-02-25,"Major depressive disorder, single episode, unspecified. Patient reports persistent sadness, loss of interest in activities, and sleep disturbance. Started on sertraline 100mg daily. Psychiatric referral arranged."
+1013,1014,N39.0,brian.harris@email.com,2024-03-01,"Urinary tract infection, site not specified. Patient complains of dysuria and urinary frequency. Urinalysis shows pyuria. Prescribed ciprofloxacin 500mg twice daily for 7 days. Increased fluid intake recommended."
+1014,1013,M54.5,nicole.wilson@email.com,2024-03-05,Low back pain. Patient reports acute onset lower back pain after lifting heavy object. No radiating pain or neurological symptoms. Prescribed naproxen 500mg twice daily and referred to physical therapy for 4-week course.
+1015,1003,B34.9,thomas.lee@email.com,2024-03-08,"Viral infection, unspecified. Patient presents with fever, fatigue, and general malaise. Vital signs stable except for temperature 101.5°F. Supportive care with rest and fluids recommended. Reassess in 3-5 days if symptoms persist."

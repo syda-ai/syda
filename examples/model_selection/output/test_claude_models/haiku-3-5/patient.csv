@@ -1,16 +1,16 @@
 patient_id,diagnosis_code,email,visit_date,notes
-1001,E11.9,john.smith@example.com,2023-06-15,Type 2 diabetes mellitus without complications. Recommended diet and exercise plan.
-1002,I10,maria.garcia@example.net,2023-06-12,Essential (primary) hypertension. Prescribed blood pressure medication.
-1003,J45.909,david.lee@example.org,2023-06-18,Unspecified asthma with acute exacerbation. Renewed inhaler prescription.
-1004,M25.50,sarah.johnson@example.com,2023-06-10,Pain in unspecified knee. Recommended physical therapy and anti-inflammatory medication.
-1005,F32.9,michael.brown@example.net,2023-06-14,"Major depressive disorder, unspecified. Referred to mental health counseling."
-1006,K35.2,emily.wilson@example.org,2023-06-16,Acute appendicitis with generalized peritonitis. Immediate surgical intervention required.
-1007,N39.0,robert.taylor@example.com,2023-06-11,"Urinary tract infection, site not specified. Prescribed antibiotics."
-1008,L02.91,jennifer.martinez@example.net,2023-06-13,"Cutaneous abscess of unspecified site. Cleaned and dressed wound, started antibiotics."
-1009,H10.9,christopher.anderson@example.org,2023-06-17,Unspecified conjunctivitis. Prescribed eye drops and recommended follow-up.
-1010,A09,amanda.thomas@example.com,2023-06-19,"Infectious gastroenteritis and colitis, unspecified. Advised hydration and rest."
-1011,S52.50XA,daniel.jackson@example.net,2023-06-20,"Fracture of lower end of radius, unspecified arm, initial encounter. Referred for X-ray and orthopedic consultation."
-1012,R10.2,olivia.white@example.org,2023-06-09,Pelvic and perineal pain. Ordered additional diagnostic tests.
-1013,Z23,william.martin@example.com,2023-06-21,Encounter for immunization. Administered seasonal flu vaccine.
-1014,B02.9,sophia.thompson@example.net,2023-06-22,Herpes zoster without complications. Prescribed antiviral medication.
-1015,R53.83,ethan.davis@example.org,2023-06-23,Other fatigue. Conducted comprehensive health screening and blood tests.
+1001,E11.9,sarah.mitchell@email.com,2024-01-15,Type 2 diabetes mellitus without complications. Patient reports good medication adherence. Blood glucose levels stable at 145 mg/dL. Discussed dietary modifications and exercise routine.
+1002,I10,james.rodriguez@email.com,2024-01-18,Essential hypertension. BP reading 138/88 mmHg. Current medication: Lisinopril 10mg daily. Patient advised to reduce sodium intake. Follow-up appointment scheduled in 3 months.
+1003,J44.9,margaret.chen@email.com,2024-01-20,"Chronic obstructive pulmonary disease, unspecified. FEV1 62% of predicted. Patient using albuterol inhaler as needed. Referred for pulmonary function testing. Smoking cessation counseling provided."
+1004,F32.9,david.thompson@email.com,2024-01-22,"Major depressive disorder, single episode, unspecified. Patient reports persistent sadness and loss of interest in activities. Started on sertraline 50mg daily. Referred to psychiatry for further evaluation."
+1005,M79.3,jennifer.williams@email.com,2024-01-25,"Panniculitis, unspecified. Tender nodules noted on bilateral shins. Inflammatory markers elevated. Prescribed NSAIDs and referred to dermatology for biopsy."
+1006,K21.9,robert.jackson@email.com,2024-02-01,Unspecified gastro-esophageal reflux disease. Patient experiences heartburn 3-4 times weekly. Started on omeprazole 20mg daily. Advised to avoid spicy foods and eat smaller meals.
+1007,E78.5,patricia.garcia@email.com,2024-02-05,"Unspecified hyperlipidemia. Total cholesterol 245 mg/dL, LDL 165 mg/dL. Started on atorvastatin 20mg daily. Lifestyle modifications recommended including diet and exercise."
+1008,H66.9,michael.anderson@email.com,2024-02-08,"Otitis media, unspecified. Patient presents with ear pain and mild hearing loss. Audiometry scheduled. Prescribed amoxicillin 500mg three times daily for 10 days."
+1009,N18.3,linda.martinez@email.com,2024-02-12,"Chronic kidney disease, stage 3b. eGFR 35 mL/min/1.73m2. Urine protein present. Patient counseled on renal diet. Referral to nephrology initiated. Continue monitoring electrolytes."
+1010,I50.9,william.taylor@email.com,2024-02-15,Unspecified heart failure. Ejection fraction 40% on echocardiogram. Patient reports shortness of breath with exertion. Started on furosemide 40mg daily and lisinopril 5mg daily. Restrict fluid intake to 1.5L/day.
+1011,E10.9,elizabeth.davis@email.com,2024-02-18,Type 1 diabetes mellitus without complications. 16-year-old patient. HbA1c 7.2%. Insulin regimen reviewed and adjusted. Patient educated on carbohydrate counting and sick day management.
+1012,M17.11,christopher.wilson@email.com,2024-02-22,"Primary osteoarthritis, right knee. Pain 6/10 on visual analog scale. Patient reports difficulty with stairs. Prescribed celecoxib 200mg daily. Physical therapy referral provided."
+1013,G89.29,nancy.brown@email.com,2024-02-25,"Other chronic pain, unspecified. Widespread musculoskeletal pain for 18 months. Fibromyalgia suspected. Started on pregabalin 150mg daily. Referred to rheumatology for confirmation."
+1014,B20,thomas.moore@email.com,2024-03-01,"Human immunodeficiency virus [HIV] disease. CD4 count 450 cells/mm3. Viral load 45,000 copies/mL. Started on antiretroviral therapy with TDF/FTC/EFV. Close follow-up scheduled."
+1015,C34.90,susan.johnson@email.com,2024-03-05,Unspecified malignant neoplasm of right lung. CT chest shows 3cm nodule with concerning features. PET scan ordered. Oncology consultation arranged. Patient counseled on treatment options.

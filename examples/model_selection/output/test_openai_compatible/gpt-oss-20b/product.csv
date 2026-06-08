@@ -1,0 +1,11 @@
+product_id,company_id,name,category,price
+1,4,Acme Analytics Suite,Analytics,129.99
+2,2,BetaCode IDE,Development Tools,89.5
+3,2,Zenith Cloud Scheduler,Productivity,59.99
+4,5,SecureGuard Firewall,Security,199.0
+5,1,FinTrack Budget Manager,Finance,74.25
+6,5,EduLearn LMS,Education,159.75
+7,5,HealthMetrics Tracker,Healthcare,89.9
+8,2,RetailPro POS System,Retail,249.0
+9,4,EventPlanner SaaS,Event Management,129.5
+10,2,DevOpsX CI/CD Pipeline,DevOps,199.95
