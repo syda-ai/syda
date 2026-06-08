@@ -1,1001 +1,1001 @@
 order_id,customer_id,order_date,status,shipping_method,total_amount
-1,96,2025-04-15,delivered,express,2891.88
-2,32,2024-11-26,delivered,express,2825.18
-3,164,2025-11-10,pending,standard,4513.77
-4,110,2026-02-14,processing,pickup,3044.07
-5,63,2026-03-07,processing,standard,1915.8
-6,119,2025-09-16,pending,standard,4276.16
-7,81,2025-07-25,processing,pickup,4849.82
-8,52,2026-06-04,delivered,standard,2352.33
-9,120,2026-01-06,processing,overnight,45.22
-10,88,2024-10-12,pending,standard,4114.18
-11,180,2024-10-03,shipped,overnight,4380.58
-12,98,2026-01-01,processing,overnight,2421.6
-13,172,2025-09-14,shipped,overnight,1755.69
-14,23,2025-10-15,delivered,overnight,3180.35
-15,93,2025-10-29,delivered,express,1514.36
-16,125,2025-02-13,processing,pickup,4860.43
-17,11,2026-03-29,shipped,overnight,3997.76
-18,10,2024-09-26,shipped,pickup,2683.49
-19,155,2026-02-12,delivered,express,2145.35
-20,114,2024-07-27,cancelled,overnight,4951.16
-21,71,2025-09-27,shipped,standard,4912.51
-22,107,2024-07-04,delivered,standard,436.02
-23,172,2025-10-26,shipped,overnight,3279.6
-24,129,2024-11-25,cancelled,express,4912.51
-25,103,2025-01-18,processing,express,4871.52
-26,200,2025-10-04,delivered,standard,4293.04
-27,168,2024-08-31,processing,standard,1925.97
-28,78,2026-05-21,delivered,express,608.29
-29,14,2025-08-09,processing,standard,4298.8
-30,167,2026-02-21,processing,standard,3655.4
-31,149,2024-12-01,delivered,express,1961.19
-32,39,2026-01-08,shipped,overnight,3538.5
-33,167,2026-01-06,delivered,express,1369.17
-34,62,2026-01-14,delivered,express,3425.27
-35,161,2024-10-17,delivered,standard,2572.32
-36,50,2025-03-24,delivered,standard,399.41
-37,143,2025-12-25,delivered,pickup,4690.91
-38,184,2026-04-25,shipped,overnight,1424.59
-39,157,2025-12-28,shipped,pickup,1132.32
-40,99,2025-11-14,pending,express,3939.01
-41,32,2025-07-16,delivered,standard,4459.67
-42,167,2025-03-13,shipped,express,1803.8
-43,16,2025-06-26,shipped,standard,3061.25
-44,157,2026-01-16,pending,standard,804.32
-45,162,2024-12-09,pending,overnight,4956.03
-46,16,2025-10-06,delivered,overnight,1653.44
-47,112,2024-06-17,delivered,express,3846.95
-48,62,2024-09-30,pending,pickup,2777.33
-49,47,2025-05-31,delivered,standard,3325.94
-50,54,2026-01-27,delivered,express,3022.11
-51,167,2026-03-05,pending,standard,1969.31
-52,155,2026-01-19,processing,overnight,3970.33
-53,123,2025-05-13,processing,pickup,443.33
-54,113,2025-07-16,pending,standard,1851.7
-55,118,2025-10-25,processing,overnight,3784.48
-56,7,2026-03-24,processing,standard,3513.27
-57,63,2025-11-27,delivered,pickup,1154.6
-58,37,2024-12-05,pending,standard,2547.87
-59,101,2024-09-23,delivered,pickup,4218.34
-60,160,2025-07-11,processing,express,175.11
-61,162,2025-04-01,delivered,pickup,3157.26
-62,59,2025-04-15,shipped,express,1120.25
-63,154,2026-06-04,delivered,express,1881.22
-64,131,2025-03-06,pending,pickup,1409.97
-65,152,2024-06-19,delivered,pickup,3520.6
-66,182,2025-05-29,cancelled,standard,11.11
-67,100,2025-11-01,processing,pickup,1112.88
-68,119,2024-12-23,pending,express,2189.84
-69,69,2025-02-05,delivered,pickup,2750.98
-70,13,2025-02-10,delivered,pickup,603.19
-71,199,2025-08-06,delivered,pickup,2000.41
-72,156,2026-03-02,processing,express,4850.06
-73,184,2025-06-24,shipped,express,4459.89
-74,9,2025-08-27,processing,express,3164.63
-75,12,2025-09-14,processing,express,2286.1
-76,73,2024-09-22,shipped,overnight,3915.64
-77,93,2024-09-15,delivered,express,2126.65
-78,133,2024-07-12,processing,overnight,3476.53
-79,142,2025-04-14,shipped,express,1562.94
-80,5,2025-01-07,shipped,pickup,1941.78
-81,160,2026-03-30,processing,express,394.1
-82,74,2025-05-15,pending,pickup,4805.03
-83,86,2025-07-27,pending,express,1671.96
-84,145,2025-05-27,delivered,express,2317.77
-85,97,2026-01-27,shipped,standard,361.32
-86,194,2025-05-10,delivered,express,2550.5
-87,115,2024-09-16,delivered,overnight,602.45
-88,199,2026-04-06,delivered,standard,3131.97
-89,143,2025-10-14,pending,express,3516.39
-90,95,2025-10-25,delivered,pickup,2255.69
-91,42,2024-06-09,delivered,standard,595.48
-92,2,2024-09-14,processing,standard,2236.48
-93,191,2025-01-27,shipped,express,3459.7
-94,119,2024-08-11,delivered,express,4393.03
-95,87,2025-10-01,delivered,express,3051.27
-96,184,2025-01-03,processing,express,3320.81
-97,111,2025-08-14,delivered,standard,1206.57
-98,76,2025-02-05,shipped,standard,1653.35
-99,156,2025-03-24,cancelled,pickup,338.82
-100,21,2026-02-23,pending,overnight,2559.6
-101,37,2026-02-18,delivered,standard,4490.68
-102,69,2025-01-07,pending,express,786.48
-103,48,2025-02-10,pending,overnight,4271.16
-104,158,2024-12-19,delivered,overnight,3155.5
-105,143,2024-08-19,shipped,standard,4038.67
-106,92,2025-05-08,delivered,standard,2352.26
-107,81,2025-01-20,delivered,standard,1057.15
-108,109,2024-10-12,delivered,express,45.09
-109,71,2026-01-06,shipped,pickup,3256.94
-110,41,2024-08-09,shipped,pickup,3704.25
-111,174,2024-06-29,shipped,standard,282.06
-112,41,2025-03-10,shipped,express,4810.16
-113,6,2025-05-05,delivered,express,2171.28
-114,48,2026-02-17,shipped,pickup,2779.06
-115,146,2024-07-26,delivered,express,2791.5
-116,134,2026-04-06,processing,standard,3576.47
-117,118,2025-04-24,delivered,overnight,3091.99
-118,147,2025-05-13,delivered,express,2545.49
-119,140,2025-03-03,shipped,standard,2190.83
-120,78,2024-11-23,shipped,express,3603.28
-121,97,2025-11-02,shipped,standard,766.43
-122,199,2025-03-13,pending,overnight,3435.34
-123,184,2025-11-01,shipped,pickup,4432.16
-124,199,2026-02-28,processing,pickup,1970.37
-125,6,2025-05-06,cancelled,express,3864.86
-126,150,2025-11-18,delivered,pickup,4321.47
-127,6,2024-11-28,pending,express,3116.44
-128,24,2024-07-30,processing,express,4010.71
-129,88,2025-07-26,pending,pickup,4730.48
-130,67,2026-06-01,delivered,pickup,2746.93
-131,129,2026-05-20,delivered,standard,2521.77
-132,34,2025-03-12,processing,overnight,2697.25
-133,120,2024-07-02,delivered,overnight,3808.31
-134,162,2025-08-28,cancelled,express,4047.37
-135,160,2025-11-10,delivered,express,2229.77
-136,143,2025-08-04,delivered,overnight,1645.31
-137,112,2024-07-16,delivered,express,616.98
-138,137,2025-09-19,shipped,standard,4755.98
-139,127,2025-05-14,delivered,overnight,3709.57
-140,137,2025-10-30,processing,overnight,4515.57
-141,138,2025-03-18,shipped,express,1161.08
-142,147,2025-10-06,pending,standard,517.47
-143,77,2024-08-20,processing,standard,3835.08
-144,70,2025-01-23,delivered,standard,2596.52
-145,31,2026-01-16,processing,express,1518.14
-146,151,2024-10-11,processing,express,2796.32
-147,184,2026-05-07,processing,express,474.15
-148,104,2026-04-17,shipped,overnight,3322.82
-149,144,2024-12-19,delivered,pickup,1723.62
-150,101,2025-08-28,delivered,overnight,3858.33
-151,143,2026-04-25,processing,overnight,815.18
-152,60,2024-12-12,delivered,pickup,597.15
-153,29,2025-05-21,delivered,express,3846.59
-154,151,2025-06-28,delivered,overnight,1508.62
-155,170,2024-12-31,shipped,express,297.63
-156,23,2026-03-21,processing,overnight,3977.59
-157,35,2025-09-29,processing,standard,2821.97
-158,194,2024-09-08,processing,pickup,4432.93
-159,53,2025-01-02,delivered,standard,4934.36
-160,108,2025-10-30,processing,express,4200.71
-161,179,2025-08-16,delivered,pickup,1151.28
-162,108,2025-04-20,processing,express,2986.56
-163,140,2025-04-05,shipped,pickup,2368.08
-164,122,2025-03-13,pending,pickup,2608.45
-165,79,2025-07-15,processing,express,2898.85
-166,130,2025-06-10,delivered,express,4148.43
-167,152,2025-04-30,cancelled,standard,4627.47
-168,84,2025-11-01,delivered,standard,401.73
-169,150,2024-11-06,shipped,express,2996.47
-170,181,2026-04-24,delivered,standard,3500.15
-171,62,2025-11-25,delivered,pickup,1627.3
-172,43,2026-02-18,processing,standard,1984.06
-173,61,2026-04-15,cancelled,express,2498.71
-174,162,2024-11-03,delivered,standard,1680.58
-175,14,2024-07-28,delivered,express,486.32
-176,27,2024-09-05,shipped,pickup,4045.07
-177,73,2025-02-18,delivered,overnight,328.83
-178,102,2025-12-14,pending,overnight,679.82
-179,126,2026-04-17,pending,standard,4846.76
-180,96,2026-03-10,pending,standard,1181.96
-181,100,2025-05-25,processing,pickup,744.25
-182,118,2024-07-11,shipped,standard,1178.72
-183,37,2025-05-21,delivered,express,698.62
-184,157,2026-05-08,delivered,express,20.41
-185,105,2026-01-09,processing,express,914.09
-186,193,2024-08-06,cancelled,express,1961.84
-187,122,2024-09-09,processing,overnight,386.59
-188,52,2025-07-03,delivered,overnight,4882.74
-189,81,2024-07-22,cancelled,standard,2565.84
-190,25,2026-05-21,delivered,express,1190.93
-191,26,2025-05-28,processing,overnight,3118.29
-192,12,2024-10-30,processing,overnight,1536.46
-193,91,2025-10-22,delivered,overnight,1244.13
-194,67,2025-07-05,delivered,pickup,4692.97
-195,58,2024-07-22,delivered,express,4398.16
-196,189,2025-03-26,pending,express,4065.08
-197,79,2025-11-30,processing,overnight,4225.33
-198,81,2026-03-02,delivered,standard,3135.04
-199,176,2025-09-21,processing,express,1731.85
-200,81,2026-04-12,pending,pickup,3288.88
-201,5,2026-04-03,delivered,express,1921.71
-202,82,2026-04-28,shipped,pickup,1585.52
-203,59,2025-01-20,processing,standard,1931.99
-204,182,2025-07-16,delivered,pickup,3348.77
-205,67,2025-02-18,processing,express,1363.84
-206,82,2025-07-12,delivered,express,3427.15
-207,4,2025-04-05,shipped,overnight,4107.73
-208,20,2024-10-13,delivered,express,1382.1
-209,61,2025-08-24,shipped,express,3552.58
-210,176,2025-01-01,processing,overnight,2306.23
-211,118,2024-08-06,processing,standard,4975.68
-212,40,2026-04-16,cancelled,express,2518.88
-213,44,2025-03-10,shipped,overnight,1636.22
-214,177,2025-07-15,delivered,standard,568.9
-215,88,2025-08-27,delivered,pickup,2425.38
-216,84,2025-01-23,shipped,express,1838.71
-217,179,2025-10-03,shipped,overnight,1902.33
-218,196,2024-08-12,shipped,express,1997.1
-219,157,2025-06-30,delivered,pickup,582.55
-220,75,2026-04-13,delivered,express,357.53
-221,35,2025-06-02,delivered,pickup,3120.36
-222,91,2026-03-27,shipped,overnight,3662.47
-223,138,2024-08-09,processing,standard,784.61
-224,121,2025-03-16,cancelled,pickup,399.3
-225,150,2025-10-11,shipped,pickup,4631.95
-226,154,2024-08-25,shipped,overnight,101.62
-227,35,2025-07-06,processing,pickup,3776.43
-228,182,2026-06-05,processing,overnight,647.84
-229,34,2026-02-11,processing,pickup,4917.24
-230,49,2024-07-27,shipped,express,2655.0
-231,92,2025-03-05,delivered,standard,1282.66
-232,130,2026-02-23,shipped,express,1327.05
-233,86,2025-01-05,pending,express,165.38
-234,86,2026-05-24,processing,overnight,2639.19
-235,170,2024-09-20,delivered,overnight,4098.83
-236,42,2026-01-05,shipped,pickup,885.77
-237,37,2025-05-29,shipped,overnight,2571.37
-238,47,2026-05-18,cancelled,standard,2723.54
-239,15,2025-03-16,cancelled,express,1655.23
-240,6,2024-07-30,delivered,standard,4677.53
-241,44,2025-10-09,cancelled,pickup,2403.73
-242,78,2025-02-21,processing,overnight,1120.23
-243,60,2025-04-03,delivered,standard,2745.75
-244,64,2026-02-27,delivered,standard,286.16
-245,198,2025-03-10,shipped,overnight,3130.6
-246,36,2025-02-12,delivered,standard,1433.97
-247,170,2024-09-17,delivered,pickup,1039.57
-248,78,2024-12-29,delivered,standard,3547.13
-249,90,2024-10-27,delivered,pickup,3797.09
-250,60,2025-12-22,shipped,express,579.16
-251,161,2025-02-21,pending,pickup,4745.06
-252,57,2024-09-15,shipped,standard,1678.07
-253,144,2024-07-17,processing,pickup,1574.0
-254,41,2025-02-22,cancelled,overnight,901.26
-255,24,2026-02-03,delivered,standard,68.58
-256,177,2025-10-03,cancelled,standard,4564.55
-257,4,2025-07-30,shipped,overnight,2517.16
-258,33,2025-03-16,delivered,overnight,3311.46
-259,114,2026-04-09,processing,express,2428.43
-260,95,2026-01-05,processing,overnight,1370.87
-261,122,2025-02-10,delivered,overnight,1308.97
-262,164,2025-12-14,processing,standard,4610.51
-263,177,2025-04-26,pending,overnight,1249.52
-264,139,2026-02-09,shipped,standard,811.64
-265,99,2026-03-02,processing,pickup,4835.84
-266,61,2026-04-18,processing,overnight,1215.63
-267,68,2025-10-28,delivered,express,921.32
-268,163,2025-10-08,delivered,express,2737.36
-269,21,2024-11-08,delivered,express,3124.0
-270,19,2026-04-27,delivered,overnight,4577.26
-271,110,2024-08-11,pending,standard,4214.13
-272,34,2026-03-10,delivered,express,603.94
-273,41,2025-10-29,processing,pickup,2425.29
-274,29,2024-11-01,pending,express,4393.43
-275,175,2025-09-02,processing,standard,2581.53
-276,14,2025-01-28,delivered,pickup,3462.5
-277,24,2026-05-25,processing,overnight,1628.68
-278,25,2025-08-05,pending,overnight,3623.49
-279,115,2025-02-10,delivered,standard,1800.04
-280,63,2025-02-14,delivered,express,4807.35
-281,114,2024-08-30,cancelled,pickup,3954.16
-282,194,2025-02-19,delivered,overnight,648.06
-283,172,2025-12-13,delivered,express,2103.64
-284,113,2025-03-19,delivered,pickup,4225.11
-285,80,2025-08-04,delivered,standard,239.87
-286,155,2025-04-27,shipped,standard,3732.66
-287,18,2024-10-26,pending,overnight,4041.78
-288,29,2026-02-19,delivered,standard,2429.3
-289,85,2025-04-25,shipped,standard,1059.85
-290,124,2025-05-02,delivered,express,1450.21
-291,144,2025-03-16,delivered,overnight,1183.34
-292,81,2025-08-05,delivered,standard,1301.69
-293,26,2026-03-21,shipped,pickup,1279.02
-294,30,2026-02-08,processing,pickup,2743.03
-295,142,2026-01-13,delivered,overnight,1056.27
-296,166,2025-02-02,delivered,overnight,3607.01
-297,82,2025-10-12,shipped,standard,1442.42
-298,27,2024-10-20,shipped,standard,237.41
-299,6,2025-02-10,delivered,standard,1973.44
-300,55,2025-02-17,delivered,standard,2080.73
-301,52,2025-08-09,delivered,overnight,4007.19
-302,187,2024-12-12,processing,pickup,2175.56
-303,38,2024-06-26,shipped,overnight,3584.18
-304,153,2025-10-23,shipped,standard,2839.81
-305,174,2025-12-05,delivered,standard,1350.47
-306,162,2025-07-08,delivered,pickup,1780.29
-307,45,2024-09-22,delivered,pickup,3855.23
-308,43,2025-01-30,pending,pickup,2822.56
-309,24,2025-03-16,delivered,standard,356.91
-310,109,2024-12-10,processing,pickup,2368.9
-311,133,2024-09-13,processing,overnight,358.46
-312,157,2024-08-07,delivered,express,804.05
-313,167,2025-06-22,shipped,express,2770.76
-314,29,2025-02-22,delivered,pickup,3888.0
-315,174,2024-07-29,delivered,express,3744.18
-316,23,2025-03-16,delivered,pickup,209.83
-317,53,2026-04-02,pending,pickup,3656.21
-318,66,2025-07-11,processing,pickup,1663.98
-319,100,2025-03-21,shipped,standard,4984.83
-320,61,2026-02-10,pending,pickup,3809.42
-321,118,2026-01-18,delivered,overnight,481.27
-322,1,2026-05-04,shipped,overnight,290.65
-323,96,2024-07-22,cancelled,express,544.74
-324,68,2024-10-19,shipped,standard,1304.78
-325,194,2025-10-01,delivered,overnight,3175.36
-326,3,2026-03-12,shipped,overnight,3847.01
-327,44,2026-02-15,processing,standard,1082.51
-328,65,2026-03-17,delivered,pickup,4410.29
-329,57,2025-01-24,processing,pickup,137.25
-330,99,2026-05-11,delivered,overnight,1861.65
-331,90,2025-04-23,pending,express,768.08
-332,61,2025-01-28,shipped,express,2898.34
-333,42,2026-03-17,processing,standard,4792.82
-334,187,2024-10-29,cancelled,overnight,1734.31
-335,30,2025-02-08,delivered,pickup,2984.76
-336,103,2025-12-31,delivered,overnight,2115.21
-337,69,2025-03-29,delivered,overnight,641.29
-338,38,2024-07-05,shipped,overnight,2435.11
-339,198,2025-01-11,cancelled,express,414.17
-340,76,2024-12-07,pending,express,3888.68
-341,132,2025-05-30,delivered,standard,2204.19
-342,127,2024-12-04,delivered,standard,3995.68
-343,186,2025-10-03,processing,standard,590.2
-344,183,2025-05-20,shipped,express,2001.33
-345,13,2026-01-21,pending,express,3510.31
-346,57,2025-01-30,shipped,pickup,555.92
-347,189,2024-09-29,shipped,pickup,2896.56
-348,82,2026-04-16,cancelled,express,3426.18
-349,67,2024-06-18,delivered,pickup,1858.93
-350,33,2024-09-28,delivered,pickup,3472.47
-351,99,2026-04-02,processing,standard,4796.03
-352,158,2026-02-12,processing,standard,4675.82
-353,174,2025-02-25,processing,pickup,4254.43
-354,185,2026-01-13,cancelled,overnight,12.79
-355,8,2026-04-03,processing,overnight,4058.08
-356,160,2025-10-22,processing,standard,1965.95
-357,159,2025-10-02,processing,overnight,4974.72
-358,117,2025-10-06,shipped,overnight,3299.6
-359,168,2024-07-09,processing,overnight,1687.38
-360,93,2025-05-26,delivered,standard,1481.61
-361,5,2024-09-23,processing,pickup,3391.69
-362,144,2026-06-01,processing,express,1949.3
-363,12,2025-10-27,pending,overnight,4597.8
-364,195,2025-05-21,cancelled,overnight,3189.8
-365,149,2024-09-21,delivered,standard,2765.4
-366,6,2026-03-27,processing,express,1666.6
-367,13,2025-02-02,delivered,pickup,2601.86
-368,6,2026-03-12,shipped,overnight,4521.27
-369,154,2025-12-05,shipped,standard,2903.42
-370,79,2024-11-03,processing,express,2036.03
-371,45,2025-02-24,delivered,express,4117.22
-372,24,2025-11-03,cancelled,pickup,4916.09
-373,134,2026-02-01,shipped,standard,3379.21
-374,122,2025-07-14,delivered,express,3958.1
-375,111,2024-12-23,processing,overnight,554.27
-376,74,2025-11-08,shipped,overnight,4686.47
-377,82,2025-04-22,delivered,pickup,2854.15
-378,27,2026-02-01,delivered,standard,704.95
-379,25,2025-07-10,delivered,standard,1340.75
-380,37,2026-05-18,processing,express,3974.69
-381,126,2025-06-28,delivered,express,4849.42
-382,119,2025-07-14,delivered,pickup,1180.89
-383,38,2024-11-23,delivered,pickup,2077.05
-384,4,2024-09-01,delivered,standard,681.14
-385,79,2025-10-09,delivered,standard,978.91
-386,164,2026-03-26,shipped,overnight,2528.84
-387,25,2025-02-28,delivered,express,552.09
-388,38,2025-09-17,delivered,overnight,2783.62
-389,156,2025-04-16,delivered,standard,110.8
-390,143,2025-03-22,shipped,express,2736.23
-391,173,2024-10-05,pending,standard,3243.78
-392,163,2025-04-03,delivered,express,1739.21
-393,168,2025-12-18,shipped,standard,3388.76
-394,73,2024-08-21,shipped,standard,3788.0
-395,87,2026-02-03,processing,pickup,992.69
-396,171,2024-11-08,delivered,pickup,3239.99
-397,25,2025-04-19,shipped,overnight,1726.37
-398,32,2025-10-03,shipped,pickup,4114.67
-399,3,2026-01-10,delivered,standard,3758.41
-400,24,2025-07-11,delivered,standard,1145.14
-401,162,2024-10-27,delivered,express,2555.08
-402,105,2024-09-29,delivered,standard,2212.13
-403,38,2025-05-26,pending,standard,2819.84
-404,131,2026-05-01,shipped,overnight,2543.42
-405,9,2025-05-24,processing,overnight,3689.28
-406,190,2025-10-23,cancelled,overnight,2397.16
-407,24,2024-11-15,delivered,express,4405.16
-408,119,2026-05-19,delivered,express,1289.95
-409,185,2024-09-17,delivered,overnight,1567.76
-410,12,2024-07-31,delivered,standard,2878.33
-411,35,2024-09-03,shipped,standard,1876.54
-412,142,2026-03-09,delivered,pickup,3897.22
-413,175,2024-07-21,shipped,overnight,3963.61
-414,59,2024-10-13,shipped,overnight,2382.0
-415,141,2024-10-01,shipped,standard,3916.58
-416,31,2026-06-05,cancelled,standard,3328.68
-417,2,2025-03-06,pending,standard,1388.79
-418,55,2025-06-13,delivered,pickup,1123.24
-419,101,2025-05-29,shipped,overnight,2469.05
-420,92,2025-08-15,shipped,overnight,78.8
-421,127,2026-06-01,delivered,overnight,838.65
-422,111,2025-11-23,delivered,overnight,3558.62
-423,157,2025-08-26,pending,overnight,4771.9
-424,41,2025-01-18,processing,standard,2740.23
-425,199,2025-09-17,delivered,pickup,1083.29
-426,99,2026-02-16,delivered,overnight,4219.79
-427,79,2025-07-11,pending,express,2097.41
-428,198,2026-05-07,processing,express,4003.69
-429,43,2026-04-22,delivered,overnight,1523.13
-430,20,2024-06-26,delivered,standard,92.82
-431,133,2026-01-13,delivered,standard,4143.54
-432,101,2025-10-15,delivered,express,663.37
-433,179,2025-12-19,processing,overnight,1291.2
-434,177,2026-03-26,delivered,express,676.88
-435,191,2025-06-27,shipped,express,1761.49
-436,56,2024-07-08,processing,standard,4768.16
-437,44,2024-08-29,shipped,standard,3257.58
-438,185,2025-07-20,processing,pickup,4414.51
-439,153,2026-05-27,processing,overnight,1560.18
-440,66,2025-02-22,shipped,express,4457.79
-441,181,2025-03-14,pending,express,1664.72
-442,62,2026-05-15,delivered,overnight,3617.43
-443,85,2024-06-22,delivered,pickup,3638.04
-444,64,2024-06-19,delivered,pickup,3649.06
-445,191,2025-07-23,shipped,standard,4169.52
-446,75,2024-12-20,cancelled,overnight,3780.24
-447,101,2025-09-24,delivered,pickup,3965.53
-448,148,2025-10-01,delivered,standard,3606.55
-449,50,2025-09-10,delivered,standard,366.12
-450,180,2024-06-23,processing,overnight,899.65
-451,39,2025-11-20,shipped,express,713.51
-452,140,2025-02-26,processing,overnight,2599.28
-453,178,2024-08-30,cancelled,overnight,4912.22
-454,42,2024-11-22,shipped,overnight,1771.35
-455,25,2025-10-17,delivered,pickup,629.23
-456,74,2026-01-11,pending,standard,3701.14
-457,95,2024-12-12,shipped,express,4945.49
-458,51,2026-06-04,shipped,express,4475.79
-459,110,2025-11-08,cancelled,overnight,21.68
-460,126,2024-08-02,processing,standard,2549.44
-461,44,2025-07-22,delivered,pickup,3866.06
-462,20,2026-04-04,pending,standard,2012.3
-463,143,2026-03-19,processing,pickup,2394.65
-464,121,2026-04-15,delivered,standard,2664.34
-465,20,2025-01-16,delivered,pickup,725.46
-466,196,2024-06-20,processing,standard,4600.85
-467,22,2025-01-08,shipped,pickup,1234.42
-468,48,2025-12-04,delivered,overnight,3012.87
-469,144,2026-03-08,shipped,express,1425.61
-470,151,2025-07-05,delivered,pickup,4474.03
-471,40,2025-12-07,delivered,express,4225.88
-472,10,2024-07-20,pending,overnight,1644.71
-473,96,2025-10-29,shipped,express,1592.25
-474,36,2025-11-05,shipped,overnight,4586.27
-475,156,2024-06-29,processing,pickup,3313.75
-476,72,2024-06-20,shipped,standard,4737.72
-477,33,2025-05-14,delivered,pickup,4757.3
-478,93,2025-10-28,shipped,pickup,2004.48
-479,120,2026-02-24,cancelled,standard,1659.62
-480,129,2025-03-16,processing,pickup,855.78
-481,79,2025-08-14,processing,express,3716.07
-482,4,2024-07-05,processing,standard,4454.95
-483,129,2024-10-21,pending,express,1499.58
-484,96,2025-04-08,cancelled,express,1218.8
-485,100,2026-02-04,cancelled,pickup,3281.39
-486,172,2024-11-11,delivered,pickup,1708.32
-487,92,2026-05-26,cancelled,express,2711.24
-488,26,2024-08-27,delivered,standard,2012.05
-489,175,2026-05-31,delivered,overnight,2024.23
-490,176,2025-08-24,delivered,standard,2997.38
-491,86,2026-04-22,cancelled,overnight,3910.54
-492,149,2025-11-23,delivered,pickup,2201.21
-493,179,2025-12-14,delivered,pickup,1813.49
-494,174,2024-09-20,shipped,standard,4183.62
-495,69,2025-03-30,processing,pickup,4027.47
-496,187,2025-12-24,delivered,pickup,4964.76
-497,141,2024-08-04,processing,express,945.88
-498,94,2024-10-31,delivered,overnight,1399.11
-499,19,2025-08-28,delivered,standard,4039.09
-500,70,2026-01-02,delivered,pickup,3748.61
-501,125,2025-07-08,shipped,overnight,4103.03
-502,56,2024-09-04,delivered,overnight,3026.9
-503,5,2025-12-21,processing,pickup,651.89
-504,46,2024-06-25,shipped,standard,4117.52
-505,196,2026-05-28,shipped,express,3168.51
-506,179,2024-07-22,delivered,express,2597.04
-507,79,2024-12-09,processing,pickup,4833.2
-508,51,2025-12-19,delivered,pickup,134.5
-509,142,2024-11-07,delivered,pickup,11.55
-510,142,2024-07-17,pending,standard,2660.95
-511,25,2024-06-29,delivered,standard,3132.08
-512,166,2025-06-12,shipped,pickup,4162.86
-513,42,2026-03-10,shipped,express,2634.56
-514,179,2025-10-02,shipped,overnight,3933.59
-515,93,2025-01-12,delivered,overnight,102.59
-516,154,2025-03-14,delivered,express,953.78
-517,8,2026-02-19,processing,express,198.13
-518,78,2026-02-25,processing,standard,1830.3
-519,67,2025-02-23,delivered,standard,796.59
-520,42,2024-12-21,pending,express,4521.67
-521,145,2025-12-03,shipped,overnight,1242.71
-522,181,2025-03-07,processing,standard,3009.66
-523,158,2025-12-04,delivered,standard,3520.31
-524,8,2025-03-11,cancelled,pickup,2188.72
-525,163,2025-10-06,delivered,overnight,4513.33
-526,118,2025-02-07,processing,express,1114.75
-527,151,2025-09-12,delivered,pickup,4478.41
-528,102,2024-07-07,shipped,overnight,1984.18
-529,97,2025-03-28,delivered,overnight,1214.34
-530,167,2025-05-25,delivered,standard,3745.96
-531,23,2024-07-01,delivered,standard,4775.81
-532,145,2025-12-16,processing,express,4823.19
-533,178,2024-09-28,processing,express,2416.37
-534,46,2025-01-02,processing,overnight,4916.41
-535,30,2025-03-14,delivered,pickup,2572.61
-536,112,2024-07-07,delivered,pickup,1775.3
-537,155,2026-04-14,shipped,pickup,3365.31
-538,37,2024-11-06,pending,standard,3196.62
-539,105,2025-01-01,processing,express,1295.92
-540,47,2026-05-08,pending,standard,103.18
-541,58,2024-11-17,delivered,pickup,1208.22
-542,180,2025-03-30,processing,pickup,570.42
-543,61,2025-03-11,shipped,pickup,3058.8
-544,79,2025-01-25,shipped,standard,4430.88
-545,119,2025-05-26,delivered,overnight,4979.91
-546,97,2025-01-27,shipped,standard,4120.12
-547,10,2024-12-25,processing,standard,2979.76
-548,51,2025-02-03,delivered,express,567.63
-549,53,2025-09-24,shipped,express,200.51
-550,25,2025-02-03,shipped,express,4598.88
-551,163,2024-07-22,processing,pickup,229.74
-552,20,2025-07-18,delivered,express,4955.17
-553,87,2025-12-30,pending,express,3177.19
-554,78,2025-02-25,shipped,overnight,4323.12
-555,160,2025-08-21,delivered,pickup,606.5
-556,54,2024-08-13,pending,express,4923.72
-557,109,2024-06-18,processing,overnight,3330.23
-558,151,2026-05-05,delivered,overnight,1029.76
-559,39,2025-02-28,shipped,express,2298.42
-560,53,2025-06-24,processing,express,2532.43
-561,197,2025-04-24,delivered,pickup,859.12
-562,122,2026-01-15,processing,pickup,2186.67
-563,174,2024-08-05,shipped,express,835.27
-564,103,2026-03-05,delivered,overnight,4953.48
-565,37,2025-12-29,pending,pickup,933.84
-566,33,2024-07-13,shipped,express,579.42
-567,147,2025-04-01,shipped,overnight,869.27
-568,196,2026-02-11,processing,express,3256.68
-569,174,2025-08-10,delivered,express,420.48
-570,22,2025-04-21,delivered,express,3868.9
-571,188,2026-01-15,processing,pickup,2436.21
-572,25,2025-02-18,delivered,express,4351.24
-573,6,2024-10-12,processing,pickup,864.59
-574,47,2025-03-24,delivered,overnight,2065.36
-575,67,2025-11-25,shipped,express,761.42
-576,14,2026-01-12,delivered,pickup,2082.99
-577,17,2025-06-29,pending,express,1837.23
-578,125,2025-10-15,delivered,pickup,2429.11
-579,146,2025-12-15,delivered,standard,177.53
-580,23,2026-05-04,pending,standard,848.77
-581,173,2025-03-27,delivered,express,3356.72
-582,70,2024-09-21,pending,pickup,4367.7
-583,67,2025-11-28,delivered,pickup,1967.6
-584,121,2024-09-07,delivered,standard,4114.64
-585,119,2025-10-23,processing,express,4818.14
-586,51,2025-10-08,shipped,standard,4927.94
-587,11,2025-06-30,cancelled,pickup,3882.58
-588,130,2025-01-24,delivered,express,564.31
-589,182,2026-02-10,delivered,express,785.73
-590,190,2025-10-04,delivered,pickup,2592.15
-591,105,2026-05-08,delivered,standard,1466.86
-592,67,2026-03-04,delivered,pickup,4601.15
-593,168,2024-12-27,delivered,standard,1569.84
-594,142,2025-12-20,delivered,express,2598.75
-595,175,2025-03-30,shipped,express,2417.5
-596,111,2025-09-18,processing,express,4235.8
-597,154,2025-07-15,shipped,express,2282.55
-598,151,2025-06-13,delivered,express,3847.85
-599,22,2024-10-18,shipped,pickup,905.97
-600,80,2025-01-29,shipped,express,4851.25
-601,95,2024-07-02,delivered,standard,1089.69
-602,57,2024-11-03,shipped,pickup,3744.68
-603,199,2026-03-30,processing,standard,1991.38
-604,8,2024-07-26,delivered,overnight,2291.75
-605,127,2024-10-02,delivered,express,2439.64
-606,139,2024-12-12,delivered,express,542.96
-607,101,2025-03-10,shipped,standard,1658.47
-608,141,2025-12-31,shipped,express,1122.58
-609,165,2024-12-03,processing,express,1471.03
-610,145,2024-10-23,processing,overnight,1396.43
-611,61,2025-04-16,shipped,overnight,441.27
-612,65,2026-04-06,cancelled,standard,3996.52
-613,150,2025-09-11,processing,standard,654.89
-614,49,2025-02-03,delivered,express,2205.6
-615,176,2024-10-16,shipped,standard,2046.39
-616,132,2025-12-25,processing,overnight,4326.97
-617,163,2026-02-27,shipped,standard,4292.33
-618,47,2024-10-18,shipped,standard,3330.49
-619,116,2025-03-13,processing,standard,4861.26
-620,64,2024-12-08,delivered,pickup,4769.56
-621,188,2025-01-23,delivered,pickup,4200.46
-622,148,2026-03-15,delivered,overnight,2810.77
-623,180,2026-05-30,cancelled,pickup,4784.56
-624,14,2024-12-24,shipped,pickup,181.72
-625,54,2025-02-21,shipped,pickup,2161.7
-626,88,2024-06-15,shipped,standard,3170.12
-627,125,2025-10-30,shipped,pickup,1529.87
-628,45,2026-05-28,delivered,pickup,1431.87
-629,179,2025-04-29,shipped,express,3007.35
-630,10,2025-07-14,pending,standard,4595.54
-631,36,2025-01-02,shipped,standard,4878.16
-632,129,2026-05-11,shipped,pickup,3407.03
-633,46,2025-11-13,shipped,overnight,3072.45
-634,94,2026-03-15,delivered,standard,2787.37
-635,114,2024-10-25,shipped,express,3189.22
-636,18,2024-12-06,shipped,overnight,1241.39
-637,129,2025-12-18,delivered,standard,2715.06
-638,78,2025-05-13,processing,overnight,3147.75
-639,7,2026-05-07,shipped,standard,619.18
-640,135,2025-03-03,shipped,overnight,23.38
-641,145,2026-05-12,pending,pickup,3128.88
-642,148,2025-12-12,delivered,pickup,744.01
-643,116,2024-10-25,shipped,express,2458.66
-644,175,2025-05-26,shipped,express,4965.32
-645,6,2025-06-21,delivered,express,3690.75
-646,69,2025-04-08,delivered,overnight,4051.0
-647,175,2025-12-03,delivered,overnight,3321.84
-648,52,2025-12-02,shipped,pickup,699.99
-649,80,2024-11-09,shipped,standard,1759.41
-650,151,2025-06-24,delivered,pickup,2461.79
-651,91,2026-02-18,delivered,overnight,4835.29
-652,22,2025-06-10,shipped,standard,2160.19
-653,62,2024-10-28,delivered,pickup,2232.16
-654,98,2026-03-26,pending,overnight,2202.36
-655,54,2025-01-09,shipped,standard,1167.08
-656,127,2026-02-09,delivered,standard,3218.18
-657,185,2024-08-28,pending,express,3921.99
-658,187,2026-02-25,pending,pickup,1986.64
-659,68,2026-05-22,delivered,pickup,4432.48
-660,68,2024-11-13,delivered,overnight,4285.46
-661,90,2025-01-04,delivered,pickup,1035.4
-662,38,2026-01-05,shipped,pickup,3622.14
-663,144,2024-11-30,cancelled,express,3935.86
-664,168,2024-07-17,delivered,pickup,96.47
-665,4,2025-06-23,pending,overnight,1180.2
-666,89,2026-01-12,shipped,standard,624.44
-667,22,2025-04-30,cancelled,express,2290.4
-668,41,2026-03-22,delivered,express,4350.03
-669,177,2025-04-11,shipped,pickup,313.59
-670,182,2025-08-21,delivered,express,1367.13
-671,190,2024-10-29,delivered,standard,482.26
-672,105,2024-12-18,delivered,standard,4230.77
-673,167,2025-06-17,delivered,standard,1559.28
-674,167,2026-02-25,delivered,standard,2922.6
-675,22,2025-11-11,processing,overnight,3775.76
-676,190,2024-07-30,delivered,pickup,209.58
-677,179,2025-09-03,shipped,overnight,4446.6
-678,186,2025-11-28,pending,overnight,3319.61
-679,10,2024-08-16,pending,overnight,56.35
-680,162,2025-07-02,delivered,express,3379.92
-681,32,2025-05-24,delivered,overnight,1570.54
-682,121,2025-07-15,cancelled,overnight,2390.56
-683,120,2025-05-05,delivered,pickup,3376.79
-684,183,2024-10-02,shipped,pickup,4702.23
-685,72,2024-06-23,delivered,standard,3430.76
-686,96,2024-11-01,processing,overnight,2186.53
-687,62,2024-11-19,delivered,pickup,2407.23
-688,142,2025-05-28,processing,express,4460.15
-689,76,2026-05-07,delivered,express,3868.86
-690,55,2024-08-24,processing,overnight,94.61
-691,62,2026-01-11,shipped,pickup,1120.82
-692,43,2025-08-28,shipped,overnight,3614.35
-693,104,2025-02-06,delivered,overnight,4844.05
-694,60,2024-09-11,processing,pickup,2705.66
-695,185,2025-06-09,shipped,pickup,4657.83
-696,78,2025-03-18,pending,standard,271.51
-697,9,2026-01-14,cancelled,express,2464.25
-698,121,2025-11-07,delivered,pickup,962.87
-699,115,2024-07-21,processing,overnight,1209.17
-700,118,2025-06-21,delivered,standard,3324.43
-701,176,2026-01-04,shipped,overnight,1508.06
-702,89,2025-04-23,cancelled,express,1558.8
-703,190,2024-08-03,delivered,standard,2530.6
-704,59,2025-05-02,shipped,express,4727.34
-705,144,2024-09-13,shipped,standard,1108.31
-706,134,2025-01-27,shipped,express,69.62
-707,39,2026-03-18,shipped,standard,4887.37
-708,54,2024-06-22,delivered,overnight,3326.55
-709,41,2026-01-11,delivered,pickup,889.53
-710,123,2025-08-25,processing,pickup,2560.66
-711,190,2025-02-26,processing,standard,4255.92
-712,54,2025-04-19,cancelled,express,4005.28
-713,83,2025-09-28,delivered,overnight,774.13
-714,109,2024-11-29,pending,overnight,2404.78
-715,33,2025-12-21,processing,overnight,4478.69
-716,183,2025-11-09,processing,pickup,4283.09
-717,52,2026-04-25,delivered,overnight,1715.89
-718,126,2025-08-04,delivered,standard,3947.32
-719,60,2026-04-06,delivered,pickup,1924.01
-720,115,2025-07-10,delivered,standard,4599.81
-721,182,2025-09-16,delivered,express,1917.27
-722,154,2025-11-04,shipped,pickup,2332.29
-723,163,2025-08-01,processing,overnight,2625.32
-724,10,2024-07-29,delivered,overnight,3297.41
-725,24,2026-04-10,delivered,express,1767.58
-726,120,2025-06-01,delivered,pickup,32.27
-727,168,2024-11-10,pending,overnight,4457.15
-728,97,2025-12-14,delivered,standard,2986.12
-729,172,2024-09-28,shipped,standard,461.92
-730,28,2026-02-17,delivered,overnight,1523.38
-731,118,2024-11-13,shipped,overnight,1637.14
-732,69,2026-02-16,shipped,overnight,1721.75
-733,43,2025-04-03,delivered,standard,4631.21
-734,24,2024-08-04,cancelled,pickup,4424.11
-735,49,2025-10-08,shipped,standard,3019.66
-736,109,2025-12-07,delivered,pickup,322.23
-737,167,2024-06-24,pending,express,3950.87
-738,122,2026-01-31,cancelled,express,1677.72
-739,88,2025-05-31,pending,standard,2074.14
-740,192,2026-03-21,delivered,express,1921.2
-741,23,2024-12-13,delivered,standard,2372.02
-742,35,2026-04-06,shipped,pickup,2293.85
-743,128,2025-09-12,delivered,overnight,1975.44
-744,161,2024-10-07,processing,pickup,1905.71
-745,94,2025-01-16,delivered,express,3659.62
-746,120,2025-06-28,delivered,express,4514.78
-747,25,2025-10-01,delivered,express,3118.27
-748,179,2025-01-08,processing,standard,2208.9
-749,100,2026-05-04,delivered,overnight,2859.59
-750,163,2025-12-16,shipped,standard,2490.39
-751,185,2024-10-16,shipped,standard,3584.21
-752,155,2025-04-07,processing,pickup,790.2
-753,144,2026-02-11,delivered,overnight,440.29
-754,22,2025-07-04,pending,overnight,3928.25
-755,27,2024-08-22,delivered,overnight,1618.88
-756,2,2024-12-15,pending,pickup,2216.38
-757,5,2024-08-06,processing,express,638.51
-758,78,2026-04-11,delivered,express,2853.99
-759,49,2025-04-07,shipped,express,83.19
-760,51,2026-05-11,delivered,standard,3681.52
-761,21,2025-12-11,cancelled,standard,1876.75
-762,156,2025-02-07,shipped,overnight,242.88
-763,7,2026-01-22,cancelled,express,1536.18
-764,192,2025-09-06,pending,express,1314.66
-765,147,2024-07-08,pending,standard,2830.64
-766,148,2024-09-05,delivered,pickup,784.09
-767,41,2026-01-22,shipped,overnight,3467.92
-768,166,2024-11-01,cancelled,express,3627.83
-769,44,2026-03-11,cancelled,standard,1484.58
-770,114,2025-08-16,delivered,overnight,3571.05
-771,52,2026-04-23,delivered,standard,1018.66
-772,152,2024-10-13,processing,pickup,4832.78
-773,176,2026-04-08,delivered,standard,2151.79
-774,43,2024-06-13,delivered,overnight,4990.27
-775,195,2025-04-11,processing,overnight,2185.45
-776,121,2025-11-13,delivered,express,3310.0
-777,182,2024-11-21,cancelled,overnight,3740.43
-778,96,2025-08-29,shipped,pickup,483.24
-779,60,2025-09-22,processing,express,3261.33
-780,2,2025-11-06,processing,pickup,4612.75
-781,138,2026-06-03,pending,overnight,1492.76
-782,20,2025-09-13,processing,express,2628.44
-783,50,2025-02-09,shipped,standard,3391.14
-784,63,2025-08-20,processing,overnight,3257.16
-785,163,2026-04-14,delivered,express,1470.34
-786,67,2026-01-27,pending,express,1944.03
-787,69,2025-12-06,processing,overnight,2076.08
-788,29,2025-08-07,processing,pickup,2064.47
-789,10,2025-12-05,shipped,pickup,4209.42
-790,113,2026-04-11,delivered,overnight,4866.75
-791,68,2025-03-16,delivered,express,111.02
-792,48,2025-09-24,delivered,overnight,2295.27
-793,179,2025-03-08,shipped,pickup,3238.07
-794,178,2024-06-22,processing,standard,3202.22
-795,159,2026-04-16,pending,overnight,2595.26
-796,150,2024-07-17,delivered,standard,4681.33
-797,172,2024-12-18,delivered,pickup,1266.55
-798,162,2026-02-01,delivered,overnight,1652.86
-799,44,2024-11-03,delivered,overnight,2288.43
-800,127,2024-06-07,pending,standard,1887.03
-801,92,2025-03-23,delivered,overnight,4015.68
-802,59,2025-05-31,shipped,overnight,4328.58
-803,151,2026-04-07,processing,express,2931.26
-804,197,2025-11-09,pending,pickup,4554.73
-805,100,2025-04-11,delivered,express,1252.67
-806,15,2024-11-26,shipped,overnight,4991.06
-807,47,2025-01-03,delivered,standard,2182.01
-808,185,2024-11-03,delivered,express,2100.7
-809,83,2025-10-03,processing,express,2561.05
-810,20,2026-04-24,processing,standard,3132.14
-811,61,2025-10-08,delivered,pickup,2345.13
-812,103,2025-06-15,delivered,standard,3712.41
-813,123,2024-07-13,pending,express,1652.9
-814,113,2025-11-26,delivered,pickup,803.78
-815,124,2026-02-10,processing,overnight,3194.94
-816,12,2025-01-22,pending,standard,3933.14
-817,103,2024-07-22,shipped,standard,4370.73
-818,13,2025-06-12,pending,overnight,2604.69
-819,68,2025-02-11,delivered,pickup,459.58
-820,3,2025-10-26,pending,express,1959.88
-821,65,2025-02-18,delivered,express,2664.55
-822,181,2024-11-12,pending,express,2076.62
-823,46,2024-09-24,delivered,express,3175.42
-824,39,2025-02-26,delivered,standard,4408.75
-825,84,2025-02-25,delivered,standard,4182.29
-826,23,2025-02-04,delivered,pickup,3723.92
-827,198,2026-03-03,shipped,standard,3177.24
-828,10,2025-07-07,delivered,express,2605.81
-829,21,2025-02-01,delivered,express,4243.15
-830,145,2024-12-14,delivered,pickup,2675.16
-831,10,2024-10-11,processing,pickup,1674.96
-832,107,2025-05-18,processing,pickup,4109.43
-833,146,2024-11-26,delivered,express,2415.17
-834,6,2024-10-06,shipped,overnight,862.73
-835,104,2025-03-12,shipped,standard,412.45
-836,103,2025-05-31,shipped,express,4196.17
-837,37,2026-03-17,delivered,standard,4990.23
-838,143,2026-03-27,delivered,express,4020.55
-839,63,2025-03-06,delivered,express,3271.85
-840,77,2024-06-22,shipped,express,3469.91
-841,78,2026-05-30,shipped,express,1030.76
-842,63,2024-11-21,shipped,express,2458.29
-843,162,2025-08-16,processing,overnight,1367.54
-844,31,2024-07-03,pending,standard,1744.27
-845,87,2024-11-16,delivered,express,3557.53
-846,75,2025-11-09,shipped,standard,3674.38
-847,117,2024-12-24,shipped,pickup,4768.92
-848,154,2025-03-02,delivered,overnight,3668.69
-849,145,2024-07-29,processing,pickup,2410.37
-850,45,2025-07-12,shipped,express,2241.13
-851,173,2025-06-24,delivered,standard,47.37
-852,106,2024-09-13,processing,express,2817.72
-853,122,2025-02-23,delivered,pickup,1992.38
-854,155,2025-12-04,processing,standard,2370.95
-855,142,2026-03-07,processing,overnight,1404.17
-856,40,2024-12-17,shipped,overnight,1433.85
-857,174,2024-07-17,shipped,overnight,3793.07
-858,155,2026-03-16,shipped,overnight,4111.22
-859,71,2025-04-09,processing,overnight,2907.52
-860,120,2026-02-27,delivered,standard,4778.69
-861,44,2025-08-11,processing,pickup,2822.25
-862,171,2024-10-14,shipped,pickup,514.62
-863,175,2025-12-07,delivered,standard,3060.21
-864,174,2025-08-25,delivered,express,2953.77
-865,60,2025-10-23,delivered,pickup,3275.44
-866,62,2025-12-30,shipped,overnight,647.35
-867,12,2024-09-08,processing,express,2559.47
-868,199,2025-04-04,pending,overnight,2771.66
-869,179,2024-09-14,processing,pickup,1417.09
-870,60,2026-05-20,processing,pickup,58.32
-871,47,2024-09-20,delivered,express,3390.45
-872,76,2025-03-17,shipped,overnight,4403.93
-873,37,2025-08-10,delivered,pickup,4388.73
-874,171,2024-09-28,delivered,standard,4607.67
-875,134,2025-10-13,pending,overnight,960.85
-876,171,2024-11-17,delivered,standard,3560.92
-877,41,2024-11-23,delivered,standard,1470.73
-878,41,2026-01-13,processing,express,4645.51
-879,53,2025-05-29,processing,express,1964.91
-880,62,2024-12-19,shipped,overnight,4687.49
-881,116,2026-01-17,cancelled,pickup,1645.53
-882,66,2025-05-15,pending,express,2977.88
-883,83,2024-07-09,shipped,pickup,4976.83
-884,123,2025-02-23,delivered,express,995.33
-885,126,2025-02-01,delivered,overnight,1291.27
-886,59,2026-01-16,shipped,standard,4410.24
-887,24,2025-07-29,shipped,express,398.98
-888,34,2024-09-15,shipped,express,3310.28
-889,12,2025-07-09,shipped,standard,1539.06
-890,84,2024-07-05,delivered,pickup,4879.96
-891,35,2025-11-19,delivered,standard,3396.27
-892,90,2026-01-01,shipped,express,3063.94
-893,77,2024-09-23,shipped,pickup,2924.66
-894,197,2026-01-01,delivered,standard,4991.04
-895,146,2025-10-28,pending,express,2582.91
-896,85,2025-04-16,delivered,overnight,2293.0
-897,104,2026-02-24,delivered,overnight,2490.24
-898,13,2025-08-25,shipped,overnight,3774.63
-899,75,2025-07-13,shipped,overnight,334.53
-900,176,2026-04-01,shipped,standard,694.67
-901,42,2024-07-10,shipped,overnight,1030.17
-902,33,2026-05-09,processing,standard,2054.8
-903,153,2025-06-24,delivered,overnight,2274.75
-904,17,2024-11-16,cancelled,standard,4507.42
-905,155,2026-01-17,delivered,standard,1846.33
-906,190,2025-08-05,pending,express,75.37
-907,63,2025-09-14,delivered,express,3940.96
-908,22,2024-12-26,delivered,standard,4333.97
-909,5,2025-07-13,processing,standard,3129.84
-910,5,2026-01-22,pending,overnight,1397.3
-911,123,2024-11-02,pending,overnight,3160.83
-912,74,2025-08-01,delivered,standard,1109.0
-913,16,2025-12-05,shipped,standard,2985.11
-914,154,2025-10-30,delivered,standard,3907.79
-915,42,2025-06-25,processing,standard,110.89
-916,88,2025-03-12,delivered,standard,4021.37
-917,57,2025-04-21,processing,pickup,2828.18
-918,43,2025-10-24,delivered,express,2176.39
-919,123,2025-10-04,shipped,standard,966.17
-920,133,2025-08-28,cancelled,express,1625.21
-921,151,2026-02-26,shipped,overnight,3898.49
-922,54,2025-05-29,delivered,pickup,2214.04
-923,146,2025-06-04,processing,express,3630.42
-924,25,2026-02-26,cancelled,standard,2601.85
-925,108,2025-11-20,pending,pickup,4237.56
-926,81,2025-08-28,processing,overnight,1734.04
-927,159,2026-05-30,shipped,standard,1769.89
-928,133,2025-06-23,delivered,standard,3492.16
-929,77,2024-11-26,processing,overnight,4039.47
-930,22,2026-05-06,pending,standard,2285.11
-931,62,2025-04-10,shipped,standard,1312.23
-932,121,2025-01-23,shipped,pickup,3717.73
-933,153,2025-10-06,shipped,express,1671.25
-934,84,2024-10-22,shipped,pickup,966.32
-935,168,2024-10-23,delivered,overnight,4802.77
-936,196,2024-10-12,pending,standard,2532.94
-937,98,2025-08-16,delivered,standard,4745.98
-938,97,2025-12-12,delivered,overnight,2511.18
-939,87,2024-06-29,shipped,express,2508.1
-940,159,2024-07-14,delivered,overnight,2556.68
-941,103,2024-10-17,delivered,express,2665.39
-942,84,2026-02-25,processing,express,1078.91
-943,110,2025-09-08,delivered,pickup,2866.42
-944,76,2025-08-11,pending,pickup,3797.44
-945,82,2026-05-16,shipped,overnight,3352.66
-946,21,2024-07-18,processing,overnight,1061.42
-947,47,2025-02-27,shipped,overnight,4520.39
-948,145,2025-04-16,delivered,pickup,1756.44
-949,135,2026-05-02,delivered,pickup,3143.47
-950,88,2026-04-26,shipped,pickup,3144.63
-951,200,2024-12-26,processing,pickup,2694.52
-952,150,2025-06-18,pending,pickup,2383.8
-953,199,2024-12-23,shipped,express,2254.94
-954,36,2025-12-12,delivered,standard,386.5
-955,68,2025-07-07,pending,overnight,4347.48
-956,200,2025-08-04,delivered,overnight,1840.39
-957,42,2026-04-02,pending,standard,1578.3
-958,156,2024-09-12,shipped,overnight,2217.37
-959,127,2025-01-23,processing,overnight,344.3
-960,135,2025-01-26,delivered,pickup,2329.08
-961,99,2026-02-14,delivered,pickup,1091.89
-962,189,2026-03-16,shipped,pickup,241.61
-963,110,2026-01-14,cancelled,overnight,1636.34
-964,151,2025-10-04,delivered,express,1461.67
-965,35,2025-03-05,shipped,express,3884.14
-966,39,2025-04-19,delivered,pickup,2163.97
-967,54,2024-09-07,processing,pickup,4480.22
-968,75,2024-10-27,delivered,overnight,1566.44
-969,163,2026-06-06,delivered,standard,468.19
-970,13,2024-09-10,cancelled,express,2014.53
-971,170,2026-02-07,processing,overnight,802.23
-972,4,2025-01-07,processing,standard,4065.57
-973,66,2024-06-18,delivered,express,898.76
-974,111,2026-01-17,shipped,overnight,1376.76
-975,38,2026-04-14,pending,standard,2891.5
-976,68,2026-03-10,processing,overnight,1953.85
-977,132,2024-09-07,shipped,pickup,3844.97
-978,3,2024-09-04,delivered,pickup,3017.12
-979,119,2025-08-21,delivered,standard,4275.67
-980,198,2025-12-05,delivered,express,1239.85
-981,65,2025-01-19,delivered,pickup,3318.02
-982,109,2025-12-27,delivered,pickup,1407.08
-983,128,2025-04-06,shipped,pickup,693.71
-984,35,2025-03-19,delivered,standard,1667.09
-985,24,2024-09-19,delivered,standard,4979.12
-986,6,2026-04-24,delivered,pickup,4924.85
-987,107,2026-02-01,delivered,standard,3314.08
-988,11,2025-03-12,processing,overnight,2176.36
-989,98,2025-10-18,cancelled,standard,608.9
-990,26,2024-08-10,delivered,overnight,3585.62
-991,90,2025-03-02,delivered,express,3809.83
-992,185,2024-10-15,delivered,standard,517.45
-993,99,2025-03-13,delivered,standard,1304.98
-994,2,2024-11-21,pending,overnight,3589.69
-995,76,2025-11-28,delivered,express,914.59
-996,30,2025-10-09,cancelled,express,2071.12
-997,123,2026-05-14,delivered,overnight,3149.84
-998,116,2025-09-25,shipped,standard,967.3
-999,101,2025-01-13,delivered,express,405.95
-1000,65,2025-06-01,shipped,overnight,2506.38
+1,125,2025-01-02,shipped,Standard Ground,7479.84
+2,25,2024-10-11,shipped,Express 2-Day,8693.97
+3,47,2024-07-08,delivered,Next Day Air,9235.03
+4,9,2025-04-03,shipped,Priority Overnight,5842.85
+5,133,2025-11-14,shipped,Ground Shipping,1743.34
+6,103,2024-11-07,shipped,UPS Ground,8749.94
+7,148,2025-05-22,pending,FedEx Standard,4254.77
+8,180,2025-11-07,delivered,USPS Priority Mail,4244.22
+9,128,2024-12-19,delivered,DHL Express,3089.1
+10,43,2025-07-30,pending,Ground,7619.72
+11,189,2024-10-29,cancelled,First Class Mail,914.06
+12,26,2025-03-04,delivered,Parcel Post,8266.31
+13,5,2025-07-27,shipped,Economy Shipping,5725.56
+14,68,2024-12-21,delivered,Standard Shipping,3351.23
+15,71,2026-03-10,delivered,Expedited Shipping,7870.73
+16,64,2026-04-11,processing,Overnight Shipping,3869.59
+17,140,2026-01-13,delivered,2-Day Shipping,2122.08
+18,31,2025-08-04,delivered,3-Day Shipping,2512.18
+19,80,2025-09-15,delivered,5-Day Shipping,1977.52
+20,71,2024-11-02,shipped,Free Ground Shipping,9104.27
+21,16,2024-07-13,delivered,UPS 2nd Day Air,9357.3
+22,115,2025-12-11,pending,UPS Next Day Air,9601.01
+23,3,2024-07-02,delivered,FedEx 2Day,7021.55
+24,95,2025-08-03,delivered,FedEx Overnight,4856.04
+25,41,2025-06-29,processing,USPS Express Mail,2112.64
+26,76,2024-09-28,shipped,USPS First Class,9549.91
+27,157,2025-03-27,shipped,DHL Ground,9859.38
+28,200,2026-06-02,cancelled,International Standard,3832.66
+29,48,2025-10-13,processing,International Express,3315.11
+30,97,2025-04-07,delivered,In-Store Pickup,5679.72
+31,49,2025-06-14,delivered,Curbside Pickup,8739.19
+32,171,2026-05-07,processing,Local Delivery,4514.25
+33,144,2025-02-27,delivered,Same-Day Delivery,8460.17
+34,103,2025-08-01,processing,Next-Day Delivery,5485.49
+35,133,2025-11-29,delivered,Standard Delivery,7170.48
+36,141,2024-06-21,pending,Economy Ground,9962.8
+37,1,2025-05-27,shipped,Premium Ground,2627.31
+38,164,2025-02-05,delivered,Express Ground,4014.9
+39,195,2025-04-18,pending,Signature Required,102.29
+40,58,2024-08-24,delivered,Signature Not Required,3659.07
+41,18,2025-12-10,delivered,Insured Shipping,6445.96
+42,19,2025-09-10,pending,Uninsured Shipping,2890.76
+43,119,2026-02-26,pending,Flat Rate Box,7188.27
+44,190,2025-02-27,processing,Regional Ground,5941.3
+45,88,2025-05-17,processing,Zone 1 Shipping,9891.34
+46,195,2024-09-18,processing,Zone 2 Shipping,5735.45
+47,154,2026-04-21,processing,Zone 3 Shipping,5206.86
+48,148,2025-07-14,processing,Zone 4 Shipping,1098.69
+49,166,2026-06-04,delivered,Zone 5 Shipping,5162.7
+50,92,2024-06-09,delivered,Zone 6 Shipping,3564.49
+51,30,2025-11-05,shipped,Zone 7 Shipping,5503.02
+52,113,2024-08-01,delivered,Zone 8 Shipping,8303.19
+53,191,2025-03-25,cancelled,Special Handling,6434.47
+54,18,2025-10-27,processing,Fragile Shipping,5461.44
+55,90,2024-10-07,pending,Hazmat Shipping,4491.04
+56,10,2024-07-11,delivered,Oversized Shipping,4457.02
+57,81,2025-04-23,delivered,Lightweight Shipping,2806.12
+58,191,2024-08-19,shipped,Heavy Item Shipping,7067.88
+59,26,2025-04-27,delivered,Perishable Shipping,7391.21
+60,96,2024-11-20,shipped,Temperature Controlled,8193.32
+61,159,2025-03-23,pending,White Glove Delivery,1269.78
+62,169,2025-03-20,delivered,Freight Shipping,4280.8
+63,168,2025-06-12,shipped,LTL Shipping,6599.91
+64,2,2024-09-23,processing,Truckload Shipping,1695.84
+65,66,2025-02-25,delivered,Courier Service,6230.45
+66,12,2025-06-08,shipped,Postal Service,7625.17
+67,93,2025-03-18,processing,Parcel Carrier,8786.21
+68,145,2026-04-28,delivered,Drop Shipping,3249.73
+69,45,2024-06-20,delivered,Warehouse Delivery,2562.7
+70,133,2024-08-01,delivered,Retail Store Delivery,7659.42
+71,92,2025-09-02,shipped,Hub Delivery,3792.33
+72,103,2024-12-12,pending,Point of Sale Pickup,7818.34
+73,58,2026-01-16,delivered,Click and Collect,314.96
+74,154,2024-11-08,shipped,Buy Online Pickup In Store,9873.85
+75,170,2025-05-17,cancelled,BOPIS,3699.73
+76,34,2024-09-10,shipped,Ship to Store,3356.39
+77,195,2024-07-28,shipped,Locker Delivery,7588.48
+78,182,2024-08-24,shipped,Amazon Locker,200.6
+79,199,2026-03-14,shipped,Parcel Locker,1823.0
+80,65,2025-05-15,delivered,Smart Locker,4337.39
+81,118,2025-11-23,shipped,Mailbox Delivery,9601.16
+82,123,2024-06-18,shipped,Door Delivery,765.42
+83,114,2026-02-13,shipped,Back Door Delivery,8917.35
+84,18,2025-10-01,delivered,Garage Delivery,2807.14
+85,99,2026-03-09,processing,Porch Delivery,3374.21
+86,122,2024-06-19,delivered,Signature on Delivery,756.84
+87,155,2025-03-19,shipped,Adult Signature Required,3589.36
+88,82,2024-09-09,shipped,Direct Signature Required,3785.13
+89,199,2024-12-07,delivered,Indirect Signature Required,3392.04
+90,85,2026-05-29,delivered,No Signature Required,798.63
+91,115,2024-10-03,delivered,Holiday Delivery,9954.4
+92,2,2025-02-16,processing,Weekend Delivery,3183.28
+93,28,2024-08-31,shipped,Weekday Delivery,8182.78
+94,67,2024-12-07,delivered,Early Morning Delivery,9559.36
+95,98,2026-05-09,shipped,Evening Delivery,4705.35
+96,32,2025-11-14,shipped,Business Hours Delivery,4917.83
+97,70,2025-05-13,delivered,After Hours Delivery,6489.19
+98,25,2025-12-09,delivered,Scheduled Delivery,1999.1
+99,113,2026-01-30,delivered,Flexible Delivery,1691.18
+100,44,2026-04-23,delivered,Recurring Delivery,486.74
+101,163,2025-02-06,shipped,Subscription Delivery,7028.67
+102,66,2025-09-22,delivered,Gift Delivery,9172.91
+103,129,2025-01-19,shipped,Gift Wrap Delivery,2945.72
+104,68,2025-05-19,delivered,Corporate Shipping,4425.73
+105,1,2026-02-06,shipped,Business Shipping,4709.54
+106,43,2026-05-16,pending,Residential Shipping,2083.24
+107,101,2025-06-08,shipped,Commercial Shipping,658.35
+108,24,2025-06-27,shipped,Military Shipping,9919.74
+109,20,2024-06-30,processing,APO Shipping,7934.73
+110,7,2025-09-15,processing,FPO Shipping,5344.72
+111,158,2024-09-20,processing,International Shipping,2446.34
+112,189,2024-06-11,shipped,Domestic Shipping,3045.94
+113,113,2025-12-07,shipped,Cross-Border Shipping,5786.47
+114,45,2024-06-19,delivered,Canada Shipping,538.61
+115,122,2025-09-13,shipped,Mexico Shipping,7674.81
+116,147,2024-12-03,delivered,European Shipping,387.32
+117,98,2026-04-03,shipped,Asian Shipping,998.16
+118,6,2025-06-14,shipped,Australian Shipping,2630.29
+119,131,2024-12-17,shipped,Air Shipping,8594.45
+120,156,2025-10-18,delivered,Sea Shipping,1156.16
+121,26,2025-10-23,delivered,Rail Shipping,9878.3
+122,15,2025-12-31,shipped,Truck Shipping,9409.63
+123,182,2025-02-03,shipped,Multi-Modal Shipping,4581.5
+124,188,2025-02-09,cancelled,Economy International,5929.55
+125,56,2024-11-02,shipped,Standard International,6390.26
+126,196,2025-03-10,delivered,Express International,6757.67
+127,177,2025-11-28,shipped,Priority International,310.91
+128,62,2025-04-19,delivered,Tracked Shipping,5849.17
+129,164,2025-12-06,delivered,Untracked Shipping,9119.59
+130,176,2024-12-20,delivered,Real-Time Tracking,7471.3
+131,78,2024-10-29,processing,Basic Tracking,4373.92
+132,51,2026-01-06,processing,Advanced Tracking,9947.11
+133,177,2025-05-12,shipped,Proof of Delivery,7865.42
+134,6,2024-07-27,processing,No Proof of Delivery,7251.88
+135,185,2026-02-05,pending,Insurance Included,4613.56
+136,111,2025-09-17,processing,No Insurance,8255.92
+137,38,2024-12-26,shipped,Carbon Neutral Shipping,8383.98
+138,85,2024-09-18,delivered,Eco-Friendly Shipping,3988.5
+139,87,2025-11-05,delivered,Green Delivery,2865.59
+140,44,2026-03-29,delivered,Sustainable Shipping,2930.67
+141,144,2024-10-16,shipped,Fast Shipping,6886.73
+142,109,2026-06-06,delivered,Slow Shipping,9272.43
+143,153,2025-01-13,processing,Medium Speed Shipping,3807.09
+144,16,2025-11-16,delivered,Variable Speed Shipping,3443.82
+145,7,2026-02-26,shipped,Consolidated Shipping,514.51
+146,115,2026-03-16,shipped,Separate Shipment,3923.91
+147,133,2025-10-18,processing,Combined Shipment,2110.52
+148,169,2025-10-09,processing,Partial Shipment,9393.29
+149,132,2025-03-22,processing,Full Shipment,2641.92
+150,86,2025-01-02,delivered,Split Shipment,1018.6
+151,84,2026-01-27,delivered,Drop Ship,8484.44
+152,67,2025-05-12,delivered,Direct Ship,6411.43
+153,30,2025-02-12,shipped,Vendor Managed Inventory,6743.63
+154,67,2024-08-10,pending,Warehouse Managed Inventory,7975.21
+155,174,2026-05-21,delivered,Third Party Logistics,4798.32
+156,61,2024-10-01,processing,4PL Shipping,1743.92
+157,172,2025-06-25,shipped,Dedicated Shipping,4393.18
+158,46,2026-05-04,shipped,Shared Shipping,7803.02
+159,140,2025-02-13,shipped,Full Truckload,6283.16
+160,185,2026-04-13,cancelled,Less Than Truckload,5522.03
+161,90,2024-10-17,delivered,Partial Truckload,7242.17
+162,115,2025-02-26,processing,Consolidated LTL,1173.69
+163,108,2025-01-01,processing,Parcel Plus,2724.37
+164,146,2025-06-28,delivered,Parcel Select,8646.76
+165,162,2024-09-06,delivered,Media Mail,5197.6
+166,125,2025-02-26,processing,Library Mail,8041.36
+167,48,2024-09-15,delivered,Bound Printed Matter,5200.72
+168,84,2025-10-18,delivered,Commercial Base,3245.55
+169,123,2024-11-17,shipped,Retail Base,4616.86
+170,96,2025-09-25,delivered,Online Base,1814.39
+171,194,2024-07-27,processing,Special Service,5218.26
+172,84,2024-08-02,processing,Delivery Confirmation,4344.71
+173,181,2025-03-09,shipped,Return Receipt,1873.25
+174,40,2026-05-02,delivered,Registered Mail,2631.06
+175,180,2026-06-04,shipped,Certified Mail,4566.73
+176,33,2025-12-24,processing,Money Order,6868.29
+177,200,2025-04-06,delivered,Insured Mail,3083.2
+178,90,2025-11-27,delivered,Collect on Delivery,5081.23
+179,169,2025-02-19,processing,Cash on Delivery,9367.24
+180,183,2025-08-07,processing,Credit Card Payment,6277.7
+181,142,2026-02-18,delivered,Invoice Payment,1093.15
+182,197,2026-02-10,processing,Prepaid Shipping,6122.83
+183,82,2024-09-17,delivered,Postage Due,8674.78
+184,135,2025-03-03,pending,Flat Rate Envelope,6599.97
+185,160,2025-11-09,processing,Flat Rate Padded Envelope,300.26
+186,44,2024-09-30,shipped,Small Flat Rate Box,9446.52
+187,1,2025-09-06,delivered,Medium Flat Rate Box,816.51
+188,37,2025-03-25,delivered,Large Flat Rate Box,6165.21
+189,78,2026-02-23,shipped,Regional Rate Box,4732.21
+190,191,2024-06-23,processing,Priority Mail Express,4350.26
+191,40,2026-02-26,shipped,Priority Mail,9818.25
+192,160,2025-08-26,shipped,First-Class Mail,5180.78
+193,156,2025-04-01,delivered,Standard Mail,6200.14
+194,179,2026-01-30,cancelled,Parcel Post,5443.62
+195,63,2026-05-04,pending,Parcel Select Ground,8502.39
+196,8,2025-07-04,shipped,Parcel Select Lightweight,5474.61
+197,103,2024-08-29,delivered,Parcel Select Destination Entry,5139.6
+198,167,2025-02-10,cancelled,Parcel Select Return,3153.67
+199,29,2024-11-09,delivered,Parcel Select Commercial,6877.25
+200,61,2025-10-28,processing,Parcel Select Retail,471.21
+201,181,2025-05-17,processing,Parcel Select Online,8912.28
+202,171,2025-12-11,processing,Parcel Select Plus,4018.23
+203,101,2024-11-10,delivered,Parcel Select Premium,5958.18
+204,60,2025-06-28,processing,Ground Advantage,3576.28
+205,120,2024-08-12,processing,USPS Ground Advantage,5303.71
+206,65,2026-05-08,delivered,USPS Retail Ground Advantage,8111.14
+207,113,2024-07-30,processing,USPS Commercial Ground Advantage,9180.98
+208,98,2024-11-21,shipped,USPS Online Ground Advantage,4502.13
+209,18,2025-02-16,cancelled,FedEx Ground Home Delivery,5062.9
+210,190,2025-09-02,shipped,FedEx Ground Commercial,9646.71
+211,199,2026-01-04,processing,FedEx Ground Economy,5162.03
+212,89,2025-04-26,delivered,FedEx Ground Plus,5057.33
+213,108,2025-01-24,shipped,FedEx Ground Premium,732.08
+214,198,2025-09-11,delivered,FedEx Express Saver,5530.06
+215,68,2024-07-01,delivered,FedEx 2Day,8275.1
+216,76,2024-10-13,pending,FedEx 2Day AM,8103.38
+217,157,2025-05-14,delivered,FedEx Overnight Standard,3092.72
+218,94,2025-05-24,pending,FedEx Overnight Premier,9970.31
+219,21,2024-11-14,delivered,FedEx SameDay,2052.26
+220,8,2024-09-29,shipped,FedEx SameDay City,4326.19
+221,162,2024-09-08,delivered,FedEx International Economy,2169.41
+222,42,2024-08-26,delivered,FedEx International Priority,2938.45
+223,5,2025-07-16,delivered,FedEx International First,9930.21
+224,40,2024-06-13,delivered,UPS Ground Standard,57.52
+225,39,2025-12-23,delivered,UPS Ground Commercial,166.67
+226,118,2025-07-14,processing,UPS Ground Retail,4564.66
+227,145,2024-09-13,delivered,UPS Ground Online,5185.03
+228,178,2026-04-02,cancelled,UPS Ground Plus,7020.12
+229,165,2024-08-23,shipped,UPS Ground Premium,9348.1
+230,7,2026-03-22,delivered,UPS 3-Day Select,4374.99
+231,48,2026-04-21,delivered,UPS 2nd Day Air Standard,8327.79
+232,157,2024-12-15,shipped,UPS 2nd Day Air,51.6
+233,88,2025-04-21,shipped,UPS 2nd Day Air AM,3136.81
+234,147,2024-09-28,pending,UPS Next Day Air Saver,3590.49
+235,31,2026-01-21,processing,UPS Next Day Air,4036.07
+236,184,2025-10-21,delivered,UPS Next Day Air Early AM,1969.44
+237,178,2025-04-30,delivered,UPS Next Day Air Late,8742.52
+238,88,2025-10-02,delivered,UPS Worldwide Express Plus,2000.23
+239,200,2025-12-15,delivered,UPS Worldwide Express,654.46
+240,161,2025-04-19,processing,UPS Worldwide Express Saver,7906.09
+241,35,2024-11-26,delivered,UPS Standard,8346.53
+242,4,2026-03-23,delivered,UPS Expedited,5490.01
+243,99,2025-04-11,delivered,UPS Express,7503.87
+244,115,2025-04-20,delivered,UPS Express Plus,1744.89
+245,87,2026-05-15,shipped,UPS Express Saver,5212.63
+246,153,2025-08-04,shipped,DHL Ground Select,2477.49
+247,174,2025-07-12,cancelled,DHL Ground Residential,941.33
+248,153,2025-11-20,delivered,DHL Ground Commercial,5993.23
+249,63,2024-07-17,delivered,DHL Express Worldwide,3360.6
+250,38,2024-10-16,shipped,DHL Express 9:00,679.29
+251,172,2025-11-14,delivered,DHL Express 10:30,3146.97
+252,83,2025-11-21,shipped,DHL Express 12:00,7703.67
+253,36,2024-09-08,cancelled,DHL Express Envelope,2367.53
+254,60,2024-06-21,shipped,DHL Express Document,7602.88
+255,196,2025-06-03,shipped,DHL Express Parcel,1861.22
+256,68,2026-05-14,shipped,DHL Express Worldwide Parcel,683.84
+257,177,2025-06-20,pending,DHL eCommerce,3195.48
+258,89,2024-09-27,shipped,DHL eCommerce Parcel,6622.67
+259,88,2024-08-16,processing,DHL eCommerce Plus,1516.58
+260,112,2025-12-12,delivered,DHL eCommerce Select,7046.98
+261,102,2024-10-30,processing,DHL eCommerce Economy,8978.18
+262,137,2024-11-08,processing,Purolator Ground,2509.46
+263,126,2026-01-29,delivered,Purolator Express,2937.96
+264,32,2025-11-25,delivered,Purolator Express 9AM,3894.56
+265,69,2024-10-24,delivered,Purolator Express 10:30AM,9908.33
+266,10,2026-05-07,delivered,Purolator Express 12PM,9230.61
+267,106,2025-02-20,shipped,Purolator Express 3PM,4022.06
+268,40,2025-02-09,shipped,Purolator Express Envelope,1047.33
+269,113,2025-03-23,shipped,Purolator Express Document,4238.04
+270,196,2025-05-21,processing,Purolator Express Parcel,4721.12
+271,115,2024-08-11,pending,Purolator Domestic,1727.35
+272,61,2025-07-07,pending,Purolator International,8502.51
+273,81,2025-04-07,shipped,Purolator eCommerce,5492.51
+274,121,2024-07-30,delivered,Purolator eCommerce Ground,8114.63
+275,186,2025-07-23,delivered,Purolator eCommerce Express,5145.61
+276,51,2025-12-17,processing,Purolator eCommerce International,902.81
+277,5,2025-07-25,pending,XPO Logistics,6456.59
+278,135,2025-02-27,processing,Old Dominion,436.03
+279,200,2025-02-09,shipped,YRC Worldwide,7033.85
+280,28,2024-09-16,processing,ArcBest,1933.52
+281,157,2024-07-15,shipped,Saia LTL Freight,8267.87
+282,59,2026-05-18,delivered,Estes Express Lines,5993.49
+283,71,2025-11-20,shipped,ABF Freight,335.57
+284,151,2025-12-31,delivered,XPO Ground,3447.78
+285,139,2024-10-08,shipped,XPO Express,3129.36
+286,45,2025-08-01,shipped,OD Ground,3008.46
+287,62,2024-10-01,processing,OD Express,7763.91
+288,34,2024-07-23,shipped,YRC Ground,233.6
+289,33,2024-07-10,delivered,YRC Express,542.82
+290,200,2024-09-14,shipped,ArcBest Ground,6063.45
+291,75,2025-10-29,delivered,ArcBest Express,3143.78
+292,50,2024-12-16,cancelled,Saia Ground,390.22
+293,66,2024-08-07,delivered,Saia Express,2029.97
+294,200,2025-12-14,delivered,Estes Ground,5774.17
+295,107,2025-01-13,delivered,Estes Express,2240.21
+296,78,2025-01-10,shipped,ABF Ground,5005.71
+297,99,2025-12-28,pending,ABF Express,8456.34
+298,145,2025-11-09,delivered,Courier Express,8276.2
+299,171,2025-10-09,pending,Courier Ground,771.72
+300,120,2024-07-03,pending,Courier Parcel,8509.42
+301,94,2025-06-29,shipped,Courier Envelope,9858.94
+302,77,2024-11-30,shipped,Courier Document,2733.49
+303,189,2025-11-29,delivered,Messenger Service,2178.65
+304,84,2025-04-24,shipped,Same-Day Courier,9331.67
+305,134,2025-01-13,shipped,Next-Day Courier,8786.11
+306,147,2026-02-03,delivered,2-Day Courier,6587.12
+307,67,2024-11-24,delivered,3-Day Courier,9829.72
+308,14,2024-12-14,processing,5-Day Courier,6176.36
+309,163,2025-02-27,processing,Local Courier,3633.7
+310,45,2025-01-08,processing,Regional Courier,2754.69
+311,154,2025-01-02,processing,National Courier,3497.18
+312,21,2026-04-26,cancelled,International Courier,7183.16
+313,182,2026-01-27,delivered,Express Courier,5941.47
+314,2,2026-05-17,delivered,Standard Courier,60.45
+315,134,2026-01-08,delivered,Economy Courier,6039.86
+316,121,2024-06-22,shipped,Premium Courier,970.94
+317,25,2026-01-15,delivered,Bike Courier,90.97
+318,21,2025-08-25,pending,Car Courier,2804.31
+319,45,2026-03-29,shipped,Truck Courier,7642.49
+320,115,2024-11-25,delivered,Van Courier,2401.98
+321,86,2025-11-07,processing,Motorcycle Courier,134.98
+322,35,2025-01-07,delivered,Scooter Courier,3945.49
+323,198,2024-12-25,delivered,Walking Courier,9296.19
+324,25,2025-12-03,delivered,Pickup and Delivery,9335.12
+325,150,2024-06-10,shipped,Delivery Only,3413.61
+326,115,2026-03-06,shipped,Pickup Only,3367.09
+327,75,2025-11-02,delivered,Store Pickup,4694.29
+328,108,2024-10-03,delivered,Locker Pickup,213.26
+329,112,2026-06-04,cancelled,Hub Pickup,5808.93
+330,147,2025-10-11,delivered,Terminal Pickup,7426.91
+331,137,2024-09-12,delivered,Dock Pickup,9452.02
+332,121,2024-09-16,processing,Will Call,9182.51
+333,59,2024-07-23,delivered,Hold for Pickup,218.24
+334,182,2025-05-01,pending,Customer Pickup,2835.84
+335,15,2026-05-12,shipped,Authorized Pickup,4759.7
+336,193,2026-02-04,shipped,Third Party Pickup,4939.72
+337,64,2025-09-26,delivered,Scheduled Pickup,1250.44
+338,75,2025-05-23,cancelled,On-Demand Pickup,2936.37
+339,168,2025-10-04,pending,Daily Pickup,3683.22
+340,198,2025-11-02,pending,Weekly Pickup,3847.05
+341,144,2025-12-07,processing,Monthly Pickup,4021.93
+342,55,2024-06-22,delivered,As-Needed Pickup,5233.33
+343,32,2026-03-21,delivered,Recurring Pickup,9979.08
+344,83,2024-12-02,processing,One-Time Pickup,3066.13
+345,159,2025-08-14,delivered,Standing Order Pickup,6636.74
+346,183,2026-01-28,delivered,Subscription Pickup,8855.35
+347,80,2026-01-30,processing,Seasonal Pickup,4972.57
+348,23,2026-04-06,delivered,Holiday Pickup,7814.9
+349,98,2026-04-02,shipped,Weekend Pickup,6382.16
+350,25,2026-01-31,delivered,Weekday Pickup,6431.43
+351,191,2024-09-25,delivered,Morning Pickup,3885.02
+352,62,2024-11-07,processing,Afternoon Pickup,6569.13
+353,13,2025-11-12,pending,Evening Pickup,1140.26
+354,168,2024-12-20,shipped,Night Pickup,7348.57
+355,197,2024-07-22,delivered,Early Morning Pickup,6280.62
+356,162,2026-04-01,delivered,Late Night Pickup,376.46
+357,110,2025-12-08,delivered,After Hours Pickup,642.13
+358,12,2026-02-27,processing,Business Hours Pickup,7698.1
+359,79,2025-01-10,pending,Extended Hours Pickup,7582.11
+360,46,2024-07-12,delivered,24/7 Pickup,4268.36
+361,96,2024-08-19,delivered,Automated Pickup,9988.68
+362,106,2026-01-31,delivered,Manual Pickup,5736.1
+363,42,2025-10-11,processing,Assisted Pickup,4278.46
+364,192,2024-06-15,processing,Unassisted Pickup,9878.34
+365,143,2025-01-30,delivered,Contactless Pickup,8066.16
+366,69,2026-01-15,cancelled,In-Person Pickup,6141.08
+367,115,2024-10-10,shipped,Phone Pickup,5237.29
+368,170,2025-01-07,delivered,Online Pickup,3099.99
+369,44,2025-02-26,delivered,App Pickup,327.83
+370,89,2024-11-16,pending,Web Pickup,3149.23
+371,60,2025-10-29,cancelled,Email Pickup,624.87
+372,112,2025-10-17,shipped,Fax Pickup,9000.72
+373,160,2024-06-15,delivered,Mail Pickup,3538.58
+374,149,2025-03-12,delivered,Text Pickup,563.54
+375,86,2025-07-05,pending,Voice Pickup,6820.94
+376,184,2024-10-20,delivered,Video Pickup,8045.15
+377,144,2025-08-23,delivered,Chat Pickup,5114.55
+378,147,2025-02-18,delivered,Live Chat Pickup,7312.11
+379,142,2025-08-31,processing,Bot Pickup,7487.48
+380,99,2025-07-03,shipped,AI Pickup,340.59
+381,129,2025-02-11,cancelled,Human Pickup,3074.94
+382,181,2025-09-12,pending,Hybrid Pickup,6303.1
+383,48,2024-11-09,shipped,Mixed Pickup,9629.04
+384,45,2025-06-10,delivered,Combined Pickup,4171.12
+385,165,2025-03-07,delivered,Consolidated Pickup,9616.51
+386,87,2025-01-19,processing,Separated Pickup,9059.69
+387,161,2025-09-16,delivered,Batch Pickup,2935.44
+388,156,2025-03-25,delivered,Individual Pickup,2203.4
+389,193,2025-02-14,delivered,Bulk Pickup,3057.04
+390,156,2026-03-25,shipped,Small Pickup,5538.25
+391,71,2025-04-02,shipped,Large Pickup,1647.91
+392,146,2025-02-04,pending,Standard Pickup,6220.02
+393,88,2026-02-06,delivered,Express Pickup,7182.17
+394,83,2026-04-11,delivered,Economy Pickup,7104.27
+395,185,2026-02-07,delivered,Premium Pickup,3848.49
+396,42,2026-01-06,shipped,Luxury Pickup,4406.57
+397,106,2025-10-16,shipped,Basic Pickup,6559.98
+398,12,2024-11-23,delivered,Advanced Pickup,553.07
+399,95,2026-03-26,processing,Enhanced Pickup,9099.22
+400,158,2026-04-28,delivered,Upgraded Pickup,3638.55
+401,30,2025-01-29,delivered,Custom Pickup,6072.2
+402,71,2024-08-18,delivered,Specialized Pickup,1980.17
+403,4,2024-11-21,delivered,General Pickup,4310.16
+404,88,2025-09-05,pending,Specific Pickup,1893.36
+405,157,2025-09-30,delivered,Targeted Pickup,1939.48
+406,59,2024-09-09,delivered,Broad Pickup,7475.38
+407,100,2026-03-08,delivered,Narrow Pickup,2611.03
+408,22,2025-06-14,delivered,Wide Pickup,4887.29
+409,182,2024-09-06,pending,Limited Pickup,3807.3
+410,167,2024-06-12,cancelled,Unlimited Pickup,2705.58
+411,89,2026-05-22,pending,Restricted Pickup,8903.24
+412,124,2025-01-05,shipped,Unrestricted Pickup,9059.57
+413,144,2025-09-05,cancelled,Conditional Pickup,8586.67
+414,104,2025-06-08,shipped,Unconditional Pickup,7286.25
+415,100,2024-09-02,delivered,Contingent Pickup,574.77
+416,1,2024-07-10,delivered,Guaranteed Pickup,3309.43
+417,144,2025-05-07,pending,Provisional Pickup,3208.24
+418,71,2025-02-28,delivered,Temporary Pickup,5782.87
+419,14,2025-08-19,delivered,Permanent Pickup,8561.91
+420,43,2025-04-04,delivered,Fixed Pickup,3548.75
+421,7,2025-10-10,shipped,Flexible Pickup,5585.91
+422,58,2024-12-21,pending,Variable Pickup,4132.08
+423,111,2026-01-05,delivered,Static Pickup,3114.73
+424,197,2025-08-03,delivered,Dynamic Pickup,1055.53
+425,167,2024-12-21,pending,Active Pickup,6566.97
+426,116,2025-05-21,delivered,Inactive Pickup,834.16
+427,196,2025-12-20,shipped,Pending Pickup,5785.96
+428,100,2025-01-29,shipped,Confirmed Pickup,2797.0
+429,32,2024-12-12,processing,Cancelled Pickup,6203.44
+430,5,2025-09-22,processing,Rescheduled Pickup,5040.34
+431,163,2025-12-16,delivered,Delayed Pickup,8302.61
+432,200,2025-06-07,delivered,Expedited Pickup,8737.89
+433,89,2025-01-16,delivered,Rushed Pickup,9339.35
+434,49,2024-10-06,delivered,Urgent Pickup,1864.94
+435,196,2024-06-27,delivered,Priority Pickup,9415.48
+436,41,2024-09-29,delivered,Non-Priority Pickup,6534.5
+437,65,2024-09-03,pending,High Priority Pickup,7581.39
+438,182,2024-09-22,delivered,Low Priority Pickup,9765.6
+439,98,2024-06-19,delivered,Medium Priority Pickup,9909.34
+440,167,2025-11-27,shipped,Critical Pickup,4626.24
+441,125,2026-02-13,shipped,Important Pickup,8426.44
+442,150,2025-07-03,delivered,Regular Pickup,6478.35
+443,163,2025-09-20,processing,Routine Pickup,7569.51
+444,169,2026-02-01,cancelled,Special Pickup,331.77
+445,33,2026-03-23,delivered,Unique Pickup,8679.42
+446,5,2025-05-11,pending,Exclusive Pickup,4780.63
+447,102,2025-06-29,delivered,Inclusive Pickup,8878.29
+448,171,2024-06-18,delivered,Selective Pickup,7385.95
+449,91,2025-03-05,pending,Comprehensive Pickup,4983.16
+450,15,2025-05-19,delivered,Partial Pickup,7198.5
+451,132,2024-09-09,delivered,Complete Pickup,2458.84
+452,7,2025-08-18,cancelled,Incomplete Pickup,9721.31
+453,36,2025-12-29,delivered,Partial Delivery,2992.13
+454,124,2024-10-28,shipped,Complete Delivery,4712.85
+455,145,2025-02-09,delivered,Incomplete Delivery,5822.92
+456,144,2025-08-01,shipped,Full Delivery,5172.01
+457,77,2025-08-21,cancelled,Partial Shipment Delivery,7585.8
+458,60,2025-05-18,delivered,Split Delivery,804.12
+459,67,2026-03-15,shipped,Consolidated Delivery,2341.09
+460,127,2024-10-27,cancelled,Separated Delivery,2345.4
+461,11,2025-12-01,delivered,Batch Delivery,6047.59
+462,55,2025-10-01,shipped,Individual Delivery,3444.54
+463,82,2025-05-15,delivered,Bulk Delivery,4563.04
+464,161,2025-04-13,delivered,Small Delivery,5688.42
+465,61,2025-01-12,delivered,Large Delivery,7977.97
+466,128,2025-11-09,processing,Standard Delivery Fee,2575.66
+467,117,2026-01-02,delivered,Express Delivery Fee,7710.23
+468,12,2025-10-26,delivered,Economy Delivery Fee,9683.73
+469,80,2025-07-18,pending,Premium Delivery Fee,8242.8
+470,72,2024-10-27,delivered,Luxury Delivery Fee,6152.09
+471,141,2025-02-17,delivered,Basic Delivery Fee,9511.46
+472,106,2025-04-06,processing,Advanced Delivery Fee,1288.7
+473,133,2024-07-23,delivered,Enhanced Delivery Fee,6377.51
+474,3,2024-08-10,processing,Upgraded Delivery Fee,7754.65
+475,28,2025-06-13,delivered,Custom Delivery Fee,5373.22
+476,105,2024-12-14,processing,Specialized Delivery Fee,9000.34
+477,119,2025-11-06,shipped,General Delivery Fee,3172.9
+478,103,2026-04-12,shipped,Specific Delivery Fee,8308.16
+479,85,2026-03-09,processing,Targeted Delivery Fee,974.13
+480,137,2025-04-16,delivered,Broad Delivery Fee,9645.7
+481,135,2025-04-14,shipped,Narrow Delivery Fee,4630.04
+482,177,2025-07-27,delivered,Wide Delivery Fee,7653.16
+483,178,2024-10-18,shipped,Limited Delivery Fee,9670.73
+484,124,2025-06-30,processing,Unlimited Delivery Fee,1682.85
+485,118,2025-06-16,delivered,Restricted Delivery Fee,2104.81
+486,110,2024-06-25,shipped,Unrestricted Delivery Fee,8682.67
+487,27,2025-12-28,processing,Conditional Delivery Fee,8686.27
+488,55,2024-08-01,delivered,Unconditional Delivery Fee,3063.21
+489,150,2024-12-08,shipped,Contingent Delivery Fee,1539.25
+490,137,2025-11-07,shipped,Guaranteed Delivery Fee,6087.01
+491,58,2025-07-27,delivered,Provisional Delivery Fee,8998.2
+492,121,2026-05-16,shipped,Temporary Delivery Fee,522.27
+493,69,2025-10-21,processing,Permanent Delivery Fee,3036.78
+494,126,2026-06-03,delivered,Fixed Delivery Fee,1227.9
+495,106,2024-11-15,shipped,Flexible Delivery Fee,7102.84
+496,3,2024-09-21,pending,Variable Delivery Fee,3944.0
+497,159,2024-09-19,processing,Static Delivery Fee,5873.57
+498,199,2026-05-17,shipped,Dynamic Delivery Fee,1484.81
+499,166,2025-10-17,delivered,Active Delivery Fee,6958.81
+500,125,2024-12-19,shipped,Inactive Delivery Fee,3507.33
+501,104,2024-10-13,processing,Pending Delivery Fee,7045.63
+502,53,2024-09-24,shipped,Confirmed Delivery Fee,8548.62
+503,8,2026-02-16,shipped,Cancelled Delivery Fee,1660.35
+504,57,2026-04-19,processing,Rescheduled Delivery Fee,8426.85
+505,96,2024-07-06,processing,Delayed Delivery Fee,1626.94
+506,161,2026-01-05,shipped,Expedited Delivery Fee,3066.82
+507,135,2024-06-17,delivered,Rushed Delivery Fee,2953.51
+508,31,2025-10-29,shipped,Urgent Delivery Fee,5250.31
+509,71,2024-09-11,delivered,Priority Delivery Fee,3861.28
+510,87,2026-05-24,shipped,Non-Priority Delivery Fee,166.82
+511,123,2026-04-04,processing,High Priority Delivery Fee,9094.62
+512,130,2025-09-15,shipped,Low Priority Delivery Fee,8448.59
+513,185,2026-02-07,delivered,Medium Priority Delivery Fee,1280.16
+514,200,2025-02-23,delivered,Critical Delivery Fee,4658.17
+515,129,2025-11-24,processing,Important Delivery Fee,3963.76
+516,88,2024-11-21,delivered,Regular Delivery Fee,3486.27
+517,133,2025-03-27,delivered,Routine Delivery Fee,1546.2
+518,170,2026-05-22,shipped,Special Delivery Fee,8530.22
+519,128,2024-08-06,delivered,Unique Delivery Fee,4437.91
+520,6,2026-04-18,delivered,Exclusive Delivery Fee,6609.45
+521,187,2024-06-08,delivered,Inclusive Delivery Fee,8033.0
+522,35,2024-10-09,shipped,Selective Delivery Fee,3772.22
+523,164,2026-02-16,pending,Comprehensive Delivery Fee,8026.0
+524,69,2025-08-05,processing,Partial Delivery Fee,9311.26
+525,29,2024-07-26,shipped,Standard Shipping Cost,214.68
+526,171,2026-05-24,shipped,Express Shipping Cost,2911.15
+527,122,2026-01-29,shipped,Economy Shipping Cost,8008.42
+528,84,2026-05-13,delivered,Premium Shipping Cost,853.82
+529,97,2025-06-12,shipped,Luxury Shipping Cost,8305.22
+530,30,2025-02-20,cancelled,Basic Shipping Cost,5657.86
+531,103,2025-02-16,pending,Advanced Shipping Cost,7293.97
+532,9,2024-12-07,shipped,Enhanced Shipping Cost,7659.42
+533,62,2024-12-19,delivered,Upgraded Shipping Cost,9300.13
+534,151,2025-09-22,delivered,Custom Shipping Cost,7199.02
+535,107,2025-09-18,pending,Specialized Shipping Cost,6958.01
+536,113,2024-08-15,delivered,General Shipping Cost,7522.52
+537,134,2025-01-08,processing,Specific Shipping Cost,3397.99
+538,72,2026-03-25,delivered,Targeted Shipping Cost,7018.25
+539,19,2024-08-20,delivered,Broad Shipping Cost,3396.76
+540,148,2024-07-23,delivered,Narrow Shipping Cost,6314.45
+541,186,2025-01-15,delivered,Wide Shipping Cost,2833.85
+542,60,2024-06-30,shipped,Limited Shipping Cost,1886.44
+543,135,2025-02-23,delivered,Unlimited Shipping Cost,8906.38
+544,194,2025-03-26,delivered,Restricted Shipping Cost,1852.87
+545,34,2026-02-04,delivered,Unrestricted Shipping Cost,1465.77
+546,4,2025-12-20,delivered,Conditional Shipping Cost,4227.05
+547,194,2025-06-20,shipped,Unconditional Shipping Cost,1562.25
+548,119,2025-10-18,processing,Contingent Shipping Cost,2299.66
+549,188,2025-12-30,shipped,Guaranteed Shipping Cost,6576.84
+550,65,2025-03-07,delivered,Provisional Shipping Cost,945.9
+551,28,2025-05-19,delivered,Temporary Shipping Cost,6601.64
+552,118,2025-10-15,delivered,Permanent Shipping Cost,6563.05
+553,91,2025-05-06,shipped,Fixed Shipping Cost,9307.65
+554,6,2024-06-29,shipped,Flexible Shipping Cost,3809.95
+555,126,2026-05-12,cancelled,Variable Shipping Cost,9080.19
+556,68,2026-01-17,shipped,Static Shipping Cost,2916.82
+557,130,2026-04-30,shipped,Dynamic Shipping Cost,5188.77
+558,125,2025-05-28,shipped,Active Shipping Cost,9726.51
+559,135,2024-09-21,shipped,Inactive Shipping Cost,50.83
+560,119,2026-05-09,pending,Pending Shipping Cost,6806.94
+561,79,2026-01-02,delivered,Confirmed Shipping Cost,3573.63
+562,94,2026-01-31,cancelled,Cancelled Shipping Cost,7507.84
+563,112,2025-02-07,processing,Rescheduled Shipping Cost,5469.76
+564,86,2026-04-19,delivered,Delayed Shipping Cost,6834.72
+565,68,2024-07-02,delivered,Expedited Shipping Cost,7057.69
+566,85,2025-01-17,delivered,Rushed Shipping Cost,2372.46
+567,38,2024-12-26,delivered,Urgent Shipping Cost,5083.58
+568,42,2024-06-14,processing,Priority Shipping Cost,1010.7
+569,53,2026-01-02,pending,Non-Priority Shipping Cost,2951.45
+570,25,2025-02-16,shipped,High Priority Shipping Cost,9045.15
+571,145,2025-03-15,delivered,Low Priority Shipping Cost,9385.67
+572,116,2025-01-28,shipped,Medium Priority Shipping Cost,1816.83
+573,139,2025-04-03,cancelled,Critical Shipping Cost,3951.17
+574,156,2024-07-16,cancelled,Important Shipping Cost,8065.82
+575,10,2025-06-12,shipped,Regular Shipping Cost,2683.64
+576,99,2025-07-18,shipped,Routine Shipping Cost,3364.79
+577,169,2024-08-29,shipped,Special Shipping Cost,8426.36
+578,194,2026-03-29,cancelled,Unique Shipping Cost,7663.61
+579,109,2025-02-05,pending,Exclusive Shipping Cost,3989.5
+580,164,2025-08-26,delivered,Inclusive Shipping Cost,1177.37
+581,149,2025-01-24,processing,Selective Shipping Cost,844.85
+582,182,2025-10-12,processing,Comprehensive Shipping Cost,2571.05
+583,118,2024-06-11,delivered,Standard Ground,1782.61
+584,98,2025-02-02,shipped,Express 2-Day,1151.93
+585,45,2026-05-17,delivered,Next Day Air,7315.42
+586,25,2025-10-12,cancelled,Priority Overnight,1141.96
+587,160,2026-05-22,shipped,Ground Shipping,2273.01
+588,97,2025-07-24,shipped,UPS Ground,9487.19
+589,121,2024-07-06,processing,FedEx Standard,9843.07
+590,148,2026-05-19,shipped,USPS Priority Mail,144.15
+591,68,2025-02-02,delivered,DHL Express,8762.88
+592,58,2025-03-06,shipped,Ground,2521.38
+593,183,2025-06-22,delivered,First Class Mail,370.73
+594,73,2025-09-22,shipped,Parcel Post,8791.17
+595,116,2025-08-20,delivered,Economy Shipping,2561.02
+596,47,2026-03-20,delivered,Standard Shipping,8843.07
+597,69,2025-11-02,shipped,Expedited Shipping,339.22
+598,4,2025-03-16,shipped,Overnight Shipping,5581.27
+599,200,2024-07-11,pending,2-Day Shipping,9497.74
+600,148,2024-06-20,delivered,3-Day Shipping,3333.68
+601,150,2024-09-11,shipped,5-Day Shipping,3291.71
+602,94,2025-10-30,delivered,Free Ground Shipping,3542.64
+603,150,2024-12-19,delivered,UPS 2nd Day Air,7791.04
+604,83,2025-12-09,delivered,UPS Next Day Air,5220.7
+605,183,2025-10-15,processing,FedEx 2Day,195.99
+606,175,2025-01-19,shipped,FedEx Overnight,5216.49
+607,145,2024-06-30,shipped,USPS Express Mail,4995.4
+608,121,2025-01-10,delivered,USPS First Class,4483.95
+609,198,2025-04-14,pending,DHL Ground,9312.99
+610,23,2026-02-10,pending,International Standard,4837.27
+611,166,2024-12-02,pending,International Express,7785.01
+612,138,2026-04-14,shipped,In-Store Pickup,4885.76
+613,9,2025-02-11,pending,Curbside Pickup,9684.82
+614,50,2024-07-21,cancelled,Local Delivery,8849.85
+615,81,2025-12-26,delivered,Same-Day Delivery,6840.93
+616,111,2024-12-14,processing,Next-Day Delivery,3642.4
+617,104,2025-08-24,processing,Standard Delivery,8308.31
+618,177,2026-04-13,processing,Economy Ground,5516.67
+619,42,2025-03-04,pending,Premium Ground,1421.45
+620,74,2026-01-20,processing,Express Ground,3968.06
+621,162,2025-01-17,delivered,Signature Required,6779.31
+622,113,2024-11-16,pending,Signature Not Required,7635.46
+623,131,2025-06-26,shipped,Insured Shipping,9599.39
+624,146,2025-04-25,processing,Uninsured Shipping,9036.45
+625,121,2025-11-19,processing,Flat Rate Box,962.31
+626,89,2026-04-02,cancelled,Regional Ground,5196.33
+627,77,2025-05-30,delivered,Zone 1 Shipping,4207.72
+628,172,2025-07-29,shipped,Zone 2 Shipping,285.88
+629,29,2024-06-27,delivered,Zone 3 Shipping,9036.61
+630,181,2025-03-15,delivered,Zone 4 Shipping,3261.59
+631,116,2025-06-28,pending,Zone 5 Shipping,315.83
+632,48,2024-11-04,shipped,Zone 6 Shipping,3185.46
+633,138,2024-11-02,shipped,Zone 7 Shipping,7627.53
+634,168,2025-07-30,pending,Zone 8 Shipping,3762.4
+635,188,2025-04-19,shipped,Special Handling,7675.0
+636,149,2025-02-17,delivered,Fragile Shipping,5163.18
+637,90,2025-10-05,delivered,Hazmat Shipping,6787.03
+638,19,2026-05-30,shipped,Oversized Shipping,8608.37
+639,141,2026-05-05,shipped,Lightweight Shipping,7430.92
+640,3,2025-08-01,processing,Heavy Item Shipping,2881.24
+641,135,2025-03-15,processing,Perishable Shipping,7683.13
+642,43,2024-06-24,processing,Temperature Controlled,5367.22
+643,79,2026-06-04,delivered,White Glove Delivery,2338.97
+644,87,2025-11-11,shipped,Freight Shipping,7456.95
+645,34,2026-02-20,shipped,LTL Shipping,9865.45
+646,89,2024-09-09,delivered,Truckload Shipping,7605.76
+647,176,2026-03-19,delivered,Courier Service,2049.35
+648,44,2025-01-14,shipped,Postal Service,2964.01
+649,97,2025-07-27,processing,Parcel Carrier,5453.52
+650,70,2025-12-10,shipped,Drop Shipping,3278.77
+651,96,2024-11-01,delivered,Warehouse Delivery,1445.99
+652,171,2026-04-10,delivered,Retail Store Delivery,7583.98
+653,66,2024-11-03,pending,Hub Delivery,1886.39
+654,119,2025-08-14,shipped,Point of Sale Pickup,4502.94
+655,2,2024-12-05,delivered,Click and Collect,3925.47
+656,59,2026-01-31,delivered,Buy Online Pickup In Store,8274.7
+657,53,2025-09-09,delivered,BOPIS,8568.52
+658,46,2026-05-07,delivered,Ship to Store,5775.63
+659,141,2025-02-05,delivered,Locker Delivery,8278.24
+660,99,2025-11-09,delivered,Amazon Locker,4441.09
+661,2,2026-05-01,delivered,Parcel Locker,4000.51
+662,54,2024-11-13,pending,Smart Locker,5688.2
+663,163,2025-05-08,delivered,Mailbox Delivery,6055.31
+664,1,2024-10-15,delivered,Door Delivery,4356.71
+665,50,2024-07-18,processing,Back Door Delivery,2393.96
+666,176,2025-12-15,delivered,Garage Delivery,3236.69
+667,134,2026-02-05,shipped,Porch Delivery,3746.15
+668,127,2025-06-02,shipped,Signature on Delivery,1451.51
+669,158,2025-09-23,delivered,Adult Signature Required,6463.78
+670,162,2024-06-20,delivered,Direct Signature Required,9510.53
+671,134,2024-07-30,processing,Indirect Signature Required,4025.9
+672,8,2024-09-29,processing,No Signature Required,3822.3
+673,190,2026-05-31,delivered,Holiday Delivery,9109.11
+674,107,2025-07-12,pending,Weekend Delivery,5466.71
+675,161,2025-07-21,processing,Weekday Delivery,9836.18
+676,56,2026-02-23,delivered,Early Morning Delivery,1576.51
+677,97,2024-12-28,delivered,Evening Delivery,628.17
+678,29,2026-01-14,delivered,Business Hours Delivery,4650.02
+679,85,2026-04-21,cancelled,After Hours Delivery,248.05
+680,155,2026-03-01,processing,Scheduled Delivery,170.09
+681,137,2026-06-04,cancelled,Flexible Delivery,2059.88
+682,3,2025-09-19,pending,Recurring Delivery,5734.02
+683,171,2025-08-15,processing,Subscription Delivery,167.02
+684,200,2026-04-12,delivered,Gift Delivery,656.45
+685,143,2025-05-23,delivered,Gift Wrap Delivery,6426.83
+686,130,2025-02-11,delivered,Corporate Shipping,2829.62
+687,79,2024-08-12,delivered,Business Shipping,328.95
+688,68,2024-08-16,processing,Residential Shipping,2562.02
+689,115,2025-04-28,shipped,Commercial Shipping,6743.83
+690,13,2024-07-28,delivered,Military Shipping,2250.06
+691,195,2025-10-02,processing,APO Shipping,9709.84
+692,142,2025-08-01,processing,FPO Shipping,5348.51
+693,142,2025-03-23,processing,International Shipping,6408.02
+694,187,2024-08-27,processing,Domestic Shipping,950.98
+695,89,2024-06-27,cancelled,Cross-Border Shipping,9110.13
+696,107,2026-03-22,pending,Canada Shipping,8723.37
+697,6,2025-03-03,shipped,Mexico Shipping,980.66
+698,161,2025-12-16,delivered,European Shipping,7889.69
+699,134,2024-08-27,delivered,Asian Shipping,7339.58
+700,177,2024-09-24,processing,Australian Shipping,3214.97
+701,160,2025-06-25,pending,Air Shipping,4746.55
+702,182,2025-12-17,processing,Sea Shipping,9882.16
+703,58,2024-11-23,delivered,Rail Shipping,9899.41
+704,18,2024-12-02,delivered,Truck Shipping,2485.22
+705,197,2025-05-13,shipped,Multi-Modal Shipping,7282.45
+706,62,2025-06-29,pending,Economy International,4850.57
+707,58,2025-06-16,shipped,Standard International,5955.43
+708,75,2025-09-09,processing,Express International,8147.11
+709,60,2025-11-19,delivered,Priority International,2942.73
+710,55,2026-02-07,delivered,Tracked Shipping,9749.24
+711,83,2026-03-11,delivered,Untracked Shipping,77.66
+712,14,2025-01-28,delivered,Real-Time Tracking,7229.01
+713,146,2025-02-15,shipped,Basic Tracking,6198.41
+714,169,2024-08-30,delivered,Advanced Tracking,576.47
+715,29,2025-09-19,processing,Proof of Delivery,8492.41
+716,8,2024-10-19,delivered,No Proof of Delivery,4132.21
+717,108,2024-09-16,processing,Insurance Included,4264.97
+718,63,2025-07-07,delivered,No Insurance,3761.77
+719,110,2026-01-22,delivered,Carbon Neutral Shipping,8304.72
+720,61,2026-05-06,delivered,Eco-Friendly Shipping,9181.88
+721,16,2026-01-09,shipped,Green Delivery,4119.42
+722,84,2026-01-28,processing,Sustainable Shipping,6452.12
+723,46,2025-02-26,delivered,Fast Shipping,9649.67
+724,11,2024-11-06,shipped,Slow Shipping,2052.81
+725,47,2024-09-20,delivered,Medium Speed Shipping,948.09
+726,99,2024-11-24,delivered,Variable Speed Shipping,5785.34
+727,34,2025-06-27,delivered,Consolidated Shipping,323.06
+728,34,2024-08-19,delivered,Separate Shipment,8155.84
+729,53,2026-02-01,shipped,Combined Shipment,5253.78
+730,40,2026-03-09,delivered,Partial Shipment,4603.8
+731,139,2025-05-18,shipped,Full Shipment,7159.44
+732,15,2024-06-26,delivered,Split Shipment,2904.52
+733,94,2025-09-22,delivered,Drop Ship,9646.22
+734,33,2025-12-28,delivered,Direct Ship,8791.83
+735,182,2024-06-18,pending,Vendor Managed Inventory,8971.68
+736,148,2026-03-11,delivered,Warehouse Managed Inventory,8780.34
+737,54,2025-06-04,delivered,Third Party Logistics,4395.78
+738,181,2026-02-22,shipped,4PL Shipping,8698.62
+739,87,2024-08-27,delivered,Dedicated Shipping,9659.39
+740,53,2026-04-10,delivered,Shared Shipping,3008.29
+741,97,2024-11-06,pending,Full Truckload,6554.43
+742,64,2026-02-22,shipped,Less Than Truckload,7981.59
+743,157,2025-09-10,delivered,Partial Truckload,2713.57
+744,96,2024-10-09,delivered,Consolidated LTL,9973.84
+745,84,2024-12-27,delivered,Parcel Plus,5356.75
+746,162,2025-10-22,shipped,Parcel Select,694.12
+747,56,2025-07-26,delivered,Media Mail,8490.39
+748,112,2026-01-09,shipped,Library Mail,1403.21
+749,22,2024-10-16,processing,Bound Printed Matter,6825.12
+750,100,2025-11-13,delivered,Commercial Base,4565.96
+751,114,2025-08-29,shipped,Retail Base,5197.36
+752,119,2025-05-04,pending,Online Base,1986.3
+753,130,2025-01-12,pending,Special Service,686.47
+754,39,2025-06-15,delivered,Delivery Confirmation,8586.57
+755,160,2025-07-22,delivered,Return Receipt,2674.66
+756,5,2025-09-05,delivered,Registered Mail,3703.88
+757,165,2026-03-23,delivered,Certified Mail,9359.77
+758,76,2026-05-06,shipped,Money Order,2051.35
+759,114,2025-07-21,delivered,Insured Mail,519.85
+760,23,2025-12-05,delivered,Collect on Delivery,173.22
+761,129,2025-06-22,delivered,Cash on Delivery,4250.67
+762,184,2026-03-02,delivered,Credit Card Payment,7463.26
+763,6,2025-08-11,pending,Invoice Payment,4214.62
+764,91,2025-04-13,delivered,Prepaid Shipping,801.41
+765,109,2026-05-06,shipped,Postage Due,8904.77
+766,21,2026-05-05,delivered,Flat Rate Envelope,38.06
+767,160,2025-04-14,delivered,Flat Rate Padded Envelope,5113.11
+768,7,2025-10-11,pending,Small Flat Rate Box,8815.27
+769,68,2024-09-03,shipped,Medium Flat Rate Box,7727.99
+770,64,2025-01-17,delivered,Large Flat Rate Box,6831.87
+771,102,2026-04-09,shipped,Regional Rate Box,5256.63
+772,172,2024-07-09,delivered,Priority Mail Express,3590.27
+773,153,2024-11-29,delivered,Priority Mail,423.42
+774,7,2025-05-01,delivered,First-Class Mail,6046.5
+775,120,2024-10-02,pending,Standard Mail,1712.38
+776,179,2024-12-10,processing,Parcel Post,999.51
+777,14,2024-11-09,pending,Parcel Select Ground,8173.8
+778,1,2026-05-20,delivered,Parcel Select Lightweight,103.98
+779,99,2025-10-09,processing,Parcel Select Destination Entry,5896.9
+780,178,2025-12-09,delivered,Parcel Select Return,5988.59
+781,143,2025-05-09,processing,Parcel Select Commercial,8505.17
+782,1,2024-12-12,shipped,Parcel Select Retail,9537.26
+783,50,2025-05-21,pending,Parcel Select Online,6175.01
+784,72,2025-12-24,delivered,Parcel Select Plus,2551.59
+785,117,2025-10-01,cancelled,Parcel Select Premium,2128.09
+786,10,2025-10-26,delivered,Ground Advantage,1880.85
+787,16,2026-03-14,delivered,USPS Ground Advantage,3727.01
+788,153,2026-04-03,shipped,USPS Retail Ground Advantage,5539.49
+789,100,2025-02-27,delivered,USPS Commercial Ground Advantage,3041.65
+790,11,2026-03-19,processing,USPS Online Ground Advantage,2788.88
+791,182,2024-08-29,pending,FedEx Ground Home Delivery,9114.04
+792,173,2026-02-27,delivered,FedEx Ground Commercial,2080.52
+793,178,2026-03-11,shipped,FedEx Ground Economy,8337.33
+794,60,2024-12-20,shipped,FedEx Ground Plus,5492.41
+795,5,2025-10-20,pending,FedEx Ground Premium,6169.6
+796,86,2025-05-16,cancelled,FedEx Express Saver,5050.2
+797,100,2025-02-17,pending,FedEx 2Day,8559.94
+798,12,2024-08-06,delivered,FedEx 2Day AM,291.84
+799,23,2025-06-16,processing,FedEx Overnight Standard,6551.67
+800,28,2024-07-30,delivered,FedEx Overnight Premier,2928.3
+801,62,2025-07-01,shipped,FedEx SameDay,4884.39
+802,3,2024-07-17,delivered,FedEx SameDay City,1539.87
+803,28,2024-08-21,processing,FedEx International Economy,7020.7
+804,160,2025-10-15,pending,FedEx International Priority,8744.13
+805,99,2025-12-10,pending,FedEx International First,5578.41
+806,101,2025-06-05,delivered,UPS Ground Standard,2230.77
+807,11,2024-10-07,delivered,UPS Ground Commercial,8264.07
+808,193,2026-02-17,delivered,UPS Ground Retail,5674.36
+809,128,2025-07-12,shipped,UPS Ground Online,4742.84
+810,181,2025-10-17,delivered,UPS Ground Plus,42.57
+811,148,2025-06-07,delivered,UPS Ground Premium,1945.48
+812,8,2025-01-14,delivered,UPS 3-Day Select,672.17
+813,139,2025-06-08,shipped,UPS 2nd Day Air Standard,1780.49
+814,186,2025-06-02,shipped,UPS 2nd Day Air,726.99
+815,178,2024-07-11,pending,UPS 2nd Day Air AM,5819.03
+816,98,2024-11-25,pending,UPS Next Day Air Saver,1338.3
+817,77,2025-04-17,pending,UPS Next Day Air,9741.69
+818,187,2024-06-07,delivered,UPS Next Day Air Early AM,4828.24
+819,169,2024-08-19,pending,UPS Next Day Air Late,3906.57
+820,185,2024-08-07,delivered,UPS Worldwide Express Plus,4272.58
+821,56,2024-09-12,processing,UPS Worldwide Express,7427.97
+822,107,2025-04-07,delivered,UPS Worldwide Express Saver,8836.41
+823,170,2025-12-27,delivered,UPS Standard,561.57
+824,166,2025-01-13,shipped,UPS Expedited,2634.85
+825,83,2024-08-16,pending,UPS Express,5674.13
+826,170,2024-12-22,processing,UPS Express Plus,2975.22
+827,7,2024-08-19,shipped,UPS Express Saver,6174.21
+828,193,2024-12-07,shipped,DHL Ground Select,4855.64
+829,159,2025-11-20,delivered,DHL Ground Residential,4255.34
+830,71,2025-03-10,shipped,DHL Ground Commercial,7449.06
+831,54,2026-04-30,processing,DHL Express Worldwide,7390.77
+832,96,2025-02-04,cancelled,DHL Express 9:00,4224.36
+833,1,2026-02-16,processing,DHL Express 10:30,2909.32
+834,193,2026-03-10,delivered,DHL Express 12:00,5209.48
+835,132,2024-09-30,delivered,DHL Express Envelope,9377.33
+836,85,2025-07-31,shipped,DHL Express Document,8459.1
+837,131,2025-01-02,delivered,DHL Express Parcel,452.0
+838,101,2025-01-26,cancelled,DHL Express Worldwide Parcel,295.84
+839,40,2025-11-09,shipped,DHL eCommerce,5201.97
+840,7,2024-10-06,processing,DHL eCommerce Parcel,7341.09
+841,161,2025-01-04,delivered,DHL eCommerce Plus,4863.77
+842,84,2024-07-25,cancelled,DHL eCommerce Select,9537.59
+843,192,2024-12-26,delivered,DHL eCommerce Economy,5209.43
+844,100,2026-05-10,processing,Purolator Ground,5435.28
+845,66,2026-01-13,delivered,Purolator Express,2763.15
+846,113,2025-10-19,shipped,Purolator Express 9AM,7962.76
+847,16,2025-03-21,processing,Purolator Express 10:30AM,9881.53
+848,93,2025-06-19,delivered,Purolator Express 12PM,7383.4
+849,104,2024-06-23,processing,Purolator Express 3PM,435.38
+850,132,2025-02-23,shipped,Purolator Express Envelope,6290.43
+851,104,2025-06-30,pending,Purolator Express Document,8093.42
+852,91,2026-01-27,delivered,Purolator Express Parcel,994.24
+853,96,2026-03-31,shipped,Purolator Domestic,4501.03
+854,101,2024-11-17,delivered,Purolator International,2800.54
+855,195,2025-07-27,delivered,Purolator eCommerce,8193.49
+856,25,2025-10-04,delivered,Purolator eCommerce Ground,3059.01
+857,134,2025-12-02,shipped,Purolator eCommerce Express,9673.06
+858,110,2026-06-05,delivered,Purolator eCommerce International,1068.27
+859,92,2025-07-23,shipped,XPO Logistics,7147.68
+860,48,2026-03-27,pending,Old Dominion,5135.43
+861,144,2024-10-17,delivered,YRC Worldwide,2473.71
+862,200,2025-10-24,delivered,ArcBest,8516.3
+863,172,2026-04-30,delivered,Saia LTL Freight,3831.01
+864,127,2025-02-19,processing,Estes Express Lines,195.32
+865,182,2024-09-20,processing,ABF Freight,8686.73
+866,37,2025-09-05,delivered,XPO Ground,7155.14
+867,52,2025-08-21,shipped,XPO Express,5018.89
+868,102,2025-01-26,shipped,OD Ground,7143.65
+869,130,2024-08-04,delivered,OD Express,3303.16
+870,55,2025-09-10,delivered,YRC Ground,1186.81
+871,134,2025-11-21,processing,YRC Express,3957.14
+872,74,2025-02-06,delivered,ArcBest Ground,8252.41
+873,50,2025-03-26,delivered,ArcBest Express,1052.8
+874,118,2024-12-04,delivered,Saia Ground,4646.46
+875,32,2025-12-20,processing,Saia Express,9648.96
+876,183,2024-07-17,shipped,Estes Ground,4569.83
+877,96,2026-05-06,shipped,Estes Express,865.11
+878,1,2025-10-22,delivered,ABF Ground,502.99
+879,132,2025-03-31,delivered,ABF Express,8262.02
+880,86,2025-03-10,delivered,Courier Express,7012.66
+881,19,2024-06-10,delivered,Courier Ground,9028.04
+882,106,2025-02-08,shipped,Courier Parcel,4251.4
+883,54,2024-06-26,delivered,Courier Envelope,1060.5
+884,194,2025-08-02,processing,Courier Document,2697.11
+885,63,2024-10-27,cancelled,Messenger Service,6006.02
+886,104,2024-09-14,shipped,Same-Day Courier,7031.75
+887,49,2024-08-11,delivered,Next-Day Courier,4220.29
+888,153,2026-04-18,cancelled,2-Day Courier,4927.55
+889,196,2025-04-15,delivered,3-Day Courier,3770.41
+890,22,2026-01-08,pending,5-Day Courier,5414.14
+891,107,2025-04-28,pending,Local Courier,7066.37
+892,82,2026-04-17,delivered,Regional Courier,2351.6
+893,79,2024-10-27,delivered,National Courier,1127.85
+894,151,2025-06-12,delivered,International Courier,4397.88
+895,103,2024-12-20,delivered,Express Courier,9447.52
+896,103,2025-10-20,cancelled,Standard Courier,5185.79
+897,169,2025-09-24,pending,Economy Courier,139.43
+898,47,2025-01-25,processing,Premium Courier,5968.51
+899,91,2026-05-24,shipped,Bike Courier,8931.49
+900,35,2025-12-04,delivered,Car Courier,6153.97
+901,142,2026-01-05,delivered,Truck Courier,5156.24
+902,190,2024-08-28,delivered,Van Courier,7522.5
+903,25,2025-04-30,delivered,Motorcycle Courier,2587.32
+904,128,2025-08-13,shipped,Scooter Courier,9262.52
+905,70,2024-11-11,pending,Walking Courier,1494.59
+906,137,2026-01-01,shipped,Pickup and Delivery,9563.53
+907,137,2024-09-18,shipped,Delivery Only,3193.84
+908,49,2024-11-25,processing,Pickup Only,8874.65
+909,135,2025-09-17,shipped,Store Pickup,6104.98
+910,159,2024-07-23,shipped,Locker Pickup,3007.52
+911,88,2026-02-08,delivered,Hub Pickup,9433.71
+912,107,2024-10-24,cancelled,Terminal Pickup,7151.77
+913,157,2025-07-22,pending,Dock Pickup,2628.92
+914,12,2025-10-13,delivered,Will Call,8941.32
+915,66,2025-07-19,processing,Hold for Pickup,3763.22
+916,11,2026-01-11,processing,Customer Pickup,5790.69
+917,102,2025-12-28,delivered,Authorized Pickup,1187.62
+918,110,2026-03-02,delivered,Third Party Pickup,8624.61
+919,58,2025-12-20,shipped,Scheduled Pickup,5852.21
+920,65,2025-09-22,shipped,On-Demand Pickup,4860.13
+921,42,2025-04-22,delivered,Daily Pickup,9499.95
+922,180,2025-05-30,shipped,Weekly Pickup,1004.56
+923,35,2024-11-22,delivered,Monthly Pickup,421.39
+924,89,2025-07-16,processing,As-Needed Pickup,6742.61
+925,143,2025-02-25,delivered,Recurring Pickup,3760.99
+926,55,2024-10-28,delivered,One-Time Pickup,1690.25
+927,36,2025-11-18,delivered,Standing Order Pickup,4152.04
+928,192,2025-07-30,processing,Subscription Pickup,9522.17
+929,141,2025-06-03,shipped,Seasonal Pickup,6202.4
+930,76,2024-08-27,shipped,Holiday Pickup,2379.43
+931,80,2024-11-14,delivered,Weekend Pickup,5711.5
+932,191,2025-08-19,delivered,Weekday Pickup,1981.69
+933,70,2024-09-27,delivered,Morning Pickup,6339.87
+934,49,2026-01-17,delivered,Afternoon Pickup,8381.81
+935,194,2024-11-28,shipped,Evening Pickup,5625.83
+936,18,2025-04-04,delivered,Night Pickup,5241.59
+937,167,2024-06-25,shipped,Early Morning Pickup,7319.93
+938,7,2025-12-29,cancelled,Late Night Pickup,6133.13
+939,149,2025-10-16,pending,After Hours Pickup,7819.14
+940,161,2025-09-26,shipped,Business Hours Pickup,949.42
+941,124,2024-10-17,delivered,Extended Hours Pickup,5292.73
+942,192,2025-07-28,shipped,24/7 Pickup,7984.45
+943,41,2025-03-24,shipped,Automated Pickup,6041.95
+944,36,2025-12-30,shipped,Manual Pickup,1551.35
+945,44,2025-09-01,processing,Assisted Pickup,809.29
+946,194,2025-07-24,delivered,Unassisted Pickup,9200.76
+947,139,2026-02-06,pending,Contactless Pickup,9465.13
+948,137,2025-11-30,shipped,In-Person Pickup,8580.69
+949,28,2024-07-19,cancelled,Phone Pickup,6447.77
+950,68,2025-06-05,delivered,Online Pickup,3552.11
+951,84,2024-08-16,shipped,App Pickup,6301.55
+952,66,2026-04-04,processing,Web Pickup,3070.5
+953,52,2025-12-10,processing,Email Pickup,7729.28
+954,112,2025-07-01,delivered,Fax Pickup,370.34
+955,93,2026-02-02,delivered,Mail Pickup,1903.37
+956,15,2025-02-06,shipped,Text Pickup,6474.33
+957,112,2024-06-23,delivered,Voice Pickup,2865.07
+958,42,2025-02-05,cancelled,Video Pickup,2700.13
+959,152,2024-06-19,delivered,Chat Pickup,6769.75
+960,20,2025-08-27,delivered,Live Chat Pickup,6832.77
+961,73,2025-11-03,shipped,Bot Pickup,5210.33
+962,113,2025-12-30,shipped,AI Pickup,8511.49
+963,155,2025-11-22,shipped,Human Pickup,7684.11
+964,133,2025-08-11,delivered,Hybrid Pickup,1941.24
+965,58,2025-09-22,processing,Mixed Pickup,7948.28
+966,90,2024-12-06,shipped,Combined Pickup,9133.66
+967,136,2025-09-06,delivered,Consolidated Pickup,8681.32
+968,77,2026-06-06,shipped,Separated Pickup,69.35
+969,96,2026-05-04,cancelled,Batch Pickup,7587.03
+970,138,2025-09-08,pending,Individual Pickup,7494.15
+971,144,2026-03-30,processing,Bulk Pickup,3298.54
+972,126,2025-11-15,pending,Small Pickup,5683.73
+973,112,2026-05-17,delivered,Large Pickup,4314.74
+974,150,2025-07-11,processing,Standard Pickup,4343.5
+975,145,2025-05-26,shipped,Express Pickup,2482.35
+976,22,2026-01-12,shipped,Economy Pickup,7918.1
+977,90,2024-07-23,shipped,Premium Pickup,187.8
+978,23,2026-04-26,delivered,Luxury Pickup,4210.06
+979,171,2025-04-09,processing,Basic Pickup,6701.21
+980,142,2025-06-07,delivered,Advanced Pickup,1786.87
+981,24,2026-01-12,pending,Enhanced Pickup,3585.81
+982,79,2025-10-03,delivered,Upgraded Pickup,2790.76
+983,184,2025-06-20,delivered,Custom Pickup,1096.11
+984,108,2025-10-13,processing,Specialized Pickup,333.64
+985,85,2025-04-27,shipped,General Pickup,6333.69
+986,74,2024-11-21,processing,Specific Pickup,9844.97
+987,17,2026-02-20,delivered,Targeted Pickup,4013.7
+988,146,2024-09-07,delivered,Broad Pickup,9278.9
+989,153,2025-10-19,pending,Narrow Pickup,5928.57
+990,108,2024-08-20,delivered,Wide Pickup,6894.11
+991,125,2024-06-12,delivered,Limited Pickup,1224.26
+992,31,2024-11-21,processing,Unlimited Pickup,7002.13
+993,199,2024-06-24,shipped,Restricted Pickup,7082.01
+994,111,2025-03-24,processing,Unrestricted Pickup,1883.45
+995,62,2025-09-12,processing,Conditional Pickup,2235.54
+996,166,2024-08-20,delivered,Unconditional Pickup,7419.26
+997,86,2025-06-19,processing,Contingent Pickup,8967.41
+998,140,2026-06-05,delivered,Guaranteed Pickup,6013.19
+999,111,2024-12-16,shipped,Provisional Pickup,3008.6
+1000,83,2024-10-30,processing,Temporary Pickup,2301.43

@@ -1,601 +1,601 @@
 review_id,product_id,customer_id,rating,review_text,review_date
-1,19,2,4,"Great product, exceeded my expectations!",2022-12-02T00:00:00
-2,1,110,5,"Terrible quality, waste of money",2021-02-24T00:00:00
-3,76,52,3,"Good value for the price, would recommend",2023-12-17T00:00:00
-4,89,22,4,Disappointed with the durability,2021-04-16T00:00:00
-5,59,36,5,"Amazing customer service, will buy again",2023-12-10T00:00:00
-6,20,107,1,Not as described in the listing,2022-05-10T00:00:00
-7,85,134,5,Perfect for my needs,2020-06-17T00:00:00
-8,39,186,5,"Arrived damaged, very upset",2024-04-27T00:00:00
-9,56,71,4,Excellent quality and fast shipping,2020-07-14T00:00:00
-10,2,197,4,Worst purchase I've ever made,2024-11-03T00:00:00
-11,25,126,5,"Decent product, nothing special",2024-10-16T00:00:00
-12,82,154,3,Highly satisfied with this purchase,2020-03-18T00:00:00
-13,55,149,4,"Poor packaging, item was broken",2021-03-13T00:00:00
-14,67,193,5,Fantastic experience from start to finish,2024-06-22T00:00:00
-15,60,6,4,"Below average, expected better",2023-05-20T00:00:00
-16,53,71,5,Impressive performance and design,2021-07-07T00:00:00
-17,92,38,4,"Completely useless, returned immediately",2024-02-12T00:00:00
-18,4,92,4,Very happy with my purchase,2020-05-20T00:00:00
-19,73,74,3,Not worth the price tag,2020-03-02T00:00:00
-20,51,145,4,Outstanding value and quality,2021-11-20T00:00:00
-21,1,85,4,Mediocre at best,2020-06-20T00:00:00
-22,23,121,2,Absolutely love it!,2024-05-27T00:00:00
-23,22,196,4,Defective out of the box,2023-10-16T00:00:00
-24,55,142,1,Perfect match for what I wanted,2023-11-12T00:00:00
-25,69,90,5,Disappointing and overpriced,2022-09-30T00:00:00
-26,59,9,3,Excellent craftsmanship,2024-07-06T00:00:00
-27,11,115,4,Broke after one week of use,2024-01-01T00:00:00
-28,82,133,5,Couldn't be happier,2021-10-02T00:00:00
-29,62,77,3,Terrible customer service,2024-07-31T00:00:00
-30,6,105,4,Best purchase this year,2020-08-04T00:00:00
-31,35,82,1,Low quality materials,2022-10-09T00:00:00
-32,12,36,3,"Stunning design, works perfectly",2021-08-03T00:00:00
-33,29,118,5,"Refund requested, very unsatisfied",2023-12-26T00:00:00
-34,62,12,5,Highly recommend to everyone,2023-02-16T00:00:00
-35,75,42,5,Not as advertised,2023-09-28T00:00:00
-36,13,190,2,"Exceptional product, great price",2022-10-19T00:00:00
-37,44,58,5,Fell apart quickly,2024-01-31T00:00:00
-38,74,39,3,Delighted with my purchase,2020-12-08T00:00:00
-39,34,67,5,Complete disaster,2021-04-14T00:00:00
-40,15,4,4,Beautiful and functional,2024-10-28T00:00:00
-41,31,17,3,Stopped working after a month,2022-08-26T00:00:00
-42,19,144,5,"Love it, definitely buying more",2022-08-05T00:00:00
-43,100,150,3,Waste of time and money,2023-11-17T00:00:00
-44,24,181,2,Impressive quality for the cost,2021-02-10T00:00:00
-45,53,182,3,Major defects found,2022-09-16T00:00:00
-46,38,113,5,Absolutely fantastic,2022-10-27T00:00:00
-47,71,199,4,Poor design and functionality,2021-05-02T00:00:00
-48,96,191,4,Five stars without hesitation,2023-01-03T00:00:00
-49,49,24,3,Regret buying this,2020-01-20T00:00:00
-50,2,127,3,Superb in every way,2021-11-24T00:00:00
-51,45,43,5,Cheap and flimsy,2020-09-22T00:00:00
-52,15,45,2,Thrilled with the results,2020-04-13T00:00:00
-53,84,157,3,Not what I expected at all,2021-07-30T00:00:00
-54,7,113,4,Incredible value,2022-02-16T00:00:00
-55,13,56,4,Flawed product,2024-06-21T00:00:00
-56,30,87,2,Perfect purchase,2024-03-23T00:00:00
-57,88,140,5,Disappointing quality,2024-11-03T00:00:00
-58,66,117,5,Amazing craftsmanship,2022-10-16T00:00:00
-59,71,131,5,Falls short of expectations,2022-08-14T00:00:00
-60,21,3,5,Would buy again in a heartbeat,2024-09-08T00:00:00
-61,37,61,5,Frustrating experience,2022-11-26T00:00:00
-62,81,71,3,Brilliant product,2021-01-25T00:00:00
-63,80,91,4,Completely broken upon arrival,2020-07-17T00:00:00
-64,97,190,5,Extremely satisfied,2022-08-06T00:00:00
-65,22,51,4,Worthless item,2023-10-20T00:00:00
-66,45,137,1,Outstanding service and product,2022-10-05T00:00:00
-67,49,86,2,Subpar quality,2023-07-06T00:00:00
-68,13,112,4,Couldn't ask for better,2024-12-21T00:00:00
-69,63,91,3,Poorly made,2024-03-04T00:00:00
-70,39,26,4,Fantastic value for money,2023-07-14T00:00:00
-71,90,148,4,Defective unit received,2023-12-17T00:00:00
-72,59,187,4,Brilliant purchase,2021-10-01T00:00:00
-73,54,93,4,Inferior to competitors,2024-01-03T00:00:00
-74,44,165,5,Best in class,2022-07-06T00:00:00
-75,35,91,3,Damaged in shipping,2022-01-14T00:00:00
-76,59,59,2,Absolutely wonderful,2023-06-09T00:00:00
-77,12,82,5,Cheap quality,2020-05-23T00:00:00
-78,82,25,4,Highly impressed,2022-05-11T00:00:00
-79,98,135,5,Failed after minimal use,2020-10-01T00:00:00
-80,15,66,2,Fantastic experience,2024-08-24T00:00:00
-81,79,33,1,Not durable at all,2023-01-23T00:00:00
-82,19,183,4,Superb quality and service,2023-08-16T00:00:00
-83,31,130,2,Completely unhappy,2022-03-28T00:00:00
-84,34,31,3,Excellent all around,2022-01-04T00:00:00
-85,8,5,5,Broke immediately,2022-03-27T00:00:00
-86,88,31,3,Thrilled with quality,2024-07-24T00:00:00
-87,30,30,4,Misleading product description,2022-09-05T00:00:00
-88,21,135,3,Perfect in every way,2021-07-14T00:00:00
-89,39,91,5,Substandard materials,2024-05-31T00:00:00
-90,62,46,2,Amazing experience,2022-09-04T00:00:00
-91,28,22,5,Product fell apart,2022-07-21T00:00:00
-92,88,89,2,Best value ever,2023-09-20T00:00:00
-93,16,43,2,Disappointing purchase,2022-02-16T00:00:00
-94,16,169,3,Wonderful quality,2021-09-11T00:00:00
-95,47,130,1,Defects throughout,2024-04-23T00:00:00
-96,74,199,5,Extremely happy,2021-12-08T00:00:00
-97,36,22,4,Poor attention to detail,2024-12-13T00:00:00
-98,98,90,4,Fantastic product,2024-01-19T00:00:00
-99,74,168,4,Quality issues,2022-08-23T00:00:00
-100,33,143,3,Delighted by quality,2024-04-28T00:00:00
-101,24,118,5,Not as good as expected,2021-11-26T00:00:00
-102,62,72,2,Excellent customer support,2022-04-28T00:00:00
-103,44,44,5,Malfunctioning item,2022-07-01T00:00:00
-104,94,135,3,Perfect quality,2024-12-19T00:00:00
-105,25,6,3,Inferior design,2022-07-06T00:00:00
-106,26,121,1,Wonderful purchase,2023-09-14T00:00:00
-107,41,67,3,Completely defective,2023-11-19T00:00:00
-108,49,40,4,Amazing customer service,2023-12-11T00:00:00
-109,95,136,5,Shoddy construction,2023-01-18T00:00:00
-110,8,48,2,Brilliant quality,2023-08-10T00:00:00
-111,71,1,2,Problems from day one,2021-02-15T00:00:00
-112,89,3,3,Incredible product,2023-06-02T00:00:00
-113,35,135,4,Cheap materials,2024-09-16T00:00:00
-114,97,59,5,Outstanding experience,2021-07-31T00:00:00
-115,3,152,4,Broke on first use,2020-11-18T00:00:00
-116,80,133,2,Superb craftsmanship,2023-02-10T00:00:00
-117,34,56,5,Disappointing materials,2024-10-28T00:00:00
-118,69,36,4,Best purchase,2023-07-13T00:00:00
-119,7,172,2,Flawed design,2020-11-11T00:00:00
-120,81,88,3,Excellent value,2022-01-02T00:00:00
-121,82,166,4,Failed quickly,2020-01-04T00:00:00
-122,15,141,4,Fantastic quality,2024-04-03T00:00:00
-123,66,39,5,Poor workmanship,2022-06-02T00:00:00
-124,35,60,5,Perfect choice,2023-04-07T00:00:00
-125,34,138,5,Defective product,2021-05-06T00:00:00
-126,10,49,5,Amazing quality,2020-04-14T00:00:00
-127,67,84,2,Fell apart fast,2022-11-14T00:00:00
-128,58,88,5,Wonderful experience,2022-05-14T00:00:00
-129,83,38,5,Not reliable,2020-01-31T00:00:00
-130,3,192,4,Excellent purchase,2020-01-01T00:00:00
-131,77,191,5,Quality control issues,2024-01-18T00:00:00
-132,25,45,2,Best decision,2023-07-05T00:00:00
-133,5,22,3,Poorly constructed,2020-04-24T00:00:00
-134,42,195,5,Fantastic service,2023-08-03T00:00:00
-135,84,80,4,Broke easily,2022-05-15T00:00:00
-136,28,77,5,Wonderful quality,2024-01-24T00:00:00
-137,10,156,3,Not meeting expectations,2021-10-21T00:00:00
-138,67,114,4,Excellent product,2024-02-26T00:00:00
-139,74,41,3,Defective unit,2022-06-20T00:00:00
-140,10,120,3,Best experience,2021-01-10T00:00:00
-141,77,30,5,Low quality standards,2022-12-06T00:00:00
-142,86,41,2,Fantastic experience,2020-03-03T00:00:00
-143,37,114,5,Fails too easily,2022-11-20T00:00:00
-144,93,20,4,Wonderful craftsmanship,2021-08-08T00:00:00
-145,98,183,5,Poor durability,2023-02-12T00:00:00
-146,37,106,1,Perfect fit,2020-07-04T00:00:00
-147,81,92,4,Defects in product,2020-09-14T00:00:00
-148,73,183,2,Amazing experience,2021-05-27T00:00:00
-149,28,121,3,Cheap construction,2021-06-04T00:00:00
-150,26,92,5,Excellent service,2020-05-22T00:00:00
-151,19,51,4,Broken immediately,2024-12-06T00:00:00
-152,3,1,2,Fantastic purchase,2024-08-24T00:00:00
-153,81,190,4,Quality concerns,2022-02-03T00:00:00
-154,59,170,3,Best value,2022-01-18T00:00:00
-155,37,143,5,Flimsy materials,2021-07-02T00:00:00
-156,4,160,2,Wonderful service,2022-11-21T00:00:00
-157,6,170,4,Breaks easily,2022-10-11T00:00:00
-158,75,130,4,Excellent craftsmanship,2020-08-07T00:00:00
-159,80,158,3,Defective from start,2020-03-16T00:00:00
-160,44,30,4,Fantastic quality,2020-11-08T00:00:00
-161,82,157,4,Poor quality control,2023-09-07T00:00:00
-162,39,87,2,Best product,2021-06-10T00:00:00
-163,94,132,3,Poorly designed,2021-08-03T00:00:00
-164,96,106,5,Wonderful product,2020-02-17T00:00:00
-165,53,23,1,Fails often,2021-04-07T00:00:00
-166,15,178,5,Excellent experience,2021-05-24T00:00:00
-167,85,34,4,Cheap materials used,2020-09-18T00:00:00
-168,22,69,4,Fantastic value,2022-01-28T00:00:00
-169,49,188,3,Breaks quickly,2023-07-01T00:00:00
-170,68,20,4,Wonderful purchase,2020-01-01T00:00:00
-171,37,151,1,Not quality made,2022-09-29T00:00:00
-172,4,133,5,Excellent quality,2020-10-28T00:00:00
-173,38,72,2,Defective parts,2024-05-06T00:00:00
-174,66,149,5,Fantastic craftsmanship,2020-03-22T00:00:00
-175,67,86,2,Poor assembly,2021-08-20T00:00:00
-176,97,9,2,Best craftsmanship,2020-11-04T00:00:00
-177,95,154,3,Cheap design,2023-09-19T00:00:00
-178,39,101,1,Wonderful craftsmanship,2022-08-15T00:00:00
-179,66,133,3,Fails under pressure,2023-06-28T00:00:00
-180,67,3,5,Excellent design,2024-01-17T00:00:00
-181,33,72,4,Defective assembly,2024-06-13T00:00:00
-182,63,135,5,Fantastic design,2024-12-20T00:00:00
-183,61,156,5,Poor materials used,2022-11-21T00:00:00
-184,69,63,4,Best design,2021-07-01T00:00:00
-185,60,186,4,Shoddy work,2021-01-15T00:00:00
-186,100,178,1,Wonderful design,2022-03-05T00:00:00
-187,58,174,4,Breaks under stress,2022-02-12T00:00:00
-188,21,11,5,Excellent assembly,2023-06-19T00:00:00
-189,89,78,4,Cheap workmanship,2021-01-22T00:00:00
-190,37,85,3,Fantastic assembly,2021-03-05T00:00:00
-191,74,199,4,Fails in use,2021-05-19T00:00:00
-192,64,192,4,Best assembly,2021-08-26T00:00:00
-193,14,117,3,Poor construction,2021-05-04T00:00:00
-194,43,60,2,Wonderful assembly,2024-09-28T00:00:00
-195,85,193,3,Not well made,2020-08-30T00:00:00
-196,26,196,5,Excellent construction,2024-06-08T00:00:00
-197,75,135,4,Defective construction,2023-01-28T00:00:00
-198,86,7,3,Fantastic construction,2023-07-16T00:00:00
-199,19,2,5,Cheap construction,2021-07-20T00:00:00
-200,93,182,4,Best construction,2020-08-14T00:00:00
-201,89,40,5,Poorly assembled,2021-10-14T00:00:00
-202,56,191,3,Wonderful construction,2024-04-07T00:00:00
-203,39,158,4,Breaks with use,2023-02-01T00:00:00
-204,28,113,2,Excellent materials,2020-09-17T00:00:00
-205,52,17,4,Quality is poor,2020-03-03T00:00:00
-206,68,172,1,Fantastic materials,2021-02-26T00:00:00
-207,31,107,5,Fails easily,2024-10-26T00:00:00
-208,22,38,4,Best materials,2020-01-07T00:00:00
-209,29,40,5,Defective materials,2024-12-04T00:00:00
-210,6,18,3,Wonderful materials,2023-08-04T00:00:00
-211,37,79,4,Not durable,2024-11-08T00:00:00
-212,22,123,4,Excellent durability,2022-04-14T00:00:00
-213,86,111,5,Cheap and weak,2024-03-16T00:00:00
-214,77,89,5,Fantastic durability,2023-03-31T00:00:00
-215,74,134,3,Breaks under weight,2024-01-18T00:00:00
-216,6,32,2,Best durability,2022-11-11T00:00:00
-217,8,28,4,Poorly made unit,2023-12-31T00:00:00
-218,55,196,4,Wonderful durability,2024-09-09T00:00:00
-219,9,199,3,Not sturdy,2021-06-13T00:00:00
-220,96,102,2,Excellent durability,2021-08-06T00:00:00
-221,95,146,1,Quality issues persist,2023-09-04T00:00:00
-222,46,16,3,Fantastic durability,2021-09-25T00:00:00
-223,47,133,4,Fails quickly,2022-08-03T00:00:00
-224,2,27,4,Best durability,2024-12-26T00:00:00
-225,70,190,4,Defective durability,2023-01-22T00:00:00
-226,47,104,4,Wonderful durability,2022-12-13T00:00:00
-227,69,48,4,Weak construction,2020-11-18T00:00:00
-228,69,21,4,Excellent strength,2022-08-15T00:00:00
-229,16,197,4,Cheap materials,2024-06-07T00:00:00
-230,9,128,2,Fantastic strength,2021-04-12T00:00:00
-231,91,11,3,Breaks easily,2020-09-09T00:00:00
-232,81,183,5,Best strength,2024-05-29T00:00:00
-233,78,108,5,Poorly reinforced,2021-09-16T00:00:00
-234,8,125,3,Wonderful strength,2024-02-22T00:00:00
-235,29,169,5,Not strong,2024-07-27T00:00:00
-236,7,90,4,Excellent strength,2022-11-12T00:00:00
-237,89,100,4,Quality concerns remain,2023-10-27T00:00:00
-238,12,195,4,Fantastic strength,2023-03-29T00:00:00
-239,35,136,4,Fails under load,2020-11-10T00:00:00
-240,13,43,2,Best strength,2020-08-30T00:00:00
-241,20,134,5,Defective strength,2023-10-21T00:00:00
-242,86,71,3,Wonderful strength,2022-03-11T00:00:00
-243,65,80,5,Weak design,2020-08-26T00:00:00
-244,34,74,5,Excellent design,2020-07-20T00:00:00
-245,81,36,5,Cheap design,2020-11-23T00:00:00
-246,54,69,4,Fantastic design,2021-09-21T00:00:00
-247,6,15,4,Breaks in use,2024-08-02T00:00:00
-248,44,57,4,Best design,2020-08-08T00:00:00
-249,32,193,5,Poorly designed,2024-08-06T00:00:00
-250,8,17,4,Wonderful design,2021-01-16T00:00:00
-251,87,97,4,Not well designed,2022-01-03T00:00:00
-252,49,193,5,Excellent design,2023-04-21T00:00:00
-253,100,89,4,Quality design,2023-03-21T00:00:00
-254,49,35,4,Fantastic design,2024-10-13T00:00:00
-255,26,75,4,Fails to perform,2022-10-17T00:00:00
-256,61,7,4,Best design,2020-07-11T00:00:00
-257,54,88,5,Defective design,2024-02-14T00:00:00
-258,56,1,4,Wonderful design,2021-11-01T00:00:00
-259,28,93,4,Inadequate design,2020-02-19T00:00:00
-260,76,147,2,Excellent design,2024-04-15T00:00:00
-261,58,80,1,Great design,2022-05-08T00:00:00
-262,41,21,5,Fantastic design,2021-05-27T00:00:00
-263,88,33,4,Poor design,2023-12-28T00:00:00
-264,59,94,4,Best design,2020-03-06T00:00:00
-265,64,88,5,Wonderful design,2022-05-07T00:00:00
-266,69,5,4,Amazing design,2022-09-30T00:00:00
-267,76,195,5,Excellent design,2022-09-09T00:00:00
-268,64,78,4,Outstanding design,2020-10-10T00:00:00
-269,84,183,4,Fantastic design,2020-02-22T00:00:00
-270,75,101,5,Perfect design,2024-04-01T00:00:00
-271,67,75,3,Best design,2024-03-04T00:00:00
-272,75,147,4,Wonderful design,2021-12-06T00:00:00
-273,25,113,1,Beautiful design,2022-03-16T00:00:00
-274,69,196,3,Excellent design,2024-03-01T00:00:00
-275,59,52,2,Impressive design,2023-07-22T00:00:00
-276,16,21,5,Fantastic design,2022-11-15T00:00:00
-277,40,63,5,Lovely design,2020-06-11T00:00:00
-278,66,71,5,Best design,2021-01-02T00:00:00
-279,78,169,1,Wonderful design,2023-06-08T00:00:00
-280,80,90,3,Nice design,2021-10-05T00:00:00
-281,54,99,5,Excellent design,2021-07-07T00:00:00
-282,20,96,3,Good design,2023-04-08T00:00:00
-283,68,98,3,Fantastic design,2023-08-27T00:00:00
-284,39,167,4,Fine design,2024-07-16T00:00:00
-285,37,70,1,Best design,2021-05-09T00:00:00
-286,23,184,3,Wonderful design,2024-06-23T00:00:00
-287,57,161,4,Fair design,2023-02-01T00:00:00
-288,22,15,2,Excellent design,2024-12-04T00:00:00
-289,22,13,5,Decent design,2024-01-13T00:00:00
-290,65,182,3,Fantastic design,2022-09-24T00:00:00
-291,67,81,5,Alright design,2021-01-25T00:00:00
-292,75,142,3,Best design,2024-02-03T00:00:00
-293,28,93,4,Wonderful design,2024-11-26T00:00:00
-294,89,188,2,Okay design,2024-07-22T00:00:00
-295,73,33,2,Excellent design,2020-07-24T00:00:00
-296,21,130,3,Average design,2024-03-12T00:00:00
-297,20,126,4,Fantastic design,2021-11-16T00:00:00
-298,62,162,4,Mediocre design,2023-10-14T00:00:00
-299,40,190,5,Best design,2023-08-09T00:00:00
-300,77,144,3,Wonderful design,2023-08-31T00:00:00
-301,21,122,5,Adequate design,2021-07-30T00:00:00
-302,86,10,4,Excellent design,2023-04-20T00:00:00
-303,22,8,5,Satisfactory design,2024-10-07T00:00:00
-304,32,185,2,Fantastic design,2023-10-10T00:00:00
-305,16,192,5,Acceptable design,2022-03-13T00:00:00
-306,91,166,5,Best design,2020-11-01T00:00:00
-307,57,128,4,Wonderful design,2021-04-02T00:00:00
-308,98,151,5,Reasonable design,2023-02-13T00:00:00
-309,18,14,3,Excellent design,2023-11-07T00:00:00
-310,12,129,4,Passable design,2021-05-11T00:00:00
-311,34,104,4,Fantastic design,2020-10-29T00:00:00
-312,20,101,5,So-so design,2023-09-07T00:00:00
-313,84,57,3,Best design,2023-05-25T00:00:00
-314,54,140,3,Wonderful design,2020-09-28T00:00:00
-315,60,101,4,Tolerable design,2020-10-29T00:00:00
-316,24,142,2,Excellent design,2023-01-02T00:00:00
-317,66,14,4,Bearable design,2021-02-24T00:00:00
-318,31,16,4,Fantastic design,2023-08-07T00:00:00
-319,56,184,5,Manageable design,2022-09-18T00:00:00
-320,44,73,4,Best design,2021-12-10T00:00:00
-321,77,41,3,Wonderful design,2023-10-26T00:00:00
-322,21,42,4,Workable design,2020-08-13T00:00:00
-323,45,154,3,Excellent design,2024-04-09T00:00:00
-324,2,39,3,Functional design,2020-09-09T00:00:00
-325,81,99,1,Fantastic design,2021-03-03T00:00:00
-326,34,177,4,Practical design,2020-10-06T00:00:00
-327,36,90,4,Best design,2021-03-31T00:00:00
-328,6,102,4,Wonderful design,2022-06-01T00:00:00
-329,26,107,3,Useful design,2024-01-03T00:00:00
-330,38,63,5,Excellent design,2020-08-12T00:00:00
-331,40,128,3,Helpful design,2022-10-03T00:00:00
-332,2,100,4,Fantastic design,2021-07-27T00:00:00
-333,68,46,5,Beneficial design,2024-10-21T00:00:00
-334,91,101,3,Best design,2023-10-23T00:00:00
-335,4,53,3,Wonderful design,2021-01-27T00:00:00
-336,2,56,5,Advantageous design,2021-10-23T00:00:00
-337,62,189,4,Excellent design,2023-03-03T00:00:00
-338,45,109,3,Favorable design,2021-08-18T00:00:00
-339,3,86,4,Fantastic design,2021-06-03T00:00:00
-340,43,55,5,Positive design,2024-11-08T00:00:00
-341,81,116,3,Best design,2024-09-16T00:00:00
-342,44,8,3,Wonderful design,2020-07-10T00:00:00
-343,80,121,4,Constructive design,2023-01-04T00:00:00
-344,10,154,4,Excellent design,2021-11-23T00:00:00
-345,37,108,2,Productive design,2022-01-26T00:00:00
-346,93,157,4,Fantastic design,2024-11-12T00:00:00
-347,57,129,5,Effective design,2024-06-17T00:00:00
-348,72,135,3,Best design,2020-05-26T00:00:00
-349,9,180,5,Wonderful design,2024-05-11T00:00:00
-350,19,75,4,Efficient design,2021-06-30T00:00:00
-351,32,13,3,Excellent design,2024-07-21T00:00:00
-352,79,6,5,Optimal design,2023-06-24T00:00:00
-353,14,149,4,Fantastic design,2023-10-05T00:00:00
-354,20,2,1,Superior design,2021-08-26T00:00:00
-355,11,190,3,Best design,2023-10-25T00:00:00
-356,10,147,5,Wonderful design,2024-12-13T00:00:00
-357,42,164,5,Excellent design,2021-02-14T00:00:00
-358,34,28,3,Outstanding design,2022-08-06T00:00:00
-359,22,112,4,Fantastic design,2021-06-16T00:00:00
-360,38,165,3,Exceptional design,2021-09-28T00:00:00
-361,7,53,5,Best design,2021-12-05T00:00:00
-362,9,95,2,Wonderful design,2021-04-03T00:00:00
-363,86,36,5,Remarkable design,2022-06-20T00:00:00
-364,68,120,5,Excellent design,2024-08-03T00:00:00
-365,38,121,4,Notable design,2022-06-11T00:00:00
-366,72,186,4,Fantastic design,2021-10-10T00:00:00
-367,30,84,5,Noteworthy design,2022-07-30T00:00:00
-368,65,88,2,Best design,2024-07-23T00:00:00
-369,41,121,3,Wonderful design,2021-09-10T00:00:00
-370,1,139,5,Significant design,2020-12-30T00:00:00
-371,44,178,3,Excellent design,2020-10-10T00:00:00
-372,53,107,5,Important design,2024-12-04T00:00:00
-373,64,192,4,Fantastic design,2020-04-04T00:00:00
-374,30,198,4,Meaningful design,2023-08-18T00:00:00
-375,3,106,3,Best design,2020-07-14T00:00:00
-376,82,18,5,Wonderful design,2024-05-31T00:00:00
-377,79,5,4,Substantial design,2024-01-21T00:00:00
-378,61,154,5,Excellent design,2021-09-18T00:00:00
-379,96,67,4,Considerable design,2021-03-19T00:00:00
-380,70,120,3,Fantastic design,2020-09-22T00:00:00
-381,76,74,4,Appreciable design,2023-04-24T00:00:00
-382,51,91,4,Best design,2024-02-17T00:00:00
-383,30,27,4,Wonderful design,2023-05-05T00:00:00
-384,90,132,3,Marked design,2020-06-12T00:00:00
-385,89,83,4,Excellent design,2021-03-20T00:00:00
-386,26,14,5,Pronounced design,2021-04-27T00:00:00
-387,36,13,5,Fantastic design,2021-04-02T00:00:00
-388,48,66,4,Striking design,2024-03-23T00:00:00
-389,38,124,3,Best design,2020-05-31T00:00:00
-390,36,93,3,Wonderful design,2020-03-18T00:00:00
-391,92,116,5,Conspicuous design,2023-03-23T00:00:00
-392,29,120,3,Excellent design,2021-09-21T00:00:00
-393,53,40,4,Obvious design,2021-04-14T00:00:00
-394,75,19,5,Fantastic design,2024-04-23T00:00:00
-395,31,89,4,Apparent design,2024-08-12T00:00:00
-396,31,181,5,Best design,2024-01-17T00:00:00
-397,45,128,4,Wonderful design,2022-09-08T00:00:00
-398,40,162,4,Clear design,2024-06-15T00:00:00
-399,64,43,4,Excellent design,2021-05-27T00:00:00
-400,40,137,1,Evident design,2020-10-17T00:00:00
-401,98,118,1,Fantastic design,2024-10-18T00:00:00
-402,7,122,5,Manifest design,2023-04-22T00:00:00
-403,45,52,5,Best design,2021-12-22T00:00:00
-404,39,55,4,Wonderful design,2021-10-28T00:00:00
-405,58,24,5,Plain design,2023-09-12T00:00:00
-406,50,32,4,Excellent design,2023-12-16T00:00:00
-407,9,32,4,Visible design,2022-07-27T00:00:00
-408,37,181,5,Fantastic design,2023-07-20T00:00:00
-409,47,140,2,Noticeable design,2020-11-29T00:00:00
-410,35,100,4,Best design,2022-07-28T00:00:00
-411,60,15,4,Wonderful design,2021-10-17T00:00:00
-412,78,22,4,Perceptible design,2024-07-20T00:00:00
-413,22,113,5,Excellent design,2022-11-18T00:00:00
-414,13,49,5,Detectable design,2020-06-30T00:00:00
-415,11,169,4,Fantastic design,2024-05-10T00:00:00
-416,2,70,5,Discernible design,2023-01-28T00:00:00
-417,33,128,3,Best design,2021-12-01T00:00:00
-418,70,130,4,Wonderful design,2020-11-19T00:00:00
-419,89,190,4,Recognizable design,2024-05-12T00:00:00
-420,81,138,4,Excellent design,2021-02-17T00:00:00
-421,19,178,5,Identifiable design,2022-01-05T00:00:00
-422,70,95,5,Fantastic design,2022-05-05T00:00:00
-423,42,92,5,Distinguishable design,2024-11-22T00:00:00
-424,65,37,4,Best design,2021-01-02T00:00:00
-425,4,30,2,Wonderful design,2023-12-05T00:00:00
-426,9,139,5,Unmistakable design,2020-06-13T00:00:00
-427,26,99,4,Excellent design,2020-01-23T00:00:00
-428,57,101,5,Unambiguous design,2023-05-30T00:00:00
-429,79,90,4,Fantastic design,2020-08-10T00:00:00
-430,23,163,4,Unequivocal design,2022-12-08T00:00:00
-431,37,39,4,Best design,2021-05-03T00:00:00
-432,66,24,3,Wonderful design,2021-07-04T00:00:00
-433,88,26,5,Indisputable design,2021-04-20T00:00:00
-434,93,15,4,Excellent design,2023-12-08T00:00:00
-435,59,26,5,Undeniable design,2023-03-14T00:00:00
-436,87,188,3,Fantastic design,2023-07-08T00:00:00
-437,100,128,4,Incontrovertible design,2021-09-20T00:00:00
-438,25,69,3,Best design,2020-05-19T00:00:00
-439,72,72,5,Wonderful design,2024-07-06T00:00:00
-440,85,29,5,Irrefutable design,2024-02-09T00:00:00
-441,4,180,5,Excellent design,2020-08-06T00:00:00
-442,66,98,4,Unquestionable design,2023-10-20T00:00:00
-443,10,63,3,Fantastic design,2024-08-12T00:00:00
-444,66,177,2,Indubitable design,2023-02-22T00:00:00
-445,80,118,3,Best design,2024-09-04T00:00:00
-446,14,57,5,Wonderful design,2020-05-05T00:00:00
-447,93,85,3,Incontestable design,2020-02-28T00:00:00
-448,89,85,3,Excellent design,2020-09-14T00:00:00
-449,98,24,4,Unarguable design,2021-05-09T00:00:00
-450,23,67,4,Fantastic design,2023-06-23T00:00:00
-451,27,121,3,Beyond doubt design,2024-04-17T00:00:00
-452,47,178,3,Best design,2023-04-04T00:00:00
-453,75,171,1,Wonderful design,2020-11-07T00:00:00
-454,49,127,3,Without question design,2022-10-28T00:00:00
-455,2,128,2,Excellent design,2024-12-31T00:00:00
-456,83,88,5,Certainly design,2022-04-23T00:00:00
-457,69,63,4,Fantastic design,2022-08-02T00:00:00
-458,50,93,5,Definitely design,2021-12-03T00:00:00
-459,18,154,3,Best design,2020-01-12T00:00:00
-460,90,163,3,Wonderful design,2020-07-09T00:00:00
-461,51,3,3,Absolutely design,2021-05-12T00:00:00
-462,62,55,2,Excellent design,2021-05-11T00:00:00
-463,98,38,2,Positively design,2020-12-30T00:00:00
-464,5,90,4,Fantastic design,2021-08-31T00:00:00
-465,99,73,4,Assuredly design,2020-02-08T00:00:00
-466,37,118,4,Best design,2020-10-09T00:00:00
-467,35,177,5,Wonderful design,2023-04-24T00:00:00
-468,1,198,4,Undoubtedly design,2023-01-09T00:00:00
-469,45,97,3,Excellent design,2020-02-04T00:00:00
-470,84,130,3,Unquestionably design,2021-12-13T00:00:00
-471,80,172,4,Fantastic design,2022-09-12T00:00:00
-472,59,159,4,Indisputably design,2024-12-10T00:00:00
-473,74,132,2,Best design,2020-03-04T00:00:00
-474,18,72,3,Wonderful design,2022-11-10T00:00:00
-475,50,10,5,Incontestably design,2024-03-14T00:00:00
-476,92,152,1,Excellent design,2021-11-03T00:00:00
-477,15,75,4,Unarguably design,2022-04-06T00:00:00
-478,26,179,5,Fantastic design,2020-05-31T00:00:00
-479,14,77,2,Without a doubt design,2024-12-04T00:00:00
-480,52,102,2,Best design,2020-09-24T00:00:00
-481,96,137,3,Wonderful design,2021-08-13T00:00:00
-482,5,9,4,For certain design,2021-07-06T00:00:00
-483,90,88,4,Excellent design,2023-11-13T00:00:00
-484,75,173,2,For sure design,2022-08-31T00:00:00
-485,60,52,5,Fantastic design,2020-06-10T00:00:00
-486,29,56,5,No doubt design,2020-02-06T00:00:00
-487,81,37,2,Best design,2022-03-05T00:00:00
-488,94,114,1,Wonderful design,2022-04-27T00:00:00
-489,3,114,3,Beyond question design,2024-11-04T00:00:00
-490,13,136,3,Excellent design,2021-02-08T00:00:00
-491,89,36,5,Without question design,2023-03-01T00:00:00
-492,21,127,5,Fantastic design,2023-05-05T00:00:00
-493,29,20,4,Certainly design,2023-02-03T00:00:00
-494,16,23,4,Best design,2023-01-08T00:00:00
-495,57,47,4,Wonderful design,2023-11-17T00:00:00
-496,8,11,3,"Great product, exceeded my expectations!",2021-01-17T00:00:00
-497,7,47,4,"Terrible quality, waste of money",2022-09-13T00:00:00
-498,40,162,1,"Good value for the price, would recommend",2022-12-17T00:00:00
-499,75,124,4,Disappointed with the durability,2024-05-27T00:00:00
-500,12,168,5,"Amazing customer service, will buy again",2022-10-31T00:00:00
-501,25,194,2,Not as described in the listing,2024-05-19T00:00:00
-502,85,174,5,Perfect for my needs,2023-04-08T00:00:00
-503,74,166,4,"Arrived damaged, very upset",2022-05-04T00:00:00
-504,80,3,1,Excellent quality and fast shipping,2023-03-20T00:00:00
-505,76,180,2,Worst purchase I've ever made,2021-03-29T00:00:00
-506,76,84,2,"Decent product, nothing special",2020-09-02T00:00:00
-507,2,153,2,Highly satisfied with this purchase,2023-06-19T00:00:00
-508,72,36,1,"Poor packaging, item was broken",2024-05-09T00:00:00
-509,7,84,4,Fantastic experience from start to finish,2022-02-25T00:00:00
-510,61,117,5,"Below average, expected better",2024-05-07T00:00:00
-511,44,70,4,Impressive performance and design,2020-04-29T00:00:00
-512,62,169,3,"Completely useless, returned immediately",2024-11-04T00:00:00
-513,33,156,3,Very happy with my purchase,2024-02-03T00:00:00
-514,80,40,4,Not worth the price tag,2024-11-02T00:00:00
-515,33,76,4,Outstanding value and quality,2023-04-16T00:00:00
-516,66,160,4,Mediocre at best,2022-05-07T00:00:00
-517,22,136,5,Absolutely love it!,2024-01-12T00:00:00
-518,57,157,4,Defective out of the box,2024-12-29T00:00:00
-519,39,8,4,Perfect match for what I wanted,2022-12-19T00:00:00
-520,54,193,5,Disappointing and overpriced,2020-02-20T00:00:00
-521,70,139,3,Excellent craftsmanship,2023-03-09T00:00:00
-522,18,9,1,Broke after one week of use,2022-03-15T00:00:00
-523,34,123,5,Couldn't be happier,2021-12-10T00:00:00
-524,73,92,3,Terrible customer service,2020-06-23T00:00:00
-525,38,61,4,Best purchase this year,2021-09-29T00:00:00
-526,52,9,4,Low quality materials,2024-10-08T00:00:00
-527,71,37,3,"Stunning design, works perfectly",2020-10-24T00:00:00
-528,15,37,5,"Refund requested, very unsatisfied",2023-06-18T00:00:00
-529,41,154,3,Highly recommend to everyone,2022-03-21T00:00:00
-530,21,126,3,Not as advertised,2020-09-11T00:00:00
-531,32,189,5,"Exceptional product, great price",2024-09-13T00:00:00
-532,74,200,4,Fell apart quickly,2022-08-13T00:00:00
-533,78,136,4,Delighted with my purchase,2023-06-30T00:00:00
-534,18,125,5,Complete disaster,2021-04-18T00:00:00
-535,35,38,5,Beautiful and functional,2021-09-03T00:00:00
-536,3,190,4,Stopped working after a month,2022-06-22T00:00:00
-537,15,157,3,"Love it, definitely buying more",2021-01-18T00:00:00
-538,64,120,5,Waste of time and money,2023-06-19T00:00:00
-539,40,17,5,Impressive quality for the cost,2023-08-19T00:00:00
-540,89,69,3,Major defects found,2023-01-13T00:00:00
-541,78,84,5,Absolutely fantastic,2024-05-31T00:00:00
-542,37,182,3,Poor design and functionality,2024-01-16T00:00:00
-543,33,45,2,Five stars without hesitation,2021-08-11T00:00:00
-544,17,76,5,Regret buying this,2022-10-28T00:00:00
-545,44,183,2,Superb in every way,2023-11-11T00:00:00
-546,62,86,5,Cheap and flimsy,2023-01-25T00:00:00
-547,18,193,5,Thrilled with the results,2024-11-26T00:00:00
-548,3,38,5,Not what I expected at all,2023-02-23T00:00:00
-549,35,83,4,Incredible value,2020-06-30T00:00:00
-550,74,41,5,Flawed product,2020-04-06T00:00:00
-551,76,18,4,Perfect purchase,2023-06-08T00:00:00
-552,17,117,3,Disappointing quality,2023-12-08T00:00:00
-553,6,53,3,Amazing craftsmanship,2024-04-05T00:00:00
-554,79,55,4,Falls short of expectations,2020-02-25T00:00:00
-555,32,163,4,Would buy again in a heartbeat,2023-06-28T00:00:00
-556,38,144,5,Frustrating experience,2022-01-11T00:00:00
-557,51,95,5,Brilliant product,2024-03-22T00:00:00
-558,49,109,3,Completely broken upon arrival,2020-05-08T00:00:00
-559,50,162,4,Extremely satisfied,2020-03-28T00:00:00
-560,26,178,4,Worthless item,2023-04-09T00:00:00
-561,19,8,5,Outstanding service and product,2022-05-25T00:00:00
-562,36,126,4,Subpar quality,2020-01-07T00:00:00
-563,33,153,5,Couldn't ask for better,2020-12-27T00:00:00
-564,48,18,5,Poorly made,2020-12-22T00:00:00
-565,77,159,4,Fantastic value for money,2020-05-28T00:00:00
-566,52,2,4,Defective unit received,2020-07-11T00:00:00
-567,39,50,4,Brilliant purchase,2023-09-09T00:00:00
-568,30,101,2,Inferior to competitors,2022-07-16T00:00:00
-569,34,135,2,Best in class,2024-12-22T00:00:00
-570,44,61,5,Damaged in shipping,2023-08-28T00:00:00
-571,84,118,3,Absolutely wonderful,2022-02-02T00:00:00
-572,90,85,5,Cheap quality,2021-06-26T00:00:00
-573,48,6,5,Highly impressed,2021-11-24T00:00:00
-574,80,83,4,Failed after minimal use,2021-09-12T00:00:00
-575,74,100,5,Fantastic experience,2022-04-21T00:00:00
-576,93,82,5,Not durable at all,2024-12-27T00:00:00
-577,66,197,4,Superb quality and service,2020-06-27T00:00:00
-578,22,87,4,Completely unhappy,2024-07-01T00:00:00
-579,34,31,5,Excellent all around,2022-08-05T00:00:00
-580,29,149,5,Broke immediately,2024-03-11T00:00:00
-581,83,154,4,Thrilled with quality,2022-04-07T00:00:00
-582,37,45,2,Misleading product description,2021-10-04T00:00:00
-583,37,93,2,Perfect in every way,2023-02-11T00:00:00
-584,59,78,4,Substandard materials,2024-02-22T00:00:00
-585,57,88,2,Amazing experience,2024-08-17T00:00:00
-586,60,4,4,Product fell apart,2021-07-10T00:00:00
-587,78,76,4,Best value ever,2023-07-08T00:00:00
-588,51,62,5,Disappointing purchase,2022-05-15T00:00:00
-589,35,174,2,Wonderful quality,2021-02-23T00:00:00
-590,56,192,2,Defects throughout,2020-09-20T00:00:00
-591,71,185,5,Extremely happy,2023-12-18T00:00:00
-592,77,167,3,Poor attention to detail,2022-05-10T00:00:00
-593,13,102,5,Fantastic product,2022-02-01T00:00:00
-594,13,108,3,Quality issues,2022-03-05T00:00:00
-595,15,127,4,Delighted by quality,2024-02-06T00:00:00
-596,48,154,2,Not as good as expected,2020-02-20T00:00:00
-597,81,80,4,Excellent customer support,2022-05-29T00:00:00
-598,28,189,4,Malfunctioning item,2020-07-19T00:00:00
-599,57,26,4,Perfect quality,2023-02-15T00:00:00
-600,1,136,5,Inferior design,2022-04-06T00:00:00
+1,97,12,5,Great product! Exceeded my expectations and arrived quickly.,2023-04-08
+2,61,64,5,The quality is outstanding. Highly recommend to anyone looking for value.,2023-03-12
+3,51,18,4,"Decent purchase, but shipping took longer than expected.",2024-05-03
+4,27,75,4,Absolutely love it! Best decision I made this month.,2020-05-12
+5,64,146,3,Not what I expected. The description was misleading.,2022-08-25
+6,79,187,2,Excellent customer service. They resolved my issue immediately.,2020-10-09
+7,8,171,3,"Good for the price, though could use some improvements.",2020-06-24
+8,55,21,5,Fantastic! Exactly as pictured and very well made.,2021-11-18
+9,64,38,3,Disappointed with the durability. Broke after a few weeks.,2021-12-18
+10,20,96,4,Amazing quality and fast delivery. Very satisfied!,2024-12-06
+11,24,3,4,Waste of money. Stopped working after one month.,2022-12-19
+12,62,45,4,Solid product. Nothing fancy but gets the job done.,2023-02-11
+13,47,198,5,Love the design! Looks great in my home.,2021-03-14
+14,37,44,5,Poor packaging resulted in damage upon arrival.,2021-08-07
+15,99,19,4,Worth every penny. Exceeded all my expectations.,2023-04-20
+16,91,10,4,Average product. Nothing special about it.,2022-09-24
+17,58,22,5,Impressive performance. Much better than competitors.,2021-03-10
+18,57,27,4,Terrible experience. Would not recommend.,2024-10-18
+19,20,20,5,Perfect! Exactly what I was looking for.,2023-03-14
+20,35,29,3,The color is different from the online image.,2021-11-18
+21,51,112,4,Superb quality and excellent customer support.,2020-10-04
+22,66,20,5,Broke on the second day of use. Very disappointed.,2020-04-25
+23,98,14,4,Good value for money. Satisfied with my purchase.,2022-02-13
+24,49,186,5,The material feels cheap and low quality.,2023-10-14
+25,100,76,5,Brilliant! Works perfectly as described.,2022-09-04
+26,90,188,5,Took forever to arrive but product is great.,2024-12-02
+27,58,86,5,Not satisfied. Doesn't work as advertised.,2021-10-21
+28,54,132,1,Highly satisfied. Great product at a fair price.,2021-05-13
+29,17,35,1,The instructions were unclear and confusing.,2023-07-20
+30,49,183,3,Fantastic purchase! Already recommended to friends.,2024-02-20
+31,3,165,4,Overpriced for what you get.,2023-03-15
+32,29,24,1,Excellent! Exactly as described in the listing.,2024-06-08
+33,17,59,4,Very disappointed with the build quality.,2022-11-05
+34,93,82,5,Amazing! This is my second purchase.,2023-03-04
+35,66,156,4,The product arrived damaged and customer service was unhelpful.,2023-04-17
+36,16,135,5,Love it! Great quality and fast shipping.,2024-08-27
+37,96,124,1,Not worth the hype. Lots of better alternatives.,2023-01-07
+38,81,187,4,Perfect for my needs. Highly recommended.,2024-03-24
+39,7,132,4,The product is okay but customer service was rude.,2020-01-21
+40,33,28,3,Outstanding quality. Will definitely buy again.,2023-05-20
+41,42,133,5,Cheap materials and poor construction.,2022-09-05
+42,77,77,2,Fantastic experience from start to finish.,2022-09-17
+43,31,167,5,The item is smaller than expected.,2023-06-16
+44,26,56,3,Highly impressed with the quality and design.,2020-05-16
+45,76,71,3,Disappointed. Not as good as the reviews suggested.,2022-10-07
+46,66,136,4,Excellent product and speedy delivery.,2022-03-15
+47,96,90,4,The product works but feels flimsy.,2021-12-04
+48,26,4,4,Best purchase I've made in a long time!,2021-05-11
+49,25,86,4,Terrible quality for the price charged.,2024-03-15
+50,9,40,3,Great! Arrived on time and in perfect condition.,2024-11-16
+51,100,178,5,The functionality is limited compared to competitors.,2024-08-22
+52,3,26,3,Love the design and quality. Very happy!,2024-12-18
+53,9,14,2,Product is defective. Requesting a refund.,2021-07-06
+54,55,122,4,Excellent all around. Very satisfied customer.,2023-06-02
+55,21,20,4,The stitching came undone after minimal use.,2022-03-21
+56,98,11,3,Perfect quality and excellent value.,2023-02-11
+57,7,69,3,Not as described. Very disappointed.,2023-03-21
+58,76,71,4,Amazing product! Exceeded expectations.,2022-01-14
+59,88,102,4,The customer service team was extremely helpful.,2023-12-31
+60,65,26,4,Poor quality control. Multiple issues found.,2021-03-28
+61,47,156,3,Fantastic! Best money spent on this category.,2021-07-09
+62,37,142,3,The product stopped working after a few months.,2022-03-21
+63,41,104,5,Great quality and reasonable pricing.,2021-12-21
+64,13,43,4,Misleading product images. Not as advertised.,2022-04-29
+65,99,55,4,Highly recommend! Fantastic product.,2023-07-16
+66,77,63,5,The battery life is much shorter than claimed.,2021-10-09
+67,59,135,1,Excellent craftsmanship and attention to detail.,2024-04-18
+68,40,194,5,Disappointing purchase. Expected much better.,2024-02-29
+69,18,118,4,Love it! Great value for money.,2021-03-20
+70,47,63,5,The color faded quickly with normal use.,2021-12-21
+71,96,41,4,Outstanding product. Very impressed!,2024-10-23
+72,80,157,5,Not satisfied with the overall quality.,2021-04-23
+73,3,48,4,Perfect! Everything arrived as expected.,2020-07-10
+74,87,34,5,The product is fragile and broke easily.,2023-04-18
+75,43,11,4,Fantastic! Worth the investment.,2023-07-11
+76,63,187,3,Cheap and flimsy. Poor quality overall.,2022-12-29
+77,26,193,5,Excellent service and high-quality product.,2024-06-16
+78,31,172,5,The product doesn't match the description at all.,2021-02-09
+79,45,173,2,Love everything about this purchase!,2022-08-17
+80,2,92,4,The sizing is completely wrong.,2021-03-09
+81,52,50,3,Great product at an unbeatable price.,2021-06-23
+82,64,93,1,Very disappointed with my purchase.,2021-08-19
+83,79,34,5,Fantastic quality and excellent support.,2023-03-05
+84,97,17,5,The material is not as durable as promised.,2020-04-06
+85,46,53,2,Perfect! Exactly what I needed.,2020-12-12
+86,42,76,4,Poor customer service experience.,2024-12-12
+87,75,187,3,Highly satisfied with this product.,2021-04-01
+88,65,28,4,The product is defective right out of the box.,2022-08-11
+89,53,172,5,Excellent! Will purchase again.,2024-02-17
+90,78,82,1,Not worth the money. Many better options.,2022-08-24
+91,2,139,4,Amazing! Best product in its category.,2024-05-30
+92,70,78,4,The packaging was damaged and product too.,2021-12-23
+93,73,195,5,Great quality! Very happy with purchase.,2024-06-27
+94,84,7,4,The product is poorly designed.,2020-06-26
+95,61,147,5,Outstanding! Highly recommend to everyone.,2020-10-02
+96,5,70,5,Disappointed with the overall experience.,2020-01-29
+97,67,60,3,Love this product! Great quality.,2023-03-25
+98,44,11,3,The stitching is loose and coming apart.,2022-08-28
+99,98,104,3,Fantastic purchase! Very satisfied.,2020-05-14
+100,6,20,3,The product is not durable.,2024-05-04
+101,94,138,3,Perfect! Couldn't ask for better.,2022-04-03
+102,10,38,4,Terrible quality. Waste of money.,2024-10-14
+103,14,39,2,Excellent! Best decision ever.,2023-03-14
+104,42,50,5,The product doesn't work as advertised.,2021-08-02
+105,53,67,2,Great! Very pleased with purchase.,2021-03-13
+106,71,173,4,The material feels cheap.,2020-05-12
+107,59,122,3,Fantastic! Highly recommended.,2023-12-31
+108,94,32,2,Not satisfied at all.,2024-08-30
+109,55,140,1,Amazing quality and fast service!,2022-12-21
+110,25,177,3,The product is poorly made.,2022-04-05
+111,20,78,4,Excellent value for money.,2022-07-20
+112,90,191,4,Disappointed with the quality.,2023-12-31
+113,12,137,5,Love it! Best purchase ever.,2024-05-10
+114,21,93,3,The product stopped working.,2022-12-31
+115,41,140,4,Great! Just as described.,2022-03-16
+116,21,174,4,Not as good as expected.,2024-03-28
+117,31,70,5,Fantastic! Very happy.,2022-01-09
+118,69,148,4,The quality is subpar.,2020-02-17
+119,91,94,3,Perfect! Exactly right.,2021-07-13
+120,84,84,4,Terrible experience.,2020-09-26
+121,19,61,4,Excellent! Highly satisfied.,2024-11-19
+122,69,9,5,The product is defective.,2022-07-08
+123,59,16,4,Great! Will buy again.,2024-01-14
+124,16,89,5,Not good quality.,2021-02-12
+125,76,48,5,Amazing! Love it!,2023-07-24
+126,47,174,5,The product broke.,2023-07-20
+127,8,17,3,Fantastic! Great value.,2023-08-13
+128,23,174,5,Poor quality overall.,2021-10-10
+129,83,21,4,Excellent! Very impressed.,2023-03-14
+130,91,90,2,Disappointed overall.,2023-09-26
+131,58,130,4,Love this! Perfect.,2023-02-14
+132,71,5,4,The product is cheap.,2023-09-18
+133,30,31,5,Great! Highly recommend.,2022-03-06
+134,46,156,2,Not satisfied.,2020-04-09
+135,42,128,4,Fantastic quality!,2020-10-05
+136,83,111,3,The product failed.,2024-07-26
+137,87,77,4,Perfect! Amazing!,2024-07-03
+138,81,104,1,Terrible! Awful!,2021-03-06
+139,46,175,1,Excellent! Great!,2020-11-13
+140,5,63,4,Not as described.,2024-01-24
+141,17,128,4,Love it! Amazing!,2024-03-06
+142,13,1,4,The quality is poor.,2023-10-24
+143,75,118,3,Good! Satisfied.,2024-03-09
+144,4,37,5,Not good.,2020-04-09
+145,26,128,4,Fantastic! Best!,2023-12-25
+146,55,28,5,The product sucks.,2020-09-05
+147,82,186,4,Great! Perfect!,2021-05-05
+148,32,164,4,Disappointed.,2023-08-12
+149,38,175,4,Excellent! Wow!,2021-07-15
+150,11,133,4,The product is bad.,2020-09-17
+151,98,117,5,Amazing! Love!,2021-03-25
+152,47,176,4,Not worth it.,2024-01-24
+153,6,17,5,Fantastic! Yes!,2024-07-10
+154,79,129,5,The quality failed.,2021-12-29
+155,45,96,2,Good product overall.,2021-08-11
+156,71,79,5,Not recommended.,2024-05-02
+157,83,137,1,Excellent! Happy!,2022-06-11
+158,23,24,4,The product broke.,2022-07-20
+159,20,98,5,Great! Awesome!,2022-04-01
+160,63,129,4,Not satisfied.,2023-01-31
+161,93,2,5,Love it so much!,2024-03-23
+162,16,53,4,The product is terrible.,2020-05-28
+163,97,100,5,Perfect! Wonderful!,2020-01-04
+164,38,31,2,Disappointing purchase.,2023-01-15
+165,47,157,4,Excellent! Fantastic!,2024-08-26
+166,48,108,4,The product is useless.,2024-05-10
+167,19,54,3,Great! Very good!,2020-09-06
+168,98,194,4,Not good at all.,2023-08-13
+169,2,23,5,Fantastic! Superb!,2024-08-05
+170,58,65,5,The quality is awful.,2023-09-15
+171,39,79,4,Amazing! Incredible!,2023-07-07
+172,91,166,4,Not as advertised.,2024-06-06
+173,13,55,4,Excellent! Outstanding!,2020-12-01
+174,26,2,5,The product failed.,2021-09-28
+175,89,37,2,Great! Wonderful!,2022-05-21
+176,82,142,2,Disappointed with it.,2024-10-22
+177,72,169,4,Love it! Perfect!,2020-03-06
+178,11,77,5,The product is weak.,2023-05-30
+179,39,31,5,Fantastic! Excellent!,2022-05-23
+180,72,95,4,Not what I wanted.,2021-08-17
+181,49,46,5,Perfect! Amazing!,2020-12-14
+182,24,78,2,The quality stinks.,2021-01-14
+183,39,63,3,Great! Brilliant!,2024-02-28
+184,90,21,2,Not satisfied here.,2024-11-09
+185,17,125,4,Excellent! Marvelous!,2020-08-27
+186,34,91,4,The product is broken.,2021-10-12
+187,62,150,1,Amazing! Wonderful!,2024-10-23
+188,62,71,4,Not recommended here.,2022-02-23
+189,50,89,4,Fantastic! Splendid!,2023-09-01
+190,17,73,3,The product failed me.,2023-08-13
+191,13,154,5,Great! Superb!,2020-06-15
+192,39,40,2,Disappointed greatly.,2022-04-08
+193,40,64,5,Love it! Excellent!,2023-09-19
+194,88,93,4,The quality is bad.,2024-02-14
+195,46,168,3,Perfect! Fantastic!,2022-12-07
+196,68,197,5,Not good here.,2022-10-28
+197,23,10,4,Excellent! Wonderful!,2023-04-13
+198,65,118,3,The product broke down.,2020-05-22
+199,65,55,4,Great! Incredible!,2021-07-16
+200,88,142,5,Not satisfied at all.,2022-01-02
+201,75,60,3,Fantastic! Marvelous!,2022-12-08
+202,75,14,1,The product is awful.,2024-11-11
+203,45,92,5,Amazing! Perfect!,2022-09-04
+204,42,149,2,Not as expected here.,2024-07-09
+205,45,169,3,Excellent! Splendid!,2023-10-20
+206,36,145,3,The product failed.,2024-01-08
+207,37,49,3,Great! Fantastic!,2023-01-29
+208,52,74,5,Disappointed with quality.,2022-09-04
+209,52,181,5,Love it! Amazing!,2024-09-17
+210,18,141,5,The product is poor.,2024-06-22
+211,5,139,4,Perfect! Excellent!,2024-05-01
+212,57,83,4,Not what I got.,2020-04-11
+213,27,45,5,Fantastic! Wonderful!,2021-11-19
+214,5,130,5,The product is bad.,2023-02-23
+215,60,197,3,Great! Marvelous!,2023-06-11
+216,93,193,5,Not recommended.,2020-04-22
+217,13,66,5,Excellent! Fantastic!,2022-01-05
+218,96,106,5,The quality is awful.,2022-11-03
+219,17,55,4,Amazing! Superb!,2024-12-08
+220,63,65,4,Not satisfied here.,2021-11-07
+221,52,182,3,Fantastic! Perfect!,2021-09-02
+222,7,38,5,The product broke.,2020-06-24
+223,60,177,4,Great! Excellent!,2024-10-07
+224,3,57,5,Disappointed overall.,2023-03-17
+225,76,62,4,Love it! Wonderful!,2021-02-02
+226,10,191,5,The product is weak.,2022-04-03
+227,76,22,3,Perfect! Splendid!,2023-12-27
+228,17,19,4,Not good quality.,2022-04-16
+229,22,15,5,Excellent! Marvelous!,2020-08-15
+230,98,199,2,The product failed.,2023-11-23
+231,15,78,3,Great! Perfect!,2020-03-03
+232,55,11,3,Not satisfied.,2021-05-10
+233,83,142,5,Fantastic! Excellent!,2024-01-13
+234,44,104,5,The quality stinks.,2021-01-22
+235,3,82,5,Amazing! Fantastic!,2021-07-17
+236,80,13,4,Not as advertised.,2021-07-10
+237,5,124,4,Excellent! Wonderful!,2023-05-14
+238,84,141,4,The product is broken.,2022-06-23
+239,12,158,2,Great! Wonderful!,2023-09-17
+240,83,130,5,Disappointed.,2021-02-01
+241,8,174,4,Love it! Perfect!,2023-08-02
+242,30,127,4,The product is bad.,2021-03-05
+243,93,48,5,Perfect! Fantastic!,2024-10-21
+244,10,40,4,Not recommended.,2020-11-10
+245,38,135,3,Fantastic! Marvelous!,2021-10-24
+246,47,2,1,The product failed.,2021-02-12
+247,53,168,4,Great! Incredible!,2022-11-23
+248,24,102,2,Not satisfied.,2023-07-24
+249,23,173,4,Excellent! Splendid!,2020-09-18
+250,49,6,3,The quality is awful.,2020-04-05
+251,74,199,4,Amazing! Excellent!,2023-04-06
+252,10,63,4,Not as expected.,2023-03-23
+253,93,146,4,Fantastic! Wonderful!,2023-10-11
+254,56,83,1,The product broke.,2022-02-04
+255,13,72,4,Great! Fantastic!,2020-03-24
+256,21,43,4,Disappointed.,2024-04-10
+257,54,103,5,Love it! Excellent!,2023-07-01
+258,77,169,2,The product is poor.,2022-01-15
+259,36,92,4,Perfect! Wonderful!,2021-04-22
+260,65,144,1,Not good.,2021-10-10
+261,87,114,3,Excellent! Marvelous!,2022-04-06
+262,67,65,5,The product failed.,2023-12-13
+263,29,104,4,Great! Splendid!,2020-06-19
+264,19,80,3,Not satisfied.,2021-06-27
+265,47,110,5,Fantastic! Perfect!,2021-09-27
+266,56,67,4,The quality is bad.,2024-10-18
+267,24,25,2,Amazing! Wonderful!,2024-03-19
+268,93,63,2,Not recommended.,2024-09-23
+269,2,39,4,Excellent! Fantastic!,2022-04-21
+270,35,197,5,The product is broken.,2021-11-25
+271,87,163,5,Great! Marvelous!,2021-08-10
+272,14,19,4,Disappointed.,2022-09-12
+273,20,118,5,Love it! Fantastic!,2022-12-26
+274,51,177,4,The product is weak.,2022-11-20
+275,81,192,4,Perfect! Excellent!,2022-10-07
+276,51,109,5,Not what I expected.,2020-12-02
+277,68,192,4,Fantastic! Excellent!,2020-09-07
+278,71,85,5,The product failed.,2022-06-27
+279,36,2,5,Great! Wonderful!,2023-09-25
+280,81,145,4,Not satisfied.,2022-07-07
+281,98,173,4,Excellent! Wonderful!,2022-06-18
+282,20,111,4,The quality stinks.,2020-08-06
+283,96,65,5,Amazing! Perfect!,2020-04-18
+284,33,33,2,Not as advertised.,2024-01-10
+285,24,101,3,Fantastic! Splendid!,2022-12-24
+286,33,62,5,The product broke.,2021-11-22
+287,1,119,5,Great! Fantastic!,2024-02-18
+288,95,165,3,Disappointed.,2023-06-06
+289,50,38,3,Love it! Wonderful!,2023-11-27
+290,64,117,5,The product is bad.,2021-11-13
+291,54,76,4,Perfect! Marvelous!,2023-07-05
+292,16,197,4,Not good.,2024-07-28
+293,82,25,5,Excellent! Excellent!,2020-07-27
+294,65,164,5,The product is useless.,2024-07-07
+295,76,7,5,Great! Perfect!,2021-06-30
+296,68,38,3,Not satisfied.,2024-05-22
+297,8,123,5,Fantastic! Wonderful!,2024-08-12
+298,99,163,4,The quality is awful.,2024-08-12
+299,85,35,4,Amazing! Fantastic!,2023-02-25
+300,26,110,5,Not recommended.,2022-02-21
+301,7,20,4,Excellent! Marvelous!,2020-12-12
+302,40,133,1,The product failed.,2024-05-21
+303,6,192,4,Great! Excellent!,2020-09-01
+304,98,19,5,Disappointed.,2020-06-08
+305,73,192,5,Love it! Perfect!,2020-10-14
+306,63,39,2,The product is poor.,2023-06-03
+307,89,62,4,Perfect! Wonderful!,2021-05-09
+308,17,66,3,Not what I got.,2023-06-15
+309,15,87,3,Fantastic! Fantastic!,2023-12-15
+310,68,144,4,The product broke.,2021-11-25
+311,71,155,4,Great! Splendid!,2020-01-09
+312,85,181,5,Not satisfied.,2024-06-07
+313,32,41,5,Excellent! Excellent!,2021-03-23
+314,35,152,5,The quality is bad.,2020-09-28
+315,25,81,2,Amazing! Wonderful!,2022-02-25
+316,66,153,3,Not as expected.,2020-01-24
+317,1,143,5,Fantastic! Perfect!,2022-01-02
+318,16,121,3,The product failed.,2023-12-21
+319,51,154,5,Great! Wonderful!,2020-05-23
+320,61,163,4,Disappointed.,2024-05-31
+321,50,67,4,Love it! Excellent!,2021-07-08
+322,12,107,3,The product is weak.,2023-07-01
+323,18,21,3,Perfect! Fantastic!,2021-03-12
+324,94,184,4,Not good.,2022-03-16
+325,96,80,5,Excellent! Wonderful!,2021-04-08
+326,77,47,4,The product is broken.,2022-06-12
+327,4,150,4,Great! Marvelous!,2023-06-22
+328,66,103,5,Not satisfied.,2023-04-24
+329,2,54,4,Fantastic! Excellent!,2023-03-26
+330,53,19,4,The quality stinks.,2022-09-05
+331,3,105,4,Amazing! Splendid!,2022-09-22
+332,35,68,4,Not recommended.,2020-07-01
+333,81,80,4,Excellent! Perfect!,2022-09-29
+334,68,89,3,The product failed.,2020-08-20
+335,86,164,4,Great! Fantastic!,2022-07-26
+336,6,114,2,Disappointed.,2023-12-17
+337,2,102,3,Love it! Wonderful!,2024-09-09
+338,55,190,3,The product is bad.,2023-03-07
+339,53,65,5,Perfect! Excellent!,2023-07-30
+340,10,31,5,Not what I wanted.,2023-06-01
+341,95,54,3,Fantastic! Marvelous!,2024-09-27
+342,86,83,4,The product broke.,2020-12-26
+343,53,191,5,Great! Wonderful!,2021-11-10
+344,18,153,4,Not satisfied.,2023-11-08
+345,1,90,5,Excellent! Wonderful!,2021-12-13
+346,49,164,2,The quality is awful.,2022-12-30
+347,79,22,4,Amazing! Fantastic!,2024-11-25
+348,76,171,3,Not as advertised.,2020-07-17
+349,22,18,2,Fantastic! Excellent!,2023-05-22
+350,4,173,5,The product is useless.,2024-10-29
+351,88,144,1,Great! Perfect!,2022-07-12
+352,40,44,2,Disappointed.,2020-10-18
+353,35,80,3,Love it! Perfect!,2022-10-27
+354,77,67,5,The product is poor.,2024-04-06
+355,81,127,5,Perfect! Wonderful!,2020-04-20
+356,57,10,3,Not good.,2021-02-21
+357,9,191,3,Excellent! Splendid!,2020-08-22
+358,56,200,5,The product failed.,2023-06-18
+359,38,83,5,Great! Fantastic!,2023-12-04
+360,25,102,4,Not satisfied.,2022-01-27
+361,27,139,4,Fantastic! Wonderful!,2023-10-04
+362,42,127,1,The quality is bad.,2020-02-08
+363,63,8,2,Amazing! Excellent!,2020-04-21
+364,37,99,4,Not recommended.,2024-02-28
+365,44,154,4,Excellent! Marvelous!,2021-09-24
+366,50,172,4,The product broke.,2020-06-17
+367,38,27,2,Great! Wonderful!,2021-10-25
+368,87,149,2,Disappointed.,2022-11-13
+369,12,129,3,Love it! Fantastic!,2023-05-31
+370,11,151,5,The product is weak.,2023-04-17
+371,81,174,5,Perfect! Perfect!,2021-06-04
+372,29,162,3,Not as expected.,2021-09-23
+373,89,175,5,Fantastic! Excellent!,2024-09-14
+374,81,116,5,The product failed.,2022-01-30
+375,7,196,4,Great! Splendid!,2022-07-03
+376,69,167,5,Not satisfied.,2021-07-23
+377,80,96,5,Excellent! Wonderful!,2023-01-08
+378,95,129,5,The quality stinks.,2021-12-21
+379,34,76,3,Amazing! Wonderful!,2023-06-24
+380,41,194,5,Not what I got.,2023-03-26
+381,45,200,4,Fantastic! Perfect!,2023-03-29
+382,30,178,4,The product is broken.,2023-05-02
+383,70,114,5,Great! Marvelous!,2024-11-20
+384,9,44,5,Disappointed.,2021-11-18
+385,71,101,5,Love it! Wonderful!,2021-10-05
+386,52,14,3,The product is bad.,2021-05-28
+387,35,87,3,Perfect! Fantastic!,2021-05-13
+388,35,134,3,Not good.,2020-07-02
+389,10,3,5,Excellent! Excellent!,2020-12-19
+390,84,73,4,The product is useless.,2024-12-03
+391,35,151,4,Great! Fantastic!,2020-04-15
+392,67,145,5,Not satisfied.,2024-03-13
+393,52,156,3,Fantastic! Wonderful!,2020-01-14
+394,12,176,5,The quality is awful.,2024-01-09
+395,17,154,4,Amazing! Perfect!,2023-09-05
+396,81,144,4,Not recommended.,2024-06-15
+397,24,127,4,Excellent! Wonderful!,2022-06-01
+398,71,179,5,The product failed.,2021-05-28
+399,16,93,2,Great! Excellent!,2020-01-01
+400,62,74,4,Disappointed.,2023-05-28
+401,24,2,3,Love it! Excellent!,2021-08-20
+402,21,197,2,The product is poor.,2022-01-24
+403,88,75,3,Perfect! Wonderful!,2021-01-03
+404,97,3,3,Not as advertised.,2022-04-09
+405,43,100,5,Fantastic! Splendid!,2023-10-14
+406,86,85,5,The product broke.,2021-07-08
+407,88,133,4,Great! Wonderful!,2020-06-17
+408,45,100,1,Not satisfied.,2020-11-29
+409,98,25,2,Excellent! Marvelous!,2021-10-20
+410,41,70,5,The quality is bad.,2023-04-16
+411,75,103,4,Amazing! Fantastic!,2020-09-12
+412,37,82,3,Not what I expected.,2023-05-21
+413,80,36,5,Fantastic! Perfect!,2021-01-30
+414,8,62,3,The product failed.,2024-04-29
+415,62,115,5,Great! Perfect!,2024-05-19
+416,71,122,3,Disappointed.,2022-03-31
+417,52,120,4,Love it! Wonderful!,2022-09-29
+418,29,54,4,The product is weak.,2020-04-02
+419,62,125,2,Perfect! Excellent!,2022-12-29
+420,7,60,4,Not good.,2022-12-08
+421,93,82,5,Excellent! Wonderful!,2022-05-27
+422,92,40,3,The product is broken.,2023-08-21
+423,7,91,5,Great! Splendid!,2020-03-05
+424,28,160,3,Not satisfied.,2023-05-01
+425,48,148,3,Fantastic! Excellent!,2023-12-30
+426,97,118,1,The quality stinks.,2024-07-14
+427,45,137,3,Amazing! Wonderful!,2021-05-18
+428,13,200,3,Not recommended.,2024-04-13
+429,57,132,4,Fantastic! Marvelous!,2024-09-19
+430,31,167,4,The product is useless.,2024-02-20
+431,23,53,5,Great! Fantastic!,2021-04-27
+432,47,102,3,Disappointed.,2022-08-30
+433,9,198,4,Love it! Perfect!,2024-09-03
+434,19,190,4,The product is bad.,2023-08-19
+435,43,17,5,Perfect! Wonderful!,2021-07-16
+436,24,148,4,Not as expected.,2023-08-22
+437,79,121,3,Excellent! Excellent!,2023-12-21
+438,88,157,4,The product failed.,2023-02-21
+439,71,95,5,Great! Wonderful!,2020-04-28
+440,54,110,5,Not satisfied.,2020-04-03
+441,60,161,4,Fantastic! Wonderful!,2022-08-05
+442,78,81,1,The quality is awful.,2022-03-16
+443,64,128,2,Amazing! Excellent!,2021-09-11
+444,41,161,5,Not what I got.,2023-01-29
+445,92,189,1,Excellent! Perfect!,2022-05-27
+446,19,116,4,The product broke.,2021-07-24
+447,79,29,4,Great! Marvelous!,2023-02-12
+448,84,184,4,Disappointed.,2020-11-04
+449,37,29,3,Love it! Fantastic!,2024-07-11
+450,40,23,4,The product is poor.,2021-09-18
+451,62,95,4,Perfect! Splendid!,2021-12-28
+452,59,161,5,Not good.,2020-05-02
+453,88,95,2,Fantastic! Wonderful!,2023-05-09
+454,27,46,4,The product failed.,2023-12-10
+455,17,156,1,Great! Excellent!,2021-11-19
+456,51,116,5,Not satisfied.,2023-10-31
+457,1,8,4,Excellent! Wonderful!,2024-05-02
+458,26,76,3,The quality is bad.,2020-11-14
+459,54,34,4,Amazing! Perfect!,2024-10-19
+460,87,180,5,Not recommended.,2022-07-06
+461,56,183,1,Fantastic! Excellent!,2023-12-26
+462,52,128,1,The product is broken.,2020-05-24
+463,43,47,4,Great! Wonderful!,2021-07-10
+464,79,73,2,Disappointed.,2022-05-28
+465,60,144,3,Love it! Wonderful!,2020-06-16
+466,6,93,4,The product is weak.,2020-02-02
+467,70,189,4,Perfect! Fantastic!,2023-04-12
+468,19,105,4,Not as advertised.,2023-05-21
+469,94,113,3,Excellent! Marvelous!,2022-12-18
+470,38,50,2,The product failed.,2020-08-14
+471,36,100,5,Great! Perfect!,2022-03-08
+472,31,59,4,Not satisfied.,2021-09-16
+473,13,1,4,Fantastic! Wonderful!,2020-05-11
+474,96,104,4,The quality stinks.,2020-05-02
+475,92,24,5,Amazing! Fantastic!,2024-01-20
+476,65,81,2,Not what I expected.,2023-06-01
+477,67,99,1,Excellent! Excellent!,2023-06-19
+478,49,102,4,The product broke.,2023-11-15
+479,44,196,5,Great! Splendid!,2020-04-21
+480,14,159,5,Disappointed.,2020-02-02
+481,79,153,5,Love it! Perfect!,2021-01-08
+482,43,199,1,The product is bad.,2020-04-26
+483,76,112,5,Perfect! Wonderful!,2020-05-17
+484,51,156,5,Not good.,2022-03-08
+485,32,4,4,Fantastic! Perfect!,2020-08-26
+486,90,39,5,The product is useless.,2020-06-11
+487,25,35,5,Great! Fantastic!,2023-09-05
+488,36,134,4,Not satisfied.,2024-12-06
+489,58,194,4,Excellent! Wonderful!,2020-01-29
+490,39,83,5,The quality is awful.,2020-04-01
+491,30,104,5,Amazing! Wonderful!,2021-08-07
+492,27,95,4,Not recommended.,2020-01-17
+493,72,171,4,Fantastic! Marvelous!,2023-05-25
+494,86,104,4,The product failed.,2021-07-14
+495,74,8,5,Great! Wonderful!,2021-04-27
+496,75,200,4,Disappointed.,2024-01-30
+497,58,69,1,Love it! Excellent!,2024-12-05
+498,84,177,4,The product is poor.,2022-12-06
+499,2,158,5,Perfect! Excellent!,2024-09-02
+500,86,185,4,Not as expected.,2021-05-30
+501,31,194,4,Excellent! Excellent!,2021-10-22
+502,73,72,4,The product broke.,2024-07-29
+503,67,115,5,Great! Marvelous!,2023-06-28
+504,60,8,2,Not satisfied.,2020-02-13
+505,6,176,5,Fantastic! Wonderful!,2023-01-04
+506,97,171,4,The quality is bad.,2023-11-05
+507,58,116,3,Amazing! Excellent!,2022-07-24
+508,22,88,4,Not what I got.,2021-04-10
+509,2,5,4,Excellent! Perfect!,2023-01-02
+510,46,12,3,The product failed.,2020-08-01
+511,97,77,5,Great! Perfect!,2021-03-30
+512,50,43,5,Disappointed.,2024-04-18
+513,21,36,2,Love it! Wonderful!,2023-02-09
+514,18,53,4,The product is weak.,2022-08-30
+515,58,200,4,Perfect! Wonderful!,2023-12-14
+516,10,145,5,Not good.,2023-07-12
+517,73,37,5,Fantastic! Excellent!,2022-03-02
+518,4,36,4,The product is broken.,2021-05-27
+519,74,1,4,Great! Splendid!,2022-03-20
+520,94,119,4,Not satisfied.,2020-08-13
+521,84,133,2,Excellent! Marvelous!,2021-08-15
+522,12,120,3,The quality stinks.,2023-10-29
+523,76,54,4,Amazing! Perfect!,2022-03-15
+524,37,6,2,Not recommended.,2020-11-05
+525,19,13,4,Fantastic! Wonderful!,2022-01-13
+526,92,187,5,The product is useless.,2023-11-23
+527,4,35,5,Great! Fantastic!,2020-10-01
+528,6,163,2,Disappointed.,2023-01-10
+529,81,100,1,Great product! Exceeded my expectations and arrived quickly.,2022-10-07
+530,2,146,4,The quality is outstanding. Highly recommend to anyone looking for value.,2021-12-08
+531,56,191,5,"Decent purchase, but shipping took longer than expected.",2024-11-09
+532,13,146,3,Absolutely love it! Best decision I made this month.,2022-04-23
+533,73,44,5,Not what I expected. The description was misleading.,2021-03-19
+534,80,120,4,Excellent customer service. They resolved my issue immediately.,2022-04-05
+535,8,173,3,"Good for the price, though could use some improvements.",2022-09-15
+536,58,185,4,Fantastic! Exactly as pictured and very well made.,2021-09-27
+537,65,19,4,Disappointed with the durability. Broke after a few weeks.,2020-05-20
+538,24,164,2,Amazing quality and fast delivery. Very satisfied!,2020-02-09
+539,17,198,3,Waste of money. Stopped working after one month.,2021-09-03
+540,79,11,5,Solid product. Nothing fancy but gets the job done.,2022-03-17
+541,25,112,5,Love the design! Looks great in my home.,2024-07-12
+542,59,135,4,Poor packaging resulted in damage upon arrival.,2023-03-03
+543,83,144,2,Worth every penny. Exceeded all my expectations.,2024-12-02
+544,38,59,2,Average product. Nothing special about it.,2020-08-28
+545,25,169,2,Impressive performance. Much better than competitors.,2022-08-16
+546,28,21,1,Terrible experience. Would not recommend.,2021-03-10
+547,12,53,4,Perfect! Exactly what I was looking for.,2020-06-27
+548,83,56,4,The color is different from the online image.,2023-04-08
+549,97,55,1,Superb quality and excellent customer support.,2021-12-03
+550,10,176,2,Broke on the second day of use. Very disappointed.,2024-06-19
+551,26,157,2,Good value for money. Satisfied with my purchase.,2020-02-17
+552,92,158,3,The material feels cheap and low quality.,2024-02-29
+553,24,84,5,Brilliant! Works perfectly as described.,2023-07-06
+554,24,54,4,Took forever to arrive but product is great.,2023-12-05
+555,96,51,4,Not satisfied. Doesn't work as advertised.,2020-07-31
+556,77,145,3,Highly satisfied. Great product at a fair price.,2021-10-15
+557,99,88,5,The instructions were unclear and confusing.,2021-11-28
+558,63,53,5,Fantastic purchase! Already recommended to friends.,2020-11-25
+559,48,62,3,Overpriced for what you get.,2021-01-06
+560,94,84,4,Excellent! Exactly as described in the listing.,2020-03-06
+561,56,37,5,Very disappointed with the build quality.,2024-08-01
+562,84,136,3,Amazing! This is my second purchase.,2020-07-07
+563,42,126,4,The product arrived damaged and customer service was unhelpful.,2023-08-09
+564,44,160,3,Love it! Great quality and fast shipping.,2022-12-12
+565,54,63,2,Not worth the hype. Lots of better alternatives.,2020-07-15
+566,15,122,4,Perfect for my needs. Highly recommended.,2023-11-16
+567,38,87,3,The product is okay but customer service was rude.,2020-09-10
+568,8,1,4,Outstanding quality. Will definitely buy again.,2020-09-02
+569,56,32,4,Cheap materials and poor construction.,2020-04-20
+570,84,66,3,Fantastic experience from start to finish.,2022-11-03
+571,60,44,1,The item is smaller than expected.,2020-11-28
+572,44,14,5,Highly impressed with the quality and design.,2021-08-18
+573,30,43,1,Disappointed. Not as good as the reviews suggested.,2024-11-20
+574,22,93,2,Excellent product and speedy delivery.,2020-01-27
+575,47,79,4,The product works but feels flimsy.,2020-03-12
+576,1,124,4,Best purchase I've made in a long time!,2022-04-17
+577,85,32,5,Terrible quality for the price charged.,2020-02-16
+578,66,140,5,Great! Arrived on time and in perfect condition.,2020-08-02
+579,85,144,4,The functionality is limited compared to competitors.,2024-02-21
+580,1,7,5,Love the design and quality. Very happy!,2020-04-05
+581,79,35,5,Product is defective. Requesting a refund.,2020-10-21
+582,6,88,4,Excellent all around. Very satisfied customer.,2023-12-16
+583,84,34,4,The stitching came undone after minimal use.,2022-11-14
+584,64,72,3,Perfect quality and excellent value.,2020-04-24
+585,59,36,5,Not as described. Very disappointed.,2024-12-05
+586,44,116,4,Amazing product! Exceeded expectations.,2022-01-17
+587,26,41,2,The customer service team was extremely helpful.,2021-08-08
+588,68,87,3,Poor quality control. Multiple issues found.,2020-11-02
+589,30,179,1,Fantastic! Best money spent on this category.,2024-08-07
+590,54,32,5,The product stopped working after a few months.,2023-06-20
+591,80,23,2,Great quality and reasonable pricing.,2022-11-29
+592,38,64,2,Misleading product images. Not as advertised.,2024-01-10
+593,32,144,2,Highly recommend! Fantastic product.,2024-06-23
+594,54,197,4,The battery life is much shorter than claimed.,2024-06-11
+595,64,33,4,Excellent craftsmanship and attention to detail.,2021-08-18
+596,80,152,5,Disappointing purchase. Expected much better.,2020-12-22
+597,14,111,4,Love it! Great value for money.,2024-05-29
+598,30,120,2,The color faded quickly with normal use.,2021-02-03
+599,35,52,5,Outstanding product. Very impressed!,2024-06-14
+600,46,96,5,Not satisfied with the overall quality.,2021-11-04
