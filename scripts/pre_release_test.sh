@@ -237,6 +237,7 @@ run_import_check "jsonref"            "import jsonref"
 run_import_check "dotenv"             "import dotenv"
 run_import_check "yaml"               "import yaml"
 run_import_check "genai_prices"       "from genai_prices import calc_price"
+run_import_check "jinja2"             "import jinja2"
 run_import_check "boto3"              "import boto3"
 run_import_check "azure.storage.blob" "from azure.storage.blob import BlobServiceClient"
 run_import_check "pdfplumber"         "import pdfplumber"
@@ -348,11 +349,10 @@ else
   warn "GROK_API_KEY not set — skipping large_dataset/postgres example"
 fi
 
-# CLI large dataset demo (shell script, uses installed syda binary)
-SYDA_CLI_BIN="$ENV_DIR/bin/syda"
+# CLI large dataset demo (shell script — put test env on PATH so syda is found)
 if [[ -n "${GROK_API_KEY:-}" ]]; then
   info "Running CLI large dataset demo..."
-  if GROK_API_KEY="$GROK_API_KEY" \
+  if PATH="$ENV_DIR/bin:$PATH" GROK_API_KEY="$GROK_API_KEY" \
      bash "$PROJECT_ROOT/examples/cli/demo_large_dataset.sh" 2>&1; then
     pass "CLI large dataset demo"
   else

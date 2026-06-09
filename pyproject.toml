@@ -75,9 +75,8 @@ dependencies = [
     "sqlalchemy-utils>=0.41.1",
     "networkx>=3.1",
     "pydantic-ai>=1.0.0",
+    "jinja2>=3.0.0",
     "weasyprint>=65.1",
-    "jsonref>=1.1.0",
-    "google-genai>=1.30.0",
     "click>=8.0.0",
     "genai-prices>=0.0.1"
 ]
