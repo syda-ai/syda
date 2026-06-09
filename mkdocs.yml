@@ -73,12 +73,13 @@ nav:
   - Home: 
       Introduction: index.md
       Quick Start: quickstart.md
-  - Deep Dive: 
+  - Deep Dive:
       - Structured Data: 'deep_dive/structured_data.md'
       - Foreign Keys: 'deep_dive/foreign_keys.md'
       - Unstructured Documents: 'deep_dive/unstructured_documents.md'
       - Custom Generators: 'deep_dive/custom_generators.md'
       - Combined Data: 'deep_dive/combined_data.md'
+      - Large Datasets: 'deep_dive/large_dataset.md'
       - Model Configuration: 'deep_dive/model_configuration.md'
       - Output Options: 'deep_dive/output_options.md'
       - Database Integration: 'deep_dive/database_integration.md'

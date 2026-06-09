@@ -135,10 +135,12 @@ print("📂 Check the 'data' folder for categories.csv and products.csv")
 | **Multiple Schema Formats** | Flexible input options | SQLAlchemy, YAML, JSON, Dict |
 | **Document Generation** | AI-powered PDFs linked to data | Product catalogs, receipts, contracts |
 | **Custom Generators** | Complex business logic | Tax calculations, pricing rules, arrays |
+| **Large Dataset Support** | Thousands to millions of rows | Code-gen mode: 10,000 rows with ~3 LLM calls |
 | **Privacy-First** | Protect real user data | GDPR/CCPA compliant testing |
 | **Database Integration** | Any SQLAlchemy-compatible database | `DatabaseSchemaLoader("postgresql://...")` → generate → write back |
-| **CLI** | No Python required | `syda generate --schema patients.yaml --rows 100` |
-| **Developer Experience** | Just works | Type hints, great docs |
+| **CLI** | No Python required | `syda generate --schema patients.yaml --rows 1000 --large-dataset` |
+| **Cost Tracking** | Know what you're spending | Per-table & per-column breakdown via `genai-prices` |
+| **Developer Experience** | Just works | Type hints, great docs, HTML run reports |
 
 
 ## Retail Example
@@ -852,6 +854,15 @@ syda generate --schema patients.yaml --rows 50 --output patients.json
 
 # Multi-table directory → FK-safe CSV output
 syda generate --schema schemas/ --rows 100 --output-dir ./data
+
+# Large dataset — chunked direct mode (3 LLM calls of 50 rows each)
+syda generate --schema schemas/product.yml --rows 150 --batch-size 50 --output-dir ./data
+
+# Large dataset — code-gen mode (auto-triggered above 500 rows)
+syda generate --schema schemas/ --rows 2000 --output-dir ./data
+
+# Force code-gen for any row count
+syda generate --schema schemas/ --rows 50 --large-dataset --output-dir ./data
 ```
 
 ### Database workflows
@@ -882,6 +893,85 @@ syda db generate --db-url postgresql://user:pass@localhost/mydb \
 
 > 📖 Full CLI reference: [python.syda.ai/deep_dive/cli](https://python.syda.ai/deep_dive/cli)
 
+
+## Generate Large Datasets
+
+Syda has two modes that scale to thousands or millions of rows without blowing your token budget.
+
+### Direct mode — chunked LLM calls
+
+Split generation into `batch_size`-row chunks with automatic retry on transient errors:
+
+```python
+generator = SyntheticDataGenerator(
+    model_config=ModelConfig(
+        provider="anthropic",
+        model_name="claude-haiku-4-5-20251001",
+        generation_mode="auto",  # direct ≤500 rows, codegen >500
+        batch_size=50,           # rows per LLM call
+        max_retries=3,
+    )
+)
+results = generator.generate_for_schemas(schemas=schemas, sample_sizes={"products": 300}, output_dir="output")
+# [syda] Generating chunk 1/6 (rows 1–50 of 300)...
+# [syda] Generating chunk 2/6 (rows 51–100 of 300)...
+# ...
+```
+
+### Code-gen mode — LLM writes Python, runs locally
+
+For > 500 rows (auto-selected) or via `generation_mode="codegen"`, the LLM makes **one analysis call** that writes Python generator functions for simple columns (IDs, dates, enums, emails). Only semantic columns (descriptions, narratives) call the LLM at runtime — regardless of row count.
+
+```python
+# 10,000 rows, ~3 LLM calls total (1 analysis + 2 semantic columns)
+generator = SyntheticDataGenerator(
+    model_config=ModelConfig(provider="grok", model_name="grok-3", max_tokens=16384)
+)
+generator.generate_for_schemas(schemas=schemas, sample_sizes={"orders": 10_000}, output_dir="output")
+```
+
+Generated Python functions are cached under `output_dir/.syda_cache/` — re-runs are instant on cache hits.
+
+### force_llm column flag
+
+Need specific columns to always use LLM generation in code-gen mode? Mark them `force_llm: true` in the schema:
+
+```yaml
+tagline:
+  type: text
+  description: Short marketing tagline (one punchy sentence)
+  force_llm: true   # always LLM-generated, never replaced by a Python function
+```
+
+### Cost tracking
+
+Every run produces a cost breakdown accessible via `generator.last_report` and saved as an HTML report in `output_dir/`:
+
+```python
+generator.last_report.print_summary()
+# Table         Rows  Mode     Calls   In tok  Out tok  Cost
+# products       200  direct       4    2,168   15,291  $0.24
+# orders       5,000  codegen    100   28,300   25,201  $0.46
+# order_items 10,000  codegen      0        0        0  $0.00
+# TOTAL       15,200             104   30,468   40,492  $0.70
+```
+
+### CLI
+
+```bash
+# Chunked direct mode
+syda generate --schema schemas/product.yml --rows 300 --batch-size 50 --output-dir ./data
+
+# Auto code-gen (>500 rows)
+syda generate --schema schemas/product.yml --rows 1000 --output-dir ./data
+
+# Force code-gen
+syda generate --schema schemas/ --rows 5000 --large-dataset --output-dir ./data
+```
+
+> 📖 Full guide: [python.syda.ai/deep_dive/large_dataset](https://python.syda.ai/deep_dive/large_dataset)
+
+---
 
 ## Use Any OpenAI-Compatible Model
 
@@ -959,20 +1049,19 @@ Looking for ways to contribute? Check out issues labeled:
 If you use **SYDA** in your research, publications, or products, please cite it as follows:
 
 **APA:**
-> Lingamgunta, R. K. K. (2025). Syda - AI-Powered Synthetic Data Generation (v0.0.4). Zenodo. https://doi.org/10.5281/zenodo.17345575
+> Lingamgunta, R. K. K. (2025). Syda - AI-Powered Synthetic Data Generation (v0.2.0). Zenodo. https://doi.org/10.5281/zenodo.17345575
 
 **IEEE:**
-> [1]R. K. K. Lingamgunta, “Syda - AI-Powered Synthetic Data Generation”. Zenodo, Oct. 14, 2025. doi: 10.5281/zenodo.17345575.  
+> [1]R. K. K. Lingamgunta, “Syda - AI-Powered Synthetic Data Generation”. Zenodo, 2025. doi: 10.5281/zenodo.17345575.
 
 **BibTeX:**
 ```bibtex
 @software{Lingamgunta_Syda_-_AI-Powered_2025,
 author = {Lingamgunta, Rama Krishna Kumar},
 license = {MIT},
-month = oct,
 title = {{Syda - AI-Powered Synthetic Data Generation}},
 url = {https://github.com/syda-ai/syda},
-version = {0.0.4},
+version = {0.2.0},
 year = {2025}
 }
 

@@ -155,6 +155,8 @@ syda generate \
 | `--base-url URL` | | — | Base URL for `openai_compatible` providers (e.g. Ollama). |
 | `--prompt TEXT` | | — | Context prompt applied to all schemas during generation. |
 | `--temperature FLOAT` | | model default | Sampling temperature `0.0`–`1.0`. |
+| `--batch-size N` | | auto | Max rows per LLM call in direct mode. Auto-selected when omitted. |
+| `--large-dataset` | | off | Force code-gen mode: LLM writes Python generators; only semantic columns call the LLM at runtime. Auto-enabled when `--rows > 500`. |
 
 !!! note "Output rules"
     - `--output` is for a single schema file only.
@@ -334,7 +336,58 @@ All error messages are written to stdout with a descriptive `Error:` prefix, mak
 
 ---
 
-## Example
+---
+
+## Large Dataset Generation
+
+For tables with hundreds of thousands of rows, syda provides two scale modes selectable via CLI flags.
+
+### Direct mode with chunking (`--batch-size`)
+
+Split generation into chunks of N rows per LLM call. Useful when the default auto-selection is too large or too small for your token budget.
+
+```bash
+syda generate \
+  --schema schemas/product.yml \
+  --rows 300 \
+  --batch-size 50 \
+  --output-dir ./data
+# prints: [syda] Generating chunk 1/6 (rows 1–50 of 300)...
+```
+
+### Code-gen mode (`--large-dataset` or `--rows > 500`)
+
+LLM makes **one analysis call** that classifies each column as `simple` (IDs, dates, enums — generates a Python function) or `semantic` (descriptions, notes, narratives — calls LLM at runtime). Simple columns run entirely locally; only semantic columns make further LLM calls — regardless of row count.
+
+```bash
+# Auto-triggered for > 500 rows
+syda generate --schema schemas/product.yml --rows 1000 --output-dir ./data
+
+# Force code-gen even for small row counts
+syda generate --schema schemas/product.yml --rows 50 --large-dataset --output-dir ./data
+```
+
+The generated Python functions are saved under `output_dir/.syda_cache/` and reused on subsequent runs (cache hit = no analysis call).
+
+### Multi-table large dataset
+
+```bash
+syda generate \
+  --schema schemas/ \
+  --rows 5000 \
+  --large-dataset \
+  --provider grok \
+  --model grok-3 \
+  --output-dir ./data
+```
+
+FK columns are automatically wired to sample from already-generated parent tables. Each table is flushed to disk as soon as it completes, keeping RAM bounded.
+
+> See [`examples/cli/demo_large_dataset.sh`](https://github.com/syda-ai/syda/blob/main/examples/cli/demo_large_dataset.sh) for a fully runnable demo covering all four modes.
+
+---
+
+## Examples
 
 A complete runnable bash demo is available at [`examples/cli/demo.sh`](https://github.com/syda-ai/syda/blob/main/examples/cli/demo.sh). It covers all 10 workflows end-to-end using healthcare schemas and a SQLite database.
 
@@ -342,4 +395,12 @@ A complete runnable bash demo is available at [`examples/cli/demo.sh`](https://g
 cd examples/cli
 chmod +x demo.sh
 ./demo.sh
+```
+
+For large dataset workflows:
+
+```bash
+cd examples/cli
+chmod +x demo_large_dataset.sh
+./demo_large_dataset.sh
 ```
