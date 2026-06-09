@@ -72,7 +72,7 @@ cd schema_inference && python -m pytest test_modules.py -v
 
 9. **Output** — `save_dataframe(s)` (`output.py`) writes CSV or JSON to disk. When `output_dir` is set on `generate_for_schemas()`, every table is flushed to disk immediately after generation and the in-memory result is slimmed to FK columns only (to keep RAM bounded). **Examples that access `results[schema_name]` after the call must reload from the saved CSV** — the in-memory DataFrame will be empty or FK-only.
 
-10. **Observability** — `RunReport` / `TableReport` / `ColumnReport` (`run_report.py`) capture per-column strategy (`fk_sampler` | `codegen_simple` | `codegen_semantic` | `direct_llm`), token counts, cost (via `genai-prices`), and cache hit/miss. Always accessible via `generator.last_report` after a run. An HTML report is auto-saved to `output_dir/run_report_<timestamp>.html` when `output_dir` is set.
+10. **Observability** — `RunReport` / `TableReport` / `ColumnReport` (`run_report.py`) capture per-column strategy (`fk_sampler` | `codegen_simple` | `codegen_semantic` | `direct_llm`), token counts, cost, and cache hit/miss. Always accessible via `generator.last_report` after a run. An HTML report is auto-saved to `output_dir/run_report_<timestamp>.html` when `output_dir` is set.
 
 ## Output directory layout (dbt-style)
 
@@ -112,7 +112,7 @@ results = generator.generate_for_schemas(schemas=schema_files, ...)
 - `force_llm: true` on a column forces LLM generation in codegen mode regardless of cache state.
 - `_generate_data_with_llm()` returns a `(df, in_tok, out_tok)` tuple — never unpack as a single value.
 - When `output_dir` is set, never rely on the returned `results` dict for full DataFrames — read from the saved CSVs instead.
-- Cost estimation uses `genai-prices` (`pip install genai-prices`) — supports 600+ models. Fallback to 0.0 if the model is unrecognised.
+- Cost estimation is automatic — fallback to 0.0 if the model is unrecognised.
 - `result.usage` is a property in pydantic-ai ≥1.0 — never call it as `result.usage()`.
 - Conventional commits required: `feat(scope):`, `fix(scope):`, `docs:`, `test:`, `refactor:`.
 - DCO: all commits must use `git commit -s`.

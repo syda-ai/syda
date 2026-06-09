@@ -451,7 +451,7 @@ This gives you direct access to provider-specific features while still using SYD
 6. **Set `max_tokens` High for Code-gen**: Code-gen analysis calls return Python code; use `max_tokens=8192+` to avoid truncation
 7. **Use extra_kwargs for Customization**: Leverage `extra_kwargs` for enterprise deployments and custom configurations
 8. **Secure API Keys**: Never hardcode API keys; always use environment variables or secure key management
-9. **Monitor Cost**: Check `generator.last_report` after runs — cost is tracked per table and per column via `genai-prices`
+9. **Monitor Cost**: Check `generator.last_report` after runs — cost is tracked per table and per column automatically
 
 
 
