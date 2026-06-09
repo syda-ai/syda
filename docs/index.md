@@ -71,6 +71,6 @@ Syda seamlessly generate realistic synthetic test data - structured, unstructure
 - **Observability & Cost Tracking**
 
     * Per-run `RunReport` with per-table and per-column breakdown of strategy, token counts, and cost
-    * Cost calculated via `genai-prices` — supports 600+ models across all providers
+    * Cost calculated automatically for all supported providers and models
     * HTML run report auto-saved to `output_dir/run_report_<timestamp>.html` after every run
     * Access programmatically via `generator.last_report` after any generation

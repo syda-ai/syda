@@ -187,7 +187,7 @@ order_items       10000  codegen       0         0         0  $0.00
 TOTAL             18700              174    53,668   108,288  $1.79
 ```
 
-Cost is calculated via [genai-prices](https://github.com/pydantic/genai-prices), which supports 600+ models across all providers.
+Cost is calculated automatically for all supported providers and models.
 
 Accessing programmatically:
 

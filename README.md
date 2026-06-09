@@ -139,7 +139,7 @@ print("📂 Check the 'data' folder for categories.csv and products.csv")
 | **Privacy-First** | Protect real user data | GDPR/CCPA compliant testing |
 | **Database Integration** | Any SQLAlchemy-compatible database | `DatabaseSchemaLoader("postgresql://...")` → generate → write back |
 | **CLI** | No Python required | `syda generate --schema patients.yaml --rows 1000 --large-dataset` |
-| **Cost Tracking** | Know what you're spending | Per-table & per-column breakdown via `genai-prices` |
+| **Cost Tracking** | Know what you're spending | Per-table & per-column cost breakdown in every run report |
 | **Developer Experience** | Just works | Type hints, great docs, HTML run reports |
 
 
