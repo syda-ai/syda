@@ -106,10 +106,36 @@ results = generator.generate_for_schemas(schemas=schema_files, ...)
 ## Key Conventions
 
 - All public configuration goes through `ModelConfig` (Pydantic); never pass raw dicts to `LLMClient`.
+- `ModelConfig` large-dataset fields: `generation_mode: Literal['auto','direct','codegen'] = 'auto'`, `batch_size: Optional[int] = None` (auto-selected when None), `max_retries: int = 3`.
 - Generator functions registered with `GeneratorManager` have signature `fn(row: pd.Series, col_name: str) -> Any`.
 - Schema dict format: top-level keys are column names, values are dicts with at minimum a `"type"` key. A `"_meta"` key holds table-level metadata (description, primary keys, etc.) and is stripped before passing to the LLM.
 - `force_llm: true` on a column forces LLM generation in codegen mode regardless of cache state.
+- `_generate_data_with_llm()` returns a `(df, in_tok, out_tok)` tuple — never unpack as a single value.
 - When `output_dir` is set, never rely on the returned `results` dict for full DataFrames — read from the saved CSVs instead.
 - Cost estimation uses `genai-prices` (`pip install genai-prices`) — supports 600+ models. Fallback to 0.0 if the model is unrecognised.
 - `result.usage` is a property in pydantic-ai ≥1.0 — never call it as `result.usage()`.
 - Conventional commits required: `feat(scope):`, `fix(scope):`, `docs:`, `test:`, `refactor:`.
+- DCO: all commits must use `git commit -s`.
+
+## Examples Directory
+
+```
+examples/
+  cli/
+    demo.sh                     # 10-step CLI demo (healthcare + SQLite)
+    demo_large_dataset.sh       # large dataset CLI demo (direct/codegen/multi-table)
+    schemas/                    # patient.yml, provider.yml, appointment.yml
+    schemas_large/              # product.yml, order.yml (for large dataset demo)
+  force_llm/
+    example_force_llm.py        # 600-row product catalog with force_llm columns
+    schema_products.yml
+  large_dataset/
+    example_large_dataset_postgres.py  # 18k-row e-commerce demo (Grok-3 + PostgreSQL)
+  model_selection/
+    example_claude_models.py    # Haiku / Sonnet / Opus comparison
+  structured_only/
+    example_dict_schemas.py
+    example_yaml_schemas.py
+  health_insurance_claims/      # unstructured PDF + structured CSV demo
+  quickstart_output_data/       # output from README quickstart
+```
