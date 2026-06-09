@@ -161,27 +161,6 @@ In this example, `product_id` and `category` run locally; `tagline` and `descrip
 
 ---
 
-## Memory Management
-
-When `output_dir` is set, each table is **flushed to disk immediately** after it completes. Only FK columns are kept in RAM for child-table generation. This keeps peak memory at `1 chunk × row_size` regardless of total row count.
-
-!!! warning "Reloading from disk"
-    When `output_dir` is set, the in-memory `results` dict returned by `generate_for_schemas()` contains only FK columns for tables > threshold (not the full DataFrame). Always reload from the saved CSV for post-generation analysis:
-
-    ```python
-    import pandas as pd
-
-    generator.generate_for_schemas(schemas=schemas, output_dir="output", ...)
-
-    # Reload from disk — the in-memory result may be FK-only
-    results = {
-        name: pd.read_csv(f"output/{name.lower()}.csv")
-        for name in schemas
-    }
-    ```
-
----
-
 ## Observability & Cost Tracking
 
 Every run produces a `RunReport` accessible at `generator.last_report`. An HTML version is auto-saved to `output_dir/run_report_<timestamp>.html`.
@@ -230,7 +209,6 @@ import pandas as pd
 import os
 
 load_dotenv()
-
 generator = SyntheticDataGenerator(
     model_config=ModelConfig(
         provider="anthropic",
@@ -254,7 +232,7 @@ sample_sizes = {
 
 output_dir = "output"
 
-generator.generate_for_schemas(
+results = generator.generate_for_schemas(
     schemas=schemas,
     sample_sizes=sample_sizes,
     output_dir=output_dir,
@@ -264,14 +242,9 @@ generator.generate_for_schemas(
     },
 )
 
-# Reload from disk (in-memory result is FK-only after flush)
-results = {
-    name: pd.read_csv(os.path.join(output_dir, f"{name}.csv"))
-    for name in schemas
-}
-
 print(f"Products: {len(results['products'])} rows")
 print(f"Orders:   {len(results['orders'])} rows")
+
 
 # Cost summary
 generator.last_report.print_summary()
