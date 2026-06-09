@@ -233,6 +233,57 @@ You can fine-tune model behavior with these parameters:
 | `temperature` | Controls randomness in generation | 0.0-1.0 | None |
 | `max_tokens` | Maximum tokens to generate | Integer | None |
 | `max_completion_tokens` | Maximum completion tokens to generate for latest openai models | Integer | None |
+| `batch_size` | Max rows per LLM call in direct mode. Auto-selected when `None`. | Integer > 0 | None |
+| `max_retries` | Exponential-backoff retry attempts per chunk on transient API errors | Integer ≥ 0 | 3 |
+| `generation_mode` | `'auto'` (default), `'direct'` (always chunked LLM), `'codegen'` (LLM writes Python functions) | string | `'auto'` |
+
+### Large Dataset Configuration
+
+For tables with many rows, configure the generation mode explicitly:
+
+```python
+from syda import SyntheticDataGenerator, ModelConfig
+
+# Auto mode: direct for ≤500 rows, code-gen for >500 (recommended default)
+config = ModelConfig(
+    provider="anthropic",
+    model_name="claude-haiku-4-5-20251001",
+    generation_mode="auto",   # default
+    batch_size=50,            # max rows per LLM call in direct mode
+    max_retries=3,            # retries on transient API errors
+)
+
+# Force code-gen regardless of row count
+config = ModelConfig(
+    provider="grok",
+    model_name="grok-3",
+    generation_mode="codegen",
+    max_tokens=16384,
+)
+```
+
+**How `generation_mode` works:**
+
+| Mode | When it applies | LLM calls |
+|---|---|---|
+| `direct` | Always chunked LLM calls | `ceil(N / batch_size)` calls |
+| `codegen` | LLM writes Python functions for simple columns; LLM generates only semantic columns | 1 analysis call + N_semantic column calls |
+| `auto` | `direct` when N ≤ 500, `codegen` when N > 500 | Depends on size |
+
+Code-gen functions are cached under `output_dir/.syda_cache/` — re-runs skip the analysis call entirely on a cache hit.
+
+### force_llm Column Flag
+
+In code-gen mode, a column can be forced to always use LLM generation (even if the cache has a Python function for it) by setting `force_llm: true` in the schema YAML:
+
+```yaml
+description:
+  type: text
+  description: Marketing description for the product (2-3 sentences)
+  force_llm: true   # always LLM-generated, never replaced by a Python function
+```
+
+This is useful for narrative, creative, or context-sensitive columns that should remain AI-generated even when the rest of the table runs locally.
 
 ## Advanced Configuration with extra_kwargs
 
@@ -396,10 +447,11 @@ This gives you direct access to provider-specific features while still using SYD
 2. **Adjust Temperature**: Lower for more consistent results, higher for more variety
 3. **Consider Cost vs. Quality**: Higher-end models provide better quality but at higher cost
 4. **Test Different Models**: Compare results from different models for your specific use case
-5. **Handle API Rate Limits**: Implement appropriate backoff strategies for large generations
-6. **Select Highest Output Token Model for Higher Sample Sizes**: For larger sample sizes, use models with higher `max_tokens`
+5. **Large Datasets**: Use `generation_mode="auto"` (default) — it auto-selects code-gen for >500 rows, reducing API calls by orders of magnitude
+6. **Set `max_tokens` High for Code-gen**: Code-gen analysis calls return Python code; use `max_tokens=8192+` to avoid truncation
 7. **Use extra_kwargs for Customization**: Leverage `extra_kwargs` for enterprise deployments and custom configurations
 8. **Secure API Keys**: Never hardcode API keys; always use environment variables or secure key management
+9. **Monitor Cost**: Check `generator.last_report` after runs — cost is tracked per table and per column via `genai-prices`
 
 
 

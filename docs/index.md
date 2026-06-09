@@ -58,3 +58,19 @@ Syda seamlessly generate realistic synthetic test data - structured, unstructure
 
     * Register column- or type-specific functions for domain-specific data
     * Contextual generators that adapt to other fields (like ICD-10 codes based on demographics)
+
+- **Large Dataset Generation**
+
+    * Chunked direct mode: splits large row counts into `batch_size` LLM calls with exponential-backoff retry
+    * Code-gen mode: LLM writes Python generator functions for simple columns; only semantic/narrative columns call the LLM at runtime — dramatically fewer API calls at scale
+    * Auto-select: `direct` for ≤ 500 rows, `codegen` for > 500 rows (configurable)
+    * Code-gen cache: generated `.py` files saved under `output_dir/.syda_cache/` — re-runs are instant on schema cache hits
+    * `force_llm: true` column flag forces specific columns to always use LLM generation, even in code-gen mode
+    * CLI flags: `--batch-size N` and `--large-dataset` for terminal-based large dataset workflows
+
+- **Observability & Cost Tracking**
+
+    * Per-run `RunReport` with per-table and per-column breakdown of strategy, token counts, and cost
+    * Cost calculated via `genai-prices` — supports 600+ models across all providers
+    * HTML run report auto-saved to `output_dir/run_report_<timestamp>.html` after every run
+    * Access programmatically via `generator.last_report` after any generation
