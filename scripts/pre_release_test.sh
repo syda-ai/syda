@@ -189,6 +189,8 @@ run_import_check "syda.schema_loader module"         "import syda.schema_loader"
 run_import_check "syda.custom_generators module"     "import syda.custom_generators"
 run_import_check "syda.dependency_handler module"    "import syda.dependency_handler"
 run_import_check "syda.unstructured module"          "import syda.unstructured"
+run_import_check "syda.codegen_cache module"         "from syda.codegen_cache import CodegenCache, compute_schema_hash"
+run_import_check "syda.run_report module"            "from syda.run_report import RunReport, TableReport, ColumnReport"
 
 # CLI entry point smoke test
 SYDA_BIN="$ENV_DIR/bin/syda"
@@ -206,7 +208,8 @@ fi
 header "Step 7: Public API surface (__all__)"
 if "$PY" -c "
 import syda
-expected = {'SyntheticDataGenerator', 'ModelConfig', 'DatabaseSchemaLoader'}
+expected = {'SyntheticDataGenerator', 'ModelConfig', 'DatabaseSchemaLoader',
+            'CodegenCache', 'compute_schema_hash', 'RunReport', 'TableReport', 'ColumnReport'}
 actual = set(syda.__all__)
 missing = expected - actual
 if missing:
@@ -233,6 +236,7 @@ run_import_check "networkx"           "import networkx"
 run_import_check "jsonref"            "import jsonref"
 run_import_check "dotenv"             "import dotenv"
 run_import_check "yaml"               "import yaml"
+run_import_check "genai_prices"       "from genai_prices import calc_price"
 run_import_check "boto3"              "import boto3"
 run_import_check "azure.storage.blob" "from azure.storage.blob import BlobServiceClient"
 run_import_check "pdfplumber"         "import pdfplumber"
@@ -273,6 +277,7 @@ fi
 
 [[ -n "${ANTHROPIC_API_KEY:-}" ]] && pass "ANTHROPIC_API_KEY found" || warn "ANTHROPIC_API_KEY not set"
 [[ -n "${OPENAI_API_KEY:-}"    ]] && pass "OPENAI_API_KEY found"    || warn "OPENAI_API_KEY not set"
+[[ -n "${GROK_API_KEY:-}"      ]] && pass "GROK_API_KEY found"      || warn "GROK_API_KEY not set — Grok examples will be skipped"
 [[ -n "${DB_HOST:-}" ]] && pass "DB_HOST found" || warn "DB_HOST not set — database examples may fail"
 
 run_example() {
@@ -293,6 +298,23 @@ run_example() {
     fi
   fi
 }
+
+# quickstart
+run_example "quickstart" "$EXAMPLES_DIR/quickstart.py"
+
+# structured_only
+run_example "structured_only/dict_schemas" \
+  "$EXAMPLES_DIR/structured_only/example_dict_schemas.py"
+run_example "structured_only/yaml_schemas" \
+  "$EXAMPLES_DIR/structured_only/example_yaml_schemas.py"
+
+# force_llm (uses auto-detected provider; Grok preferred for speed/cost)
+if [[ -n "${GROK_API_KEY:-}" || -n "${ANTHROPIC_API_KEY:-}" ]]; then
+  run_example "force_llm/product_catalog" \
+    "$EXAMPLES_DIR/force_llm/example_force_llm.py"
+else
+  warn "Skipping force_llm example — no API key found"
+fi
 
 # structured_and_unstructured
 run_example "structured_and_unstructured/retail_yml" \
@@ -316,12 +338,28 @@ run_example "database_integration/save_schemas" \
 run_example "database_integration/postgres" \
   "$EXAMPLES_DIR/database_integration/example_postgres.py"
 
-# large_dataset/postgres — only run when DB_HOST is set (requires live Postgres)
-if [[ -n "${DB_HOST:-}" ]]; then
+# large_dataset/postgres — only run when DB_HOST and GROK_API_KEY are set
+if [[ -n "${DB_HOST:-}" && -n "${GROK_API_KEY:-}" ]]; then
   run_example "large_dataset/postgres" \
     "$EXAMPLES_DIR/large_dataset/example_large_dataset_postgres.py"
-else
+elif [[ -z "${DB_HOST:-}" ]]; then
   warn "DB_HOST not set — skipping large_dataset/postgres example (requires live PostgreSQL)"
+else
+  warn "GROK_API_KEY not set — skipping large_dataset/postgres example"
+fi
+
+# CLI large dataset demo (shell script, uses installed syda binary)
+SYDA_CLI_BIN="$ENV_DIR/bin/syda"
+if [[ -n "${GROK_API_KEY:-}" ]]; then
+  info "Running CLI large dataset demo..."
+  if GROK_API_KEY="$GROK_API_KEY" \
+     bash "$PROJECT_ROOT/examples/cli/demo_large_dataset.sh" 2>&1; then
+    pass "CLI large dataset demo"
+  else
+    fail "CLI large dataset demo"
+  fi
+else
+  warn "GROK_API_KEY not set — skipping CLI large dataset demo"
 fi
 
 # openai_compatible — auto-detect Ollama, start if needed, run example
