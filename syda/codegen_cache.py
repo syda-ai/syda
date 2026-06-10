@@ -94,7 +94,8 @@ class CodegenCache:
                 pass
 
             return {"simple": simple_fns, "simple_source": simple_source}
-        except Exception:
+        except Exception as e:
+            print(f"[syda] Warning: codegen cache load failed ({e}), treating as cache miss")
             return None
 
     def save(
