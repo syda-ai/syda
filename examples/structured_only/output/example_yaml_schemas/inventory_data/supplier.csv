@@ -1,11 +1,11 @@
 id,company_name,contact_name,email,phone,address,website,payment_terms,active
-1,Premier Electronics Manufacturing Co.,James Richardson,james.richardson@premierelectronics.com,+1-800-445-2891,"4521 Industrial Drive, Taipei, Taiwan",https://www.premierelectronics.com,Net 60,True
-2,Global Textile Distributors Ltd.,Maria Santos,maria.santos@globaltextile.co.uk,+44-20-7946-0958,"128 Manchester Street, London, UK",https://www.globaltextile.co.uk,Net 60,False
-3,Apex Plastics Wholesale,Robert Chen,robert.chen@apexplastics.com,+1-713-555-0147,"7890 Commerce Boulevard, Houston, TX 77002, USA",https://www.apexplastics.com,Net 30,True
-4,Nordic Furniture Imports,Ingrid Bergström,ingrid.bergstrom@nordicfurniture.se,+46-8-555-0123,"Strandvägen 45, Stockholm, Sweden",https://www.nordicfurniture.se,Net 60,True
-5,ChinaPak Packaging Solutions,Wei Liu,wei.liu@chinapak.cn,+86-10-8888-5555,"Building 3, Tech Park, Shenzhen, China",https://www.chinapak.cn,COD,True
-6,Midwest Steel & Metal Suppliers,David Kowalski,david.kowalski@midweststeel.com,+1-312-555-0189,"2200 Industrial Way, Chicago, IL 60616, USA",https://www.midweststeel.com,Net 15,True
-7,BrasilCom Electronics Distributor,Ana Silva,ana.silva@brasilcom.com.br,+55-11-3555-0234,"Avenida Paulista 1000, São Paulo, Brazil",https://www.brasilcom.com.br,Prepaid,True
-8,IndiaSpice Specialty Imports,Rajesh Patel,rajesh.patel@indiaspice.in,+91-22-5555-0345,"Trade Center, Mumbai, India",https://www.indiaspice.in,Net 30,True
-9,EuroTools Manufacturing GmbH,Klaus Mueller,klaus.mueller@eurotools.de,+49-69-555-0456,"Industriestraße 88, Frankfurt, Germany",https://www.eurotools.de,Prepaid,True
-10,Pacific Coast Beverage Wholesaler,Jennifer Wong,jennifer.wong@pacificcoastbev.com,+1-206-555-0567,"5600 Harbor View Drive, Seattle, WA 98134, USA",https://www.pacificcoastbev.com,Net 15,True
+1,GlobalTech Manufacturing Co.,Robert Chen,robert.chen@globaltech.com,+1-415-555-0142,"1250 Industrial Blvd, San Francisco, CA 94103",https://www.globaltechmanufacturing.com,Net 15,True
+2,Premier Distribution Networks,Sarah Mitchell,sarah.mitchell@premierdist.com,+1-212-555-0178,"450 Commerce Street, New York, NY 10013",https://www.premierdistribution.com,Net 15,True
+3,EcoSupply Direct Wholesalers,Marcus Thompson,marcus.thompson@ecosupplydirect.com,+1-503-555-0156,"2890 Green Valley Road, Portland, OR 97204",https://www.ecosupplydirect.com,Net 60,True
+4,Precision Components Ltd.,Jennifer Walsh,jennifer.walsh@precisioncomponents.com,+1-248-555-0189,"1500 Tech Park, Detroit, MI 48201",https://www.precisioncomponents.com,Net 30,True
+5,Midwest Industrial Supply Inc.,David Rodriguez,david.rodriguez@midwestindustrialsupply.com,+1-312-555-0167,"3200 Manufacturing Avenue, Chicago, IL 60614",https://www.midwestindustrialsupply.com,Net 30,True
+6,Atlantic Logistics Partners,Patricia Anderson,patricia.anderson@atlanticlogistics.com,+1-404-555-0145,"850 Peachtree Industrial Boulevard, Atlanta, GA 30318",https://www.atlanticlogistics.com,COD,True
+7,Southwest Materials & Equipment,Carlos Hernandez,carlos.hernandez@swmaterials.com,+1-602-555-0173,"1100 Desert Sky Drive, Phoenix, AZ 85003",https://www.swmaterials.com,Prepaid,True
+8,Pacific Rim Manufacturing Group,Lisa Nakamura,lisa.nakamura@pacificrimmanufacturing.com,+1-206-555-0152,"2750 Elliott Avenue West, Seattle, WA 98119",https://www.pacificrimmanufacturing.com,COD,True
+9,Northeast Wholesale Distributors,William Murphy,william.murphy@northeastwholesale.com,+1-617-555-0164,"500 Harbor Street, Boston, MA 02110",https://www.northeastwholesale.com,Net 60,True
+10,Sunbelt Industrial Supplies Corp.,Angela Davis,angela.davis@sunbeltindustrialsupplies.com,+1-713-555-0181,"4500 Energy Corridor Drive, Houston, TX 77036",https://www.sunbeltindustrialsupplies.com,Prepaid,True
