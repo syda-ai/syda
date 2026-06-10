@@ -1,151 +1,151 @@
 product_id,product_name,category,brand,unit_price,stock_qty,description
-1,Bluetooth Portable Speaker,Electronics,JBL,79.99,620,Waterproof wireless speaker with 12-hour playtime and deep bass.
-2,Hooded Sweatshirt,Clothing,Under Armour,45.0,980,Fleece-lined hoodie perfect for workouts or casual wear.
-3,Stand Mixer,Home & Kitchen,KitchenAid,329.99,210,5-quart tilt-head mixer with 10 speeds for baking enthusiasts.
-4,Basketball,Sports,Spalding,29.99,1850,Official size indoor/outdoor basketball with superior grip.
-5,Dune,Books,Ace,9.99,4100,Frank Herbert's epic science fiction masterpiece.
-6,Wireless Earbuds Pro,Electronics,Apple,249.0,430,Noise cancelling true wireless earbuds with spatial audio.
-7,Wool Peacoat,Clothing,Uniqlo,89.9,320,Classic double-breasted wool coat for winter layering.
-8,Espresso Machine,Home & Kitchen,De'Longhi,199.99,175,Compact automatic espresso and cappuccino maker.
-9,Tennis Racket,Sports,Wilson,129.0,410,Lightweight graphite racket with excellent power and control.
-10,Sapiens,Books,Harper,18.5,2900,Yuval Noah Harari's bestselling history of humankind.
-11,Mechanical Gaming Keyboard,Electronics,Corsair,109.99,380,RGB mechanical keyboard with Cherry MX switches.
-12,Running Shoes,Clothing,Nike,129.99,750,Lightweight breathable shoes designed for long-distance running.
-13,Air Purifier,Home & Kitchen,Dyson,399.0,95,HEPA filter air purifier that captures 99.97% of particles.
-14,Soccer Ball,Sports,Adidas,34.99,1320,FIFA approved match ball with durable synthetic panels.
-15,Educated,Books,Random House,15.99,2650,Tara Westover's powerful memoir of self-invention.
-16,Smart Watch Series 8,Electronics,Apple,399.0,510,Advanced fitness and health tracking smartwatch.
-17,Summer Floral Dress,Clothing,Zara,49.9,890,Lightweight midi dress with vibrant floral print.
-18,Robot Vacuum Cleaner,Home & Kitchen,iRobot,279.99,260,Smart mapping robot vacuum with app control and self-emptying.
-19,Camping Tent 4-Person,Sports,Coleman,149.99,340,Waterproof dome tent with easy setup for family camping.
-20,The Hobbit,Books,Houghton Mifflin,14.99,3800,J.R.R. Tolkien's beloved fantasy adventure.
-21,Tablet 10.9 inch,Electronics,Apple,329.0,290,Powerful tablet with Liquid Retina display and A14 chip.
-22,Leather Jacket,Clothing,AllSaints,249.0,180,Premium lamb leather biker jacket with quilted lining.
-23,Slow Cooker 6-Quart,Home & Kitchen,Crock-Pot,49.99,720,Programmable slow cooker with digital timer.
-24,Resistance Bands Set,Sports,Fit Simplify,15.99,2450,"Set of 5 loop bands for strength, mobility and rehab."
-25,Becoming,Books,Crown,19.99,2100,Michelle Obama's inspiring memoir.
-26,Wireless Mouse,Electronics,Logitech,29.99,1650,Ergonomic wireless mouse with long battery life.
-27,Cargo Pants,Clothing,Carhartt,64.99,560,Rugged cotton cargo pants built for work and outdoors.
-28,Electric Kettle,Home & Kitchen,Breville,79.95,480,1.7L variable temperature gooseneck kettle.
-29,Mountain Bike Helmet,Sports,Giro,69.99,670,Lightweight MIPS helmet with excellent ventilation.
-30,The Alchemist,Books,HarperOne,11.99,4950,Paulo Coelho's timeless tale of following your dreams.
-31,Portable Power Bank 20000mAh,Electronics,Anker,39.99,1120,High-capacity USB-C fast charging power bank.
-32,Cashmere Sweater,Clothing,Everlane,98.0,290,Ultra-soft Italian cashmere crewneck sweater.
-33,Food Processor,Home & Kitchen,Cuisinart,149.99,310,14-cup processor with multiple blades and discs.
-34,Jump Rope,Sports,Rogue,24.5,1580,Adjustable speed rope for HIIT and cardio workouts.
-35,Project Hail Mary,Books,Ballantine,17.99,1750,Andy Weir's thrilling sci-fi survival story.
-36,Noise Cancelling Earbuds,Electronics,Sony,179.99,540,True wireless buds with industry-leading ANC.
-37,Athletic Leggings,Clothing,Lululemon,68.0,820,High-waisted performance leggings with pocket.
-38,Toaster Oven,Home & Kitchen,Ninja,129.99,390,Digital countertop oven with air fry and bake functions.
-39,Foam Roller,Sports,TriggerPoint,34.99,970,Textured foam roller for muscle recovery and mobility.
-40,Where the Crawdads Sing,Books,Putnam,16.99,3400,Delia Owens' bestselling coming-of-age mystery.
-41,Wireless Noise-Cancelling Earbuds,Electronics,Sony,99.99,1500,Premium wireless earbuds with active noise cancellation and up to 30 hours of battery life.
-42,Classic Straight-Leg Jeans,Clothing,Levi's,49.99,800,"Durable denim jeans with a comfortable straight-leg fit, perfect for everyday wear."
-43,Single-Serve Coffee Maker,Home & Kitchen,Keurig,129.99,300,Compact coffee maker that brews a variety of beverages using K-Cup pods in under a minute.
-44,Premium Yoga Mat,Sports,Nike,29.99,2000,Non-slip yoga mat with extra cushioning for comfort during workouts and meditation.
-45,The Silent Patient,Books,Penguin,15.99,500,Gripping psychological thriller about a woman who shoots her husband and then stops speaking.
-46,Smart Fitness Watch,Electronics,Apple,399.99,250,"Advanced smartwatch with health monitoring, GPS, and seamless integration with iOS devices."
-47,Performance Crew T-Shirt,Clothing,Adidas,24.99,1200,Breathable athletic t-shirt made from moisture-wicking fabric for intense training sessions.
-48,High-Performance Blender,Home & Kitchen,Vitamix,449.99,100,"Powerful blender capable of making smoothies, soups, and nut butters with ease."
-49,Adjustable Dumbbell Set,Sports,Bowflex,89.99,450,Space-saving adjustable dumbbells ranging from 5 to 52.5 lbs for versatile strength training.
-50,Modern Italian Cookbook,Books,Random House,22.99,350,Collection of authentic Italian recipes with beautiful photography and step-by-step instructions.
-51,Wireless Bluetooth Headphones,Electronics,Sony,89.99,150,Noise-cancelling over-ear headphones with 30-hour battery life.
-52,Cotton Crew Neck T-Shirt,Clothing,Gap,19.99,500,Soft breathable cotton t-shirt available in multiple colors.
-53,Stainless Steel Coffee Maker,Home & Kitchen,Keurig,79.5,75,Programmable drip coffee maker with 12-cup capacity.
-54,Yoga Mat with Alignment Lines,Sports,Lululemon,45.0,200,Non-slip eco-friendly yoga mat for all skill levels.
-55,The Great Gatsby,Books,Penguin Classics,12.99,300,Classic novel by F. Scott Fitzgerald in paperback edition.
-56,4K Ultra HD Smart TV 55 inch,Electronics,Samsung,449.99,40,HDR smart TV with built-in streaming apps and voice control.
-57,Denim Jeans Slim Fit,Clothing,Levi's,59.5,250,Classic slim fit jeans made from durable stretch denim.
-58,Ceramic Dinnerware Set,Home & Kitchen,Corelle,34.99,120,16-piece durable ceramic plates and bowls set.
-59,Adjustable Dumbbell Set,Sports,Bowflex,299.0,30,Space-saving adjustable weights from 5 to 52.5 lbs each.
-60,Python Programming Guide,Books,O'Reilly,39.99,180,Comprehensive beginner to advanced Python coding manual.
-61,Portable Bluetooth Speaker,Electronics,JBL,69.99,95,Waterproof wireless speaker with 20-hour playtime.
-62,Winter Puffer Jacket,Clothing,North Face,149.0,85,Warm insulated puffer jacket for cold weather.
-63,Non-Stick Frying Pan Set,Home & Kitchen,Tefal,24.99,160,Set of three durable non-stick frying pans.
-64,Tennis Racket Pro,Sports,Wilson,129.99,45,Lightweight carbon fiber tennis racket for professionals.
-65,Atomic Habits,Books,Penguin,16.99,220,Self-improvement book on building good habits.
-66,Laptop 15 inch i7,Electronics,Dell,499.99,25,Powerful laptop with 16GB RAM and 512GB SSD.
-67,Running Shoes,Clothing,Nike,89.99,310,Lightweight breathable running shoes with cushioning.
-68,Blender with Smoothie Cup,Home & Kitchen,Ninja,59.99,110,High-power personal blender for smoothies and shakes.
-69,Basketball Official Size,Sports,Spalding,29.99,140,Indoor outdoor basketball with superior grip.
-70,Cookbook Italian Recipes,Books,Random House,22.5,95,Collection of authentic Italian cuisine recipes.
-71,Wireless Mouse Ergonomic,Electronics,Logitech,24.99,400,Comfortable wireless mouse with long battery life.
-72,Hooded Sweatshirt,Clothing,Adidas,49.99,175,Fleece lined hoodie for casual wear.
-73,Electric Kettle 1.7L,Home & Kitchen,Breville,39.99,130,Fast boiling electric kettle with auto shut-off.
-74,Soccer Ball Size 5,Sports,Adidas,19.99,280,Durable professional soccer ball for matches.
-75,Dune Messiah,Books,Ace Books,14.99,150,Sequel to Dune by Frank Herbert paperback.
-76,Digital Camera 24MP,Electronics,Canon,399.0,35,Mirrorless digital camera with 4K video capability.
-77,Leather Belt Brown,Clothing,Tommy Hilfiger,34.99,220,Genuine leather dress belt with metal buckle.
-78,Air Purifier HEPA,Home & Kitchen,Dyson,299.99,60,Quiet HEPA filter air purifier for large rooms.
-79,Camping Tent 4 Person,Sports,Coleman,149.99,55,Waterproof easy setup tent for family camping.
-80,World Atlas Hardcover,Books,National Geographic,27.99,80,Detailed world maps and geographic information.
-81,Smart Watch Fitness,Electronics,Apple,249.0,90,Fitness tracking smartwatch with heart rate monitor.
-82,Wool Scarf,Clothing,Burberry,79.99,65,Soft cashmere wool scarf in plaid pattern.
-83,Toaster 4 Slice,Home & Kitchen,KitchenAid,49.99,100,Stainless steel 4-slice toaster with bagel setting.
-84,Resistance Bands Set,Sports,Fit Simplify,15.99,350,Set of 5 resistance bands for strength training.
-85,Sapiens,Books,Harper,18.5,210,Brief history of humankind by Yuval Noah Harari.
-86,Tablet 10 inch,Electronics,Amazon,129.99,70,High resolution tablet with long battery life.
-87,Polo Shirt,Clothing,Lacoste,69.99,140,Classic cotton polo shirt with embroidered logo.
-88,Vacuum Cleaner Cordless,Home & Kitchen,Shark,199.99,50,Lightweight cordless vacuum with powerful suction.
-89,Fishing Rod and Reel,Sports,Shimano,89.99,40,Spinning fishing combo for freshwater angling.
-90,The Hobbit,Books,Houghton Mifflin,11.99,260,Fantasy adventure novel by J.R.R. Tolkien.
-91,Noise Cancelling Earbuds,Electronics,Bose,179.99,55,True wireless earbuds with active noise cancellation.
-92,Cargo Shorts,Clothing,Columbia,39.99,190,Quick dry cargo shorts with multiple pockets.
-93,Slow Cooker 6 Quart,Home & Kitchen,Crock-Pot,49.99,85,Programmable slow cooker for easy meals.
-94,Hiking Backpack 40L,Sports,Osprey,129.99,65,Durable hiking backpack with hydration compatibility.
-95,1984,Books,Signet Classics,9.99,320,Dystopian novel by George Orwell classic edition.
-96,Wireless Keyboard,Electronics,Microsoft,49.99,115,Slim wireless keyboard with quiet keys.
-97,Baseball Cap,Clothing,New Era,24.99,275,Adjustable cotton baseball cap with team logo.
-98,Stand Mixer,Home & Kitchen,KitchenAid,279.99,45,5-quart stand mixer with multiple attachments.
-99,Jump Rope Weighted,Sports,Rogue,34.99,160,Adjustable weighted jump rope for cardio workouts.
-100,The Alchemist,Books,HarperOne,14.99,195,Inspirational novel by Paulo Coelho.
-101,Wireless Bluetooth Headphones,Electronics,Sony,89.99,150,Noise-cancelling over-ear headphones with 30-hour battery life.
-102,Cotton Crew Neck T-Shirt,Clothing,Gap,19.99,500,Soft cotton t-shirt available in multiple colors and sizes.
-103,Stainless Steel Cookware Set,Home & Kitchen,All-Clad,299.99,45,"10-piece set including pots, pans, and lids for professional cooking."
-104,Yoga Mat with Alignment Lines,Sports,Lululemon,68.0,200,Non-slip eco-friendly mat perfect for yoga and pilates.
-105,The Great Gatsby,Books,Penguin Classics,12.99,300,Classic novel exploring themes of wealth and the American Dream.
-106,Smart LED TV 55 Inch,Electronics,Samsung,449.99,75,4K UHD smart TV with built-in streaming apps and voice control.
-107,Denim Jeans Slim Fit,Clothing,Levi's,59.5,320,Durable slim-fit jeans made from premium denim fabric.
-108,Ceramic Coffee Mug Set,Home & Kitchen,Le Creuset,34.99,180,"Set of 4 colorful ceramic mugs, microwave and dishwasher safe."
-109,Basketball Official Size,Sports,Wilson,29.99,250,Indoor/outdoor basketball with superior grip and durability.
-110,Python Crash Course,Books,No Starch Press,39.99,120,Hands-on guide to programming in Python for beginners.
-111,Portable Bluetooth Speaker,Electronics,JBL,79.99,210,Waterproof speaker with 12 hours of playtime and deep bass.
-112,Winter Parka Jacket,Clothing,North Face,199.0,95,Insulated waterproof parka for extreme cold weather conditions.
-113,Blender High-Speed,Home & Kitchen,Vitamix,349.99,60,"Powerful blender for smoothies, soups, and nut butters."
-114,Tennis Racket Pro,Sports,Wilson,149.99,80,Lightweight graphite racket with excellent control and power.
-115,Atomic Habits,Books,Avery,16.99,400,Practical strategies for building good habits and breaking bad ones.
-116,Laptop 15 Inch,Electronics,Dell,499.99,55,High-performance laptop with Intel i7 processor and 16GB RAM.
-117,Running Shoes Lightweight,Sports,Nike,129.99,175,Breathable mesh shoes designed for long-distance running.
-118,Silk Pillowcase Set,Home & Kitchen,Brooklinen,45.0,140,Luxurious silk pillowcases that help reduce hair frizz.
-119,Hooded Sweatshirt,Clothing,Adidas,65.0,260,Comfortable fleece hoodie with kangaroo pocket.
-120,Wireless Mouse Ergonomic,Electronics,Logitech,24.99,380,Ergonomic wireless mouse with precision tracking.
-121,Cookbook Mediterranean,Books,Clarkson Potter,27.99,90,Delicious recipes inspired by Mediterranean cuisine.
-122,Fitness Tracker Watch,Electronics,Fitbit,149.99,130,"Track steps, heart rate, and sleep with this smartwatch."
-123,Leather Wallet Bifold,Clothing,Fossil,49.99,220,Genuine leather bifold wallet with RFID protection.
-124,Electric Kettle 1.7L,Home & Kitchen,Breville,79.99,110,Fast-boiling electric kettle with temperature control.
-125,Dumbbell Set Adjustable,Sports,Bowflex,299.99,40,Adjustable dumbbells from 5 to 90 pounds each.
-126,Science Fiction Anthology,Books,Orbit,22.5,160,Collection of award-winning sci-fi short stories.
-127,Noise Cancelling Earbuds,Electronics,Apple,249.99,85,Premium wireless earbuds with active noise cancellation.
-128,Cashmere Sweater,Clothing,Uniqlo,89.99,115,Soft crewneck cashmere sweater in neutral tones.
-129,Non-Stick Frying Pan,Home & Kitchen,Tefal,34.99,290,Durable non-stick pan suitable for all stovetops.
-130,Soccer Ball Size 5,Sports,Adidas,24.99,350,Professional match ball with excellent flight and durability.
-131,Biography of Elon Musk,Books,Simon & Schuster,18.99,200,In-depth look at the life of the Tesla and SpaceX founder.
-132,Digital Camera Mirrorless,Electronics,Canon,499.99,30,Compact mirrorless camera with 24MP sensor and 4K video.
-133,Wool Beanie Hat,Clothing,Patagonia,29.99,275,Warm merino wool beanie for outdoor adventures.
-134,Stand Mixer 5 Quart,Home & Kitchen,KitchenAid,379.99,50,Powerful stand mixer with multiple attachments included.
-135,Camping Tent 4 Person,Sports,Coleman,129.99,70,Waterproof 4-person tent with easy setup for camping.
-136,Mystery Novel Bestseller,Books,HarperCollins,14.99,450,Gripping thriller with unexpected twists and turns.
-137,Tablet 10 Inch,Electronics,Apple,329.99,100,Lightweight tablet with retina display and long battery.
-138,Plaid Flannel Shirt,Clothing,LL Bean,44.99,190,Classic plaid flannel shirt made from soft brushed cotton.
-139,Toaster 2 Slice,Home & Kitchen,Cuisinart,49.99,165,Stainless steel toaster with multiple browning settings.
-140,Resistance Bands Set,Sports,TheraBand,19.99,420,Set of 5 resistance bands for strength training at home.
-141,History of World War II,Books,Oxford Press,32.99,85,Comprehensive account of major events in WWII.
-142,Gaming Console,Electronics,Sony,499.99,65,Next-gen gaming console with 1TB storage and 4K support.
-143,Sunglasses Polarized,Clothing,Ray-Ban,154.99,145,Classic aviator sunglasses with UV protection.
-144,Air Purifier HEPA,Home & Kitchen,Dyson,399.99,35,HEPA air purifier that captures 99.97% of allergens.
-145,Hiking Backpack 40L,Sports,Osprey,149.99,95,Durable hiking backpack with hydration compatibility.
-146,Cookbook Vegan,Books,Ten Speed Press,25.99,130,Over 100 plant-based recipes for healthy eating.
-147,Smartphone Case Leather,Electronics,Spigen,15.99,500,Premium leather case with card slots and kickstand.
-148,Athletic Shorts Mesh,Clothing,Under Armour,34.99,310,Lightweight mesh shorts for workouts and running.
-149,Vacuum Cleaner Cordless,Home & Kitchen,Shark,229.99,70,Cordless stick vacuum with powerful suction and attachments.
-150,Fishing Rod Combo,Sports,Shakespeare,49.99,105,Spinning rod and reel combo ideal for beginners.
+1,Wireless Bluetooth Headphones,Electronics,Sony,129.99,250,Noise-cancelling over-ear headphones with 30-hour battery life.
+2,Classic Denim Jeans,Clothing,Levi's,59.99,1200,Slim-fit jeans made from premium stretch denim.
+3,Stainless Steel Blender,Home & Kitchen,KitchenAid,89.5,300,Powerful 5-speed blender perfect for smoothies and soups.
+4,Yoga Mat with Alignment Lines,Sports,Gaiam,24.99,800,Non-slip eco-friendly mat for yoga and pilates.
+5,The Great Gatsby,Books,Penguin Classics,12.99,1500,A classic novel exploring the American Dream in the 1920s.
+6,"4K Ultra HD Smart TV 55""",Electronics,Samsung,449.99,75,Smart TV with HDR and built-in streaming apps.
+7,Cotton Crew Neck T-Shirt,Clothing,Hanes,9.99,3500,Soft and breathable everyday t-shirt in multiple colors.
+8,Ceramic Coffee Mug Set,Home & Kitchen,Corelle,19.99,600,Set of 6 durable ceramic mugs for daily use.
+9,Adjustable Dumbbell Set,Sports,Bowflex,299.99,45,Space-saving dumbbells adjustable from 5 to 52.5 lbs.
+10,Python Programming Guide,Books,O'Reilly,39.99,420,Comprehensive guide to Python for beginners and pros.
+11,Portable Bluetooth Speaker,Electronics,JBL,79.99,180,Waterproof speaker with 12-hour playtime.
+12,Waterproof Rain Jacket,Clothing,Columbia,89.99,320,Lightweight jacket with breathable mesh lining.
+13,Non-Stick Frying Pan,Home & Kitchen,Tefal,34.5,950,10-inch pan with titanium reinforced coating.
+14,Basketball Size 7,Sports,Spalding,29.99,1100,Official size and weight indoor/outdoor basketball.
+15,Sapiens: A Brief History of Humankind,Books,Harper,18.99,780,Explores the history and impact of humankind.
+16,Wireless Gaming Mouse,Electronics,Logitech,49.99,400,High-precision mouse with customizable RGB lighting.
+17,Running Shoes,Clothing,Nike,119.99,650,Lightweight shoes designed for long-distance running.
+18,Electric Kettle 1.7L,Home & Kitchen,Breville,45.0,275,Fast boil kettle with auto shut-off feature.
+19,Tennis Racket,Sports,Wilson,149.99,90,Professional grade racket with vibration dampening.
+20,Atomic Habits,Books,Penguin,16.99,920,Practical strategies for building good habits.
+21,Laptop Sleeve 15 Inch,Electronics,Belkin,24.99,500,Protective neoprene sleeve for laptops.
+22,Wool Scarf,Clothing,Burberry,175.0,150,Luxury cashmere blend scarf for winter.
+23,Stand Mixer,Home & Kitchen,KitchenAid,349.99,60,Iconic 5-quart mixer with multiple attachments.
+24,Camping Tent 4-Person,Sports,Coleman,129.99,85,Waterproof dome tent easy to set up.
+25,Dune,Books,Ace,14.99,630,Epic science fiction novel set on the desert planet Arrakis.
+26,Smart Watch Series 8,Electronics,Apple,399.0,200,Advanced fitness tracking and health monitoring watch.
+27,Hooded Sweatshirt,Clothing,Adidas,54.99,480,Comfortable fleece hoodie for casual wear.
+28,Vacuum Cleaner Robot,Home & Kitchen,iRobot,249.99,110,Self-charging robot vacuum with smart mapping.
+29,Soccer Ball,Sports,Adidas,22.5,1400,Durable match ball for professional play.
+30,1984,Books,Signet Classics,9.99,1050,Dystopian novel about totalitarianism and surveillance.
+31,Digital Camera Mirrorless,Electronics,Canon,499.99,55,High-resolution camera with interchangeable lenses.
+32,Leather Belt,Clothing,Tommy Hilfiger,39.99,720,Genuine leather belt with classic buckle.
+33,Air Purifier,Home & Kitchen,Dyson,299.99,95,HEPA filter purifier for allergen removal.
+34,Hiking Backpack 40L,Sports,Osprey,129.99,160,Ergonomic pack with hydration compatibility.
+35,The Hobbit,Books,Houghton Mifflin,13.5,880,Fantasy adventure following Bilbo Baggins.
+36,Noise Cancelling Earbuds,Electronics,Bose,179.99,220,True wireless earbuds with superior sound quality.
+37,Winter Coat,Clothing,Patagonia,229.99,130,Insulated parka for extreme cold weather.
+38,Toaster Oven,Home & Kitchen,Cuisinart,69.99,340,Compact oven with multiple cooking functions.
+39,Resistance Bands Set,Sports,Fit Simplify,15.99,2000,Set of 5 bands for strength training and rehab.
+40,Becoming,Books,Crown,22.99,510,Memoir by Michelle Obama detailing her life journey.
+41,Tablet 10.5 Inch,Electronics,Samsung,329.99,140,High-resolution display tablet for media and work.
+42,Polo Shirt,Clothing,Lacoste,69.99,390,Classic cotton polo with embroidered logo.
+43,Slow Cooker 6Qt,Home & Kitchen,Crock-Pot,49.99,410,Programmable slow cooker for easy meals.
+44,Jump Rope,Sports,Rogue,18.5,950,Adjustable speed rope for cardio workouts.
+45,The Alchemist,Books,HarperOne,11.99,1250,Inspirational tale about following one's dreams.
+46,External SSD 1TB,Electronics,SanDisk,109.99,280,Portable high-speed solid state drive.
+47,Sneakers,Clothing,New Balance,84.99,560,Comfortable everyday sneakers with cushioned sole.
+48,Bed Sheet Set Queen,Home & Kitchen,Brooklinen,79.99,195,Luxury cotton sheets with deep pockets.
+49,Foam Roller,Sports,TriggerPoint,34.99,670,High-density roller for muscle recovery.
+50,Educated,Books,Random House,17.99,740,Memoir about the power of education and self-invention.
+51,Wireless Bluetooth Headphones,Electronics,Sony,89.99,250,Premium noise-cancelling headphones with 30-hour battery life and comfortable over-ear design.
+52,4K Ultra HD Smart TV,Electronics,Samsung,499.99,45,55-inch smart TV with vibrant 4K resolution and built-in streaming apps.
+53,Portable Laptop Charger,Electronics,Anker,29.99,1200,20000mAh power bank supporting fast charging for multiple devices.
+54,Mechanical Gaming Keyboard,Electronics,Corsair,79.99,320,RGB backlit keyboard with tactile switches for competitive gaming.
+55,Smart Fitness Watch,Electronics,Fitbit,149.99,180,"Track heart rate, steps, and sleep with GPS and water resistance."
+56,Wireless Mouse,Electronics,Logitech,24.99,950,Ergonomic wireless mouse with long battery life and precise tracking.
+57,Noise Cancelling Earbuds,Electronics,Apple,199.99,75,True wireless earbuds with active noise cancellation and spatial audio.
+58,Tablet with Stylus,Electronics,Microsoft,349.99,60,10.5-inch tablet ideal for note-taking and media consumption.
+59,Digital Camera,Electronics,Canon,449.99,30,Mirrorless camera with 24MP sensor and 4K video recording.
+60,Smart Home Speaker,Electronics,Amazon,49.99,500,Voice-controlled speaker with premium sound and Alexa integration.
+61,Cotton Crew Neck T-Shirt,Clothing,Hanes,12.99,1500,Soft breathable cotton tee available in multiple colors and sizes.
+62,Slim Fit Jeans,Clothing,Levi's,59.99,400,Classic denim jeans with stretch fabric for all-day comfort.
+63,Winter Parka Jacket,Clothing,North Face,199.99,85,Waterproof insulated jacket perfect for cold weather adventures.
+64,Running Sneakers,Clothing,Nike,89.99,320,Lightweight breathable shoes with responsive cushioning.
+65,Wool Sweater,Clothing,Gap,45.99,210,Cozy knit sweater made from premium merino wool.
+66,Yoga Pants,Clothing,Lululemon,68.99,275,High-waisted leggings with four-way stretch and moisture wicking.
+67,Formal Dress Shirt,Clothing,Ralph Lauren,79.99,150,Crisp button-down shirt crafted from premium cotton.
+68,Baseball Cap,Clothing,Adidas,22.99,800,Adjustable cotton cap with embroidered logo for casual wear.
+69,Leather Belt,Clothing,Tommy Hilfiger,34.99,420,Genuine leather belt with polished metal buckle.
+70,Hooded Sweatshirt,Clothing,Champion,39.99,380,Fleece-lined hoodie with kangaroo pocket and ribbed cuffs.
+71,Stainless Steel Cookware Set,Home & Kitchen,All-Clad,299.99,65,10-piece tri-ply stainless steel pots and pans for professional cooking.
+72,Memory Foam Mattress Topper,Home & Kitchen,Tempur-Pedic,149.99,110,3-inch gel-infused topper for enhanced comfort and pressure relief.
+73,Ceramic Coffee Mug Set,Home & Kitchen,Corelle,19.99,650,Set of 6 durable stoneware mugs in assorted modern designs.
+74,Robot Vacuum Cleaner,Home & Kitchen,Roomba,279.99,95,Smart robotic vacuum with app control and self-emptying bin.
+75,Bamboo Cutting Board Set,Home & Kitchen,John Boos,34.99,290,Eco-friendly boards in three sizes with juice grooves.
+76,Air Fryer,Home & Kitchen,Ninja,129.99,175,5.5-quart digital air fryer for healthier fried foods.
+77,LED Desk Lamp,Home & Kitchen,Philips,24.99,520,Adjustable lamp with multiple brightness levels and USB charging port.
+78,Throw Blanket,Home & Kitchen,Pendleton,49.99,230,Soft wool-blend blanket with classic patterned design.
+79,Blender,Home & Kitchen,Vitamix,349.99,55,High-performance blender for smoothies and soups.
+80,Storage Organizer Bins,Home & Kitchen,Sterilite,14.99,1100,Set of clear stackable bins for closet and pantry organization.
+81,Tennis Racket,Sports,Wilson,129.99,140,Lightweight graphite racket with vibration dampening.
+82,Yoga Mat,Sports,Gaiam,24.99,780,Extra thick non-slip mat with alignment lines.
+83,Basketball,Sports,Spalding,29.99,450,Official size indoor/outdoor basketball with durable grip.
+84,Dumbbell Set,Sports,Bowflex,199.99,70,Adjustable dumbbells ranging from 5 to 52.5 pounds.
+85,Soccer Ball,Sports,Adidas,19.99,620,FIFA approved match ball with premium synthetic leather.
+86,Camping Tent,Sports,Coleman,89.99,95,4-person waterproof dome tent with easy setup.
+87,Cycling Helmet,Sports,Bell,49.99,310,Lightweight helmet with adjustable fit and ventilation.
+88,Jump Rope,Sports,Rogue,15.99,890,Speed rope with ball bearings for high-intensity workouts.
+89,Golf Club Set,Sports,Callaway,449.99,25,Complete 14-club set with graphite shafts and bag.
+90,Resistance Bands Set,Sports,TheraBand,22.99,560,Five bands of varying resistance levels for strength training.
+91,The Great Gatsby,Books,Scribner,12.99,720,Classic novel exploring the American Dream in the 1920s.
+92,Dune,Books,Ace,18.99,380,Epic science fiction saga set on the desert planet Arrakis.
+93,Atomic Habits,Books,Avery,16.99,950,Practical guide to building good habits and breaking bad ones.
+94,Sapiens,Books,Harper,22.99,410,A brief history of humankind from early ancestors to modern society.
+95,The Alchemist,Books,HarperOne,14.99,670,Inspirational tale about following your dreams and destiny.
+96,Educated,Books,Random House,17.99,290,Memoir of a woman who escapes her isolated upbringing through education.
+97,Project Hail Mary,Books,Ballantine,19.99,340,Sci-fi adventure about a lone astronaut saving humanity.
+98,Pride and Prejudice,Books,Penguin Classics,9.99,830,Timeless romance novel of manners and social class.
+99,The Midnight Library,Books,Viking,15.99,520,Story of infinite lives and choices between life and death.
+100,Becoming,Books,Crown,21.99,260,Intimate memoir by former First Lady Michelle Obama.
+101,Wireless Bluetooth Headphones,Electronics,Sony,89.99,450,Noise-cancelling over-ear headphones with 30-hour battery life.
+102,Cotton Crew Neck T-Shirt,Clothing,Hanes,12.5,1200,Soft and breathable everyday t-shirt available in multiple colors.
+103,Stainless Steel Blender,Home & Kitchen,KitchenAid,129.0,85,High-performance blender with multiple speed settings for smoothies and soups.
+104,Yoga Mat with Alignment Lines,Sports,Gaiam,24.99,600,Non-slip eco-friendly mat perfect for yoga and pilates practice.
+105,The Great Gatsby,Books,Scribner,9.99,300,Classic novel exploring themes of wealth and the American dream.
+106,4K Ultra HD Smart TV 55 inch,Electronics,Samsung,449.0,120,Smart TV with vibrant colors and built-in streaming apps.
+107,Denim Jeans Slim Fit,Clothing,Levi's,59.5,800,Durable slim fit jeans made from premium stretch denim.
+108,Ceramic Coffee Mug Set,Home & Kitchen,Corelle,19.99,950,Set of four microwave-safe mugs with modern designs.
+109,Adjustable Dumbbell Set,Sports,Bowflex,299.0,75,Space-saving adjustable weights from 5 to 52.5 lbs per dumbbell.
+110,Python Crash Course,Books,No Starch Press,29.95,220,Hands-on guide to learning Python programming quickly.
+111,Portable Bluetooth Speaker,Electronics,JBL,49.99,680,Waterproof speaker with powerful sound and 12-hour playtime.
+112,Winter Parka Jacket,Clothing,The North Face,199.0,340,Insulated waterproof jacket for extreme cold weather.
+113,Non-Stick Frying Pan Set,Home & Kitchen,T-fal,34.99,510,Durable 3-piece nonstick cookware set for everyday cooking.
+114,Basketball Official Size,Sports,Spalding,29.99,420,Indoor/outdoor basketball with superior grip and durability.
+115,Sapiens: A Brief History of Humankind,Books,Harper,18.0,175,Bestselling exploration of human history and evolution.
+116,Laptop Sleeve 15 inch,Electronics,Belkin,15.99,1100,Protective neoprene sleeve with extra padding.
+117,Running Shoes Lightweight,Clothing,Nike,89.0,560,Breathable mesh running shoes with responsive cushioning.
+118,Electric Kettle 1.7L,Home & Kitchen,Hamilton Beach,22.5,780,Fast-boiling stainless steel kettle with auto shut-off.
+119,Tennis Racket Pro,Sports,Wilson,149.99,95,Lightweight carbon fiber racket for intermediate players.
+120,Atomic Habits,Books,Avery,16.99,390,Practical strategies for building good habits and breaking bad ones.
+121,Wireless Bluetooth Headphones,Electronics,Sony,89.99,250,Noise-cancelling over-ear headphones with 30-hour battery life.
+122,Cotton Crew Neck T-Shirt,Clothing,Gap,19.5,1200,Soft and breathable everyday t-shirt available in multiple colors.
+123,Stainless Steel Blender,Home & Kitchen,KitchenAid,129.99,85,Powerful 5-speed blender for smoothies and soups.
+124,Yoga Mat with Alignment Lines,Sports,Lululemon,68.0,340,Non-slip eco-friendly mat perfect for yoga and pilates.
+125,The Great Gatsby,Books,Penguin Classics,12.99,500,Classic novel by F. Scott Fitzgerald in paperback edition.
+126,"4K Ultra HD Smart TV 55""",Electronics,Samsung,449.99,45,HDR smart television with built-in streaming apps.
+127,Denim Jeans Slim Fit,Clothing,Levi's,59.99,780,Classic blue slim-fit jeans made from durable denim.
+128,Ceramic Coffee Mug Set,Home & Kitchen,Corelle,24.99,320,Set of 6 microwave-safe mugs with modern design.
+129,Adjustable Dumbbell Set,Sports,Bowflex,299.0,60,Space-saving dumbbells adjustable from 5 to 90 lbs.
+130,Python Programming Guide,Books,O'Reilly,39.99,210,Comprehensive book for learning Python from beginner to advanced.
+131,Portable Bluetooth Speaker,Electronics,JBL,49.99,410,Waterproof speaker with 12 hours of playtime.
+132,Winter Parka Jacket,Clothing,North Face,189.0,95,Insulated waterproof jacket for extreme cold weather.
+133,Non-Stick Cookware Set,Home & Kitchen,Tefal,79.99,150,"10-piece set including pots, pans, and lids."
+134,Tennis Racket Pro,Sports,Wilson,129.5,75,Lightweight graphite racket for competitive players.
+135,Mystery Novel Collection,Books,Random House,15.99,430,Three bestselling mystery novels in one boxed set.
+136,Wireless Gaming Mouse,Electronics,Logitech,34.99,560,High-precision RGB mouse with customizable buttons.
+137,Running Shoes Lightweight,Clothing,Nike,109.99,620,Breathable shoes designed for long-distance running.
+138,LED Desk Lamp,Home & Kitchen,Philips,27.5,290,Adjustable lamp with touch control and USB charging port.
+139,Basketball Official Size,Sports,Spalding,29.99,380,Durable indoor/outdoor basketball with superior grip.
+140,Cookbook: Italian Cuisine,Books,Chronicle Books,22.99,175,Authentic recipes from classic to modern Italian dishes.
+141,Smartwatch Fitness Tracker,Electronics,Fitbit,149.99,130,Water-resistant watch with heart rate and GPS tracking.
+142,Hooded Sweatshirt,Clothing,Adidas,45.0,890,Fleece-lined hoodie perfect for casual wear and workouts.
+143,Air Purifier HEPA Filter,Home & Kitchen,Dyson,349.99,40,Quiet air purifier removes 99.9% of allergens.
+144,Camping Tent 4-Person,Sports,Coleman,89.5,115,Waterproof tent with easy setup for family camping.
+145,Science Fiction Anthology,Books,HarperCollins,18.5,265,Collection of award-winning sci-fi short stories.
+146,Digital Camera Mirrorless,Electronics,Canon,499.99,55,24MP mirrorless camera with 4K video recording.
+147,Leather Wallet Bifold,Clothing,Fossil,35.99,470,Genuine leather wallet with RFID protection.
+148,Electric Kettle 1.7L,Home & Kitchen,Breville,49.99,205,Fast-boiling kettle with auto shut-off and keep warm.
+149,Mountain Bike Helmet,Sports,Bell,64.99,160,Lightweight helmet with adjustable fit and ventilation.
+150,Biography: Elon Musk,Books,Simon & Schuster,24.99,320,In-depth biography covering Musk's life and companies.
