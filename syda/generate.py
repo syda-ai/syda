@@ -679,7 +679,7 @@ class SyntheticDataGenerator:
 
                 # Slim to FK columns; fully drop if nobody references this table.
                 fk_cols = list(fk_exposed.get(schema_name, set()) & set(df.columns))
-                df = df[fk_cols] if fk_cols else pd.DataFrame(columns=list(df.columns)[:0])
+                df = df[fk_cols] if fk_cols else pd.DataFrame(columns=list(df.columns))
 
             results[schema_name] = df
 
@@ -699,7 +699,7 @@ class SyntheticDataGenerator:
                         fk_cols = list(fk_exposed.get(parent, set()) & set(results[parent].columns))
                         results[parent] = (
                             results[parent][fk_cols] if fk_cols
-                            else pd.DataFrame(columns=list(results[parent].columns)[:0])
+                            else pd.DataFrame(columns=list(results[parent].columns))
                         )
 
         return results, streamed_schemas
@@ -1036,10 +1036,12 @@ Every column must appear in exactly one list."""
             print(f"[syda] Code-gen cache HIT for '{schema_name}' (hash {schema_hash})")
             # simple holds callables; derive semantic = columns with no generator
             simple_fns: Dict[str, Any] = {
-                k: v for k, v in cached.get("simple", {}).items() if k not in forced_semantic
+                k: v for k, v in cached.get("simple", {}).items()
+                if k not in forced_semantic and k not in pre_registered
             }
             simple_source: Dict[str, str] = {
-                k: v for k, v in cached.get("simple_source", {}).items() if k not in forced_semantic
+                k: v for k, v in cached.get("simple_source", {}).items()
+                if k not in forced_semantic and k not in pre_registered
             }
             semantic_cols: List[str] = [
                 col for col in table_schema
@@ -1084,7 +1086,8 @@ Every column must appear in exactly one list."""
                     if fn:
                         simple_fns[col_name] = fn
                 except Exception as e:
-                    print(f"[syda] Warning: could not compile generator for '{col_name}': {e}")
+                    print(f"[syda] Warning: generator for '{col_name}' failed at runtime ({e}), falling back to LLM")
+                    semantic_cols.append(col_name)
 
             if cache and schema_hash:
                 cache.save(
@@ -1385,8 +1388,19 @@ Every column must appear in exactly one list."""
                     )
                     if len(values) > sample_size:
                         values = values[:sample_size]
-                    while len(values) < sample_size:
-                        values.extend(values[:sample_size - len(values)])
+                    if len(values) < sample_size:
+                        col_schema = table_schema.get(col, {})
+                        is_unique = isinstance(col_schema, dict) and (col_schema.get("unique") or col_schema.get("primary_key"))
+                        if is_unique:
+                            print(f"[syda] Warning: semantic column '{col}' returned {len(values)}/{sample_size} values; padding with index-suffixed duplicates to preserve uniqueness")
+                            base = list(values)
+                            i = len(base)
+                            while len(values) < sample_size:
+                                values.append(f"{base[i % len(base)]}_{i}")
+                                i += 1
+                        else:
+                            while len(values) < sample_size:
+                                values.extend(values[:sample_size - len(values)])
                     df[col] = values[:sample_size]
 
             df = self._enforce_uniqueness(df, table_schema, metadata, chunk_offset=0)
@@ -1408,7 +1422,7 @@ Every column must appear in exactly one list."""
             remaining = sz
             topup_attempts = 0
 
-            while remaining > 0 and topup_attempts <= effective_retries:
+            while remaining > 0 and topup_attempts < effective_retries:
                 p = self._build_prompt(table_schema, metadata, table_description,
                                        primary_key_fields, prompt, remaining)
                 result = self._call_with_retry(
