@@ -212,6 +212,14 @@ def cmd_validate(schema: str):
         "Auto-enabled when --rows > 500."
     ),
 )
+@click.option(
+    "--workers",
+    default=1,
+    type=int,
+    metavar="N",
+    help="Number of tables to generate in parallel (default: 1 = sequential). "
+         "Independent tables (no FK dependency between them) run concurrently.",
+)
 def cmd_generate(
     schema: str,
     rows: int,
@@ -226,6 +234,7 @@ def cmd_generate(
     temperature: Optional[float],
     batch_size: Optional[int],
     large_dataset: bool,
+    workers: int,
 ):
     """Generate synthetic data from schema(s)."""
     try:
@@ -284,6 +293,8 @@ def cmd_generate(
         mc_kwargs["batch_size"] = batch_size
     if large_dataset:
         mc_kwargs["generation_mode"] = "codegen"
+    if workers > 1:
+        mc_kwargs["max_workers"] = workers
 
     extra: dict = {}
     if api_key:
@@ -391,6 +402,7 @@ def cmd_db():
 def _build_generator(
     provider, model, api_key, base_url, temperature,
     batch_size: Optional[int] = None, large_dataset: bool = False,
+    workers: int = 1,
 ):
     """Shared helper: build a SyntheticDataGenerator from CLI options."""
     if not provider:
@@ -410,6 +422,8 @@ def _build_generator(
         mc_kwargs["batch_size"] = batch_size
     if large_dataset:
         mc_kwargs["generation_mode"] = "codegen"
+    if workers > 1:
+        mc_kwargs["max_workers"] = workers
 
     extra: dict = {}
     if api_key:
@@ -613,6 +627,13 @@ def cmd_db_infer(db_url: str, output_dir: str, tables: Optional[str], fmt: str):
         "Auto-enabled when --rows > 500."
     ),
 )
+@click.option(
+    "--workers",
+    default=1,
+    type=int,
+    metavar="N",
+    help="Number of tables to generate in parallel (default: 1 = sequential).",
+)
 def cmd_db_generate(
     db_url: str,
     rows: int,
@@ -629,6 +650,7 @@ def cmd_db_generate(
     temperature: Optional[float],
     batch_size: Optional[int],
     large_dataset: bool,
+    workers: int,
 ):
     """Infer schemas from a database, generate synthetic data, and optionally write it back."""
     try:
@@ -662,7 +684,7 @@ def cmd_db_generate(
     try:
         generator, resolved_provider, resolved_model = _build_generator(
             provider, model, api_key, base_url, temperature,
-            batch_size=batch_size, large_dataset=large_dataset,
+            batch_size=batch_size, large_dataset=large_dataset, workers=workers,
         )
     except click.UsageError:
         raise

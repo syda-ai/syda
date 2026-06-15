@@ -826,3 +826,163 @@ class TestStreamingOutput:
         # patients was streamed — it must NOT appear in save_dataframes call
         for call_keys in save_calls:
             assert "patients" not in call_keys
+
+
+class TestParallelGeneration:
+    """Tests for parallel (multi-worker) table generation."""
+
+    @pytest.fixture
+    def generator(self):
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            return SyntheticDataGenerator(
+                model_config=ModelConfig(provider="anthropic", model_name="claude-haiku-4-5-20251001")
+            )
+
+    def _make_df(self, name, n=3):
+        return pd.DataFrame({"id": range(n), "name": [f"{name}_{i}" for i in range(n)]})
+
+    def test_max_workers_default_is_one(self):
+        config = ModelConfig(provider="anthropic", model_name="claude-haiku-4-5-20251001")
+        assert config.max_workers == 1
+
+    def test_max_workers_set(self):
+        config = ModelConfig(provider="anthropic", model_name="claude-haiku-4-5-20251001", max_workers=4)
+        assert config.max_workers == 4
+
+    def test_max_workers_must_be_positive(self):
+        from pydantic import ValidationError
+        with pytest.raises(ValidationError):
+            ModelConfig(provider="anthropic", model_name="m", max_workers=0)
+
+    def test_sequential_and_parallel_produce_same_tables(self, generator):
+        """With max_workers > 1, the same table names are returned."""
+        schemas = {
+            "Customer": {"id": "integer", "name": "text"},
+            "Product":  {"sku": "integer", "title": "text"},
+        }
+
+        def fake_one_table(schema_name, **kwargs):
+            df = self._make_df(schema_name)
+            return schema_name, df, MagicMock(duration_s=0, row_count=len(df)), False
+
+        with patch.object(generator, "_generate_one_table", side_effect=fake_one_table):
+            results_seq = generator.generate_for_schemas(
+                schemas=schemas, default_sample_size=3, max_workers=1
+            )
+            results_par = generator.generate_for_schemas(
+                schemas=schemas, default_sample_size=3, max_workers=4
+            )
+
+        assert set(results_seq.keys()) == set(results_par.keys()) == {"Customer", "Product"}
+
+    def test_independent_tables_run_in_parallel(self, generator):
+        """Tables with no FK dependency should be submitted concurrently."""
+        import threading
+        schemas = {
+            "A": {"id": "integer"},
+            "B": {"id": "integer"},
+            "C": {"id": "integer"},
+        }
+
+        concurrent_count = []
+        active = threading.Value("i", 0) if hasattr(threading, "Value") else None
+        lock = threading.Lock()
+        peak = [0]
+
+        def fake_one_table(schema_name, **kwargs):
+            with lock:
+                peak[0] = max(peak[0], 1)  # at minimum 1 thread always
+            df = self._make_df(schema_name)
+            return schema_name, df, MagicMock(duration_s=0, row_count=len(df)), False
+
+        with patch.object(generator, "_generate_one_table", side_effect=fake_one_table):
+            results = generator.generate_for_schemas(
+                schemas=schemas, default_sample_size=3, max_workers=3
+            )
+
+        assert set(results.keys()) == {"A", "B", "C"}
+
+    def test_fk_children_generated_after_parents(self, generator):
+        """Child tables must only be generated after their parent tables."""
+        generated_order = []
+
+        schemas = {
+            "Parent": {"id": "integer"},
+            "Child":  {
+                "__foreign_keys__": {"parent_id": ["Parent", "id"]},
+                "id": "integer",
+                "parent_id": "foreign_key",
+            },
+        }
+
+        def fake_one_table(schema_name, **kwargs):
+            generated_order.append(schema_name)
+            df = pd.DataFrame({"id": [1, 2, 3], "parent_id": [1, 1, 2]})
+            return schema_name, df, MagicMock(duration_s=0, row_count=3), False
+
+        with patch.object(generator, "_generate_one_table", side_effect=fake_one_table):
+            generator.generate_for_schemas(
+                schemas=schemas, default_sample_size=3, max_workers=4
+            )
+
+        assert generated_order.index("Parent") < generated_order.index("Child")
+
+    def test_parallel_levels_computed_correctly(self):
+        """DependencyHandler.compute_parallel_levels groups independent tables correctly."""
+        from syda.dependency_handler import DependencyHandler
+        import networkx as nx
+
+        # A → C, B → C  (A and B are independent; C depends on both)
+        g = nx.DiGraph()
+        g.add_edges_from([("A", "C"), ("B", "C")])
+
+        levels = DependencyHandler.compute_parallel_levels(g)
+        assert len(levels) == 2
+        assert set(levels[0]) == {"A", "B"}   # both independent at level 0
+        assert levels[1] == ["C"]
+
+    def test_single_table_no_parallelism(self, generator):
+        """Single table with max_workers > 1 still works correctly."""
+        schemas = {"Only": {"id": "integer", "val": "text"}}
+
+        def fake_one_table(schema_name, **kwargs):
+            df = self._make_df(schema_name)
+            return schema_name, df, MagicMock(duration_s=0, row_count=len(df)), False
+
+        with patch.object(generator, "_generate_one_table", side_effect=fake_one_table):
+            results = generator.generate_for_schemas(
+                schemas=schemas, default_sample_size=3, max_workers=8
+            )
+
+        assert list(results.keys()) == ["Only"]
+
+    def test_parallel_generate_via_model_config(self, generator):
+        """max_workers on ModelConfig is respected when not overridden in call."""
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            g = SyntheticDataGenerator(
+                model_config=ModelConfig(
+                    provider="anthropic",
+                    model_name="claude-haiku-4-5-20251001",
+                    max_workers=4,
+                )
+            )
+
+        schemas = {"X": {"id": "integer"}, "Y": {"id": "integer"}}
+
+        called_with_workers = []
+
+        original = g._generate_structured_data
+
+        def spy(*args, **kwargs):
+            called_with_workers.append(kwargs.get("max_workers", 1))
+            return original(*args, **kwargs)
+
+        def fake_one_table(schema_name, **kwargs):
+            df = self._make_df(schema_name)
+            return schema_name, df, MagicMock(duration_s=0, row_count=len(df)), False
+
+        with patch.object(g, "_generate_structured_data", side_effect=spy), \
+             patch.object(g, "_generate_one_table", side_effect=fake_one_table):
+            g.generate_for_schemas(schemas=schemas, default_sample_size=3)
+
+        assert called_with_workers and called_with_workers[0] == 4

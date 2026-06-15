@@ -56,6 +56,15 @@ class ModelConfig(BaseModel):
             "'codegen': LLM writes Python generators, local code fills rows."
         ),
     )
+    max_workers: int = Field(
+        1,
+        ge=1,
+        description=(
+            "Number of tables to generate concurrently. "
+            "Tables with no FK dependency between them are grouped into levels and "
+            "run in parallel within each level. Default 1 = sequential (original behavior)."
+        ),
+    )
 
     # OpenAI specific parameters
     seed: Optional[int] = Field(None, description="Random seed for reproducibility (OpenAI only)")

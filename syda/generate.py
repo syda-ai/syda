@@ -24,10 +24,12 @@ import os
 import math
 import time
 import random
+import threading
 import pkgutil
 import importlib
 import inspect
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import networkx as nx
 from typing import Dict, List, Optional, Callable, Union, Type, Any, Tuple
 from pydantic import create_model, TypeAdapter, Field
@@ -118,6 +120,10 @@ class SyntheticDataGenerator:
         # For backward compatibility, provide direct access to these dictionaries
         self.type_generators = self.generator_manager.type_generators
         self.column_generators = self.generator_manager.column_generators
+
+        # Lock used to serialise FK-generator registration when tables are
+        # generated in parallel (GeneratorManager's registry is a plain dict).
+        self._fk_lock = threading.Lock()
 
     def _sqlalchemy_models_to_schemas(
         self,
@@ -262,6 +268,7 @@ class SyntheticDataGenerator:
         output_format: str = 'csv',
         batch_size: Optional[int] = None,
         cache_dir: Optional[str] = None,
+        max_workers: Optional[int] = None,
     ) -> Dict[str, pd.DataFrame]:
         """
         Generate synthetic data for multiple related schemas with automatic 
@@ -433,9 +440,13 @@ class SyntheticDataGenerator:
             schema_depends_on_schemas=schema_depends_on_schemas
         )
         
+        # Resolve max_workers: explicit arg > ModelConfig > default 1
+        _max_workers = max_workers if max_workers is not None else self.model_config.max_workers
+
         # Calculate the generation order based on all dependencies using DependencyHandler
         generation_order = list(schemas.keys())
-        
+        parallel_levels: Optional[List[List[str]]] = None
+
         try:
             # Build dependency graph and determine generation order
             dependency_graph = DependencyHandler.build_dependency_graph(
@@ -443,7 +454,8 @@ class SyntheticDataGenerator:
                 dependencies=all_dependencies
             )
             generation_order = DependencyHandler.determine_generation_order(dependency_graph)
-            
+            parallel_levels = DependencyHandler.compute_parallel_levels(dependency_graph)
+
             print("\n[INFO] Generation order determined:")
             for i, schema in enumerate(generation_order):
                 deps = all_dependencies.get(schema, [])
@@ -451,6 +463,11 @@ class SyntheticDataGenerator:
                     print(f"  {i+1}. {schema} (depends on: {', '.join(deps)})")
                 else:
                     print(f"  {i+1}. {schema} (no dependencies)")
+            if _max_workers > 1 and parallel_levels:
+                parallelisable = sum(1 for lvl in parallel_levels if len(lvl) > 1)
+                print(f"[syda] Parallel mode: {_max_workers} workers, "
+                      f"{len(parallel_levels)} level(s), "
+                      f"{parallelisable} level(s) with concurrent tables")
             print("")
         except Exception as e:
             print(f"Warning: Could not determine optimal generation order: {str(e)}")
@@ -479,6 +496,8 @@ class SyntheticDataGenerator:
                 schema_hashes=schema_hashes,
                 cache=cache,
                 run_report=run_report,
+                max_workers=_max_workers,
+                parallel_levels=parallel_levels,
             )
           
             # Separate template schemas from structured schemas
@@ -527,6 +546,101 @@ class SyntheticDataGenerator:
         return results
 
 
+    def _generate_one_table(
+        self,
+        schema_name: str,
+        llm_schema: Dict,
+        metadata: Dict,
+        model_description: str,
+        prompt: str,
+        sample_size: int,
+        batch_size: Optional[int],
+        output_dir: Optional[str],
+        ext: str,
+        cache: Optional["CodegenCache"],
+        schema_hash: str,
+        fk_exposed: Dict[str, set],
+        extracted_foreign_keys: Dict,
+        results: Dict,
+        custom_generators: Dict,
+        is_template: bool,
+        run_report: Optional["RunReport"],
+    ) -> Tuple[str, "pd.DataFrame", "TableReport", bool]:
+        """Generate data for a single table. Thread-safe for parallel execution.
+
+        FK generator registration is protected by ``self._fk_lock`` so that
+        concurrent threads don't corrupt the shared GeneratorManager registry.
+        Data generation itself (the LLM calls) runs without the lock.
+        """
+        with self._fk_lock:
+            self.fk_handler.apply_foreign_keys(schema_name, extracted_foreign_keys, results)
+
+        _eff_mode = self.model_config.generation_mode
+        if _eff_mode == 'auto':
+            _eff_mode = 'direct' if sample_size <= 500 else 'codegen'
+
+        stream_path: Optional[str] = None
+        if output_dir and sample_size > _STREAM_THRESHOLD and _eff_mode == 'direct':
+            stream_path = os.path.join(output_dir, f"{schema_name.lower()}.{ext}")
+            os.makedirs(output_dir, exist_ok=True)
+            print(f"[syda] Streaming {sample_size:,} rows → {stream_path}")
+
+        table_report = TableReport(mode=_eff_mode, schema_hash=schema_hash)
+
+        print(f"\nGenerating data for {schema_name} with {len(llm_schema)} columns")
+        print(f"Description: {model_description}")
+        print(f"Creating data for {schema_name} with schema: {llm_schema}")
+
+        _tbl_start = time.time()
+        try:
+            df = self._generate_data(
+                table_schema=llm_schema,
+                metadata=metadata,
+                table_description=model_description,
+                prompt=prompt,
+                sample_size=sample_size,
+                batch_size=batch_size,
+                schema_name=schema_name,
+                stream_path=stream_path,
+                fk_cols_to_keep=fk_exposed.get(schema_name),
+                cache=cache,
+                table_report=table_report,
+            )
+        except Exception as e:
+            print(f"Error using AI generation for {schema_name}: {str(e)}")
+            raise Exception(f"Failed to generate data for {schema_name} using LLM: {str(e)}")
+
+        is_streamed = False
+        if stream_path and os.path.exists(stream_path):
+            is_streamed = True
+            print(f"[syda] {schema_name}: streamed {sample_size:,} rows to {stream_path}")
+        elif len(df) < sample_size:
+            print(
+                f"Warning: LLM generated only {len(df)} records "
+                f"instead of {sample_size} for {schema_name}"
+            )
+        elif len(df) > sample_size:
+            df = df.iloc[:sample_size]
+
+        table_report.duration_s = time.time() - _tbl_start
+        table_report.row_count = len(df)
+
+        schema_custom_generators = custom_generators.get(schema_name, {})
+        print(f"Applying custom generators for schema {schema_name}")
+        df = self.generator_manager.apply_custom_generators(
+            df, schema_name, schema_custom_generators, parent_dfs=results)
+
+        if output_dir and not is_streamed and not is_template:
+            file_path = os.path.join(output_dir, f"{schema_name.lower()}.{ext}")
+            os.makedirs(output_dir, exist_ok=True)
+            save_dataframe(df, file_path)
+            is_streamed = True
+            print(f"[syda] {schema_name}: {len(df):,} rows written to {file_path}")
+            fk_cols = list(fk_exposed.get(schema_name, set()) & set(df.columns))
+            df = df[fk_cols] if fk_cols else pd.DataFrame(columns=list(df.columns))
+
+        return schema_name, df, table_report, is_streamed
+
     def _generate_structured_data(
         self,
         processed_schemas,
@@ -545,6 +659,8 @@ class SyntheticDataGenerator:
         schema_hashes: Optional[Dict[str, str]] = None,
         cache: Optional["CodegenCache"] = None,
         run_report: Optional["RunReport"] = None,
+        max_workers: int = 1,
+        parallel_levels: Optional[List[List[str]]] = None,
     ):
         """
         Generate structured data for each schema in the specified generation order.
@@ -589,113 +705,81 @@ class SyntheticDataGenerator:
         results: Dict[str, Any] = {}
         streamed_schemas: set = set()
 
-        import time as _time
-        for schema_name in generation_order:
-            llm_schema = processed_schemas[schema_name]
-            metadata = schema_metadata[schema_name]
-            model_description = schema_descriptions[schema_name]
+        # ── Determine execution levels ────────────────────────────────────────
+        # Each level is a list of tables that have no FK dependency on each
+        # other and can therefore be generated concurrently.
+        levels: List[List[str]]
+        if parallel_levels:
+            levels = parallel_levels
+        else:
+            levels = [[t] for t in generation_order]
 
-            print(f"\nGenerating data for {schema_name} with {len(llm_schema)} columns")
-            print(f"Description: {model_description}")
+        # Pre-compute: for each parent, which level index is its last consumer?
+        # (Used to free RAM after that level finishes.)
+        level_of: Dict[str, int] = {
+            t: lvl_idx for lvl_idx, lvl in enumerate(levels) for t in lvl
+        }
+        parent_last_level: Dict[str, int] = {}
+        for child_tbl in generation_order:
+            for _, (parent, _) in extracted_foreign_keys.get(child_tbl, {}).items():
+                child_lvl = level_of.get(child_tbl, 0)
+                if child_lvl > parent_last_level.get(parent, -1):
+                    parent_last_level[parent] = child_lvl
 
-            prompt = prompts.get(schema_name, default_prompt)
-            sample_size = sample_sizes.get(schema_name, default_sample_size)
-
-            self.fk_handler.apply_foreign_keys(schema_name, extracted_foreign_keys, results)
-
-            print(f"Creating data for {schema_name} with schema: {llm_schema}")
-
-            # Decide whether to stream chunks directly to disk during generation
-            # (activates for large tables in direct mode to cap per-chunk RAM).
-            _eff_mode = self.model_config.generation_mode
-            if _eff_mode == 'auto':
-                _eff_mode = 'direct' if sample_size <= 500 else 'codegen'
-            stream_path: Optional[str] = None
-            if output_dir and sample_size > _STREAM_THRESHOLD and _eff_mode == 'direct':
-                stream_path = os.path.join(output_dir, f"{schema_name.lower()}.{ext}")
-                os.makedirs(output_dir, exist_ok=True)
-                print(f"[syda] Streaming {sample_size:,} rows → {stream_path}")
-
-            schema_hash = (schema_hashes or {}).get(schema_name, "")
-            table_report = TableReport(
-                mode=_eff_mode,
-                schema_hash=schema_hash,
+        def _submit(schema_name: str) -> Tuple[str, "pd.DataFrame", "TableReport", bool]:
+            return self._generate_one_table(
+                schema_name=schema_name,
+                llm_schema=processed_schemas[schema_name],
+                metadata=schema_metadata[schema_name],
+                model_description=schema_descriptions[schema_name],
+                prompt=prompts.get(schema_name, default_prompt),
+                sample_size=sample_sizes.get(schema_name, default_sample_size),
+                batch_size=batch_size,
+                output_dir=output_dir,
+                ext=ext,
+                cache=cache,
+                schema_hash=(schema_hashes or {}).get(schema_name, ""),
+                fk_exposed=fk_exposed,
+                extracted_foreign_keys=extracted_foreign_keys,
+                results=results,
+                custom_generators=custom_generators,
+                is_template=schema_name in _template_names,
+                run_report=run_report,
             )
 
-            _tbl_start = _time.time()
-            try:
-                df = self._generate_data(
-                    table_schema=llm_schema,
-                    metadata=metadata,
-                    table_description=model_description,
-                    prompt=prompt,
-                    sample_size=sample_size,
-                    batch_size=batch_size,
-                    schema_name=schema_name,
-                    stream_path=stream_path,
-                    fk_cols_to_keep=fk_exposed.get(schema_name),
-                    cache=cache,
-                    table_report=table_report,
-                )
+        for lvl_idx, level_tables in enumerate(levels):
+            n_concurrent = min(len(level_tables), max_workers)
+            if n_concurrent > 1:
+                print(f"\n[syda] Level {lvl_idx + 1}/{len(levels)}: "
+                      f"generating {', '.join(level_tables)} in parallel "
+                      f"({n_concurrent} workers)")
 
-                if stream_path and os.path.exists(stream_path):
-                    streamed_schemas.add(schema_name)
-                    print(f"[syda] {schema_name}: streamed {sample_size:,} rows to {stream_path}")
-                elif len(df) < sample_size:
-                    print(
-                        f"Warning: LLM generated only {len(df)} records "
-                        f"instead of {sample_size} for {schema_name}"
-                    )
-                elif len(df) > sample_size:
-                    df = df.iloc[:sample_size]
+            if n_concurrent > 1:
+                with ThreadPoolExecutor(max_workers=n_concurrent) as pool:
+                    futures = {pool.submit(_submit, t): t for t in level_tables}
+                    for fut in as_completed(futures):
+                        sname, df, table_report, is_streamed = fut.result()
+                        results[sname] = df
+                        if is_streamed:
+                            streamed_schemas.add(sname)
+                        if run_report is not None:
+                            run_report.tables[sname] = table_report
+            else:
+                for schema_name in level_tables:
+                    sname, df, table_report, is_streamed = _submit(schema_name)
+                    results[sname] = df
+                    if is_streamed:
+                        streamed_schemas.add(sname)
+                    if run_report is not None:
+                        run_report.tables[sname] = table_report
 
-            except Exception as e:
-                print(f"Error using AI generation for {schema_name}: {str(e)}")
-                raise Exception(f"Failed to generate data for {schema_name} using LLM: {str(e)}")
-
-            table_report.duration_s = _time.time() - _tbl_start
-            table_report.row_count = len(df)
-            if run_report is not None:
-                run_report.tables[schema_name] = table_report
-
-            schema_custom_generators = custom_generators.get(schema_name, {})
-            print(f"Applying custom generators for schema {schema_name}")
-            df = self.generator_manager.apply_custom_generators(
-                df, schema_name, schema_custom_generators, parent_dfs=results)
-
-            # ── Progressive disk write + memory slim ──────────────────────────
-            # When output_dir is set, write every table to disk as soon as it's
-            # ready (not just > 10K-row tables).  After writing, replace the
-            # in-memory entry with FK-columns only so subsequent tables' FK
-            # generators still work but full row data is freed.
-            # Template tables keep their full DataFrames because the template
-            # processor needs them later in this call.
-            if output_dir and schema_name not in streamed_schemas and schema_name not in _template_names:
-                file_path = os.path.join(output_dir, f"{schema_name.lower()}.{ext}")
-                os.makedirs(output_dir, exist_ok=True)
-                save_dataframe(df, file_path)
-                streamed_schemas.add(schema_name)
-                print(f"[syda] {schema_name}: {len(df):,} rows written to {file_path}")
-
-                # Slim to FK columns; fully drop if nobody references this table.
-                fk_cols = list(fk_exposed.get(schema_name, set()) & set(df.columns))
-                df = df[fk_cols] if fk_cols else pd.DataFrame(columns=list(df.columns))
-
-            results[schema_name] = df
-
-            # ── Free parent tables fully consumed by this step ────────────────
-            # A parent table is no longer needed once all its FK children have
-            # been generated.  When output_dir is set (data is on disk), drop
-            # its results entry entirely; otherwise keep FK columns for the
-            # integrity check that runs at the end of generate_for_schemas().
-            current_idx = order_idx[schema_name]
-            for parent, last_idx in last_consumer.items():
-                if last_idx == current_idx and parent in results:
+            # ── Free parent tables whose last FK child just finished ───────────
+            for parent, last_lvl in parent_last_level.items():
+                if last_lvl == lvl_idx and parent in results:
                     if output_dir:
                         del results[parent]
                         print(f"[syda] Freed '{parent}' from memory (all FK children generated)")
                     else:
-                        # No disk — keep only the FK columns for integrity check
                         fk_cols = list(fk_exposed.get(parent, set()) & set(results[parent].columns))
                         results[parent] = (
                             results[parent][fk_cols] if fk_cols

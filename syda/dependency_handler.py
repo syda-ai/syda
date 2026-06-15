@@ -272,6 +272,29 @@ class DependencyHandler:
             return True
     
     @staticmethod
+    def compute_parallel_levels(dependency_graph: nx.DiGraph) -> List[List[str]]:
+        """
+        Group tables into levels where all tables in the same level are
+        independent of each other and can be generated concurrently.
+
+        Level 0 = tables with no parents (roots).
+        Level N = tables whose parents are all in levels < N.
+
+        Returns:
+            Ordered list of groups; tables within a group are parallelisable.
+        """
+        graph = dependency_graph.copy()
+        levels: List[List[str]] = []
+        while graph.nodes():
+            ready = sorted(n for n in graph.nodes() if graph.in_degree(n) == 0)
+            if not ready:
+                # Cycle guard: take all remaining nodes to avoid infinite loop
+                ready = sorted(graph.nodes())
+            levels.append(ready)
+            graph.remove_nodes_from(ready)
+        return levels
+
+    @staticmethod
     def determine_generation_order(
         dependency_graph: nx.DiGraph
     ) -> List[str]:
