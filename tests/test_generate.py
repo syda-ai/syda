@@ -986,3 +986,101 @@ class TestParallelGeneration:
             g.generate_for_schemas(schemas=schemas, default_sample_size=3)
 
         assert called_with_workers and called_with_workers[0] == 4
+
+
+class TestParallelRateLimitHandling:
+    """Tests for rate-limit and error handling in parallel generation."""
+
+    @pytest.fixture
+    def generator(self):
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            return SyntheticDataGenerator(
+                model_config=ModelConfig(
+                    provider="anthropic",
+                    model_name="claude-haiku-4-5-20251001",
+                    max_workers=4,
+                )
+            )
+
+    def _make_df(self, name, n=3):
+        return pd.DataFrame({"id": range(n), "val": [f"{name}_{i}" for i in range(n)]})
+
+    def test_wider_jitter_used_when_parallel(self):
+        """_call_with_retry uses wider jitter (0-30s) when max_workers > 1."""
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            g = SyntheticDataGenerator(
+                model_config=ModelConfig(provider="anthropic", model_name="m", max_workers=4)
+            )
+
+        call_count = [0]
+        sleep_delays = []
+
+        def rate_limit_then_ok():
+            call_count[0] += 1
+            if call_count[0] == 1:
+                err = Exception("rate limit")
+                err.status_code = 429
+                raise err
+            return "ok"
+
+        with patch("syda.generate.time.sleep", side_effect=lambda d: sleep_delays.append(d)), \
+             patch("syda.generate.random.uniform", return_value=20.0):
+            result = g._call_with_retry(rate_limit_then_ok, max_retries=2,
+                                        parallel_jitter=True)
+
+        assert result == "ok"
+        assert len(sleep_delays) == 1
+        # With parallel_jitter=True, delay = 60 + uniform(0, 30) = 60 + 20 = 80
+        assert sleep_delays[0] == pytest.approx(80.0)
+
+    def test_narrow_jitter_used_when_sequential(self):
+        """_call_with_retry uses narrow jitter (0-5s) when parallel_jitter=False."""
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            g = SyntheticDataGenerator(
+                model_config=ModelConfig(provider="anthropic", model_name="m")
+            )
+
+        call_count = [0]
+        sleep_delays = []
+
+        def rate_limit_then_ok():
+            call_count[0] += 1
+            if call_count[0] == 1:
+                err = Exception("rate limit")
+                err.status_code = 429
+                raise err
+            return "ok"
+
+        with patch("syda.generate.time.sleep", side_effect=lambda d: sleep_delays.append(d)), \
+             patch("syda.generate.random.uniform", return_value=3.0):
+            result = g._call_with_retry(rate_limit_then_ok, max_retries=2,
+                                        parallel_jitter=False)
+
+        assert result == "ok"
+        # With parallel_jitter=False, delay = 60 + uniform(0, 5) = 60 + 3 = 63
+        assert sleep_delays[0] == pytest.approx(63.0)
+
+    def test_successful_tables_preserved_on_partial_failure(self):
+        """When one table fails, already-completed tables in the same level are kept."""
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            g = SyntheticDataGenerator(
+                model_config=ModelConfig(
+                    provider="anthropic", model_name="m", max_workers=3
+                )
+            )
+
+        schemas = {
+            "Good1": {"id": "integer"},
+            "Bad":   {"id": "integer"},
+            "Good2": {"id": "integer"},
+        }
+
+        def fake_one_table(schema_name, **kwargs):
+            if schema_name == "Bad":
+                raise RuntimeError("simulated API failure")
+            df = self._make_df(schema_name)
+            return schema_name, df, MagicMock(duration_s=0, row_count=len(df)), False
+
+        with patch.object(g, "_generate_one_table", side_effect=fake_one_table):
+            with pytest.raises(Exception, match="Bad"):
+                g.generate_for_schemas(schemas=schemas, default_sample_size=3)

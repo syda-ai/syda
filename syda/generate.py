@@ -757,13 +757,27 @@ class SyntheticDataGenerator:
             if n_concurrent > 1:
                 with ThreadPoolExecutor(max_workers=n_concurrent) as pool:
                     futures = {pool.submit(_submit, t): t for t in level_tables}
+                    # Drain ALL futures before raising so that successful tables
+                    # in the same level are not silently discarded on a partial
+                    # failure (e.g. one table hits a rate-limit and fails while
+                    # the others succeed).
+                    level_errors: List[Tuple[str, Exception]] = []
                     for fut in as_completed(futures):
-                        sname, df, table_report, is_streamed = fut.result()
-                        results[sname] = df
-                        if is_streamed:
-                            streamed_schemas.add(sname)
-                        if run_report is not None:
-                            run_report.tables[sname] = table_report
+                        tname = futures[fut]
+                        try:
+                            sname, df, table_report, is_streamed = fut.result()
+                            results[sname] = df
+                            if is_streamed:
+                                streamed_schemas.add(sname)
+                            if run_report is not None:
+                                run_report.tables[sname] = table_report
+                        except Exception as exc:
+                            level_errors.append((tname, exc))
+                    if level_errors:
+                        names = ", ".join(t for t, _ in level_errors)
+                        raise level_errors[0][1].__class__(
+                            f"Failed to generate table(s) [{names}]: {level_errors[0][1]}"
+                        ) from level_errors[0][1]
             else:
                 for schema_name in level_tables:
                     sname, df, table_report, is_streamed = _submit(schema_name)
@@ -960,8 +974,14 @@ class SyntheticDataGenerator:
                 raise
             raise ValueError(f"Error generating data: {str(e)}")
 
-    def _call_with_retry(self, fn, max_retries: int, base_delay: float = 1.0):
-        """Call fn with exponential-backoff retry on transient errors."""
+    def _call_with_retry(self, fn, max_retries: int, base_delay: float = 1.0,
+                         parallel_jitter: bool = False):
+        """Call fn with exponential-backoff retry on transient errors.
+
+        ``parallel_jitter=True`` widens the 429 jitter window to 0–30 s so that
+        multiple threads hitting a rate-limit simultaneously don't all wake up
+        at the same time and create a thundering-herd retry storm.
+        """
         last_exc = None
         for attempt in range(max_retries + 1):
             try:
@@ -974,9 +994,11 @@ class SyntheticDataGenerator:
                     raise
                 last_exc = exc
                 if attempt < max_retries:
-                    # 429 rate limit: wait 60 s (token bucket refills per minute)
                     if status == 429:
-                        delay = 60.0 + random.uniform(0, 5)
+                        # Wide jitter in parallel mode so concurrent threads don't
+                        # all hammer the API again at the same instant.
+                        jitter = random.uniform(0, 30) if parallel_jitter else random.uniform(0, 5)
+                        delay = 60.0 + jitter
                         print(
                             f"[syda] Rate limit hit, waiting {delay:.0f}s before retry "
                             f"(attempt {attempt + 1}/{max_retries})..."
@@ -1512,6 +1534,7 @@ Every column must appear in exactly one list."""
                 result = self._call_with_retry(
                     lambda _p=p, _sz=remaining: self._generate_data_with_llm(table_schema, _p, _sz),
                     max_retries=effective_retries,
+                    parallel_jitter=(self.model_config.max_workers > 1),
                 )
                 part, in_tok, out_tok = result
                 if table_report is not None:
