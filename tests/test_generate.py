@@ -1005,8 +1005,8 @@ class TestParallelRateLimitHandling:
     def _make_df(self, name, n=3):
         return pd.DataFrame({"id": range(n), "val": [f"{name}_{i}" for i in range(n)]})
 
-    def test_wider_jitter_used_when_parallel(self):
-        """_call_with_retry uses wider jitter (0-30s) when max_workers > 1."""
+    def test_429_sets_global_backoff(self):
+        """When a 429 is hit, _set_global_backoff is called to pause all threads."""
         with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
             g = SyntheticDataGenerator(
                 model_config=ModelConfig(provider="anthropic", model_name="m", max_workers=4)
@@ -1023,42 +1023,56 @@ class TestParallelRateLimitHandling:
                 raise err
             return "ok"
 
+        # time.time returns 1000.0 before/during the 429 handler, then 2000.0 on
+        # the next attempt so _wait_for_global_backoff sees an expired deadline.
+        time_sequence = iter([1000.0, 1000.0, 2000.0, 2000.0])
         with patch("syda.generate.time.sleep", side_effect=lambda d: sleep_delays.append(d)), \
-             patch("syda.generate.random.uniform", return_value=20.0):
-            result = g._call_with_retry(rate_limit_then_ok, max_retries=2,
-                                        parallel_jitter=True)
+             patch("syda.generate.random.uniform", return_value=5.0), \
+             patch("syda.generate.time.time", side_effect=time_sequence):
+            result = g._call_with_retry(rate_limit_then_ok, max_retries=2)
 
         assert result == "ok"
+        # _set_global_backoff should have set _backoff_until > 0
+        assert g._backoff_until > 0
+        # One sleep for the 429 delay (the next _wait_for_global_backoff sees expired deadline)
         assert len(sleep_delays) == 1
-        # With parallel_jitter=True, delay = 60 + uniform(0, 30) = 60 + 20 = 80
-        assert sleep_delays[0] == pytest.approx(80.0)
+        # delay = 60.0 + uniform(0, 10) = 60 + 5 = 65
+        assert sleep_delays[0] == pytest.approx(65.0)
 
-    def test_narrow_jitter_used_when_sequential(self):
-        """_call_with_retry uses narrow jitter (0-5s) when parallel_jitter=False."""
+    def test_wait_for_global_backoff_blocks_other_threads(self):
+        """_wait_for_global_backoff sleeps for the remaining backoff time."""
         with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
             g = SyntheticDataGenerator(
-                model_config=ModelConfig(provider="anthropic", model_name="m")
+                model_config=ModelConfig(provider="anthropic", model_name="m", max_workers=4)
             )
 
-        call_count = [0]
         sleep_delays = []
 
-        def rate_limit_then_ok():
-            call_count[0] += 1
-            if call_count[0] == 1:
-                err = Exception("rate limit")
-                err.status_code = 429
-                raise err
-            return "ok"
+        # Simulate another thread having set _backoff_until to 20s from now
+        with patch("syda.generate.time.time", return_value=1000.0):
+            g._backoff_until = 1020.0  # 20 seconds in the future
 
         with patch("syda.generate.time.sleep", side_effect=lambda d: sleep_delays.append(d)), \
-             patch("syda.generate.random.uniform", return_value=3.0):
-            result = g._call_with_retry(rate_limit_then_ok, max_retries=2,
-                                        parallel_jitter=False)
+             patch("syda.generate.time.time", return_value=1000.0):
+            g._wait_for_global_backoff()
 
-        assert result == "ok"
-        # With parallel_jitter=False, delay = 60 + uniform(0, 5) = 60 + 3 = 63
-        assert sleep_delays[0] == pytest.approx(63.0)
+        assert len(sleep_delays) == 1
+        assert sleep_delays[0] == pytest.approx(20.0)
+
+    def test_wait_for_global_backoff_noop_when_expired(self):
+        """_wait_for_global_backoff does not sleep when backoff has already expired."""
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            g = SyntheticDataGenerator(
+                model_config=ModelConfig(provider="anthropic", model_name="m", max_workers=4)
+            )
+
+        sleep_delays = []
+        # _backoff_until defaults to 0.0 — already expired
+        with patch("syda.generate.time.sleep", side_effect=lambda d: sleep_delays.append(d)), \
+             patch("syda.generate.time.time", return_value=1000.0):
+            g._wait_for_global_backoff()
+
+        assert sleep_delays == []
 
     def test_successful_tables_preserved_on_partial_failure(self):
         """When one table fails, already-completed tables in the same level are kept."""

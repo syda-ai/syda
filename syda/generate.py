@@ -125,6 +125,14 @@ class SyntheticDataGenerator:
         # generated in parallel (GeneratorManager's registry is a plain dict).
         self._fk_lock = threading.Lock()
 
+        # Shared rate-limit backoff for parallel generation.
+        # When any thread hits a 429, it sets _backoff_until so ALL threads
+        # pause before their next LLM call — prevents retry storms where
+        # parallel threads collectively re-trigger the rate limit immediately
+        # after backing off.
+        self._backoff_until: float = 0.0
+        self._backoff_lock = threading.Lock()
+
     def _sqlalchemy_models_to_schemas(
         self,
         sqlalchemy_models: Union[List[Type], Type, str],
@@ -938,6 +946,7 @@ class SyntheticDataGenerator:
                 ),
             )
             model_settings = self.llm_client.get_model_settings()
+            self._wait_for_global_backoff()
             result = agent.run_sync(full_prompt, model_settings=model_settings)
             ai_objs = result.output
 
@@ -974,16 +983,38 @@ class SyntheticDataGenerator:
                 raise
             raise ValueError(f"Error generating data: {str(e)}")
 
-    def _call_with_retry(self, fn, max_retries: int, base_delay: float = 1.0,
-                         parallel_jitter: bool = False):
+    def _set_global_backoff(self) -> float:
+        """Record a rate-limit backoff deadline visible to all parallel threads.
+
+        Returns the sleep duration so the caller can log it.
+        """
+        delay = 60.0 + random.uniform(0, 10)
+        until = time.time() + delay
+        with self._backoff_lock:
+            if until > self._backoff_until:
+                self._backoff_until = until
+        return delay
+
+    def _wait_for_global_backoff(self) -> None:
+        """Block until any active rate-limit backoff period has expired.
+
+        Called by every thread before issuing an LLM API request so that a
+        429 received by one thread automatically slows down all others.
+        """
+        remaining = self._backoff_until - time.time()
+        if remaining > 0:
+            print(f"[syda] Waiting {remaining:.0f}s (global rate-limit backoff)...")
+            time.sleep(remaining)
+
+    def _call_with_retry(self, fn, max_retries: int, base_delay: float = 1.0):
         """Call fn with exponential-backoff retry on transient errors.
 
-        ``parallel_jitter=True`` widens the 429 jitter window to 0–30 s so that
-        multiple threads hitting a rate-limit simultaneously don't all wake up
-        at the same time and create a thundering-herd retry storm.
+        Respects the shared global backoff signal — if any parallel thread has
+        set a rate-limit pause, all threads wait before issuing the next call.
         """
         last_exc = None
         for attempt in range(max_retries + 1):
+            self._wait_for_global_backoff()
             try:
                 return fn()
             except Exception as exc:
@@ -995,21 +1026,20 @@ class SyntheticDataGenerator:
                 last_exc = exc
                 if attempt < max_retries:
                     if status == 429:
-                        # Wide jitter in parallel mode so concurrent threads don't
-                        # all hammer the API again at the same instant.
-                        jitter = random.uniform(0, 30) if parallel_jitter else random.uniform(0, 5)
-                        delay = 60.0 + jitter
+                        # Broadcast pause to all threads via shared signal.
+                        delay = self._set_global_backoff()
                         print(
-                            f"[syda] Rate limit hit, waiting {delay:.0f}s before retry "
+                            f"[syda] Rate limit hit, pausing all threads for {delay:.0f}s "
                             f"(attempt {attempt + 1}/{max_retries})..."
                         )
+                        time.sleep(delay)
                     else:
                         delay = base_delay * (2 ** attempt) + random.uniform(0, 0.5)
                         print(
                             f"[syda] Chunk failed ({name}), retrying in {delay:.1f}s "
                             f"(attempt {attempt + 1}/{max_retries})..."
                         )
-                    time.sleep(delay)
+                        time.sleep(delay)
         raise RuntimeError(f"Chunk failed after {max_retries} retries: {last_exc}") from last_exc
 
     def _resolve_batch_size(self, sample_size: int, batch_size: Optional[int] = None) -> int:
@@ -1157,6 +1187,7 @@ Every column must appear in exactly one list."""
         else:
             model_settings = self.llm_client.get_model_settings()
             try:
+                self._wait_for_global_backoff()
                 result = agent.run_sync(analysis_prompt, model_settings=model_settings)
                 analysis = result.output
             except Exception as e:
@@ -1292,6 +1323,7 @@ Every column must appear in exactly one list."""
                 + f"Return a JSON array of exactly {sz} strings."
             )
 
+            self._wait_for_global_backoff()
             result = agent.run_sync(prompt, model_settings=model_settings)
             all_values.extend(result.output)
             llm_calls += 1
@@ -1534,7 +1566,6 @@ Every column must appear in exactly one list."""
                 result = self._call_with_retry(
                     lambda _p=p, _sz=remaining: self._generate_data_with_llm(table_schema, _p, _sz),
                     max_retries=effective_retries,
-                    parallel_jitter=(self.model_config.max_workers > 1),
                 )
                 part, in_tok, out_tok = result
                 if table_report is not None:
