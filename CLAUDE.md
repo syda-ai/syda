@@ -53,7 +53,7 @@ cd schema_inference && python -m pytest test_modules.py -v
 
 1. **Schema parsing** — `SchemaLoader` (`schema_loader.py`) accepts Python dicts, JSON/YAML files, or SQLAlchemy ORM models and normalizes them into a common format including foreign keys, metadata, and template fields.
 
-2. **Dependency resolution** — `ForeignKeyHandler` (`dependency_handler.py`) uses networkx to build a DAG of table dependencies and returns a topologically sorted order so parent tables are generated before children, maintaining referential integrity.
+2. **Dependency resolution** — `ForeignKeyHandler` (`dependency_handler.py`) uses networkx to build a DAG of table dependencies. `DependencyHandler.compute_parallel_levels()` groups independent tables into BFS levels so tables within the same level can be generated concurrently. Tables are always generated in topological order (parents before children).
 
 3. **LLM generation** — `LLMClient` (`llm.py`) wraps `pydantic-ai` to provide structured (Pydantic model) output from any supported provider: OpenAI, Anthropic, Gemini, Azure OpenAI, or Grok. Provider selection and parameters are configured via `ModelConfig` (`schemas.py`). All calls use `agent.run_sync()` — syda is fully synchronous.
 
@@ -72,7 +72,9 @@ cd schema_inference && python -m pytest test_modules.py -v
 
 9. **Output** — `save_dataframe(s)` (`output.py`) writes CSV or JSON to disk. When `output_dir` is set on `generate_for_schemas()`, every table is flushed to disk immediately after generation and the in-memory result is slimmed to FK columns only (to keep RAM bounded). **Examples that access `results[schema_name]` after the call must reload from the saved CSV** — the in-memory DataFrame will be empty or FK-only.
 
-10. **Observability** — `RunReport` / `TableReport` / `ColumnReport` (`run_report.py`) capture per-column strategy (`fk_sampler` | `codegen_simple` | `codegen_semantic` | `direct_llm`), token counts, cost, and cache hit/miss. Always accessible via `generator.last_report` after a run. An HTML report is auto-saved to `output_dir/run_report_<timestamp>.html` when `output_dir` is set.
+10. **Parallel generation** — `_generate_structured_data()` uses `ThreadPoolExecutor` to run tables within the same DAG level concurrently. Controlled by `ModelConfig(max_workers=N)` (default 1 = sequential). FK registration is protected by `self._fk_lock`. Rate-limit coordination uses a shared `_backoff_until` signal: when any thread hits a 429, `_set_global_backoff()` sets a shared deadline and all threads call `_wait_for_global_backoff()` before every LLM request. CLI flag: `--workers N`.
+
+11. **Observability** — `RunReport` / `TableReport` / `ColumnReport` (`run_report.py`) capture per-column strategy (`fk_sampler` | `codegen_simple` | `codegen_semantic` | `direct_llm`), token counts, cost, and cache hit/miss. Always accessible via `generator.last_report` after a run. An HTML report is auto-saved to `output_dir/run_report_<timestamp>.html` when `output_dir` is set.
 
 ## Output directory layout (dbt-style)
 
@@ -106,7 +108,8 @@ results = generator.generate_for_schemas(schemas=schema_files, ...)
 ## Key Conventions
 
 - All public configuration goes through `ModelConfig` (Pydantic); never pass raw dicts to `LLMClient`.
-- `ModelConfig` large-dataset fields: `generation_mode: Literal['auto','direct','codegen'] = 'auto'`, `batch_size: Optional[int] = None` (auto-selected when None), `max_retries: int = 3`.
+- `ModelConfig` large-dataset fields: `generation_mode: Literal['auto','direct','codegen'] = 'auto'`, `batch_size: Optional[int] = None` (auto-selected when None), `max_retries: int = 3`, `max_workers: int = 1` (>1 enables parallel table generation).
+- Parallel mode: `_backoff_until: float` and `_backoff_lock: threading.Lock` on the generator instance coordinate rate-limit pauses across threads. `_set_global_backoff()` → `_wait_for_global_backoff()` — never skip these when adding new LLM call sites.
 - Generator functions registered with `GeneratorManager` have signature `fn(row: pd.Series, col_name: str) -> Any`.
 - Schema dict format: top-level keys are column names, values are dicts with at minimum a `"type"` key. A `"_meta"` key holds table-level metadata (description, primary keys, etc.) and is stripped before passing to the LLM.
 - `force_llm: true` on a column forces LLM generation in codegen mode regardless of cache state.
