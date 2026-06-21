@@ -537,8 +537,15 @@ class SyntheticDataGenerator:
                 if to_save:
                     save_dataframes(to_save, output_dir, format=output_format)
             
-            # Verify referential integrity using ForeignKeyHandler
-            self.fk_handler.verify_referential_integrity(results, extracted_foreign_keys)
+            # Verify referential integrity using ForeignKeyHandler.
+            # Pass output_dir + streamed_schemas so the verifier can reload
+            # parent tables that were freed from memory after being flushed to disk.
+            self.fk_handler.verify_referential_integrity(
+                results, extracted_foreign_keys,
+                output_dir=output_dir,
+                streamed_schemas=streamed_schemas,
+                output_format=output_format,
+            )
                     
         except Exception as e:
             raise e

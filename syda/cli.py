@@ -376,13 +376,20 @@ def cmd_generate(
             click.style(f"  Wrote {len(df)} rows → {out_path}", fg="green")
         )
     else:
-        # output_dir was already passed to generate_for_schemas; just report
+        # output_dir was already passed to generate_for_schemas; report using
+        # last_report row counts so streamed tables show the correct number
+        # instead of 0 (in-memory DataFrames are slimmed after disk flush).
         base = Path(resolved_output_dir or ".")
-        for name, df in results.items():
+        for name in results:
             ext = "json" if resolved_fmt == "json" else "csv"
+            row_count = (
+                generator.last_report.tables[name].row_count
+                if generator.last_report and name in generator.last_report.tables
+                else len(results[name])
+            )
             click.echo(
                 click.style(
-                    f"  Wrote {len(df)} rows → {base / f'{name}.{ext}'}",
+                    f"  Wrote {row_count} rows → {base / f'{name}.{ext}'}",
                     fg="green",
                 )
             )
@@ -709,10 +716,15 @@ def cmd_db_generate(
     # --- report output files ---
     if output_dir:
         base = Path(output_dir)
-        for name, df in results.items():
+        for name in results:
+            row_count = (
+                generator.last_report.tables[name].row_count
+                if generator.last_report and name in generator.last_report.tables
+                else len(results[name])
+            )
             click.echo(
                 click.style(
-                    f"  Wrote {len(df)} rows → {base / f'{name}.{fmt}'}",
+                    f"  Wrote {row_count} rows → {base / f'{name}.{fmt}'}",
                     fg="green",
                 )
             )
