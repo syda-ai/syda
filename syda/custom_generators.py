@@ -14,6 +14,7 @@ provides a way to look up generators by column name.
 
 
 import random
+import threading
 import pandas as pd
 from typing import Dict, List, Tuple, Any, Callable, Optional, Union
 
@@ -174,19 +175,25 @@ class GeneratorManager:
             print(f"⚠️ Warning: No records in {parent_schema} for foreign keys in {schema_name}")
             return
         
-        # Create a shared state between all generators
+        # Create a shared state between all generators for this table.
+        # _lock guards row_cache to make the check-then-set atomic so that
+        # two threads generating rows of the same table concurrently cannot
+        # assign different parent records to the same row index.
         shared_state = {
             'parent_df': parent_df,
-            'row_cache': {},  # Cache to store row-to-parent mappings
+            'row_cache': {},
             'parent_indices': parent_indices,
-            'parent_schema': parent_schema
+            'parent_schema': parent_schema,
+            '_lock': threading.Lock(),
         }
         
-        # Register a generator for each column that uses the shared mapping
+        # Register a generator for each column that uses the shared mapping.
+        # Key is prefixed with schema name to avoid collisions when parallel tables
+        # share a FK column name (e.g. two tables both have "customer_id").
         for fk_column, parent_column in fk_list:
             fk_generator = self._create_consistent_generator(fk_column, shared_state, parent_column)
             print(f"Registering consistent foreign key generator for {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
-            self.register_generator('foreign_key', fk_generator, column_name=fk_column)
+            self.register_generator('foreign_key', fk_generator, column_name=f"{schema_name}__{fk_column}")
     
     def _create_consistent_generator(
         self, 
@@ -207,31 +214,23 @@ class GeneratorManager:
             Generator function that takes (row, col_name) and returns a value
         """
         def generator(row, col_name):
-            # Get a stable identifier for this row
             if hasattr(row, 'name'):
-                row_key = row.name  # Pandas row index
+                row_key = row.name
             else:
                 row_key = hash(str(row))
-            
-            # Two-level cache: by row and parent table
-            if row_key not in state['row_cache']:
-                state['row_cache'][row_key] = {}
-                
-            # If we haven't assigned a parent for this row and this parent table
-            if state['parent_schema'] not in state['row_cache'][row_key]:
-                # Select a random parent index
-                if state['parent_indices']:
-                    parent_idx = random.choice(state['parent_indices'])
-                else:
-                    parent_idx = 0  # Fallback if no parent indices
-                    
-                # Store in cache
-                state['row_cache'][row_key][state['parent_schema']] = parent_idx
-                
-            # Get the parent index for this row and parent table
-            parent_idx = state['row_cache'][row_key][state['parent_schema']]
-            
-            # Return the value from the parent record
+
+            # Lock makes the check-then-set atomic so concurrent threads
+            # generating different rows of the same table always pick a single
+            # consistent parent record per row.
+            with state['_lock']:
+                if row_key not in state['row_cache']:
+                    state['row_cache'][row_key] = {}
+                if state['parent_schema'] not in state['row_cache'][row_key]:
+                    parent_idx = random.choice(state['parent_indices']) \
+                                 if state['parent_indices'] else 0
+                    state['row_cache'][row_key][state['parent_schema']] = parent_idx
+                parent_idx = state['row_cache'][row_key][state['parent_schema']]
+
             return state['parent_df'].iloc[parent_idx][parent_col]
         
         return generator
@@ -264,9 +263,10 @@ class GeneratorManager:
         values_copy = valid_values.copy()  # Make a copy to avoid reference issues
         fk_generator = lambda row, col, values=values_copy: random.choice(values)
         
-        # Register the generator for this column
+        # Register the generator for this column (schema-prefixed to prevent
+        # collisions when parallel tables share a FK column name).
         print(f"Registering foreign key generator for {schema_name}.{fk_column} -> {parent_schema}.{parent_column}")
-        self.register_generator('foreign_key', fk_generator, column_name=fk_column)
+        self.register_generator('foreign_key', fk_generator, column_name=f"{schema_name}__{fk_column}")
         
     def apply_custom_generators(
         self, 
@@ -311,48 +311,58 @@ class GeneratorManager:
         return df
     
     def apply_type_generators(
-        self, 
-        df: pd.DataFrame, 
-        llm_schema: Dict
+        self,
+        df: pd.DataFrame,
+        llm_schema: Dict,
+        schema_name: Optional[str] = None,
     ) -> pd.DataFrame:
         """
         Apply custom type-based and column-specific generators to the data.
-        
+
         Args:
             df: DataFrame to apply generators to
             llm_schema: Dictionary mapping field names to types
-            
+            schema_name: Table name used to look up schema-prefixed FK generators.
+                         Must match the prefix used during registration to avoid
+                         parallel-table key collisions.
+
         Returns:
             DataFrame with generators applied
         """
         if df.empty:
             return df
-            
-        # Apply column-specific generators first (they take precedence)
+
+        # Apply column-specific generators first (they take precedence).
+        # FK generators are stored under "{schema_name}__{col}" keys; fall back
+        # to bare col name for user-registered generators (no prefix).
         for col_name in df.columns:
-            if col_name in self.column_generators:
-                df[col_name] = df.apply(
-                    lambda row: self.column_generators[col_name](row, col_name), 
-                    axis=1
-                )
-        
+            prefixed_key = f"{schema_name}__{col_name}" if schema_name else None
+            key = prefixed_key if (prefixed_key and prefixed_key in self.column_generators) \
+                  else (col_name if col_name in self.column_generators else None)
+            if key:
+                gen = self.column_generators[key]
+                df[col_name] = df.apply(lambda row, g=gen: g(row, col_name), axis=1)
+
         # Then apply type-based generators
         for col_name, col_type in llm_schema.items():
-            # Skip if column doesn't exist or already handled by column-specific generator
-            if col_name not in df.columns or col_name in self.column_generators:
+            if col_name not in df.columns:
                 continue
-                
-            # Get base type (handle dict definitions)
+            # Skip if already handled by a column-specific generator
+            prefixed_key = f"{schema_name}__{col_name}" if schema_name else None
+            already_handled = (
+                (prefixed_key and prefixed_key in self.column_generators)
+                or col_name in self.column_generators
+            )
+            if already_handled:
+                continue
+
             if isinstance(col_type, dict):
                 base_type = col_type.get('type', 'text')
             else:
                 base_type = col_type
-                
-            # Apply type generator if available
+
             if base_type in self.type_generators:
-                df[col_name] = df.apply(
-                    lambda row: self.type_generators[base_type](row, col_name), 
-                    axis=1
-                )
-        
+                gen = self.type_generators[base_type]
+                df[col_name] = df.apply(lambda row, g=gen: g(row, col_name), axis=1)
+
         return df

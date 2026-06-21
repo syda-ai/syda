@@ -1000,8 +1000,12 @@ class SyntheticDataGenerator:
 
         Called by every thread before issuing an LLM API request so that a
         429 received by one thread automatically slows down all others.
+        The read is done under _backoff_lock to avoid a TOCTOU race where a
+        thread reads _backoff_until=0, another thread sets it to now+65, and
+        the first thread fires its LLM call before honouring the new deadline.
         """
-        remaining = self._backoff_until - time.time()
+        with self._backoff_lock:
+            remaining = self._backoff_until - time.time()
         if remaining > 0:
             print(f"[syda] Waiting {remaining:.0f}s (global rate-limit backoff)...")
             time.sleep(remaining)
@@ -1415,19 +1419,19 @@ Every column must appear in exactly one list."""
                         df[col_name] = df[col_name].clip(upper=max_val)
         return df
 
-    def _apply_type_generators(self, df, llm_schema):
+    def _apply_type_generators(self, df, llm_schema, schema_name: Optional[str] = None):
         """
         Apply custom type-based and column-specific generators to the data.
-        
+
         Args:
             df: DataFrame to apply generators to
             llm_schema: Dictionary mapping field names to types
-            
+            schema_name: Table name forwarded to GeneratorManager for prefixed FK lookup
+
         Returns:
             DataFrame with generators applied
         """
-        # Delegate to the generator manager
-        return self.generator_manager.apply_type_generators(df, llm_schema)
+        return self.generator_manager.apply_type_generators(df, llm_schema, schema_name=schema_name)
 
     def _convert_column_types(self, df, llm_schema):
         """
@@ -1543,7 +1547,7 @@ Every column must appear in exactly one list."""
 
             df = self._enforce_uniqueness(df, table_schema, metadata, chunk_offset=0)
             df = self._apply_constraints(df, table_schema, metadata)
-            df = self._apply_type_generators(df, table_schema)
+            df = self._apply_type_generators(df, table_schema, schema_name=schema_name)
             df = self._convert_column_types(df, table_schema)
             return df
 
@@ -1586,7 +1590,7 @@ Every column must appear in exactly one list."""
             chunk = pd.concat(parts, ignore_index=True).iloc[:sz]
             chunk = self._enforce_uniqueness(chunk, table_schema, metadata, chunk_offset=offset)
             chunk = self._apply_constraints(chunk, table_schema, metadata)
-            chunk = self._apply_type_generators(chunk, table_schema)
+            chunk = self._apply_type_generators(chunk, table_schema, schema_name=schema_name)
             chunk = self._convert_column_types(chunk, table_schema)
             return chunk
 
