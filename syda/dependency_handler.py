@@ -318,7 +318,7 @@ class DependencyHandler:
         """
         graph = dependency_graph.copy()
         levels: List[List[str]] = []
-        while graph.nodes():
+        while len(graph) > 0:
             ready = sorted(n for n in graph.nodes() if graph.in_degree(n) == 0)
             if not ready:
                 # Cycle guard: take all remaining nodes to avoid infinite loop

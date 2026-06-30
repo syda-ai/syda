@@ -790,7 +790,7 @@ class SyntheticDataGenerator:
                             level_errors.append((tname, exc))
                     if level_errors:
                         names = ", ".join(t for t, _ in level_errors)
-                        raise level_errors[0][1].__class__(
+                        raise RuntimeError(
                             f"Failed to generate table(s) [{names}]: {level_errors[0][1]}"
                         ) from level_errors[0][1]
             else:
@@ -1011,11 +1011,18 @@ class SyntheticDataGenerator:
         thread reads _backoff_until=0, another thread sets it to now+65, and
         the first thread fires its LLM call before honouring the new deadline.
         """
+        # Poll in 5-second slices so that if another thread extends _backoff_until
+        # while this thread is sleeping (e.g. a second 429 arrives mid-backoff),
+        # we pick up the new deadline instead of firing too early.
         with self._backoff_lock:
             remaining = self._backoff_until - time.time()
-        if remaining > 0:
-            print(f"[syda] Waiting {remaining:.0f}s (global rate-limit backoff)...")
-            time.sleep(remaining)
+        if remaining <= 0:
+            return
+        print(f"[syda] Waiting {remaining:.0f}s (global rate-limit backoff)...")
+        while remaining > 0:
+            time.sleep(min(remaining, 5.0))
+            with self._backoff_lock:
+                remaining = self._backoff_until - time.time()
 
     def _call_with_retry(self, fn, max_retries: int, base_delay: float = 1.0):
         """Call fn with exponential-backoff retry on transient errors.

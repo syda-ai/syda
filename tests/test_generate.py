@@ -878,20 +878,24 @@ class TestParallelGeneration:
     def test_independent_tables_run_in_parallel(self, generator):
         """Tables with no FK dependency should be submitted concurrently."""
         import threading
+        import time as _time
         schemas = {
             "A": {"id": "integer"},
             "B": {"id": "integer"},
             "C": {"id": "integer"},
         }
 
-        concurrent_count = []
-        active = threading.Value("i", 0) if hasattr(threading, "Value") else None
-        lock = threading.Lock()
+        active = [0]   # count of threads currently inside fake_one_table
         peak = [0]
+        lock = threading.Lock()
 
         def fake_one_table(schema_name, **kwargs):
             with lock:
-                peak[0] = max(peak[0], 1)  # at minimum 1 thread always
+                active[0] += 1
+                peak[0] = max(peak[0], active[0])
+            _time.sleep(0.05)   # hold long enough for all 3 threads to overlap
+            with lock:
+                active[0] -= 1
             df = self._make_df(schema_name)
             return schema_name, df, MagicMock(duration_s=0, row_count=len(df)), False
 
@@ -901,6 +905,7 @@ class TestParallelGeneration:
             )
 
         assert set(results.keys()) == {"A", "B", "C"}
+        assert peak[0] > 1, f"Expected concurrent execution but peak active threads was {peak[0]}"
 
     def test_fk_children_generated_after_parents(self, generator):
         """Child tables must only be generated after their parent tables."""
@@ -1040,24 +1045,24 @@ class TestParallelRateLimitHandling:
         assert sleep_delays[0] == pytest.approx(65.0)
 
     def test_wait_for_global_backoff_blocks_other_threads(self):
-        """_wait_for_global_backoff sleeps for the remaining backoff time."""
+        """_wait_for_global_backoff polls in 5s slices until the deadline passes."""
         with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
             g = SyntheticDataGenerator(
                 model_config=ModelConfig(provider="anthropic", model_name="m", max_workers=4)
             )
 
         sleep_delays = []
+        g._backoff_until = 1020.0  # 20 seconds in the future at T=1000
 
-        # Simulate another thread having set _backoff_until to 20s from now
-        with patch("syda.generate.time.time", return_value=1000.0):
-            g._backoff_until = 1020.0  # 20 seconds in the future
-
+        # time advances 5s per call: initial check + 4 post-sleep re-checks
+        time_values = [1000.0, 1005.0, 1010.0, 1015.0, 1020.0]
         with patch("syda.generate.time.sleep", side_effect=lambda d: sleep_delays.append(d)), \
-             patch("syda.generate.time.time", return_value=1000.0):
+             patch("syda.generate.time.time", side_effect=time_values):
             g._wait_for_global_backoff()
 
-        assert len(sleep_delays) == 1
-        assert sleep_delays[0] == pytest.approx(20.0)
+        # 4 slices of 5s each totalling 20s
+        assert sum(sleep_delays) == pytest.approx(20.0)
+        assert all(d == pytest.approx(5.0) for d in sleep_delays)
 
     def test_wait_for_global_backoff_noop_when_expired(self):
         """_wait_for_global_backoff does not sleep when backoff has already expired."""
