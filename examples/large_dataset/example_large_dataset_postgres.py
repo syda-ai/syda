@@ -177,7 +177,7 @@ def main():
     generator = SyntheticDataGenerator(
         model_config=ModelConfig(
             provider="grok",
-            model_name="grok-3",
+            model_name="grok-4.3",
             temperature=0.8,
             max_tokens=16384,
             generation_mode="auto",   # direct ≤500, code-gen >500

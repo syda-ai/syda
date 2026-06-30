@@ -201,21 +201,9 @@ See the [OpenAI-Compatible Example](../examples/model_selection/openai_compatibl
 SYDA supports xAI's Grok models:
 
 ```python
-# Using Grok-3 (stable)
 config = ModelConfig(
     provider="grok",
-    model_name="grok-3",
-    temperature=0.7,
-    max_tokens=4000,
-    extra_kwargs={
-        "base_url": "https://api.x.ai/v1" # xAI API endpoint
-    }
-)
-
-# Using Grok-4 (latest)
-config = ModelConfig(
-    provider="grok",
-    model_name="grok-4",
+    model_name="grok-4.3",
     temperature=0.7,
     max_tokens=4000,
     extra_kwargs={
@@ -257,7 +245,7 @@ config = ModelConfig(
 # Force code-gen regardless of row count
 config = ModelConfig(
     provider="grok",
-    model_name="grok-3",
+    model_name="grok-4.3",
     generation_mode="codegen",
     max_tokens=16384,
 )

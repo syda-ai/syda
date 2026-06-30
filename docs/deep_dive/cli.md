@@ -379,7 +379,7 @@ syda generate \
   --rows 5000 \
   --large-dataset \
   --provider grok \
-  --model grok-3 \
+  --model grok-4.3 \
   --output-dir ./data
 ```
 
