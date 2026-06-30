@@ -984,9 +984,12 @@ class SyntheticDataGenerator:
             return df, in_tok, out_tok
 
         except Exception as e:
-            # Let rate-limit and server errors propagate as-is so _call_with_retry can back off.
+            # Let rate-limit, server, and timeout errors propagate as-is so
+            # _call_with_retry can back off and retry them.
             status = getattr(e, 'status_code', None)
             if status in (429, 500, 502, 503, 529):
+                raise
+            if "timed out" in str(e).lower() or "timeout" in str(e).lower():
                 raise
             raise ValueError(f"Error generating data: {str(e)}")
 
