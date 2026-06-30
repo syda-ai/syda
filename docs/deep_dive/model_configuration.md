@@ -236,6 +236,7 @@ You can fine-tune model behavior with these parameters:
 | `batch_size` | Max rows per LLM call in direct mode. Auto-selected when `None`. | Integer > 0 | None |
 | `max_retries` | Exponential-backoff retry attempts per chunk on transient API errors | Integer ≥ 0 | 3 |
 | `generation_mode` | `'auto'` (default), `'direct'` (always chunked LLM), `'codegen'` (LLM writes Python functions) | string | `'auto'` |
+| `max_workers` | Tables to generate concurrently within a dependency level. `1` = sequential (original behaviour). Increase for multi-table schemas with independent tables. | Integer ≥ 1 | 1 |
 
 ### Large Dataset Configuration
 

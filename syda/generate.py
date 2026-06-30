@@ -965,8 +965,8 @@ class SyntheticDataGenerator:
                 )
 
             usage = result.usage
-            in_tok = (usage.request_tokens or 0) if usage else 0
-            out_tok = (usage.response_tokens or 0) if usage else 0
+            in_tok = (getattr(usage, 'input_tokens', None) or 0) if usage else 0
+            out_tok = (getattr(usage, 'output_tokens', None) or 0) if usage else 0
 
             records = [obj.model_dump() for obj in ai_objs]
             if not records:
@@ -1217,8 +1217,8 @@ Every column must appear in exactly one list."""
 
             try:
                 usage = result.usage
-                in_tok = (usage.request_tokens or 0) if usage else 0
-                out_tok = (usage.response_tokens or 0) if usage else 0
+                in_tok = (getattr(usage, 'input_tokens', None) or 0) if usage else 0
+                out_tok = (getattr(usage, 'output_tokens', None) or 0) if usage else 0
             except Exception:
                 pass
 
@@ -1341,8 +1341,8 @@ Every column must appear in exactly one list."""
 
             try:
                 usage = result.usage
-                total_in_tok += (usage.request_tokens or 0) if usage else 0
-                total_out_tok += (usage.response_tokens or 0) if usage else 0
+                total_in_tok += (getattr(usage, 'input_tokens', None) or 0) if usage else 0
+                total_out_tok += (getattr(usage, 'output_tokens', None) or 0) if usage else 0
             except Exception:
                 pass
 
