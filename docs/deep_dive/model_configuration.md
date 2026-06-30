@@ -201,21 +201,9 @@ See the [OpenAI-Compatible Example](../examples/model_selection/openai_compatibl
 SYDA supports xAI's Grok models:
 
 ```python
-# Using Grok-3 (stable)
 config = ModelConfig(
     provider="grok",
-    model_name="grok-3",
-    temperature=0.7,
-    max_tokens=4000,
-    extra_kwargs={
-        "base_url": "https://api.x.ai/v1" # xAI API endpoint
-    }
-)
-
-# Using Grok-4 (latest)
-config = ModelConfig(
-    provider="grok",
-    model_name="grok-4",
+    model_name="grok-4.3",
     temperature=0.7,
     max_tokens=4000,
     extra_kwargs={
@@ -236,6 +224,7 @@ You can fine-tune model behavior with these parameters:
 | `batch_size` | Max rows per LLM call in direct mode. Auto-selected when `None`. | Integer > 0 | None |
 | `max_retries` | Exponential-backoff retry attempts per chunk on transient API errors | Integer ≥ 0 | 3 |
 | `generation_mode` | `'auto'` (default), `'direct'` (always chunked LLM), `'codegen'` (LLM writes Python functions) | string | `'auto'` |
+| `max_workers` | Tables to generate concurrently within a dependency level. `1` = sequential (original behaviour). Increase for multi-table schemas with independent tables. | Integer ≥ 1 | 1 |
 
 ### Large Dataset Configuration
 
@@ -256,7 +245,7 @@ config = ModelConfig(
 # Force code-gen regardless of row count
 config = ModelConfig(
     provider="grok",
-    model_name="grok-3",
+    model_name="grok-4.3",
     generation_mode="codegen",
     max_tokens=16384,
 )

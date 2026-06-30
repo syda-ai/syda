@@ -6,6 +6,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.3.0] - 2026-06-27
+
+### Added
+- **Parallel table generation** — `ModelConfig(max_workers=N)` runs tables within the same DAG level concurrently using `ThreadPoolExecutor`. Default `max_workers=1` preserves the original sequential behaviour. CLI flag: `--workers N` on `syda generate` and `syda db generate`.
+- **Shared global backoff signal** — when any thread hits a 429 rate-limit, `_set_global_backoff()` sets a shared deadline and all threads pause before the next LLM call, preventing thundering-herd retries in parallel mode.
+- `DependencyHandler.compute_parallel_levels()` — groups independent tables into BFS levels so tables within the same level can run concurrently.
+- FK registration is now protected by `_fk_lock` to eliminate race conditions in concurrent table generation.
+
+### Fixed
+- `'RunUsage' object has no attribute 'request_tokens'` crash with **pydantic-ai ≥ 2.0**. Token attributes `request_tokens` / `response_tokens` were renamed to `input_tokens` / `output_tokens` in pydantic-ai 2.0; syda now uses `getattr` with the new names and works correctly with both 1.x and 2.x.
+
+### Changed
+- Version bumped to `0.3.0`
+- Pre-release test script updated with parallel-generation checks (`DependencyHandler`, `compute_parallel_levels`, `ModelConfig.max_workers`, `--workers` CLI flags).
+
+## [0.2.0] - 2026-06-08
+
+### Added
+- **Code-gen cache** (`CodegenCache`, `compute_schema_hash`) — generated Python functions for simple columns are persisted as human-editable `.py` files under `output_dir/.syda_cache/`. Cache key = `hash(schema_content + prompt)`. On cache HIT the LLM analysis call is skipped entirely.
+- **`force_llm` column flag** — set `force_llm: true` on any schema column to always generate it via LLM in code-gen mode, even if a cached function exists. Useful for narrative, taglines, and context-sensitive columns.
+- **`RunReport` / `TableReport` / `ColumnReport`** (`syda/run_report.py`) — per-column observability: strategy (`fk_sampler` / `codegen_simple` / `codegen_semantic` / `direct_llm`), token counts, cost, cache hit/miss. Accessible via `generator.last_report`. HTML report auto-saved to `output_dir/run_report_<timestamp>.html`.
+- **Memory-bounded multi-table generation** — when `output_dir` is set, each table is flushed to CSV immediately after generation; only FK columns are kept in RAM for child-table generation.
+- `force_llm` example in `examples/force_llm/` — 600-row product catalog demonstrating mixed codegen / force_llm columns.
+
+### Changed
+- Version bumped to `0.2.0`
+
 ## [0.1.0] - 2026-05-26
 
 ### Added

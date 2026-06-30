@@ -111,62 +111,95 @@ class ForeignKeyHandler:
     def verify_referential_integrity(
         self,
         results: Dict[str, pd.DataFrame],
-        extracted_foreign_keys: Dict[str, Dict[str, Tuple[str, str]]]
+        extracted_foreign_keys: Dict[str, Dict[str, Tuple[str, str]]],
+        output_dir: str = None,
+        streamed_schemas: Set = None,
+        output_format: str = "csv",
     ) -> bool:
         """
         Verify that all foreign key relationships are valid in the generated data.
-        
+
+        When output_dir is set, parent tables freed from memory after being
+        flushed to disk are reloaded (single FK column only) from the saved
+        file so the check still runs without pulling the full table into RAM.
+
         Args:
             results: Dictionary of dataframes with generated data
             extracted_foreign_keys: Dictionary of foreign key definitions
-            
+            output_dir: Directory where streamed tables were written
+            streamed_schemas: Set of table names that were flushed to disk
+            output_format: File format used when saving ('csv' or 'json')
+
         Returns:
             Boolean indicating if all foreign key relationships are valid
         """
+        import os
         print("\n[INFO] Verifying referential integrity:")
-        
+
+        streamed = streamed_schemas or set()
         all_valid = True
-        
+
+        # Cache of parent columns already loaded from disk this call
+        _disk_cache: Dict[str, pd.DataFrame] = {}
+
+        def _get_parent_df(parent_schema: str, parent_column: str):
+            """Return a single-column DataFrame for the parent, loading from disk if needed."""
+            if parent_schema in results and parent_column in results[parent_schema].columns:
+                return results[parent_schema]
+            if output_dir and parent_schema in streamed:
+                cache_key = f"{parent_schema}.{parent_column}"
+                if cache_key not in _disk_cache:
+                    ext = "json" if output_format == "json" else "csv"
+                    path = os.path.join(output_dir, f"{parent_schema.lower()}.{ext}")
+                    if os.path.exists(path):
+                        try:
+                            if ext == "csv":
+                                _disk_cache[cache_key] = pd.read_csv(path, usecols=[parent_column])
+                            else:
+                                _disk_cache[cache_key] = pd.read_json(path)[parent_column].to_frame()
+                        except Exception as e:
+                            print(f"  [WARNING] Could not reload {parent_schema} from disk: {e}")
+                            return None
+                    else:
+                        return None
+                return _disk_cache[cache_key]
+            return None
+
         for schema_name, fk_dict in extracted_foreign_keys.items():
             if schema_name not in results:
                 continue
-                
+
             df = results[schema_name]
-            
+
             for fk_column, (parent_schema, parent_column) in fk_dict.items():
-                if parent_schema not in results:
+                parent_df = _get_parent_df(parent_schema, parent_column)
+
+                if parent_df is None:
                     print(f"  [WARNING] Parent schema {parent_schema} not found for {schema_name}.{fk_column}")
                     all_valid = False
                     continue
-                    
-                parent_df = results[parent_schema]
-                
+
                 if fk_column not in df.columns:
                     print(f"  [WARNING] Foreign key column {fk_column} not found in {schema_name}")
                     all_valid = False
                     continue
-                    
+
                 if parent_column not in parent_df.columns:
                     print(f"  [WARNING] Referenced column {parent_column} not found in {parent_schema}")
                     all_valid = False
                     continue
-                    
-                # Get all values in the foreign key column
+
                 fk_values = df[fk_column].dropna().unique()
-                
-                # Get all values in the parent column
                 parent_values = set(parent_df[parent_column].unique())
-                
-                # Check if all foreign key values exist in the parent column
                 invalid_values = [v for v in fk_values if v not in parent_values]
-                
+
                 if invalid_values:
                     print(f"  [ERROR] Found {len(invalid_values)} invalid references in {schema_name}.{fk_column} to {parent_schema}.{parent_column}")
                     print(f"     Invalid values: {invalid_values[:5]}{'...' if len(invalid_values) > 5 else ''}")
                     all_valid = False
                 else:
                     print(f"  [OK] All {schema_name}.{fk_column} values reference valid {parent_schema}.{parent_column}")
-                    
+
         return all_valid
 
 
@@ -271,6 +304,29 @@ class DependencyHandler:
             # For any other exception, assume there might be a cycle
             return True
     
+    @staticmethod
+    def compute_parallel_levels(dependency_graph: nx.DiGraph) -> List[List[str]]:
+        """
+        Group tables into levels where all tables in the same level are
+        independent of each other and can be generated concurrently.
+
+        Level 0 = tables with no parents (roots).
+        Level N = tables whose parents are all in levels < N.
+
+        Returns:
+            Ordered list of groups; tables within a group are parallelisable.
+        """
+        graph = dependency_graph.copy()
+        levels: List[List[str]] = []
+        while len(graph) > 0:
+            ready = sorted(n for n in graph.nodes() if graph.in_degree(n) == 0)
+            if not ready:
+                # Cycle guard: take all remaining nodes to avoid infinite loop
+                ready = sorted(graph.nodes())
+            levels.append(ready)
+            graph.remove_nodes_from(ready)
+        return levels
+
     @staticmethod
     def determine_generation_order(
         dependency_graph: nx.DiGraph

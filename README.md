@@ -925,7 +925,7 @@ For > 500 rows (auto-selected) or via `generation_mode="codegen"`, the LLM makes
 ```python
 # 10,000 rows, ~3 LLM calls total (1 analysis + 2 semantic columns)
 generator = SyntheticDataGenerator(
-    model_config=ModelConfig(provider="grok", model_name="grok-3", max_tokens=16384)
+    model_config=ModelConfig(provider="grok", model_name="grok-4.3", max_tokens=16384)
 )
 generator.generate_for_schemas(schemas=schemas, sample_sizes={"orders": 10_000}, output_dir="output")
 ```

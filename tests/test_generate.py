@@ -826,3 +826,280 @@ class TestStreamingOutput:
         # patients was streamed — it must NOT appear in save_dataframes call
         for call_keys in save_calls:
             assert "patients" not in call_keys
+
+
+class TestParallelGeneration:
+    """Tests for parallel (multi-worker) table generation."""
+
+    @pytest.fixture
+    def generator(self):
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            return SyntheticDataGenerator(
+                model_config=ModelConfig(provider="anthropic", model_name="claude-haiku-4-5-20251001")
+            )
+
+    def _make_df(self, name, n=3):
+        return pd.DataFrame({"id": range(n), "name": [f"{name}_{i}" for i in range(n)]})
+
+    def test_max_workers_default_is_one(self):
+        config = ModelConfig(provider="anthropic", model_name="claude-haiku-4-5-20251001")
+        assert config.max_workers == 1
+
+    def test_max_workers_set(self):
+        config = ModelConfig(provider="anthropic", model_name="claude-haiku-4-5-20251001", max_workers=4)
+        assert config.max_workers == 4
+
+    def test_max_workers_must_be_positive(self):
+        from pydantic import ValidationError
+        with pytest.raises(ValidationError):
+            ModelConfig(provider="anthropic", model_name="m", max_workers=0)
+
+    def test_sequential_and_parallel_produce_same_tables(self, generator):
+        """With max_workers > 1, the same table names are returned."""
+        schemas = {
+            "Customer": {"id": "integer", "name": "text"},
+            "Product":  {"sku": "integer", "title": "text"},
+        }
+
+        def fake_one_table(schema_name, **kwargs):
+            df = self._make_df(schema_name)
+            return schema_name, df, MagicMock(duration_s=0, row_count=len(df)), False
+
+        with patch.object(generator, "_generate_one_table", side_effect=fake_one_table):
+            results_seq = generator.generate_for_schemas(
+                schemas=schemas, default_sample_size=3, max_workers=1
+            )
+            results_par = generator.generate_for_schemas(
+                schemas=schemas, default_sample_size=3, max_workers=4
+            )
+
+        assert set(results_seq.keys()) == set(results_par.keys()) == {"Customer", "Product"}
+
+    def test_independent_tables_run_in_parallel(self, generator):
+        """Tables with no FK dependency should be submitted concurrently."""
+        import threading
+        import time as _time
+        schemas = {
+            "A": {"id": "integer"},
+            "B": {"id": "integer"},
+            "C": {"id": "integer"},
+        }
+
+        active = [0]   # count of threads currently inside fake_one_table
+        peak = [0]
+        lock = threading.Lock()
+
+        def fake_one_table(schema_name, **kwargs):
+            with lock:
+                active[0] += 1
+                peak[0] = max(peak[0], active[0])
+            _time.sleep(0.05)   # hold long enough for all 3 threads to overlap
+            with lock:
+                active[0] -= 1
+            df = self._make_df(schema_name)
+            return schema_name, df, MagicMock(duration_s=0, row_count=len(df)), False
+
+        with patch.object(generator, "_generate_one_table", side_effect=fake_one_table):
+            results = generator.generate_for_schemas(
+                schemas=schemas, default_sample_size=3, max_workers=3
+            )
+
+        assert set(results.keys()) == {"A", "B", "C"}
+        assert peak[0] > 1, f"Expected concurrent execution but peak active threads was {peak[0]}"
+
+    def test_fk_children_generated_after_parents(self, generator):
+        """Child tables must only be generated after their parent tables."""
+        generated_order = []
+
+        schemas = {
+            "Parent": {"id": "integer"},
+            "Child":  {
+                "__foreign_keys__": {"parent_id": ["Parent", "id"]},
+                "id": "integer",
+                "parent_id": "foreign_key",
+            },
+        }
+
+        def fake_one_table(schema_name, **kwargs):
+            generated_order.append(schema_name)
+            df = pd.DataFrame({"id": [1, 2, 3], "parent_id": [1, 1, 2]})
+            return schema_name, df, MagicMock(duration_s=0, row_count=3), False
+
+        with patch.object(generator, "_generate_one_table", side_effect=fake_one_table):
+            generator.generate_for_schemas(
+                schemas=schemas, default_sample_size=3, max_workers=4
+            )
+
+        assert generated_order.index("Parent") < generated_order.index("Child")
+
+    def test_parallel_levels_computed_correctly(self):
+        """DependencyHandler.compute_parallel_levels groups independent tables correctly."""
+        from syda.dependency_handler import DependencyHandler
+        import networkx as nx
+
+        # A → C, B → C  (A and B are independent; C depends on both)
+        g = nx.DiGraph()
+        g.add_edges_from([("A", "C"), ("B", "C")])
+
+        levels = DependencyHandler.compute_parallel_levels(g)
+        assert len(levels) == 2
+        assert set(levels[0]) == {"A", "B"}   # both independent at level 0
+        assert levels[1] == ["C"]
+
+    def test_single_table_no_parallelism(self, generator):
+        """Single table with max_workers > 1 still works correctly."""
+        schemas = {"Only": {"id": "integer", "val": "text"}}
+
+        def fake_one_table(schema_name, **kwargs):
+            df = self._make_df(schema_name)
+            return schema_name, df, MagicMock(duration_s=0, row_count=len(df)), False
+
+        with patch.object(generator, "_generate_one_table", side_effect=fake_one_table):
+            results = generator.generate_for_schemas(
+                schemas=schemas, default_sample_size=3, max_workers=8
+            )
+
+        assert list(results.keys()) == ["Only"]
+
+    def test_parallel_generate_via_model_config(self, generator):
+        """max_workers on ModelConfig is respected when not overridden in call."""
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            g = SyntheticDataGenerator(
+                model_config=ModelConfig(
+                    provider="anthropic",
+                    model_name="claude-haiku-4-5-20251001",
+                    max_workers=4,
+                )
+            )
+
+        schemas = {"X": {"id": "integer"}, "Y": {"id": "integer"}}
+
+        called_with_workers = []
+
+        original = g._generate_structured_data
+
+        def spy(*args, **kwargs):
+            called_with_workers.append(kwargs.get("max_workers", 1))
+            return original(*args, **kwargs)
+
+        def fake_one_table(schema_name, **kwargs):
+            df = self._make_df(schema_name)
+            return schema_name, df, MagicMock(duration_s=0, row_count=len(df)), False
+
+        with patch.object(g, "_generate_structured_data", side_effect=spy), \
+             patch.object(g, "_generate_one_table", side_effect=fake_one_table):
+            g.generate_for_schemas(schemas=schemas, default_sample_size=3)
+
+        assert called_with_workers and called_with_workers[0] == 4
+
+
+class TestParallelRateLimitHandling:
+    """Tests for rate-limit and error handling in parallel generation."""
+
+    @pytest.fixture
+    def generator(self):
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            return SyntheticDataGenerator(
+                model_config=ModelConfig(
+                    provider="anthropic",
+                    model_name="claude-haiku-4-5-20251001",
+                    max_workers=4,
+                )
+            )
+
+    def _make_df(self, name, n=3):
+        return pd.DataFrame({"id": range(n), "val": [f"{name}_{i}" for i in range(n)]})
+
+    def test_429_sets_global_backoff(self):
+        """When a 429 is hit, _set_global_backoff is called to pause all threads."""
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            g = SyntheticDataGenerator(
+                model_config=ModelConfig(provider="anthropic", model_name="m", max_workers=4)
+            )
+
+        call_count = [0]
+        sleep_delays = []
+
+        def rate_limit_then_ok():
+            call_count[0] += 1
+            if call_count[0] == 1:
+                err = Exception("rate limit")
+                err.status_code = 429
+                raise err
+            return "ok"
+
+        # time.time returns 1000.0 before/during the 429 handler, then 2000.0 on
+        # the next attempt so _wait_for_global_backoff sees an expired deadline.
+        time_sequence = iter([1000.0, 1000.0, 2000.0, 2000.0])
+        with patch("syda.generate.time.sleep", side_effect=lambda d: sleep_delays.append(d)), \
+             patch("syda.generate.random.uniform", return_value=5.0), \
+             patch("syda.generate.time.time", side_effect=time_sequence):
+            result = g._call_with_retry(rate_limit_then_ok, max_retries=2)
+
+        assert result == "ok"
+        # _set_global_backoff should have set _backoff_until > 0
+        assert g._backoff_until > 0
+        # One sleep for the 429 delay (the next _wait_for_global_backoff sees expired deadline)
+        assert len(sleep_delays) == 1
+        # delay = 60.0 + uniform(0, 10) = 60 + 5 = 65
+        assert sleep_delays[0] == pytest.approx(65.0)
+
+    def test_wait_for_global_backoff_blocks_other_threads(self):
+        """_wait_for_global_backoff polls in 5s slices until the deadline passes."""
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            g = SyntheticDataGenerator(
+                model_config=ModelConfig(provider="anthropic", model_name="m", max_workers=4)
+            )
+
+        sleep_delays = []
+        g._backoff_until = 1020.0  # 20 seconds in the future at T=1000
+
+        # time advances 5s per call: initial check + 4 post-sleep re-checks
+        time_values = [1000.0, 1005.0, 1010.0, 1015.0, 1020.0]
+        with patch("syda.generate.time.sleep", side_effect=lambda d: sleep_delays.append(d)), \
+             patch("syda.generate.time.time", side_effect=time_values):
+            g._wait_for_global_backoff()
+
+        # 4 slices of 5s each totalling 20s
+        assert sum(sleep_delays) == pytest.approx(20.0)
+        assert all(d == pytest.approx(5.0) for d in sleep_delays)
+
+    def test_wait_for_global_backoff_noop_when_expired(self):
+        """_wait_for_global_backoff does not sleep when backoff has already expired."""
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            g = SyntheticDataGenerator(
+                model_config=ModelConfig(provider="anthropic", model_name="m", max_workers=4)
+            )
+
+        sleep_delays = []
+        # _backoff_until defaults to 0.0 — already expired
+        with patch("syda.generate.time.sleep", side_effect=lambda d: sleep_delays.append(d)), \
+             patch("syda.generate.time.time", return_value=1000.0):
+            g._wait_for_global_backoff()
+
+        assert sleep_delays == []
+
+    def test_successful_tables_preserved_on_partial_failure(self):
+        """When one table fails, already-completed tables in the same level are kept."""
+        with patch("syda.llm._build_pydantic_ai_model", return_value=MagicMock()):
+            g = SyntheticDataGenerator(
+                model_config=ModelConfig(
+                    provider="anthropic", model_name="m", max_workers=3
+                )
+            )
+
+        schemas = {
+            "Good1": {"id": "integer"},
+            "Bad":   {"id": "integer"},
+            "Good2": {"id": "integer"},
+        }
+
+        def fake_one_table(schema_name, **kwargs):
+            if schema_name == "Bad":
+                raise RuntimeError("simulated API failure")
+            df = self._make_df(schema_name)
+            return schema_name, df, MagicMock(duration_s=0, row_count=len(df)), False
+
+        with patch.object(g, "_generate_one_table", side_effect=fake_one_table):
+            with pytest.raises(Exception, match="Bad"):
+                g.generate_for_schemas(schemas=schemas, default_sample_size=3)

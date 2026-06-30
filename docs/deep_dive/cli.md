@@ -157,6 +157,7 @@ syda generate \
 | `--temperature FLOAT` | | model default | Sampling temperature `0.0`–`1.0`. |
 | `--batch-size N` | | auto | Max rows per LLM call in direct mode. Auto-selected when omitted. |
 | `--large-dataset` | | off | Force code-gen mode: LLM writes Python generators; only semantic columns call the LLM at runtime. Auto-enabled when `--rows > 500`. |
+| `--workers N` | | `1` | Generate up to N independent tables concurrently. Tables with FK dependencies are still generated in order; only tables within the same dependency level run in parallel. |
 
 !!! note "Output rules"
     - `--output` is for a single schema file only.
@@ -288,6 +289,7 @@ syda db generate \
 | `--base-url URL` | | — | Base URL for `openai_compatible` providers. |
 | `--prompt TEXT` | | — | Context prompt applied to all tables. |
 | `--temperature FLOAT` | | model default | Sampling temperature `0.0`–`1.0`. |
+| `--workers N` | | `1` | Generate up to N independent tables concurrently within each FK dependency level. |
 
 ---
 
@@ -377,7 +379,7 @@ syda generate \
   --rows 5000 \
   --large-dataset \
   --provider grok \
-  --model grok-3 \
+  --model grok-4.3 \
   --output-dir ./data
 ```
 

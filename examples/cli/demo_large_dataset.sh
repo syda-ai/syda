@@ -65,7 +65,7 @@ syda generate \
   --rows 150 \
   --batch-size 50 \
   --provider grok \
-  --model grok-3 \
+  --model grok-4.3 \
   --output-dir "$OUTPUT_DIR/direct_mode" \
   --prompt "Generate realistic e-commerce products spanning electronics, clothing, home goods, and sports. Prices \$5–\$500."
 
@@ -85,7 +85,7 @@ syda generate \
   --schema "$SCHEMAS_DIR/product.yml" \
   --rows 600 \
   --provider grok \
-  --model grok-3 \
+  --model grok-4.3 \
   --output-dir "$OUTPUT_DIR/auto_codegen" \
   --prompt "Generate realistic e-commerce products spanning electronics, clothing, home goods, and sports. Prices \$5–\$500."
 
@@ -104,7 +104,7 @@ syda generate \
   --rows 50 \
   --large-dataset \
   --provider grok \
-  --model grok-3 \
+  --model grok-4.3 \
   --output-dir "$OUTPUT_DIR/forced_codegen" \
   --prompt "Generate realistic e-commerce products spanning electronics, clothing, home goods, and sports. Prices \$5–\$500."
 
@@ -124,7 +124,7 @@ syda generate \
   --rows 1000 \
   --large-dataset \
   --provider grok \
-  --model grok-3 \
+  --model grok-4.3 \
   --output-dir "$OUTPUT_DIR/multi_table" \
   --prompt "Generate a realistic e-commerce dataset. Products span electronics, clothing, home goods, and sports. Orders placed over the past 2 years with realistic status distribution."
 

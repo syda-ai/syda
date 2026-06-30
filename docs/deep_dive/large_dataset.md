@@ -57,6 +57,33 @@ Simple columns run entirely locally with zero further LLM calls. For a table wit
 
 ---
 
+## Parallel Table Generation
+
+When a schema has multiple independent tables (no foreign-key dependency between them), syda can generate them concurrently using `ModelConfig(max_workers=N)`.
+
+```python
+generator = SyntheticDataGenerator(
+    model_config=ModelConfig(
+        provider="anthropic",
+        model_name="claude-haiku-4-5-20251001",
+        max_workers=4,   # generate up to 4 independent tables at once
+    )
+)
+```
+
+- Tables are still generated in topological order — parents before children. `max_workers` only controls concurrency *within* each dependency level.
+- When any worker hits a 429 rate-limit, a shared backoff signal pauses all workers before their next LLM call, preventing thundering-herd retries.
+- Default is `max_workers=1` (sequential), which preserves the original behaviour.
+
+**CLI:**
+
+```bash
+syda generate --schema schemas/ --rows 1000 --workers 4 --output-dir ./data
+syda db generate --db-url postgresql://... --rows 500 --workers 4 --output-dir ./data
+```
+
+---
+
 ## Configuration
 
 ```python
@@ -87,6 +114,7 @@ results = generator.generate_for_schemas(
 | `generation_mode` | `'auto'` / `'direct'` / `'codegen'` | `'auto'` |
 | `batch_size` | Max rows per LLM call in direct mode. Auto-selected when `None`. | `None` |
 | `max_retries` | Retry attempts per chunk on transient errors | `3` |
+| `max_workers` | Tables to generate concurrently within a dependency level. `1` = sequential. | `1` |
 
 ---
 

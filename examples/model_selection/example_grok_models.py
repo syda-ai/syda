@@ -251,8 +251,7 @@ def main():
     
     # Test both models
     models_to_test = [
-        ("grok-3", {"companies": 50, "products": 100}),  # Larger dataset for Grok-3
-        ("grok-4", {"companies": 25, "products": 50})    # Smaller dataset for Grok-4
+        ("grok-4.3", {"companies": 50, "products": 100}),
     ]
     
     results = {}
