@@ -89,7 +89,7 @@ def _build_generator(provider: Optional[str], model: Optional[str],
     from syda import SyntheticDataGenerator, ModelConfig
 
     if not provider:
-        # Auto-detect from env
+        # Auto-detect from env — same keys as syda/llm.py
         if os.getenv("ANTHROPIC_API_KEY"):
             provider = "anthropic"
             model = model or "claude-haiku-4-5-20251001"
@@ -102,10 +102,12 @@ def _build_generator(provider: Optional[str], model: Optional[str],
         elif os.getenv("GROK_API_KEY"):
             provider = "grok"
             model = model or "grok-4.3"
+        elif os.getenv("AZURE_OPENAI_API_KEY"):
+            provider = "azureopenai"
         else:
             raise ValueError(
-                "No API key found. Set ANTHROPIC_API_KEY, OPENAI_API_KEY, "
-                "GEMINI_API_KEY, or GROK_API_KEY in your environment."
+                "No API key found. Set one of: ANTHROPIC_API_KEY, OPENAI_API_KEY, "
+                "GEMINI_API_KEY, GROK_API_KEY, or AZURE_OPENAI_API_KEY."
             )
 
     mc_kwargs: Dict[str, Any] = {
@@ -580,6 +582,13 @@ def get_providers() -> Dict[str, Any]:
             "fast_model":  "grok-4.3",
             "quality_model": "grok-4.3",
             "notes": "xAI Grok. 2.5x cheaper than Sonnet. Best for cost-sensitive large datasets.",
+        },
+        {
+            "provider":    "azureopenai",
+            "configured":  bool(os.getenv("AZURE_OPENAI_API_KEY")),
+            "env_var":     "AZURE_OPENAI_API_KEY",
+            "recommended_model": "your deployment name",
+            "notes": "Azure OpenAI. Also requires azure_endpoint and api_version in extra_kwargs.",
         },
         {
             "provider":    "openai_compatible",
