@@ -446,10 +446,12 @@ def infer_schema_from_db(
     plus a list of detected FK relationships. No data is read — only schema
     metadata (column names, types, PKs, FKs via INFORMATION_SCHEMA queries).
 
-    Credentials can be supplied three ways (in priority order):
+    Credentials can be supplied four ways (in priority order):
       1. db_url parameter — embed directly: "postgresql://user:pass@host/db"
       2. SYDA_DB_URL env var — set once in MCP config, never type in chat
       3. DATABASE_URL env var — standard 12-factor convention
+      4. DB_HOST + DB_NAME (+ DB_USER, DB_PASSWORD, DB_PORT) — syda's
+         existing per-component convention used in the CLI examples
 
     Supported databases: PostgreSQL, MySQL, SQLite (any SQLAlchemy dialect).
 
@@ -468,17 +470,30 @@ def infer_schema_from_db(
     try:
         from syda import DatabaseSchemaLoader
 
-        # Credential resolution: explicit > SYDA_DB_URL > DATABASE_URL
-        resolved_url = (
-            db_url
-            or os.getenv("SYDA_DB_URL")
-            or os.getenv("DATABASE_URL")
-        )
+        # Credential resolution (priority order):
+        #   1. db_url parameter (explicit)
+        #   2. SYDA_DB_URL env var (MCP-specific single URL)
+        #   3. DATABASE_URL env var (12-factor convention)
+        #   4. DB_USER / DB_PASSWORD / DB_HOST / DB_PORT / DB_NAME
+        #      (syda's existing per-component convention used in examples)
+        resolved_url = db_url or os.getenv("SYDA_DB_URL") or os.getenv("DATABASE_URL")
+
+        if not resolved_url:
+            db_user = os.getenv("DB_USER")
+            db_pass = os.getenv("DB_PASSWORD")
+            db_host = os.getenv("DB_HOST")
+            db_port = os.getenv("DB_PORT", "5432")
+            db_name = os.getenv("DB_NAME")
+            if db_host and db_name:
+                auth = f"{db_user}:{db_pass}@" if db_user else ""
+                resolved_url = f"postgresql+psycopg2://{auth}{db_host}:{db_port}/{db_name}"
+
         if not resolved_url:
             return _tool_error(
                 ValueError("No database URL provided"),
-                "Pass db_url directly, or set SYDA_DB_URL (recommended) or "
-                "DATABASE_URL in the MCP server environment config.",
+                "Pass db_url directly, or set one of: SYDA_DB_URL, DATABASE_URL, "
+                "or DB_HOST + DB_NAME (+ DB_USER, DB_PASSWORD, DB_PORT) in the "
+                "MCP server environment config.",
             )
 
         loader = DatabaseSchemaLoader(resolved_url)

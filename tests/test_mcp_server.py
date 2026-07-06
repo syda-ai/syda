@@ -359,6 +359,28 @@ class TestInferSchemaFromDb:
         assert result["ok"] is True
         assert "users" in result["schema"]
 
+    def test_component_env_vars_fallback(self):
+        """DB_HOST + DB_NAME + DB_USER + DB_PASSWORD builds a URL (syda convention)."""
+        mock_schemas = {"orders": {"id": {"type": "integer", "primary_key": True}}}
+        env = {
+            "DB_HOST": "prod-db.internal",
+            "DB_NAME": "myapp",
+            "DB_USER": "john",
+            "DB_PASSWORD": "secret",
+            "DB_PORT": "5432",
+        }
+        with patch.dict("os.environ", env), \
+             patch("syda.DatabaseSchemaLoader") as MockLoader:
+            MockLoader.return_value.load_schemas.return_value = mock_schemas
+            from syda.mcp_server import infer_schema_from_db
+            result = infer_schema_from_db()
+        assert result["ok"] is True
+        # Confirm the constructed URL contains host and db name
+        call_args = MockLoader.call_args[0][0]
+        assert "prod-db.internal" in call_args
+        assert "myapp" in call_args
+        assert "john" in call_args
+
     def test_table_filter_passed_through(self):
         with patch("syda.DatabaseSchemaLoader") as MockLoader:
             MockLoader.return_value.load_schemas.return_value = {}
