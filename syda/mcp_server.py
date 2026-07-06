@@ -84,7 +84,8 @@ def _df_preview(df, n: int = 5) -> List[Dict[str, Any]]:
 def _build_generator(provider: Optional[str], model: Optional[str],
                      api_key: Optional[str], temperature: float,
                      max_tokens: int, generation_mode: str,
-                     batch_size: Optional[int], max_workers: int):
+                     batch_size: Optional[int], max_workers: int,
+                     extra_kwargs: Optional[Dict[str, Any]] = None):
     """Build a SyntheticDataGenerator from MCP tool parameters."""
     from syda import SyntheticDataGenerator, ModelConfig
 
@@ -121,27 +122,50 @@ def _build_generator(provider: Optional[str], model: Optional[str],
     if batch_size:
         mc_kwargs["batch_size"] = batch_size
 
-    extra: Dict[str, Any] = {}
+    # Build extra_kwargs: start with provider defaults, then merge user overrides.
+    # Provider defaults ensure required fields are always present (e.g. Grok base_url,
+    # openai_compatible base_url) while letting users override or extend them.
+    merged_extra: Dict[str, Any] = {}
     if provider == "grok":
-        extra["extra_kwargs"] = {"base_url": "https://api.x.ai/v1"}
+        merged_extra = {"base_url": "https://api.x.ai/v1"}
+    if extra_kwargs:
+        merged_extra.update(extra_kwargs)
+    if merged_extra:
+        mc_kwargs["extra_kwargs"] = merged_extra
+
+    # Validate openai_compatible always has base_url
+    if provider == "openai_compatible" and "base_url" not in merged_extra:
+        raise ValueError(
+            "openai_compatible requires 'base_url' in extra_kwargs. "
+            "Example: extra_kwargs={'base_url': 'http://localhost:11434/v1', 'api_key': 'ollama'}"
+        )
+
+    # Azure requires azure_endpoint
+    if provider == "azureopenai" and "azure_endpoint" not in merged_extra:
+        raise ValueError(
+            "azureopenai requires 'azure_endpoint' in extra_kwargs. "
+            "Example: extra_kwargs={'azure_endpoint': 'https://your-resource.openai.azure.com/', "
+            "'api_version': '2024-02-01'}"
+        )
+
     if api_key:
         if provider == "anthropic":
             return SyntheticDataGenerator(
-                model_config=ModelConfig(**mc_kwargs, **extra),
+                model_config=ModelConfig(**mc_kwargs),
                 anthropic_api_key=api_key,
             )
         elif provider in ("openai", "openai_compatible"):
             return SyntheticDataGenerator(
-                model_config=ModelConfig(**mc_kwargs, **extra),
+                model_config=ModelConfig(**mc_kwargs),
                 openai_api_key=api_key,
             )
         elif provider == "grok":
             return SyntheticDataGenerator(
-                model_config=ModelConfig(**mc_kwargs, **extra),
+                model_config=ModelConfig(**mc_kwargs),
                 grok_api_key=api_key,
             )
 
-    return SyntheticDataGenerator(model_config=ModelConfig(**mc_kwargs, **extra))
+    return SyntheticDataGenerator(model_config=ModelConfig(**mc_kwargs))
 
 
 # ── Tools ─────────────────────────────────────────────────────────────────────
@@ -156,6 +180,7 @@ def generate_from_schema(
     provider: Optional[str] = None,
     model: Optional[str] = None,
     api_key: Optional[str] = None,
+    extra_kwargs: Optional[Dict[str, Any]] = None,
     temperature: float = 0.8,
     max_tokens: int = 8192,
     generation_mode: str = "auto",
@@ -198,6 +223,13 @@ def generate_from_schema(
                               openai_compatible. Auto-detected from env vars if omitted.
         model:                Model name e.g. "claude-haiku-4-5-20251001". Provider default if omitted.
         api_key:              API key override. Uses env var if omitted.
+        extra_kwargs:         Provider-specific parameters passed to ModelConfig.extra_kwargs.
+                              Required for some providers:
+                                azureopenai:       {"azure_endpoint": "https://...", "api_version": "2024-02-01"}
+                                openai_compatible: {"base_url": "http://localhost:11434/v1", "api_key": "ollama"}
+                              Optional for others:
+                                grok:              {"base_url": "https://api.x.ai/v1"}  (already defaulted)
+                                any provider:      {"response_mode": "tools"}  (custom response parsing)
         temperature:          Sampling temperature 0.0–1.0 (default 0.8).
         max_tokens:           Max tokens per LLM call (default 8192).
         generation_mode:      "auto" (default), "direct", or "codegen".
@@ -217,6 +249,7 @@ def generate_from_schema(
         generator = _build_generator(
             provider, model, api_key, temperature, max_tokens,
             generation_mode, batch_size, max_workers,
+            extra_kwargs=extra_kwargs,
         )
 
         # Parse schema — SchemaLoader accepts dicts directly

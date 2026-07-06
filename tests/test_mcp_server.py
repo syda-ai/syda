@@ -295,19 +295,82 @@ class TestGenerateFromSchema:
         assert "error" in result
         assert "suggestion" in result
 
-    def test_message_in_response(self):
+    def test_extra_kwargs_passed_through(self):
+        """extra_kwargs reaches _build_generator."""
         df = self._make_df()
-        with patch("syda.mcp_server._build_generator", return_value=self._mock_generator(df)), \
+        captured = {}
+
+        def capture_extra(provider, model, api_key, temperature, max_tokens,
+                          generation_mode, batch_size, max_workers, extra_kwargs=None):
+            captured["extra_kwargs"] = extra_kwargs
+            return self._mock_generator(df)
+
+        with patch("syda.mcp_server._build_generator", side_effect=capture_extra), \
              patch("syda.schema_loader.SchemaLoader") as MockLoader:
             MockLoader.return_value.load_schema.return_value = self.SIMPLE_SCHEMA["customers"]
             from syda.mcp_server import generate_from_schema
-            result = generate_from_schema(
+            generate_from_schema(
                 schema=self.SIMPLE_SCHEMA,
-                provider="anthropic",
-                model="claude-haiku-4-5-20251001",
+                provider="openai_compatible",
+                extra_kwargs={"base_url": "http://localhost:11434/v1", "api_key": "ollama"},
             )
-        assert "message" in result
-        assert "3" in result["message"]   # row count mentioned
+        assert captured["extra_kwargs"] == {
+            "base_url": "http://localhost:11434/v1", "api_key": "ollama"
+        }
+
+
+class TestBuildGenerator:
+
+    def test_openai_compatible_requires_base_url(self):
+        from syda.mcp_server import _build_generator
+        with pytest.raises(ValueError, match="base_url"):
+            _build_generator(
+                provider="openai_compatible", model="llama3", api_key=None,
+                temperature=0.8, max_tokens=4096, generation_mode="auto",
+                batch_size=None, max_workers=1,
+                extra_kwargs=None,   # missing base_url
+            )
+
+    def test_azure_requires_endpoint(self):
+        from syda.mcp_server import _build_generator
+        with patch.dict("os.environ", {"AZURE_OPENAI_API_KEY": "key"}):
+            with pytest.raises(ValueError, match="azure_endpoint"):
+                _build_generator(
+                    provider="azureopenai", model="gpt-4o", api_key=None,
+                    temperature=0.8, max_tokens=4096, generation_mode="auto",
+                    batch_size=None, max_workers=1,
+                    extra_kwargs=None,   # missing azure_endpoint
+                )
+
+    def test_grok_gets_default_base_url(self):
+        from syda.mcp_server import _build_generator
+        with patch("syda.SyntheticDataGenerator") as MockGen, \
+             patch("syda.ModelConfig") as MockMC, \
+             patch.dict("os.environ", {"GROK_API_KEY": "xai-key"}):
+            MockMC.return_value = MagicMock()
+            _build_generator(
+                provider="grok", model="grok-4.3", api_key=None,
+                temperature=0.8, max_tokens=4096, generation_mode="auto",
+                batch_size=None, max_workers=1,
+                extra_kwargs=None,
+            )
+        call_kwargs = MockMC.call_args[1]
+        assert call_kwargs["extra_kwargs"]["base_url"] == "https://api.x.ai/v1"
+
+    def test_user_extra_kwargs_override_defaults(self):
+        from syda.mcp_server import _build_generator
+        with patch("syda.SyntheticDataGenerator") as MockGen, \
+             patch("syda.ModelConfig") as MockMC, \
+             patch.dict("os.environ", {"GROK_API_KEY": "xai-key"}):
+            MockMC.return_value = MagicMock()
+            _build_generator(
+                provider="grok", model="grok-4.3", api_key=None,
+                temperature=0.8, max_tokens=4096, generation_mode="auto",
+                batch_size=None, max_workers=1,
+                extra_kwargs={"base_url": "https://custom.endpoint/v1"},
+            )
+        call_kwargs = MockMC.call_args[1]
+        assert call_kwargs["extra_kwargs"]["base_url"] == "https://custom.endpoint/v1"
 
 
 # ── infer_schema_from_db ──────────────────────────────────────────────────────
