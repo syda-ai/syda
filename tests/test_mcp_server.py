@@ -334,9 +334,30 @@ class TestInferSchemaFromDb:
         with patch("syda.DatabaseSchemaLoader",
                    side_effect=Exception("could not connect")):
             from syda.mcp_server import infer_schema_from_db
-            result = infer_schema_from_db("bad://url")
+            result = infer_schema_from_db(db_url="bad://url")
         assert result["ok"] is False
         assert "suggestion" in result
+
+    def test_error_no_url_and_no_env(self):
+        import os
+        backup = {k: os.environ.pop(k) for k in ["SYDA_DB_URL", "DATABASE_URL"] if k in os.environ}
+        try:
+            from syda.mcp_server import infer_schema_from_db
+            result = infer_schema_from_db()
+            assert result["ok"] is False
+            assert "SYDA_DB_URL" in result["suggestion"]
+        finally:
+            os.environ.update(backup)
+
+    def test_env_var_fallback(self):
+        mock_schemas = {"users": {"id": {"type": "integer", "primary_key": True}}}
+        with patch.dict("os.environ", {"SYDA_DB_URL": "sqlite:///test.db"}), \
+             patch("syda.DatabaseSchemaLoader") as MockLoader:
+            MockLoader.return_value.load_schemas.return_value = mock_schemas
+            from syda.mcp_server import infer_schema_from_db
+            result = infer_schema_from_db()   # no db_url passed
+        assert result["ok"] is True
+        assert "users" in result["schema"]
 
     def test_table_filter_passed_through(self):
         with patch("syda.DatabaseSchemaLoader") as MockLoader:

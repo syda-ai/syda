@@ -437,22 +437,30 @@ def validate_schema(schema: Dict[str, Any]) -> Dict[str, Any]:
 
 @mcp.tool()
 def infer_schema_from_db(
-    db_url: str,
+    db_url: Optional[str] = None,
     tables: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     """Connect to a database and infer schemas from its structure.
 
     Returns a schema dict ready to pass directly to generate_from_schema,
-    plus a list of detected FK relationships.
+    plus a list of detected FK relationships. No data is read — only schema
+    metadata (column names, types, PKs, FKs via INFORMATION_SCHEMA queries).
+
+    Credentials can be supplied three ways (in priority order):
+      1. db_url parameter — embed directly: "postgresql://user:pass@host/db"
+      2. SYDA_DB_URL env var — set once in MCP config, never type in chat
+      3. DATABASE_URL env var — standard 12-factor convention
 
     Supported databases: PostgreSQL, MySQL, SQLite (any SQLAlchemy dialect).
 
     Args:
-        db_url: SQLAlchemy connection URL e.g.
-                "postgresql://user:pass@localhost/mydb"
-                "sqlite:///path/to/db.sqlite"
-                "mysql+pymysql://user:pass@localhost/mydb"
-        tables: Specific tables to infer (default: all tables).
+        db_url: SQLAlchemy connection URL. Falls back to SYDA_DB_URL or
+                DATABASE_URL env var if not provided.
+                Examples:
+                  "postgresql://user:pass@localhost:5432/mydb"
+                  "mysql+pymysql://user:pass@localhost/mydb"
+                  "sqlite:///path/to/database.db"
+        tables: Specific table names to infer (default: all tables).
 
     Returns:
         ok, schema (ready for generate_from_schema), tables (list), relationships.
@@ -460,7 +468,20 @@ def infer_schema_from_db(
     try:
         from syda import DatabaseSchemaLoader
 
-        loader = DatabaseSchemaLoader(db_url)
+        # Credential resolution: explicit > SYDA_DB_URL > DATABASE_URL
+        resolved_url = (
+            db_url
+            or os.getenv("SYDA_DB_URL")
+            or os.getenv("DATABASE_URL")
+        )
+        if not resolved_url:
+            return _tool_error(
+                ValueError("No database URL provided"),
+                "Pass db_url directly, or set SYDA_DB_URL (recommended) or "
+                "DATABASE_URL in the MCP server environment config.",
+            )
+
+        loader = DatabaseSchemaLoader(resolved_url)
         schemas = loader.load_schemas(table_names=tables)
 
         # Summarise relationships
@@ -483,7 +504,7 @@ def infer_schema_from_db(
             "tables": list(schemas.keys()),
             "relationships": relationships,
             "message": (
-                f"Inferred {len(schemas)} table(s) from {db_url.split('@')[-1]}. "
+                f"Inferred {len(schemas)} table(s) from {resolved_url.split('@')[-1]}. "
                 f"Pass the 'schema' field directly to generate_from_schema."
             ),
         }
