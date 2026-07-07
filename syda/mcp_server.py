@@ -243,8 +243,8 @@ def generate_from_schema(
         output_files (when output_dir is set).
     """
     try:
+        import threading
         from syda import SyntheticDataGenerator
-        from syda.schema_loader import SchemaLoader
 
         generator = _build_generator(
             provider, model, api_key, temperature, max_tokens,
@@ -252,17 +252,30 @@ def generate_from_schema(
             extra_kwargs=extra_kwargs,
         )
 
-        # Parse schema — SchemaLoader accepts dicts directly
-        loader = SchemaLoader()
-        parsed = {name: loader.load_schema(cols) for name, cols in schema.items()}
+        # syda uses agent.run_sync() which fails when called inside an already-
+        # running asyncio event loop (the MCP server's async context). Running in
+        # a dedicated thread gives pydantic-ai a clean loop to work with.
+        _result: list = [None]
+        _exc:    list = [None]
 
-        results = generator.generate_for_schemas(
-            schemas=parsed,
-            sample_sizes=sample_sizes or {},
-            default_sample_size=default_sample_size,
-            prompts=prompts or {},
-            output_dir=output_dir,
-        )
+        def _run():
+            try:
+                _result[0] = generator.generate_for_schemas(
+                    schemas=schema,
+                    sample_sizes=sample_sizes or {},
+                    default_sample_size=default_sample_size,
+                    prompts=prompts or {},
+                    output_dir=output_dir,
+                )
+            except Exception as e:
+                _exc[0] = e
+
+        t = threading.Thread(target=_run)
+        t.start()
+        t.join()
+        if _exc[0]:
+            raise _exc[0]
+        results = _result[0]
 
         report = generator.last_report
         tables_preview = {}
