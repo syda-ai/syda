@@ -130,7 +130,7 @@ def _build_generator(provider: Optional[str], model: Optional[str],
             model = model or "gpt-4o-mini"
         elif os.getenv("GEMINI_API_KEY"):
             provider = "gemini"
-            model = model or "gemini-1.5-flash"
+            model = model or "gemini-flash-latest"
         elif os.getenv("GROK_API_KEY"):
             provider = "grok"
             model = model or "grok-4.3"
@@ -670,9 +670,9 @@ def get_providers() -> Dict[str, Any]:
             "provider":    "gemini",
             "configured":  bool(os.getenv("GEMINI_API_KEY")),
             "env_var":     "GEMINI_API_KEY",
-            "recommended_model": "gemini-1.5-flash",
-            "fast_model":  "gemini-1.5-flash",
-            "quality_model": "gemini-1.5-pro",
+            "recommended_model": "gemini-flash-latest",
+            "fast_model":  "gemini-flash-latest",
+            "quality_model": "gemini-pro-latest",
             "notes": "Google Gemini models. Flash is fast and free-tier friendly.",
         },
         {

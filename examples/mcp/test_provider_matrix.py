@@ -60,7 +60,7 @@ PROVIDERS = [
     },
     {
         "label": "gemini",
-        "kwargs": {"provider": "gemini", "model": "gemini-1.5-flash"},
+        "kwargs": {"provider": "gemini", "model": "gemini-flash-latest"},
         "requires_configured": "gemini",
     },
     {

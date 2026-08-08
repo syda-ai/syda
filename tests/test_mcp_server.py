@@ -494,7 +494,7 @@ class TestBuildGenerator:
              patch("syda.ModelConfig") as MockMC:
             MockMC.return_value = MagicMock()
             _build_generator(
-                provider="gemini", model="gemini-1.5-flash", api_key="AIza-explicit",
+                provider="gemini", model="gemini-flash-latest", api_key="AIza-explicit",
                 temperature=0.8, max_tokens=4096, generation_mode="auto",
                 batch_size=None, max_workers=1,
                 extra_kwargs=None,

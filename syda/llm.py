@@ -35,10 +35,16 @@ def _build_pydantic_ai_model(model_config: ModelConfig):
         )
 
     elif provider == "gemini":
-        from pydantic_ai.models.gemini import GeminiModel
+        # GeminiModel is pydantic-ai's deprecated, raw-HTTP client — it expects
+        # provider.client to be an httpx.AsyncClient with .stream(), but current
+        # GoogleProvider versions return a google.genai.Client instead, which
+        # doesn't have that method (AttributeError: 'Client' object has no
+        # attribute 'stream'). GoogleModel is the maintained replacement and
+        # talks to the same google.genai.Client correctly.
+        from pydantic_ai.models.google import GoogleModel
         from pydantic_ai.providers.google import GoogleProvider
         api_key = extra.get("api_key") or os.environ.get("GEMINI_API_KEY")
-        return GeminiModel(
+        return GoogleModel(
             model_name,
             provider=GoogleProvider(api_key=api_key) if api_key else GoogleProvider(),
         )
