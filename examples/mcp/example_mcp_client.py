@@ -57,8 +57,8 @@ async def main():
                 "transactions": {
                     "tx_id":       {"type": "integer", "primary_key": True},
                     "customer_id": {
-                        "type": "integer",
-                        "foreign_key": {"table": "customers", "column": "customer_id"},
+                        "type": "foreign_key",
+                        "references": {"schema": "customers", "field": "customer_id"},
                     },
                     "amount":      {"type": "float", "min": 1.0, "max": 5000.0},
                     "status":      {"type": "string",

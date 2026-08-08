@@ -202,12 +202,14 @@ def generate_from_schema(
       },
       "orders": {
         "order_id":    {"type": "integer", "primary_key": true},
-        "customer_id": {"type": "integer", "foreign_key": {"table": "customers", "column": "customer_id"}},
+        "customer_id": {"type": "foreign_key", "references": {"schema": "customers", "field": "customer_id"}},
         "amount":      {"type": "float",   "min": 5.0, "max": 500.0}
       }
     }
 
     Supported column types: integer, float, string, text, email, date, boolean, foreign_key.
+    For foreign_key columns, "references" must be {"schema": "<parent table>", "field": "<parent column>"}
+    (or the string shorthand "parent_table.parent_column").
     Add "enum": [...] on any string column to declare fixed values.
     Add "primary_key": true, "unique": true, "not_null": true as constraints.
 
@@ -343,7 +345,7 @@ def generate_from_schema(
             exc,
             "Check your schema format and API key. Call get_providers() to see "
             "which providers are configured. For FK columns use: "
-            '{"type": "integer", "foreign_key": {"table": "parent", "column": "id"}}',
+            '{"type": "foreign_key", "references": {"schema": "parent", "field": "id"}}',
         )
 
 
@@ -404,17 +406,25 @@ def validate_schema(schema: Dict[str, Any]) -> Dict[str, Any]:
                 if col_def.get("primary_key"):
                     has_pk = True
 
-                fk = col_def.get("foreign_key")
-                if fk or col_type in ("foreign_key", "fk"):
-                    if isinstance(fk, dict):
-                        parent_table = fk.get("table")
-                        parent_col = fk.get("column")
-                        if parent_table and parent_col:
-                            table_fks[col_name] = (parent_table, parent_col)
-                        else:
-                            errors.append(
-                                f"{table_name}.{col_name}: foreign_key must have 'table' and 'column'"
-                            )
+                # FK parsing mirrors SchemaLoader._load_dict_schema() exactly, so a
+                # schema that validates here is guaranteed to generate real FKs.
+                is_fk = col_type in ("foreign_key", "fk")
+                if is_fk:
+                    references = col_def.get("references")
+                    parent_table = parent_col = None
+                    if isinstance(references, dict):
+                        parent_table = references.get("schema")
+                        parent_col = references.get("field")
+                    elif isinstance(references, str) and "." in references:
+                        parent_table, _, parent_col = references.partition(".")
+
+                    if parent_table and parent_col:
+                        table_fks[col_name] = (parent_table, parent_col)
+                    else:
+                        errors.append(
+                            f"{table_name}.{col_name}: foreign_key column needs "
+                            '"references": {"schema": "<parent table>", "field": "<parent column>"}'
+                        )
 
                 col_summary.append({
                     "name": col_name,
@@ -423,7 +433,7 @@ def validate_schema(schema: Dict[str, Any]) -> Dict[str, Any]:
                     "unique": bool(col_def.get("unique")),
                     "nullable": not bool(col_def.get("not_null")),
                     "has_enum": bool(col_def.get("enum")),
-                    "is_fk": bool(fk or col_type in ("foreign_key", "fk")),
+                    "is_fk": is_fk,
                 })
 
             if not has_pk:
@@ -553,12 +563,12 @@ def infer_schema_from_db(
             for col_name, col_def in tbl_schema.items():
                 if col_name.startswith("_"):
                     continue
-                if isinstance(col_def, dict) and col_def.get("foreign_key"):
-                    fk = col_def["foreign_key"]
-                    if isinstance(fk, dict):
+                if isinstance(col_def, dict) and col_def.get("type") == "foreign_key":
+                    references = col_def.get("references")
+                    if isinstance(references, dict):
                         relationships.append({
                             "child":  f"{tbl_name}.{col_name}",
-                            "parent": f"{fk.get('table')}.{fk.get('column')}",
+                            "parent": f"{references.get('schema')}.{references.get('field')}",
                         })
 
         return {

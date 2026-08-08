@@ -45,8 +45,8 @@ SCHEMAS = {
             "orders": {
                 "order_id":     {"type": "integer", "primary_key": True},
                 "customer_id":  {
-                    "type": "integer",
-                    "foreign_key": {"table": "customers", "column": "customer_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "customers", "field": "customer_id"},
                 },
                 "order_date":   {"type": "date"},
                 "status":       {"type": "string",
@@ -57,12 +57,12 @@ SCHEMAS = {
             "order_items": {
                 "item_id":      {"type": "integer", "primary_key": True},
                 "order_id":     {
-                    "type": "integer",
-                    "foreign_key": {"table": "orders", "column": "order_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "orders", "field": "order_id"},
                 },
                 "product_id":   {
-                    "type": "integer",
-                    "foreign_key": {"table": "products", "column": "product_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "products", "field": "product_id"},
                 },
                 "quantity":     {"type": "integer", "min": 1, "max": 5},
                 "unit_price":   {"type": "float",   "min": 5.0, "max": 500.0},
@@ -89,8 +89,8 @@ SCHEMAS = {
             "users": {
                 "user_id":    {"type": "integer", "primary_key": True},
                 "company_id": {
-                    "type": "integer",
-                    "foreign_key": {"table": "companies", "column": "company_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "companies", "field": "company_id"},
                 },
                 "email":      {"type": "email", "unique": True},
                 "role":       {"type": "string",
@@ -101,8 +101,8 @@ SCHEMAS = {
             "subscriptions": {
                 "sub_id":       {"type": "integer", "primary_key": True},
                 "company_id":   {
-                    "type": "integer",
-                    "foreign_key": {"table": "companies", "column": "company_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "companies", "field": "company_id"},
                 },
                 "plan":         {"type": "string",
                                  "enum": ["free","starter","pro","enterprise"],
@@ -141,12 +141,12 @@ SCHEMAS = {
             "encounters": {
                 "encounter_id":   {"type": "integer", "primary_key": True},
                 "patient_id":     {
-                    "type": "integer",
-                    "foreign_key": {"table": "patients", "column": "patient_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "patients", "field": "patient_id"},
                 },
                 "provider_id":    {
-                    "type": "integer",
-                    "foreign_key": {"table": "providers", "column": "provider_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "providers", "field": "provider_id"},
                 },
                 "encounter_date": {"type": "date"},
                 "encounter_type": {"type": "string",

@@ -56,8 +56,8 @@ async def test_validate_schema(session):
         },
         "orders": {
             "order_id":  {"type": "integer", "primary_key": True},
-            "user_id":   {"type": "integer",
-                          "foreign_key": {"table": "users", "column": "user_id"}},
+            "user_id":   {"type": "foreign_key",
+                          "references": {"schema": "users", "field": "user_id"}},
             "amount":    {"type": "float"},
         },
     }
@@ -73,8 +73,8 @@ async def test_validate_schema(session):
     invalid = {
         "orders": {
             "order_id":  {"type": "integer", "primary_key": True},
-            "user_id":   {"type": "integer",
-                          "foreign_key": {"table": "nonexistent", "column": "id"}},
+            "user_id":   {"type": "foreign_key",
+                          "references": {"schema": "nonexistent", "field": "id"}},
         }
     }
     r2 = await session.call_tool("validate_schema", {"schema": invalid})
@@ -165,8 +165,8 @@ async def test_generate_from_schema(session, configured_providers):
         "players": {
             "player_id": {"type": "integer", "primary_key": True},
             "team_id":   {
-                "type": "integer",
-                "foreign_key": {"table": "teams", "column": "team_id"},
+                "type": "foreign_key",
+                "references": {"schema": "teams", "field": "team_id"},
             },
             "name":      {"type": "string"},
             "position":  {"type": "string"},

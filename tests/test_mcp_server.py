@@ -56,8 +56,8 @@ class TestValidateSchema:
             "orders": {
                 "order_id":   {"type": "integer", "primary_key": True},
                 "customer_id": {
-                    "type": "integer",
-                    "foreign_key": {"table": "customers", "column": "customer_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "customers", "field": "customer_id"},
                 },
             },
         }
@@ -72,8 +72,8 @@ class TestValidateSchema:
             "orders": {
                 "order_id":   {"type": "integer", "primary_key": True},
                 "customer_id": {
-                    "type": "integer",
-                    "foreign_key": {"table": "nonexistent", "column": "id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "nonexistent", "field": "id"},
                 },
             },
         }
@@ -86,7 +86,7 @@ class TestValidateSchema:
             "orders": {
                 "customer_id": {
                     "type": "foreign_key",
-                    "foreign_key": {"table": "customers"},  # missing "column"
+                    "references": {"schema": "customers"},  # missing "field"
                 },
             },
         }
@@ -142,7 +142,7 @@ class TestValidateSchema:
     def test_message_on_error(self):
         schema = {
             "orders": {
-                "cid": {"type": "integer", "foreign_key": {"table": "missing", "column": "id"}},
+                "cid": {"type": "foreign_key", "references": {"schema": "missing", "field": "id"}},
             }
         }
         result = self._call(schema)
@@ -209,6 +209,63 @@ class TestGetRunReport:
         result = get_run_report()
         assert result["ok"] is False
         assert "report" in result["hint"].lower() or "generate_from_schema" in result["hint"]
+
+
+# ── FK schema format consistency ────────────────────────────────────────────
+#
+# generate_from_schema documents an FK column shape and passes it straight
+# through to SyntheticDataGenerator.generate_for_schemas() with no
+# translation. These tests exercise the real SchemaLoader (no mocking) to
+# make sure that documented shape is actually understood by the core engine
+# — i.e. that a schema which passes validate_schema will really produce FK
+# columns sampled from the parent table, not silently fall through to plain
+# unrelated integers.
+
+class TestFkSchemaFormatConsistency:
+
+    def test_documented_fk_format_is_parsed_by_schema_loader(self):
+        from syda.schema_loader import SchemaLoader
+
+        orders_schema = {
+            "order_id":    {"type": "integer", "primary_key": True},
+            "customer_id": {"type": "foreign_key", "references": {"schema": "customers", "field": "customer_id"}},
+            "amount":      {"type": "float", "min": 5.0, "max": 500.0},
+        }
+        _, _, _, foreign_keys, _, _ = SchemaLoader().load_schema(orders_schema)
+        assert foreign_keys == {"customer_id": ("customers", "customer_id")}
+
+    def test_documented_fk_format_string_shorthand_is_parsed(self):
+        from syda.schema_loader import SchemaLoader
+
+        orders_schema = {
+            "order_id":    {"type": "integer", "primary_key": True},
+            "customer_id": {"type": "foreign_key", "references": "customers.customer_id"},
+        }
+        _, _, _, foreign_keys, _, _ = SchemaLoader().load_schema(orders_schema)
+        assert foreign_keys == {"customer_id": ("customers", "customer_id")}
+
+    def test_validate_schema_relationship_matches_schema_loader(self):
+        """A schema validate_schema calls "valid" with N relationships must
+        yield the exact same foreign_keys mapping when run through the real
+        SchemaLoader that generate_from_schema actually uses."""
+        from syda.mcp_server import validate_schema
+        from syda.schema_loader import SchemaLoader
+
+        schema = {
+            "customers": {
+                "customer_id": {"type": "integer", "primary_key": True},
+            },
+            "orders": {
+                "order_id":    {"type": "integer", "primary_key": True},
+                "customer_id": {"type": "foreign_key", "references": {"schema": "customers", "field": "customer_id"}},
+            },
+        }
+        result = validate_schema(schema)
+        assert result["ok"] is True
+        assert result["relationships"] == [{"child": "orders.customer_id", "parent": "customers.customer_id"}]
+
+        _, _, _, foreign_keys, _, _ = SchemaLoader().load_schema(schema["orders"])
+        assert foreign_keys == {"customer_id": ("customers", "customer_id")}
 
 
 # ── generate_from_schema ──────────────────────────────────────────────────────
@@ -454,13 +511,15 @@ class TestInferSchemaFromDb:
             )
 
     def test_fk_relationships_extracted(self):
+        # Shape matches what DatabaseSchemaLoader (db_schema_loader.py) actually
+        # produces: {"type": "foreign_key", "references": {"schema", "field"}}.
         mock_schemas = {
             "customers": {"id": {"type": "integer", "primary_key": True}},
             "orders": {
                 "id": {"type": "integer", "primary_key": True},
                 "customer_id": {
-                    "type": "integer",
-                    "foreign_key": {"table": "customers", "column": "id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "customers", "field": "id"},
                 },
             },
         }

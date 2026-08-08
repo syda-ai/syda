@@ -41,16 +41,16 @@ CASES = [
             "orders": {
                 "order_id":   {"type": "integer", "primary_key": True},
                 "customer_id": {
-                    "type": "integer",
-                    "foreign_key": {"table": "customers", "column": "customer_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "customers", "field": "customer_id"},
                 },
                 "amount":    {"type": "float", "min": 1.0, "max": 5000.0},
             },
             "order_items": {
                 "item_id":  {"type": "integer", "primary_key": True},
                 "order_id": {
-                    "type": "integer",
-                    "foreign_key": {"table": "orders", "column": "order_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "orders", "field": "order_id"},
                 },
                 "quantity": {"type": "integer", "min": 1, "max": 10},
             },
@@ -72,12 +72,12 @@ CASES = [
             "encounters": {
                 "encounter_id": {"type": "integer", "primary_key": True},
                 "patient_id":   {
-                    "type": "integer",
-                    "foreign_key": {"table": "patients", "column": "patient_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "patients", "field": "patient_id"},
                 },
                 "provider_id":  {
-                    "type": "integer",
-                    "foreign_key": {"table": "providers", "column": "provider_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "providers", "field": "provider_id"},
                 },
                 "encounter_date": {"type": "date"},
                 "diagnosis_code": {"type": "string"},
@@ -93,14 +93,14 @@ CASES = [
             "orders": {
                 "order_id":   {"type": "integer", "primary_key": True},
                 "customer_id": {
-                    "type": "integer",
-                    "foreign_key": {"table": "customers", "column": "customer_id"},
+                    "type": "foreign_key",
+                    "references": {"schema": "customers", "field": "customer_id"},
                 },
             }
         },
     },
     {
-        "label": "FK definition missing 'column' key",
+        "label": "FK definition missing 'field' key",
         "expect_ok": False,
         "schema": {
             "customers": {
@@ -109,8 +109,8 @@ CASES = [
             "orders": {
                 "order_id":   {"type": "integer", "primary_key": True},
                 "customer_id": {
-                    "type": "integer",
-                    "foreign_key": {"table": "customers"},  # missing "column"
+                    "type": "foreign_key",
+                    "references": {"schema": "customers"},  # missing "field"
                 },
             },
         },
