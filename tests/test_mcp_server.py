@@ -27,6 +27,36 @@ def _make_report(tables):
     return report
 
 
+# ── credential redaction ─────────────────────────────────────────────────────
+
+class TestRedactUrlCredentials:
+
+    def _redact(self, text):
+        from syda.mcp_server import _redact_url_credentials
+        return _redact_url_credentials(text)
+
+    def test_redacts_password_in_url(self):
+        text = "connection failed: postgresql://john:hunter2@db.internal:5432/app"
+        redacted = self._redact(text)
+        assert "hunter2" not in redacted
+        assert "john" not in redacted
+        assert "postgresql://***:***@db.internal:5432/app" in redacted
+
+    def test_leaves_url_without_credentials_untouched(self):
+        text = "connection failed: postgresql://db.internal:5432/app"
+        assert self._redact(text) == text
+
+    def test_leaves_plain_text_untouched(self):
+        text = "table 'orders' does not exist"
+        assert self._redact(text) == text
+
+    def test_tool_error_uses_redaction(self):
+        from syda.mcp_server import _tool_error
+        exc = Exception("dsn: mysql://root:s3cr3t@localhost/db")
+        result = _tool_error(exc, "check your config")
+        assert "s3cr3t" not in result["message"]
+
+
 # ── validate_schema ───────────────────────────────────────────────────────────
 
 class TestValidateSchema:
@@ -429,6 +459,58 @@ class TestBuildGenerator:
         call_kwargs = MockMC.call_args[1]
         assert call_kwargs["extra_kwargs"]["base_url"] == "https://custom.endpoint/v1"
 
+    def test_explicit_api_key_forwarded_for_gemini(self):
+        """An explicit api_key override must actually reach the generator,
+        not be silently dropped (gemini has no 'if provider == ...' branch
+        unless one is added)."""
+        from syda.mcp_server import _build_generator
+        with patch("syda.SyntheticDataGenerator") as MockGen, \
+             patch("syda.ModelConfig") as MockMC:
+            MockMC.return_value = MagicMock()
+            _build_generator(
+                provider="gemini", model="gemini-1.5-flash", api_key="AIza-explicit",
+                temperature=0.8, max_tokens=4096, generation_mode="auto",
+                batch_size=None, max_workers=1,
+                extra_kwargs=None,
+            )
+        assert MockGen.call_args[1]["gemini_api_key"] == "AIza-explicit"
+
+    def test_explicit_api_key_forwarded_for_azureopenai(self):
+        """azureopenai has no api_key constructor kwarg on SyntheticDataGenerator —
+        the override must be routed into extra_kwargs['api_key'] instead, since
+        that's the only place pydantic-ai's AzureProvider reads it from."""
+        from syda.mcp_server import _build_generator
+        with patch("syda.SyntheticDataGenerator") as MockGen, \
+             patch("syda.ModelConfig") as MockMC:
+            MockMC.return_value = MagicMock()
+            _build_generator(
+                provider="azureopenai", model="gpt-4o", api_key="azure-explicit-key",
+                temperature=0.8, max_tokens=4096, generation_mode="auto",
+                batch_size=None, max_workers=1,
+                extra_kwargs={"azure_endpoint": "https://my-resource.openai.azure.com/"},
+            )
+        call_kwargs = MockMC.call_args[1]
+        assert call_kwargs["extra_kwargs"]["api_key"] == "azure-explicit-key"
+
+    def test_azureopenai_extra_kwargs_api_key_not_overwritten(self):
+        """If the caller already set extra_kwargs['api_key'] explicitly, the
+        top-level api_key param must not clobber it."""
+        from syda.mcp_server import _build_generator
+        with patch("syda.SyntheticDataGenerator") as MockGen, \
+             patch("syda.ModelConfig") as MockMC:
+            MockMC.return_value = MagicMock()
+            _build_generator(
+                provider="azureopenai", model="gpt-4o", api_key="should-not-be-used",
+                temperature=0.8, max_tokens=4096, generation_mode="auto",
+                batch_size=None, max_workers=1,
+                extra_kwargs={
+                    "azure_endpoint": "https://my-resource.openai.azure.com/",
+                    "api_key": "explicit-extra-kwargs-key",
+                },
+            )
+        call_kwargs = MockMC.call_args[1]
+        assert call_kwargs["extra_kwargs"]["api_key"] == "explicit-extra-kwargs-key"
+
 
 # ── infer_schema_from_db ──────────────────────────────────────────────────────
 
@@ -500,6 +582,49 @@ class TestInferSchemaFromDb:
         assert "prod-db.internal" in call_args
         assert "myapp" in call_args
         assert "john" in call_args
+
+    def test_component_env_vars_url_encode_special_chars(self):
+        """A password containing URL-special characters (@, :, /, %) must be
+        percent-encoded, otherwise it breaks — or silently corrupts — the
+        connection URL's host/port parsing."""
+        mock_schemas = {"orders": {"id": {"type": "integer", "primary_key": True}}}
+        env = {
+            "DB_HOST": "prod-db.internal",
+            "DB_NAME": "myapp",
+            "DB_USER": "john",
+            "DB_PASSWORD": "p@ss:w/rd%25",
+            "DB_PORT": "5432",
+        }
+        with patch.dict("os.environ", env), \
+             patch("syda.DatabaseSchemaLoader") as MockLoader:
+            MockLoader.return_value.load_schemas.return_value = mock_schemas
+            from syda.mcp_server import infer_schema_from_db
+            result = infer_schema_from_db()
+        assert result["ok"] is True
+        call_args = MockLoader.call_args[0][0]
+        # The raw password must not appear unescaped in the URL...
+        assert "p@ss:w/rd%25" not in call_args
+        # ...and the URL must still parse back to the original credentials.
+        from urllib.parse import urlsplit, unquote
+        parsed = urlsplit(call_args)
+        assert unquote(parsed.password) == "p@ss:w/rd%25"
+        assert parsed.hostname == "prod-db.internal"
+        assert parsed.port == 5432
+
+    def test_connection_error_redacts_password(self):
+        """A DB connection failure must not leak the cleartext password back
+        through the tool's error message, even if the underlying driver
+        embeds the full DSN in its exception text."""
+        from syda.mcp_server import infer_schema_from_db
+        with patch("syda.DatabaseSchemaLoader") as MockLoader:
+            MockLoader.side_effect = Exception(
+                "could not connect to server: "
+                "postgresql://john:hunter2@prod-db.internal:5432/myapp"
+            )
+            result = infer_schema_from_db("postgresql://john:hunter2@prod-db.internal:5432/myapp")
+        assert result["ok"] is False
+        assert "hunter2" not in result["message"]
+        assert "***:***@" in result["message"]
 
     def test_table_filter_passed_through(self):
         with patch("syda.DatabaseSchemaLoader") as MockLoader:

@@ -29,8 +29,9 @@ from __future__ import annotations
 
 import json
 import os
-import tempfile
+import re
 from typing import Any, Dict, List, Optional
+from urllib.parse import quote_plus
 
 try:
     from mcp.server.fastmcp import FastMCP
@@ -66,11 +67,21 @@ mcp = FastMCP(
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
+# DB drivers (SQLAlchemy/psycopg2/etc.) often embed the full connection string —
+# including a cleartext password — in their exception text. Redact it so it
+# never round-trips back through a tool response.
+_CREDENTIALS_IN_URL_RE = re.compile(r'(://)[^/@\s]+:[^/@\s]+@')
+
+
+def _redact_url_credentials(text: str) -> str:
+    return _CREDENTIALS_IN_URL_RE.sub(r'\1***:***@', text)
+
+
 def _tool_error(exc: Exception, suggestion: str = "") -> Dict[str, Any]:
     return {
         "ok": False,
         "error": type(exc).__name__,
-        "message": str(exc),
+        "message": _redact_url_credentials(str(exc)),
         "suggestion": suggestion,
     }
 
@@ -130,6 +141,12 @@ def _build_generator(provider: Optional[str], model: Optional[str],
         merged_extra = {"base_url": "https://api.x.ai/v1"}
     if extra_kwargs:
         merged_extra.update(extra_kwargs)
+    # azureopenai has no dedicated api_key constructor kwarg on
+    # SyntheticDataGenerator — pydantic-ai's AzureProvider only reads the key
+    # from extra_kwargs["api_key"] (or the AZURE_OPENAI_API_KEY env var), so
+    # route the tool's top-level api_key override there for this provider.
+    if provider == "azureopenai" and api_key and "api_key" not in merged_extra:
+        merged_extra["api_key"] = api_key
     if merged_extra:
         mc_kwargs["extra_kwargs"] = merged_extra
 
@@ -159,11 +176,17 @@ def _build_generator(provider: Optional[str], model: Optional[str],
                 model_config=ModelConfig(**mc_kwargs),
                 openai_api_key=api_key,
             )
+        elif provider == "gemini":
+            return SyntheticDataGenerator(
+                model_config=ModelConfig(**mc_kwargs),
+                gemini_api_key=api_key,
+            )
         elif provider == "grok":
             return SyntheticDataGenerator(
                 model_config=ModelConfig(**mc_kwargs),
                 grok_api_key=api_key,
             )
+        # azureopenai: api_key was already routed into extra_kwargs above.
 
     return SyntheticDataGenerator(model_config=ModelConfig(**mc_kwargs))
 
@@ -241,7 +264,7 @@ def generate_from_schema(
         preview_rows:         Rows to include in the preview response (default 3).
 
     Returns:
-        ok, tables (name → preview rows), row_counts, fk_integrity, report (cost/tokens/time),
+        ok, tables (name → preview rows), row_counts, report (cost/tokens/time),
         output_files (when output_dir is set).
     """
     try:
@@ -365,11 +388,8 @@ def validate_schema(schema: Dict[str, Any]) -> Dict[str, Any]:
         warnings, errors.
     """
     try:
-        from syda.schema_loader import SchemaLoader
-        from syda.dependency_handler import DependencyHandler, ForeignKeyHandler
         import networkx as nx
 
-        loader = SchemaLoader()
         errors = []
         warnings_list = []
         tables_summary = {}
@@ -543,7 +563,10 @@ def infer_schema_from_db(
             db_port = os.getenv("DB_PORT", "5432")
             db_name = os.getenv("DB_NAME")
             if db_host and db_name:
-                auth = f"{db_user}:{db_pass}@" if db_user else ""
+                # URL-encode credentials — a raw '@', ':', or '/' in the
+                # password would otherwise break URL parsing (or worse,
+                # get misread as part of the host/port).
+                auth = f"{quote_plus(db_user)}:{quote_plus(db_pass or '')}@" if db_user else ""
                 resolved_url = f"postgresql+psycopg2://{auth}{db_host}:{db_port}/{db_name}"
 
         if not resolved_url:
