@@ -22,7 +22,7 @@ __all__ = [
     'ColumnReport',
 ]
 
-__version__ = '0.3.0'
+__version__ = '0.4.0'
 __author__ = 'Rama Krishna Kumar Lingamgunta'
 __email__ = 'ramkumar2606@gmail.com'
 __license__ = 'MIT'

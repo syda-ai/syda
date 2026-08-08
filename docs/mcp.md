@@ -20,15 +20,40 @@ Syda ships a built-in [Model Context Protocol](https://modelcontextprotocol.io) 
 
 ## Install
 
+Choose one of three install methods depending on your setup:
+
+### Option A: `uvx` — recommended, no install needed
+
+[`uvx`](https://docs.astral.sh/uv/) runs syda-mcp on demand in an isolated environment. Nothing to install globally, always uses the latest version.
+
 ```bash
-pip install "syda[mcp]"
+# Install uv if you don't have it
+brew install uv
+# or
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-This installs the `syda-mcp` command. You can verify it works:
+Then use `uvx` directly in your MCP config — no `pip install` needed.
+
+### Option B: `pipx` — install once, available everywhere
+
+```bash
+pipx install "syda[mcp]"
+```
+
+`syda-mcp` is then available globally. Verify:
 
 ```bash
 syda-mcp --help
 ```
+
+### Option C: pip into a virtual environment
+
+```bash
+pip install "syda[mcp]"
+```
+
+Use the full path to the venv binary in your MCP config (see below).
 
 ---
 
@@ -38,18 +63,43 @@ syda-mcp --help
 
 Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
+**With `uvx` (recommended):**
 ```json
 {
   "mcpServers": {
     "syda": {
-      "command": "syda-mcp",
-      "env": {
-        "ANTHROPIC_API_KEY": "sk-ant-..."
-      }
+      "command": "uvx",
+      "args": ["--from", "syda[mcp]", "syda-mcp"]
     }
   }
 }
 ```
+
+**With `pipx`:**
+```json
+{
+  "mcpServers": {
+    "syda": {
+      "command": "syda-mcp"
+    }
+  }
+}
+```
+
+**With a project venv (full path):**
+```json
+{
+  "mcpServers": {
+    "syda": {
+      "command": "/path/to/your/.venv/bin/syda-mcp",
+      "cwd": "/path/to/your/project"
+    }
+  }
+}
+```
+
+!!! tip "API keys"
+    If your API keys are in a `.env` file in your project, set `"cwd"` to that directory — Syda loads `.env` automatically. Otherwise pass keys explicitly in `"env"`.
 
 Restart Claude Desktop. Syda tools will appear automatically.
 
@@ -61,13 +111,12 @@ Create or edit `.cursor/mcp.json` in your project (or `~/.cursor/mcp.json` globa
 {
   "mcpServers": {
     "syda": {
-      "command": "syda-mcp"
+      "command": "uvx",
+      "args": ["--from", "syda[mcp]", "syda-mcp"]
     }
   }
 }
 ```
-
-If your API keys are in a `.env` file in your project root, Syda picks them up automatically.
 
 ### Windsurf
 
@@ -77,7 +126,8 @@ Edit `~/.codeium/windsurf/mcp_config.json`:
 {
   "mcpServers": {
     "syda": {
-      "command": "syda-mcp"
+      "command": "uvx",
+      "args": ["--from", "syda[mcp]", "syda-mcp"]
     }
   }
 }

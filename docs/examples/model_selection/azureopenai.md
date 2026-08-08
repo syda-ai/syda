@@ -35,7 +35,7 @@ Before running this example, you need to:
 2. **Deploy Models**:
    - Navigate to Azure OpenAI Studio
    - Go to "Deployments" → "Create new deployment"
-   - Deploy models like `gpt-4o`, `gpt-4o-mini`, etc.
+   - Deploy models like `gpt-5`, `gpt-5-mini`, etc.
    - Note your deployment names
 
 3. **Get API Key**:
@@ -106,7 +106,7 @@ prompts = {
 # Azure OpenAI Configuration
 model_config_gpt4o = ModelConfig(
     provider="azureopenai",
-    model_name="gpt-4o",  # This should match your deployment name in Azure
+    model_name="gpt-5",  # This should match your deployment name in Azure
     temperature=0.7,
     max_tokens=4000,
     extra_kwargs={
@@ -128,7 +128,7 @@ output_dir = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), 
     "output", 
     "test_azureopenai_models", 
-    "gpt-4o"
+    "gpt-5"
 )
 
 sample_sizes = {'Patient': 20, 'Appointment': 30}
@@ -181,7 +181,7 @@ The `ModelConfig` class requires specific settings for Azure OpenAI:
 ```python
 model_config = ModelConfig(
     provider="azureopenai",  # Use Azure OpenAI provider
-    model_name="gpt-4o",     # Must match your deployment name
+    model_name="gpt-5",     # Must match your deployment name
     temperature=0.7,
     max_tokens=4000,
     extra_kwargs={
@@ -227,7 +227,7 @@ Azure OpenAI uses API versions for feature compatibility. Use the latest stable 
 
 - **Choose Appropriate Regions**: Deploy in regions close to your users for better latency
 - **Model Selection**: 
-  - Use `gpt-4o-mini` for cost-effective generation
+  - Use `gpt-5-mini` for cost-effective generation
   - Use reasoning models for highest quality output
 
 ### 3. Cost Management
@@ -271,7 +271,7 @@ The example creates an organized directory structure for output files:
 ```
 output/
 └── test_azureopenai_models/
-    └── gpt-4o/
+    └── gpt-5/
         ├── Patient.csv
         └── Appointment.csv
 ```

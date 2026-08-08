@@ -44,8 +44,8 @@ generator = SyntheticDataGenerator(model_config=model_config)
 output_dir = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), 
         "output", 
-        "test_claude_models", 
-        "haiku-3-5"
+        "test_claude_models",
+        "haiku-4-5"
 )
 # Generate and save to CSV
 results = generator.generate_for_schemas(
@@ -60,7 +60,7 @@ print(f"Data saved to {output_dir}")
 print("--------------Testing Claude Sonnet----------------")
 model_config = ModelConfig(
     provider="anthropic",
-    model_name="claude-sonnet-4-5",
+    model_name="claude-sonnet-5",
     temperature=0.7,
     max_tokens=64000  # Larger value for more complete responses
 )
@@ -71,7 +71,7 @@ output_dir = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
         "output",
         "test_claude_models",
-        "sonnet-4-5"
+        "sonnet-5"
 )
 sample_sizes={'Patient': 100, 'Claim': 200}
 # Generate and save to CSV
@@ -86,7 +86,7 @@ print(f"Data saved to {output_dir}")
 print("--------------Testing Claude Opus----------------")
 model_config = ModelConfig(
     provider="anthropic",
-    model_name="claude-opus-4-5",
+    model_name="claude-opus-5",
     temperature=0.7,
     max_tokens=32000  # Larger value for more complete responses
 )
@@ -97,7 +97,7 @@ output_dir = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
         "output",
         "test_claude_models",
-        "opus-4-5"
+        "opus-5"
 )
 sample_sizes={'Patient': 100, 'Claim': 200}
 # Generate and save to CSV

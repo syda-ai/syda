@@ -55,7 +55,7 @@ PROVIDERS = [
     },
     {
         "label": "openai",
-        "kwargs": {"provider": "openai", "model": "gpt-4o-mini"},
+        "kwargs": {"provider": "openai", "model": "gpt-5-mini"},
         "requires_configured": "openai",
     },
     {
@@ -72,7 +72,7 @@ PROVIDERS = [
         "label": "azureopenai",
         "kwargs": {
             "provider": "azureopenai",
-            "model": os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o"),
+            "model": os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-5"),
             "extra_kwargs": {"azure_endpoint": os.getenv("AZURE_OPENAI_ENDPOINT", "")},
         },
         "requires_configured": "azureopenai",

@@ -218,8 +218,8 @@ Grok models work seamlessly alongside other SYDA-supported providers:
 ```python
 # Mix and match providers
 grok_config = ModelConfig(provider="grok", model_name="grok-4.3")
-openai_config = ModelConfig(provider="openai", model_name="gpt-4")
-anthropic_config = ModelConfig(provider="anthropic", model_name="claude-3-5-sonnet")
+openai_config = ModelConfig(provider="openai", model_name="gpt-5")
+anthropic_config = ModelConfig(provider="anthropic", model_name="claude-sonnet-5")
 
 # Use different models for different tasks
 generator1 = SyntheticDataGenerator(model_config=grok_config)

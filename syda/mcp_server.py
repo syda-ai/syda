@@ -127,7 +127,7 @@ def _build_generator(provider: Optional[str], model: Optional[str],
             model = model or "claude-haiku-4-5-20251001"
         elif os.getenv("OPENAI_API_KEY"):
             provider = "openai"
-            model = model or "gpt-4o-mini"
+            model = model or "gpt-5-mini"
         elif os.getenv("GEMINI_API_KEY"):
             provider = "gemini"
             model = model or "gemini-flash-latest"
@@ -654,17 +654,17 @@ def get_providers() -> Dict[str, Any]:
             "env_var":     "ANTHROPIC_API_KEY",
             "recommended_model": "claude-haiku-4-5-20251001",
             "fast_model":  "claude-haiku-4-5-20251001",
-            "quality_model": "claude-sonnet-4-6",
+            "quality_model": "claude-sonnet-5",
             "notes": "Best semantic quality. Haiku is fast/cheap; Sonnet for narrative columns.",
         },
         {
             "provider":    "openai",
             "configured":  bool(os.getenv("OPENAI_API_KEY")),
             "env_var":     "OPENAI_API_KEY",
-            "recommended_model": "gpt-4o-mini",
-            "fast_model":  "gpt-4o-mini",
-            "quality_model": "gpt-4o",
-            "notes": "Reliable. gpt-4o-mini is cost-effective for most schemas.",
+            "recommended_model": "gpt-5-mini",
+            "fast_model":  "gpt-5-mini",
+            "quality_model": "gpt-5",
+            "notes": "Reliable. gpt-5-mini is cost-effective for most schemas.",
         },
         {
             "provider":    "gemini",

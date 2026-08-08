@@ -104,7 +104,7 @@ SYDA also supports OpenAI's GPT models:
 # Using OpenAI GPT
 config = ModelConfig(
     provider="openai",
-    model_name="gpt-4-turbo",
+    model_name="gpt-5",
     temperature=0.7,
     max_tokens=4000
 )
@@ -120,7 +120,7 @@ SYDA supports Azure OpenAI for enterprise deployments:
 # Using Azure OpenAI
 config = ModelConfig(
     provider="azureopenai",
-    model_name="gpt-4o",  # Your deployment name
+    model_name="gpt-5",  # Your deployment name
     temperature=0.7,
     max_tokens=4000,
     extra_kwargs={
@@ -140,7 +140,7 @@ SYDA also supports Google's Gemini models:
 # Using Gemini
 config = ModelConfig(
     provider="gemini",
-    model_name="gemini-1.5-flash",
+    model_name="gemini-flash-latest",
     temperature=0.7,
     max_tokens=4000
 )
@@ -291,7 +291,7 @@ The `extra_kwargs` parameter allows you to pass provider-specific configuration 
 ```python
 config = ModelConfig(
     provider="openai",
-    model_name="gpt-4-turbo",
+    model_name="gpt-5",
     temperature=0.7,
     max_tokens=4000,
     extra_kwargs={
@@ -326,7 +326,7 @@ The `extra_kwargs` parameter is particularly useful for integrating with AI gate
 ```python
 config = ModelConfig(
     provider="openai",  # Use OpenAI-compatible format
-    model_name="gpt-4-turbo",
+    model_name="gpt-5",
     extra_kwargs={
         "base_url": "http://localhost:4000",  # LiteLLM proxy endpoint
         "api_key": "your-litellm-key",
@@ -342,7 +342,7 @@ config = ModelConfig(
 ```python
 config = ModelConfig(
     provider="openai",  # Portkey uses OpenAI-compatible API
-    model_name="gpt-4-turbo",
+    model_name="gpt-5",
     extra_kwargs={
         "base_url": "https://api.portkey.ai/v1",
         "default_headers": {
@@ -359,7 +359,7 @@ config = ModelConfig(
 ```python
 config = ModelConfig(
     provider="openai",
-    model_name="gpt-4-turbo", 
+    model_name="gpt-5", 
     extra_kwargs={
         "base_url": "https://your-kong-gateway.com/ai/v1",
         "default_headers": {
@@ -432,7 +432,7 @@ This gives you direct access to provider-specific features while still using SYD
 
 ## Best Practices
 
-1. **Start with Default Models**: Begin with `claude-haiku-4-5-20251001` (Anthropic) or `gpt-4-turbo` (OpenAI)
+1. **Start with Default Models**: Begin with `claude-haiku-4-5-20251001` (Anthropic) or `gpt-5` (OpenAI)
 2. **Adjust Temperature**: Lower for more consistent results, higher for more variety
 3. **Consider Cost vs. Quality**: Higher-end models provide better quality but at higher cost
 4. **Test Different Models**: Compare results from different models for your specific use case

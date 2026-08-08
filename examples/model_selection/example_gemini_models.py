@@ -34,7 +34,7 @@ sample_sizes={'Patient': 15, 'Claim': 15}
 print("--------------Testing Gemini Flash----------------")
 model_config = ModelConfig(
     provider="gemini",
-    model_name="gemini-2.5-flash",
+    model_name="gemini-flash-latest",
     temperature=0.7,
     max_tokens=8192  # Larger value for more complete responses
 )
@@ -42,10 +42,10 @@ model_config = ModelConfig(
 generator = SyntheticDataGenerator(model_config=model_config)
  # Define output directory
 output_dir = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), 
-        "output", 
-        "test_gemini_models", 
-        "flash-2-5"
+        os.path.dirname(os.path.abspath(__file__)),
+        "output",
+        "test_gemini_models",
+        "flash-latest"
 )
 # Generate and save to CSV
 results = generator.generate_for_schemas(
@@ -57,10 +57,10 @@ results = generator.generate_for_schemas(
 print(f"Data saved to {output_dir}")
 
 
-print("--------------Testing Gemini 2.0 Flash----------------")
+print("--------------Testing Gemini Flash Lite----------------")
 model_config = ModelConfig(
     provider="gemini",
-    model_name="gemini-2.0-flash",
+    model_name="gemini-flash-lite-latest",
     temperature=0.7,
     max_tokens=8192  # Larger value for more complete responses
 )
@@ -68,10 +68,10 @@ model_config = ModelConfig(
 generator = SyntheticDataGenerator(model_config=model_config)
  # Define output directory
 output_dir = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), 
-        "output", 
-        "test_gemini_models", 
-        "flash-2-0"
+        os.path.dirname(os.path.abspath(__file__)),
+        "output",
+        "test_gemini_models",
+        "flash-lite-latest"
 )
 sample_sizes={'Patient': 50, 'Claim': 75}
 # Generate and save to CSV
@@ -84,10 +84,10 @@ results = generator.generate_for_schemas(
 print(f"Data saved to {output_dir}")
 
 
-print("--------------Testing Gemini 2.5 Pro----------------")
+print("--------------Testing Gemini Pro----------------")
 model_config = ModelConfig(
     provider="gemini",
-    model_name="gemini-2.5-pro",
+    model_name="gemini-pro-latest",
     temperature=0.7,
     max_tokens=64000  # Larger value for more complete responses
 )
@@ -95,10 +95,10 @@ model_config = ModelConfig(
 generator = SyntheticDataGenerator(model_config=model_config)
 # Define output directory
 output_dir = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), 
-        "output", 
-        "test_gemini_models", 
-        "pro-2-5"
+        os.path.dirname(os.path.abspath(__file__)),
+        "output",
+        "test_gemini_models",
+        "pro-latest"
 )
 sample_sizes={'Patient': 100, 'Claim': 150}  # Pro can handle larger datasets
 # Generate and save to CSV

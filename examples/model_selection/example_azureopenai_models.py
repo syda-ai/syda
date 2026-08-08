@@ -60,13 +60,13 @@ prompts = {
     'Appointment': 'Generate realistic appointment records with various appointment types, realistic scheduling patterns, and appropriate durations.'
 }
 
-# Example 1: Azure OpenAI with GPT-4o
-print("--------------Testing Azure OpenAI GPT-4o----------------")
+# Example 1: Azure OpenAI with GPT-5
+print("--------------Testing Azure OpenAI GPT-5----------------")
 
-# Configuration for Azure OpenAI GPT-4o
-model_config_gpt4o = ModelConfig(
+# Configuration for Azure OpenAI GPT-5
+model_config_gpt5 = ModelConfig(
     provider="azureopenai",
-    model_name="gpt-4o",  # This should match your deployment name in Azure
+    model_name="gpt-5",  # This should match your deployment name in Azure
     temperature=0.7,
     max_tokens=4000,
     extra_kwargs={
@@ -78,17 +78,17 @@ model_config_gpt4o = ModelConfig(
 
 # Initialize generator with Azure OpenAI
 generator = SyntheticDataGenerator(
-    model_config=model_config_gpt4o,
+    model_config=model_config_gpt5,
     # You can pass the API key directly or set AZURE_OPENAI_API_KEY environment variable
     # openai_api_key="your-azure-openai-api-key"
 )
 
 # Define output directory
 output_dir = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), 
-    "output", 
-    "test_azureopenai_models", 
-    "gpt-4o"
+    os.path.dirname(os.path.abspath(__file__)),
+    "output",
+    "test_azureopenai_models",
+    "gpt-5"
 )
 
 sample_sizes = {'Patient': 20, 'Appointment': 30}

@@ -21,7 +21,7 @@ By default, SYDA returns generated data as pandas DataFrames:
 ```python
 from syda import SyntheticDataGenerator, ModelConfig
 
-config = ModelConfig(provider="anthropic", model_name="claude-3-5-haiku-20241022")
+config = ModelConfig(provider="anthropic", model_name="claude-haiku-4-5-20251001")
 generator = SyntheticDataGenerator(model_config=config)
 
 # Generate data

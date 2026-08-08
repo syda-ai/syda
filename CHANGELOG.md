@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.4.0] - 2026-08-08
+
+### Added
+- **MCP server** (`syda-mcp`) — exposes Syda's synthetic data generation to AI agents (Claude Desktop, Cursor, Windsurf) over the Model Context Protocol via stdio. Five tools: `generate_from_schema`, `validate_schema`, `infer_schema_from_db`, `get_providers`, `get_run_report`. Install with `pip install "syda[mcp]"`.
+- `examples/mcp/test_provider_matrix.py` — MCP example that forces `provider=` explicitly per run across all supported providers and verifies real FK referential integrity for each; useful as a smoke test after touching provider routing.
+
+### Fixed
+- **FK schema format mismatch** — `generate_from_schema`/`validate_schema`/`infer_schema_from_db` documented and accepted a foreign-key shape (`{"foreign_key": {"table", "column"}}`) that the core `SchemaLoader` never recognized, so FK columns silently generated as unrelated integers instead of being sampled from the parent table's real primary keys. Standardized on the core engine's existing `{"type": "foreign_key", "references": {"schema", "field"}}` convention everywhere.
+- **`api_key` override silently dropped for `gemini`/`azureopenai`** in `generate_from_schema` — `gemini` now forwards `gemini_api_key`; `azureopenai` has no such constructor kwarg, so its override is routed into `extra_kwargs["api_key"]`, the only place pydantic-ai's `AzureProvider` reads it from.
+- **stdout corruption of the MCP stdio transport** — `syda/generate.py` and `db_schema_loader.py` have plain `print()` calls meant for CLI usage; over stdio, stdout IS the JSON-RPC wire, so a stray print() during generation could interleave garbage into the protocol stream and hang the client. Generation and DB-introspection calls are now wrapped with `contextlib.redirect_stdout` inside the MCP server.
+- **Gemini generation broken end-to-end** — pydantic-ai's deprecated `GeminiModel` expects an httpx-style client with `.stream()`, but the current `GoogleProvider` returns a `google.genai.Client` without that method (`AttributeError: 'Client' object has no attribute 'stream'`). Switched to `GoogleModel`, pydantic-ai's maintained replacement.
+- **Unescaped DB credentials** in `infer_schema_from_db`'s `DB_USER`/`DB_PASSWORD` connection-string building — now URL-encoded via `urllib.parse.quote_plus` so special characters (`@`, `:`, `/`, `%`) don't corrupt the connection URL.
+- **Credential leakage in error messages** — `_tool_error` now redacts `user:password@` from exception text, since DB drivers often embed the full DSN (including cleartext password) in connection-failure errors.
+
+### Changed
+- Version bumped to `0.4.0`
+- Updated stale/retired model defaults across docs and examples: `gemini-1.5-*`/`gemini-2.0-*`/`gemini-2.5-*` (confirmed retired by Google's API) → `gemini-flash-latest`/`gemini-pro-latest`/`gemini-flash-lite-latest`; older Claude snapshots → the current Claude 5 family (`claude-haiku-4-5-20251001`, `claude-sonnet-5`, `claude-opus-5`); `gpt-4o`/`gpt-4-turbo`/`o3-*` → the current `gpt-5` family.
+
 ## [0.3.0] - 2026-06-27
 
 ### Added

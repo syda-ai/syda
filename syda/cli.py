@@ -36,11 +36,11 @@ PROVIDER_ENV_VARS = {
 
 DEFAULT_MODELS = {
     "anthropic": "claude-haiku-4-5-20251001",
-    "openai": "gpt-4o-mini",
-    "gemini": "gemini-2.0-flash",
-    "grok": "grok-2-latest",
+    "openai": "gpt-5-mini",
+    "gemini": "gemini-flash-latest",
+    "grok": "grok-4.3",
     "openai_compatible": "llama3",
-    "azureopenai": "gpt-4o-mini",
+    "azureopenai": "gpt-5-mini",
 }
 
 

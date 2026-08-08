@@ -197,7 +197,7 @@ def main():
     """Main entry point for the example."""
     
     # Initialize generator with model config
-    config = ModelConfig(provider="anthropic", model_name="claude-3-5-haiku-20241022")
+    config = ModelConfig(provider="anthropic", model_name="claude-haiku-4-5-20251001")
     generator = SyntheticDataGenerator(model_config=config)
     
     # Set up output directory

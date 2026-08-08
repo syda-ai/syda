@@ -102,7 +102,7 @@ def main():
     # Example of more complex proxy setup with custom auth
     complex_proxy_config = ModelConfig(
         provider="openai",
-        model_name="gpt-4-turbo",
+        model_name="gpt-5",
         temperature=0.8,
         proxy=ProxyConfig(
             base_url="https://ai-proxy.company.com/openai",

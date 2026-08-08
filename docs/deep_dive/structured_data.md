@@ -28,7 +28,7 @@ load_dotenv()
 # Configure the model
 config = ModelConfig(
     provider="anthropic", 
-    model_name="claude-3-5-haiku-20241022",
+    model_name="claude-haiku-4-5-20251001",
     temperature=0.7,
     max_tokens=8000
 )
@@ -55,7 +55,7 @@ load_dotenv()
 # Create a generator instance
 model_config = ModelConfig(
     provider="anthropic",
-    model_name="claude-3-5-haiku-20241022",
+    model_name="claude-haiku-4-5-20251001",
     temperature=0.7,
     max_tokens=8192
 )
@@ -160,7 +160,7 @@ schemas = {
 # Create a generator instance with appropriate model config
 model_config = ModelConfig(
     provider="anthropic",
-    model_name="claude-3-5-haiku-20241022",
+    model_name="claude-haiku-4-5-20251001",
     temperature=0.7,
     max_tokens=8192  # Using higher max_tokens value for more complete responses
 )
@@ -234,7 +234,7 @@ class Contact(Base):
 # Create a generator instance with appropriate model config
 model_config = ModelConfig(
     provider="anthropic",
-    model_name="claude-3-5-haiku-20241022",
+    model_name="claude-haiku-4-5-20251001",
     temperature=0.7,
     max_tokens=4000
 )

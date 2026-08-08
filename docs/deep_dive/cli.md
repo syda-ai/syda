@@ -126,7 +126,7 @@ syda generate \
   --schema schemas/ \
   --rows 50 \
   --provider anthropic \
-  --model claude-sonnet-4-6 \
+  --model claude-sonnet-5 \
   --output-dir ./data
 ```
 

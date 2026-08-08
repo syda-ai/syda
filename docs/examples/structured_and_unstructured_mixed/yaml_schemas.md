@@ -229,7 +229,7 @@ def main():
     """Run the retail sector example."""
     
     # Initialize the generator with Claude
-    config = ModelConfig(provider="anthropic", model="claude-3-haiku-20240307")
+    config = ModelConfig(provider="anthropic", model="claude-haiku-4-5-20251001")
     generator = SyntheticDataGenerator(model_config=config)
     
     # Define schema directory paths
