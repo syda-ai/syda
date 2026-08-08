@@ -405,6 +405,32 @@ class TestGenerateFromSchema:
             "base_url": "http://localhost:11434/v1", "api_key": "ollama"
         }
 
+    def test_stray_prints_from_generation_do_not_reach_real_stdout(self, capsys):
+        """syda/generate.py is full of plain print() calls meant for CLI use.
+        Over the stdio MCP transport, stdout IS the JSON-RPC wire — a stray
+        print() there corrupts the protocol stream. generate_from_schema must
+        swallow anything the underlying generator prints."""
+        df = self._make_df()
+
+        def noisy_generate_for_schemas(**kwargs):
+            print("Generating data for customers with 3 columns")
+            print("- name: string")
+            return {"customers": df}
+
+        gen = self._mock_generator(df)
+        gen.generate_for_schemas.side_effect = noisy_generate_for_schemas
+
+        with patch("syda.mcp_server._build_generator", return_value=gen), \
+             patch("syda.schema_loader.SchemaLoader") as MockLoader:
+            MockLoader.return_value.load_schema.return_value = self.SIMPLE_SCHEMA["customers"]
+            from syda.mcp_server import generate_from_schema
+            result = generate_from_schema(schema=self.SIMPLE_SCHEMA, default_sample_size=3)
+
+        assert result["ok"] is True
+        captured = capsys.readouterr()
+        assert captured.out == ""
+        assert "Generating data for customers" not in captured.out
+
 
 class TestBuildGenerator:
 
@@ -529,6 +555,24 @@ class TestInferSchemaFromDb:
             result = infer_schema_from_db("sqlite:///test.db")
 
         assert result["ok"] is True
+
+    def test_stray_prints_do_not_reach_real_stdout(self, capsys):
+        """db_schema_loader.py also has a stray print() — same stdout-as-wire
+        risk as generate_from_schema."""
+        mock_schemas = {"customers": {"id": {"type": "integer", "primary_key": True}}}
+
+        def noisy_load_schemas(**kwargs):
+            print("Introspecting database schema...")
+            return mock_schemas
+
+        with patch("syda.DatabaseSchemaLoader") as MockLoader:
+            MockLoader.return_value.load_schemas.side_effect = noisy_load_schemas
+            from syda.mcp_server import infer_schema_from_db
+            result = infer_schema_from_db("sqlite:///test.db")
+
+        assert result["ok"] is True
+        captured = capsys.readouterr()
+        assert captured.out == ""
         assert "customers" in result["schema"]
         assert result["tables"] == ["customers"]
 

@@ -27,6 +27,8 @@ Environment variables (or .env in cwd):
 
 from __future__ import annotations
 
+import contextlib
+import io
 import json
 import os
 import re
@@ -90,6 +92,24 @@ def _df_preview(df, n: int = 5) -> List[Dict[str, Any]]:
     return json.loads(
         df.head(n).to_json(orient="records", date_format="iso", default_handler=str)
     )
+
+
+@contextlib.contextmanager
+def _stdout_silenced():
+    """Swallow stdout writes for the duration of the block.
+
+    The core generation/schema-loading code (syda/generate.py,
+    db_schema_loader.py, etc.) is riddled with plain print() calls meant for
+    CLI usage. Over the stdio MCP transport, stdout IS the JSON-RPC wire —
+    any stray print() interleaves garbage lines with protocol messages and
+    corrupts the stream. mcp's stdio_server() captures sys.stdout.buffer
+    once at server startup (before any tool call runs) and writes directly
+    to that captured buffer, so reassigning the sys.stdout *name* here does
+    not touch the real transport — it only affects code that calls the
+    print() builtin, which resolves sys.stdout dynamically at call time.
+    """
+    with contextlib.redirect_stdout(io.StringIO()):
+        yield
 
 
 def _build_generator(provider: Optional[str], model: Optional[str],
@@ -285,13 +305,14 @@ def generate_from_schema(
 
         def _run():
             try:
-                _result[0] = generator.generate_for_schemas(
-                    schemas=schema,
-                    sample_sizes=sample_sizes or {},
-                    default_sample_size=default_sample_size,
-                    prompts=prompts or {},
-                    output_dir=output_dir,
-                )
+                with _stdout_silenced():
+                    _result[0] = generator.generate_for_schemas(
+                        schemas=schema,
+                        sample_sizes=sample_sizes or {},
+                        default_sample_size=default_sample_size,
+                        prompts=prompts or {},
+                        output_dir=output_dir,
+                    )
             except Exception as e:
                 _exc[0] = e
 
@@ -578,7 +599,8 @@ def infer_schema_from_db(
             )
 
         loader = DatabaseSchemaLoader(resolved_url)
-        schemas = loader.load_schemas(table_names=tables)
+        with _stdout_silenced():
+            schemas = loader.load_schemas(table_names=tables)
 
         # Summarise relationships
         relationships = []
