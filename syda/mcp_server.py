@@ -42,9 +42,17 @@ except ImportError as exc:
         'The MCP extra is not installed. Run: pip install "syda[mcp]"'
     ) from exc
 
-from dotenv import load_dotenv
+from dotenv import find_dotenv, load_dotenv
 
-load_dotenv()
+# find_dotenv()'s default search walks up from the *caller's file location*
+# (via stack-frame introspection), not the working directory. That's a no-op
+# for a real pip/wheel install (mcp_server.py lives deep in site-packages,
+# nowhere near a project's .env) even though this module's own docstring and
+# docs/mcp.md both promise ".env in cwd" auto-loading — it only ever worked
+# by coincidence in an editable dev install, where this file's on-disk path
+# happens to sit next to the repo's .env. usecwd=True makes the promise true
+# for every install method.
+load_dotenv(find_dotenv(usecwd=True))
 
 mcp = FastMCP(
     "syda",
