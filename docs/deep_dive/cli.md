@@ -126,7 +126,7 @@ syda generate \
   --schema schemas/ \
   --rows 50 \
   --provider anthropic \
-  --model claude-sonnet-4-6 \
+  --model claude-sonnet-5 \
   --output-dir ./data
 ```
 
@@ -155,6 +155,7 @@ syda generate \
 | `--base-url URL` | | — | Base URL for `openai_compatible` providers (e.g. Ollama). |
 | `--prompt TEXT` | | — | Context prompt applied to all schemas during generation. |
 | `--temperature FLOAT` | | model default | Sampling temperature `0.0`–`1.0`. |
+| `--max-tokens N` | | `8192` | Max tokens per LLM call. Without an explicit value, some providers' SDKs fall back to a low internal default (e.g. 4096 for Anthropic) that can silently truncate structured output for wide schemas or large batch sizes, causing repeated output-validation failures — raise this if you see `Exceeded maximum output retries`. |
 | `--batch-size N` | | auto | Max rows per LLM call in direct mode. Auto-selected when omitted. |
 | `--large-dataset` | | off | Force code-gen mode: LLM writes Python generators; only semantic columns call the LLM at runtime. Auto-enabled when `--rows > 500`. |
 | `--workers N` | | `1` | Generate up to N independent tables concurrently. Tables with FK dependencies are still generated in order; only tables within the same dependency level run in parallel. |
@@ -289,6 +290,9 @@ syda db generate \
 | `--base-url URL` | | — | Base URL for `openai_compatible` providers. |
 | `--prompt TEXT` | | — | Context prompt applied to all tables. |
 | `--temperature FLOAT` | | model default | Sampling temperature `0.0`–`1.0`. |
+| `--max-tokens N` | | `8192` | Max tokens per LLM call. See `syda generate --max-tokens` above — same rationale applies to inferred DB schemas. |
+| `--batch-size N` | | auto | Max rows per LLM call in direct mode. Auto-selected when omitted. |
+| `--large-dataset` | | off | Force code-gen mode: LLM writes Python generators; only semantic columns call the LLM at runtime. Auto-enabled when `--rows > 500`. |
 | `--workers N` | | `1` | Generate up to N independent tables concurrently within each FK dependency level. |
 
 ---

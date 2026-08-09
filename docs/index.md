@@ -29,7 +29,7 @@ Syda seamlessly generate realistic synthetic test data - structured, unstructure
 
     * Seamless integration with multiple AI providers
     * Support for OpenAI (GPT), Anthropic (Claude), Google (Gemini), and xAI (Grok). 
-    * Default model is Anthropic Claude model claude-3-5-haiku-20241022
+    * Default model is Anthropic Claude model claude-haiku-4-5-20251001
     * Consistent interface across different providers
     * Provider-specific parameter optimization
 

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "syda"
-version = "0.3.0"
+version = "0.4.0"
 description = "Seamlessly generates realistic synthetic test data—including structured, unstructured, PDF, and HTML—using AI and large language models. It preserves referential integrity, maintains privacy compliance, and accelerates development workflows. SYDA enables both highly regulated industries such as healthcare and banking, as well as non-regulated environments like software testing, research, and analytics, to safely simulate diverse data scenarios without exposing sensitive information."
 readme = "README.md"
 license = {text = "MIT"}
@@ -82,6 +82,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# MCP server — expose Syda to Claude Desktop, Cursor, Windsurf, etc.
+mcp = [
+    "mcp>=1.0.0",
+]
+
 # Development dependencies
 dev = [
     "pytest>=7.4.0",
@@ -132,6 +137,7 @@ all = [
 
 [project.scripts]
 syda = "syda.cli:main"
+syda-mcp = "syda.mcp_server:main"
 
 [project.urls]
 Homepage = "https://github.com/syda-ai/syda"

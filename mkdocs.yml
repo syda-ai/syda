@@ -70,9 +70,10 @@ markdown_extensions:
 
 # Navigation structure
 nav:
-  - Home: 
+  - Home:
       Introduction: index.md
       Quick Start: quickstart.md
+      MCP Server: mcp.md
   - Deep Dive:
       - Structured Data: 'deep_dive/structured_data.md'
       - Foreign Keys: 'deep_dive/foreign_keys.md'

@@ -113,6 +113,7 @@ results = generator.generate_for_schemas(
 |---|---|---|
 | `generation_mode` | `'auto'` / `'direct'` / `'codegen'` | `'auto'` |
 | `batch_size` | Max rows per LLM call in direct mode. Auto-selected when `None`. | `None` |
+| `max_tokens` | Max tokens per LLM call. Left `None`, some providers' SDKs silently fall back to a low internal default (e.g. 4096 for Anthropic) — a wide schema or large `batch_size` can then get truncated mid-response, causing `Exceeded maximum output retries`. Set this explicitly (e.g. `8192`) for anything beyond a handful of narrow columns. The CLI (`syda generate`) already defaults `--max-tokens` to `8192`. | `None` |
 | `max_retries` | Retry attempts per chunk on transient errors | `3` |
 | `max_workers` | Tables to generate concurrently within a dependency level. `1` = sequential. | `1` |
 
