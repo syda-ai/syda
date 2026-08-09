@@ -308,21 +308,29 @@ header "Step 11: Run examples"
 
 EXAMPLES_DIR="$PROJECT_ROOT/examples"
 
-# Source .env so API keys are available to child processes
+# Source .env so API keys are available to child processes. Stay out of
+# xtrace for this whole block, including the presence checks below — with
+# `set -x` active (set at the top of this script), `[[ -n "$SECRET" ]]`
+# traces as `+ [[ -n <the actual secret value> ]]`, writing it straight into
+# this script's stdout/log. Booleans computed here are safe to check under
+# xtrace later since only 0/1 ever gets expanded, never the key itself.
+HAS_ANTHROPIC_KEY=0
+HAS_OPENAI_KEY=0
+HAS_GROK_KEY=0
 if [[ -f "$PROJECT_ROOT/.env" ]]; then
   set +x
   set -a
   # shellcheck disable=SC1091
   source "$PROJECT_ROOT/.env"
   set +a
-  set -x
   info ".env loaded"
 fi
 
-[[ -n "${ANTHROPIC_API_KEY:-}" ]] && pass "ANTHROPIC_API_KEY found" || warn "ANTHROPIC_API_KEY not set"
-[[ -n "${OPENAI_API_KEY:-}"    ]] && pass "OPENAI_API_KEY found"    || warn "OPENAI_API_KEY not set"
-[[ -n "${GROK_API_KEY:-}"      ]] && pass "GROK_API_KEY found"      || warn "GROK_API_KEY not set — Grok examples will be skipped"
+[[ -n "${ANTHROPIC_API_KEY:-}" ]] && { HAS_ANTHROPIC_KEY=1; pass "ANTHROPIC_API_KEY found"; } || warn "ANTHROPIC_API_KEY not set"
+[[ -n "${OPENAI_API_KEY:-}"    ]] && { HAS_OPENAI_KEY=1;    pass "OPENAI_API_KEY found"; }    || warn "OPENAI_API_KEY not set"
+[[ -n "${GROK_API_KEY:-}"      ]] && { HAS_GROK_KEY=1;      pass "GROK_API_KEY found"; }      || warn "GROK_API_KEY not set — Grok examples will be skipped"
 [[ -n "${DB_HOST:-}" ]] && pass "DB_HOST found" || warn "DB_HOST not set — database examples may fail"
+set -x
 
 # ── Ollama setup (shared by the CLI large-dataset demo, the openai_compatible
 #    Python example, and the MCP smoke test — detect/start it once up front
@@ -397,7 +405,7 @@ run_example "structured_only/yaml_schemas" \
   "$EXAMPLES_DIR/structured_only/example_yaml_schemas.py"
 
 # force_llm (uses auto-detected provider; Grok preferred for speed/cost)
-if [[ -n "${GROK_API_KEY:-}" || -n "${ANTHROPIC_API_KEY:-}" ]]; then
+if [[ "$HAS_GROK_KEY" == 1 || "$HAS_ANTHROPIC_KEY" == 1 ]]; then
   run_example "force_llm/product_catalog" \
     "$EXAMPLES_DIR/force_llm/example_force_llm.py"
 else
@@ -431,7 +439,7 @@ run_example "database_integration/postgres" \
   "$EXAMPLES_DIR/database_integration/example_postgres.py"
 
 # large_dataset/postgres — only run when DB_HOST and GROK_API_KEY are set
-if [[ -n "${DB_HOST:-}" && -n "${GROK_API_KEY:-}" ]]; then
+if [[ -n "${DB_HOST:-}" && "$HAS_GROK_KEY" == 1 ]]; then
   run_example "large_dataset/postgres" \
     "$EXAMPLES_DIR/large_dataset/example_large_dataset_postgres.py"
 elif [[ -z "${DB_HOST:-}" ]]; then
@@ -445,7 +453,7 @@ fi
 # LLM write actual Python generator functions, and Claude is materially more
 # reliable at that than a small local model (this used to run on Ollama, but
 # structured/codegen correctness matters more here than being free).
-if [[ -n "${ANTHROPIC_API_KEY:-}" ]]; then
+if [[ "$HAS_ANTHROPIC_KEY" == 1 ]]; then
   info "Running CLI large dataset demo (anthropic / claude-haiku-4-5-20251001)..."
   set +e
   CLI_DEMO_OUTPUT=$(PATH="$ENV_DIR/bin:$PATH" \
