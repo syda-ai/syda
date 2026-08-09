@@ -32,6 +32,7 @@ import io
 import json
 import os
 import re
+import sys
 from typing import Any, Dict, List, Optional
 from urllib.parse import quote_plus
 
@@ -51,8 +52,22 @@ from dotenv import find_dotenv, load_dotenv
 # docs/mcp.md both promise ".env in cwd" auto-loading — it only ever worked
 # by coincidence in an editable dev install, where this file's on-disk path
 # happens to sit next to the repo's .env. usecwd=True makes the promise true
-# for every install method.
-load_dotenv(find_dotenv(usecwd=True))
+# for CLI usage, where the caller cd's into the project first.
+#
+# GUI-launched servers (Claude Desktop et al. spawning `.venv/bin/syda-mcp`
+# directly) start with an unrelated cwd — often the app's own working
+# directory — so usecwd=True comes up empty too. Fall back to the venv's
+# parent directory: for the common `python -m venv .venv` layout that's the
+# project root, right next to .env, and it's derived from the interpreter's
+# own install location rather than the (unreliable) launch-time cwd. Only
+# trust this when actually running inside a venv, so a system-Python install
+# doesn't go hunting for a ".env" next to sys.prefix (e.g. "/usr/.env").
+_env_path = find_dotenv(usecwd=True)
+if not _env_path and sys.prefix != sys.base_prefix:
+    _venv_parent_env = os.path.join(os.path.dirname(sys.prefix.rstrip(os.sep)), ".env")
+    if os.path.isfile(_venv_parent_env):
+        _env_path = _venv_parent_env
+load_dotenv(_env_path)
 
 mcp = FastMCP(
     "syda",
