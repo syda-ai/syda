@@ -19,10 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Gemini generation broken end-to-end** — pydantic-ai's deprecated `GeminiModel` expects an httpx-style client with `.stream()`, but the current `GoogleProvider` returns a `google.genai.Client` without that method (`AttributeError: 'Client' object has no attribute 'stream'`). Switched to `GoogleModel`, pydantic-ai's maintained replacement.
 - **Unescaped DB credentials** in `infer_schema_from_db`'s `DB_USER`/`DB_PASSWORD` connection-string building — now URL-encoded via `urllib.parse.quote_plus` so special characters (`@`, `:`, `/`, `%`) don't corrupt the connection URL.
 - **Credential leakage in error messages** — `_tool_error` now redacts `user:password@` from exception text, since DB drivers often embed the full DSN (including cleartext password) in connection-failure errors.
+- **`syda generate` / `syda db generate` had no `--max-tokens` flag** — `ModelConfig.max_tokens` stayed `None`, and pydantic-ai's `AnthropicModel` silently falls back to `max_tokens=4096` in that case. For wide schemas or large batch sizes (e.g. 50 rows × 7 columns with free-text fields), that's occasionally not enough headroom, causing the response to be truncated mid-JSON and repeated output-validation failures (`Exceeded maximum output retries (3)`) — intermittent because it depends on how verbose that particular generation happens to be. Added `--max-tokens` (default `8192`, matching the MCP server's default) to both commands.
+- **`.env` auto-loading never worked for a real pip/wheel install** — `load_dotenv()`'s default search walks up from the *caller's file location*, not the working directory, so it only ever found `.env` by coincidence in an editable dev install. Fixed with `load_dotenv(find_dotenv(usecwd=True))`.
 
 ### Changed
 - Version bumped to `0.4.0`
 - Updated stale/retired model defaults across docs and examples: `gemini-1.5-*`/`gemini-2.0-*`/`gemini-2.5-*` (confirmed retired by Google's API) → `gemini-flash-latest`/`gemini-pro-latest`/`gemini-flash-lite-latest`; older Claude snapshots → the current Claude 5 family (`claude-haiku-4-5-20251001`, `claude-sonnet-5`, `claude-opus-5`); `gpt-4o`/`gpt-4-turbo`/`o3-*` → the current `gpt-5` family.
+- `scripts/pre_release_test.sh` now runs the full unit test suite and checks for a matching `CHANGELOG.md` entry before building the wheel, installs with the `[mcp]` extra, runs the MCP server over the real stdio protocol (`examples/mcp/test_provider_matrix.py`) against the installed wheel, and adds the `unstructured_only` example — a more complete gate before every release.
 
 ## [0.3.0] - 2026-06-27
 

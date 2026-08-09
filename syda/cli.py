@@ -197,6 +197,19 @@ def cmd_validate(schema: str):
     help="Sampling temperature (0.0–1.0).",
 )
 @click.option(
+    "--max-tokens",
+    default=8192,
+    show_default=True,
+    type=int,
+    metavar="N",
+    help=(
+        "Max tokens per LLM call. Without this, some providers' SDKs fall back "
+        "to a low internal default (e.g. 4096 for Anthropic) that can silently "
+        "truncate structured output for wide schemas or large batch sizes, "
+        "causing repeated output-validation failures."
+    ),
+)
+@click.option(
     "--batch-size",
     default=None,
     type=int,
@@ -232,6 +245,7 @@ def cmd_generate(
     base_url: Optional[str],
     prompt: Optional[str],
     temperature: Optional[float],
+    max_tokens: int,
     batch_size: Optional[int],
     large_dataset: bool,
     workers: int,
@@ -286,7 +300,7 @@ def cmd_generate(
     resolved_model = model or DEFAULT_MODELS.get(provider, "")
 
     # --- build ModelConfig kwargs ---
-    mc_kwargs = dict(provider=provider, model_name=resolved_model)
+    mc_kwargs = dict(provider=provider, model_name=resolved_model, max_tokens=max_tokens)
     if temperature is not None:
         mc_kwargs["temperature"] = temperature
     if batch_size is not None:
@@ -408,6 +422,7 @@ def cmd_db():
 
 def _build_generator(
     provider, model, api_key, base_url, temperature,
+    max_tokens: int = 8192,
     batch_size: Optional[int] = None, large_dataset: bool = False,
     workers: int = 1,
 ):
@@ -422,7 +437,7 @@ def _build_generator(
         )
 
     resolved_model = model or DEFAULT_MODELS.get(provider, "")
-    mc_kwargs: dict = dict(provider=provider, model_name=resolved_model)
+    mc_kwargs: dict = dict(provider=provider, model_name=resolved_model, max_tokens=max_tokens)
     if temperature is not None:
         mc_kwargs["temperature"] = temperature
     if batch_size is not None:
@@ -619,6 +634,19 @@ def cmd_db_infer(db_url: str, output_dir: str, tables: Optional[str], fmt: str):
     help="Sampling temperature (0.0–1.0).",
 )
 @click.option(
+    "--max-tokens",
+    default=8192,
+    show_default=True,
+    type=int,
+    metavar="N",
+    help=(
+        "Max tokens per LLM call. Without this, some providers' SDKs fall back "
+        "to a low internal default (e.g. 4096 for Anthropic) that can silently "
+        "truncate structured output for wide schemas or large batch sizes, "
+        "causing repeated output-validation failures."
+    ),
+)
+@click.option(
     "--batch-size",
     default=None,
     type=int,
@@ -655,6 +683,7 @@ def cmd_db_generate(
     base_url: Optional[str],
     prompt: Optional[str],
     temperature: Optional[float],
+    max_tokens: int,
     batch_size: Optional[int],
     large_dataset: bool,
     workers: int,
@@ -691,6 +720,7 @@ def cmd_db_generate(
     try:
         generator, resolved_provider, resolved_model = _build_generator(
             provider, model, api_key, base_url, temperature,
+            max_tokens=max_tokens,
             batch_size=batch_size, large_dataset=large_dataset, workers=workers,
         )
     except click.UsageError:

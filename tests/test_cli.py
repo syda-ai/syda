@@ -598,6 +598,73 @@ class TestLargeDatasetCLIOptions:
         assert mc.batch_size == 50
 
     @patch("syda.generate.SyntheticDataGenerator")
+    @patch("syda.cli._load_schema_files")
+    def test_max_tokens_defaults_to_8192(self, mock_load, MockGen, tmp_path):
+        """Without --max-tokens, ModelConfig.max_tokens must not be left None —
+        pydantic-ai's AnthropicModel silently falls back to 4096 in that case,
+        which can truncate structured output for wide schemas/large batches
+        and cause repeated output-validation failures (see CHANGELOG)."""
+        mock_load.return_value = {"t": str(tmp_path / "t.yaml")}
+        gen_instance = MockGen.return_value
+        gen_instance.generate_for_schemas.return_value = {
+            "t": pd.DataFrame([{"id": 1}])
+        }
+
+        runner = CliRunner()
+        result = runner.invoke(
+            main,
+            ["generate", "--schema", str(tmp_path),
+             "--provider", "anthropic", "--output-dir", str(tmp_path)],
+            env={"ANTHROPIC_API_KEY": "fake"},
+        )
+        assert result.exit_code == 0, result.output
+        _, mc_kwargs = MockGen.call_args
+        mc = mc_kwargs.get("model_config") or MockGen.call_args[0][0]
+        assert mc.max_tokens == 8192
+
+    @patch("syda.generate.SyntheticDataGenerator")
+    @patch("syda.cli._load_schema_files")
+    def test_max_tokens_override(self, mock_load, MockGen, tmp_path):
+        mock_load.return_value = {"t": str(tmp_path / "t.yaml")}
+        gen_instance = MockGen.return_value
+        gen_instance.generate_for_schemas.return_value = {
+            "t": pd.DataFrame([{"id": 1}])
+        }
+
+        runner = CliRunner()
+        result = runner.invoke(
+            main,
+            ["generate", "--schema", str(tmp_path), "--max-tokens", "16000",
+             "--provider", "anthropic", "--output-dir", str(tmp_path)],
+            env={"ANTHROPIC_API_KEY": "fake"},
+        )
+        assert result.exit_code == 0, result.output
+        _, mc_kwargs = MockGen.call_args
+        mc = mc_kwargs.get("model_config") or MockGen.call_args[0][0]
+        assert mc.max_tokens == 16000
+
+    @patch("syda.generate.SyntheticDataGenerator")
+    @patch("syda.db_schema_loader.DatabaseSchemaLoader")
+    def test_db_generate_max_tokens_defaults_to_8192(self, MockLoader, MockGen, tmp_path):
+        loader_instance = MockLoader.return_value
+        loader_instance.load_schemas.return_value = {"t": {"id": {"type": "integer"}}}
+        gen_instance = MockGen.return_value
+        gen_instance.generate_for_schemas.return_value = {
+            "t": pd.DataFrame([{"id": 1}])
+        }
+
+        runner = CliRunner()
+        result = runner.invoke(
+            main,
+            ["db", "generate", "--db-url", "sqlite:///x.db", "--provider", "anthropic"],
+            env={"ANTHROPIC_API_KEY": "fake"},
+        )
+        assert result.exit_code == 0, result.output
+        _, mc_kwargs = MockGen.call_args
+        mc = mc_kwargs.get("model_config") or MockGen.call_args[0][0]
+        assert mc.max_tokens == 8192
+
+    @patch("syda.generate.SyntheticDataGenerator")
     @patch("syda.db_schema_loader.DatabaseSchemaLoader")
     def test_db_generate_large_dataset(self, MockLoader, MockGen, tmp_path):
         loader_instance = MockLoader.return_value

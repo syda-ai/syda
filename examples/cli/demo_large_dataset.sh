@@ -19,7 +19,10 @@
 #   4. Multi-table code-gen — --rows 1000 --large-dataset
 #      product → order FK chain; cache hits from step 2/3 make this instant.
 #
-# Provider: Grok-3  (set GROK_API_KEY in env or .env)
+# Provider: Anthropic Claude (claude-haiku-4-5-20251001). Code-gen mode has
+#           the LLM write the actual Python generator functions, and Claude
+#           is materially more reliable at that than a small local model —
+#           set ANTHROPIC_API_KEY in env or .env.
 # Schemas : examples/cli/schemas_large/  (product.yml, order.yml)
 #
 # Usage:
@@ -64,8 +67,8 @@ syda generate \
   --schema "$SCHEMAS_DIR/product.yml" \
   --rows 150 \
   --batch-size 50 \
-  --provider grok \
-  --model grok-4.3 \
+  --provider anthropic \
+  --model claude-haiku-4-5-20251001 \
   --output-dir "$OUTPUT_DIR/direct_mode" \
   --prompt "Generate realistic e-commerce products spanning electronics, clothing, home goods, and sports. Prices \$5–\$500."
 
@@ -84,8 +87,8 @@ section "2. Auto code-gen: 600 rows (>500 triggers codegen automatically)"
 syda generate \
   --schema "$SCHEMAS_DIR/product.yml" \
   --rows 600 \
-  --provider grok \
-  --model grok-4.3 \
+  --provider anthropic \
+  --model claude-haiku-4-5-20251001 \
   --output-dir "$OUTPUT_DIR/auto_codegen" \
   --prompt "Generate realistic e-commerce products spanning electronics, clothing, home goods, and sports. Prices \$5–\$500."
 
@@ -103,8 +106,8 @@ syda generate \
   --schema "$SCHEMAS_DIR/product.yml" \
   --rows 50 \
   --large-dataset \
-  --provider grok \
-  --model grok-4.3 \
+  --provider anthropic \
+  --model claude-haiku-4-5-20251001 \
   --output-dir "$OUTPUT_DIR/forced_codegen" \
   --prompt "Generate realistic e-commerce products spanning electronics, clothing, home goods, and sports. Prices \$5–\$500."
 
@@ -123,8 +126,8 @@ syda generate \
   --schema "$SCHEMAS_DIR" \
   --rows 1000 \
   --large-dataset \
-  --provider grok \
-  --model grok-4.3 \
+  --provider anthropic \
+  --model claude-haiku-4-5-20251001 \
   --output-dir "$OUTPUT_DIR/multi_table" \
   --prompt "Generate a realistic e-commerce dataset. Products span electronics, clothing, home goods, and sports. Orders placed over the past 2 years with realistic status distribution."
 
