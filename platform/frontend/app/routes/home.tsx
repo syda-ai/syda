@@ -61,6 +61,7 @@ import {
 import { Progress, ProgressLabel, ProgressValue } from "~/components/ui/progress";
 import { AppShell } from "~/components/studio/app-shell";
 import { DataPreview } from "~/components/studio/data-preview";
+import { ConnectionsWorkspace, RunHistoryWorkspace, SchemaWorkspace } from "~/components/studio/chat-workspace";
 import type { ChatRunReference, CostEstimate, GenerationJob, SavedConversation, ScenarioConfiguration } from "~/lib/studio-types";
 
 export function meta({}: Route.MetaArgs) {
@@ -452,6 +453,8 @@ export default function Home() {
   conversationIdRef.current = conversationId;
   const [prompt, setPrompt] = useState("");
   const [source, setSource] = useState<SchemaSource | null>(null);
+  const requestedView = new URLSearchParams(location.search).get("view");
+  const workspaceView = requestedView === "connections" || requestedView === "schema" || requestedView === "runs" ? requestedView : "scenario";
   const connections = useLiveProfiles();
   const [chatRuns, setChatRuns] = useState<ChatRun[]>([]);
   const [conversationTitle, setConversationTitle] = useState("");
@@ -763,7 +766,7 @@ export default function Home() {
 
         {conversationError && <div className="mx-auto mt-4 w-full max-w-3xl px-5"><Alert variant="destructive"><AlertTitle>Chat history issue</AlertTitle><AlertDescription>{conversationError}</AlertDescription></Alert></div>}
 
-        {conversationLoading ? (
+        {workspaceView === "connections" ? <ConnectionsWorkspace connections={connections} source={source} onSource={setSource} /> : workspaceView === "schema" ? <SchemaWorkspace source={source} scenario={latestScenario} /> : workspaceView === "runs" ? <RunHistoryWorkspace /> : conversationLoading ? (
           <main className="flex min-h-0 flex-1 items-center justify-center gap-2 text-sm text-muted-foreground"><Spinner /> Loading chat history…</main>
         ) : !messages.length ? (
           <main className="relative flex min-h-0 flex-1 items-center justify-center overflow-y-auto px-5 py-12">

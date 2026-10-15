@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Add01Icon, AiMagicIcon, Analytics01Icon, Logout01Icon, Settings02Icon } from "@hugeicons/core-free-icons";
-import { Database, MessageSquareText, Trash2 } from "lucide-react";
+import { MessageSquareText } from "lucide-react";
 
 import { Alert, AlertDescription } from "~/components/ui/alert";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "~/components/ui/dialog";
@@ -93,7 +93,10 @@ export function AppShell({
   headerActions?: ReactNode;
   onNewScenario?: () => void;
 }) {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
+  const chatWorkspacePath = pathname.startsWith("/app") ? pathname : "/app";
+  const requestedView = new URLSearchParams(search).get("view");
+  const activeView = ["connections", "schema", "runs"].includes(requestedView ?? "") ? requestedView : "scenario";
   const navigate = useNavigate();
   const [recentConversations, setRecentConversations] = useState<SavedConversationSummary[]>([]);
   const [authenticated, setAuthenticated] = useState(false);
@@ -176,9 +179,13 @@ export function AppShell({
           <SidebarGroup className="p-1">
             <SidebarGroupLabel>Workspace</SidebarGroupLabel>
             <SidebarGroupContent><SidebarMenu>
+              <SidebarMenuItem><SidebarMenuButton isActive={pathname.startsWith("/app") && activeView === "scenario"} render={<Link to={chatWorkspacePath} />} tooltip="Scenario"><MessageSquareText /><span>Scenario</span></SidebarMenuButton></SidebarMenuItem>
+              <SidebarMenuItem><SidebarMenuButton isActive={pathname.startsWith("/app") && activeView === "connections"} render={<Link to={`${chatWorkspacePath}?view=connections`} />} tooltip="Connections"><Database /><span>Connections</span></SidebarMenuButton></SidebarMenuItem>
+              <SidebarMenuItem><SidebarMenuButton isActive={pathname.startsWith("/app") && activeView === "schema"} render={<Link to={`${chatWorkspacePath}?view=schema`} />} tooltip="Schema review"><ScanSearch /><span>Schema review</span></SidebarMenuButton></SidebarMenuItem>
+              <SidebarMenuItem><SidebarMenuButton isActive={pathname.startsWith("/app") && activeView === "runs"} render={<Link to={`${chatWorkspacePath}?view=runs`} />} tooltip="Run history"><History /><span>Run history</span></SidebarMenuButton></SidebarMenuItem>
               <SidebarMenuItem><SidebarMenuButton isActive={pathname === "/scenarios"} render={<Link to="/scenarios" />} tooltip="Scenarios"><HugeiconsIcon icon={AiMagicIcon} strokeWidth={2} /><span>Scenarios</span></SidebarMenuButton></SidebarMenuItem>
               <SidebarMenuItem><SidebarMenuButton isActive={pathname.startsWith("/history") || pathname.startsWith("/runs/")} render={<Link to="/history" />} tooltip="Generation history"><HugeiconsIcon icon={Analytics01Icon} strokeWidth={2} /><span>Generation history</span></SidebarMenuButton></SidebarMenuItem>
-              <SidebarMenuItem><SidebarMenuButton isActive={pathname === "/connections"} render={<Link to="/connections" />} tooltip="Connections"><Database /><span>Connections</span></SidebarMenuButton></SidebarMenuItem>
+              <SidebarMenuItem><SidebarMenuButton isActive={pathname === "/ui-preview"} render={<Link to="/ui-preview" />} tooltip="UI prototype"><HugeiconsIcon icon={AiMagicIcon} strokeWidth={2} /><span>UI prototype</span></SidebarMenuButton></SidebarMenuItem>
               <SidebarMenuItem><SidebarMenuButton isActive={pathname === "/settings"} render={<Link to="/settings" />} tooltip="Settings"><HugeiconsIcon icon={Settings02Icon} strokeWidth={2} /><span>Settings</span></SidebarMenuButton></SidebarMenuItem>
               <SidebarMenuItem><SidebarMenuButton onClick={async () => { await fetch("/api/auth/cookie/logout", { method: "POST" }); navigate("/", { replace: true }); }} tooltip={`Log out ${displayName}`}><HugeiconsIcon icon={Logout01Icon} strokeWidth={2} /><span>Log out</span></SidebarMenuButton></SidebarMenuItem>
             </SidebarMenu></SidebarGroupContent>
